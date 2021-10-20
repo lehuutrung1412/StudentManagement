@@ -22,8 +22,8 @@
     mc:Ignorable="d">
     <ContentControl Content="{Binding CurrentView}">
         <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type views:AdminHome}">
-                <views:AdminHome />
+            <DataTemplate DataType="{x:Type views:Layout}">
+                <views:Layout />
             </DataTemplate>
             <DataTemplate DataType="{x:Type views:Login}">
                 <views:Login />

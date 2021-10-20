@@ -12,10 +12,10 @@ namespace StudentManagement.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private ICommand _gotoLoginViewCommand;
-        private ICommand _gotoAdminHomeViewCommand;
+        private ICommand _gotoLayoutViewCommand;
         private object _currentView;
         private object _loginView;
-        private object _adminHomeView;
+        private object _LayoutView;
 
         public object CurrentView
         {
@@ -28,22 +28,23 @@ namespace StudentManagement.ViewModels
         }
 
         public ICommand GotoLoginViewCommand { get => _gotoLoginViewCommand; set => _gotoLoginViewCommand = value; }
-        public ICommand GotoAdminHomeViewCommand { get => _gotoAdminHomeViewCommand; set => _gotoAdminHomeViewCommand = value; }
+        public ICommand GotoLayoutViewCommand { get => _gotoLayoutViewCommand; set => _gotoLayoutViewCommand = value; }
 
         public MainViewModel()
         {
             _loginView = new Login();
-            _adminHomeView = new AdminHome();
+
+            _LayoutView = new Layout();
 
             CurrentView = _loginView;
 
             GotoLoginViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoLoginView());
-            GotoAdminHomeViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminHomeView());
+            GotoLayoutViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoLayoutView());
         }
 
-        private void GotoAdminHomeView()
+        private void GotoLayoutView()
         {
-            CurrentView = _adminHomeView;
+            CurrentView = _LayoutView;
         }
 
         private void GotoLoginView()

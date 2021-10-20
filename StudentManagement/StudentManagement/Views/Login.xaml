@@ -18,7 +18,7 @@
     mc:Ignorable="d">
     <Grid>
         <Button
-            Command="{Binding GotoAdminHomeViewCommand}"
+            Command="{Binding GotoLayoutViewCommand}"
             Content="Login"
             Style="{StaticResource MaterialDesignRaisedDarkButton}" />
     </Grid>

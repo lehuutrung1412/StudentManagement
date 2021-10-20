@@ -19,7 +19,8 @@
     <Grid>
         <Button
             Command="{Binding GotoLoginViewCommand}"
-            Content="StudentHome / GoToLogin"
+            Content="Admin Home -&gt; GotoLogin"
+            DataContext="{DynamicResource MainVM}"
             Style="{StaticResource MaterialDesignRaisedDarkButton}" />
     </Grid>
 </UserControl>

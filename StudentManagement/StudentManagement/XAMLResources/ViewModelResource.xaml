@@ -3,4 +3,5 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:viewmodel="clr-namespace:StudentManagement.ViewModels">
     <viewmodel:MainViewModel x:Key="MainVM" />
+    <viewmodel:LayoutViewModel x:Key="LayoutVM" />
 </ResourceDictionary>
