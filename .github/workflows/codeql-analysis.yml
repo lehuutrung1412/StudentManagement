@@ -61,8 +61,8 @@ jobs:
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
       
-    - name: Navigate to Workspace
-      run: cd $GITHUB_WORKSPACE
+#     - name: Navigate to Workspace
+#       run: cd $GITHUB_WORKSPACE
     
     - name: Restore NuGet Packages
       run: nuget restore StudentManagement.sln
