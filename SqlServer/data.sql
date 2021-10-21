@@ -76,15 +76,42 @@ CREATE TABLE StudyResult
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   IdStudent UNIQUEIDENTIFIER NOT NULL,
   IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
-  ProcessScore FLOAT,
-  MidTermScore FLOAT,
-  FinalTermScore FLOAT,
-  PracticeScore FLOAT,
-  AverageScore FLOAT,
-  ProcessScorePercentage FLOAT,
-  MidTermScorePercentage FLOAT,
-  FinalTermScorePercentage FLOAT,
-  PracticeScorePercentage FLOAT,
+  -- ProcessScore FLOAT,
+  -- MidTermScore FLOAT,
+  -- FinalTermScore FLOAT,
+  -- PracticeScore FLOAT,
+  -- AverageScore FLOAT,
+  -- ProcessScorePercentage FLOAT,
+  -- MidTermScorePercentage FLOAT,
+  -- FinalTermScorePercentage FLOAT,
+  -- PracticeScorePercentage FLOAT,
+)
+GO
+
+CREATE TABLE ComponentScore
+(
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
+  DisplayName NVARCHAR(MAX),
+  ContributePercent FLOAT,
+)
+GO
+
+CREATE TABLE DetailScore
+(
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  IdStudent UNIQUEIDENTIFIER NOT NULL,
+  IdComponentScore UNIQUEIDENTIFIER NOT NULL,
+  Score FLOAT,
+)
+GO
+
+CREATE TABLE Semester
+(
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  Batch NVARCHAR(MAX),
+  DisplayName NVARCHAR(MAX),
+  CourseRegisterStatus INT DEFAULT 0,
 )
 GO
 
@@ -114,11 +141,9 @@ CREATE TABLE SubjectClass
   IdSubject UNIQUEIDENTIFIER NOT NULL,
   StartDate DateTime,
   EndDate DateTime,
-  Batch NVARCHAR(MAX),
-  Semester NVARCHAR(MAX) NOT NULL,
+  IdSemester UNIQUEIDENTIFIER,
   Period NVARCHAR(MAX) NOT NULL,
   WeekDay NVARCHAR(MAX) NOT NULL,
-  Status INT DEFAULT 0,
 )
 GO
 
@@ -157,13 +182,10 @@ CREATE TABLE TrainingScore
 (
   Id UNIQUEIDENTIFIER PRIMARY KEY,
   Score FLOAT DEFAULT 0,
-  Semester INT NOT NULL,
-  Batch NVARCHAR(MAX) NOT NULL,
+  IdSemester UNIQUEIDENTIFIER NOT NULL,
   IdStudent UNIQUEIDENTIFIER NOT NULL,
 )
 GO
-
-
 
 
 
@@ -216,7 +238,8 @@ ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
 
 
 ALTER TABLE SubjectClass ADD
-FOREIGN KEY (IdSubject) REFERENCES Subject(Id)
+FOREIGN KEY (IdSubject) REFERENCES Subject(Id),
+FOREIGN KEY (IdSemester) REFERENCES Semester(Id)
 GO
 
 
@@ -242,5 +265,17 @@ GO
 
 
 ALTER TABLE TrainingScore ADD
-FOREIGN KEY (IdStudent) REFERENCES Student(Id)
+FOREIGN KEY (IdStudent) REFERENCES Student(Id),
+FOREIGN KEY (IdSemester) REFERENCES Semester(Id)
+GO
+
+
+ALTER TABLE ComponentScore ADD
+FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id)
+GO
+
+
+ALTER TABLE DetailScore ADD
+FOREIGN KEY (IdStudent) REFERENCES Student(Id),
+FOREIGN KEY (IdComponentScore) REFERENCES ComponentScore(Id)
 GO
