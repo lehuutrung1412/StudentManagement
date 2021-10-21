@@ -68,7 +68,7 @@ jobs:
       run: nuget restore StudentManagement/StudentManagement.sln
       
     - name: Build solution
-      run: msbuild StudentManagement.sln /p:Platform="Any CPU" /p:Configuration="Release"
+      run: msbuild StudentManagement/StudentManagement.sln /p:Platform="Any CPU" /p:Configuration="Release"
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
