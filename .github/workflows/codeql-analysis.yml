@@ -23,7 +23,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions:
       actions: read
       contents: read
@@ -53,8 +53,22 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    #- name: Autobuild
+    #  uses: github/codeql-action/autobuild@v1
+    - name: Setup MSBuild Path
+      uses: microsoft/setup-msbuild@v1.0.3
+      
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+      
+    - name: Navigate to Workspace
+      run: cd $GITHUB_WORKSPACE
+    
+    - name: Restore NuGet Packages
+      run: nuget restore StudentManagement.sln
+      
+    - name: Build solution
+      run: msbuild StudentManagement.sln /p:Platform="Any CPU" /p:Configuration="Release"
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
