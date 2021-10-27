@@ -20,7 +20,22 @@ CREATE TABLE Users
   -- 1: online, 0: offline
   Roles INT,
   IdFalcuty UNIQUEIDENTIFIER NOT NULL,
+  IdAvatar UNIQUEIDENTIFIER NOT NULL,
 
+)
+GO
+
+CREATE TABLE Parent
+(
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  NameDad NVARCHAR(MAX),
+  NameMom NVARCHAR(MAX),
+  AddressDad NVARCHAR(MAX),
+  AddressMom NVARCHAR(MAX),
+  PhoneDad NVARCHAR(MAX),
+  PhoneMom NVARCHAR(MAX),
+  JobDad NVARCHAR(MAX),
+  JobMom NVARCHAR(MAX),
 )
 GO
 
@@ -30,7 +45,8 @@ CREATE TABLE Student
   IdTrainingForm UNIQUEIDENTIFIER NOT NULL,
   Status INT DEFAULT 1,
   -- 1: còn học, 0: đã tốt nghiệp
-  IdUsers UNIQUEIDENTIFIER
+  IdUsers UNIQUEIDENTIFIER,
+  IdParent UNIQUEIDENTIFIER
 )
 GO
 
@@ -52,6 +68,7 @@ CREATE TABLE Falcuty
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   DisplayName NVARCHAR(MAX),
+  IsDeleted BIT DEFAULT 0,
 )
 GO
 
@@ -59,6 +76,7 @@ CREATE TABLE TrainingForm
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   DisplayName NVARCHAR(MAX),
+  IsDeleted BIT DEFAULT 0,
 )
 GO
 
@@ -66,6 +84,7 @@ CREATE TABLE Falcuty_TrainingForm
 (
   IdTrainingForm UNIQUEIDENTIFIER NOT NULL,
   IdFalcuty UNIQUEIDENTIFIER NOT NULL,
+  IsDeleted BIT DEFAULT 0,
 
   PRIMARY KEY (IdTrainingForm,IdFalcuty),
 )
@@ -122,6 +141,8 @@ CREATE TABLE Class
   IdFalcuty UNIQUEIDENTIFIER NOT NULL,
   DisplayName NVARCHAR(MAX),
   IdTeacher UNIQUEIDENTIFIER NOT NULL,
+  IsDeleted BIT DEFAULT 0,
+  IdThumbnail UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -131,7 +152,8 @@ CREATE TABLE Subject
   Credit NVARCHAR(MAX) NOT NULL,
   DisplayName NVARCHAR(MAX),
   Code NVARCHAR(MAX),
-  Describe NVARCHAR(MAX)
+  Describe NVARCHAR(MAX),
+  IsDeleted BIT DEFAULT 0,
 )
 GO
 
@@ -144,6 +166,7 @@ CREATE TABLE SubjectClass
   IdSemester UNIQUEIDENTIFIER,
   Period NVARCHAR(MAX) NOT NULL,
   WeekDay NVARCHAR(MAX) NOT NULL,
+  IdThumbnail UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -175,6 +198,7 @@ CREATE TABLE CourseRegister
   -- 0:Chưa đăng ký || 1:Đã đăng ký || 2:Đang chờ duyệt
   IdStudent UNIQUEIDENTIFIER NOT NULL,
   IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
+  IdSemester UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -188,17 +212,58 @@ CREATE TABLE TrainingScore
 GO
 
 
+CREATE TABLE Document
+(
+  Id UNIQUEIDENTIFIER PRIMARY KEY,
+  DisplayName NVARCHAR(MAX),
+  Content NVARCHAR(MAX),
+  CreatedAt DateTime,
+  IdPoster UNIQUEIDENTIFIER NOT NULL,
+  IdFolder UNIQUEIDENTIFIER,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
+)
+GO
+
+
+CREATE TABLE Folder
+(
+  Id UNIQUEIDENTIFIER PRIMARY KEY,
+  DisplayName NVARCHAR(MAX),
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
+)
+GO
+
+
+CREATE TABLE AbsentCalendar
+(
+  Id UNIQUEIDENTIFIER PRIMARY KEY,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
+  Date DateTime,
+  Type INT,
+)
+GO
+
+CREATE TABLE DatabaseImageTable
+(
+  Id UNIQUEIDENTIFIER PRIMARY KEY,
+  Image VARBINARY(max),
+)
+GO
+
+
 
 -- foreign key
 ALTER TABLE  Users
-ADD FOREIGN KEY (IdFalcuty) REFERENCES Falcuty(Id)
+ADD FOREIGN KEY (IdFalcuty) REFERENCES Falcuty(Id),
+FOREIGN KEY (IdAvatar) REFERENCES DatabaseImageTable(Id)
 GO
 
 
 
 ALTER TABLE  Student
 ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
-FOREIGN KEY(IdUsers) REFERENCES Users(Id)
+FOREIGN KEY(IdUsers) REFERENCES Users(Id),
+FOREIGN KEY(IdParent) REFERENCES Parent(Id)
 GO
 
 
@@ -232,14 +297,16 @@ ADD FOREIGN KEY(IdStudent) REFERENCES Student(Id),
 ALTER TABLE  Class
 ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
  FOREIGN KEY(IdFalcuty) REFERENCES Falcuty(Id),
- FOREIGN KEY(IdTeacher) REFERENCES Teacher(Id)
+ FOREIGN KEY(IdTeacher) REFERENCES Teacher(Id),
+ FOREIGN KEY(IdThumbnail) REFERENCES DatabaseImageTable(Id)
  GO
 
 
 
 ALTER TABLE SubjectClass ADD
 FOREIGN KEY (IdSubject) REFERENCES Subject(Id),
-FOREIGN KEY (IdSemester) REFERENCES Semester(Id)
+FOREIGN KEY (IdSemester) REFERENCES Semester(Id),
+FOREIGN KEY(IdThumbnail) REFERENCES DatabaseImageTable(Id)
 GO
 
 
@@ -259,7 +326,8 @@ GO
 
 ALTER TABLE CourseRegister ADD
 FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id),
-FOREIGN KEY (IdStudent) REFERENCES Student(Id)
+FOREIGN KEY (IdStudent) REFERENCES Student(Id),
+FOREIGN KEY (IdSemester) REFERENCES Semester(Id)
 GO
 
 
@@ -278,4 +346,19 @@ GO
 ALTER TABLE DetailScore ADD
 FOREIGN KEY (IdStudent) REFERENCES Student(Id),
 FOREIGN KEY (IdComponentScore) REFERENCES ComponentScore(Id)
+GO
+
+ALTER TABLE Document ADD
+FOREIGN KEY (IdPoster) REFERENCES Users(Id),
+FOREIGN KEY (IdFolder) REFERENCES Folder(Id),
+FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id)
+GO
+
+
+ALTER TABLE Folder ADD
+FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id)
+GO
+
+ALTER TABLE AbsentCalendar ADD
+FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id)
 GO
