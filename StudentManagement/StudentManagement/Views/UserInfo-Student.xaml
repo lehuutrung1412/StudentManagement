@@ -71,14 +71,14 @@
                                 <Grid HorizontalAlignment="Left">
                                     <Rectangle
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
                                         Stroke="Gray" />
                                     <TextBox
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập tên"
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -118,14 +118,14 @@
                                 <Grid HorizontalAlignment="Left">
                                     <Rectangle
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
                                         Stroke="Gray" />
                                     <TextBox
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập địa chỉ "
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -139,14 +139,14 @@
                                 <Grid HorizontalAlignment="Left">
                                     <Rectangle
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
                                         Stroke="Gray" />
                                     <TextBox
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập địa chỉ "
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -160,14 +160,14 @@
                                 <Grid HorizontalAlignment="Left">
                                     <Rectangle
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
                                         Stroke="Gray" />
                                     <TextBox
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập địa chỉ "
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -192,14 +192,15 @@
                                     <Grid HorizontalAlignment="Left">
                                         <Rectangle
                                             Width="100"
-                                            Height="20"
+                                            Height="24"
                                             HorizontalAlignment="Right"
                                             RadiusX="4"
                                             RadiusY="4"
                                             Stroke="Gray" />
                                         <ComboBox
                                             Width="100"
-                                            Height="20"
+                                            Height="24"
+                                            Style="{StaticResource MaterialDesignComboBox}"
                                             materialDesign:HintAssist.Hint="Hệ"
                                             ItemsSource="{Binding ShortStringList}">
                                             <ComboBox.SelectedItem>
@@ -217,15 +218,15 @@
                                     </Grid>
                                     <Grid HorizontalAlignment="Left">
                                         <Rectangle
-                                            Width="200"
-                                            Height="20"
+                                            Width="180"
+                                            Height="24"
                                             HorizontalAlignment="Right"
                                             RadiusX="4"
                                             RadiusY="4"
                                             Stroke="Gray" />
                                         <ComboBox
-                                            Width="200"
-                                            Height="20"
+                                            Width="180"
+                                            Height="24"
                                             materialDesign:HintAssist.Hint="Lớp sinh hoạt"
                                             ItemsSource="{Binding ShortStringList}">
                                             <ComboBox.SelectedItem>
@@ -260,7 +261,7 @@
                     <Grid Grid.Row="0" Margin="8">
                         <TextBlock
                             HorizontalAlignment="Left"
-                            FontSize="28"
+                            FontSize="24"
                             FontWeight="Bold"
                             Text="Về gia đình" />
                     </Grid>
@@ -283,14 +284,14 @@
                                 <Grid HorizontalAlignment="Left">
                                     <Rectangle
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
                                         Stroke="Gray" />
                                     <TextBox
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập tên "
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -304,14 +305,14 @@
                                 <Grid HorizontalAlignment="Left">
                                     <Rectangle
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
                                         Stroke="Gray" />
                                     <TextBox
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập địa chỉ "
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -324,14 +325,14 @@
                                 </Grid>
                                 <Grid HorizontalAlignment="Left">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="24*" />
                                         <ColumnDefinition Width="36*" />
                                         <ColumnDefinition Width="243*" />
                                     </Grid.ColumnDefinitions>
                                     <Rectangle
                                         Grid.ColumnSpan="3"
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
@@ -339,7 +340,7 @@
                                     <TextBox
                                         Grid.ColumnSpan="3"
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập số điện thoại"
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -352,14 +353,14 @@
                                 </Grid>
                                 <Grid HorizontalAlignment="Left">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="24*" />
                                         <ColumnDefinition Width="36*" />
                                         <ColumnDefinition Width="243*" />
                                     </Grid.ColumnDefinitions>
                                     <Rectangle
                                         Grid.ColumnSpan="3"
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
@@ -367,7 +368,7 @@
                                     <TextBox
                                         Grid.ColumnSpan="3"
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập nghề nghiệp"
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -392,14 +393,14 @@
                                 <Grid HorizontalAlignment="Left">
                                     <Rectangle
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
                                         Stroke="Gray" />
                                     <TextBox
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập tên "
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -413,14 +414,14 @@
                                 <Grid HorizontalAlignment="Left">
                                     <Rectangle
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
                                         Stroke="Gray" />
                                     <TextBox
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập địa chỉ "
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -433,14 +434,14 @@
                                 </Grid>
                                 <Grid HorizontalAlignment="Left">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="24*" />
                                         <ColumnDefinition Width="36*" />
                                         <ColumnDefinition Width="243*" />
                                     </Grid.ColumnDefinitions>
                                     <Rectangle
                                         Grid.ColumnSpan="3"
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
@@ -448,7 +449,7 @@
                                     <TextBox
                                         Grid.ColumnSpan="3"
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập số điện thoại"
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
@@ -461,14 +462,14 @@
                                 </Grid>
                                 <Grid HorizontalAlignment="Left">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="24*" />
                                         <ColumnDefinition Width="36*" />
                                         <ColumnDefinition Width="243*" />
                                     </Grid.ColumnDefinitions>
                                     <Rectangle
                                         Grid.ColumnSpan="3"
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         HorizontalAlignment="Right"
                                         RadiusX="4"
                                         RadiusY="4"
@@ -476,7 +477,7 @@
                                     <TextBox
                                         Grid.ColumnSpan="3"
                                         Width="300"
-                                        Height="20"
+                                        Height="24"
                                         materialDesign:HintAssist.Hint="Nhập nghề nghiệp"
                                         Style="{StaticResource TextBox}"
                                         TabIndex="0"
