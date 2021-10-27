@@ -16,6 +16,7 @@ namespace StudentManagement.ViewModels
         private object _currentView;
         private object _loginView;
         private object _LayoutView;
+        private object _Infostudent;
 
         public object CurrentView
         {
@@ -36,6 +37,8 @@ namespace StudentManagement.ViewModels
 
             _LayoutView = new Layout();
 
+            _Infostudent = new UserInfo_Student();
+
             CurrentView = _loginView;
 
             GotoLoginViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoLoginView());
@@ -49,7 +52,7 @@ namespace StudentManagement.ViewModels
 
         private void GotoLoginView()
         {
-            CurrentView = _loginView;
+            CurrentView = _Infostudent;
         }
     }
 }

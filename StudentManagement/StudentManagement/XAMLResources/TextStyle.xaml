@@ -2,11 +2,19 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="Retangle" TargetType="{x:Type Rectangle}">
+        <Setter Property="Width" Value="300" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="Fill" Value="#FFE0E0E0" />
+        <Setter Property="RadiusX" Value="4" />
+        <Setter Property="RadiusY" Value="4" />
+        <Setter Property="Stroke" Value="Gray" />
+    </Style>
     <Style
         x:Key="TextBox"
         BasedOn="{StaticResource MaterialDesignTextBox}"
         TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="#1976d2" />
+        <Setter Property="Foreground" Value="#01579b" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="BorderThickness" Value="0" />
@@ -40,16 +48,9 @@
         BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
         TargetType="{x:Type ComboBox}">
         <Setter Property="Height" Value="28" />
-        <Setter Property="Padding" Value="4" />
+        <Setter Property="Padding" Value="0" />
     </Style>
-    <Style x:Key="Retangle" TargetType="{x:Type Rectangle}">
-        <Setter Property="Width" Value="300" />
-        <Setter Property="Height" Value="28" />
-        <Setter Property="Fill" Value="#FFE0E0E0" />
-        <Setter Property="RadiusX" Value="4" />
-        <Setter Property="RadiusY" Value="4" />
-        <Setter Property="Stroke" Value="Gray" />
-    </Style>
+
 
 
 </ResourceDictionary>

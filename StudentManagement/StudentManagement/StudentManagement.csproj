@@ -82,6 +82,9 @@
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserInfo-Admin.xaml.cs">
+      <DependentUpon>UserInfo-Admin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserInfo-Student.xaml.cs">
       <DependentUpon>UserInfo-Student.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserInfo-Admin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

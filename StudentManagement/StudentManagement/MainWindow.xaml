@@ -9,8 +9,8 @@
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:views="clr-namespace:StudentManagement.Views"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1080"
+    Height="720"
     Background="{DynamicResource MaterialDesignPaper}"
     DataContext="{StaticResource MainVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
@@ -25,7 +25,8 @@
             <DataTemplate DataType="{x:Type views:Layout}">
                 <views:Layout />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type views:Login}">
+            <DataTemplate
+                DataType="{x:Type views:Login}">
                 <views:Login />
             </DataTemplate>
         </ContentControl.Resources>
