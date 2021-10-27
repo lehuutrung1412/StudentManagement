@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
@@ -49,7 +50,11 @@ namespace StudentManagement.ViewModels
 
         private void GotoLoginView()
         {
-            CurrentView = _loginView;
+            MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+            MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            //CurrentView = _loginView;
         }
     }
 }
