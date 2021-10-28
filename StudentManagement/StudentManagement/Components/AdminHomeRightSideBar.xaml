@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="StudentManagement.Components.RightSideBar"
+    x:Class="StudentManagement.Components.AdminHomeRightSideBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,6 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{DynamicResource MaterialDesignPaper}"
-    DataContext="{StaticResource LayoutVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -16,9 +15,6 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <ContentControl
-            Grid.Column="10"
-            Grid.ColumnSpan="3"
-            Content="{Binding RightSideBar}" />
+        <TextBlock Text="AdminHomeRightSideBar" />
     </Grid>
 </UserControl>

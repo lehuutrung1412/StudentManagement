@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Components;
 using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,11 @@ namespace StudentManagement.ViewModels
         private ICommand _gotoAdminHomeViewCommand;
         private ICommand _gotoAdminSubjectClassViewCommand;
         private object _contentView;
+        private object _rightSideBar;
         private object _adminHomeView;
         private object _adminSubjectClassView;
+        private object _adminHomeRightSideBar;
+        private object _adminSubjectClassRightSideBar;
 
         public object ContentView
         {
@@ -27,29 +31,59 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        public object RightSideBar
+        {
+            get { return _rightSideBar; }
+            set
+            {
+                _rightSideBar = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand GotoAdminHomeViewCommand { get => _gotoAdminHomeViewCommand; set => _gotoAdminHomeViewCommand = value; }
         public ICommand GotoAdminSubjectClassViewCommand { get => _gotoAdminSubjectClassViewCommand; set => _gotoAdminSubjectClassViewCommand = value; }
 
+
         public LayoutViewModel()
         {
-            this._adminHomeView = new AdminHome();
+            InitContentView();
 
-            this._adminSubjectClassView = new AdminSubjectClass();
-
-            ContentView = _adminHomeView;
+            InitRightSideBar();
 
             GotoAdminHomeViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminHomeView());
             GotoAdminSubjectClassViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminSubjectClassView());
         }
 
+        public void InitContentView()
+        {
+            this._adminHomeView = new AdminHome();
+
+            this._adminSubjectClassView = new AdminSubjectClass();
+
+            this.ContentView = this._adminHomeView;
+        }
+
+        public void InitRightSideBar()
+        {
+            this._adminHomeRightSideBar = new AdminHomeRightSideBar();
+
+            this._adminSubjectClassRightSideBar = new AdminSubjectClassRightSideBar();
+
+            this.RightSideBar = this._adminHomeRightSideBar;
+        }
+
         private void GotoAdminHomeView()
         {
-            ContentView = _adminHomeView;
+            this.ContentView = this._adminHomeView;
+            this.RightSideBar = this._adminHomeRightSideBar;
+
         }
 
         private void GotoAdminSubjectClassView()
         {
-            ContentView = _adminSubjectClassView;
+            this.ContentView = this._adminSubjectClassView;
+            this.RightSideBar = this._adminSubjectClassRightSideBar;
         }
     }
 }

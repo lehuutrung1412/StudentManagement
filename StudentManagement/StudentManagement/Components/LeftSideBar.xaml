@@ -17,7 +17,6 @@
     <Grid>
         <StackPanel>
             <Button
-                Width="150"
                 Height="auto"
                 Margin="0,0,0,10"
                 Command="{Binding GotoAdminHomeViewCommand}">
@@ -31,7 +30,6 @@
                 </StackPanel>
             </Button>
             <Button
-                Width="150"
                 Height="auto"
                 Margin="0,0,0,10"
                 Command="{Binding GotoAdminSubjectClassViewCommand}">
@@ -45,7 +43,6 @@
                 </StackPanel>
             </Button>
             <Button
-                Width="150"
                 Height="auto"
                 Margin="0,0,0,10"
                 Command="{Binding GotoLoginViewCommand}"
