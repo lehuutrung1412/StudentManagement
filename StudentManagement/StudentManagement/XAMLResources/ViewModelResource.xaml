@@ -4,4 +4,6 @@
     xmlns:viewmodel="clr-namespace:StudentManagement.ViewModels">
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:LayoutViewModel x:Key="LayoutVM" />
+    <viewmodel:UserInfoStudentViewModel
+        x:Key="UserInfoStudentVM" />
 </ResourceDictionary>

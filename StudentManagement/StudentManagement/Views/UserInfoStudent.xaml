@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Views"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="617"
     d:DesignWidth="746"
+    DataContext="{DynamicResource UserInfoStudentVM}"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -41,16 +43,46 @@
                 Grid.Row="0"
                 Margin="0,32,0,16">
                 <StackPanel>
-                    <Ellipse
+
+                    <Button
+                        Command="{Binding ClickImageCommand}"
+                        DataContext="{DynamicResource UserInfoStudentVM}"
+                        x:Name="btnImage"
                         Width="168"
-                        Height="168"
-                        Stroke="Gray"
-                        StrokeThickness="2">
-                        <Ellipse.Fill>
-                            <ImageBrush
-                                ImageSource="C:\Users\DELL\Pictures\IMG_2959.JPG.jpg" />
-                        </Ellipse.Fill>
-                    </Ellipse>
+                        Height="168">
+                        <Button.Template>
+                            <ControlTemplate
+                                TargetType="Button">
+                                <Grid>
+                                    <Ellipse
+                                        Width="168"
+                                        Height="168"
+                                        Stroke="Gray"
+                                        StrokeThickness="2">
+                                        <Ellipse.Fill >
+                                            <ImageBrush
+                                                ImageSource="{Binding Source, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button
+                        Visibility="{Binding Visibility}"
+                        Command="{Binding ClickChangeImageCommand}"
+                        DataContext="{DynamicResource UserInfoStudentVM}"
+                        Width="300"
+                        Margin="0, 16,0,0"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Background="#4caf50"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        ToolTip="MaterialDesignRaisedLightButton with Round Corners">
+
+                        <TextBlock
+                            Text="Thay đổi ảnh đại diện" />
+                    </Button>
                     <TextBlock
                         Margin="0,16,0,0"
                         HorizontalAlignment="Center"
