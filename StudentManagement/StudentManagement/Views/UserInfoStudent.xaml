@@ -62,6 +62,7 @@
                                         <Ellipse.Fill >
                                             <ImageBrush
                                                 ImageSource="{Binding Source, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                Stretch="UniformToFill"
                                                 />
                                         </Ellipse.Fill>
                                     </Ellipse>
