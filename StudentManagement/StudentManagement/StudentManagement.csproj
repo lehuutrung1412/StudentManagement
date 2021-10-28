@@ -77,8 +77,13 @@
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\SubjectClassCard.xaml.cs">
+      <DependentUpon>SubjectClassCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyMessageBox.cs" />
+    <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\AdminSubjectClassViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -111,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\RightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SubjectClassCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
