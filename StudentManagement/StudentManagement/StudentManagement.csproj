@@ -68,6 +68,9 @@
     <Compile Include="Components\LeftSideBar.xaml.cs">
       <DependentUpon>LeftSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\RightSideBar.xaml.cs">
+      <DependentUpon>RightSideBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -76,6 +79,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminSubjectClass.xaml.cs">
+      <DependentUpon>AdminSubjectClass.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
@@ -87,6 +93,10 @@
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\LeftSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\RightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,6 +113,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminSubjectClass.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

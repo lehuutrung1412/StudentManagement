@@ -21,19 +21,24 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <component:LeftSideBar Grid.Column="0" />
-        <ContentControl Grid.Column="1" Content="{Binding ContentView}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type views:AdminHome}">
-                    <views:Layout />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type views:Login}">
-                    <views:Login />
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+        <component:LeftSideBar Grid.Column="0" Grid.ColumnSpan="2" />
+        <ContentControl
+            Grid.Column="2"
+            Grid.ColumnSpan="7"
+            Content="{Binding ContentView}" />
+        <component:RightSideBar Grid.Column="10" Grid.ColumnSpan="3" />
     </Grid>
 </UserControl>
