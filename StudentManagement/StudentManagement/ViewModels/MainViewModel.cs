@@ -37,7 +37,7 @@ namespace StudentManagement.ViewModels
 
             _LayoutView = new Layout();
 
-            _Infostudent = new UserInfoStudent();
+            _Infostudent = new UserInfoAdmin();
 
             CurrentView = _loginView;
 

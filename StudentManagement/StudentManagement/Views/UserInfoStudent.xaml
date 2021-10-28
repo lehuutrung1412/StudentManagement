@@ -19,7 +19,7 @@
     <ScrollViewer
         HorizontalScrollBarVisibility="Auto"
         VerticalScrollBarVisibility="Visible">
-        <Grid HorizontalAlignment="Center">
+        <Grid >
             <Grid.Resources>
                 <Style
                     TargetType="{x:Type materialDesign:SmartHint}">

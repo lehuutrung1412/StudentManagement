@@ -16,7 +16,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch">
+    <Grid VerticalAlignment="Center" >
         <Grid.Resources>
             <Style
                 TargetType="{x:Type materialDesign:SmartHint}">
@@ -70,6 +70,16 @@
                         HorizontalAlignment="Right">
                         <Button
                             Width="140"
+                            HorizontalAlignment="Right"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Background="#42a5f5"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            ToolTip="MaterialDesignRaisedLightButton with Round Corners">
+                            <TextBlock
+                                Text="Xác nhận" />
+                        </Button>
+                        <Button
+                            Width="140"
                             Margin="16,0,0,0"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="#4caf50"
@@ -113,9 +123,9 @@
                                 Content="Họ và tên"
                                 Style="{StaticResource LabelText}" />
                             <Border
-                                Style="{StaticResource BorderStyle}">
+                                Style="{StaticResource BorderStyle}"
+                                Background="White">
                                 <TextBox
-                                    IsEnabled="False"
                                     materialDesign:HintAssist.Hint="Nhập tên"
                                     Style="{StaticResource TextBox}"
                                     Text="Nguyễn Đỗ Mạnh Cường" />
@@ -127,9 +137,9 @@
                                 Content="Địa chỉ"
                                 Style="{StaticResource LabelText}" />
                             <Border
-                                Style="{StaticResource BorderStyle}">
+                                Style="{StaticResource BorderStyle}"
+                                Background="White">
                                 <TextBox
-                                    IsEnabled="False"
                                     materialDesign:HintAssist.Hint="Nhập địa chỉ "
                                     Style="{StaticResource TextBox}"
                                     Text="02B1 chợ mới Ninh Hoà" />
@@ -190,9 +200,9 @@
                                 Style="{StaticResource LabelText}" />
 
                             <Border
-                                Style="{StaticResource BorderStyle}">
+                                Style="{StaticResource BorderStyle}"
+                                Background="White">
                                 <DatePicker
-                                    IsEnabled="False"
                                     x:Name="dpBirthDate"
                                     Height="28"
                                     HorizontalAlignment="Stretch"
@@ -211,9 +221,9 @@
                                 Style="{StaticResource LabelText}" />
 
                             <Border
-                                Style="{StaticResource BorderStyle}">
+                                Style="{StaticResource BorderStyle}"
+                                Background="White">
                                 <ComboBox
-                                    IsEnabled="False"
                                     Height="28"
                                     materialDesign:HintAssist.Hint="Khoa"
                                     FontSize="16"
@@ -238,9 +248,9 @@
                                 Content="Giới tính"
                                 Style="{StaticResource LabelText}" />
                             <Border
-                                Style="{StaticResource BorderStyle}">
+                                Style="{StaticResource BorderStyle}"
+                                Background="White">
                                 <ComboBox
-                                    IsEnabled="False"
                                     Height="28"
                                     materialDesign:HintAssist.Hint="Giới tính"
                                     FontSize="16"
@@ -275,9 +285,9 @@
 
 
                                 <Border
-                                    Style="{StaticResource BorderStyle}">
+                                    Style="{StaticResource BorderStyle}"
+                                    Background="White">
                                     <ComboBox
-                                        IsEnabled="False"
                                         Height="28"
                                         materialDesign:HintAssist.Hint="Hệ"
                                         FontSize="16"
@@ -305,9 +315,9 @@
 
 
                                 <Border
-                                    Style="{StaticResource BorderStyle}">
+                                    Style="{StaticResource BorderStyle}"
+                                    Background="White">
                                     <ComboBox
-                                        IsEnabled="False"
                                         Height="28"
                                         materialDesign:HintAssist.Hint="Lớp sinh hoạt"
                                         FontSize="16"
@@ -327,17 +337,9 @@
 
                             </StackPanel>
                         </Grid>
-
-
-
                     </Grid>
                 </Grid>
             </Grid>
         </materialDesign:Card>
-        <Grid
-            Grid.Row="2">
-            <Separator
-                Margin="5" />
-        </Grid>
     </Grid>
 </UserControl>
