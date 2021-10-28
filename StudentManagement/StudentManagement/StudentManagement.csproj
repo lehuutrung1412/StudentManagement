@@ -82,11 +82,11 @@
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserInfo-Admin.xaml.cs">
-      <DependentUpon>UserInfo-Admin.xaml</DependentUpon>
+    <Compile Include="Views\UserInfoAdmin.xaml.cs">
+      <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserInfo-Student.xaml.cs">
-      <DependentUpon>UserInfo-Student.xaml</DependentUpon>
+    <Compile Include="Views\UserInfoStudent.xaml.cs">
+      <DependentUpon>UserInfoStudent.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\LeftSideBar.xaml">
       <SubType>Designer</SubType>
@@ -116,11 +116,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserInfo-Admin.xaml">
+    <Page Include="Views\UserInfoAdmin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserInfo-Student.xaml">
+    <Page Include="Views\UserInfoStudent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

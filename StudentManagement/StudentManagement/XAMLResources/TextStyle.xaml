@@ -20,14 +20,17 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="MaxLines" Value="1" />
         <Setter Property="Height" Value="28" />
-        <Setter Property="Width" Value="300" />
+        <!--<Setter Property="Width" Value="300" />-->
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Padding" Value="10,0" />
     </Style>
     <Style x:Key="LabelText" TargetType="{x:Type Label}">
         <Setter Property="Foreground" Value="Gray" />
+        <Setter
+            Property="Padding"
+            Value="0 4 0 4" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="HorizontalAlignment" Value="Left" />
@@ -50,7 +53,29 @@
         <Setter Property="Height" Value="28" />
         <Setter Property="Padding" Value="0" />
     </Style>
-
-
-
+    <Style x:Key="SeparatorStyle" TargetType="{x:Type Separator}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Separator}">
+                    <Grid Margin="0,6,0,4" SnapsToDevicePixels="true">
+                        <Rectangle
+                            Height="1"
+                            Margin="30,0,1,1"
+                            Fill="#E0E0E0" />
+                        <Rectangle
+                            Height="1"
+                            Margin="30,1,1,0"
+                            Fill="White" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="#FFE0E0E0" />
+        <Setter Property="BorderBrush" Value="Gray" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="5" />
+    </Style>
 </ResourceDictionary>

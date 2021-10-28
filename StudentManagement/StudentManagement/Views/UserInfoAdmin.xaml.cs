@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace StudentManagement.Views
 {
     /// <summary>
-    /// Interaction logic for UserInfo_Student.xaml
+    /// Interaction logic for UserInfoAdmin.xaml
     /// </summary>
-    public partial class UserInfo_Student : UserControl
+    public partial class UserInfoAdmin : UserControl
     {
-        public UserInfo_Student()
+        public UserInfoAdmin()
         {
             InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
