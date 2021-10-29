@@ -5,12 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:component="clr-namespace:StudentManagement.Components"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
     Title="MyMessageBoxView"
-    MinWidth="200"
-    MinHeight="100"
-    MaxWidth="500"
+    MinWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.15'}"
+    MinHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.07'}"
+    MaxWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.36'}"
     AllowsTransparency="True"
-    Background="Transparent"
+    Background="{StaticResource Transparent}"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
@@ -20,7 +22,7 @@
     mc:Ignorable="d">
     <Border
         Margin="10"
-        Background="White"
+        Background="{StaticResource White}"
         BorderThickness="0"
         CornerRadius="5">
         <Border.Effect>
@@ -36,9 +38,11 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid
+                Background="{StaticResource Transparent}"
                 Grid.Row="0"
-                MinHeight="60"
-                Visibility="Collapsed" />
+                MaxHeight="40">
+                <component:TitleBar ButtonVisibility="Collapsed" x:Name="TitleBar"></component:TitleBar>
+            </Grid>
             <Grid Grid.Row="1">
                 <DockPanel Margin="16 16 16 0">
                     <Image
@@ -70,7 +74,7 @@
                         Margin="16"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Background="Red"
+                        Background="{StaticResource ErrorMain}"
                         BorderThickness="0"
                         Click="BtnCancel_Click"
                         DockPanel.Dock="Right"
@@ -83,7 +87,7 @@
                         Margin="16"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Background="Red"
+                        Background="{StaticResource ErrorMain}"
                         BorderThickness="0"
                         Click="BtnNo_Click"
                         DockPanel.Dock="Right">
@@ -95,7 +99,7 @@
                         Margin="16"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Background="Green"
+                        Background="{StaticResource PrimaryMain}"
                         BorderThickness="0"
                         Click="BtnYes_Click"
                         DockPanel.Dock="Right">
@@ -107,7 +111,7 @@
                         Margin="16"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Background="Green"
+                        Background="{StaticResource PrimaryMain}"
                         BorderThickness="0"
                         Click="BtnOk_Click"
                         DockPanel.Dock="Right">
