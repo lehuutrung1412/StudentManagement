@@ -21,16 +21,22 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition
+                Width="auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <component:LeftSideBar Grid.Column="0" />
-        <ContentControl Grid.Column="1" Content="{Binding ContentView}">
+        <component:LeftSideBar
+            Grid.Column="0" />
+        <ContentControl
+            Grid.Column="1"
+            Content="{Binding ContentView}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type views:AdminHome}">
+                <DataTemplate
+                    DataType="{x:Type views:AdminHome}">
                     <views:Layout />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type views:Login}">
+                <DataTemplate
+                    DataType="{x:Type views:Login}">
                     <views:Login />
                 </DataTemplate>
             </ContentControl.Resources>
