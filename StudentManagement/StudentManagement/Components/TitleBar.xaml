@@ -1,0 +1,71 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.TitleBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:StudentManagement.ViewModels"
+    Name="TitleBarUC"
+    d:DesignHeight="80"
+    d:DesignWidth="800"
+    Background="{StaticResource Transparent}"
+    DataContext="{StaticResource TitleBarVM}"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}" CommandParameter="{Binding ElementName=TitleBarUC}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border Background="{StaticResource White}" CornerRadius="5">
+        <DockPanel>
+            <Image
+                x:Name="imgLogo"
+                Margin="8"
+                DockPanel.Dock="Left"
+                Source="{StaticResource Logo}" />
+            <TextBlock
+                x:Name="txblTitle"
+                Grid.Column="1"
+                Width="auto"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                FontSize="18"
+                FontWeight="SemiBold"
+                Text="StuMan"/>
+            <DockPanel HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <Border DockPanel.Dock="Right" Style="{StaticResource BorderClosebuttonTitleBar}">
+                    <Button
+                        x:Name="btnClose"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding ElementName=TitleBarUC}"
+                        Content="{StaticResource CloseButton}"
+                        Style="{StaticResource ButtonTitleBar}" />
+                </Border>
+                <Border
+                    DockPanel.Dock="Right"
+                    Style="{StaticResource BorderButtonTitleBar}"
+                    Visibility="{Binding ButtonVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:TitleBar}}}">
+                    <Button
+                        x:Name="btnMaximize"
+                        Command="{Binding MaximizeWindowCommand}"
+                        CommandParameter="{Binding ElementName=TitleBarUC}"
+                        Content="{StaticResource MaximizeButton}"
+                        Style="{StaticResource ButtonTitleBar}" />
+                </Border>
+                <Border
+                    DockPanel.Dock="Right"
+                    Style="{StaticResource BorderButtonTitleBar}"
+                    Visibility="{Binding ButtonVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:TitleBar}}}">
+                    <Button
+                        x:Name="btnMinimize"
+                        Command="{Binding MinimizeWindowCommand}"
+                        CommandParameter="{Binding ElementName=TitleBarUC}"
+                        Content="{StaticResource MinimizeButton}"
+                        Style="{StaticResource ButtonTitleBar}" />
+                </Border>
+            </DockPanel>
+        </DockPanel>
+    </Border>
+</UserControl>
