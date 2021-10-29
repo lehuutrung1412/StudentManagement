@@ -1,9 +1,12 @@
-﻿using System;
+﻿using StudentManagement.Commands;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
 {
@@ -42,7 +45,7 @@ namespace StudentManagement.ViewModels
                 new CardInfo(20, "Nguyễn Thị Quý", "IT009", "Mạng máy tính"),
                 new CardInfo(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu"),
                 new CardInfo(40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
-        };
+            };
         }
     }
 }
