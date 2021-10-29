@@ -7,4 +7,5 @@
     <viewmodel:AdminSubjectClassViewModel x:Key="AdminSubjectClassVM" />
     <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
     <viewmodel:TitleBarViewModel x:Key="TitleBarVM" />
+    <viewmodel:UserInfoStudentViewModel x:Key="UserInfoStudentVM" />
 </ResourceDictionary>

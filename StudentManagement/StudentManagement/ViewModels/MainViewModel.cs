@@ -17,6 +17,7 @@ namespace StudentManagement.ViewModels
         private object _currentView;
         private object _loginView;
         private object _LayoutView;
+        private object _Infostudent;
 
         public object CurrentView
         {
@@ -37,6 +38,8 @@ namespace StudentManagement.ViewModels
 
             _LayoutView = new Layout();
 
+            _Infostudent = new UserInfoStudent();
+
             CurrentView = _loginView;
 
             GotoLoginViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoLoginView());
@@ -54,7 +57,8 @@ namespace StudentManagement.ViewModels
             //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Error);
             //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            CurrentView = _loginView;
+            // CurrentView = _loginView;
+            CurrentView = _Infostudent;
         }
     }
 }

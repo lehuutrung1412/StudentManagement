@@ -104,6 +104,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
+    <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
     </Compile>
@@ -135,6 +136,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Views\UserInfoAdmin.xaml.cs">
+      <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserInfoStudent.xaml.cs">
+      <DependentUpon>UserInfoStudent.xaml</DependentUpon>
+    </Compile>
     <Page Include="Components\LeftSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +195,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLResources\IconResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserInfoAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserInfoStudent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
