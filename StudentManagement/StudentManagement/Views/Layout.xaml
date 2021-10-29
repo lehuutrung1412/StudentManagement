@@ -7,9 +7,10 @@
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:views="clr-namespace:StudentManagement.Views"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     Background="{DynamicResource MaterialDesignPaper}"
     DataContext="{StaticResource LayoutVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
@@ -21,19 +22,24 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <component:LeftSideBar Grid.Column="0" />
-        <ContentControl Grid.Column="1" Content="{Binding ContentView}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type views:AdminHome}">
-                    <views:Layout />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type views:Login}">
-                    <views:Login />
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+        <component:LeftSideBar Grid.Column="0" Grid.ColumnSpan="2" />
+        <ContentControl
+            Grid.Column="2"
+            Grid.ColumnSpan="7"
+            Content="{Binding ContentView}" />
+        <component:RightSideBar Grid.Column="10" Grid.ColumnSpan="3" />
     </Grid>
 </UserControl>
