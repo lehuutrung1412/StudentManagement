@@ -9,6 +9,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./XAMLResources/MaterialDesignResource.xaml" />
                 <ResourceDictionary Source="./XAMLResources/ViewModelResource.xaml" />
+                <ResourceDictionary Source="./XAMLResources/IconResource.xaml" />
+                <ResourceDictionary Source="./XAMLResources/StyleResource.xaml" />
+                <ResourceDictionary Source="./XAMLResources/ColorResource.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
