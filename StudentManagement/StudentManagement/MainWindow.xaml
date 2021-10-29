@@ -10,6 +10,8 @@
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:views="clr-namespace:StudentManagement.Views"
     Title="MainWindow"
+    Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
+    Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     Background="{DynamicResource MaterialDesignPaper}"

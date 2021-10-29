@@ -18,7 +18,7 @@ namespace StudentManagement.Utils
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         { // do not let the culture default to local to prevent variable outcome re decimal syntax
-            double size = System.Convert.ToDouble(value) * System.Convert.ToDouble(parameter, CultureInfo.InvariantCulture);
+            double size = System.Convert.ToDouble(value) * System.Convert.ToDouble(parameter, CultureInfo.InvariantCulture) * 90.0 / 84.0;
             return size.ToString("G0", CultureInfo.InvariantCulture);
         }
 
