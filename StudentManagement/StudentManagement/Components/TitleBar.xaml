@@ -22,7 +22,7 @@
         <DockPanel>
             <Image
                 x:Name="imgLogo"
-                Margin="8"
+                Margin="4"
                 DockPanel.Dock="Left"
                 Source="{StaticResource Logo}" />
             <TextBlock
@@ -33,7 +33,7 @@
                 DockPanel.Dock="Left"
                 FontSize="18"
                 FontWeight="SemiBold"
-                Text="StuMan"/>
+                Text="Stuman"/>
             <DockPanel HorizontalAlignment="Right" DockPanel.Dock="Right">
                 <Border DockPanel.Dock="Right" Style="{StaticResource BorderClosebuttonTitleBar}">
                     <Button
