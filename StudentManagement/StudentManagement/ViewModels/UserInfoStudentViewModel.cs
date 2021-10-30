@@ -15,7 +15,7 @@ namespace StudentManagement.ViewModels
     {
         public ICommand ClickImageCommand { get; set; }
         public ICommand ClickChangeImageCommand { get; set; }
-        private string _visibility = "";
+        private string _visibility;
         public string Visibility 
         { 
             get => _visibility;
@@ -25,13 +25,13 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string _source = "";
-        public string Source
+        private string _image;
+        public string Image
         {
-            get => _source;
+            get => _image;
             set
             {
-                _source = value;
+                _image = value;
                 OnPropertyChanged();
             }
         }
@@ -39,7 +39,7 @@ namespace StudentManagement.ViewModels
         {
             UserInfoStudent userInfoStudent = new UserInfoStudent();
             Visibility = "Collapsed";
-            Source = @"C:\Users\DELL\Pictures\IMG_2959.JPG.jpg";
+            Image = @"C:\Users\DELL\Pictures\IMG_2959.JPG.jpg";
             ClickImageCommand = new RelayCommand<object>(
             (p) => { return true; },
             (p) =>
@@ -60,7 +60,7 @@ namespace StudentManagement.ViewModels
                 };
                 if (op.ShowDialog() == true)
                 {
-                    Source = op.FileName;
+                    Image = op.FileName;
                     Visibility = "Collapsed";
                 }
             });
