@@ -14,17 +14,17 @@ namespace StudentManagement.ViewModels
     {
         private ICommand _gotoLoginViewCommand;
         private ICommand _gotoLayoutViewCommand;
-        private object _currentView;
-        private object _loginView;
-        private object _LayoutView;
-        private object _Infostudent;
+        private object _currentViewModel;
+        private object _loginViewModel;
+        private object _LayoutViewModel;
+        private object _infoStudentViewModel;
 
-        public object CurrentView
+        public object CurrentViewModel
         {
-            get { return _currentView; }
+            get { return _currentViewModel; }
             set
             {
-                _currentView = value;
+                _currentViewModel = value;
                 OnPropertyChanged();
             }
         }
@@ -34,13 +34,13 @@ namespace StudentManagement.ViewModels
 
         public MainViewModel()
         {
-            _loginView = new Login();
+            _loginViewModel = new LoginViewModel();
 
-            _LayoutView = new Layout();
+            _LayoutViewModel = new LayoutViewModel();
 
-            _Infostudent = new UserInfoStudent();
+            _infoStudentViewModel = new UserInfoStudentViewModel();
 
-            CurrentView = _loginView;
+            CurrentViewModel = _loginViewModel;
 
             GotoLoginViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoLoginView());
             GotoLayoutViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoLayoutView());
@@ -48,7 +48,7 @@ namespace StudentManagement.ViewModels
 
         private void GotoLayoutView()
         {
-            CurrentView = _LayoutView;
+            CurrentViewModel = _LayoutViewModel;
         }
 
         private void GotoLoginView()
@@ -57,8 +57,8 @@ namespace StudentManagement.ViewModels
             //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Error);
             //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            // CurrentView = _loginView;
-            CurrentView = _Infostudent;
+            // CurrentViewModel = _loginViewModel;
+            CurrentViewModel = _infoStudentViewModel;
         }
     }
 }

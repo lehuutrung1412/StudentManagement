@@ -21,6 +21,7 @@
         <Button
             Command="{Binding GotoLayoutViewCommand}"
             Content="Login"
+            DataContext="{DynamicResource MainVM}"
             Style="{StaticResource MaterialDesignRaisedDarkButton}" />
     </Grid>
 </UserControl>

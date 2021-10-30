@@ -37,13 +37,16 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <component:TitleBar Grid.Row="0" />
-            <ContentControl Grid.Row="1" Content="{Binding CurrentView}">
+            <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type views:Layout}">
+                    <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                         <views:Layout />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type views:Login}">
+                    <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                         <views:Login />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:UserInfoStudentViewModel}">
+                        <views:UserInfoStudent />
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
