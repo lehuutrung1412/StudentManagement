@@ -71,6 +71,12 @@
     <Compile Include="Components\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\AdminNotificationRightSideBar.xaml.cs">
+      <DependentUpon>AdminNotificationRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminNotificationRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminNotificationRightSideBarItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\AdminSubjectClassRightSideBar.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -121,6 +127,14 @@
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\AdminHomeRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
