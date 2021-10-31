@@ -37,6 +37,22 @@ namespace StudentManagement.ViewModels
 
         public ObservableCollection<CardInfo> Cards { get => _cards; set => _cards = value; }
 
+        public bool IsFirstSearchButtonEnabled
+        {
+            get { return _isFirstSearchButtonEnabled; }
+            set
+            {
+                _isFirstSearchButtonEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
+
+        private ICommand _switchSearchButton;
+
+        private bool _isFirstSearchButtonEnabled = true;
+
         public AdminSubjectClassViewModel()
         {
             Cards = new ObservableCollection<CardInfo>() {
@@ -46,6 +62,13 @@ namespace StudentManagement.ViewModels
                 new CardInfo(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu"),
                 new CardInfo(40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
             };
+
+            this.SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
+        }
+
+        public void SwitchSearchButtonFunction(UserControl p)
+        {
+            this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
     }
 }

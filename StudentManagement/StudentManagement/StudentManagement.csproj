@@ -86,6 +86,9 @@
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\SearchBarOne.xaml.cs">
+      <DependentUpon>SearchBarOne.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassCard.xaml.cs">
       <DependentUpon>SubjectClassCard.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,7 @@
     </Compile>
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
+    <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarViewModel.cs" />
@@ -147,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\RightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SearchBarOne.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
