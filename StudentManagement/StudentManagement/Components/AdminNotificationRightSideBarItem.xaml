@@ -47,11 +47,13 @@
                 <TextBlock
                     Grid.Column="0"
                     FontWeight="Bold"
+                    FontSize="16"
                     Style="{StaticResource textblock_item}"
                     Text="Người đăng:" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
+                    FontSize="14"
                     Text="Lập trình trực quan"
                     TextAlignment="Right" />
             </Grid>
@@ -64,12 +66,14 @@
                 <TextBlock
                     Grid.Column="0"
                     FontWeight="Bold"
+                    FontSize="16"
                     Style="{StaticResource textblock_item}"
                     Text="Ngày đăng:" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="31/10/2021"
+                    FontSize="14"
                     TextAlignment="Right" />
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
@@ -82,12 +86,14 @@
                     x:Name="tbTypeNotification"
                     Grid.Column="0"
                     FontWeight="Bold"
+                    FontSize="16"
                     Style="{StaticResource textblock_item}"
                     Text="Loại bài đăng:" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="Thông báo chung"
+                    FontSize="14"
                     TextAlignment="Right" />
             </Grid>
             <Grid>
@@ -95,7 +101,7 @@
             </Grid>
             <Button
                 x:Name="btnEdit"
-                
+                BorderThickness="0"
                 Padding="0"
                 Background="Transparent"
                 Foreground="{Binding ElementName=tbTypeNotification, Path=Foreground}"
@@ -105,9 +111,12 @@
                     Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
                         FontWeight="Bold"
+                        FontSize="16"
                         Style="{StaticResource textblock_item}"
                         Text="Chỉnh sửa:" />
                     <materialDesign:PackIcon
+                        Width="18"
+                        Height="18"
                         Kind="Pencil"
                         Margin="0 0 8 0"
                         HorizontalAlignment="Right"/>
@@ -116,6 +125,7 @@
             <Button
                 x:Name="btnDelete"
                 Padding="0"
+                BorderThickness="0"
                 Background="Transparent"
                 Foreground="{Binding ElementName=tbTypeNotification, Path=Foreground}"
                 FontSize="{Binding ElementName=tbTypeNotification, Path=Foreground}">
@@ -124,9 +134,12 @@
                     Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
                     <TextBlock
                         FontWeight="Bold"
+                        FontSize="16"
                         Style="{StaticResource textblock_item}"
                         Text="Xoá:" />
                     <materialDesign:PackIcon
+                        Width="18"
+                        Height="18"
                         Kind="Eraser"
                         Margin="0 0 8 0"
                         HorizontalAlignment="Right" />

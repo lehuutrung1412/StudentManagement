@@ -89,6 +89,9 @@
     <Compile Include="Components\LeftSideBar.xaml.cs">
       <DependentUpon>LeftSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\NotificationCard.xaml.cs">
+      <DependentUpon>NotificationCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,10 @@
       <DependentUpon>UserInfoStudent.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\LeftSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\NotificationCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
