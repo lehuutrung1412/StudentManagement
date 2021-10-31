@@ -77,6 +77,9 @@
     <Compile Include="Components\AdminSubjectClassRightSideBarItem.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBarItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\CreatePostNewfeed.xaml.cs">
+      <DependentUpon>CreatePostNewfeed.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\EmptyStateRightSideBar.xaml.cs">
       <DependentUpon>EmptyStateRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -94,11 +97,13 @@
     </Compile>
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
+    <Compile Include="Utils\TextInputVisibilityConverter.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CreatePostNewFeedViewModel.cs" />
     <Compile Include="ViewModels\EmptyStateRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -132,10 +137,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\CreatePostNewfeed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\EmptyStateRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Views\NewfeedSubjectClassDetail.xaml.cs">
+      <DependentUpon>NewfeedSubjectClassDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserInfoAdmin.xaml.cs">
       <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
     </Compile>
@@ -187,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MyMessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewfeedSubjectClassDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,6 +273,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\picture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\send.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets')" />
