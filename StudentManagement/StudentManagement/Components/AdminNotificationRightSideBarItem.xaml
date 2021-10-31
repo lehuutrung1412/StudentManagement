@@ -32,10 +32,11 @@
                 </Style>
             </StackPanel.Resources>
             <TextBlock
-                FontSize="28"
+                Padding="4"
+                FontSize="24"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                Text="Tên môn học - Mã môn"
+                Text="Tổ chức thi chứng chỉ tiếng Anh VNU-OPT"
                 TextWrapping="Wrap" />
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
@@ -47,7 +48,7 @@
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
-                    Text="Tên môn học:" />
+                    Text="Người đăng:" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
@@ -64,11 +65,11 @@
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
-                    Text="Mã môn:" />
+                    Text="Ngày đăng:" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="IT008"
+                    Text="31/10/2021"
                     TextAlignment="Right" />
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
@@ -78,33 +79,59 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
+                    x:Name="tbTypeNotification"
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
-                    Text="Giáo viên:" />
+                    Text="Loại bài đăng:" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="Nguyễn Tấn Toàn"
+                    Text="Thông báo chung"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            <Grid>
+                <Separator Margin="5" />
+            </Grid>
+            <Button
+                x:Name="btnEdit"
+                
+                Padding="0"
+                Background="Transparent"
+                Foreground="{Binding ElementName=tbTypeNotification, Path=Foreground}"
+                FontSize="{Binding ElementName=tbTypeNotification, Path=Foreground}">
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Sĩ số:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="50"
-                    TextAlignment="Right" />
-            </Grid>
+                <Grid
+                    Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
+                    <TextBlock
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Chỉnh sửa:" />
+                    <materialDesign:PackIcon
+                        Kind="Pencil"
+                        Margin="0 0 8 0"
+                        HorizontalAlignment="Right"/>
+                </Grid>
+            </Button>
+            <Button
+                x:Name="btnDelete"
+                Padding="0"
+                Background="Transparent"
+                Foreground="{Binding ElementName=tbTypeNotification, Path=Foreground}"
+                FontSize="{Binding ElementName=tbTypeNotification, Path=Foreground}">
+
+                <Grid
+                    Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                    <TextBlock
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Xoá:" />
+                    <materialDesign:PackIcon
+                        Kind="Eraser"
+                        Margin="0 0 8 0"
+                        HorizontalAlignment="Right" />
+                </Grid>
+            </Button>
         </StackPanel>
 
         <!--<ContentControl
@@ -112,19 +139,15 @@
             Grid.ColumnSpan="7"
             Content="{Binding ContentView}" />-->
 
-        <ContentControl
-            Content="{Binding RightSideBarItemViewModel}"
-            DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}">
+        <!--<ContentControl Content="{Binding RightSideBarItemViewModel}" DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}">
             <ContentControl.Resources>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:AdminSubjectClassRightSideBarItemViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassRightSideBarItemViewModel}">
                     <components:AdminSubjectClassRightSideBarItem />
                 </DataTemplate>
             </ContentControl.Resources>
-        </ContentControl>
+        </ContentControl>-->
     </Grid>
 </UserControl>
