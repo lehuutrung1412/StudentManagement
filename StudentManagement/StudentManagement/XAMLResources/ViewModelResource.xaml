@@ -8,4 +8,5 @@
     <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
     <viewmodel:TitleBarViewModel x:Key="TitleBarVM" />
     <viewmodel:UserInfoStudentViewModel x:Key="UserInfoStudentVM" />
+    <viewmodel:CreatePostNewFeedViewModel x:Key="CreatePostNewFeedVM" />
 </ResourceDictionary>
