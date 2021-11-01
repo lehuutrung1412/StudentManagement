@@ -10,6 +10,8 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:views="clr-namespace:StudentManagement.Views"
+    d:DataContext="{d:DesignInstance Type=viewmodels:LayoutViewModel,
+                                     IsDesignTimeCreatable=True}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
     Background="{DynamicResource MaterialDesignPaper}"

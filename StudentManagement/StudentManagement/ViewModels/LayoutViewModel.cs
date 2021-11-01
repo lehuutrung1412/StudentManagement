@@ -59,14 +59,14 @@ namespace StudentManagement.ViewModels
             GotoAdminSubjectClassViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminSubjectClassView());
 
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, this, "School"),
+                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, this, "School"),
             };
 
             NavigationItems = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, this, "Home"),
-                new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, this, "Home"),
-                new NavigationItem("Đào tạo", true, temp, null, this, "ClockOutline"),
-                new NavigationItem("Đào tạo", true, temp, null, this, "ClockOutline"),
+                new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, this, "Home"),
+                new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, this, "Home"),
+                new NavigationItem("Đào tạo", true, temp, null, null, this, "ClockOutline"),
+                new NavigationItem("Đào tạo", true, temp, null, null, this, "ClockOutline"),
             };
 
         }
@@ -120,12 +120,13 @@ namespace StudentManagement.ViewModels
 
             private string _icon;
 
-            public NavigationItem(string navigationHeader, bool canBeExpanded, ObservableCollection<NavigationItem> expandedItems, object navigationItemViewModel, LayoutViewModel layoutViewModel, string icon)
+            public NavigationItem(string navigationHeader, bool canBeExpanded, ObservableCollection<NavigationItem> expandedItems, object navigationItemViewModel, object rightSideBarNavigationItemViewModel, LayoutViewModel layoutViewModel, string icon)
             {
                 _navigationHeader = navigationHeader;
                 _canBeExpanded = canBeExpanded;
                 _expandedItems = expandedItems;
                 _navigationItemViewModel = navigationItemViewModel;
+                _rightSideBarNavigationItemViewModel = rightSideBarNavigationItemViewModel;
                 LayoutViewModel = layoutViewModel;
                 _icon = icon;
                 GoToView = new RelayCommand<object>((p) => { return true; }, (p) => GoToViewFunction());
