@@ -14,12 +14,15 @@ namespace StudentManagement.ViewModels
     {
         private ICommand _gotoAdminHomeViewCommand;
         private ICommand _gotoAdminSubjectClassViewCommand;
+        private ICommand _gotoAdminNotificationCommand;
         private object _contentView;
         private object _rightSideBar;
         private object _adminHomeView;
         private object _adminSubjectClassView;
+        private object _adminNotificationView;
         private object _adminHomeRightSideBar;
         private object _adminSubjectClassRightSideBar;
+        private object _adminNotificationRightSideBar;
 
         public object ContentView
         {
@@ -43,7 +46,7 @@ namespace StudentManagement.ViewModels
 
         public ICommand GotoAdminHomeViewCommand { get => _gotoAdminHomeViewCommand; set => _gotoAdminHomeViewCommand = value; }
         public ICommand GotoAdminSubjectClassViewCommand { get => _gotoAdminSubjectClassViewCommand; set => _gotoAdminSubjectClassViewCommand = value; }
-
+        public ICommand GotoAdminNotificationCommand { get => _gotoAdminNotificationCommand; set => _gotoAdminNotificationCommand = value; }
 
         public LayoutViewModel()
         {
@@ -53,6 +56,7 @@ namespace StudentManagement.ViewModels
 
             GotoAdminHomeViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminHomeView());
             GotoAdminSubjectClassViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminSubjectClassView());
+            GotoAdminNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminNotificationView());
         }
 
         public void InitContentView()
@@ -60,6 +64,9 @@ namespace StudentManagement.ViewModels
             this._adminHomeView = new AdminHome();
 
             this._adminSubjectClassView = new AdminSubjectClass();
+
+
+            this._adminNotificationView = new AdminNotification();
 
             this.ContentView = this._adminHomeView;
         }
@@ -69,6 +76,8 @@ namespace StudentManagement.ViewModels
             this._adminHomeRightSideBar = new AdminHomeRightSideBar();
 
             this._adminSubjectClassRightSideBar = new AdminSubjectClassRightSideBar();
+
+            this._adminNotificationRightSideBar = new AdminNotificationRightSideBar();
 
             this.RightSideBar = this._adminHomeRightSideBar;
         }
@@ -84,6 +93,12 @@ namespace StudentManagement.ViewModels
         {
             this.ContentView = this._adminSubjectClassView;
             this.RightSideBar = this._adminSubjectClassRightSideBar;
+        }
+
+        private void GotoAdminNotificationView()
+        {
+            this.ContentView = this._adminNotificationView;
+            this.RightSideBar = this._adminNotificationRightSideBar;
         }
     }
 }

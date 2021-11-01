@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
-    x:Name="SubjectClassCardComponent"
+    x:Name="NotificationComponent"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -14,88 +14,119 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    HorizontalContentAlignment="Stretch"
+    VerticalContentAlignment="Stretch"
     mc:Ignorable="d">
-    <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="5">
-        <Button
-            x:Name="btnNotification"
-            Width="716"
-            Height="90"
-            Margin="0"
-            Padding="0"
-            Background="Transparent"
-            Foreground="Black">
-            <Grid Width="{Binding ElementName=btnNotification, Path=ActualWidth}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-                <Ellipse
-                    Grid.Column="0"
-                    Width="68"
-                    Height="68"
-                    Stroke="Gray"
-                    StrokeThickness="2">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="C:\Users\DELL\Pictures\IMG_2959.JPG.jpg" Stretch="UniformToFill" />
-                    </Ellipse.Fill>
-                </Ellipse>
-                <GridSplitter
-                    Margin="4 0 0 0"
-                    Grid.Column="1"
-                    HorizontalAlignment="Stretch"
-                    Background="Gray" />
-                <Grid Grid.Column="2" Margin="8,0,8,0">
-                    <StackPanel>
-                        <TextBlock
-                            MaxHeight="32"
-                            VerticalAlignment="Top"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            LineHeight="16"
-                            LineStackingStrategy="BlockLineHeight"
-                            Text="Tổ chức thi chứng chỉ tiếng Anh VNU-OPT "
-                            TextTrimming="WordEllipsis"
-                            TextWrapping="Wrap" />
-                        <TextBlock
-                            Margin="0,4,0,0"
-                            LineStackingStrategy="BlockLineHeight"
-                            MaxHeight="48"
-                            LineHeight="16"
-                            FontSize="14"
-                            Foreground="Gray"
-                            Text="Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ..."
-                            TextWrapping="Wrap" />
-                        
-                    </StackPanel>
-
-                </Grid>
+    <Border BorderBrush="{StaticResource Gray}" BorderThickness="2" CornerRadius="5" x:Name="bdNotification">
+        <Grid Width="600">
+            <Button
+                Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}"
+                CommandParameter="{Binding ElementName=NotificationComponent}"
+                Style="{StaticResource MaterialDesignFlatDarkButton}"
+                x:Name="btnNotification"
+                HorizontalAlignment="Stretch"
+                Height="76"
+                Margin="0"
+                Padding="4 0 0 0"
+                BorderThickness="0"
+                Background="Transparent"
+                Foreground="Black">
                 <Grid
-                    Margin="0 0 16 0"
-                    Grid.Column="3"
-                    HorizontalAlignment="Right">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.Row="0" 
-                        Text="25/10/2021"
-                        HorizontalAlignment="Right"
-                        Foreground="Gray"
-                        VerticalAlignment="Bottom"/>
-                    <TextBlock
-                        Grid.Row="1"
-                        Text="Xem thông báo"
-                        FontSize="16"
-                        Foreground="#ba68c8"
-                        FontWeight="SemiBold"
-                        VerticalAlignment="Bottom" />
+                    HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="64" />
+                        <ColumnDefinition
+                            Width="5" />
+                        <ColumnDefinition
+                            Width="7*" />
+                        <ColumnDefinition
+                            Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid
+                        Grid.Column="0"
+                        Name="grdImg">
+                        <Ellipse
+                            HorizontalAlignment="Stretch"
+                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Stroke="Gray"
+                            StrokeThickness="2">
+                            <Ellipse.Fill>
+                                <ImageBrush
+                                    ImageSource="C:\Users\DELL\Pictures\IMG_2959.JPG.jpg"
+                                    Stretch="UniformToFill" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                    <GridSplitter
+                        Margin="4 0 0 0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        Background="Gray" />
+                    <Grid
+                        Grid.Column="2"
+                        Margin="8,0,8,0">
+                        <StackPanel>
 
+                            <TextBlock
+                                MaxHeight="28"
+                                VerticalAlignment="Top"
+                                FontSize="14"
+                                FontWeight="Bold"
+                                LineHeight="14"
+                                LineStackingStrategy="BlockLineHeight"
+                                Text="{Binding ChuDe , FallbackValue='Chủ đề'}"
+                                TextTrimming="WordEllipsis"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Margin="0,4,0,0"
+                                LineStackingStrategy="BlockLineHeight"
+                                MaxHeight="36"
+                                LineHeight="12"
+                                FontSize="12"
+                                Foreground="Gray"
+                                Text="{Binding NoiDung, FallbackValue='Nội dung' }"
+                                TextWrapping="Wrap" />
+
+                        </StackPanel>
+
+                    </Grid>
+                    <Grid
+                        Margin="0 0 16 0"
+                        Grid.Column="3"
+                        HorizontalAlignment="Right">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Text="{Binding NgayDang , FallbackValue='Ngày Đăng'}"
+                            HorizontalAlignment="Right"
+                            FontSize="14"
+                            Foreground="#03a9f4"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center" />
+
+
+
+                        <TextBlock
+                            TextWrapping="Wrap"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"
+                            Text="Xem thông báo"
+                            FontSize="16"
+                            Foreground="#ba68c8"
+                            FontWeight="SemiBold"
+                            TextAlignment="Center"
+                            VerticalAlignment="Bottom" />
+
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Button>
+            </Button>
+        </Grid>
     </Border>
 
 </UserControl>

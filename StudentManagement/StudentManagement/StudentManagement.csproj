@@ -48,6 +48,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -104,6 +106,9 @@
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassViewModel.cs" />
@@ -116,6 +121,9 @@
     <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminNotification.xaml.cs">
+      <DependentUpon>AdminNotification.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AdminSubjectClass.xaml.cs">
       <DependentUpon>AdminSubjectClass.xaml</DependentUpon>
@@ -192,6 +200,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

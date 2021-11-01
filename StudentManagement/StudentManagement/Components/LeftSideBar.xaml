@@ -48,6 +48,23 @@
             <Button
                 Height="auto"
                 Margin="0,0,0,10"
+                Command="{Binding GotoAdminNotificationCommand}">
+                <StackPanel
+                    Width="auto"
+                    Height="auto">
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        HorizontalAlignment="Center"
+                        Kind="ClockOutline" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Text="Thông báo" />
+                </StackPanel>
+            </Button>
+            <Button
+                Height="auto"
+                Margin="0,0,0,10"
                 Command="{Binding GotoLoginViewCommand}"
                 DataContext="{DynamicResource MainVM}">
                 <StackPanel Width="auto" Height="auto">

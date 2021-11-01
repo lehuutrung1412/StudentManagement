@@ -10,7 +10,7 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
-    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -22,13 +22,23 @@
     <Grid>
         <StackPanel>
             <StackPanel.Resources>
-                <Style x:Key="textblock_item" TargetType="TextBlock">
-                    <Setter Property="Margin" Value="8,0,8,0" />
-                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                <Style
+                    x:Key="textblock_item"
+                    TargetType="TextBlock">
+                    <Setter
+                        Property="Margin"
+                        Value="8,0,8,0" />
+                    <Setter
+                        Property="TextTrimming"
+                        Value="CharacterEllipsis" />
                 </Style>
 
-                <Style x:Key="text_grid_item" TargetType="Grid">
-                    <Setter Property="Margin" Value="0,4,0,4" />
+                <Style
+                    x:Key="text_grid_item"
+                    TargetType="Grid">
+                    <Setter
+                        Property="Margin"
+                        Value="0,4,0,4" />
                 </Style>
             </StackPanel.Resources>
             <TextBlock
@@ -36,9 +46,10 @@
                 FontSize="24"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                Text="Tổ chức thi chứng chỉ tiếng Anh VNU-OPT"
+                Text="{Binding CurrentCard.ChuDe ,  FallbackValue='Tên chủ đề'}"
                 TextWrapping="Wrap" />
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -54,12 +65,18 @@
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     FontSize="14"
-                    Text="Lập trình trực quan"
+                    Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Center"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition
+                        Width="16*" />
+                    <ColumnDefinition
+                        Width="15*" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
@@ -68,15 +85,21 @@
                     FontWeight="Bold"
                     FontSize="16"
                     Style="{StaticResource textblock_item}"
-                    Text="Ngày đăng:" />
+                    Text="Ngày đăng:"
+                    Margin="8,0,8,-0.8" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="31/10/2021"
+                    Text="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng'}"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Center"
                     FontSize="14"
-                    TextAlignment="Right" />
+                    TextAlignment="Right"
+                    Grid.ColumnSpan="2"
+                    Margin="8,0,8,-0.8" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -92,20 +115,24 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
+                    TextWrapping="Wrap"
                     Text="Thông báo chung"
+                    VerticalAlignment="Center"
                     FontSize="14"
                     TextAlignment="Right" />
             </Grid>
             <Grid>
-                <Separator Margin="5" />
+                <Separator
+                    Margin="5" />
             </Grid>
             <Button
                 x:Name="btnEdit"
                 BorderThickness="0"
                 Padding="0"
-                Background="Transparent"
-                Foreground="{Binding ElementName=tbTypeNotification, Path=Foreground}"
-                FontSize="{Binding ElementName=tbTypeNotification, Path=Foreground}">
+                Foreground="#DD000000"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
+                
+
 
                 <Grid
                     Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
@@ -119,16 +146,15 @@
                         Height="18"
                         Kind="Pencil"
                         Margin="0 0 8 0"
-                        HorizontalAlignment="Right"/>
+                        HorizontalAlignment="Right" />
                 </Grid>
             </Button>
             <Button
                 x:Name="btnDelete"
                 Padding="0"
                 BorderThickness="0"
-                Background="Transparent"
-                Foreground="{Binding ElementName=tbTypeNotification, Path=Foreground}"
-                FontSize="{Binding ElementName=tbTypeNotification, Path=Foreground}">
+                Foreground="#DD000000"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
 
                 <Grid
                     Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
@@ -147,20 +173,6 @@
             </Button>
         </StackPanel>
 
-        <!--<ContentControl
-            Grid.Column="2"
-            Grid.ColumnSpan="7"
-            Content="{Binding ContentView}" />-->
 
-        <!--<ContentControl Content="{Binding RightSideBarItemViewModel}" DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
-                    <components:EmptyStateRightSideBar />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassRightSideBarItemViewModel}">
-                    <components:AdminSubjectClassRightSideBarItem />
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>-->
     </Grid>
 </UserControl>
