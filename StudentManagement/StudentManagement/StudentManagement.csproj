@@ -97,7 +97,6 @@
     </Compile>
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
-    <Compile Include="Utils\TextInputVisibilityConverter.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarViewModel.cs" />
