@@ -11,4 +11,6 @@
     <viewmodel:AdminNotificationViewModel x:Key="AdminNotificationVM" />
     <viewmodel:AdminNotificationRightSideBarViewModel x:Key="AdminNotificationRightSideBarVM" />
     <viewmodel:CreatePostNewFeedViewModel x:Key="CreatePostNewFeedVM" />
+    <viewmodel:StudentCourseRegistryViewModel x:Key="StudentCourseRegistryVM" />
+    <viewmodel:StudentCourseRegistryRightSideBarViewModel x:Key="StudentCourseRegistryRightSideBarVM" />
 </ResourceDictionary>

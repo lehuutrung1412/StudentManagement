@@ -23,11 +23,13 @@ namespace StudentManagement.ViewModels
         private object _adminSubjectClassViewModel;
         private object _adminNotificationViewModel;
         private object _newFeedSubjectClassDetailViewModel;
+        private object _studentCourseRegistryViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
         private object _adminHomeRightSideBar;
         private object _adminSubjectClassRightSideBar;
         private object _adminNotificationRightSideBar;
+        private object _studentCourseRegistryRightSideBar;
 
         public object ContentViewModel
         {
@@ -69,6 +71,7 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, this, "Home"),
                 new NavigationItem("Lớp môn học", false, null, _newFeedSubjectClassDetailViewModel, null, this, "Home"),
                 new NavigationItem("Đào tạo", true, temp, null, null, this, "ClockOutline"),
+                new NavigationItem("Đăng ký học phần", false, null, _studentCourseRegistryViewModel, _studentCourseRegistryRightSideBar, this, "CreditCardPlusOutline"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, this, "Home"),
             };
 
@@ -84,6 +87,8 @@ namespace StudentManagement.ViewModels
 
             this._newFeedSubjectClassDetailViewModel = new NewfeedSubjectClassDetail();
 
+            this._studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
+
             this.ContentViewModel = this._adminHomeViewModel;
         }
 
@@ -94,6 +99,8 @@ namespace StudentManagement.ViewModels
             this._adminSubjectClassRightSideBar = new AdminSubjectClassRightSideBarViewModel();
 
             this._adminNotificationRightSideBar = new AdminNotificationRightSideBar();
+
+            this._studentCourseRegistryRightSideBar = new StudentCourseRegistryRightSideBar();
 
             this.RightSideBar = this._adminHomeRightSideBar;
         }
