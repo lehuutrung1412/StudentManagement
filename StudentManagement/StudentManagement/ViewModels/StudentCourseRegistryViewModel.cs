@@ -9,25 +9,7 @@ namespace StudentManagement.ViewModels
 {
     public class StudentCourseRegistryViewModel: BaseViewModel
     {
-        private SubjectClass _selectedClass;
-        public SubjectClass SelectedClass
-        {
-            get => _selectedClass; set
-            {
-                _selectedClass = value;
-                OnPropertyChanged();
-            }
-        }
-        private CourseRegistryItem _selectedItem;
-        public CourseRegistryItem SelectedItem
-        {
-            get => _selectedItem; set
-            {
-                _selectedItem = value;
-                OnPropertyChanged();
-                SelectedClass = SubjectClasses.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass) as SubjectClass;
-            }
-        }
+       
         private int _totalCredit;
         public int TotalCredit
         {
@@ -107,8 +89,7 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CourseRegistryItem> CourseRegistryItems { get => courseRegistryItems; set => courseRegistryItems = value; }
         private ObservableCollection<CourseRegistryItem> courseRegistryItems2;
         public ObservableCollection<CourseRegistryItem> CourseRegistryItems2 { get => courseRegistryItems2; set => courseRegistryItems2 = value; }
-        private ObservableCollection<SubjectClass> _subjectClasses;
-        public ObservableCollection<SubjectClass> SubjectClasses { get => _subjectClasses; set => _subjectClasses = value; }
+
         public StudentCourseRegistryViewModel()
         {
             CourseRegistryItems = new ObservableCollection<CourseRegistryItem>
@@ -129,12 +110,7 @@ namespace StudentManagement.ViewModels
                 new CourseRegistryItem(false, "IT009.L21.KHCL", "Không biết", 2, 30, 30),
                 new CourseRegistryItem(true, "ENG02.L21", "Anh văn 2", 4, 30, 28)
             };
-            SubjectClasses = new ObservableCollection<SubjectClass>
-            {
-                new SubjectClass("IT008.L21.KHTN", "Lập trình trực quan", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new SubjectClass("IT009.L21.KHCL", "Không biết", 2, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new SubjectClass("ENG02.L21", "Anh văn 2", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-            };
+            
             TotalCredit = CourseRegistryItems.Sum(x => x.Credit);
 
         }

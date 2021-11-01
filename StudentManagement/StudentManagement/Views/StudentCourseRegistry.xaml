@@ -62,8 +62,7 @@
                     Background="#FFF24726"
                     Content="Hủy đăng ký" />
             </Grid>
-            <component:SubjectRegistryDataGrid
-                Grid.Row="1" />
+            <component:SubjectRegistryDataGrid Grid.Row="1" />
             <TextBlock
                 Grid.Row="2"
                 Margin="10"
@@ -103,13 +102,11 @@
             <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <DataGrid
-                        SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         HeadersVisibility="All"
-                        ItemsSource="{Binding CourseRegistryItems2}">
-                        <DataGrid.Resources>
-                        </DataGrid.Resources>
+                        ItemsSource="{Binding CourseRegistryItems2}"
+                        SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn
                                 Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
@@ -117,7 +114,7 @@
                                 ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}">
                                 <DataGridCheckBoxColumn.Header>
                                     <Border Background="Transparent">
-                                        <CheckBox IsChecked="{Binding IsAllItems2Selected}"/>
+                                        <CheckBox IsChecked="{Binding IsAllItems2Selected}" />
                                     </Border>
                                 </DataGridCheckBoxColumn.Header>
                                 <DataGridCheckBoxColumn.HeaderStyle>
