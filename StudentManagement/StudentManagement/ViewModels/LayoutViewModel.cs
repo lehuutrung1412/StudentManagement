@@ -13,18 +13,18 @@ namespace StudentManagement.ViewModels
 {
     public class LayoutViewModel : BaseViewModel
     {
-        private ICommand _gotoAdminHomeViewCommand;
-        private ICommand _gotoAdminSubjectClassViewCommand;
-        private ICommand _gotoAdminNotificationCommand;
-
-
+        // current contentViewModel and rightSideBarViewModel
         private object _contentViewModel;
         private object _rightSideBar;
+
+
+        // ViewModels -> To display view in layout
         private object _adminHomeViewModel;
         private object _adminSubjectClassViewModel;
         private object _adminNotificationViewModel;
+        private object _newFeedSubjectClassDetailViewModel;
 
-
+        // Rightsidebar corresponding to _contentViewModel
         private object _adminHomeRightSideBar;
         private object _adminSubjectClassRightSideBar;
         private object _adminNotificationRightSideBar;
@@ -49,13 +49,10 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public ICommand GotoAdminHomeViewCommand { get => _gotoAdminHomeViewCommand; set => _gotoAdminHomeViewCommand = value; }
-        public ICommand GotoAdminSubjectClassViewCommand { get => _gotoAdminSubjectClassViewCommand; set => _gotoAdminSubjectClassViewCommand = value; }
-
         public ObservableCollection<NavigationItem> _navigationItems;
 
         public ObservableCollection<NavigationItem> NavigationItems { get => _navigationItems; set => _navigationItems = value; }
-        public ICommand GotoAdminNotificationCommand { get => _gotoAdminNotificationCommand; set => _gotoAdminNotificationCommand = value; }
+        public object NewFeedSubjectClassDetailViewModel { get => _newFeedSubjectClassDetailViewModel; set => _newFeedSubjectClassDetailViewModel = value; }
 
         public LayoutViewModel()
         {
@@ -63,8 +60,6 @@ namespace StudentManagement.ViewModels
 
             InitRightSideBar();
 
-            GotoAdminHomeViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminHomeView());
-            GotoAdminSubjectClassViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminSubjectClassView());
 
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, this, "School"),
@@ -72,12 +67,11 @@ namespace StudentManagement.ViewModels
 
             NavigationItems = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, this, "Home"),
-                new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, this, "Home"),
+                new NavigationItem("Lớp môn học", false, null, _newFeedSubjectClassDetailViewModel, null, this, "Home"),
                 new NavigationItem("Đào tạo", true, temp, null, null, this, "ClockOutline"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, this, "Home"),
             };
 
-            GotoAdminNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminNotificationView());
         }
 
         public void InitContentView()
@@ -87,6 +81,8 @@ namespace StudentManagement.ViewModels
             this._adminSubjectClassViewModel = new AdminSubjectClassViewModel();
 
             this._adminNotificationViewModel = new AdminNotificationViewModel();
+
+            this._newFeedSubjectClassDetailViewModel = new NewfeedSubjectClassDetail();
 
             this.ContentViewModel = this._adminHomeViewModel;
         }
@@ -100,25 +96,6 @@ namespace StudentManagement.ViewModels
             this._adminNotificationRightSideBar = new AdminNotificationRightSideBar();
 
             this.RightSideBar = this._adminHomeRightSideBar;
-        }
-
-        private void GotoAdminHomeView()
-        {
-            this.ContentViewModel = this._adminHomeViewModel;
-            this.RightSideBar = this._adminHomeRightSideBar;
-
-        }
-
-        private void GotoAdminSubjectClassView()
-        {
-            this.ContentViewModel = this._adminSubjectClassViewModel;
-            this.RightSideBar = this._adminSubjectClassRightSideBar;
-        }
-
-        private void GotoAdminNotificationView()
-        {
-            this.ContentViewModel = this._adminNotificationViewModel;
-            this.RightSideBar = this._adminNotificationRightSideBar;
         }
 
         public class NavigationItem
