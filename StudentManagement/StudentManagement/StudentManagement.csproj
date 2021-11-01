@@ -48,6 +48,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,6 +73,12 @@
     <Compile Include="Components\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\AdminNotificationRightSideBar.xaml.cs">
+      <DependentUpon>AdminNotificationRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminNotificationRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminNotificationRightSideBarItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\AdminSubjectClassRightSideBar.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -89,6 +97,9 @@
     <Compile Include="Components\NavigationItem.xaml.cs">
       <DependentUpon>NavigationItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\NotificationCard.xaml.cs">
+      <DependentUpon>NotificationCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
@@ -106,6 +117,9 @@
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="ViewModels\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassViewModel.cs" />
@@ -118,6 +132,9 @@
     <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminNotification.xaml.cs">
+      <DependentUpon>AdminNotification.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AdminSubjectClass.xaml.cs">
       <DependentUpon>AdminSubjectClass.xaml</DependentUpon>
@@ -132,6 +149,14 @@
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\AdminHomeRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +190,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\NotificationCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\RightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +223,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

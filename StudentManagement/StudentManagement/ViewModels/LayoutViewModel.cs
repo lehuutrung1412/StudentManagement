@@ -15,12 +15,19 @@ namespace StudentManagement.ViewModels
     {
         private ICommand _gotoAdminHomeViewCommand;
         private ICommand _gotoAdminSubjectClassViewCommand;
+        private ICommand _gotoAdminNotificationCommand;
+
+
         private object _contentViewModel;
         private object _rightSideBar;
         private object _adminHomeViewModel;
         private object _adminSubjectClassViewModel;
+        private object _adminNotificationViewModel;
+
+
         private object _adminHomeRightSideBar;
         private object _adminSubjectClassRightSideBar;
+        private object _adminNotificationRightSideBar;
 
         public object ContentViewModel
         {
@@ -48,6 +55,7 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<NavigationItem> _navigationItems;
 
         public ObservableCollection<NavigationItem> NavigationItems { get => _navigationItems; set => _navigationItems = value; }
+        public ICommand GotoAdminNotificationCommand { get => _gotoAdminNotificationCommand; set => _gotoAdminNotificationCommand = value; }
 
         public LayoutViewModel()
         {
@@ -66,9 +74,10 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, this, "Home"),
                 new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, this, "Home"),
                 new NavigationItem("Đào tạo", true, temp, null, null, this, "ClockOutline"),
-                new NavigationItem("Đào tạo", true, temp, null, null, this, "ClockOutline"),
+                new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, this, "Home"),
             };
 
+            GotoAdminNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminNotificationView());
         }
 
         public void InitContentView()
@@ -76,6 +85,8 @@ namespace StudentManagement.ViewModels
             this._adminHomeViewModel = new AdminHomeViewModel();
 
             this._adminSubjectClassViewModel = new AdminSubjectClassViewModel();
+
+            this._adminNotificationViewModel = new AdminNotificationViewModel();
 
             this.ContentViewModel = this._adminHomeViewModel;
         }
@@ -85,6 +96,8 @@ namespace StudentManagement.ViewModels
             this._adminHomeRightSideBar = new AdminHomeRightSideBar();
 
             this._adminSubjectClassRightSideBar = new AdminSubjectClassRightSideBarViewModel();
+
+            this._adminNotificationRightSideBar = new AdminNotificationRightSideBar();
 
             this.RightSideBar = this._adminHomeRightSideBar;
         }
@@ -100,6 +113,12 @@ namespace StudentManagement.ViewModels
         {
             this.ContentViewModel = this._adminSubjectClassViewModel;
             this.RightSideBar = this._adminSubjectClassRightSideBar;
+        }
+
+        private void GotoAdminNotificationView()
+        {
+            this.ContentViewModel = this._adminNotificationViewModel;
+            this.RightSideBar = this._adminNotificationRightSideBar;
         }
 
         public class NavigationItem
@@ -147,6 +166,7 @@ namespace StudentManagement.ViewModels
                 LayoutViewModel.RightSideBar = this.RightSideBarNavigationItemViewModel;
 
             }
+
         }
     }
 }

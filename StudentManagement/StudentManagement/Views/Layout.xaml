@@ -49,6 +49,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassViewModel}">
                     <views:AdminSubjectClass />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminNotificationViewModel}">
+                    <views:AdminNotification />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />
