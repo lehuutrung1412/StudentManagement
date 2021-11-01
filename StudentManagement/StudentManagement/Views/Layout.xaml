@@ -37,10 +37,6 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <components:LeftSideBar Grid.Column="0" Grid.ColumnSpan="2" />
-        <ContentControl
-            Grid.Column="2"
-            Grid.ColumnSpan="7"
-            Content="{Binding ContentViewModel}" />
 
         <ContentControl
             Grid.Column="2"

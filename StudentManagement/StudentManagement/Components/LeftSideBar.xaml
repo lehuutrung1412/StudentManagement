@@ -2,11 +2,14 @@
     x:Class="StudentManagement.Components.LeftSideBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:components="clr-namespace:StudentManagement.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
+    xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -19,32 +22,48 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <Button
-                Height="auto"
-                Margin="0,0,0,10"
-                Command="{Binding GotoAdminHomeViewCommand}">
-                <StackPanel Width="auto" Height="auto">
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        HorizontalAlignment="Center"
-                        Kind="  Folder" />
-                    <TextBlock HorizontalAlignment="Center" Text="Home" />
-                </StackPanel>
-            </Button>
-            <Button
-                Height="auto"
-                Margin="0,0,0,10"
-                Command="{Binding GotoAdminSubjectClassViewCommand}">
-                <StackPanel Width="auto" Height="auto">
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        HorizontalAlignment="Center"
-                        Kind="ClockOutline" />
-                    <TextBlock HorizontalAlignment="Center" Text="Lớp môn học" />
-                </StackPanel>
-            </Button>
+            <!--<components:NavigationItem />
+            <components:NavigationDropdownList />-->
+            <ItemsControl ItemsSource="{Binding NavigationItems}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!--<component:SubjectClassCard Margin="12" />-->
+                        <ContentPresenter Content="{Binding}">
+
+                            <!--  Presentations  -->
+                            <ContentPresenter.Resources>
+                                <DataTemplate x:Key="NavigationItem">
+                                    <components:NavigationItem />
+                                </DataTemplate>
+                                <DataTemplate x:Key="NavigationDropDownList">
+                                    <components:NavigationDropdownList />
+                                </DataTemplate>
+                            </ContentPresenter.Resources>
+
+                            <!--  Triggers  -->
+                            <ContentPresenter.Style>
+                                <Style TargetType="{x:Type ContentPresenter}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CanBeExpanded}" Value="False">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource NavigationItem}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CanBeExpanded}" Value="True">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource NavigationDropDownList}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentPresenter.Style>
+
+                        </ContentPresenter>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
             <Button
                 Height="auto"
                 Margin="0,0,0,10"

@@ -58,10 +58,17 @@ namespace StudentManagement.ViewModels
             GotoAdminHomeViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminHomeView());
             GotoAdminSubjectClassViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoAdminSubjectClassView());
 
-            //NavigationItems = new ObservableCollection<NavigationItem>() {
-            //    new NavigationItem("Trang chủ", false, null, ),
-            //};
-            //NavigationItem(string navigationHeader, bool canBeExpanded, List < NavigationItem > expandedItems, object navigationItemView, LayoutViewModel layoutViewModel)
+            ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
+                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, this, "School"),
+            };
+
+            NavigationItems = new ObservableCollection<NavigationItem>() {
+                new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, this, "Home"),
+                new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, this, "Home"),
+                new NavigationItem("Đào tạo", true, temp, null, this, "ClockOutline"),
+                new NavigationItem("Đào tạo", true, temp, null, this, "ClockOutline"),
+            };
+
         }
 
         public void InitContentView()
@@ -101,7 +108,7 @@ namespace StudentManagement.ViewModels
 
             private bool _canBeExpanded;
 
-            private List<NavigationItem> _expandedItems;
+            private ObservableCollection<NavigationItem> _expandedItems;
 
             private object _navigationItemViewModel;
 
@@ -109,25 +116,29 @@ namespace StudentManagement.ViewModels
 
             private ICommand _goToView;
 
-            private static LayoutViewModel layoutViewModel;
+            private static LayoutViewModel _layoutViewModel;
 
-            public NavigationItem(string navigationHeader, bool canBeExpanded, List<NavigationItem> expandedItems, object navigationItemViewModel, LayoutViewModel layoutViewModel)
+            private string _icon;
+
+            public NavigationItem(string navigationHeader, bool canBeExpanded, ObservableCollection<NavigationItem> expandedItems, object navigationItemViewModel, LayoutViewModel layoutViewModel, string icon)
             {
                 _navigationHeader = navigationHeader;
                 _canBeExpanded = canBeExpanded;
                 _expandedItems = expandedItems;
                 _navigationItemViewModel = navigationItemViewModel;
                 LayoutViewModel = layoutViewModel;
+                _icon = icon;
                 GoToView = new RelayCommand<object>((p) => { return true; }, (p) => GoToViewFunction());
             }
 
             public string NavigationHeader { get => _navigationHeader; set => _navigationHeader = value; }
             public bool CanBeExpanded { get => _canBeExpanded; set => _canBeExpanded = value; }
-            public List<NavigationItem> ExpandedItems { get => _expandedItems; set => _expandedItems = value; }
+            public ObservableCollection<NavigationItem> ExpandedItems { get => _expandedItems; set => _expandedItems = value; }
             public object NavigationItemViewModel { get => _navigationItemViewModel; set => _navigationItemViewModel = value; }
             public object RightSideBarNavigationItemViewModel { get => _rightSideBarNavigationItemViewModel; set => _rightSideBarNavigationItemViewModel = value; }
             public ICommand GoToView { get => _goToView; set => _goToView = value; }
-            public static LayoutViewModel LayoutViewModel { get => layoutViewModel; set => layoutViewModel = value; }
+            public static LayoutViewModel LayoutViewModel { get => _layoutViewModel; set => _layoutViewModel = value; }
+            public string Icon { get => _icon; set => _icon = value; }
 
             private void GoToViewFunction()
             {
