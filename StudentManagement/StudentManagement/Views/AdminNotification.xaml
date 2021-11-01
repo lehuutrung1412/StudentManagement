@@ -31,11 +31,11 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+               
                         <component:NotificationCard
                             HorizontalAlignment="Stretch"
-                            Margin="5" />
-                    </Grid>
+                            Margin="16 5 16 5" />
+        
                     
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

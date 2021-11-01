@@ -20,7 +20,7 @@
     VerticalContentAlignment="Stretch"
     mc:Ignorable="d">
     <Border BorderBrush="{StaticResource Gray}" BorderThickness="2" CornerRadius="5" x:Name="bdNotification">
-        <Grid Width="600">
+        <Grid HorizontalAlignment="Stretch">
             <Button
                 Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}"
                 CommandParameter="{Binding ElementName=NotificationComponent}"
@@ -34,7 +34,7 @@
                 Background="Transparent"
                 Foreground="Black">
                 <Grid
-                    HorizontalAlignment="Stretch">
+                    Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
                             Width="64" />
@@ -125,6 +125,7 @@
 
                     </Grid>
                 </Grid>
+               
             </Button>
         </Grid>
     </Border>
