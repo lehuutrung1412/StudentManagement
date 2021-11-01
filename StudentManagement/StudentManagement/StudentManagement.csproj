@@ -98,6 +98,7 @@
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
+    <Compile Include="ViewModels\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarViewModel.cs" />
