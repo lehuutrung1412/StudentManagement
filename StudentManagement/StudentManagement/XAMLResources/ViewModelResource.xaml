@@ -8,4 +8,6 @@
     <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
     <viewmodel:TitleBarViewModel x:Key="TitleBarVM" />
     <viewmodel:UserInfoStudentViewModel x:Key="UserInfoStudentVM" />
+    <viewmodel:StudentCourseRegistryViewModel x:Key="StudentCourseRegistryVM" />
+    <viewmodel:StudentCourseRegistryRightSideBarViewModel x:Key="StudentCourseRegistryRightSideBarVM" />
 </ResourceDictionary>

@@ -36,13 +36,34 @@
                 Height="auto"
                 Margin="0,0,0,10"
                 Command="{Binding GotoAdminSubjectClassViewCommand}">
-                <StackPanel Width="auto" Height="auto">
+                <StackPanel
+                    Width="auto"
+                    Height="auto">
                     <materialDesign:PackIcon
                         Width="24"
                         Height="24"
                         HorizontalAlignment="Center"
                         Kind="ClockOutline" />
-                    <TextBlock HorizontalAlignment="Center" Text="Lớp môn học" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Text="Lớp môn học" />
+                </StackPanel>
+            </Button>
+            <Button
+                Height="auto"
+                Margin="0,0,0,10"
+                Command="{Binding GotoStudentCourseRegistryViewCommand}">
+                <StackPanel
+                    Width="auto"
+                    Height="auto">
+                    <materialDesign:PackIcon
+                        Width="24"
+                        Height="24"
+                        HorizontalAlignment="Center"
+                        Kind="CreditCardPlusOutline" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Text="SV - ĐKHP" />
                 </StackPanel>
             </Button>
             <Button

@@ -86,8 +86,17 @@
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\StudentCourseRegistryRightSideBar.xaml.cs">
+      <DependentUpon>StudentCourseRegistryRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\StudentCourseRegistryRightSideBarItem.xaml.cs">
+      <DependentUpon>StudentCourseRegistryRightSideBarItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassCard.xaml.cs">
       <DependentUpon>SubjectClassCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SubjectRegistryDataGrid.xaml.cs">
+      <DependentUpon>SubjectRegistryDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
@@ -103,6 +112,9 @@
     <Compile Include="ViewModels\LayoutViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\StudentCourseRegistryRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\StudentCourseRegistryRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\StudentCourseRegistryViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminHome.xaml.cs">
@@ -136,6 +148,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Views\StudentCourseRegistry.xaml.cs">
+      <DependentUpon>StudentCourseRegistry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserInfoAdmin.xaml.cs">
       <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
     </Compile>
@@ -150,7 +165,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\StudentCourseRegistryRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\StudentCourseRegistryRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\SubjectClassCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SubjectRegistryDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MyMessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StudentCourseRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
