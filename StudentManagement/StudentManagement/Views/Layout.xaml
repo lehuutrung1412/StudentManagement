@@ -55,6 +55,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:NewFeedSubjectClassDetailViewModel}">
                     <views:NewfeedSubjectClassDetail />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryViewModel}">
+                    <views:StudentCourseRegistry />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />
