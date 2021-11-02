@@ -58,6 +58,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryViewModel}">
                     <views:StudentCourseRegistry />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormItemViewModel}">
+                    <views:AdminFalcutyTrainingForm />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />

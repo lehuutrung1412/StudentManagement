@@ -20,37 +20,39 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid>
-        <StackPanel>
-            <TextBlock
-                FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                Text="Danh sách lớp môn học" />
-            <Grid Margin="16">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5.5*" />
-                    <ColumnDefinition Width="1.5*" />
-                </Grid.ColumnDefinitions>
-                <component:SearchBarOne Grid.Column="0" DataContext="{DynamicResource AdminSubjectClassVM}" />
-                <Button
-                    Grid.Column="1"
-                    Height="50"
-                    Margin="16"
-                    Content="Thêm lớp học"
-                    FontSize="16" />
-            </Grid>
-            <ItemsControl ItemsSource="{Binding Cards}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Center" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <component:SubjectClassCard Margin="12" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
-    </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+        <Grid>
+            <StackPanel>
+                <TextBlock
+                    FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Text="Danh sách lớp môn học" />
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5.5*" />
+                        <ColumnDefinition Width="1.5*" />
+                    </Grid.ColumnDefinitions>
+                    <component:SearchBarOne Grid.Column="0" DataContext="{DynamicResource AdminSubjectClassVM}" />
+                    <Button
+                        Grid.Column="1"
+                        Height="50"
+                        Margin="16"
+                        Content="Thêm lớp học"
+                        FontSize="16" />
+                </Grid>
+                <ItemsControl ItemsSource="{Binding Cards}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <component:SubjectClassCard Margin="12" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

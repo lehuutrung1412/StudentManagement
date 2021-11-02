@@ -24,12 +24,14 @@ namespace StudentManagement.ViewModels
         private object _adminNotificationViewModel;
         private object _newFeedSubjectClassDetailViewModel;
         private object _studentCourseRegistryViewModel;
+        private object _adminFalcutyTrainingFormViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
         private object _adminHomeRightSideBar;
         private object _adminSubjectClassRightSideBar;
         private object _adminNotificationRightSideBar;
         private object _studentCourseRegistryRightSideBar;
+        private object _adminFalcutyTrainingFormRightSideBar;
 
         public object ContentViewModel
         {
@@ -65,6 +67,7 @@ namespace StudentManagement.ViewModels
 
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, this, "School"),
+                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFalcutyTrainingFormViewModel, _adminFalcutyTrainingFormRightSideBar, this, "School")
             };
 
             NavigationItems = new ObservableCollection<NavigationItem>() {
@@ -85,22 +88,26 @@ namespace StudentManagement.ViewModels
 
             this._adminNotificationViewModel = new AdminNotificationViewModel();
 
-            this._newFeedSubjectClassDetailViewModel = new NewfeedSubjectClassDetail();
+            this._newFeedSubjectClassDetailViewModel = new NewFeedSubjectClassDetailViewModel();
 
             this._studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
+
+            this._adminFalcutyTrainingFormViewModel = new AdminFalcutyTrainingFormItemViewModel();
 
             this.ContentViewModel = this._adminHomeViewModel;
         }
 
         public void InitRightSideBar()
         {
-            this._adminHomeRightSideBar = new AdminHomeRightSideBar();
+            this._adminHomeRightSideBar = new AdminHomeRightSideBarViewModel();
 
             this._adminSubjectClassRightSideBar = new AdminSubjectClassRightSideBarViewModel();
 
-            this._adminNotificationRightSideBar = new AdminNotificationRightSideBar();
+            this._adminNotificationRightSideBar = new AdminNotificationRightSideBarViewModel();
 
-            this._studentCourseRegistryRightSideBar = new StudentCourseRegistryRightSideBar();
+            this._studentCourseRegistryRightSideBar = new StudentCourseRegistryRightSideBarViewModel();
+
+            this._adminFalcutyTrainingFormRightSideBar = new AdminFalcutyTrainingFormRightSideBarViewModel();
 
             this.RightSideBar = this._adminHomeRightSideBar;
         }
