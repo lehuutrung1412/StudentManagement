@@ -109,6 +109,9 @@
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ScoreboardDataGrid.xaml.cs">
+      <DependentUpon>ScoreboardDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SearchBarOne.xaml.cs">
       <DependentUpon>SearchBarOne.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NewFeedSubjectClassDetailViewModel.cs" />
+    <Compile Include="ViewModels\ScoreBoardViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryViewModel.cs" />
@@ -210,6 +214,9 @@
     <Compile Include="Views\NewfeedSubjectClassDetail.xaml.cs">
       <DependentUpon>NewfeedSubjectClassDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ScoreBoard.xaml.cs">
+      <DependentUpon>ScoreBoard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StudentCourseRegistry.xaml.cs">
       <DependentUpon>StudentCourseRegistry.xaml</DependentUpon>
     </Compile>
@@ -236,6 +243,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\RightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ScoreboardDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -304,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewfeedSubjectClassDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScoreBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
