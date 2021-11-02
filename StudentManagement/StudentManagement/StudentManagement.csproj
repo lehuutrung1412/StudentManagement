@@ -70,6 +70,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\AdminFalcutyTrainingFormRightSideBar.xaml.cs">
+      <DependentUpon>AdminFalcutyTrainingFormRightSideBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,9 @@
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
+    <Compile Include="ViewModels\AdminFalcutyRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\AdminFalcutyTrainingFormRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\AdminFalcutyTrainingFormItemViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationRightSideBarItemViewModel.cs" />
@@ -135,6 +141,7 @@
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassViewModel.cs" />
+    <Compile Include="ViewModels\AdminTrainingFormRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CreatePostNewFeedViewModel.cs" />
     <Compile Include="ViewModels\EmptyStateRightSideBarViewModel.cs" />
@@ -147,6 +154,9 @@
     <Compile Include="ViewModels\StudentCourseRegistryViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
+    <Compile Include="Views\AdminFalcutyTrainingForm.xaml.cs">
+      <DependentUpon>AdminFalcutyTrainingForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
     </Compile>
@@ -165,6 +175,10 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\AdminFalcutyTrainingFormRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\AdminHomeRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -261,6 +275,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AdminFalcutyTrainingForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AdminHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
