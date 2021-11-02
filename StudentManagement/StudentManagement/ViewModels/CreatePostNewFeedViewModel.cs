@@ -30,7 +30,7 @@ namespace StudentManagement.ViewModels
 
         private void DeleteImageInDraftPost(object image)
         {
-            _ = StackImageDraft.Remove((image as Button).Tag as string);
+            _ = StackImageDraft.Remove((image as Button)?.Tag as string);
         }
 
         private void SendDraftPost(UserControl post)
