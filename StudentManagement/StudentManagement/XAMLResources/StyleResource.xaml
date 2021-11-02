@@ -184,7 +184,18 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    <!--  AdminNotification  -->
+    <Style
+        x:Key="AdminNotificationButton"
+        BasedOn="{StaticResource MaterialDesignFlatButton}"
+        TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLight}" />
+                <Setter Property="BorderThickness" Value="3" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <!--  UserInfo  -->
     <Style x:Key="Retangle" TargetType="{x:Type Rectangle}">
         <Setter Property="Width" Value="300" />
@@ -204,13 +215,13 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="MaxLines" Value="1" />
-        <Setter
-            Property="Height"
-            Value="28" />
+        <Setter Property="Height" Value="28" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Padding" Value="10,0" />
+        <Setter
+            Property="Padding"
+            Value="10,0" />
     </Style>
 
     <Style x:Key="LabelText" TargetType="{x:Type Label}">

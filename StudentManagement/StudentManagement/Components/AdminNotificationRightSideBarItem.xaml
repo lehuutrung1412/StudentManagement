@@ -13,6 +13,7 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    Name="RightSideBarComponent"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -62,6 +63,7 @@
                     Style="{StaticResource textblock_item}"
                     Text="Người đăng:" />
                 <TextBlock
+                    x:Name="tbUser"
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     FontSize="14"
@@ -74,10 +76,13 @@
                 Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition
-                        Width="16*" />
+                        Width="64*" />
                     <ColumnDefinition
-                        Width="15*" />
-                    <ColumnDefinition />
+                        Width="53*" />
+                    <ColumnDefinition
+                        Width="7*" />
+                    <ColumnDefinition
+                        Width="4*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -86,7 +91,7 @@
                     FontSize="16"
                     Style="{StaticResource textblock_item}"
                     Text="Ngày đăng:"
-                    Margin="8,0,8,-0.8" />
+                    Margin="8,0,8,-1.6" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
@@ -95,8 +100,8 @@
                     VerticalAlignment="Center"
                     FontSize="14"
                     TextAlignment="Right"
-                    Grid.ColumnSpan="2"
-                    Margin="8,0,8,-0.8" />
+                    Grid.ColumnSpan="3"
+                    Margin="8,1,8,0.4" />
             </Grid>
             <Grid
                 Style="{StaticResource text_grid_item}">
@@ -126,13 +131,13 @@
                     Margin="5" />
             </Grid>
             <Button
+                Command="{Binding Editnotification}"
+                DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
                 x:Name="btnEdit"
                 BorderThickness="0"
                 Padding="0"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
-                
-
 
                 <Grid
                     Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
