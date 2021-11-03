@@ -22,9 +22,9 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     HeadersVisibility="All"
-                    ItemsSource="{Binding .}"
-                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                    ItemsSource="{Binding .}">
                     <DataGrid.Resources>
+                        <!--  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"  -->
                         <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
                             <Setter Property="ContentTemplate">

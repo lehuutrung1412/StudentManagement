@@ -33,7 +33,6 @@
             Grid.ColumnSpan="4"
             VerticalAlignment="Center"
             materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
-            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedPasswordFieldPasswordBoxEnabledComboBox}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}" />
         <TextBlock
             Grid.Column="1"

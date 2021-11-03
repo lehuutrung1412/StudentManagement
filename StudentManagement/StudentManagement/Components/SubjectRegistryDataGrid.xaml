@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="SubjectClassCardComponent"
+    x:Name="CourseDataGrid"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -16,22 +16,22 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid Width="auto" Height="auto">
-        <materialDesign:Card VerticalAlignment="Stretch">
+        <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <DataGrid
-                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     HeadersVisibility="All"
-                    ItemsSource="{Binding CourseRegistryItems}">
+                    ItemsSource="{Binding Path=Data, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=CourseDataGrid}"
+                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn
-                            Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
+                            Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
                             ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}">
                             <DataGridCheckBoxColumn.Header>
                                 <Border Background="Transparent">
-                                    <CheckBox />
+                                    <!--<CheckBox IsChecked="{Binding IsAllItemsSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ElementName=CourseDataGrid}" />-->
                                 </Border>
                             </DataGridCheckBoxColumn.Header>
                             <DataGridCheckBoxColumn.HeaderStyle>
@@ -41,22 +41,17 @@
                             </DataGridCheckBoxColumn.HeaderStyle>
                         </DataGridCheckBoxColumn>
                         <DataGridTextColumn
-                            Binding="{Binding IdSubjectClass}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                            Binding="{Binding IdSubjectClass, Mode=OneWay}"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                             Header="Mã lớp học" />
-                        <!--  if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn  -->
-                        <materialDesign:DataGridTextColumn
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Tên môn học">
+                        <materialDesign:DataGridTextColumn ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" Header="Tên môn học">
                             <materialDesign:DataGridTextColumn.Binding>
-                                <Binding Path="SubjectName" />
+                                <Binding Mode="OneWay" Path="SubjectName" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding Credit}"
+                            Binding="{Binding Credit, Mode=OneWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Số tín chỉ">
                             <DataGridTextColumn.HeaderStyle>
@@ -82,7 +77,7 @@
                         </materialDesign:DataGridTextColumn>
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding LimitStudentCount}"
+                            Binding="{Binding LimitStudentCount, Mode=OneWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Giới hạn">
                             <DataGridTextColumn.HeaderStyle>
@@ -109,7 +104,7 @@
                         <!--  use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo  -->
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding RegisteredCount}"
+                            Binding="{Binding RegisteredCount, Mode=OneWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Đã đăng ký">
                             <DataGridTextColumn.HeaderStyle>
