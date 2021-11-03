@@ -83,7 +83,7 @@ namespace StudentManagement.ViewModels
                (p) =>
                {
                    RealCards = Cards;
-                   var tmp = Cards.Where(x => x.ChuDe.ToLower().Contains(SearchInfo.ToLower()));
+                   var tmp = Cards.Where(x => RemoveSign4VietnameseString(x.ChuDe).ToLower().Contains(SearchInfo.ToLower()));
                    RealCards = new ObservableCollection<CardNotification>(tmp);
                });
             PopUpNotification = new RelayCommand<object>(
@@ -92,6 +92,48 @@ namespace StudentManagement.ViewModels
             {
 
             });
+        }
+        private static readonly string[] VietnameseSigns = new string[]
+        {
+
+            "aAeEoOuUiIdDyY",
+
+            "áàạảãâấầậẩẫăắằặẳẵ",
+
+            "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+
+            "éèẹẻẽêếềệểễ",
+
+            "ÉÈẸẺẼÊẾỀỆỂỄ",
+
+            "óòọỏõôốồộổỗơớờợởỡ",
+
+            "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+
+            "úùụủũưứừựửữ",
+
+            "ÚÙỤỦŨƯỨỪỰỬỮ",
+
+            "íìịỉĩ",
+
+            "ÍÌỊỈĨ",
+
+            "đ",
+
+            "Đ",
+
+            "ýỳỵỷỹ",
+
+            "ÝỲỴỶỸ"
+        };
+        public static string RemoveSign4VietnameseString(string str)
+        {
+            for (int i = 1; i < VietnameseSigns.Length; i++)
+            {
+                for (int j = 0; j < VietnameseSigns[i].Length; j++)
+                    str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
+            }
+            return str;
         }
     }
 }

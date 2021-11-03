@@ -22,10 +22,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Border
-        x:Name="bdNotification"
-        BorderBrush="{StaticResource DarkGray}"
-        BorderThickness="2"
-        CornerRadius="5">
+        x:Name="bdNotification">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="15"
@@ -40,13 +37,11 @@
                 Margin="0"
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"
-                Panel.ZIndex="2"
-                Background="Transparent"
-                BorderThickness="0"
+                Panel.ZIndex="2"           
                 Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}"
                 CommandParameter="{Binding ElementName=NotificationComponent}"
                 Foreground="Black"
-                Style="{StaticResource MaterialDesignFlatDarkButton}">
+                Style="{StaticResource AdminNotificationButton}">
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.8*" />
@@ -111,7 +106,7 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#03a9f4"
-                            Text="{Binding NgayDang, FallbackValue='Ngày Đăng'}" />
+                            Text="{Binding NgayDang, StringFormat='dd/MM/yyyy', FallbackValue='Ngày Đăng'}"/>
                         <Button
                             Grid.Row="1"
                             Style="{StaticResource  MaterialDesignFlatButton}"

@@ -266,11 +266,38 @@
         x:Key="AdminNotificationButton"
         BasedOn="{StaticResource MaterialDesignFlatButton}"
         TargetType="{x:Type Button}">
+        <Setter
+            Property="BorderBrush"
+            Value="{DynamicResource DarkGray}" />
+        <Setter
+            Property="BorderThickness"
+            Value="3" />
+        <Setter
+            Property="materialDesign:ButtonAssist.CornerRadius"
+            Value="5"></Setter>
+        <Setter
+            Property="Background"
+            Value="{DynamicResource White}" /> 
+
         <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLight}" />
-                <Setter Property="BorderThickness" Value="3" />
+            <Trigger
+                Property="IsFocused"
+                Value="True">
+                <Setter
+                    Property="BorderBrush"
+                    Value="{DynamicResource PrimaryMain}" />
+                <Setter
+                    Property="BorderThickness"
+                    Value="3" />
             </Trigger>
+            <Trigger
+                Property="IsMouseOver"
+                Value="True">
+                <Setter
+                    Property="Background"
+                    Value="{DynamicResource PrimaryLight}" />
+            </Trigger>
+
         </Style.Triggers>
     </Style>
     <!--  UserInfo  -->

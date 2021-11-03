@@ -98,7 +98,7 @@
                         Padding="8 0 0 0"
                         FontWeight="SemiBold"
                         Foreground="#01579b"
-                        SelectedDate="{Binding CurrentCard.NgayDang}"/>
+                        SelectedDate="{Binding CurrentCard.NgayDang, ConverterCulture='vi-VN', StringFormat='dd/MM/yyyy' }"/>
 
                       <!--SelectedDate="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng'}"-->  
                     <!--<Data
