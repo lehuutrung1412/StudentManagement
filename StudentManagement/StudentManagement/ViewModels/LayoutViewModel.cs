@@ -92,7 +92,7 @@ namespace StudentManagement.ViewModels
 
             this._studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
 
-            this._adminFalcutyTrainingFormViewModel = new AdminFalcutyTrainingFormItemViewModel();
+            this._adminFalcutyTrainingFormViewModel = new AdminFalcutyTrainingFormViewModel();
 
             this.ContentViewModel = this._adminHomeViewModel;
         }

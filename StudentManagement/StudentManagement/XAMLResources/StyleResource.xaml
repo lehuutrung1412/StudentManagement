@@ -220,36 +220,33 @@
                         </Border.Effect>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition
-                                    Width="*" />
-                                <ColumnDefinition
-                                    Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBox
                                 Name="txbComment"
-                                Margin="16 8"
+                                Grid.Column="0"
+                                Margin="16,8"
                                 VerticalAlignment="Center"
                                 materialDesign:HintAssist.Hint="Thêm bình luận..."
                                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                 BorderThickness="0"
-                                Grid.Column="0"
                                 FontSize="14"
                                 Style="{StaticResource MaterialDesignTextBoxBase}">
                                 <TextBox.InputBindings>
                                     <KeyBinding
+                                        Key="Enter"
                                         Command="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                        CommandParameter="{Binding ElementName=txbComment}"
-                                        Key="Enter" />
+                                        CommandParameter="{Binding ElementName=txbComment}" />
                                 </TextBox.InputBindings>
                             </TextBox>
                             <Button
+                                Grid.Column="1"
+                                Margin="0,8,16,8"
                                 Command="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                CommandParameter="{Binding ElementName=txbComment}"
-                                Margin="0 8 16 8"
-                                Grid.Column="1">
+                                CommandParameter="{Binding ElementName=txbComment}">
                                 <Button.Template>
-                                    <ControlTemplate
-                                        TargetType="{x:Type Button}">
+                                    <ControlTemplate TargetType="{x:Type Button}">
                                         <Image
                                             Width="28"
                                             Height="28"
@@ -283,9 +280,7 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="MaxLines" Value="1" />
-        <Setter
-            Property="Height"
-            Value="28" />
+        <Setter Property="Height" Value="28" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />

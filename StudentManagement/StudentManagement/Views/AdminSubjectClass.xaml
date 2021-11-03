@@ -32,7 +32,11 @@
                         <ColumnDefinition Width="5.5*" />
                         <ColumnDefinition Width="1.5*" />
                     </Grid.ColumnDefinitions>
-                    <component:SearchBarOne Grid.Column="0" DataContext="{DynamicResource AdminSubjectClassVM}" />
+                    <component:SearchBarOne
+                        Grid.Column="0"
+                        DataContext="{DynamicResource AdminSubjectClassVM}"
+                        FirstSearchButtonText="Mã lớp"
+                        SecondSearchButtonText="Giáo viên" />
                     <Button
                         Grid.Column="1"
                         Height="50"

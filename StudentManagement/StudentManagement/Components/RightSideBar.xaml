@@ -44,7 +44,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryRightSideBarViewModel}">
                     <component:StudentCourseRegistryRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormItemViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormViewModel}">
                     <component:AdminFalcutyTrainingFormRightSideBar />
                 </DataTemplate>
             </ContentControl.Resources>
