@@ -117,8 +117,13 @@
                 <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminNotificationRightSideBarItemViewModel}">
+                <DataTemplate
+                    DataType="{x:Type viewmodels:AdminNotificationRightSideBarItemViewModel}">
                     <components:AdminNotificationRightSideBarItem />
+                </DataTemplate>
+                <DataTemplate
+                    DataType="{x:Type viewmodels:AdminNotificationRightSideBarEdit}">
+                    <components:AdminNotificationRightSideBarEdit />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

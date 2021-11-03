@@ -23,9 +23,16 @@
     mc:Ignorable="d">
     <Border
         x:Name="bdNotification"
-        BorderBrush="{StaticResource Gray}"
+        BorderBrush="{StaticResource DarkGray}"
         BorderThickness="2"
         CornerRadius="5">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="15"
+                Opacity="0.3"
+                ShadowDepth="0"
+                Color="DarkGray" />
+        </Border.Effect>
         <Grid HorizontalAlignment="Stretch">
             <Button
                 x:Name="btnNotification"
@@ -33,6 +40,7 @@
                 Margin="0"
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"
+                Panel.ZIndex="2"
                 Background="Transparent"
                 BorderThickness="0"
                 Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}"
@@ -41,7 +49,7 @@
                 Style="{StaticResource MaterialDesignFlatDarkButton}">
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="64" />
+                        <ColumnDefinition Width="0.8*" />
                         <ColumnDefinition Width="5" />
                         <ColumnDefinition Width="7*" />
                         <ColumnDefinition Width="2*" />
@@ -50,7 +58,7 @@
                         <Ellipse
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                             HorizontalAlignment="Stretch"
-                            Stroke="Gray"
+                            Stroke="{StaticResource DarkGray}"
                             StrokeThickness="2">
                             <Ellipse.Fill>
                                 <ImageBrush ImageSource="https://picsum.photos/200" Stretch="UniformToFill" />
@@ -104,19 +112,22 @@
                             FontWeight="SemiBold"
                             Foreground="#03a9f4"
                             Text="{Binding NgayDang, FallbackValue='Ngày Đăng'}" />
-
-
-
-                        <TextBlock
+                        <Button
                             Grid.Row="1"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom"
-                            FontSize="16"
-                            FontWeight="SemiBold"
-                            Foreground="#ba68c8"
-                            Text="Xem thông báo"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
+                            Style="{StaticResource  MaterialDesignFlatButton}"
+                            Padding="0"
+                            Panel.ZIndex="1">
+                            <TextBlock
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                Foreground="#ba68c8"
+                                Text="Xem thông báo"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap" />
+                        </Button>
 
                     </Grid>
                 </Grid>

@@ -1,0 +1,58 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.AdminNotificationSearchBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    x:Name="SubjectClassCardComponent"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.2'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.3'}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <Border BorderBrush="{StaticResource PrimaryMain}" CornerRadius="5" BorderThickness="2" Padding="0">
+        <Grid
+            Height="36"
+            Margin="16 0"
+            
+            VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="4*" />
+                <ColumnDefinition
+                    Width="1.5*" />
+            </Grid.ColumnDefinitions>
+            <Grid
+                Grid.Column="0" Margin="0 0 16 0">
+                <TextBox
+                    Text="{Binding SearchInfo, UpdateSourceTrigger=PropertyChanged}"
+                    DataContext="{DynamicResource AdminNotificationVM}"
+                    FontSize="14"
+                    Padding="0"
+                    Margin="8 4 0 0"
+                    MaxLines="2"
+                    Grid.ColumnSpan="4"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
+                    TextWrapping="Wrap"
+                    MaxWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid }}, Path=ActualWidth}"
+                    Style="{StaticResource MaterialDesignTextBoxBase}" />
+            </Grid>
+            <!--IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedPasswordFieldPasswordBoxEnabledComboBox}"-->
+            <DatePicker
+                Height="32"
+                Padding="4 4 16 0"
+                Grid.Column="1"
+                materialDesign:HintAssist.Hint="Chọn ngày"
+                Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+        </Grid>
+    </Border>
+</UserControl>

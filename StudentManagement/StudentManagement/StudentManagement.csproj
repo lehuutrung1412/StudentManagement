@@ -79,8 +79,14 @@
     <Compile Include="Components\AdminNotificationRightSideBar.xaml.cs">
       <DependentUpon>AdminNotificationRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\AdminNotificationRightSideBarEdit.xaml.cs">
+      <DependentUpon>AdminNotificationRightSideBarEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\AdminNotificationRightSideBarItem.xaml.cs">
       <DependentUpon>AdminNotificationRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminNotificationSearchBar.xaml.cs">
+      <DependentUpon>AdminNotificationSearchBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\AdminSubjectClassRightSideBar.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBar.xaml</DependentUpon>
@@ -105,6 +111,9 @@
     </Compile>
     <Compile Include="Components\NavigationItem.xaml.cs">
       <DependentUpon>NavigationItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\NewNotification.xaml.cs">
+      <DependentUpon>NewNotification.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\NotificationCard.xaml.cs">
       <DependentUpon>NotificationCard.xaml</DependentUpon>
@@ -145,6 +154,7 @@
     <Compile Include="ViewModels\AdminFalcutyTrainingFormViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarEdit.cs" />
     <Compile Include="ViewModels\AdminNotificationRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationViewModel.cs" />
@@ -198,7 +208,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\AdminNotificationRightSideBarEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\AdminNotificationRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationSearchBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\NavigationItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\NewNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

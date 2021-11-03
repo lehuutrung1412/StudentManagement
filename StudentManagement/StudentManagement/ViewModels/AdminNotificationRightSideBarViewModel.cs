@@ -27,6 +27,8 @@ namespace StudentManagement.ViewModels
 
         private object _adminNotificationRightSideBarItemViewModel;
 
+        private object _adminNotificationRightSideBarEditViewModel;
+
         private object _emptyStateRightSideBarViewModel;
 
 
@@ -34,10 +36,19 @@ namespace StudentManagement.ViewModels
 
         private ICommand _showCardInfo;
 
+        public ICommand Editnotification { get => _editNotification; set => _editNotification = value; }
+
+        private ICommand _editNotification;
+
+        public ICommand CancelNotificationCommand { get => _cancelNotification; set => _cancelNotification = value; }
+
+        private ICommand _cancelNotification;
         public AdminNotificationRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
+            Editnotification = new RelayCommand<object>((p) => { return true; }, (p) => EditnotificationByCardDataContext());
+            CancelNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CancelNotification());
         }
 
 
@@ -54,7 +65,18 @@ namespace StudentManagement.ViewModels
 
             this._adminNotificationRightSideBarItemViewModel = new AdminNotificationRightSideBarItemViewModel(card);
 
+            this._adminNotificationRightSideBarEditViewModel = new AdminNotificationRightSideBarEdit(card);
+
             this.RightSideBarItemViewModel = this._adminNotificationRightSideBarItemViewModel;
         }
+        public void EditnotificationByCardDataContext()
+        { 
+            this.RightSideBarItemViewModel = this._adminNotificationRightSideBarEditViewModel;
+        }
+        public void CancelNotification()
+        {
+            this.RightSideBarItemViewModel = this._adminNotificationRightSideBarItemViewModel;
+        }
+
     }
 }

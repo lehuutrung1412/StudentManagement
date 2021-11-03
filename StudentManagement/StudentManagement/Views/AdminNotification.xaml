@@ -21,17 +21,57 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <ItemsControl ItemsSource="{Binding Cards}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Center" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <component:NotificationCard Margin="16,5,16,5" HorizontalAlignment="Stretch" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <StackPanel>
+            <TextBlock
+                Margin="16 8"
+                FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Text="Danh sách lớp môn học" />
+            <Grid
+                Margin="16"
+                Height="56">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="209*" />
+                    <ColumnDefinition
+                        Width="865*" />
+                    <ColumnDefinition
+                        Width="430*" />
+                </Grid.ColumnDefinitions>
+                <component:AdminNotificationSearchBar
+                    Grid.Column="0"
+                    DataContext="{DynamicResource AdminNotificationVM}"
+                    Grid.ColumnSpan="2"
+                    Margin="0,0,0.4,0" />
+                <Button
+                    Command="{Binding Search}"
+                    Grid.Column="2"
+                    Style="{StaticResource PrimaryButton}"
+                    Margin="15.6,8,32,8">
+                    <TextBlock
+                        Text="Thêm thông báo"
+                        TextWrapping="Wrap"
+                        TextAlignment="Center"
+                        FontSize="14" />
+                </Button>
+            </Grid>
+            <ItemsControl
+                ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel
+                            HorizontalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <component:NotificationCard
+                            Margin="16,5,16,5"
+                            HorizontalAlignment="Stretch" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
     </Grid>
 </UserControl>
