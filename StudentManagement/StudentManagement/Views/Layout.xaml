@@ -58,7 +58,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryViewModel}">
                     <views:StudentCourseRegistry />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormItemViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormViewModel}">
                     <views:AdminFalcutyTrainingForm />
                 </DataTemplate>
             </ContentControl.Resources>

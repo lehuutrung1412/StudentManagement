@@ -24,5 +24,21 @@ namespace StudentManagement.Components
         {
             InitializeComponent();
         }
+
+        public string FirstSearchButtonText
+        {
+            get => (string)GetValue(FirstSearchButtonTextProperty);
+            set => SetValue(FirstSearchButtonTextProperty, value);
+        }
+        public string SecondSearchButtonText
+        {
+            get => (string)GetValue(SecondSearchButtonTextProperty);
+            set => SetValue(SecondSearchButtonTextProperty, value);
+        }
+
+        public static readonly DependencyProperty FirstSearchButtonTextProperty =
+            DependencyProperty.RegisterAttached("FirstSearchButtonText", typeof(string), typeof(SearchBarOne), new PropertyMetadata("Mã lớp"));
+        public static readonly DependencyProperty SecondSearchButtonTextProperty =
+            DependencyProperty.RegisterAttached("SecondSearchButtonText", typeof(string), typeof(SearchBarOne), new PropertyMetadata("Giáo viên"));
     }
 }

@@ -94,6 +94,9 @@
     <Compile Include="Components\EmptyStateRightSideBar.xaml.cs">
       <DependentUpon>EmptyStateRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\FalcutyDataGrid.xaml.cs">
+      <DependentUpon>FalcutyDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\LeftSideBar.xaml.cs">
       <DependentUpon>LeftSideBar.xaml</DependentUpon>
     </Compile>
@@ -127,12 +130,15 @@
     <Compile Include="Components\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\TrainingFormCard.xaml.cs">
+      <DependentUpon>TrainingFormCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="ViewModels\AdminFalcutyRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminFalcutyTrainingFormRightSideBarViewModel.cs" />
-    <Compile Include="ViewModels\AdminFalcutyTrainingFormItemViewModel.cs" />
+    <Compile Include="ViewModels\AdminFalcutyTrainingFormViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationRightSideBarItemViewModel.cs" />
@@ -219,6 +225,10 @@
     <Compile Include="Views\UserInfoStudent.xaml.cs">
       <DependentUpon>UserInfoStudent.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\FalcutyDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\LeftSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\TitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\TrainingFormCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
