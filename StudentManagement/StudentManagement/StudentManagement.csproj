@@ -86,6 +86,9 @@
     <Compile Include="Components\LeftSideBar.xaml.cs">
       <DependentUpon>LeftSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\PostNewsfeed.xaml.cs">
+      <DependentUpon>PostNewsfeed.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,7 @@
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
+    <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
@@ -107,6 +111,8 @@
     <Compile Include="ViewModels\LayoutViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\NewFeedSubjectClassDetailViewModel.cs" />
+    <Compile Include="ViewModels\PostNewsfeedViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminHome.xaml.cs">
@@ -154,6 +160,10 @@
       <DependentUpon>UserInfoStudent.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\LeftSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\PostNewsfeed.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -281,6 +291,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\send.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\worldwide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\blue_tick.png" />
+    <Resource Include="Resources\Images\left.png" />
+    <Resource Include="Resources\Images\right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\image_default.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets')" />
