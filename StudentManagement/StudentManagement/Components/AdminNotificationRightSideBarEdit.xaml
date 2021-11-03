@@ -135,7 +135,8 @@
                 <ComboBox 
                     Grid.Column="1"
                     Height="28"
-                    materialDesign:HintAssist.Hint="Loại bài đăng"
+                   
+                    
                     FontSize="14"
                     FontWeight="SemiBold"
                     Padding="8 4 0 4"
@@ -176,6 +177,8 @@
                         Style="{StaticResource PrimaryButton}" />
                     <Button
                         Grid.Column="1"
+                        Command="{Binding CancelNotificationCommand}"
+                        DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
                         Margin="8,0,0,0"
                         HorizontalAlignment="Stretch"
                         Background="Red"
@@ -186,6 +189,7 @@
             </Grid>
             <Button
                 x:Name="btnDelete"
+                
                 Padding="0"
                 BorderThickness="0"
                 Foreground="#DD000000"

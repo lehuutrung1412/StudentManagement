@@ -26,6 +26,13 @@
         BorderBrush="{StaticResource DarkGray}"
         BorderThickness="2"
         CornerRadius="5">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="15"
+                Opacity="0.3"
+                ShadowDepth="0"
+                Color="DarkGray" />
+        </Border.Effect>
         <Grid HorizontalAlignment="Stretch">
             <Button
                 x:Name="btnNotification"
@@ -107,7 +114,7 @@
                             Text="{Binding NgayDang, FallbackValue='Ngày Đăng'}" />
                         <Button
                             Grid.Row="1"
-                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Style="{StaticResource  MaterialDesignFlatButton}"
                             Padding="0"
                             Panel.ZIndex="1">
                             <TextBlock

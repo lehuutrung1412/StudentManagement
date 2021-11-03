@@ -106,6 +106,9 @@
     <Compile Include="Components\NavigationItem.xaml.cs">
       <DependentUpon>NavigationItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\NewNotification.xaml.cs">
+      <DependentUpon>NewNotification.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\NotificationCard.xaml.cs">
       <DependentUpon>NotificationCard.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\NavigationItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\NewNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
