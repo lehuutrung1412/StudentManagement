@@ -2,6 +2,11 @@
     <BitmapImage x:Key="Logo" UriSource="pack://application:,,,/Resources/Images/logo.png" />
     <BitmapImage x:Key="AddImage" UriSource="pack://application:,,,/Resources/Images/picture.png" />
     <BitmapImage x:Key="Send" UriSource="pack://application:,,,/Resources/Images/send.png" />
+    <BitmapImage x:Key="Global" UriSource="pack://application:,,,/Resources/Images/worldwide.png" />
+    <BitmapImage x:Key="BlueTick" UriSource="pack://application:,,,/Resources/Images/blue_tick.png" />
+    <BitmapImage x:Key="LeftArrow" UriSource="pack://application:,,,/Resources/Images/left.png" />
+    <BitmapImage x:Key="RightArrow" UriSource="pack://application:,,,/Resources/Images/right.png" />
+    <BitmapImage x:Key="ImageDefault" UriSource="pack://application:,,,/Resources/Images/image_default.png" />
     <BitmapImage x:Key="DefaultUserAvatar" UriSource="pack://application:,,,/Resources/Images/user.png" />
     <PathGeometry x:Key="CloseButton" Figures="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
     <PathGeometry x:Key="MinimizeButton" Figures="M6 12h12v2H6z" />
