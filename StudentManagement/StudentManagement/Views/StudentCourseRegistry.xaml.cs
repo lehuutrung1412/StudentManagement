@@ -24,6 +24,5 @@ namespace StudentManagement.Views
         {
             InitializeComponent();
         }
-
     }
 }

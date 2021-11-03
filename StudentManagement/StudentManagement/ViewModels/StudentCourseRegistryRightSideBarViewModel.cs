@@ -33,12 +33,13 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
                 if (_selectedItem != null)
                 {
-                    SelectedClass = SubjectClasses.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass) as SubjectClass;
+                    int count = SubjectClasses.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass).Count();
+                    SelectedClass = SubjectClasses.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass).ToList()[0];
                     this._studentCourseRegistryRightSideBarItemViewModel = new StudentCourseRegistryRightSideBarItemViewModel(SelectedClass);
                     this.RightSideBarItemViewModel = this._studentCourseRegistryRightSideBarItemViewModel;
                 }
+                
             }
-
         }
         private SubjectClass _selectedClass;
         public SubjectClass SelectedClass
@@ -74,6 +75,33 @@ namespace StudentManagement.ViewModels
             this._studentCourseRegistryRightSideBarItemViewModel = new StudentCourseRegistryRightSideBarItemViewModel();
             this._emptyStateRightSideBarViewModel = new EmptyStateRightSideBarViewModel();
             this.RightSideBarItemViewModel = this._emptyStateRightSideBarViewModel;
+        }
+        public class SubjectClass
+        {
+            private string _idSubjectClass;
+            private string _subjectName;
+            private int _credit;
+            private string _teacherName;
+            private DateTime _startDate;
+            private DateTime _endDate;
+            private string _tKB;
+            public SubjectClass(string idSubjectClass, string subjectName, int credit, string teacherName, DateTime startDate, DateTime endDate, string tKB)
+            {
+                IdSubjectClass = idSubjectClass;
+                SubjectName = subjectName;
+                Credit = credit;
+                TeacherName = teacherName;
+                StartDate = startDate;
+                EndDate = endDate;
+                TKB = tKB;
+            }
+            public string IdSubjectClass { get => _idSubjectClass; set => _idSubjectClass = value; }
+            public string SubjectName { get => _subjectName; set => _subjectName = value; }
+            public int Credit { get => _credit; set => _credit = value; }
+            public string TeacherName { get => _teacherName; set => _teacherName = value; }
+            public DateTime StartDate { get => _startDate; set => _startDate = value; }
+            public DateTime EndDate { get => _endDate; set => _endDate = value; }
+            public string TKB { get => _tKB; set => _tKB = value; }
         }
     }
 }
