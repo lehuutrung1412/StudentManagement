@@ -13,4 +13,6 @@
     <viewmodel:CreatePostNewFeedViewModel x:Key="CreatePostNewFeedVM" />
     <viewmodel:StudentCourseRegistryViewModel x:Key="StudentCourseRegistryVM" />
     <viewmodel:StudentCourseRegistryRightSideBarViewModel x:Key="StudentCourseRegistryRightSideBarVM" />
+    <viewmodel:PostNewsfeedViewModel x:Key="PostNewsfeedVM" />
+    <viewmodel:NewFeedSubjectClassDetailViewModel x:Key="NewFeedSubjectClassDetailVM" />
 </ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using StudentManagement.Commands;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +15,9 @@ namespace StudentManagement.ViewModels
 
         public string DraftPostText { get => _draftPostText; set { _draftPostText = value; OnPropertyChanged(); } }
 
+        private bool _isPost;
+        public bool IsPost { get => _isPost; set { _isPost = value; OnPropertyChanged(); } }
+
         public ObservableCollection<string> StackImageDraft { get; set; }
 
         private string _draftPostText;
@@ -24,18 +28,23 @@ namespace StudentManagement.ViewModels
 
             DeleteImage = new RelayCommand<object>(_ => true, (p) => DeleteImageInDraftPost(p));
             AddImage = new RelayCommand<object>(_ => true, _ => AddImageDraftPost());
-            SendPost = new RelayCommand<UserControl>(_ => true, (p) => SendDraftPost(p));
+            SendPost = new RelayCommand<UserControl>(_ => true, _ => SendDraftPost());
 
         }
 
         private void DeleteImageInDraftPost(object image)
         {
-            _ = StackImageDraft.Remove((image as Button).Tag as string);
+            _ = StackImageDraft.Remove((image as Button)?.Tag as string);
         }
 
-        private void SendDraftPost(UserControl post)
+        private void SendDraftPost()
         {
-            MyMessageBox.Show(DraftPostText);
+            if (string.IsNullOrEmpty(DraftPostText) && StackImageDraft.Count == 0)
+            {
+                MyMessageBox.Show("Vui lòng nhập nội dung hoặc tải lên ảnh!", "Đăng bài không thành công", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return;
+            }
+            IsPost = true;
         }
 
         private void AddImageDraftPost()
