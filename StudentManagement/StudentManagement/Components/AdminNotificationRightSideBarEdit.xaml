@@ -24,26 +24,39 @@
     <Grid>
         <StackPanel>
             <StackPanel.Resources>
-                <Style x:Key="textblock_item" TargetType="TextBlock">
-                    <Setter Property="Margin" Value="8,0,8,0" />
-                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                <Style
+                    x:Key="textblock_item"
+                    TargetType="TextBlock">
+                    <Setter
+                        Property="Margin"
+                        Value="8,0,8,0" />
+                    <Setter
+                        Property="TextTrimming"
+                        Value="CharacterEllipsis" />
                 </Style>
 
-                <Style x:Key="text_grid_item" TargetType="Grid">
-                    <Setter Property="Margin" Value="0,4,8,4" />
+                <Style
+                    x:Key="text_grid_item"
+                    TargetType="Grid">
+                    <Setter
+                        Property="Margin"
+                        Value="0,4,8,4" />
                 </Style>
             </StackPanel.Resources>
-            <TextBlock
+            <TextBox
                 Padding="4"
                 FontSize="24"
                 FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 Text="{Binding CurrentCard.ChuDe, FallbackValue='Tên chủ đề'}"
+                Style="{StaticResource  MaterialDesignTextBox}"
                 TextWrapping="Wrap" />
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="2*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -68,10 +81,13 @@
                         TextWrapping="Wrap" />
                 </Border>
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="2*" />
 
 
                 </Grid.ColumnDefinitions>
@@ -95,27 +111,26 @@
                         x:Name="dpBirthDate"
                         Height="28"
                         HorizontalAlignment="Stretch"
-                        Padding="8 0 0 0"
+                        Padding="8 0 8 0"
                         FontWeight="SemiBold"
                         Foreground="#01579b"
-                        SelectedDate="{Binding CurrentCard.NgayDang, ConverterCulture='vi-VN', StringFormat='dd/MM/yyyy' }"/>
+                     
+                        SelectedDate="{Binding CurrentCard.NgayDang, ConverterCulture='vi-VN', StringFormat='dd/MM/yyyy' }" />
 
-                      <!--SelectedDate="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng'}"-->  
-                    <!--<Data
-                        Grid.ColumnSpan="2"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Style="{StaticResource TextBox}"
-
-                        TextAlignment="Right"
-                        TextWrapping="Wrap" />-->
                 </Border>
 
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition
+                        Width="510*" />
+                    <ColumnDefinition
+                        Width="746*" />
+                    <ColumnDefinition
+                        Width="77*" />
+                    <ColumnDefinition
+                        Width="196*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -125,37 +140,43 @@
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Loại bài đăng:"
-                    TextWrapping="Wrap" />
+                    TextWrapping="Wrap"
+                    Margin="8,0,7.6,0" />
                 <!--<Border
                     Grid.Column="1"
                     Background="Transparent"
                     Style="{StaticResource BorderStyle}">
                     
                 </Border>-->
-                <ComboBox 
+                <ComboBox
                     Grid.Column="1"
                     Height="28"
-                   
-                    
                     FontSize="14"
                     FontWeight="SemiBold"
-                    Padding="8 4 0 4"
+                    Padding="8 4 8 4"
                     BorderBrush="Gray"
                     Foreground="#01579b"
                     ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
                     SelectedItem="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
-                    Style="{StaticResource ComboboxInfo}" />
+                    Style="{StaticResource ComboboxInfo}"
+                    Grid.ColumnSpan="3"
+                    Margin="0.4,0,0,0" />
 
             </Grid>
             <Grid>
-                <Separator Margin="5" />
+                <Separator
+                    Margin="5" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="2*" />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
+                <Grid
+                    Grid.Column="0">
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="16"
@@ -163,13 +184,16 @@
                         Style="{StaticResource textblock_item}"
                         Text="Chỉnh sửa:" />
                 </Grid>
-                <Grid Grid.Column="1">
+                <Grid
+                    Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
+                        Command="{Binding UpdateNotificationCommand}"
+                        DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
                         Margin="8,0,8,0"
                         HorizontalAlignment="Stretch"
                         Content="Chỉnh sửa"
@@ -189,13 +213,15 @@
             </Grid>
             <Button
                 x:Name="btnDelete"
-                
+                Command="{Binding DeleteNotificationCommand}"
+                DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
                 Padding="0"
                 BorderThickness="0"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 
-                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                <Grid
+                    Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
                     <TextBlock
                         FontSize="16"
                         FontWeight="Bold"

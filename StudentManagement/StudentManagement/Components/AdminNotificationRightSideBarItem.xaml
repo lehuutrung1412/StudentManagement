@@ -95,7 +95,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng'}"
+                    Text="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng', StringFormat='dd/MM/yyyy'}"
                     TextWrapping="Wrap"
                     VerticalAlignment="Center"
                     FontSize="14"
@@ -121,7 +121,7 @@
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     TextWrapping="Wrap"
-                    Text="Thông báo chung"
+                    Text="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
                     VerticalAlignment="Center"
                     FontSize="14"
                     TextAlignment="Right" />
@@ -156,6 +156,8 @@
             </Button>
             <Button
                 x:Name="btnDelete"
+                Command="{Binding DeleteNotificationCommand}"
+                DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
                 Padding="0"
                 BorderThickness="0"
                 Foreground="#DD000000"

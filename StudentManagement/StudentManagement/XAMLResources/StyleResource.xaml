@@ -266,39 +266,30 @@
         x:Key="AdminNotificationButton"
         BasedOn="{StaticResource MaterialDesignFlatButton}"
         TargetType="{x:Type Button}">
-        <Setter
-            Property="BorderBrush"
-            Value="{DynamicResource DarkGray}" />
-        <Setter
-            Property="BorderThickness"
-            Value="3" />
-        <Setter
-            Property="materialDesign:ButtonAssist.CornerRadius"
-            Value="5"></Setter>
-        <Setter
-            Property="Background"
-            Value="{DynamicResource White}" /> 
+        <Setter Property="BorderBrush" Value="{DynamicResource DarkGray}" />
+        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5" />
+        <Setter Property="Background" Value="{DynamicResource White}" />
 
         <Style.Triggers>
-            <Trigger
-                Property="IsFocused"
-                Value="True">
-                <Setter
-                    Property="BorderBrush"
-                    Value="{DynamicResource PrimaryMain}" />
-                <Setter
-                    Property="BorderThickness"
-                    Value="3" />
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryMain}" />
+                <Setter Property="BorderThickness" Value="3" />
             </Trigger>
-            <Trigger
-                Property="IsMouseOver"
-                Value="True">
-                <Setter
-                    Property="Background"
-                    Value="{DynamicResource PrimaryLight}" />
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
             </Trigger>
 
         </Style.Triggers>
+    </Style>
+    <Style x:Key="DatePickerformat" TargetType="{x:Type DatePickerTextBox}">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBox x:Name="PART_TextBox" Text="{Binding Path=SelectedDate, StringFormat='dd MMM yyyy', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     <!--  UserInfo  -->
     <Style x:Key="Retangle" TargetType="{x:Type Rectangle}">
@@ -323,9 +314,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter
-            Property="Padding"
-            Value="10,0" />
+        <Setter Property="Padding" Value="10,0" />
     </Style>
 
     <Style x:Key="LabelText" TargetType="{x:Type Label}">

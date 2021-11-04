@@ -28,9 +28,8 @@
                 <ColumnDefinition
                     Width="4*" />
                 <ColumnDefinition
-                    Width="Auto" />
-                <ColumnDefinition
                     Width="1.5*" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid
                 Grid.Column="0" Margin="0">
@@ -38,9 +37,9 @@
                     Text="{Binding SearchInfo, UpdateSourceTrigger=PropertyChanged}"
                     DataContext="{DynamicResource AdminNotificationVM}"
                     FontSize="14"
-                    Padding="0"
-                    Margin="8 4 0 0"
-                    MaxLines="2"
+                    Padding="8 16 0 0"
+                    Margin="0 0 16 0"
+                    MaxLines="1"
                     Grid.ColumnSpan="4"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
@@ -57,9 +56,17 @@
             </Grid>
             
             <!--IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedPasswordFieldPasswordBoxEnabledComboBox}"-->
+            <DatePicker
+                Grid.Column="1"
+                Padding="8 16 0 0"
+                FontSize="14"
+                SelectedDate="{Binding SearchDate, UpdateSourceTrigger=PropertyChanged}"
+                DataContext="{DynamicResource AdminNotificationVM}"
+                materialDesign:HintAssist.Hint="Chọn ngày" />
             <Button
                 Width="auto"
-                Grid.Column="1"
+                Grid.Column="2"
+                Margin="16 0 0 0"
                 Style="{StaticResource MaterialDesignFlatButton}"
                 Command="{Binding Search}"
                 DataContext="{DynamicResource AdminNotificationVM}">
@@ -68,16 +75,9 @@
                     Kind="Magnify"
                     Width="20"
                     Height="20"
-                    VerticalAlignment="Center"
-                    Margin="0 0 16 0" />
+                    VerticalAlignment="Center" />
             </Button>
-            <DatePicker
-                Grid.Column="2"
-                Height="32"
-                Padding="4 4 16 0"
-                
-                materialDesign:HintAssist.Hint="Chọn ngày"
-                Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+            
         </Grid>
     </Border>
 </UserControl>

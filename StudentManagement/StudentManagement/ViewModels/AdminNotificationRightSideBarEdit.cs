@@ -12,6 +12,10 @@ namespace StudentManagement.ViewModels
         public CardNotification CurrentCard { get => _currentCard; set => _currentCard = value; }
         private CardNotification _currentCard;
 
+        public AdminNotificationRightSideBarEdit()
+        {
+            this.CurrentCard = null;
+        }
         public AdminNotificationRightSideBarEdit(CardNotification card)
         {
             this.CurrentCard = card;
