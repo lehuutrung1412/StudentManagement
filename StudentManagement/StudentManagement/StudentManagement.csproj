@@ -130,6 +130,15 @@
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ScoreboardDataGrid.xaml.cs">
+      <DependentUpon>ScoreboardDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ScoreBoardRightSideBar.xaml.cs">
+      <DependentUpon>ScoreBoardRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ScoreBoardRightSideBarItem.xaml.cs">
+      <DependentUpon>ScoreBoardRightSideBarItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SearchBarOne.xaml.cs">
       <DependentUpon>SearchBarOne.xaml</DependentUpon>
     </Compile>
@@ -160,7 +169,7 @@
     <Compile Include="ViewModels\AdminFalcutyTrainingFormViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
-    <Compile Include="ViewModels\AdminNotificationRightSideBarEdit.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarEditViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationViewModel.cs" />
@@ -175,6 +184,9 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NewFeedSubjectClassDetailViewModel.cs" />
+    <Compile Include="ViewModels\ScoreBoardRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\ScoreBoardRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\ScoreBoardViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryViewModel.cs" />
@@ -253,6 +265,7 @@
     <Compile Include="Views\NewfeedSubjectClassDetail.xaml.cs">
       <DependentUpon>NewfeedSubjectClassDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ScoreBoard.xaml.cs" />
     <Compile Include="Views\StudentCourseRegistry.xaml.cs">
       <DependentUpon>StudentCourseRegistry.xaml</DependentUpon>
     </Compile>
@@ -291,6 +304,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\RightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ScoreboardDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\ScoreBoardRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ScoreBoardRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -365,6 +390,10 @@
     <Page Include="Views\NewfeedSubjectClassDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScoreBoard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StudentCourseRegistry.xaml">
       <SubType>Designer</SubType>

@@ -39,10 +39,6 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
                 if (_selectedFalcuty != null)
                 {
-                    //int count = SubjectClasses.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass).Count();
-                    //SelectedClass = SubjectClasses.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass).ToList()[0];
-                    //this._studentCourseRegistryRightSideBarItemViewModel = new StudentCourseRegistryRightSideBarItemViewModel(SelectedClass);
-                    //this.RightSideBarItemViewModel = this._studentCourseRegistryRightSideBarItemViewModel;
                     this._adminFalcutyRightSideBarItemViewModel = new AdminFalcutyRightSideBarItemViewModel(_selectedFalcuty);
                     this.RightSideBarItemViewModel = this._adminFalcutyRightSideBarItemViewModel;
                 }

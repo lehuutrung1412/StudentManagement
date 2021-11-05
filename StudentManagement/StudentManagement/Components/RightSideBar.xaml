@@ -47,6 +47,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormRightSideBarViewModel}">
                     <component:AdminFalcutyTrainingFormRightSideBar />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ScoreBoardRightSideBarViewModel}">
+                    <component:ScoreBoardRightSideBar />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

@@ -17,4 +17,6 @@
     <viewmodel:NewFeedSubjectClassDetailViewModel x:Key="NewFeedSubjectClassDetailVM" />
     <viewmodel:AdminFalcutyTrainingFormViewModel x:Key="AdminFalcutyTrainingFormVM" />
     <viewmodel:AdminFalcutyTrainingFormRightSideBarViewModel x:Key="AdminFalcutyTrainingFormRightSideBarVM" />
+    <viewmodel:ScoreBoardViewModel x:Key="ScoreBoardVM" />
+    <viewmodel:ScoreBoardRightSideBarViewModel x:Key="ScoreBoardRightSideBarVM" />
 </ResourceDictionary>

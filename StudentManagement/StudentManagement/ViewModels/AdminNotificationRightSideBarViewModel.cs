@@ -65,7 +65,7 @@ namespace StudentManagement.ViewModels
 
             this._adminNotificationRightSideBarItemViewModel = new AdminNotificationRightSideBarItemViewModel(card);
 
-            this._adminNotificationRightSideBarEditViewModel = new AdminNotificationRightSideBarEdit(card);
+            this._adminNotificationRightSideBarEditViewModel = new AdminNotificationRightSideBarEditViewModel(card);
 
             this.RightSideBarItemViewModel = this._adminNotificationRightSideBarItemViewModel;
         }

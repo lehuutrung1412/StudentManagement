@@ -25,6 +25,7 @@ namespace StudentManagement.ViewModels
         private object _newFeedSubjectClassDetailViewModel;
         private object _studentCourseRegistryViewModel;
         private object _adminFalcutyTrainingFormViewModel;
+        private object _scoreboardViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
         private object _adminHomeRightSideBar;
@@ -32,6 +33,7 @@ namespace StudentManagement.ViewModels
         private object _adminNotificationRightSideBar;
         private object _studentCourseRegistryRightSideBar;
         private object _adminFalcutyTrainingFormRightSideBar;
+        private object _scoreboardRightSideBar;
 
         public object ContentViewModel
         {
@@ -75,6 +77,7 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Lớp môn học", false, null, _newFeedSubjectClassDetailViewModel, null, this, "Home"),
                 new NavigationItem("Đào tạo", true, temp, null, null, this, "ClockOutline"),
                 new NavigationItem("Đăng ký học phần", false, null, _studentCourseRegistryViewModel, _studentCourseRegistryRightSideBar, this, "CreditCardPlusOutline"),
+                new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, this, "Cat"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, this, "Home"),
             };
 
@@ -96,6 +99,10 @@ namespace StudentManagement.ViewModels
 
             this._studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
 
+            this._scoreboardViewModel = new ScoreBoardViewModel();
+
+            
+
             this.ContentViewModel = this._adminHomeViewModel;
         }
 
@@ -110,6 +117,8 @@ namespace StudentManagement.ViewModels
             this._studentCourseRegistryRightSideBar = new StudentCourseRegistryRightSideBarViewModel();
 
             this._adminFalcutyTrainingFormRightSideBar = new AdminFalcutyTrainingFormRightSideBarViewModel();
+
+            this._scoreboardRightSideBar = new ScoreBoardRightSideBarViewModel(); //ViewModel
 
             this.RightSideBar = this._adminHomeRightSideBar;
         }
