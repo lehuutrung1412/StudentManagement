@@ -31,7 +31,7 @@
                             ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}">
                             <DataGridCheckBoxColumn.Header>
                                 <Border Background="Transparent">
-                                    <!--<CheckBox IsChecked="{Binding IsAllItemsSelected, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ElementName=CourseDataGrid}" />-->
+                                    <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=IsAllItemsSelected}" />
                                 </Border>
                             </DataGridCheckBoxColumn.Header>
                             <DataGridCheckBoxColumn.HeaderStyle>
