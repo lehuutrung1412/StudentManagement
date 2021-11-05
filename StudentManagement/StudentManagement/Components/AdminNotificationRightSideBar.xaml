@@ -122,7 +122,7 @@
                     <components:AdminNotificationRightSideBarItem />
                 </DataTemplate>
                 <DataTemplate
-                    DataType="{x:Type viewmodels:AdminNotificationRightSideBarEdit}">
+                    DataType="{x:Type viewmodels:AdminNotificationRightSideBarEditViewModel}">
                     <components:AdminNotificationRightSideBarEdit />
                 </DataTemplate>
             </ContentControl.Resources>

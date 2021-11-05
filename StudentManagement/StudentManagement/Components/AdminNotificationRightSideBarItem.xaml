@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
@@ -46,7 +47,7 @@
                 Padding="4"
                 FontSize="24"
                 FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Style="{DynamicResource MaterialDesignTextBlock}"
                 Text="{Binding CurrentCard.ChuDe ,  FallbackValue='Tên chủ đề'}"
                 TextWrapping="Wrap" />
             <Grid
@@ -157,7 +158,8 @@
             <Button
                 x:Name="btnDelete"
                 Command="{Binding DeleteNotificationCommand}"
-                DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
+                CommandParameter="{Binding ElementName=RightSideBarComponent}"
+                DataContext="{DynamicResource AdminNotificationVM}"
                 Padding="0"
                 BorderThickness="0"
                 Foreground="#DD000000"

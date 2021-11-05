@@ -154,7 +154,7 @@
     <Compile Include="ViewModels\AdminFalcutyTrainingFormViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
-    <Compile Include="ViewModels\AdminNotificationRightSideBarEdit.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarEditViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminNotificationViewModel.cs" />
