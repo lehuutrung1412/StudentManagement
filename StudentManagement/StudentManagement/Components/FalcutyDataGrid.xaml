@@ -22,7 +22,9 @@
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     HeadersVisibility="All"
-                    ItemsSource="{Binding .}">
+                    IsReadOnly="True"
+                    ItemsSource="{Binding .}"
+                    SelectedItem="{Binding SelectedFalcuty, Mode=OneWayToSource, Source={StaticResource AdminFalcutyTrainingFormRightSideBarVM}}">
                     <DataGrid.Resources>
                         <!--  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"  -->
                         <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">

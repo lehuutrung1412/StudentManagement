@@ -20,51 +20,61 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-        <StackPanel>
-            <StackPanel Margin="0,0,0,16">
-                <TextBlock
-                    FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                    Text="Danh sách hệ đào tạo" />
-                <ItemsControl ItemsSource="{Binding TrainingFormCards}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Margin="16,16,16,16" HorizontalAlignment="Left" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <component:TrainingFormCard Margin="12" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-
-            <StackPanel>
-                <TextBlock
-                    FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                    Text="Danh sách khoa" />
-                <Grid Margin="16">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5.5*" />
-                        <ColumnDefinition Width="1.5*" />
-                    </Grid.ColumnDefinitions>
-                    <component:SearchBarOne
-                        Grid.Column="0"
-                        DataContext="{Binding}"
-                        FirstSearchButtonText="Khoa"
-                        SecondSearchButtonText="Hệ đào tạo" />
-                    <Button
-                        Grid.Column="1"
-                        Height="50"
-                        Margin="16"
-                        Content="Thêm lớp học"
-                        FontSize="16" />
-                </Grid>
-                <component:FalcutyDataGrid Margin="16,16,16,16" DataContext="{Binding FalcutyCards}" />
-            </StackPanel>
+    <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock
+                FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Text="Danh sách hệ đào tạo" />
+            <ItemsControl ItemsSource="{Binding TrainingFormCards}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Margin="16,16,16,16" HorizontalAlignment="Left" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <component:TrainingFormCard Margin="12" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
-    </ScrollViewer>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock
+                FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Text="Danh sách khoa" />
+            <Grid Margin="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5.5*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <component:SearchBarOne
+                    Grid.Column="0"
+                    DataContext="{Binding}"
+                    FirstSearchButtonText="Khoa"
+                    SecondSearchButtonText="Hệ đào tạo" />
+                <Button
+                    Grid.Column="1"
+                    Height="50"
+                    Margin="16"
+                    Content="Thêm lớp học"
+                    FontSize="16" />
+            </Grid>
+
+        </StackPanel>
+
+        <component:FalcutyDataGrid
+            Grid.Row="2"
+            Margin="16,16,16,16"
+            DataContext="{Binding FalcutyCards}" />
+    </Grid>
+    <!--</ScrollViewer>-->
 </UserControl>

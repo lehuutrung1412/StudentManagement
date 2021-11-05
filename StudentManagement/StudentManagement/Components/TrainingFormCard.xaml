@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="SubjectClassCardComponent"
+    x:Name="TrainingFormCardComponent"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -45,7 +45,11 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top">
                         <StackPanel>
-                            <Button Content="Xem thông tin" />
+                            <Button
+                                Command="{Binding ShowTrainingFormCardInfo}"
+                                CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
+                                Content="Xem thông tin"
+                                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
                             <Button Content="Chỉnh sửa" />
                         </StackPanel>
                     </materialDesign:PopupBox>

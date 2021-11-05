@@ -70,6 +70,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\AdminFalcutyRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminFalcutyRightSideBarItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\AdminFalcutyTrainingFormRightSideBar.xaml.cs">
       <DependentUpon>AdminFalcutyTrainingFormRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,9 @@
     </Compile>
     <Compile Include="Components\AdminSubjectClassRightSideBarItem.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminTrainingFormRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminTrainingFormRightSideBarItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\CreatePostNewfeed.xaml.cs">
       <DependentUpon>CreatePostNewfeed.xaml</DependentUpon>
@@ -196,6 +202,10 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\AdminFalcutyRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\AdminFalcutyTrainingFormRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\AdminSubjectClassRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminTrainingFormRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

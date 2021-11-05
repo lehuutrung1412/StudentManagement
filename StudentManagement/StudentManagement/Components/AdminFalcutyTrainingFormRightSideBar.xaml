@@ -19,5 +19,19 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <ContentControl Content="{Binding RightSideBarItemViewModel}" DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
+                    <components:EmptyStateRightSideBar />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyRightSideBarItemViewModel}">
+                    <components:AdminFalcutyRightSideBarItem />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminTrainingFormRightSideBarItemViewModel}">
+                    <components:AdminTrainingFormRightSideBarItem />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
 </UserControl>
