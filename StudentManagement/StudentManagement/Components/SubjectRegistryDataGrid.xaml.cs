@@ -40,26 +40,19 @@ namespace StudentManagement.Components
         public ObservableCollection<CourseRegistryItem> Data
         {
             get { return (ObservableCollection<CourseRegistryItem>)GetValue(DataProperty); }
-            set { SetValue(DataProperty, value);}
+            set { SetValue(DataProperty, value);  }
         }
 
         // Using a DependencyProperty as the backing store for Data.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register("Data", typeof(ObservableCollection<CourseRegistryItem>), typeof(SubjectRegistryDataGrid), new PropertyMetadata(null, OnDataChangeCallBack));
-        private static void OnDataChangeCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            SubjectRegistryDataGrid c = sender as SubjectRegistryDataGrid;
-            if (c != null)
-            {
-                c.OnPropertyChanged("Data");
-            }
-        }
+            DependencyProperty.Register("Data", typeof(ObservableCollection<CourseRegistryItem>), typeof(SubjectRegistryDataGrid), new PropertyMetadata(null));
+
 
 
         public bool IsAllItemsSelected
         {
             get { return (bool)GetValue(IsAllItemsSelectedProperty); }
-            set { SetValue(IsAllItemsSelectedProperty, value); OnPropertyChanged(); Data.Select(c => { c.IsSelected = value; return c; }).ToList(); }
+            set { SetValue(IsAllItemsSelectedProperty, value); OnPropertyChanged();/* Data.Select(c => { c.IsSelected = value; return c; }).ToList();*/ }
         }
 
         // Using a DependencyProperty as the backing store for IsAllItemsSelected.  This enables animation, styling, binding, etc...
