@@ -126,7 +126,6 @@ namespace StudentManagement.ViewModels
             var tmp = NotificationVM.Cards.Where(x => x.Id == _card.Id).FirstOrDefault();
             NotificationVM.Cards.Remove(tmp);
             NotificationVM.Cards = NotificationVM.RealCards;
-
         }
     }
 }

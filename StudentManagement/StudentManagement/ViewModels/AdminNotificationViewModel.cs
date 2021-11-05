@@ -38,7 +38,7 @@ namespace StudentManagement.ViewModels
                 NguoiDang = a.NguoiDang;
                 LoaiBaiDang = a.LoaiBaiDang;
                 NoiDung = a.NoiDung;
-                NgayDang = a.NgayDang; 
+                NgayDang = a.NgayDang;
             }
 
             public string NguoiDang { get => _nguoiDang; set => _nguoiDang = value; }
@@ -56,9 +56,13 @@ namespace StudentManagement.ViewModels
 
         private ICommand _popUpNotification;
         public ICommand PopUpNotification { get => _popUpNotification; set => _popUpNotification = value; }
-        private ICommand _search;
-        public ICommand Search { get => _search; set => _search = value; }
-      
+        private ICommand _searchCommand;
+        public ICommand SearchCommand { get => _searchCommand; set => _searchCommand = value; }
+
+        private ICommand _searchTypeCommand;
+        public ICommand SearchTypeCommand { get => _searchTypeCommand; set => _searchTypeCommand = value; }
+
+
 
         public string SearchInfo 
         { 
@@ -109,19 +113,11 @@ namespace StudentManagement.ViewModels
 
             };
             RealCards = Cards;
-            Search = new RelayCommand<object>(
+            SearchCommand = new RelayCommand<object>(
                (p) => { return true; },
                (p) =>
                {
-                   RealCards = Cards;
-                   var tmp = Cards.Where(x => RemoveSign4VietnameseString(x.ChuDe).ToLower().Contains(RemoveSign4VietnameseString(SearchInfo.ToLower())));
-                   if (SearchDate == null)
-                   {
-                       RealCards = new ObservableCollection<CardNotification>(tmp);
-                       return;
-                   }
-                   tmp = tmp.Where(x => x.NgayDang.Date == _searchDate);
-                   RealCards = new ObservableCollection<CardNotification>(tmp);
+                   Search();
                });
             PopUpNotification = new RelayCommand<object>(
             (p) => { return true; },
@@ -129,6 +125,18 @@ namespace StudentManagement.ViewModels
             {
 
             });
+        }
+        public void Search()
+        {
+            RealCards = Cards;
+            var tmp = Cards.Where(x => RemoveSign4VietnameseString(x.ChuDe).ToLower().Contains(RemoveSign4VietnameseString(SearchInfo.ToLower())));
+            if (SearchDate == null)
+            {
+                RealCards = new ObservableCollection<CardNotification>(tmp);
+                return;
+            }
+            tmp = tmp.Where(x => x.NgayDang.Date == _searchDate);
+            RealCards = new ObservableCollection<CardNotification>(tmp);
         }
         private static readonly string[] VietnameseSigns = new string[]
         {

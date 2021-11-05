@@ -55,6 +55,26 @@
                         FontSize="14" />
                 </Button>
             </Grid>
+            <StackPanel
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="16 8"
+                    FontWeight="SemiBold"
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Text="Loại thông báo" />
+                <ComboBox
+                    Margin="8 8"
+                    FontSize="20"
+                    BorderBrush="Gray"
+                    Foreground="#01579b"
+                    ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
+                    SelectedItem="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    Padding="4"
+                    Height="36"
+                    />
+            </StackPanel>
+
             <ItemsControl
                 ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ItemsControl.ItemsPanel>
