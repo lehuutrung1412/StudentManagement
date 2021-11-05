@@ -125,7 +125,7 @@ namespace StudentManagement.ViewModels
             var NotificationVM = NotificationUserControl.DataContext as AdminNotificationViewModel;
             var tmp = NotificationVM.Cards.Where(x => x.Id == _card.Id).FirstOrDefault();
             NotificationVM.Cards.Remove(tmp);
-            NotificationVM.Cards = NotificationVM.RealCards;
+            NotificationVM.RealCards.Remove(tmp);
         }
     }
 }

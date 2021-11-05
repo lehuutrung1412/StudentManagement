@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
@@ -59,20 +60,32 @@
                 Orientation="Horizontal">
                 <TextBlock
                     Margin="16 8"
+                    FontSize="20"
                     FontWeight="SemiBold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                  
                     Text="Loại thông báo" />
                 <ComboBox
+                    x:Name="cbTypeNotification"
                     Margin="8 8"
-                    FontSize="20"
+                    FontSize="16"
                     BorderBrush="Gray"
                     Foreground="#01579b"
-                    ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                    SelectedItem="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    ItemsSource="{Binding TypeInMain, Source={StaticResource AdminNotificationVM}}"
+                    SelectedItem="{Binding SearchType}"
+                    materialDesign:HintAssist.Hint="Chọn loại thông báo"
+                    Style="{StaticResource MaterialDesignComboBox}"
                     Padding="4"
-                    Height="36"
-                    />
+                    Height="36">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger
+                            EventName="DropDownClosed">
+                            <i:InvokeCommandAction
+                                Command="{Binding SearchCommand}"
+                                CommandParameter="{Binding ElementName=cbTypeNotification}" />
+                        </i:EventTrigger>
+                        
+                    </i:Interaction.Triggers>
+                </ComboBox>
             </StackPanel>
 
             <ItemsControl

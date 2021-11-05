@@ -50,7 +50,8 @@ namespace StudentManagement.ViewModels
         }
         public ObservableCollection<CardNotification> _cards;
         private ObservableCollection<CardNotification> _realCards;
-        private ObservableCollection<string> type;
+        private ObservableCollection<string> _type;
+        private ObservableCollection<string> _typeInMain;
 
 
 
@@ -63,7 +64,7 @@ namespace StudentManagement.ViewModels
         public ICommand SearchTypeCommand { get => _searchTypeCommand; set => _searchTypeCommand = value; }
 
 
-
+        private string _searchInfo;
         public string SearchInfo 
         { 
             get => _searchInfo; 
@@ -74,11 +75,12 @@ namespace StudentManagement.ViewModels
             } 
         }
 
-        public ObservableCollection<string> Type { get => type; set => type = value; }
+        public ObservableCollection<string> Type { get => _type; set => _type = value; }
         public ObservableCollection<CardNotification> Cards { get => _cards; set => _cards = value; }
-
         public ObservableCollection<CardNotification> RealCards { get => _realCards; set { _realCards = value; OnPropertyChanged(); } }
+        public ObservableCollection<string> TypeInMain { get => _typeInMain; set => _typeInMain = value; }
 
+        private DateTime? _searchDate;
         public DateTime? SearchDate
         {
             get => _searchDate;
@@ -89,12 +91,18 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private string _searchInfo;
+        private string _searchType;
+        public string SearchType
+        {
+            get => _searchType;
+            set
+            {
+                _searchType = value;
+                OnPropertyChanged();
+            }
+        }
 
-        private DateTime? _searchDate;
-
-
-
+      
 
         public AdminNotificationViewModel()
         {
@@ -102,12 +110,15 @@ namespace StudentManagement.ViewModels
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
             Type = new ObservableCollection<string>() { "Thông báo chung", "Thông báo sinh viên", "Thông báo giáo viên" };
+            TypeInMain = new ObservableCollection<string>(Type);
+            TypeInMain.Add("Tất cả");
             SearchInfo = "";
+            SearchType = "Tất cả";
             SearchDate = null;
             Cards = new ObservableCollection<CardNotification>() {
                 new CardNotification(0,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new CardNotification( 1,"Nguyễn Thị Quý","Thông báo chung","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new CardNotification(2,"Nguyễn Thị Quý","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                new CardNotification( 1,"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                new CardNotification(2,"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
                 new CardNotification(3,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
                 new CardNotification(4,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
@@ -130,12 +141,15 @@ namespace StudentManagement.ViewModels
         {
             RealCards = Cards;
             var tmp = Cards.Where(x => RemoveSign4VietnameseString(x.ChuDe).ToLower().Contains(RemoveSign4VietnameseString(SearchInfo.ToLower())));
-            if (SearchDate == null)
+            if (SearchDate != null)
             {
                 RealCards = new ObservableCollection<CardNotification>(tmp);
-                return;
+                tmp = tmp.Where(x => x.NgayDang.Date == _searchDate);
             }
-            tmp = tmp.Where(x => x.NgayDang.Date == _searchDate);
+            if(!SearchType.Equals("Tất cả"))
+            {
+                tmp = tmp.Where(x => x.LoaiBaiDang.Contains(SearchType));
+            }    
             RealCards = new ObservableCollection<CardNotification>(tmp);
         }
         private static readonly string[] VietnameseSigns = new string[]
