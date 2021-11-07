@@ -50,7 +50,11 @@
                                 CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
                                 Content="Xem thông tin"
                                 DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
-                            <Button Content="Chỉnh sửa" />
+                            <Button
+                                Command="{Binding EditTrainingFormCardInfo}"
+                                CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
+                                Content="Chỉnh sửa"
+                                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </Grid>

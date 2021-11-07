@@ -12,6 +12,14 @@ namespace StudentManagement.ViewModels
 {
     public class AdminFalcutyTrainingFormRightSideBarViewModel : BaseViewModel
     {
+        private static AdminFalcutyTrainingFormRightSideBarViewModel s_instance;
+        public static AdminFalcutyTrainingFormRightSideBarViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new AdminFalcutyTrainingFormRightSideBarViewModel());
+
+            private set => s_instance = value;
+        }
+
         private object _rightSideBarItemViewModel;
 
         public object RightSideBarItemViewModel
@@ -50,6 +58,10 @@ namespace StudentManagement.ViewModels
 
         private ICommand _showFalcutyCardInfo;
 
+        public ICommand EditTrainingFormCardInfo { get => _editTrainingFormCardInfo; set => _editTrainingFormCardInfo = value; }
+
+        private ICommand _editTrainingFormCardInfo;
+
         public ICommand ShowTrainingFormCardInfo { get => _showTrainingFormCardInfo; set => _showTrainingFormCardInfo = value; }
 
         private ICommand _showTrainingFormCardInfo;
@@ -58,6 +70,7 @@ namespace StudentManagement.ViewModels
         {
             InitRightSideBarItemViewModel();
             InitRightSideBarCommand();
+            Instance = this;
         }
 
         public void InitRightSideBarItemViewModel()
@@ -73,6 +86,7 @@ namespace StudentManagement.ViewModels
         {
             ShowFalcutyCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowFalcutyCardByCardDataContext(p));
             ShowTrainingFormCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowTrainingFormCardByCardDataContext(p));
+            EditTrainingFormCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => EditTrainingFormCardByCardDataContext(p));
         }
 
         public void ShowFalcutyCardByCardDataContext(UserControl p)
@@ -89,6 +103,15 @@ namespace StudentManagement.ViewModels
             TrainingFormCard card = p.DataContext as TrainingFormCard;
 
             this._adminTrainingFormRightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemViewModel(card);
+
+            this.RightSideBarItemViewModel = this._adminTrainingFormRightSideBarItemViewModel;
+        }
+
+        public void EditTrainingFormCardByCardDataContext(UserControl p)
+        {
+            TrainingFormCard card = p.DataContext as TrainingFormCard;
+
+            this._adminTrainingFormRightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemEditViewModel(card);
 
             this.RightSideBarItemViewModel = this._adminTrainingFormRightSideBarItemViewModel;
         }

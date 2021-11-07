@@ -73,6 +73,9 @@
     <Compile Include="Components\AdminFalcutyRightSideBarItem.xaml.cs">
       <DependentUpon>AdminFalcutyRightSideBarItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\AdminFalcutyRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>AdminFalcutyRightSideBarItemEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\AdminFalcutyTrainingFormRightSideBar.xaml.cs">
       <DependentUpon>AdminFalcutyTrainingFormRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,9 @@
     </Compile>
     <Compile Include="Components\AdminTrainingFormRightSideBarItem.xaml.cs">
       <DependentUpon>AdminTrainingFormRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminTrainingFormRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>AdminTrainingFormRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\CreatePostNewfeed.xaml.cs">
       <DependentUpon>CreatePostNewfeed.xaml</DependentUpon>
@@ -164,6 +170,7 @@
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
+    <Compile Include="ViewModels\AdminTrainingFormRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\AdminFalcutyRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminFalcutyTrainingFormRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminFalcutyTrainingFormViewModel.cs" />
@@ -218,6 +225,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\AdminFalcutyRightSideBarItemEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\AdminFalcutyTrainingFormRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -251,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\AdminTrainingFormRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminTrainingFormRightSideBarItemEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

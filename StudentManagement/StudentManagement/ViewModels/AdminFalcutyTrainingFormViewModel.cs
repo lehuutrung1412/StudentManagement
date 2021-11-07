@@ -12,11 +12,13 @@ namespace StudentManagement.ViewModels
 {
     public class AdminFalcutyTrainingFormViewModel : BaseViewModel
     {
-        public class TrainingFormCard
+        public class TrainingFormCard : BaseViewModel
         {
             private string _tenHeDaoTao;
             private int _soLuongKhoa;
             private int _soLuongSinhVien;
+
+            public TrainingFormCard() { }
 
             public TrainingFormCard(string tenHeDaoTao, int soLuongKhoa, int soLuongSinhVien)
             {
@@ -25,9 +27,40 @@ namespace StudentManagement.ViewModels
                 _soLuongSinhVien = soLuongSinhVien;
             }
 
-            public string TenHeDaoTao { get => _tenHeDaoTao; set => _tenHeDaoTao = value; }
-            public int SoLuongKhoa { get => _soLuongKhoa; set => _soLuongKhoa = value; }
-            public int SoLuongSinhVien { get => _soLuongSinhVien; set => _soLuongSinhVien = value; }
+            public void CopyCardInfo(TrainingFormCard anotherTrainingFormCard)
+            {
+                TenHeDaoTao = anotherTrainingFormCard._tenHeDaoTao;
+                SoLuongKhoa = anotherTrainingFormCard._soLuongKhoa;
+                SoLuongSinhVien = anotherTrainingFormCard._soLuongSinhVien;
+            }
+
+            public string TenHeDaoTao
+            {
+                get { return _tenHeDaoTao; }
+                set
+                {
+                    _tenHeDaoTao = value;
+                    OnPropertyChanged();
+                }
+            }
+            public int SoLuongKhoa
+            {
+                get { return _soLuongKhoa; }
+                set
+                {
+                    _soLuongKhoa = value;
+                    OnPropertyChanged();
+                }
+            }
+            public int SoLuongSinhVien
+            {
+                get { return _soLuongSinhVien; }
+                set
+                {
+                    _soLuongSinhVien = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public class FalcutyCard

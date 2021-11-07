@@ -31,6 +31,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:AdminTrainingFormRightSideBarItemViewModel}">
                     <components:AdminTrainingFormRightSideBarItem />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminTrainingFormRightSideBarItemEditViewModel}">
+                    <components:AdminTrainingFormRightSideBarItemEdit />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>
