@@ -5,10 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:StudentManagement.Components"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="PostNewsFeedUC"
+    d:DataContext="{StaticResource PostNewsfeedVM}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.7'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
@@ -49,24 +50,60 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            Text="Lê Hữu Trung" />
-                        <Image
-                            ToolTip="Người dùng đã xác minh"
-                            Height="18"
-                            Margin="4,0,0,0"
-                            Source="{StaticResource BlueTick}" />
-                    </StackPanel>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                FontWeight="SemiBold"
+                                Text="Lê Hữu Trung" />
+                            <Image
+                                Height="18"
+                                Margin="4,0,0,0"
+                                Source="{StaticResource BlueTick}"
+                                ToolTip="Người dùng đã xác minh" />
+                        </StackPanel>
+
+                        <materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignCentres">
+                            <StackPanel>
+                                <Button>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Margin="0,0,8,0" Kind="PencilOutline" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontWeight="SemiBold"
+                                            Text="Chỉnh sửa" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    Command="{Binding Source={StaticResource NewFeedSubjectClassDetailVM}, Path=DeletePost}"
+                                    CommandParameter="{Binding Path=PostId}"
+                                    Foreground="{DynamicResource ErrorMain}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Margin="0,0,8,0" Kind="DeleteOutline" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontWeight="SemiBold"
+                                            Text="Xóa" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                    </Grid>
 
                     <StackPanel
                         Grid.Row="1"
                         Margin="0,8,8,8"
                         Orientation="Horizontal">
-                        <TextBlock Text="{Binding PostTime, Converter={utils:DateTimeConverter}}" ToolTip="{Binding PostTime}" />
+                        <TextBlock Text="{Binding PostTime, Converter={utils:DateTimeConverter}}">
+                            <TextBlock.ToolTip>
+                                <TextBlock Text="{Binding PostTime, Converter={utils:DateTimeConverter}, ConverterParameter=full}" />
+                            </TextBlock.ToolTip>
+                        </TextBlock>
                         <TextBlock FontWeight="Bold" Text=" · " />
                         <Image
                             Height="12"
@@ -94,21 +131,14 @@
                         Name="leftArrow"
                         Grid.Column="0"
                         Height="48"
-                        Margin="16 0 8 16"
+                        Margin="16,0,8,16"
                         Source="{StaticResource LeftArrow}">
                         <Image.Style>
-                            <Style
-                                TargetType="Image">
-                                <Setter
-                                    Property="Visibility"
-                                    Value="Visible" />
+                            <Style TargetType="Image">
+                                <Setter Property="Visibility" Value="Visible" />
                                 <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsShowButtonChangeImage}"
-                                        Value="False">
-                                        <Setter
-                                            Property="Visibility"
-                                            Value="Collapsed" />
+                                    <DataTrigger Binding="{Binding IsShowButtonChangeImage}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -124,14 +154,13 @@
                     <Image
                         Grid.Column="1"
                         MaxHeight="300"
-                        Margin="0 0 0 16"
+                        Margin="0,0,0,16"
                         Source="{Binding ImageSelectedShow, Mode=OneWay, TargetNullValue={StaticResource ImageDefault}}"
                         Stretch="Uniform">
                         <Image.Style>
                             <Style TargetType="Image">
                                 <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding StackPostImage.Count}" Value="0">
+                                    <DataTrigger Binding="{Binding StackPostImage.Count}" Value="0">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -143,7 +172,7 @@
                         Name="rightArrow"
                         Grid.Column="2"
                         Height="48"
-                        Margin="8 0 16 16"
+                        Margin="8,0,16,16"
                         Source="{StaticResource RightArrow}">
                         <Image.Style>
                             <Style TargetType="Image">
@@ -213,6 +242,102 @@
                 </StackPanel>
             </DockPanel>
 
+            <!--<Grid Grid.Row="5">
+                <DockPanel
+                    Margin="16 8 4 8">
+                    <Ellipse
+                        Width="40"
+                        Height="40"
+                        Margin="0,0,4,8"
+                        VerticalAlignment="Top"
+                        DockPanel.Dock="Left">
+                        <Ellipse.Fill>
+                            <ImageBrush
+                                ImageSource="{DynamicResource DefaultUserAvatar}"
+                                Stretch="Uniform" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <Grid
+                        HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="*" />
+                            <ColumnDefinition
+                                Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            HorizontalAlignment="Left"
+                            Grid.Column="0"
+                            DockPanel.Dock="Left"
+                            Margin="4,0,0,0"
+                            Padding="12"
+                            Background="#e9ebee"
+                            CornerRadius="15"
+                            ToolTip="Thứ 3, 2 tháng 11, 2021 vào lúc 20:00">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <StackPanel
+                                    Grid.Row="0"
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Text="Lê Hữu Trung" />
+                                    <Image
+                                        Height="18"
+                                        Margin="4,0,0,0"
+                                        Source="{StaticResource BlueTick}"
+                                        ToolTip="Người dùng đã xác minh" />
+                                </StackPanel>
+                                <TextBox
+                                    Grid.Row="1"
+                                    Style="{StaticResource TextBoxAsTextBlock}"
+                                    Text="Loremgsegseggesgesg LoremgsegseggesgesgLoremgsegseggesgesgLoremgsegseggesgesgLoremgsegseggesgesgLoremgsegseggesgesgLoremgsegseggesgesgtext of the printing." />
+                            </Grid>
+                        </Border>
+
+                        <materialDesign:PopupBox
+                            Grid.Column="1"
+                            DockPanel.Dock="Right"
+                            Margin="4,0,0,0">
+                            <StackPanel>
+                                <Button>
+                                    <StackPanel
+                                        Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Margin="0,0,8,0"
+                                            Kind="PencilOutline" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontWeight="SemiBold"
+                                            Text="Chỉnh sửa" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    Command="{Binding ElementName=icComments, Path=DataContext.DeleteComment}"
+                                    CommandParameter="{Binding CommentId}"
+                                    Foreground="{DynamicResource ErrorMain}">
+                                    <StackPanel
+                                        Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Margin="0,0,8,0"
+                                            Kind="DeleteOutline" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontWeight="SemiBold"
+                                            Text="Xóa" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                    </Grid>
+                </DockPanel>-->
+
             <Grid Grid.Row="5">
                 <ItemsControl
                     Name="icComments"
@@ -225,11 +350,11 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel>
+                            <DockPanel x:Name="Comment" Margin="16,8,16,8">
                                 <Ellipse
                                     Width="40"
                                     Height="40"
-                                    Margin="16,0,4,8"
+                                    Margin="0,0,4,8"
                                     VerticalAlignment="Top"
                                     DockPanel.Dock="Left">
                                     <Ellipse.Fill>
@@ -237,37 +362,112 @@
                                     </Ellipse.Fill>
                                 </Ellipse>
 
-                                <Border
-                                    Margin="4,0,16,16"
-                                    Padding="12"
-                                    HorizontalAlignment="Left"
-                                    Background="#e9ebee"
-                                    CornerRadius="15"
-                                    ToolTip="Thứ 3, 2 tháng 11, 2021 vào lúc 20:00">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                FontSize="16"
-                                                FontWeight="SemiBold"
-                                                Text="{Binding Username}" />
-                                            <Image
-                                                ToolTip="Người dùng đã xác minh"
-                                                Height="18"
-                                                Margin="4,0,0,0"
-                                                Source="{StaticResource BlueTick}" />
+                                <Grid HorizontalAlignment="Left">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border
+                                        Grid.Column="0"
+                                        Margin="4,0,0,0"
+                                        Padding="12"
+                                        HorizontalAlignment="Left"
+                                        Background="#e9ebee"
+                                        CornerRadius="15"
+                                        DockPanel.Dock="Left">
+                                        <Border.ToolTip>
+                                            <TextBlock Text="{Binding Time, Converter={utils:DateTimeConverter}, ConverterParameter=full}" />
+                                        </Border.ToolTip>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="16"
+                                                    FontWeight="SemiBold"
+                                                    Text="{Binding Username}" />
+                                                <Image
+                                                    Height="18"
+                                                    Margin="4,0,0,0"
+                                                    Source="{StaticResource BlueTick}"
+                                                    ToolTip="Người dùng đã xác minh" />
+                                            </StackPanel>
+                                            <TextBox
+                                                Grid.Row="1"
+                                                Style="{StaticResource TextBoxAsTextBlock}"
+                                                Text="{Binding Comment}" />
+                                        </Grid>
+                                    </Border>
+
+                                    <materialDesign:PopupBox
+                                        x:Name="MoreDetailComment"
+                                        Grid.Column="1"
+                                        Margin="4,0,0,0"
+                                        DockPanel.Dock="Right"
+                                        PlacementMode="BottomAndAlignCentres">
+                                        <materialDesign:PopupBox.ToggleContent>
+                                            <materialDesign:PackIcon Kind="DotsHorizontal" />
+                                        </materialDesign:PopupBox.ToggleContent>
+                                        <StackPanel>
+                                            <Button Command="{Binding ElementName=icComments, Path=DataContext.EditComment}">
+                                                <Button.CommandParameter>
+                                                    <MultiBinding Converter="{utils:MultiCommandParameterConverter}">
+                                                        <Binding ElementName="txbMainComment" />
+                                                        <Binding Path="CommentId" />
+                                                    </MultiBinding>
+                                                </Button.CommandParameter>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Margin="0,0,8,0" Kind="PencilOutline" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontWeight="SemiBold"
+                                                        Text="Chỉnh sửa" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button
+                                                Command="{Binding ElementName=icComments, Path=DataContext.DeleteComment}"
+                                                CommandParameter="{Binding CommentId}"
+                                                Foreground="{DynamicResource ErrorMain}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Margin="0,0,8,0" Kind="DeleteOutline" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontWeight="SemiBold"
+                                                        Text="Xóa" />
+                                                </StackPanel>
+                                            </Button>
                                         </StackPanel>
-                                        <TextBox
-                                            Grid.Row="1"
-                                            Style="{StaticResource TextBoxAsTextBlock}"
-                                            Text="{Binding Comment}" />
-                                    </Grid>
-                                </Border>
+                                    </materialDesign:PopupBox>
+                                </Grid>
                             </DockPanel>
+
+                            <DataTemplate.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="MoreDetailComment"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="1"
+                                                Duration="0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="Control.MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="MoreDetailComment"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="0"
+                                                Duration="0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -328,9 +528,11 @@
                     </Ellipse.Fill>
                 </Ellipse>
                 <TextBox
+                    x:Name="txbMainComment"
                     Background="White"
                     Style="{StaticResource CommentTextBox}"
-                    Tag="{Binding SendComment}" />
+                    Tag="{Binding SendComment}">
+                </TextBox>
             </DockPanel>
         </Grid>
     </Border>
