@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -22,43 +23,27 @@ namespace StudentManagement.ViewModels
 
             public TrainingFormCard(string tenHeDaoTao, int soLuongKhoa, int soLuongSinhVien)
             {
-                _tenHeDaoTao = tenHeDaoTao;
-                _soLuongKhoa = soLuongKhoa;
-                _soLuongSinhVien = soLuongSinhVien;
+                TenHeDaoTao = tenHeDaoTao;
+                SoLuongKhoa = soLuongKhoa;
+                SoLuongSinhVien = soLuongSinhVien;
             }
+
+            public string TenHeDaoTao { get => _tenHeDaoTao; set => _tenHeDaoTao = value; }
+            public int SoLuongKhoa { get => _soLuongKhoa; set => _soLuongKhoa = value; }
+            public int SoLuongSinhVien { get => _soLuongSinhVien; set => _soLuongSinhVien = value; }
 
             public void CopyCardInfo(TrainingFormCard anotherTrainingFormCard)
             {
-                TenHeDaoTao = anotherTrainingFormCard._tenHeDaoTao;
-                SoLuongKhoa = anotherTrainingFormCard._soLuongKhoa;
-                SoLuongSinhVien = anotherTrainingFormCard._soLuongSinhVien;
+                TenHeDaoTao = anotherTrainingFormCard.TenHeDaoTao;
+                SoLuongKhoa = anotherTrainingFormCard.SoLuongKhoa;
+                SoLuongSinhVien = anotherTrainingFormCard.SoLuongSinhVien;
             }
 
-            public string TenHeDaoTao
+            public void RunOnPropertyChanged()
             {
-                get { return _tenHeDaoTao; }
-                set
+                foreach (PropertyInfo propertyInfo in this.GetType().GetProperties())
                 {
-                    _tenHeDaoTao = value;
-                    OnPropertyChanged();
-                }
-            }
-            public int SoLuongKhoa
-            {
-                get { return _soLuongKhoa; }
-                set
-                {
-                    _soLuongKhoa = value;
-                    OnPropertyChanged();
-                }
-            }
-            public int SoLuongSinhVien
-            {
-                get { return _soLuongSinhVien; }
-                set
-                {
-                    _soLuongSinhVien = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(propertyInfo.Name);
                 }
             }
         }

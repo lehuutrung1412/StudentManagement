@@ -62,6 +62,8 @@ namespace StudentManagement.ViewModels
 
         public void ConfirmEditTrainingFormCardInfoFunction()
         {
+            this._actualCard.CopyCardInfo(this.CurrentCard);
+            this._actualCard.RunOnPropertyChanged();
             ReturnToShowTrainingFormCardInfo();
         }
 
