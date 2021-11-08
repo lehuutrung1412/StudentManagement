@@ -139,9 +139,6 @@
     <Compile Include="Components\ScoreBoardRightSideBarItem.xaml.cs">
       <DependentUpon>ScoreBoardRightSideBarItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ScrollViewerTest.xaml.cs">
-      <DependentUpon>ScrollViewerTest.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Components\SearchBarOne.xaml.cs">
       <DependentUpon>SearchBarOne.xaml</DependentUpon>
     </Compile>
@@ -269,7 +266,9 @@
     <Compile Include="Views\NewfeedSubjectClassDetail.xaml.cs">
       <DependentUpon>NewfeedSubjectClassDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ScoreBoard.xaml.cs" />
+    <Compile Include="Views\ScoreBoard.xaml.cs">
+      <DependentUpon>ScoreBoard.xaml</DependentUpon>
+    </Compile>  
     <Compile Include="Views\StudentCourseRegistry.xaml.cs">
       <DependentUpon>StudentCourseRegistry.xaml</DependentUpon>
     </Compile>
