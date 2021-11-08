@@ -1,0 +1,147 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.ShowDetailNotification"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    x:Name="CreatePostNewFeedUC"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.3'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
+    Background="{DynamicResource Transparent}"
+    mc:Ignorable="d">
+    <Border Background="{DynamicResource Background}" CornerRadius="15">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="15"
+                Opacity="0.3"
+                ShadowDepth="0"
+                Color="DarkGray" />
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <DockPanel>
+                    <Ellipse
+                        Width="40"
+                        Height="40"
+                        Margin="16,16,16,16"
+                        VerticalAlignment="Top">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{DynamicResource DefaultUserAvatar}" Stretch="Uniform" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <TextBox
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Chủ đề thông báo"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        Style="{StaticResource MaterialDesignTextBox}"
+                        Text="{Binding CurrentCard.ChuDe, TargetNullValue=true}" />
+                    <materialDesign:PopupBox
+                        Width="60"
+                        Padding="2,0,2,0"
+                        HorizontalAlignment="Right">
+                        <StackPanel>
+                            <Button Content="Chỉnh sửa" />
+                            <Button Content="Xoá" />
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+
+                </DockPanel>
+
+                <StackPanel
+                    Orientation="Horizontal" Margin="16 4 16 4">
+                    <materialDesign:PackIcon
+                        Kind="Earth"
+                        Height="20"
+                        Width="20"
+                        Margin="0 0 16 0"/>
+                    <TextBlock
+                        Text="{Binding CurrentCard.NgayDang}"
+                        Style="{StaticResource MaterialDesignButtonTextBlock}"
+                        Margin="0 0 16 0"/>
+                    <TextBlock
+                        Text="{Binding CurrentCard.LoaiBaiDang}"
+                        Style="{StaticResource MaterialDesignButtonTextBlock}"
+                        Margin="0 0 16 0" />
+                    
+                </StackPanel>
+            </StackPanel>
+            <!--<materialDesign:PackIcon
+                        Margin="16,0,0,0"
+                        Kind="Earth"
+                        VerticalAlignment="Center"/>
+                    <TextBlock
+                        Margin="4,0,16,0"
+                        FontSize="16"
+                        Text="22:00 01/01/2022" />-->
+            <TextBox
+                Grid.Row="1"
+                Height="auto"
+                MinHeight="40"
+                Margin="16,8,16,8"
+                Padding="16"
+                materialDesign:HintAssist.Hint="Nội dung thông báo?"
+                materialDesign:HintAssist.IsFloating="False"
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                materialDesign:TextFieldAssist.UnderlineBrush="White"
+                AcceptsReturn="True"
+                AcceptsTab="True"
+                Background="White"
+                DockPanel.Dock="Right"
+                FontSize="16"
+                HorizontalScrollBarVisibility="Disabled"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding CurrentCard.NoiDung, TargetNullValue=true}"
+                VerticalScrollBarVisibility="auto" />
+            <!--  Text="{Binding DraftPostText, Mode=TwoWay}"  -->
+            <StackPanel
+                Grid.Row="2"
+                Margin="4,0,16,4"
+                HorizontalAlignment="Right"
+                DockPanel.Dock="Right"
+                Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <!--<Button
+                                Margin="0,0,16,0"
+                                HorizontalAlignment="Stretch"
+                                Content="Thêm"
+                                Style="{StaticResource PrimaryButton}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
+                                        <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
+
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>-->
+                            <Button
+                                HorizontalAlignment="Stretch"
+                                Background="Red"
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                Content="Huỷ"
+                                Style="{StaticResource PrimaryButton}" />
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

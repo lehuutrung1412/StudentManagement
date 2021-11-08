@@ -30,6 +30,9 @@
                         <DataTemplate DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
                             <component:NewNotification Width="600" Height="500" />
                         </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewmodels:ShowDetailNotificationViewModel}">
+                            <component:ShowDetailNotification Width="600" Height="500" />
+                        </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
 
@@ -59,8 +62,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
-                                    <i:InvokeCommandAction
-                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
+                                    <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <TextBlock

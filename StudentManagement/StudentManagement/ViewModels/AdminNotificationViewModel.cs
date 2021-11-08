@@ -72,20 +72,21 @@ namespace StudentManagement.ViewModels
 
         private ICommand _popUpNotification;
         public ICommand PopUpNotification { get => _popUpNotification; set => _popUpNotification = value; }
+
         private ICommand _searchCommand;
         public ICommand SearchCommand { get => _searchCommand; set => _searchCommand = value; }
 
         public ICommand UpdateNotificationCommand { get => _updateNotification; set => _updateNotification = value; }
-
         private ICommand _updateNotification;
 
         public ICommand DeleteNotificationCommand { get => _deleteNotification; set => _deleteNotification = value; }
-
         private ICommand _deleteNotification;
 
         public ICommand CreateNotificationCommand { get => _createNotificationCommand; set => _createNotificationCommand = value; }
-
         private ICommand _createNotificationCommand;
+
+        public ICommand ShowDetailNotificationCommand { get => _showDetailNotificationCommand; set => _showDetailNotificationCommand = value; }
+        private ICommand _showDetailNotificationCommand;
 
         private string _searchInfo;
         public string SearchInfo 
@@ -132,6 +133,7 @@ namespace StudentManagement.ViewModels
         }
 
         public object _creatNewNotificationViewModel;
+        public object _showDetailNotificationViewModel;
 
 
         public AdminNotificationViewModel()
@@ -161,6 +163,15 @@ namespace StudentManagement.ViewModels
             UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
             DeleteNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteNotification());
             CreateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNewNotification());
+            ShowDetailNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowDetailNotification(p));
+        }
+        public void ShowDetailNotification(UserControl p)
+        {
+            if (p.DataContext == null)
+                return;
+            var card = p.DataContext as CardNotification;
+            this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
+            this.DialogItemViewModel = this._showDetailNotificationViewModel;
         }
      
         public void Search()
