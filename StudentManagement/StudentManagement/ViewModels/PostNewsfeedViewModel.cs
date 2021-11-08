@@ -1,11 +1,8 @@
 ﻿using StudentManagement.Commands;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -28,27 +25,36 @@ namespace StudentManagement.ViewModels
 
         public DateTime PostTime { get; set; }
 
-        public ObservableCollection<string> StackPostImage { get; set; }
+        private ObservableCollection<string> _stackPostImage;
         public string ImageSelectedShow { get => _imageSelectedShow; set { _imageSelectedShow = value; OnPropertyChanged(); } }
 
-        private string _imageSelectedShow;
-
-        public bool IsShowButtonChangeImage { get; set; }
+        private bool _isShowButtonChangeImage;
 
         private int _imageIndex;
 
         public Guid PostId { get; set; }
+        public bool IsShowButtonChangeImage { get => _isShowButtonChangeImage; set { _isShowButtonChangeImage = value; OnPropertyChanged(); } }
+        private string _imageSelectedShow;
+        public ObservableCollection<string> StackPostImage
+        {
+            get => _stackPostImage;
+            set
+            {
+                _stackPostImage = value;
+                OnPropertyChanged();
+                ImageSelectedShow = StackPostImage?.Count > 0 ? StackPostImage[0] : null;
+                _imageIndex = ImageSelectedShow != null ? 0 : -1;
+                IsShowButtonChangeImage = StackPostImage?.Count > 1;
+            }
+        }
 
         public PostNewsfeedViewModel(string postText, DateTime postTime, ObservableCollection<string> stackImage)
         {
             PostId = Guid.NewGuid();
             PostText = postText;
-            PostTime = new DateTime(2021, 11, 1, 20, 25, 30);
+            PostTime = postTime; //new DateTime(2021, 11, 1, 20, 25, 30);
             IsShowComments = true;
             StackPostImage = new ObservableCollection<string>(stackImage);
-            ImageSelectedShow = StackPostImage?.Count > 0 ? StackPostImage[0] : null;
-            _imageIndex = ImageSelectedShow != null ? 0 : -1;
-            IsShowButtonChangeImage = StackPostImage?.Count > 1;
             PostComments = new ObservableCollection<PostComment>();
             SendComment = new RelayCommand<object>(_ => true, (p) => SendDraftComment(p));
             ShowHideComments = new RelayCommand<object>(_ => true, (p) => ShowHideAllComments(p));
