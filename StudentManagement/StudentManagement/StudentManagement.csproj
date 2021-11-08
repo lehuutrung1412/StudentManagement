@@ -322,10 +322,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\ScrollViewerTest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Components\SearchBarOne.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
