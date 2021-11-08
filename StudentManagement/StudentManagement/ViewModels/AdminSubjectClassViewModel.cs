@@ -37,6 +37,22 @@ namespace StudentManagement.ViewModels
 
         public ObservableCollection<CardInfo> Cards { get => _cards; set => _cards = value; }
 
+        public bool IsFirstSearchButtonEnabled
+        {
+            get { return _isFirstSearchButtonEnabled; }
+            set
+            {
+                _isFirstSearchButtonEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
+
+        private ICommand _switchSearchButton;
+
+        private bool _isFirstSearchButtonEnabled = true;
+
         public AdminSubjectClassViewModel()
         {
             Cards = new ObservableCollection<CardInfo>() {
@@ -44,8 +60,22 @@ namespace StudentManagement.ViewModels
                 new CardInfo(150, "Nguyễn Thị Quý", "SE104", "Nhập môn CNPM"),
                 new CardInfo(20, "Nguyễn Thị Quý", "IT009", "Mạng máy tính"),
                 new CardInfo(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu"),
+                new CardInfo(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 1"),
+                new CardInfo(30, "Nguyễn Tấn Toàn", "IT010", "Cơ sở dữ liệu 2"),
+                new CardInfo(30, "Nguyễn Tấn Toàn", "IT011", "Cơ sở dữ liệu 3"),
+                new CardInfo(30, "Nguyễn Tấn Toàn", "IT012", "Cơ sở dữ liệu 4"),
+                new CardInfo(30, "Nguyễn Tấn Toàn", "IT013", "Cơ sở dữ liệu 5"),
+                new CardInfo(30, "Nguyễn Tấn Toàn", "IT014", "Cơ sở dữ liệu 6"),
+                new CardInfo(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 7"),
                 new CardInfo(40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
             };
+
+            this.SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
+        }
+
+        public void SwitchSearchButtonFunction(UserControl p)
+        {
+            this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
     }
 }

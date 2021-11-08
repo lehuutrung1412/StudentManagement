@@ -173,9 +173,9 @@
                                     FontSize="16"
                                     FontWeight="SemiBold"
                                     Foreground="Black">
-                                    <ComboBox.SelectedItem>
+                                    <!--<ComboBox.SelectedItem>
                                         <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
-                                    </ComboBox.SelectedItem>
+                                    </ComboBox.SelectedItem>-->
 
                                 </ComboBox>
                             </Border>
@@ -191,9 +191,9 @@
                                     FontSize="16"
                                     FontWeight="SemiBold"
                                     Foreground="Black">
-                                    <ComboBox.SelectedItem>
+                                    <!--<ComboBox.SelectedItem>
                                         <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
-                                    </ComboBox.SelectedItem>
+                                    </ComboBox.SelectedItem>-->
 
                                 </ComboBox>
                             </Border>
@@ -216,9 +216,9 @@
                                         FontWeight="SemiBold"
                                         Foreground="Black"
                                         Style="{StaticResource MaterialDesignComboBox}">
-                                        <ComboBox.SelectedItem>
+                                        <!--<ComboBox.SelectedItem>
                                             <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
-                                        </ComboBox.SelectedItem>
+                                        </ComboBox.SelectedItem>-->
                                     </ComboBox>
                                 </Border>
 
@@ -236,9 +236,9 @@
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Foreground="Black">
-                                        <ComboBox.SelectedItem>
+                                        <!--<ComboBox.SelectedItem>
                                             <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
-                                        </ComboBox.SelectedItem>
+                                        </ComboBox.SelectedItem>-->
 
                                     </ComboBox>
                                 </Border>

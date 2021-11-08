@@ -1,0 +1,119 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.NewNotification"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    x:Name="CreatePostNewFeedUC"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.3'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
+    Background="{DynamicResource Transparent}"
+    DataContext="{StaticResource CreatePostNewFeedVM}"
+    mc:Ignorable="d">
+    <Border Background="{DynamicResource Background}" CornerRadius="15">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="15"
+                Opacity="0.3"
+                ShadowDepth="0"
+                Color="DarkGray" />
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="*" />
+                <RowDefinition
+                    Height="4*" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel
+                Grid.Row="0">
+                <DockPanel>
+                    <Ellipse
+                        Width="40"
+                        Height="40"
+                        Margin="16,16,16,16"
+                        VerticalAlignment="Top">
+                        <Ellipse.Fill>
+                            <ImageBrush
+                                ImageSource="{DynamicResource DefaultUserAvatar}"
+                                Stretch="Uniform" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                        Text="Tổ chức thi chứng chỉ tiếng Anh VNU-OPT" />
+                    <materialDesign:PopupBox
+                        Width="60"
+                        Padding="2,0,2,0"
+                        HorizontalAlignment="Right">
+                        <StackPanel>
+                            <Button
+                                Content="Chỉnh sửa" />
+                            <Button
+                                Content="Xoá" />
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+
+                </DockPanel>
+                <DockPanel>
+                    <materialDesign:PackIcon
+                        Margin="16,0,0,0"
+                        Kind="Earth" 
+                        VerticalAlignment="Center"/>
+                    <TextBlock
+                        Margin="4,0,16,0"
+                        FontSize="16"
+                        Text="22:00 01/01/2022" />
+                    <TextBlock
+                        Margin="0,0,16,0"
+                        FontSize="16"
+                        Text="Thông báo chung" />
+                </DockPanel>
+            </StackPanel>
+            <TextBox
+                Grid.Row="1"
+                Height="auto"
+                MinHeight="40"
+                Margin="4,16,16,4"
+                Padding="16"
+                materialDesign:HintAssist.Hint="Nội dung thông báo?"
+                materialDesign:HintAssist.IsFloating="False"
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                materialDesign:TextFieldAssist.UnderlineBrush="White"
+                AcceptsReturn="True"
+                AcceptsTab="True"
+                Background="White"
+                DockPanel.Dock="Right"
+                FontSize="16"
+                HorizontalScrollBarVisibility="Disabled"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding DraftPostText, Mode=TwoWay}"
+                VerticalScrollBarVisibility="auto" />
+            <StackPanel
+                Margin="4,16,16,4"
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                DockPanel.Dock="Right"
+                Orientation="Horizontal">
+                <Button
+                    Margin="0 0 32 0"
+                    Width="120"
+                    Style="{StaticResource PrimaryButton}"
+                    Content="Chỉnh sửa" />
+                <Button
+                    Background="Red"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="120"
+                    Content="Huỷ" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

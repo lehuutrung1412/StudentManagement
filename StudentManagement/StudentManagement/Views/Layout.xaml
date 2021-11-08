@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
@@ -36,10 +37,35 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <components:LeftSideBar Grid.Column="0" Grid.ColumnSpan="2" />
+
         <ContentControl
             Grid.Column="2"
             Grid.ColumnSpan="7"
-            Content="{Binding ContentView}" />
+            Content="{Binding ContentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
+                    <views:AdminHome />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassViewModel}">
+                    <views:AdminSubjectClass />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminNotificationViewModel}">
+                    <views:AdminNotification />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:NewFeedSubjectClassDetailViewModel}">
+                    <views:NewfeedSubjectClassDetail />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryViewModel}">
+                    <views:StudentCourseRegistry />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormViewModel}">
+                    <views:AdminFalcutyTrainingForm />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ScoreBoardViewModel}">
+                    <views:ScoreBoard />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
         <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />
     </Grid>
 </UserControl>

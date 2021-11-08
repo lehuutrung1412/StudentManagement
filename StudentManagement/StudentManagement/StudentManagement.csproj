@@ -48,6 +48,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,8 +70,26 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\AdminFalcutyRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminFalcutyRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminFalcutyTrainingFormRightSideBar.xaml.cs">
+      <DependentUpon>AdminFalcutyTrainingFormRightSideBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminNotificationRightSideBar.xaml.cs">
+      <DependentUpon>AdminNotificationRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminNotificationRightSideBarEdit.xaml.cs">
+      <DependentUpon>AdminNotificationRightSideBarEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminNotificationRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminNotificationRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\AdminNotificationSearchBar.xaml.cs">
+      <DependentUpon>AdminNotificationSearchBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\AdminSubjectClassRightSideBar.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBar.xaml</DependentUpon>
@@ -77,14 +97,32 @@
     <Compile Include="Components\AdminSubjectClassRightSideBarItem.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBarItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\AdminTrainingFormRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminTrainingFormRightSideBarItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\CreatePostNewfeed.xaml.cs">
       <DependentUpon>CreatePostNewfeed.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\EmptyStateRightSideBar.xaml.cs">
       <DependentUpon>EmptyStateRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\FalcutyDataGrid.xaml.cs">
+      <DependentUpon>FalcutyDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\LeftSideBar.xaml.cs">
       <DependentUpon>LeftSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\NavigationDropdownList.xaml.cs">
+      <DependentUpon>NavigationDropdownList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\NavigationItem.xaml.cs">
+      <DependentUpon>NavigationItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\NewNotification.xaml.cs">
+      <DependentUpon>NewNotification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\NotificationCard.xaml.cs">
+      <DependentUpon>NotificationCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\PostNewsfeed.xaml.cs">
       <DependentUpon>PostNewsfeed.xaml</DependentUpon>
@@ -92,20 +130,54 @@
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ScoreboardDataGrid.xaml.cs">
+      <DependentUpon>ScoreboardDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ScoreBoardRightSideBar.xaml.cs">
+      <DependentUpon>ScoreBoardRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ScoreBoardRightSideBarItem.xaml.cs">
+      <DependentUpon>ScoreBoardRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SearchBarOne.xaml.cs">
+      <DependentUpon>SearchBarOne.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\StudentCourseRegistryRightSideBar.xaml.cs">
+      <DependentUpon>StudentCourseRegistryRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\StudentCourseRegistryRightSideBarItem.xaml.cs">
+      <DependentUpon>StudentCourseRegistryRightSideBarItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassCard.xaml.cs">
       <DependentUpon>SubjectClassCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\SubjectRegistryDataGrid.xaml.cs">
+      <DependentUpon>SubjectRegistryDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\TrainingFormCard.xaml.cs">
+      <DependentUpon>TrainingFormCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
+    <Compile Include="Utils\SwitchBoolConverter.cs" />
+    <Compile Include="ViewModels\AdminFalcutyRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\AdminFalcutyTrainingFormRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\AdminFalcutyTrainingFormViewModel.cs" />
+    <Compile Include="ViewModels\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarEditViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\AdminNotificationViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\AdminSubjectClassViewModel.cs" />
+    <Compile Include="ViewModels\AdminTrainingFormRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CreatePostNewFeedViewModel.cs" />
     <Compile Include="ViewModels\EmptyStateRightSideBarViewModel.cs" />
@@ -113,11 +185,23 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NewFeedSubjectClassDetailViewModel.cs" />
+    <Compile Include="ViewModels\ScoreBoardRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\ScoreBoardRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\ScoreBoardViewModel.cs" />
+    <Compile Include="ViewModels\StudentCourseRegistryRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\StudentCourseRegistryRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\StudentCourseRegistryViewModel.cs" />
     <Compile Include="ViewModels\PostNewsfeedViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
+    <Compile Include="Views\AdminFalcutyTrainingForm.xaml.cs">
+      <DependentUpon>AdminFalcutyTrainingForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminNotification.xaml.cs">
+      <DependentUpon>AdminNotification.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AdminSubjectClass.xaml.cs">
       <DependentUpon>AdminSubjectClass.xaml</DependentUpon>
@@ -131,7 +215,31 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\AdminFalcutyRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminFalcutyTrainingFormRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\AdminHomeRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationRightSideBarEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminNotificationSearchBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +248,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\AdminSubjectClassRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\AdminTrainingFormRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,13 +266,37 @@
     <Compile Include="Views\NewfeedSubjectClassDetail.xaml.cs">
       <DependentUpon>NewfeedSubjectClassDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ScoreBoard.xaml.cs" />
+    <Compile Include="Views\StudentCourseRegistry.xaml.cs">
+      <DependentUpon>StudentCourseRegistry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserInfoAdmin.xaml.cs">
       <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserInfoStudent.xaml.cs">
       <DependentUpon>UserInfoStudent.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\FalcutyDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\LeftSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\NavigationDropdownList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\NavigationItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\NewNotification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\NotificationCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,11 +308,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\ScoreboardDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\ScoreBoardRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ScoreBoardRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SearchBarOne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\StudentCourseRegistryRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\StudentCourseRegistryRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\SubjectClassCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\SubjectRegistryDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\TitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\TrainingFormCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,7 +360,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AdminFalcutyTrainingForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AdminHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,6 +389,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewfeedSubjectClassDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScoreBoard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\StudentCourseRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

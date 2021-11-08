@@ -38,18 +38,19 @@
                         x:Name="btnImage"
                         Width="168"
                         Height="168"
-                        Command="{Binding ClickImageCommand}"
-                        DataContext="{DynamicResource UserInfoStudentVM}">
+                        Command="{Binding ClickImageCommand}">
+
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Ellipse
+                                    <Ellipse                                    
                                         Width="168"
                                         Height="168"
                                         Stroke="Gray"
                                         StrokeThickness="2">
                                         <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{Binding Source, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Stretch="UniformToFill" />
+                                            <ImageBrush
+                                                ImageSource="{Binding Source={StaticResource UserInfoStudentVM}, Path= Image }" Stretch="UniformToFill"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
                                 </Grid>
@@ -63,7 +64,7 @@
                         Background="#4caf50"
                         Command="{Binding ClickChangeImageCommand}"
                         DataContext="{DynamicResource UserInfoStudentVM}"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                  
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners"
                         Visibility="{Binding Visibility}">
 
@@ -90,7 +91,7 @@
                                 Margin="16,0,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 Background="#4caf50"
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                          
                                 ToolTip="MaterialDesignRaisedLightButton with Round Corners">
 
                                 <TextBlock Text="Xuất thông tin" />
@@ -202,12 +203,12 @@
                                         FontWeight="SemiBold"
                                         Foreground="Black"
                                         IsEnabled="False">
-                                        <ComboBox.SelectedItem>
+                                        <!--<ComboBox.SelectedItem>
                                             <Binding
                                                 Mode="TwoWay"
                                                 Path="SelectedValidationOutlined"
                                                 UpdateSourceTrigger="PropertyChanged" />
-                                        </ComboBox.SelectedItem>
+                                        </ComboBox.SelectedItem>-->
 
                                     </ComboBox>
                                 </Border>
@@ -224,12 +225,12 @@
                                         FontWeight="SemiBold"
                                         Foreground="Black"
                                         IsEnabled="False">
-                                        <ComboBox.SelectedItem>
+                                        <!--<ComboBox.SelectedItem>
                                             <Binding
                                                 Mode="TwoWay"
                                                 Path="SelectedValidationOutlined"
                                                 UpdateSourceTrigger="PropertyChanged" />
-                                        </ComboBox.SelectedItem>
+                                        </ComboBox.SelectedItem>-->
 
                                     </ComboBox>
                                 </Border>
@@ -253,12 +254,12 @@
                                             Foreground="Black"
                                             IsEnabled="False"
                                             Style="{StaticResource MaterialDesignComboBox}">
-                                            <ComboBox.SelectedItem>
+                                            <!--<ComboBox.SelectedItem>
                                                 <Binding
                                                     Mode="TwoWay"
                                                     Path="SelectedValidationOutlined"
                                                     UpdateSourceTrigger="PropertyChanged" />
-                                            </ComboBox.SelectedItem>
+                                            </ComboBox.SelectedItem>-->
                                         </ComboBox>
                                     </Border>
 
@@ -277,12 +278,12 @@
                                             FontWeight="SemiBold"
                                             Foreground="Black"
                                             IsEnabled="False">
-                                            <ComboBox.SelectedItem>
+                                            <!--<ComboBox.SelectedItem>
                                                 <Binding
                                                     Mode="TwoWay"
                                                     Path="SelectedValidationOutlined"
                                                     UpdateSourceTrigger="PropertyChanged" />
-                                            </ComboBox.SelectedItem>
+                                            </ComboBox.SelectedItem>-->
 
                                         </ComboBox>
                                     </Border>
@@ -425,7 +426,7 @@
                             HorizontalAlignment="Right"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="#42a5f5"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                      
                             ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                             <TextBlock Text="Xác nhận" />
                         </Button>

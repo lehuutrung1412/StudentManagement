@@ -1,0 +1,80 @@
+﻿<UserControl
+    x:Class="StudentManagement.Views.AdminFalcutyTrainingForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:StudentManagement.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    xmlns:views="clr-namespace:StudentManagement.Views"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{DynamicResource AdminFalcutyTrainingFormVM}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock
+                FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Text="Danh sách hệ đào tạo" />
+            <ItemsControl ItemsSource="{Binding TrainingFormCards}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Margin="16,16,16,16" HorizontalAlignment="Left" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <component:TrainingFormCard Margin="12" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock
+                FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Text="Danh sách khoa" />
+            <Grid Margin="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5.5*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <component:SearchBarOne
+                    Grid.Column="0"
+                    DataContext="{Binding}"
+                    FirstSearchButtonText="Khoa"
+                    SecondSearchButtonText="Hệ đào tạo" />
+                <Button
+                    Grid.Column="1"
+                    Height="50"
+                    Margin="16"
+                    Content="Thêm lớp học"
+                    FontSize="16" />
+            </Grid>
+
+        </StackPanel>
+
+        <component:FalcutyDataGrid
+            Grid.Row="2"
+            Margin="16,16,16,16"
+            DataContext="{Binding FalcutyCards}" />
+    </Grid>
+    <!--</ScrollViewer>-->
+</UserControl>

@@ -8,7 +8,15 @@
     <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
     <viewmodel:TitleBarViewModel x:Key="TitleBarVM" />
     <viewmodel:UserInfoStudentViewModel x:Key="UserInfoStudentVM" />
+    <viewmodel:AdminNotificationViewModel x:Key="AdminNotificationVM" />
+    <viewmodel:AdminNotificationRightSideBarViewModel x:Key="AdminNotificationRightSideBarVM" />
     <viewmodel:CreatePostNewFeedViewModel x:Key="CreatePostNewFeedVM" />
+    <viewmodel:StudentCourseRegistryViewModel x:Key="StudentCourseRegistryVM" />
+    <viewmodel:StudentCourseRegistryRightSideBarViewModel x:Key="StudentCourseRegistryRightSideBarVM" />
     <viewmodel:PostNewsfeedViewModel x:Key="PostNewsfeedVM" />
     <viewmodel:NewFeedSubjectClassDetailViewModel x:Key="NewFeedSubjectClassDetailVM" />
+    <viewmodel:AdminFalcutyTrainingFormViewModel x:Key="AdminFalcutyTrainingFormVM" />
+    <viewmodel:AdminFalcutyTrainingFormRightSideBarViewModel x:Key="AdminFalcutyTrainingFormRightSideBarVM" />
+    <viewmodel:ScoreBoardViewModel x:Key="ScoreBoardVM" />
+    <viewmodel:ScoreBoardRightSideBarViewModel x:Key="ScoreBoardRightSideBarVM" />
 </ResourceDictionary>
