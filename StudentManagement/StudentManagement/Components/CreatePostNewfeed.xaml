@@ -71,24 +71,31 @@
                     VerticalScrollBarVisibility="auto" />
             </DockPanel>
 
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding StackImageDraft}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel
-                            Margin="8,4,16,8"
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button
-                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.DeleteImage}"
-                            Style="{StaticResource ImageAdded}"
-                            Tag="{Binding}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <ScrollViewer
+                Margin="16 0 16 0"
+                Grid.Row="1"
+                VerticalScrollBarVisibility="Disabled"
+                HorizontalScrollBarVisibility="Auto">
+                <ItemsControl
+                    ItemsSource="{Binding StackImageDraft}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel
+                                Margin="8,4,0,8"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button
+                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.DeleteImage}"
+                                Style="{StaticResource ImageAdded}"
+                                Tag="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
 
             <DockPanel
                 Grid.Row="2"
@@ -110,7 +117,6 @@
                 <Button
                     Margin="16,0,0,0"
                     Command="{Binding AddImage}"
-                    CommandParameter="{Binding ElementName=CreatePostNewFeedUC}"
                     DockPanel.Dock="Right"
                     Style="{DynamicResource PrimaryButton}">
                     <StackPanel Orientation="Horizontal">
