@@ -9,8 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:LayoutViewModel,
-                                     IsDesignTimeCreatable=True}"
+    d:DataContext="{d:DesignInstance Type=viewmodels:AdminNotificationRightSideBarViewModel, IsDesignTimeCreatable=True}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -20,8 +19,10 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
+    x:Name="RightSideBarEdit"
     mc:Ignorable="d">
     <Grid>
+
         <StackPanel>
             <StackPanel.Resources>
                 <Style x:Key="textblock_item" TargetType="TextBlock">
@@ -33,11 +34,11 @@
                     <Setter Property="Margin" Value="0,4,8,4" />
                 </Style>
             </StackPanel.Resources>
-            <TextBlock
+            <TextBox
                 Padding="4"
                 FontSize="24"
                 FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Style="{DynamicResource MaterialDesignTextBox}"
                 Text="{Binding CurrentCard.ChuDe, FallbackValue='Tên chủ đề'}"
                 TextWrapping="Wrap" />
             <Grid Style="{StaticResource text_grid_item}">
@@ -59,9 +60,9 @@
                     Background="Transparent"
                     Style="{StaticResource BorderStyle}">
                     <TextBox
+                        Padding="8,0,0,0"
                         VerticalAlignment="Center"
                         FontSize="14"
-                        Padding="8 0 0 0"
                         Style="{StaticResource TextBox}"
                         Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
                         TextAlignment="Right"
@@ -91,36 +92,30 @@
                     Background="Transparent"
                     Style="{StaticResource BorderStyle}">
                     <DatePicker
-                        FontSize="14"
                         x:Name="dpBirthDate"
                         Height="28"
+                        Padding="8,0,8,0"
                         HorizontalAlignment="Stretch"
-                        Padding="8 0 0 0"
+                        FontSize="14"
                         FontWeight="SemiBold"
                         Foreground="#01579b"
-                        SelectedDate="{Binding CurrentCard.NgayDang}"/>
+                        SelectedDate="{Binding CurrentCard.NgayDang, ConverterCulture='vi-VN', StringFormat='dd/MM/yyyy'}" />
 
-                      <!--SelectedDate="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng'}"-->  
-                    <!--<Data
-                        Grid.ColumnSpan="2"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Style="{StaticResource TextBox}"
-
-                        TextAlignment="Right"
-                        TextWrapping="Wrap" />-->
                 </Border>
 
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="510*" />
+                    <ColumnDefinition Width="746*" />
+                    <ColumnDefinition Width="77*" />
+                    <ColumnDefinition Width="196*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
                     x:Name="tbTypeNotification"
                     Grid.Column="0"
+                    Margin="8,0,7.6,0"
                     FontSize="16"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
@@ -130,17 +125,17 @@
                     Grid.Column="1"
                     Background="Transparent"
                     Style="{StaticResource BorderStyle}">
-                    
+
                 </Border>-->
-                <ComboBox 
+                <ComboBox
                     Grid.Column="1"
+                    Grid.ColumnSpan="3"
                     Height="28"
-                   
-                    
+                    Margin="0.4,0,0,0"
+                    Padding="8,4,8,4"
+                    BorderBrush="Gray"
                     FontSize="14"
                     FontWeight="SemiBold"
-                    Padding="8 4 0 4"
-                    BorderBrush="Gray"
                     Foreground="#01579b"
                     ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
                     SelectedItem="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
@@ -172,26 +167,29 @@
                         Grid.Column="0"
                         Margin="8,0,8,0"
                         HorizontalAlignment="Stretch"
+                        Command="{Binding UpdateNotificationCommand}"
                         Content="Chỉnh sửa"
+                        DataContext="{DynamicResource AdminNotificationVM}"
                         FontSize="14"
                         Style="{StaticResource PrimaryButton}" />
                     <Button
                         Grid.Column="1"
-                        Command="{Binding CancelNotificationCommand}"
-                        DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
                         Margin="8,0,0,0"
                         HorizontalAlignment="Stretch"
                         Background="Red"
+                        Command="{Binding CancelNotificationCommand}"
                         Content="Huỷ"
+                        DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
                         FontSize="14"
                         Style="{StaticResource PrimaryButton}" />
                 </Grid>
             </Grid>
             <Button
                 x:Name="btnDelete"
-                
                 Padding="0"
                 BorderThickness="0"
+                Command="{Binding DeleteNotificationCommand}"
+                DataContext="{DynamicResource AdminNotificationVM}"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 

@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="StudentManagement.Components.NewNotification"
+    x:Class="StudentManagement.Components.ShowDetailNotification"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -58,34 +58,22 @@
 
                 </DockPanel>
 
-                <Grid Margin="16,0,16,4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock
-                            FontSize="16"
-                            FontWeight="SemiBold"
-                            Text="Loại thông báo" />
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <ComboBox
-                            Width="Auto"
-                            Height="28"
-                            Margin="16,0,0,0"
-                            Padding="8,4,8,4"
-                            materialDesign:HintAssist.Hint="Chọn loại thông báo"
-                            BorderBrush="Gray"
-                            FontSize="14"
-                            FontWeight="SemiBold"
-                            Foreground="#01579b"
-                            ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                            SelectedItem="{Binding CurrentCard.LoaiBaiDang, TargetNullValue=true}"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                    </Grid>
-                </Grid>
+                <StackPanel Margin="16,4,16,4" Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,16,0"
+                        Kind="Earth" />
+                    <TextBlock
+                        Margin="0,0,16,0"
+                        Style="{StaticResource MaterialDesignButtonTextBlock}"
+                        Text="{Binding CurrentCard.NgayDang}" />
+                    <TextBlock
+                        Margin="0,0,16,0"
+                        Style="{StaticResource MaterialDesignButtonTextBlock}"
+                        Text="{Binding CurrentCard.LoaiBaiDang}" />
+
+                </StackPanel>
             </StackPanel>
             <!--<materialDesign:PackIcon
                         Margin="16,0,0,0"
@@ -119,6 +107,7 @@
                 Grid.Row="2"
                 Margin="4,0,16,4"
                 HorizontalAlignment="Right"
+                VerticalAlignment="Center"
                 DockPanel.Dock="Right"
                 Orientation="Horizontal">
                 <Grid>
@@ -128,7 +117,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
-                            <Button
+                            <!--<Button
                                 Margin="0,0,16,0"
                                 HorizontalAlignment="Stretch"
                                 Content="Thêm"
@@ -140,7 +129,7 @@
 
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                            </Button>
+                            </Button>-->
                             <Button
                                 HorizontalAlignment="Stretch"
                                 Background="Red"

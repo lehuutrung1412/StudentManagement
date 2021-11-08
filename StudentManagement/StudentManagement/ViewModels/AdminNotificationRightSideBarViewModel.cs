@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,14 @@ namespace StudentManagement.ViewModels
 {
     public class AdminNotificationRightSideBarViewModel: BaseViewModel
     {
-        private object _rightSideBarItemViewModel;
+        private static AdminNotificationRightSideBarViewModel s_instance;
+        public static AdminNotificationRightSideBarViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new AdminNotificationRightSideBarViewModel());
 
+            private set => s_instance = value;
+        }
+        private object _rightSideBarItemViewModel;
         public object RightSideBarItemViewModel
         {
             get { return _rightSideBarItemViewModel; }
@@ -25,11 +32,11 @@ namespace StudentManagement.ViewModels
         }
 
 
-        private object _adminNotificationRightSideBarItemViewModel;
+        public object _adminNotificationRightSideBarItemViewModel;
 
-        private object _adminNotificationRightSideBarEditViewModel;
+        public object _adminNotificationRightSideBarEditViewModel;
 
-        private object _emptyStateRightSideBarViewModel;
+        public object _emptyStateRightSideBarViewModel;
 
 
         public ICommand ShowCardInfo { get => _showCardInfo; set => _showCardInfo = value; }
@@ -43,12 +50,17 @@ namespace StudentManagement.ViewModels
         public ICommand CancelNotificationCommand { get => _cancelNotification; set => _cancelNotification = value; }
 
         private ICommand _cancelNotification;
+
+        private CardNotification _currentCard;
+        public CardNotification CurrentCard { get => _currentCard; set => _currentCard = value; }
         public AdminNotificationRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
+            CurrentCard = null;
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
             Editnotification = new RelayCommand<object>((p) => { return true; }, (p) => EditnotificationByCardDataContext());
             CancelNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CancelNotification());
+            Instance = this;
         }
 
 
@@ -61,22 +73,22 @@ namespace StudentManagement.ViewModels
         }
         public void ShowCardInfoByCardDataContext(UserControl p)
         {
-            CardNotification card = p.DataContext as CardNotification;
+            CurrentCard = p.DataContext as CardNotification;
 
-            this._adminNotificationRightSideBarItemViewModel = new AdminNotificationRightSideBarItemViewModel(card);
-
-            this._adminNotificationRightSideBarEditViewModel = new AdminNotificationRightSideBarEditViewModel(card);
-
+            this._adminNotificationRightSideBarItemViewModel = new AdminNotificationRightSideBarItemViewModel(CurrentCard);
             this.RightSideBarItemViewModel = this._adminNotificationRightSideBarItemViewModel;
         }
         public void EditnotificationByCardDataContext()
-        { 
+        {
+            this._adminNotificationRightSideBarEditViewModel = new AdminNotificationRightSideBarEditViewModel();
+            var tmp = new CardNotification((this._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard);
+            (this._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard = tmp;
+            CurrentCard = tmp;  
             this.RightSideBarItemViewModel = this._adminNotificationRightSideBarEditViewModel;
         }
         public void CancelNotification()
         {
             this.RightSideBarItemViewModel = this._adminNotificationRightSideBarItemViewModel;
         }
-
     }
 }

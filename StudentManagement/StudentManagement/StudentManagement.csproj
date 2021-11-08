@@ -148,6 +148,9 @@
     <Compile Include="Components\SearchBarOne.xaml.cs">
       <DependentUpon>SearchBarOne.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ShowDetailNotification.xaml.cs">
+      <DependentUpon>ShowDetailNotification.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\StudentCourseRegistryRightSideBar.xaml.cs">
       <DependentUpon>StudentCourseRegistryRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -187,6 +190,7 @@
     <Compile Include="ViewModels\AdminSubjectClassViewModel.cs" />
     <Compile Include="ViewModels\AdminTrainingFormRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CreateNewNotificationViewModel.cs" />
     <Compile Include="ViewModels\CreatePostNewFeedViewModel.cs" />
     <Compile Include="ViewModels\EmptyStateRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />
@@ -196,6 +200,7 @@
     <Compile Include="ViewModels\ScoreBoardRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\ScoreBoardRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\ScoreBoardViewModel.cs" />
+    <Compile Include="ViewModels\ShowDetailNotificationViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryViewModel.cs" />
@@ -339,6 +344,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\SearchBarOne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ShowDetailNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

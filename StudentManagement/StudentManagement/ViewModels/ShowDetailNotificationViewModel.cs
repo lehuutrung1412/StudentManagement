@@ -7,16 +7,11 @@ using static StudentManagement.ViewModels.AdminNotificationViewModel;
 
 namespace StudentManagement.ViewModels
 {
-    class AdminNotificationRightSideBarEditViewModel
+    public class ShowDetailNotificationViewModel
     {
         public CardNotification CurrentCard { get => _currentCard; set => _currentCard = value; }
         private CardNotification _currentCard;
-
-        public AdminNotificationRightSideBarEditViewModel()
-        {
-            this.CurrentCard = null;
-        }
-        public AdminNotificationRightSideBarEditViewModel(CardNotification card)
+        public ShowDetailNotificationViewModel(CardNotification card)
         {
             this.CurrentCard = card;
         }

@@ -3,7 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="NotificationComponent"
@@ -21,11 +23,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Border
-        x:Name="bdNotification"
-        BorderBrush="{StaticResource DarkGray}"
-        BorderThickness="2"
-        CornerRadius="5">
+    <Border x:Name="bdNotification">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="15"
@@ -41,12 +39,13 @@
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"
                 Panel.ZIndex="2"
-                Background="Transparent"
-                BorderThickness="0"
-                Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}"
-                CommandParameter="{Binding ElementName=NotificationComponent}"
                 Foreground="Black"
-                Style="{StaticResource MaterialDesignFlatDarkButton}">
+                Style="{StaticResource AdminNotificationButton}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.8*" />
@@ -111,12 +110,23 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#03a9f4"
-                            Text="{Binding NgayDang, FallbackValue='Ngày Đăng'}" />
+                            Text="{Binding NgayDang, StringFormat='dd/MM/yyyy', FallbackValue='Ngày Đăng'}" />
                         <Button
                             Grid.Row="1"
-                            Style="{StaticResource  MaterialDesignFlatButton}"
                             Padding="0"
-                            Panel.ZIndex="1">
+                            Panel.ZIndex="1"
+                            Style="{StaticResource MaterialDesignFlatButton}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger
+                                    EventName="Click">
+                                    <i:InvokeCommandAction
+                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"/>
+                                    <i:InvokeCommandAction
+                                        Command="{Binding ShowDetailNotificationCommand , Source={StaticResource AdminNotificationVM}}"
+                                        CommandParameter="{Binding ElementName=NotificationComponent}" />
+    
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <TextBlock
                                 Grid.Row="1"
                                 HorizontalAlignment="Center"
