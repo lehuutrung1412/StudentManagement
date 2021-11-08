@@ -18,7 +18,9 @@ namespace StudentManagement.ViewModels
         private bool _isPost;
         public bool IsPost { get => _isPost; set { _isPost = value; OnPropertyChanged(); } }
 
-        public ObservableCollection<string> StackImageDraft { get; set; }
+        public ObservableCollection<string> StackImageDraft { get => _stackImageDraft; set { _stackImageDraft = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<string> _stackImageDraft;
 
         private string _draftPostText;
 
@@ -28,7 +30,7 @@ namespace StudentManagement.ViewModels
 
             DeleteImage = new RelayCommand<object>(_ => true, (p) => DeleteImageInDraftPost(p));
             AddImage = new RelayCommand<object>(_ => true, _ => AddImageDraftPost());
-            SendPost = new RelayCommand<UserControl>(_ => true, _ => SendDraftPost());
+            SendPost = new RelayCommand<object>(_ => true, _ => SendDraftPost());
 
         }
 
