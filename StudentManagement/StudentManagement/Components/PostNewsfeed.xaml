@@ -70,7 +70,9 @@
 
                         <materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignCentres">
                             <StackPanel>
-                                <Button>
+                                <Button
+                                    Command="{Binding Source={StaticResource NewFeedSubjectClassDetailVM}, Path=EditPost}"
+                                    CommandParameter="{Binding ElementName=PostNewsFeedUC}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Margin="0,0,8,0" Kind="PencilOutline" />
                                         <TextBlock
@@ -155,7 +157,7 @@
                         Grid.Column="1"
                         MaxHeight="300"
                         Margin="0,0,0,16"
-                        Source="{Binding ImageSelectedShow, Mode=OneWay, TargetNullValue={StaticResource ImageDefault}}"
+                        Source="{Binding ImageSelectedShow, TargetNullValue={StaticResource ImageDefault}}"
                         Stretch="Uniform">
                         <Image.Style>
                             <Style TargetType="Image">
