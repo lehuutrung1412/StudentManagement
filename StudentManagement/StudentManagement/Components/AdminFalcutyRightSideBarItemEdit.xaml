@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    x:Name="FalcutyRightSideBarItem"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -154,6 +155,9 @@
                 x:Name="btnDelete"
                 Padding="0"
                 BorderThickness="0"
+                Command="{Binding DeleteFalcutyCardInfo}"
+                CommandParameter="{Binding ElementName=FalcutyRightSideBarItem, Path=DataContext.ActualCard}"
+                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 

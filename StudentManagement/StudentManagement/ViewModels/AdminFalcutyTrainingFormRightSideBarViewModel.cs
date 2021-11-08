@@ -61,6 +61,9 @@ namespace StudentManagement.ViewModels
         public ICommand EditTrainingFormCardInfo { get => _editTrainingFormCardInfo; set => _editTrainingFormCardInfo = value; }
 
         private ICommand _editTrainingFormCardInfo;
+        public ICommand DeleteTrainingFormCardInfo { get => _deleteTrainingFormCardInfo; set => _deleteTrainingFormCardInfo = value; }
+
+        private ICommand _deleteTrainingFormCardInfo;
 
         public ICommand ShowTrainingFormCardInfo { get => _showTrainingFormCardInfo; set => _showTrainingFormCardInfo = value; }
 
@@ -69,6 +72,10 @@ namespace StudentManagement.ViewModels
         public ICommand EditFalcutyCardInfo { get => _editFalcutyCardInfo; set => _editFalcutyCardInfo = value; }
 
         private ICommand _editFalcutyCardInfo;
+        
+        public ICommand DeleteFalcutyCardInfo { get => _deleteFalcutyCardInfo; set => _deleteFalcutyCardInfo = value; }
+
+        private ICommand _deleteFalcutyCardInfo;
 
         public AdminFalcutyTrainingFormRightSideBarViewModel()
         {
@@ -92,6 +99,8 @@ namespace StudentManagement.ViewModels
             ShowTrainingFormCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowTrainingFormCardByCardDataContext(p));
             EditTrainingFormCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditTrainingFormCardByCardFunction(p));
             EditFalcutyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditFalcutyCardByCardFunction(p));
+            DeleteFalcutyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => DeleteFalcutyCardByCardFunction(p));
+            DeleteTrainingFormCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => DeleteTrainingFormCardByCardFunction(p));
         }
 
         public void ShowFalcutyCardByCardDataContext(UserControl p)
@@ -128,6 +137,24 @@ namespace StudentManagement.ViewModels
             this._adminFalcutyRightSideBarItemViewModel = new AdminFalcutyRightSideBarItemEditViewModel(card);
 
             this.RightSideBarItemViewModel = this._adminFalcutyRightSideBarItemViewModel;
+        }
+
+        public void DeleteFalcutyCardByCardFunction(object p)
+        {
+            FalcutyCard card = p as FalcutyCard;
+
+            AdminFalcutyTrainingFormViewModel.FalcutyCards.Remove(card);
+            AdminFalcutyTrainingFormViewModel.StoredFalcutyCards.Remove(card);
+
+            this.RightSideBarItemViewModel = this._emptyStateRightSideBarViewModel;
+        }
+        public void DeleteTrainingFormCardByCardFunction(object p)
+        {
+            TrainingFormCard card = p as TrainingFormCard;
+
+            AdminFalcutyTrainingFormViewModel.TrainingFormCards.Remove(card);
+
+            this.RightSideBarItemViewModel = this._emptyStateRightSideBarViewModel;
         }
     }
 }

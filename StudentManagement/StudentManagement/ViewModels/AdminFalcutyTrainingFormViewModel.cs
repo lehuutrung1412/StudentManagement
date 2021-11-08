@@ -88,11 +88,13 @@ namespace StudentManagement.ViewModels
 
         }
 
-        static private ObservableCollection<TrainingFormCard> _trainingFormCards;
+        static private ObservableCollection<FalcutyCard> _storedFalcutyCards;
+        public static ObservableCollection<FalcutyCard> StoredFalcutyCards { get => _storedFalcutyCards; set => _storedFalcutyCards = value; }
 
+        static private ObservableCollection<TrainingFormCard> _trainingFormCards;
         static public ObservableCollection<TrainingFormCard> TrainingFormCards { get => _trainingFormCards; set => _trainingFormCards = value; }
 
-        static private ObservableCollection<FalcutyCard> _falcutyCards;
+        static private ObservableCollection<FalcutyCard> _falcutyCards = new ObservableCollection<FalcutyCard>();
 
         static public ObservableCollection<FalcutyCard> FalcutyCards { get => _falcutyCards; set => _falcutyCards = value; }
 
@@ -107,13 +109,35 @@ namespace StudentManagement.ViewModels
         }
 
         public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
+        public ICommand SearchFalcutyCards { get => _searchFalcutyCards; set => _searchFalcutyCards = value; }
 
         private ICommand _switchSearchButton;
+
+        private ICommand _searchFalcutyCards;
 
         private bool _isFirstSearchButtonEnabled = true;
         public void SwitchSearchButtonFunction(UserControl p)
         {
             this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
+        }
+
+        public void SearchFalcutyCardsFunction(object p)
+        {
+            var tmp = StoredFalcutyCards.Where(x => x.TenKhoa.ToLower().Contains(SearchQuery.ToLower()));
+            FalcutyCards.Clear();
+            foreach (FalcutyCard card in tmp)
+                FalcutyCards.Add(card);
+        }
+
+        private string _searchQuery;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                OnPropertyChanged();
+            }
         }
 
         public AdminFalcutyTrainingFormViewModel()
@@ -126,7 +150,8 @@ namespace StudentManagement.ViewModels
                 new TrainingFormCard("Chương trình đại trà", 10, 3000),
             };
 
-            FalcutyCards = new ObservableCollection<FalcutyCard>()
+
+            StoredFalcutyCards = new ObservableCollection<FalcutyCard>()
             {
                 new FalcutyCard("Khoa học máy tính 1", new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
                 new FalcutyCard("Khoa học máy tính 2", new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
@@ -147,7 +172,10 @@ namespace StudentManagement.ViewModels
                 new FalcutyCard("Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
             };
 
+            FalcutyCards = new ObservableCollection<FalcutyCard>(StoredFalcutyCards.Select(el => el));
+
             this.SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
+            this.SearchFalcutyCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchFalcutyCardsFunction(p));
         }
     }
 }

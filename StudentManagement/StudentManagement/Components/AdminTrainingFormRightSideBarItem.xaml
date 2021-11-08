@@ -118,6 +118,9 @@
                 x:Name="btnDelete"
                 Padding="0"
                 BorderThickness="0"
+                Command="{Binding DeleteTrainingFormCardInfo}"
+                CommandParameter="{Binding ElementName=TrainingFormRightSideBar, Path=DataContext.CurrentCard}"
+                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 

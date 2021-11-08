@@ -26,6 +26,7 @@ namespace StudentManagement.ViewModels
 
         //store card info before edit
         private FalcutyCard _actualCard;
+        public FalcutyCard ActualCard { get => _actualCard; set => _actualCard = value; }
 
         public AdminFalcutyRightSideBarItemEditViewModel()
         {
@@ -35,7 +36,7 @@ namespace StudentManagement.ViewModels
         public AdminFalcutyRightSideBarItemEditViewModel(FalcutyCard card)
         {
             this.CurrentCard = new FalcutyCard();
-            this._actualCard = card;
+            this.ActualCard = card;
             this.CurrentCard.CopyCardInfo(card);
             InitCommand();
         }
@@ -56,21 +57,21 @@ namespace StudentManagement.ViewModels
 
         public void CancelEditFalcutyCardInfoFunction()
         {
-            this.CurrentCard.CopyCardInfo(this._actualCard);
+            this.CurrentCard.CopyCardInfo(this.ActualCard);
             ReturnToShowFalcutyCardInfo();
         }
 
         public void ConfirmEditFalcutyCardInfoFunction()
         {
-            this._actualCard.CopyCardInfo(this.CurrentCard);
-            this._actualCard.RunOnPropertyChanged();
+            this.ActualCard.CopyCardInfo(this.CurrentCard);
+            this.ActualCard.RunOnPropertyChanged();
             ReturnToShowFalcutyCardInfo();
         }
 
         public void ReturnToShowFalcutyCardInfo()
         {
             AdminFalcutyTrainingFormRightSideBarViewModel adminFalcutyTrainingFormRightSideBarViewModel = AdminFalcutyTrainingFormRightSideBarViewModel.Instance;
-            adminFalcutyTrainingFormRightSideBarViewModel.RightSideBarItemViewModel = new AdminFalcutyRightSideBarItemViewModel(this._actualCard);
+            adminFalcutyTrainingFormRightSideBarViewModel.RightSideBarItemViewModel = new AdminFalcutyRightSideBarItemViewModel(this.ActualCard);
         }
     }
 }

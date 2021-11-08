@@ -55,6 +55,11 @@
                                 CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
                                 Content="Chỉnh sửa"
                                 DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
+                            <Button
+                                Command="{Binding DeleteTrainingFormCardInfo}"
+                                CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
+                                Content="Xóa"
+                                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </Grid>

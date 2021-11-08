@@ -134,6 +134,9 @@
                 x:Name="btnDelete"
                 Padding="0"
                 BorderThickness="0"
+                Command="{Binding DeleteFalcutyCardInfo}"
+                CommandParameter="{Binding ElementName=FalcutyRightSideBar, Path=DataContext.CurrentCard}"
+                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 
