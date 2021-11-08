@@ -52,7 +52,7 @@
                                 DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
                             <Button
                                 Command="{Binding EditTrainingFormCardInfo}"
-                                CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
+                                CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
                                 Content="Chỉnh sửa"
                                 DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
                         </StackPanel>

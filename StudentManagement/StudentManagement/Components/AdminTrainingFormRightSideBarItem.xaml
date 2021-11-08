@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    x:Name="TrainingFormRightSideBar"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -87,6 +88,53 @@
                     Text="{Binding CurrentCard.SoLuongSinhVien, FallbackValue='Số lượng sinh viên'}"
                     TextAlignment="Right" />
             </Grid>
+            <UserControl x:Name="DataContext" DataContext="{Binding CurrentCard}" />
+
+            <Button
+                x:Name="btnEdit"
+                Padding="0"
+                BorderThickness="0"
+                Command="{Binding EditTrainingFormCardInfo}"
+                CommandParameter="{Binding ElementName=TrainingFormRightSideBar, Path=DataContext.CurrentCard}"
+                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}"
+                Foreground="#DD000000"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
+
+                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Chỉnh sửa:" />
+                    <materialDesign:PackIcon
+                        Width="18"
+                        Height="18"
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Right"
+                        Kind="Pencil" />
+                </Grid>
+            </Button>
+            <Button
+                x:Name="btnDelete"
+                Padding="0"
+                BorderThickness="0"
+                Foreground="#DD000000"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
+
+                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Xoá:" />
+                    <materialDesign:PackIcon
+                        Width="18"
+                        Height="18"
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Right"
+                        Kind="Eraser" />
+                </Grid>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

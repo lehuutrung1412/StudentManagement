@@ -112,6 +112,65 @@
                     Text="{Binding CurrentCard.CacHeDaoTao, FallbackValue='Các hệ đào tạo'}"
                     TextAlignment="Right" />
             </Grid>
+            <Grid Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Chỉnh sửa:" />
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Margin="8,0,8,0"
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding ConfirmEditFalcutyCardInfo}"
+                        Content="Chỉnh sửa"
+                        FontSize="14"
+                        Style="{StaticResource PrimaryButton}" />
+                    <Button
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Background="Red"
+                        Command="{Binding CancelEditFalcutyCardInfo}"
+                        Content="Huỷ"
+                        FontSize="14"
+                        Style="{StaticResource PrimaryButton}" />
+                </Grid>
+            </Grid>
+            <Button
+                x:Name="btnDelete"
+                Padding="0"
+                BorderThickness="0"
+                Foreground="#DD000000"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
+
+                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Xoá:" />
+                    <materialDesign:PackIcon
+                        Width="18"
+                        Height="18"
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Right"
+                        Kind="Eraser" />
+                </Grid>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

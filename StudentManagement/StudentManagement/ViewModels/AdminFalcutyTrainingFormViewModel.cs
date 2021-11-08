@@ -48,13 +48,14 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public class FalcutyCard
+        public class FalcutyCard : BaseViewModel
         {
             private string _tenKhoa;
             private DateTime _ngayThanhLap;
             private int _soLuongSinhVien;
             private string _cacHeDaoTao;
 
+            public FalcutyCard() { }
             public FalcutyCard(string tenKhoa, DateTime ngayThanhLap, int soLuongSinhVien, string cacHeDaoTao)
             {
                 _tenKhoa = tenKhoa;
@@ -67,6 +68,22 @@ namespace StudentManagement.ViewModels
             public DateTime NgayThanhLap { get => _ngayThanhLap; set => _ngayThanhLap = value; }
             public int SoLuongSinhVien { get => _soLuongSinhVien; set => _soLuongSinhVien = value; }
             public string CacHeDaoTao { get => _cacHeDaoTao; set => _cacHeDaoTao = value; }
+
+            public void CopyCardInfo(FalcutyCard anotherFalcutyCard)
+            {
+                TenKhoa = anotherFalcutyCard.TenKhoa;
+                NgayThanhLap = anotherFalcutyCard.NgayThanhLap;
+                SoLuongSinhVien = anotherFalcutyCard.SoLuongSinhVien;
+                SoLuongSinhVien = anotherFalcutyCard.SoLuongSinhVien;
+            }
+
+            public void RunOnPropertyChanged()
+            {
+                foreach (PropertyInfo propertyInfo in this.GetType().GetProperties())
+                {
+                    OnPropertyChanged(propertyInfo.Name);
+                }
+            }
 
 
         }

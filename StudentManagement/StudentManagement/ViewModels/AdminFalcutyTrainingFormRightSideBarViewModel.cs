@@ -66,6 +66,10 @@ namespace StudentManagement.ViewModels
 
         private ICommand _showTrainingFormCardInfo;
 
+        public ICommand EditFalcutyCardInfo { get => _editFalcutyCardInfo; set => _editFalcutyCardInfo = value; }
+
+        private ICommand _editFalcutyCardInfo;
+
         public AdminFalcutyTrainingFormRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
@@ -86,7 +90,8 @@ namespace StudentManagement.ViewModels
         {
             ShowFalcutyCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowFalcutyCardByCardDataContext(p));
             ShowTrainingFormCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowTrainingFormCardByCardDataContext(p));
-            EditTrainingFormCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => EditTrainingFormCardByCardDataContext(p));
+            EditTrainingFormCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditTrainingFormCardByCardFunction(p));
+            EditFalcutyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditFalcutyCardByCardFunction(p));
         }
 
         public void ShowFalcutyCardByCardDataContext(UserControl p)
@@ -107,13 +112,22 @@ namespace StudentManagement.ViewModels
             this.RightSideBarItemViewModel = this._adminTrainingFormRightSideBarItemViewModel;
         }
 
-        public void EditTrainingFormCardByCardDataContext(UserControl p)
+        public void EditTrainingFormCardByCardFunction(object p)
         {
-            TrainingFormCard card = p.DataContext as TrainingFormCard;
+            TrainingFormCard card = p as TrainingFormCard;
 
             this._adminTrainingFormRightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemEditViewModel(card);
 
             this.RightSideBarItemViewModel = this._adminTrainingFormRightSideBarItemViewModel;
+        } 
+        
+        public void EditFalcutyCardByCardFunction(object p)
+        {
+            FalcutyCard card = p as FalcutyCard;
+
+            this._adminFalcutyRightSideBarItemViewModel = new AdminFalcutyRightSideBarItemEditViewModel(card);
+
+            this.RightSideBarItemViewModel = this._adminFalcutyRightSideBarItemViewModel;
         }
     }
 }

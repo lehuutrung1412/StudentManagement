@@ -170,6 +170,7 @@
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
+    <Compile Include="ViewModels\AdminFalcutyRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\AdminTrainingFormRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\AdminFalcutyRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\AdminFalcutyTrainingFormRightSideBarViewModel.cs" />

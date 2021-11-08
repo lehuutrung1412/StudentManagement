@@ -70,7 +70,7 @@ namespace StudentManagement.ViewModels
         public void ReturnToShowTrainingFormCardInfo()
         {
             AdminFalcutyTrainingFormRightSideBarViewModel adminFalcutyTrainingFormRightSideBarViewModel = AdminFalcutyTrainingFormRightSideBarViewModel.Instance;
-            adminFalcutyTrainingFormRightSideBarViewModel.RightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemViewModel(this.CurrentCard);
+            adminFalcutyTrainingFormRightSideBarViewModel.RightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemViewModel(this._actualCard);
         }
     }
 }
