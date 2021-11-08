@@ -48,10 +48,6 @@
                         <i:InvokeCommandAction
                             Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}"
                             CommandParameter="{Binding ElementName=NotificationComponent}" />
-                        <i:InvokeCommandAction
-                            Command="{Binding ShowCardCommand, Source={StaticResource AdminNotificationVM}}"
-                            CommandParameter="{Binding ElementName=NotificationComponent}"/>
-
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">

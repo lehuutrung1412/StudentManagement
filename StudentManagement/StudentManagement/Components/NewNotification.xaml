@@ -12,7 +12,6 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.3'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
-    DataContext="{DynamicResource AdminNotificationVM}"
     mc:Ignorable="d">
     <Border Background="{DynamicResource Background}" CornerRadius="15">
         <Border.Effect>
@@ -46,7 +45,7 @@
                         FontSize="24"
                         FontWeight="Bold"
                         Style="{StaticResource MaterialDesignTextBox}"
-                        Text="{Binding NewCard.ChuDe, TargetNullValue=true, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding CurrentCard.ChuDe, TargetNullValue=true}" />
                     <materialDesign:PopupBox
                         Width="60"
                         Padding="2,0,2,0"
@@ -83,7 +82,7 @@
                             FontWeight="SemiBold"
                             Foreground="#01579b"
                             ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                            SelectedItem="{Binding NewCard.LoaiBaiDang, TargetNullValue=true, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding CurrentCard.LoaiBaiDang, TargetNullValue=true}"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                     </Grid>
                 </Grid>
@@ -113,7 +112,7 @@
                 FontSize="16"
                 HorizontalScrollBarVisibility="Disabled"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                Text="{Binding NewCard.NoiDung, TargetNullValue=true, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding CurrentCard.NoiDung, TargetNullValue=true}"
                 VerticalScrollBarVisibility="auto" />
             <!--  Text="{Binding DraftPostText, Mode=TwoWay}"  -->
             <StackPanel
@@ -124,13 +123,14 @@
                 Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <Button
                                 Margin="0,0,16,0"
+                                HorizontalAlignment="Stretch"
                                 Content="Thêm"
                                 Style="{StaticResource PrimaryButton}">
                                 <i:Interaction.Triggers>
@@ -142,6 +142,7 @@
                                 </i:Interaction.Triggers>
                             </Button>
                             <Button
+                                HorizontalAlignment="Stretch"
                                 Background="Red"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                                 Content="Huỷ"

@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:component="clr-namespace:StudentManagement.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
@@ -24,89 +25,87 @@
     <ScrollViewer>
         <materialDesign:DialogHost>
             <materialDesign:DialogHost.DialogContent>
-                <component:NewNotification
-                    Height="500"
-                    Width="600" />
+                <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminNotificationVM}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
+                            <component:NewNotification Width="600" Height="500" />
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+
             </materialDesign:DialogHost.DialogContent>
             <Grid>
                 <StackPanel>
                     <TextBlock
-                        Margin="16 8"
+                        Margin="16,8"
                         FontWeight="Bold"
                         Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                         Text="Danh sách lớp môn học" />
-                    <Grid
-                        Margin="16"
-                        Height="56">
+                    <Grid Height="56" Margin="16">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition
-                                Width="209*" />
-                            <ColumnDefinition
-                                Width="865*" />
-                            <ColumnDefinition
-                                Width="430*" />
+                            <ColumnDefinition Width="209*" />
+                            <ColumnDefinition Width="865*" />
+                            <ColumnDefinition Width="430*" />
                         </Grid.ColumnDefinitions>
                         <component:AdminNotificationSearchBar
                             Grid.Column="0"
-                            DataContext="{DynamicResource AdminNotificationVM}"
                             Grid.ColumnSpan="2"
-                            Margin="0,0,0.4,0" />
+                            Margin="0,0,0.4,0"
+                            DataContext="{DynamicResource AdminNotificationVM}" />
                         <Button
                             Grid.Column="2"
-                            Style="{StaticResource PrimaryButton}"
-                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                            Margin="15.6,8,32,8">
+                            Margin="15.6,8,32,8"
+                            Style="{StaticResource PrimaryButton}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
+                                    <i:InvokeCommandAction
+                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <TextBlock
+                                FontSize="14"
                                 Text="Thêm thông báo"
-                                TextWrapping="Wrap"
                                 TextAlignment="Center"
-                                FontSize="14" />
+                                TextWrapping="Wrap" />
                         </Button>
                     </Grid>
-                    <StackPanel
-                        Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            Margin="16 8"
+                            Margin="16,8"
                             FontSize="20"
                             FontWeight="SemiBold"
                             Text="Loại thông báo" />
                         <ComboBox
                             x:Name="cbTypeNotification"
-                            Margin="8 8"
-                            FontSize="16"
+                            Height="36"
+                            Margin="8,8"
+                            Padding="4"
+                            materialDesign:HintAssist.Hint="Chọn loại thông báo"
                             BorderBrush="Gray"
+                            FontSize="16"
                             Foreground="#01579b"
                             ItemsSource="{Binding TypeInMain, Source={StaticResource AdminNotificationVM}}"
                             SelectedItem="{Binding SearchType}"
-                            materialDesign:HintAssist.Hint="Chọn loại thông báo"
-                            Style="{StaticResource MaterialDesignComboBox}"
-                            Padding="4"
-                            Height="36">
+                            Style="{StaticResource MaterialDesignComboBox}">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger
-                                    EventName="DropDownClosed">
-                                    <i:InvokeCommandAction
-                                        Command="{Binding SearchCommand}"
-                                        CommandParameter="{Binding ElementName=cbTypeNotification}" />
+                                <i:EventTrigger EventName="DropDownClosed">
+                                    <i:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=cbTypeNotification}" />
                                 </i:EventTrigger>
 
                             </i:Interaction.Triggers>
                         </ComboBox>
                     </StackPanel>
 
-                    <ItemsControl
-                        ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <ItemsControl ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel
-                                    HorizontalAlignment="Center" />
+                                <StackPanel HorizontalAlignment="Center" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <component:NotificationCard
-                                    Margin="16,5,16,5"
-                                    HorizontalAlignment="Stretch" />
+                                <component:NotificationCard Margin="16,5,16,5" HorizontalAlignment="Stretch" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -115,5 +114,5 @@
             </Grid>
         </materialDesign:DialogHost>
     </ScrollViewer>
-   
+
 </UserControl>

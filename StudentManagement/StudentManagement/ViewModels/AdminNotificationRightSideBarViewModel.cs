@@ -60,6 +60,7 @@ namespace StudentManagement.ViewModels
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
             Editnotification = new RelayCommand<object>((p) => { return true; }, (p) => EditnotificationByCardDataContext());
             CancelNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CancelNotification());
+            Instance = this;
         }
 
 

@@ -50,6 +50,14 @@ namespace StudentManagement.ViewModels
             public int Id { get => _id; set => _id = value; }
         }
 
+        private static AdminNotificationViewModel s_instance;
+        public static AdminNotificationViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new AdminNotificationViewModel());
+
+            private set => s_instance = value;
+        }
+
         public ObservableCollection<CardNotification> _cards;
         private ObservableCollection<CardNotification> _realCards;
         private ObservableCollection<string> _type;
@@ -59,7 +67,7 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CardNotification> RealCards { get => _realCards; set { _realCards = value; OnPropertyChanged(); } }
         public ObservableCollection<string> TypeInMain { get => _typeInMain; set => _typeInMain = value; }
 
-       
+        
 
 
         private ICommand _popUpNotification;
@@ -78,11 +86,6 @@ namespace StudentManagement.ViewModels
         public ICommand CreateNotificationCommand { get => _createNotificationCommand; set => _createNotificationCommand = value; }
 
         private ICommand _createNotificationCommand;
-
-        public ICommand ShowCardCommand { get => _ShowCardCommand; set => _ShowCardCommand = value; }
-
-        private ICommand _ShowCardCommand;
-
 
         private string _searchInfo;
         public string SearchInfo 
@@ -117,14 +120,27 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private CardNotification _newCard;
-        public CardNotification NewCard { get => _newCard; set => _newCard = value; }
+        private object _dialogItemViewModel;
+        public object DialogItemViewModel
+        {
+            get { return _dialogItemViewModel; }
+            set
+            {
+                _dialogItemViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public object _creatNewNotificationViewModel;
+
 
         public AdminNotificationViewModel()
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
+
+            Instance = this;
             Type = new ObservableCollection<string>() { "Thông báo chung", "Thông báo sinh viên", "Thông báo giáo viên" };
             TypeInMain = new ObservableCollection<string>(Type);
             TypeInMain.Add("Tất cả");
@@ -139,23 +155,14 @@ namespace StudentManagement.ViewModels
                 new CardNotification(4,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
             };
-            NewCard = new CardNotification(Cards.Last().Id + 1, "Cường", "", "", "", DateTime.Now);
+
             RealCards = Cards;
             SearchCommand = new RelayCommand<object>((p) => { return true; }, (p) => Search());
             UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
             DeleteNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteNotification());
-            CreateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNotification());
-            ShowCardCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCard(p));
+            CreateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNewNotification());
         }
-        public void ShowCard(UserControl p)
-        {
-            NewCard = (p.DataContext as CardNotification);
-        }
-        public void CreateNotification()
-        {
-            Cards.Add(NewCard);
-            NewCard = new CardNotification(Cards.Last().Id + 1, "Cường", "", "", "", DateTime.Now);
-        }
+     
         public void Search()
         {
             RealCards = Cards;
@@ -199,6 +206,13 @@ namespace StudentManagement.ViewModels
             var tmp = Cards.Where(x => x.Id == AdminNotificationRightSideBarVM.CurrentCard.Id).FirstOrDefault();
             Cards.Remove(tmp);
             RealCards.Remove(tmp);
+        }
+
+        public void CreateNewNotification()
+        {
+            var card = new CardNotification(Cards.LastOrDefault().Id + 1, "Cuong", "", "", "", DateTime.Now);
+            this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
+            this.DialogItemViewModel = this._creatNewNotificationViewModel;
         }
 
         private static readonly string[] VietnameseSigns = new string[]

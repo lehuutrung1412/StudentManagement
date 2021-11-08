@@ -163,6 +163,7 @@
     <Compile Include="ViewModels\AdminSubjectClassViewModel.cs" />
     <Compile Include="ViewModels\AdminTrainingFormRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CreateNewNotificationViewModel.cs" />
     <Compile Include="ViewModels\CreatePostNewFeedViewModel.cs" />
     <Compile Include="ViewModels\EmptyStateRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />
