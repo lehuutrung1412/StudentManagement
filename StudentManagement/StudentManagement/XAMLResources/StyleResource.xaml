@@ -202,11 +202,9 @@
         x:Key="CommentTextBox"
         BasedOn="{StaticResource MaterialDesignTextBox}"
         TargetType="{x:Type TextBox}">
-        <Setter
-            Property="Template">
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate
-                    TargetType="TextBox">
+                <ControlTemplate TargetType="TextBox">
                     <Border
                         x:Name="brdCreatePost"
                         Background="{TemplateBinding Background}"
@@ -222,36 +220,33 @@
                         </Border.Effect>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition
-                                    Width="*" />
-                                <ColumnDefinition
-                                    Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBox
                                 x:Name="txbComment"
-                                Margin="16 8"
+                                Grid.Column="0"
+                                Margin="16,8"
                                 VerticalAlignment="Center"
                                 materialDesign:HintAssist.Hint="Thêm bình luận..."
                                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                 BorderThickness="0"
-                                Grid.Column="0"
                                 FontSize="14"
                                 Style="{StaticResource MaterialDesignTextBoxBase}">
                                 <TextBox.InputBindings>
                                     <KeyBinding
+                                        Key="Enter"
                                         Command="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                        CommandParameter="{Binding ElementName=txbComment}"
-                                        Key="Enter" />
+                                        CommandParameter="{Binding ElementName=txbComment}" />
                                 </TextBox.InputBindings>
                             </TextBox>
                             <Button
+                                Grid.Column="1"
+                                Margin="0,8,16,8"
                                 Command="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                CommandParameter="{Binding ElementName=txbComment}"
-                                Margin="0 8 16 8"
-                                Grid.Column="1">
+                                CommandParameter="{Binding ElementName=txbComment}">
                                 <Button.Template>
-                                    <ControlTemplate
-                                        TargetType="{x:Type Button}">
+                                    <ControlTemplate TargetType="{x:Type Button}">
                                         <Image
                                             Width="28"
                                             Height="28"
@@ -266,92 +261,44 @@
         </Setter>
     </Style>
 
-    <Style
-        x:Key="MaterialDesignSnackbarActionButton"
-        TargetType="Button">
-        <Setter
-            Property="VerticalAlignment"
-            Value="Stretch" />
-        <Setter
-            Property="Foreground"
-            Value="{DynamicResource SecondaryHueMidBrush}" />
-        <Setter
-            Property="FocusVisualStyle"
-            Value="{StaticResource FocusVisual}" />
-        <Setter
-            Property="Background"
-            Value="Transparent" />
-        <Setter
-            Property="BorderBrush"
-            Value="Transparent" />
-        <Setter
-            Property="Cursor"
-            Value="Hand" />
-        <Setter
-            Property="materialDesign:RippleAssist.Feedback"
-            Value="{DynamicResource MaterialDesignSnackbarRipple}" />
-        <Setter
-            Property="TextBlock.FontWeight"
-            Value="Medium" />
-        <Setter
-            Property="TextBlock.FontSize"
-            Value="14" />
-        <Setter
-            Property="BorderThickness"
-            Value="1" />
-        <Setter
-            Property="HorizontalContentAlignment"
-            Value="Center" />
-        <Setter
-            Property="VerticalContentAlignment"
-            Value="Center" />
-        <Setter
-            Property="Height"
-            Value="36" />
-        <Setter
-            Property="Margin"
-            Value="8 -10 -8 -10" />
-        <Setter
-            Property="Padding"
-            Value="8" />
-        <Setter
-            Property="Template">
+    <Style x:Key="MaterialDesignSnackbarActionButton" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryHueMidBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignSnackbarRipple}" />
+        <Setter Property="TextBlock.FontWeight" Value="Medium" />
+        <Setter Property="TextBlock.FontSize" Value="14" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Margin" Value="8,-10,-8,-10" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate
-                    TargetType="{x:Type Button}">
-                    <Grid
-                        x:Name="Root"
-                        Background="{TemplateBinding Background}">
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="Root" Background="{TemplateBinding Background}">
                         <materialDesign:Ripple
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Focusable="False"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Padding="{TemplateBinding Padding}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger
-                            Property="IsMouseOver"
-                            Value="true">
-                            <Setter
-                                Property="Background"
-                                Value="{DynamicResource MaterialDesignSnackbarMouseOver}" />
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignSnackbarMouseOver}" />
                         </Trigger>
-                        <Trigger
-                            Property="IsEnabled"
-                            Value="false">
-                            <Setter
-                                Property="Opacity"
-                                Value="0.38" />
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.38" />
                         </Trigger>
-                        <Trigger
-                            Property="DockPanel.Dock"
-                            Value="Bottom">
-                            <Setter
-                                Property="Margin"
-                                Value="0 18 -8 -8" />
+                        <Trigger Property="DockPanel.Dock" Value="Bottom">
+                            <Setter Property="Margin" Value="0,18,-8,-8" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
