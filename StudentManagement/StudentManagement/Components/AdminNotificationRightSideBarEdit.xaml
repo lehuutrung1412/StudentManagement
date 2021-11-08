@@ -10,7 +10,6 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:AdminNotificationRightSideBarViewModel, IsDesignTimeCreatable=True}"
-    DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -169,7 +168,6 @@
                         Margin="8,0,8,0"
                         HorizontalAlignment="Stretch"
                         Command="{Binding UpdateNotificationCommand}"
-                        CommandParameter="{Binding ElementName=RightSideBarEdit}"
                         Content="Chỉnh sửa"
                         DataContext="{DynamicResource AdminNotificationVM}"
                         FontSize="14"
@@ -191,7 +189,6 @@
                 Padding="0"
                 BorderThickness="0"
                 Command="{Binding DeleteNotificationCommand}"
-                CommandParameter="{Binding ElementName=RightSideBarEdit}"
                 DataContext="{DynamicResource AdminNotificationVM}"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">

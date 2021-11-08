@@ -17,6 +17,7 @@
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
@@ -38,10 +39,21 @@
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"
                 Panel.ZIndex="2"           
-                Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}"
-                CommandParameter="{Binding ElementName=NotificationComponent}"
+                
                 Foreground="Black"
                 Style="{StaticResource AdminNotificationButton}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger
+                        EventName="Click">
+                        <i:InvokeCommandAction
+                            Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}"
+                            CommandParameter="{Binding ElementName=NotificationComponent}" />
+                        <i:InvokeCommandAction
+                            Command="{Binding ShowCardCommand, Source={StaticResource AdminNotificationVM}}"
+                            CommandParameter="{Binding ElementName=NotificationComponent}"/>
+
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.8*" />

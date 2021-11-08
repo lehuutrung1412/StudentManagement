@@ -8,13 +8,13 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
-    DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
+    Name="RightSideBarComponent"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
     Background="{DynamicResource MaterialDesignPaper}"
+
     FontFamily="{DynamicResource MaterialDesignFont}"
-    Name="RightSideBarComponent"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -48,7 +48,7 @@
                 FontSize="24"
                 FontWeight="Bold"
                 Style="{DynamicResource MaterialDesignTextBlock}"
-                Text="{Binding CurrentCard.ChuDe ,  FallbackValue='Tên chủ đề'}"
+                Text="{Binding CurrentCard.ChuDe, FallbackValue='Tên chủ đề'}"
                 TextWrapping="Wrap" />
             <Grid
                 Style="{StaticResource text_grid_item}">
@@ -59,19 +59,19 @@
 
                 <TextBlock
                     Grid.Column="0"
-                    FontWeight="Bold"
                     FontSize="16"
+                    FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Người đăng:" />
                 <TextBlock
                     x:Name="tbUser"
                     Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    FontSize="14"
-                    Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
-                    TextWrapping="Wrap"
                     VerticalAlignment="Center"
-                    TextAlignment="Right" />
+                    FontSize="14"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
+                    TextAlignment="Right"
+                    TextWrapping="Wrap" />
             </Grid>
             <Grid
                 Style="{StaticResource text_grid_item}">
@@ -88,21 +88,21 @@
 
                 <TextBlock
                     Grid.Column="0"
-                    FontWeight="Bold"
+                    Margin="8,0,8,-1.6"
                     FontSize="16"
+                    FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
-                    Text="Ngày đăng:"
-                    Margin="8,0,8,-1.6" />
+                    Text="Ngày đăng:" />
                 <TextBlock
                     Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng', StringFormat='dd/MM/yyyy'}"
-                    TextWrapping="Wrap"
+                    Grid.ColumnSpan="3"
+                    Margin="8,1,8,0.4"
                     VerticalAlignment="Center"
                     FontSize="14"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng', StringFormat='dd/MM/yyyy'}"
                     TextAlignment="Right"
-                    Grid.ColumnSpan="3"
-                    Margin="8,1,8,0.4" />
+                    TextWrapping="Wrap" />
             </Grid>
             <Grid
                 Style="{StaticResource text_grid_item}">
@@ -114,74 +114,71 @@
                 <TextBlock
                     x:Name="tbTypeNotification"
                     Grid.Column="0"
-                    FontWeight="Bold"
                     FontSize="16"
+                    FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Loại bài đăng:" />
                 <TextBlock
                     Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    TextWrapping="Wrap"
-                    Text="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
                     VerticalAlignment="Center"
                     FontSize="14"
-                    TextAlignment="Right" />
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
+                    TextAlignment="Right"
+                    TextWrapping="Wrap" />
             </Grid>
             <Grid>
                 <Separator
                     Margin="5" />
             </Grid>
             <Button
+                x:Name="btnEdit"
+                Padding="0"
+                BorderThickness="0"
                 Command="{Binding Editnotification}"
                 DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
-                x:Name="btnEdit"
-                BorderThickness="0"
-                Padding="0"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 
                 <Grid
                     Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
-                        FontWeight="Bold"
                         FontSize="16"
+                        FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
                         Text="Chỉnh sửa:" />
                     <materialDesign:PackIcon
                         Width="18"
                         Height="18"
-                        Kind="Pencil"
-                        Margin="0 0 8 0"
-                        HorizontalAlignment="Right" />
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Right"
+                        Kind="Pencil" />
                 </Grid>
             </Button>
             <Button
                 x:Name="btnDelete"
-                Command="{Binding DeleteNotificationCommand}"
-                CommandParameter="{Binding ElementName=RightSideBarComponent}"
-                DataContext="{DynamicResource AdminNotificationVM}"
                 Padding="0"
                 BorderThickness="0"
+                Command="{Binding DeleteNotificationCommand}"
+                DataContext="{DynamicResource AdminNotificationVM}"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 
                 <Grid
                     Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
                     <TextBlock
-                        FontWeight="Bold"
                         FontSize="16"
+                        FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
                         Text="Xoá:" />
                     <materialDesign:PackIcon
                         Width="18"
                         Height="18"
-                        Kind="Eraser"
-                        Margin="0 0 8 0"
-                        HorizontalAlignment="Right" />
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Right"
+                        Kind="Eraser" />
                 </Grid>
             </Button>
         </StackPanel>
-
-
     </Grid>
 </UserControl>

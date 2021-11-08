@@ -54,12 +54,12 @@ namespace StudentManagement.ViewModels
         private ObservableCollection<CardNotification> _realCards;
         private ObservableCollection<string> _type;
         private ObservableCollection<string> _typeInMain;
-
         public ObservableCollection<string> Type { get => _type; set => _type = value; }
         public ObservableCollection<CardNotification> Cards { get => _cards; set => _cards = value; }
         public ObservableCollection<CardNotification> RealCards { get => _realCards; set { _realCards = value; OnPropertyChanged(); } }
         public ObservableCollection<string> TypeInMain { get => _typeInMain; set => _typeInMain = value; }
 
+       
 
 
         private ICommand _popUpNotification;
@@ -74,6 +74,14 @@ namespace StudentManagement.ViewModels
         public ICommand DeleteNotificationCommand { get => _deleteNotification; set => _deleteNotification = value; }
 
         private ICommand _deleteNotification;
+
+        public ICommand CreateNotificationCommand { get => _createNotificationCommand; set => _createNotificationCommand = value; }
+
+        private ICommand _createNotificationCommand;
+
+        public ICommand ShowCardCommand { get => _ShowCardCommand; set => _ShowCardCommand = value; }
+
+        private ICommand _ShowCardCommand;
 
 
         private string _searchInfo;
@@ -109,7 +117,8 @@ namespace StudentManagement.ViewModels
             }
         }
 
-      
+        private CardNotification _newCard;
+        public CardNotification NewCard { get => _newCard; set => _newCard = value; }
 
         public AdminNotificationViewModel()
         {
@@ -130,10 +139,22 @@ namespace StudentManagement.ViewModels
                 new CardNotification(4,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
             };
+            NewCard = new CardNotification(Cards.Last().Id + 1, "Cường", "", "", "", DateTime.Now);
             RealCards = Cards;
             SearchCommand = new RelayCommand<object>((p) => { return true; }, (p) => Search());
-            UpdateNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => UpdateNotification(p));
-            DeleteNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => DeleteNotification(p));
+            UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
+            DeleteNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteNotification());
+            CreateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNotification());
+            ShowCardCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCard(p));
+        }
+        public void ShowCard(UserControl p)
+        {
+            NewCard = (p.DataContext as CardNotification);
+        }
+        public void CreateNotification()
+        {
+            Cards.Add(NewCard);
+            NewCard = new CardNotification(Cards.Last().Id + 1, "Cường", "", "", "", DateTime.Now);
         }
         public void Search()
         {
@@ -149,12 +170,10 @@ namespace StudentManagement.ViewModels
             }    
             RealCards = new ObservableCollection<CardNotification>(tmp);
         }
-        public void UpdateNotification(UserControl p)
+        public void UpdateNotification()
         {
-            if (p.DataContext == null)
-                return;
-            var AdminNotificationRightSideBarVM = p.DataContext as AdminNotificationRightSideBarViewModel;
-            CardNotification card = AdminNotificationRightSideBarVM.CurrentCard;
+            var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
+            CardNotification card = (AdminNotificationRightSideBarVM._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard;
             (AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard = card;
             AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel;
         
@@ -171,13 +190,11 @@ namespace StudentManagement.ViewModels
                     break;
                 }
         }
-        public void DeleteNotification(UserControl p)
+        public void DeleteNotification()
         {
             if (MyMessageBox.Show("Bạn có chắc muốn xoá thông báo này", "Thông báo", System.Windows.MessageBoxButton.OKCancel, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.OK)
                 return;
-            if (p.DataContext == null)
-                return;
-            var AdminNotificationRightSideBarVM = p.DataContext as AdminNotificationRightSideBarViewModel;
+            var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
             AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._emptyStateRightSideBarViewModel;
             var tmp = Cards.Where(x => x.Id == AdminNotificationRightSideBarVM.CurrentCard.Id).FirstOrDefault();
             Cards.Remove(tmp);

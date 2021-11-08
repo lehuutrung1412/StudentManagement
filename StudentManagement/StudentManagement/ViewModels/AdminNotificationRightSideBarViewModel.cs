@@ -13,10 +13,14 @@ namespace StudentManagement.ViewModels
 {
     public class AdminNotificationRightSideBarViewModel: BaseViewModel
     {
+        private static AdminNotificationRightSideBarViewModel s_instance;
+        public static AdminNotificationRightSideBarViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new AdminNotificationRightSideBarViewModel());
+
+            private set => s_instance = value;
+        }
         private object _rightSideBarItemViewModel;
-
-        private CardNotification _currentCard;
-
         public object RightSideBarItemViewModel
         {
             get { return _rightSideBarItemViewModel; }
@@ -47,6 +51,7 @@ namespace StudentManagement.ViewModels
 
         private ICommand _cancelNotification;
 
+        private CardNotification _currentCard;
         public CardNotification CurrentCard { get => _currentCard; set => _currentCard = value; }
         public AdminNotificationRightSideBarViewModel()
         {
