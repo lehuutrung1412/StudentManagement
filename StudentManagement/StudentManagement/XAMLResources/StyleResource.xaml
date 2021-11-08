@@ -224,7 +224,7 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBox
-                                Name="txbComment"
+                                x:Name="txbComment"
                                 Grid.Column="0"
                                 Margin="16,8"
                                 VerticalAlignment="Center"
@@ -261,6 +261,51 @@
         </Setter>
     </Style>
 
+    <Style x:Key="MaterialDesignSnackbarActionButton" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryHueMidBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignSnackbarRipple}" />
+        <Setter Property="TextBlock.FontWeight" Value="Medium" />
+        <Setter Property="TextBlock.FontSize" Value="14" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Margin" Value="8,-10,-8,-10" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="Root" Background="{TemplateBinding Background}">
+                        <materialDesign:Ripple
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Focusable="False"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignSnackbarMouseOver}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.38" />
+                        </Trigger>
+                        <Trigger Property="DockPanel.Dock" Value="Bottom">
+                            <Setter Property="Margin" Value="0,18,-8,-8" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--  AdminNotification  -->
     <Style
         x:Key="AdminNotificationButton"
@@ -273,6 +318,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
     <!--  UserInfo  -->
     <Style x:Key="Retangle" TargetType="{x:Type Rectangle}">
         <Setter Property="Width" Value="300" />

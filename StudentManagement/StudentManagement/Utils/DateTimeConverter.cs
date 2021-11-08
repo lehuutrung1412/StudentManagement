@@ -12,10 +12,31 @@ namespace StudentManagement.Utils
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            switch (parameter as string)
+            {
+                case "full":
+                    return GetFullTime(value);
+                default:
+                    return GetRelativeTime(value);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return _instance ?? (_instance = new DateTimeConverter());
+        }
+
+        private string GetRelativeTime(object value)
+        {
             DateTime dateTime = (DateTime)value;
             DateTime now = DateTime.Parse(DateTime.Now.ToString(), _culture);
             TimeSpan dateTimeValue = now.Subtract(dateTime);
-            string result = dateTime.ToLongDateString();
+            string result = dateTime.ToString("dd") + " tháng " + dateTime.ToString("MM") + ", " + dateTime.ToString("yyyy");
             if (dateTimeValue.Days > 0)
             {
                 if (dateTimeValue.Days <= 3)
@@ -32,14 +53,31 @@ namespace StudentManagement.Utils
             return result;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        private string GetFullTime(object value)
         {
-            throw new NotImplementedException();
+            DateTime dateTime = (DateTime)value;
+            return ConvertDayOfWeek(dateTime.DayOfWeek) + ", " + dateTime.ToString("dd") + " tháng " + dateTime.ToString("MM") + ", " + dateTime.ToString("yyyy") + " vào lúc " + dateTime.ToString("HH") + ":" + dateTime.ToString("mm") + ":" + dateTime.ToString("ss");
         }
 
-        public override object ProvideValue(IServiceProvider serviceProvider)
+        private string ConvertDayOfWeek(DayOfWeek dayOfWeek)
         {
-            return _instance ?? (_instance = new DateTimeConverter());
+            switch ((int)dayOfWeek)
+            {
+                case 1:
+                    return "Thứ hai";
+                case 2:
+                    return "Thứ ba";
+                case 3:
+                    return "Thứ tư";
+                case 4:
+                    return "Thứ năm";
+                case 5:
+                    return "Thứ sáu";
+                case 6:
+                    return "Thứ bảy";
+                default:
+                    return "Chủ nhật";
+            }
         }
     }
 }
