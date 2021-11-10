@@ -1,0 +1,156 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.LoginForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    d:DataContext="{StaticResource LoginVM}"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.56'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.28'}"
+    Background="Transparent"
+    FontSize="16"
+    mc:Ignorable="d">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding Path=GotoLayoutViewCommand, Source={StaticResource MainVM}}" />
+    </UserControl.InputBindings>
+    <Border Background="White" CornerRadius="10">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="8"
+                Opacity="0.6"
+                ShadowDepth="0"
+                Color="Gray" />
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Margin="28,28,28,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="28"
+                FontWeight="Bold"
+                Text="ĐĂNG NHẬP" />
+
+            <TextBox
+                Grid.Row="1"
+                Margin="28,16"
+                VerticalContentAlignment="Center"
+                materialDesign:HintAssist.Background="White"
+                materialDesign:HintAssist.Hint="Tên đăng nhập"
+                materialDesign:HintAssist.HintOpacity="0.5"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="Account"
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
+                FontSize="16"
+                Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" TargetType="TextBox">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <PasswordBox
+                Grid.Row="2"
+                Margin="28,16"
+                VerticalContentAlignment="Center"
+                local:PasswordBoxHelper.Password="{Binding Password}"
+                materialDesign:HintAssist.Hint="Mật khẩu"
+                materialDesign:HintAssist.HintOpacity="0.5"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.HasTrailingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="Lock"
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
+                materialDesign:TextFieldAssist.TrailingIcon="Eye"
+                FontSize="16">
+                <PasswordBox.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedPasswordBoxCustom}" TargetType="PasswordBox">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </PasswordBox.Style>
+            </PasswordBox>
+
+            <!--<local:BindablePasswordBox
+                Grid.Row="2"
+                Password="{Binding Password, ValidatesOnDataErrors=True}">
+            -->
+            <!--<local:BindablePasswordBox.Style>
+                    <Style
+                        TargetType="local:BindablePasswordBox">
+                        <Style.Triggers>
+                            <Trigger
+                                Property="Validation.HasError"
+                                Value="True">
+                                <Setter
+                                    Property="materialDesign:HintAssist.Foreground"
+                                    Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+            </local:BindablePasswordBox>-->
+
+            <DockPanel Grid.Row="3" Margin="28,8">
+                <CheckBox
+                    VerticalContentAlignment="Center"
+                    Content="Ghi nhớ"
+                    Cursor="Hand"
+                    DockPanel.Dock="Left"
+                    FontWeight="SemiBold" />
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    DockPanel.Dock="Right"
+                    FontWeight="SemiBold"
+                    Text="Quên mật khẩu?">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{StaticResource ErrorMain}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter Property="Foreground" Value="{StaticResource ErrorLight}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </DockPanel>
+
+            <Button
+                Grid.Row="4"
+                Width="200"
+                Height="50"
+                Margin="28"
+                materialDesign:ButtonAssist.CornerRadius="20"
+                Command="{Binding GotoLayoutViewCommand, Source={StaticResource MainVM}}"
+                Content="Đăng nhập"
+                FontSize="20"
+                IsEnabled="{Binding CanLogin}"
+                Style="{StaticResource PrimaryButton}" />
+
+        </Grid>
+    </Border>
+</UserControl>
