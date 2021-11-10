@@ -311,13 +311,29 @@
         x:Key="AdminNotificationButton"
         BasedOn="{StaticResource MaterialDesignFlatButton}"
         TargetType="{x:Type Button}">
+        <Setter Property="BorderBrush" Value="{DynamicResource DarkGray}" />
+        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5" />
         <Style.Triggers>
             <Trigger Property="IsFocused" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLight}" />
-                <Setter Property="BorderThickness" Value="3" />
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <!--<ControlTemplate x:Key="TextBoxErrorTemplate">
+        <StackPanel>
+            <AdornedElementPlaceholder x:Name="placeholder" />
+            <TextBlock
+                DockPanel.Dock="Bottom"
+                Foreground="#FFF44336"
+                MaxWidth="220"
+                FontSize="10"
+                Text="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                TextWrapping="Wrap"
+                HorizontalAlignment="Left" />
+        </StackPanel>
+    </ControlTemplate>-->
 
     <!--  UserInfo  -->
     <Style x:Key="Retangle" TargetType="{x:Type Rectangle}">
@@ -342,9 +358,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter
-            Property="Padding"
-            Value="10,0" />
+        <Setter Property="Padding" Value="10,0" />
     </Style>
 
     <Style x:Key="LabelText" TargetType="{x:Type Label}">

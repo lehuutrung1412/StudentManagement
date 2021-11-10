@@ -23,7 +23,8 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <ScrollViewer>
-        <materialDesign:DialogHost>
+        <materialDesign:DialogHost
+            CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminNotificationVM}">
                     <ContentControl.Resources>
@@ -72,33 +73,73 @@
                                 TextWrapping="Wrap" />
                         </Button>
                     </Grid>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="16,8"
-                            FontSize="20"
-                            FontWeight="SemiBold"
-                            Text="Loại thông báo" />
-                        <ComboBox
-                            x:Name="cbTypeNotification"
-                            Height="36"
-                            Margin="8,8"
-                            Padding="4"
-                            materialDesign:HintAssist.Hint="Chọn loại thông báo"
-                            BorderBrush="Gray"
-                            FontSize="16"
-                            Foreground="#01579b"
-                            ItemsSource="{Binding TypeInMain, Source={StaticResource AdminNotificationVM}}"
-                            SelectedItem="{Binding SearchType}"
-                            Style="{StaticResource MaterialDesignComboBox}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="DropDownClosed">
-                                    <i:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=cbTypeNotification}" />
-                                </i:EventTrigger>
+                    <DockPanel Margin="16 4 16 0">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="16,8"
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                Text="Loại thông báo" />
+                            <ComboBox
+                                x:Name="cbTypeNotification"
+                                Height="36"
+                                Margin="8,8"
+                                Padding="4"
+                                materialDesign:HintAssist.Hint="Chọn loại thông báo"
+                                BorderBrush="Gray"
+                                FontSize="16"
+                                Foreground="#01579b"
+                                ItemsSource="{Binding TypeInMain, Source={StaticResource AdminNotificationVM}}"
+                                SelectedItem="{Binding SearchType}"
+                                Style="{StaticResource MaterialDesignComboBox}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger
+                                        EventName="DropDownClosed">
+                                        <i:InvokeCommandAction
+                                            Command="{Binding SearchCommand}"
+                                            CommandParameter="{Binding ElementName=cbTypeNotification}" />
+                                    </i:EventTrigger>
 
-                            </i:Interaction.Triggers>
-                        </ComboBox>
-                    </StackPanel>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </StackPanel>
 
+                        <materialDesign:Badged
+                            Badge="{Binding Cards.Count}"
+                            HorizontalAlignment="Right">
+                            <materialDesign:PopupBox
+                                
+                                PlacementMode="BottomAndAlignRightEdges"
+                                MaxHeight="300">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <materialDesign:PackIcon
+                                        Kind="Bell" />
+                                </materialDesign:PopupBox.ToggleContent>
+                                <ScrollViewer
+                                    HorizontalScrollBarVisibility="Auto">
+                                    <ItemsControl
+                                        ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel
+                                                    HorizontalAlignment="Center" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <component:NotificationCard
+                                                    Width="400"
+                                                    Height="50"
+                                                    HorizontalAlignment="Stretch" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </materialDesign:PopupBox>
+                        </materialDesign:Badged>
+                    
+                    </DockPanel>
                     <ItemsControl ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

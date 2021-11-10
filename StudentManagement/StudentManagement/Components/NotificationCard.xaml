@@ -24,13 +24,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Border x:Name="bdNotification">
-        <Border.Effect>
-            <DropShadowEffect
-                BlurRadius="15"
-                Opacity="0.3"
-                ShadowDepth="0"
-                Color="DarkGray" />
-        </Border.Effect>
+        
         <Grid HorizontalAlignment="Stretch">
             <Button
                 x:Name="btnNotification"
@@ -38,6 +32,7 @@
                 Margin="0"
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"
+                materialDesign:ShadowAssist.ShadowDepth="Depth4"
                 Panel.ZIndex="2"
                 Foreground="Black"
                 Style="{StaticResource AdminNotificationButton}">
