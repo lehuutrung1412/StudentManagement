@@ -20,6 +20,5 @@ namespace StudentManagement.Utils
             }
             return ValidationResult.ValidResult;
         }
-
     }
 }
