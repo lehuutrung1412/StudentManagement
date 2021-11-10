@@ -19,4 +19,5 @@
     <viewmodel:AdminFalcutyTrainingFormRightSideBarViewModel x:Key="AdminFalcutyTrainingFormRightSideBarVM" />
     <viewmodel:ScoreBoardViewModel x:Key="ScoreBoardVM" />
     <viewmodel:ScoreBoardRightSideBarViewModel x:Key="ScoreBoardRightSideBarVM" />
+    <viewmodel:LoginViewModel x:Key="LoginVM" />
 </ResourceDictionary>
