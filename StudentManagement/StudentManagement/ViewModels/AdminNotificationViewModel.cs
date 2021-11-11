@@ -14,7 +14,7 @@ namespace StudentManagement.ViewModels
 {
     public class AdminNotificationViewModel: BaseViewModel
     {
-        public class CardNotification
+        public class CardNotification: BaseViewModel
         {
             private int _id;
             private string _nguoiDang;
@@ -22,6 +22,7 @@ namespace StudentManagement.ViewModels
             private string _chuDe;
             private DateTime _ngayDang;
             private string _loaiBaiDang;
+            private bool _status;
 
             public CardNotification(int id , string nguoiDang, string loaiBaiDang, string noiDung, string chuDe, DateTime ngayDang)
             {
@@ -31,6 +32,7 @@ namespace StudentManagement.ViewModels
                 NoiDung = noiDung;
                 ChuDe = chuDe;
                 NgayDang = ngayDang;
+                Status = false;
             }
             public CardNotification(CardNotification a)
             {
@@ -40,6 +42,7 @@ namespace StudentManagement.ViewModels
                 LoaiBaiDang = a.LoaiBaiDang;
                 NoiDung = a.NoiDung;
                 NgayDang = a.NgayDang;
+                Status = a.Status;
             }
 
             public string NguoiDang { get => _nguoiDang; set => _nguoiDang = value; }
@@ -48,6 +51,7 @@ namespace StudentManagement.ViewModels
             public DateTime NgayDang { get => _ngayDang; set => _ngayDang = value; }
             public string LoaiBaiDang { get => _loaiBaiDang; set => _loaiBaiDang = value; }
             public int Id { get => _id; set => _id = value; }
+            public bool Status { get => _status; set { _status = value; OnPropertyChanged(); } }
         }
 
         private static AdminNotificationViewModel s_instance;
@@ -67,8 +71,6 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CardNotification> RealCards { get => _realCards; set { _realCards = value; OnPropertyChanged(); } }
         public ObservableCollection<string> TypeInMain { get => _typeInMain; set => _typeInMain = value; }
 
-        
-
 
         private ICommand _popUpNotification;
         public ICommand PopUpNotification { get => _popUpNotification; set => _popUpNotification = value; }
@@ -87,6 +89,9 @@ namespace StudentManagement.ViewModels
 
         public ICommand ShowDetailNotificationCommand { get => _showDetailNotificationCommand; set => _showDetailNotificationCommand = value; }
         private ICommand _showDetailNotificationCommand;
+
+        public ICommand SeenNotificationCommand { get => _seenNotificationCommand; set => _seenNotificationCommand = value; }
+        private ICommand _seenNotificationCommand;
 
         private string _searchInfo;
         public string SearchInfo 
@@ -132,6 +137,10 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        public int NumCardInBadged { get => _numCardInBadged; set { _numCardInBadged = value; OnPropertyChanged(); } }
+
+        private int _numCardInBadged;
+
         public object _creatNewNotificationViewModel;
         public object _showDetailNotificationViewModel;
 
@@ -157,19 +166,26 @@ namespace StudentManagement.ViewModels
                 new CardNotification(4,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
             };
-
+            NumCardInBadged = Cards.Count;
             RealCards = Cards;
             SearchCommand = new RelayCommand<object>((p) => { return true; }, (p) => Search());
             UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
             DeleteNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteNotification());
             CreateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNewNotification());
             ShowDetailNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowDetailNotification(p));
+            SeenNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SeenNotification());
         }
+        public void SeenNotification()
+        {
+            NumCardInBadged = 0;
+        }
+
         public void ShowDetailNotification(UserControl p)
         {
             if (p.DataContext == null)
                 return;
             var card = p.DataContext as CardNotification;
+            card.Status = true;
             this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
             this.DialogItemViewModel = this._showDetailNotificationViewModel;
         }

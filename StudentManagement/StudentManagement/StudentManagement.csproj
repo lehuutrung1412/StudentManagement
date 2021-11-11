@@ -130,6 +130,9 @@
     <Compile Include="Components\NotificationCard.xaml.cs">
       <DependentUpon>NotificationCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\NotificationCardInBarge.xaml.cs">
+      <DependentUpon>NotificationCardInBarge.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\PostNewsfeed.xaml.cs">
       <DependentUpon>PostNewsfeed.xaml</DependentUpon>
     </Compile>
@@ -321,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\NotificationCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\NotificationCardInBarge.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

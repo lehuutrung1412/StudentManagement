@@ -50,6 +50,7 @@ namespace StudentManagement.ViewModels
             if (string.IsNullOrEmpty(AdminNotificationVM.SearchInfo))
                 if(AdminNotificationVM.RealCards.Where(x=>x.Id==CurrentCard.Id).Count()==0)
                     AdminNotificationVM.RealCards.Add(CurrentCard);
+            AdminNotificationVM.NumCardInBadged += 1;
             //IsCreateNotification = false;
         }
         public void CheckIsCreateNotification()

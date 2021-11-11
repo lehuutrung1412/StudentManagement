@@ -23,8 +23,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <ScrollViewer>
-        <materialDesign:DialogHost
-            CloseOnClickAway="True">
+        <materialDesign:DialogHost CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminNotificationVM}">
                     <ContentControl.Resources>
@@ -73,7 +72,7 @@
                                 TextWrapping="Wrap" />
                         </Button>
                     </Grid>
-                    <DockPanel Margin="16 4 16 0">
+                    <DockPanel Margin="16,4,16,0">
                         <StackPanel
                             Orientation="Horizontal">
                             <TextBlock
@@ -104,41 +103,95 @@
                                 </i:Interaction.Triggers>
                             </ComboBox>
                         </StackPanel>
+                        <Button
+                            Height="auto"
+                            HorizontalAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Visibility="Visible">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SeenNotificationCommand}" />
+                                </i:EventTrigger>
 
-                        <materialDesign:Badged
-                            Badge="{Binding Cards.Count}"
-                            HorizontalAlignment="Right">
-                            <materialDesign:PopupBox
-                                
-                                PlacementMode="BottomAndAlignRightEdges"
-                                MaxHeight="300">
-                                <materialDesign:PopupBox.ToggleContent>
-                                    <materialDesign:PackIcon
-                                        Kind="Bell" />
-                                </materialDesign:PopupBox.ToggleContent>
-                                <ScrollViewer
-                                    HorizontalScrollBarVisibility="Auto">
-                                    <ItemsControl
-                                        ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel
-                                                    HorizontalAlignment="Center" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <component:NotificationCard
-                                                    Width="400"
-                                                    Height="50"
-                                                    HorizontalAlignment="Stretch" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </ScrollViewer>
-                            </materialDesign:PopupBox>
-                        </materialDesign:Badged>
-                    
+                            </i:Interaction.Triggers>
+
+                            <materialDesign:Badged
+                                Badge="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}"
+                        
+                               >
+                                <materialDesign:Badged.Style>
+                                    <Style
+                                        TargetType="materialDesign:Badged"
+                                        >
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}"
+                                                Value="0">
+                                                <Setter
+                                                    Property="BadgeBackground"
+                                                    Value="Transparent" />
+                                                <Setter
+                                                    Property="BadgeForeground"
+                                                    Value="Transparent" />
+                                            </DataTrigger>
+                                            <!--<DataTrigger
+                                                Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}"
+                                                Value="!=0"
+                                                >
+                                                <Setter
+                                                    Property="BadgeBackground"
+                                                    Value="{DynamicResource ErrorMain}" />
+                                                <Setter
+                                                    Property="BadgeForeground"
+                                                    Value="{DynamicResource White}" />
+                                            </DataTrigger>-->
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:Badged.Style>
+
+                                <materialDesign:PopupBox MaxHeight="300" PlacementMode="BottomAndAlignRightEdges">
+                                    <!--<materialDesign:PopupBox.Style>
+                                        <Style TargetType="materialDesign:PopupBox">
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}"
+                                                    Value="0">
+                                                    <Setter
+                                                        Property="Visibility"
+                                                        Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:PopupBox.Style>-->
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Kind="Bell" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                        <ItemsControl ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel HorizontalAlignment="Center" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <component:NotificationCardInBarge
+                                                        Width="400"
+                                                        Height="50"
+                                                        Margin="2"
+                                                        HorizontalAlignment="Stretch" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </materialDesign:PopupBox>
+
+                            </materialDesign:Badged>
+
+                        </Button>
+
+
                     </DockPanel>
                     <ItemsControl ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ItemsControl.ItemsPanel>

@@ -48,8 +48,7 @@
                         <TextBox.Text>
                             <Binding
                                 Path="CurrentCard.ChuDe"
-                                UpdateSourceTrigger="PropertyChanged"
-                                Mode="TwoWay">
+                                UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <utils:NotEmptyValidationRule
                                         ErrorMessage="Vui lòng nhập chủ đề thông báo!" />
@@ -94,9 +93,9 @@
                             Style="{StaticResource MaterialDesignOutlinedComboBox}">
                             <ComboBox.SelectedItem>
                                 <Binding
-                                    Mode="TwoWay"
                                     Path="CurrentCard.LoaiBaiDang"
-                                    UpdateSourceTrigger="PropertyChanged">
+                                    UpdateSourceTrigger="PropertyChanged"
+                                    TargetNullValue="true">
                                     <Binding.ValidationRules>
                                         <utils:NotEmptyValidationRule ErrorMessage="Vui lòng nhập loại thông báo!" />
                                     </Binding.ValidationRules>
@@ -148,7 +147,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <TextBox.Text>
-                    <Binding Path="CurrentCard.NoiDung" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding Path="CurrentCard.NoiDung" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
                             <utils:NotEmptyValidationRule ErrorMessage="Vui lòng nhập nội dung thông báo!" />
                         </Binding.ValidationRules>
