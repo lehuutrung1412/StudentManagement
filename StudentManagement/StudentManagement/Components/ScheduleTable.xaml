@@ -1,0 +1,429 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.ScheduleTable"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    x:Name="ScheduleUserControl"
+    mc:Ignorable="d">
+    <materialDesign:Card>
+        <Grid>
+            <Grid.Resources>
+                <Style x:Key="BorderLabelStyle" TargetType="{x:Type Border}">
+                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                    <Setter Property="BorderBrush" Value="Gray" />
+                    <Setter Property="BorderThickness" Value="0,0,1,1" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.5" />
+                            <Setter Property="Background" Value="LightSlateGray" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                </Style>
+                <Style
+                    TargetType="Label">
+                    <Setter
+                        Property="HorizontalAlignment"
+                        Value="Center" />
+                </Style>
+                <Style x:Key="BorderRowStyle" TargetType="{x:Type Border}">
+                    <Setter Property="BorderThickness" Value="0 0 0 0.25" />
+                    <Setter Property="BorderBrush" Value="Gray" />
+                </Style>
+                <Style x:Key="BorderColumnStyle" TargetType="{x:Type Border}">
+                    <Setter Property="BorderThickness" Value="0,0,0.25,0" />
+                    <Setter Property="BorderBrush" Value="Gray" />
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="Thời khóa biểu"
+                FontSize="20"
+                FontWeight="Bold" />
+            <Border
+                Grid.Row="1"
+                BorderBrush="DarkSlateGray"
+                BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Name="Day0"
+                        Grid.Column="1"
+                        BorderThickness="0"
+                        Style="{StaticResource BorderLabelStyle}">
+                        <TextBlock Text="Thứ Hai" />
+                    </Border>
+
+                    <Border
+                        Name="Day1"
+                        Grid.Column="2"
+                        BorderThickness="0"
+                        Style="{StaticResource BorderLabelStyle}">
+                        <TextBlock
+                            Text="Thứ Ba" />
+                    </Border>
+                    <Border
+                        Name="Day2"
+                        Grid.Column="3"
+                        BorderThickness="0"
+                        Style="{StaticResource BorderLabelStyle}">
+                        <TextBlock
+                            Text="Thứ Tư" />
+                    </Border>
+                    <Border
+                        Name="Day3"
+                        Grid.Column="4"
+                        BorderThickness="0"
+                        Style="{StaticResource BorderLabelStyle}">
+                        <TextBlock
+                            Text="Thứ Năm" />
+                    </Border>
+                    <Border
+                        Name="Day4"
+                        Grid.Column="5"
+                        BorderThickness="0"
+                        Style="{StaticResource BorderLabelStyle}">
+                        <TextBlock
+                            Text="Thứ Sáu" />
+                    </Border>
+                    <Border
+                        Name="Day5"
+                        Grid.Column="6"
+                        BorderThickness="0"
+                        Style="{StaticResource BorderLabelStyle}">
+                        <TextBlock
+                            Text="Thứ Bảy" />
+                    </Border>
+                    <Border
+                        Name="Day6"
+                        Grid.Column="7"
+                        BorderThickness="0"
+                        Style="{StaticResource BorderLabelStyle}">
+                        <TextBlock
+                            Text="Chủ nhật" />
+                    </Border>
+                </Grid>
+            </Border>
+            <ScrollViewer
+                Grid.Row="2"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="7:30 - 8:15">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 1"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="8:15 - 9:00">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 2"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="9:00 - 9:45">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 3"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="10:00 - 10:45">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 4"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="10:45 - 11:30">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 5"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="13:00 - 13:45">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 6"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="13:45 - 14:30">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 7"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="7"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="14:30 - 15:15">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 8"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="8"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="15:30 - 16:15">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 9"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="9"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderLabelStyle}"
+                        ToolTip="16:15 - 17:00">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Text="Tiết 10"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="8"
+                        BorderBrush="Black"
+                        BorderThickness="0 0 0 1.5"/>
+                    <Border
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Style="{StaticResource BorderRowStyle}" />
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.RowSpan="10"
+                        Style="{StaticResource BorderColumnStyle}" />
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Grid.RowSpan="10"
+                        Style="{StaticResource BorderColumnStyle}" />
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Grid.RowSpan="10"
+                        Style="{StaticResource BorderColumnStyle}" />
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        Grid.RowSpan="10"
+                        Style="{StaticResource BorderColumnStyle}" />
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="5"
+                        Grid.RowSpan="10"
+                        Style="{StaticResource BorderColumnStyle}" />
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="6"
+                        Grid.RowSpan="10"
+                        Style="{StaticResource BorderColumnStyle}" />
+                    <Grid
+                        x:Name="GridFun"
+                        Grid.Row="1"
+                        Grid.Column="1" />
+                    <Canvas
+                        Grid.Row="0"
+                        Grid.RowSpan="10"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="7"
+                        Background="Transparent">
+                        <ItemsControl ItemsSource="{Binding ElementName=ScheduleUserControl, Path=Tag}">
+                            <ItemsControl.Resources>
+                                <math:MathConverter x:Key="math" />
+                            </ItemsControl.Resources>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas IsItemsHost="True" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="FrameworkElement">
+                                    <Setter Property="Canvas.Left">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource math}" ConverterParameter="xy">
+                                                <Binding ElementName="GridFun" Path="ActualWidth" />
+                                                <Binding Path="Day" />
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Canvas.Top">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource math}" ConverterParameter="xy">
+                                                <Binding ElementName="GridFun" Path="ActualHeight" />
+                                                <Binding Path="Start" />
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Canvas.Width" Value="{Binding ElementName=GridFun, Path=ActualWidth}" />
+                                    <Setter
+                                        Property="Canvas.Height">
+                                        <Setter.Value>
+                                            <MultiBinding
+                                                Converter="{StaticResource math}"
+                                                ConverterParameter="xy">
+                                                <Binding
+                                                    ElementName="GridFun"
+                                                    Path="ActualHeight" />
+                                                <Binding
+                                                    Path="Span" />
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Background="LightGray"
+                                        BorderBrush="White"
+                                        BorderThickness="0. 0. 0.5 0.5"
+                                        Style="{DynamicResource BorderStyle}">
+                                        <StackPanel x:Name="StackFun" VerticalAlignment="Center">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                FontWeight="Bold"
+                                                Text="{Binding IdSubjectClass, FallbackValue='Mã lớp học'}"
+                                                TextWrapping="WrapWithOverflow" />
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                Text="{Binding SubjectName, FallbackValue='Tên môn học'}"
+                                                TextAlignment="Center"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </materialDesign:Card>
+
+</UserControl>

@@ -64,6 +64,10 @@
                 <DataTemplate DataType="{x:Type viewmodels:ScoreBoardViewModel}">
                     <views:ScoreBoard />
                 </DataTemplate>
+                <DataTemplate
+                    DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
+                    <views:StudentScheduleTable />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />
