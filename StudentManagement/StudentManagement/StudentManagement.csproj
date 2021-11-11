@@ -43,6 +43,9 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.2.1.2, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.2.1\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MathConverter, Version=1.2.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathConverter.1.2.1.6\lib\net40-client\MathConverter.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.37\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -142,6 +145,9 @@
     <Compile Include="Components\RightSideBar.xaml.cs">
       <DependentUpon>RightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ScheduleTable.xaml.cs">
+      <DependentUpon>ScheduleTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\ScoreboardDataGrid.xaml.cs">
       <DependentUpon>ScoreboardDataGrid.xaml</DependentUpon>
     </Compile>
@@ -162,6 +168,9 @@
     </Compile>
     <Compile Include="Components\StudentCourseRegistryRightSideBarItem.xaml.cs">
       <DependentUpon>StudentCourseRegistryRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\StudentCourseRegistrySearchBar.xaml.cs">
+      <DependentUpon>StudentCourseRegistrySearchBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\SubjectClassCard.xaml.cs">
       <DependentUpon>SubjectClassCard.xaml</DependentUpon>
@@ -212,6 +221,7 @@
     <Compile Include="ViewModels\StudentCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentCourseRegistryViewModel.cs" />
     <Compile Include="ViewModels\PostNewsfeedViewModel.cs" />
+    <Compile Include="ViewModels\StudentScheduleTableViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminFalcutyTrainingForm.xaml.cs">
@@ -300,6 +310,9 @@
     <Compile Include="Views\StudentCourseRegistry.xaml.cs">
       <DependentUpon>StudentCourseRegistry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StudentScheduleTable.xaml.cs">
+      <DependentUpon>StudentScheduleTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserInfoAdmin.xaml.cs">
       <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
     </Compile>
@@ -346,6 +359,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\ScheduleTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\ScoreboardDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -371,6 +388,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\StudentCourseRegistryRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\StudentCourseRegistrySearchBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -439,6 +460,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StudentCourseRegistry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StudentScheduleTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -58,14 +58,21 @@ namespace StudentManagement.Components
         // Using a DependencyProperty as the backing store for IsAllItemsSelected.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsAllItemsSelectedProperty =
             DependencyProperty.Register("IsAllItemsSelected", typeof(bool), typeof(SubjectRegistryDataGrid), new PropertyMetadata(false));
-/*        private static void OnAllSelectedChangeCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+
+        private void DataGrid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            SubjectRegistryDataGrid c = sender as SubjectRegistryDataGrid;
-            if (c != null)
-            {
-                c.OnPropertyChanged("IsAllItemsSelected");
-            }
-        }*/
+            ScrollViewer scv = (sender as DataGrid).Parent as ScrollViewer;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
+        /*        private static void OnAllSelectedChangeCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+{
+  SubjectRegistryDataGrid c = sender as SubjectRegistryDataGrid;
+  if (c != null)
+  {
+      c.OnPropertyChanged("IsAllItemsSelected");
+  }
+}*/
 
 
 

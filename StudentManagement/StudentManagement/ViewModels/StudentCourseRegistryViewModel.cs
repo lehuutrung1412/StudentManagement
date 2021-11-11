@@ -80,7 +80,20 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CourseRegistryItem> CourseRegistryItems1 { get => courseRegistryItems1; set => courseRegistryItems1 = value; }
         private ObservableCollection<CourseRegistryItem> courseRegistryItems2;
         public ObservableCollection<CourseRegistryItem> CourseRegistryItems2 { get => courseRegistryItems2; set => courseRegistryItems2 = value; }
-
+        private ObservableCollection<CourseRegistryItem> courseRegistryItems2Display;
+        public ObservableCollection<CourseRegistryItem> CourseRegistryItems2Display { get => courseRegistryItems2Display; set { courseRegistryItems2Display = value; OnPropertyChanged(); } }
+        private string _searchQuery;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _isFirstSearchButtonEnabled;
+        public bool IsFirstSearchButtonEnabled { get => _isFirstSearchButtonEnabled; set { _isFirstSearchButtonEnabled = value; OnPropertyChanged(); } }
         #endregion
         #region Command
         public ICommand RegisterCommand { get => _registerCommand; set => _registerCommand = value; }
@@ -88,6 +101,11 @@ namespace StudentManagement.ViewModels
         public ICommand UnregisterCommand { get => _unregisterCommand; set => _unregisterCommand = value; }
 
         private ICommand _unregisterCommand;
+        private ICommand _searchCommand;
+        public ICommand SearchCommand { get => _searchCommand; set => _searchCommand = value; }
+        private ICommand _switchSearchButtonCommand;
+        public ICommand SwitchSearchButtonCommand { get => _switchSearchButtonCommand; set => _switchSearchButtonCommand = value; }
+
         #endregion
         public StudentCourseRegistryViewModel()
         {
@@ -109,10 +127,13 @@ namespace StudentManagement.ViewModels
                 new CourseRegistryItem(false, "IT009.L21.KHCL", "Không biết", 2, 30, 30),
                 new CourseRegistryItem(false, "ENG02.L21", "Anh văn 2", 4, 30, 28)
             };
+            CourseRegistryItems2Display = CourseRegistryItems2;
 
             TotalCredit = CourseRegistryItems1.Sum(x => x.Credit);
             RegisterCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => RegisterSelectedCourses());
             UnregisterCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => UnregisterSelectedCourses());
+            SearchCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => Search());
+            SwitchSearchButtonCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButton());
         }
         #region Methods
         public void RegisterSelectedCourses()
@@ -135,6 +156,32 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems1.Remove(item);
             }
         }
+        public void Search()
+        {
+            if (SearchQuery == "" || SearchQuery == null)
+            {
+                CourseRegistryItems2Display = CourseRegistryItems2;
+                return;
+            }
+            if (!IsFirstSearchButtonEnabled)
+            {
+                var tmp = CourseRegistryItems2.Where(x => (x.IdSubjectClass).ToLower().Contains((SearchQuery.ToLower()))).ToList();
+                CourseRegistryItems2Display = new ObservableCollection<CourseRegistryItem>(tmp);
+            }
+            else
+            {
+                var tmp = CourseRegistryItems2.Where(x => AdminNotificationViewModel.RemoveSign4VietnameseString(x.SubjectName).ToLower().Contains(AdminNotificationViewModel.RemoveSign4VietnameseString(SearchQuery.ToLower()))).ToList();
+                CourseRegistryItems2Display = new ObservableCollection<CourseRegistryItem>(tmp);
+            }
+        }
+        public void SwitchSearchButton()
+        {
+            this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
+        }
+        /*public static object GetPropValue(object src, string propName)
+        {
+            return src.GetType().GetProperty(propName).GetValue(src, null);
+        }*/
         #endregion
     }
 }
