@@ -1,6 +1,9 @@
-﻿using System;
+﻿using StudentManagement.Commands;
+using StudentManagement.Components;
+using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
 {
@@ -49,10 +52,32 @@ namespace StudentManagement.ViewModels
         public bool CanLogin => !HasErrors;
         public bool HasErrors => _errorBaseViewModel.HasErrors;
 
+        public object CurrentView { get => _currentView; set { _currentView = value; OnPropertyChanged(); } }
+
+        private object _currentView;
+
+        // Init view
+        private LoginForm _loginForm;
+        private ForgotPassword _forgotPasswordForm;
+
+        public ICommand SwitchView { get; set; }
+
         public LoginViewModel()
         {
+            _loginForm = new LoginForm();
+            _forgotPasswordForm = new ForgotPassword();
+
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+
+            SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
+
+            CurrentView = _loginForm;
+        }
+
+        private void SwitchViewForm()
+        {
+            CurrentView = CurrentView == _loginForm ? _forgotPasswordForm : (object)_loginForm;
         }
 
         public bool IsExistAccount()
