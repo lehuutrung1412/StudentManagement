@@ -24,7 +24,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*" />
-                <RowDefinition Height="5*" />
+                <RowDefinition Height="4*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
@@ -48,8 +48,25 @@
                         MaxLines="1"
                         FontWeight="Bold"
                         IsEnabled="{Binding IsEnable}"
-                        Style="{StaticResource MaterialDesignTextBox}"
-                        Text="{Binding CurrentCard.ChuDe, TargetNullValue=true}" />
+            
+                        Text="{Binding ChuDe, TargetNullValue=true, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Style>
+                            <Style
+                                BasedOn="{StaticResource MaterialDesignTextBox}"
+                                TargetType="TextBox">
+                                <Style.Triggers>
+                                    <Trigger
+                                        Property="Validation.HasError"
+                                        Value="True">
+                                        <Setter
+                                            Property="materialDesign:HintAssist.Foreground"
+                                            Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
                     <materialDesign:PopupBox
                         Width="60"
                         Padding="2,0,2,0"
@@ -81,7 +98,7 @@
                     <TextBlock
                         Margin="0,0,16,0"
                         Style="{StaticResource MaterialDesignButtonTextBlock}"
-                        Text="{Binding CurrentCard.NgayDang, StringFormat='dd/MM/yyyy'}" />
+                        Text="{Binding CurrentCard.NgayDang, StringFormat='dd/MM/yyyy', Converter={utils:DateTimeConverter}}" />
                     <TextBlock
                         Margin="0,0,4,0"
                         Style="{StaticResource MaterialDesignButtonTextBlock}"

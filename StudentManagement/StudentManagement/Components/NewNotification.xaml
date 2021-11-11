@@ -42,9 +42,25 @@
                     <TextBox
                         VerticalAlignment="Center"
                         materialDesign:HintAssist.Hint="Chủ đề thông báo"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
                         FontSize="24"
                         FontWeight="Bold"
-                        Style="{StaticResource MaterialDesignTextBox}">
+                       >
+                        <!--<TextBox.Style>
+                            <Style
+                                BasedOn="{StaticResource MaterialDesignTextBox}"
+                                TargetType="TextBox">
+                                <Style.Triggers>
+                                    <Trigger
+                                        Property="Validation.HasError"
+                                        Value="True">
+                                        <Setter
+                                            Property="materialDesign:HintAssist.Foreground"
+                                            Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>-->
                         <TextBox.Text>
                             <Binding
                                 Path="CurrentCard.ChuDe"

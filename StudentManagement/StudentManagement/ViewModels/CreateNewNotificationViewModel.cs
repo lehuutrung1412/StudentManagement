@@ -46,10 +46,10 @@ namespace StudentManagement.ViewModels
             //}    
                 
             var AdminNotificationVM = AdminNotificationViewModel.Instance;
-            AdminNotificationVM.Cards.Add(CurrentCard);
+            AdminNotificationVM.Cards.Insert(0,CurrentCard);
             if (string.IsNullOrEmpty(AdminNotificationVM.SearchInfo))
                 if(AdminNotificationVM.RealCards.Where(x=>x.Id==CurrentCard.Id).Count()==0)
-                    AdminNotificationVM.RealCards.Add(CurrentCard);
+                    AdminNotificationVM.RealCards.Insert(0,CurrentCard);
             AdminNotificationVM.NumCardInBadged += 1;
             //IsCreateNotification = false;
         }

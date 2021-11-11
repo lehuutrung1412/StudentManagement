@@ -10,5 +10,6 @@
     <SolidColorBrush x:Key="Black" Color="Black" />
     <SolidColorBrush x:Key="DarkGray" Color="#b0b0b0" />
     <SolidColorBrush x:Key="Background" Color="#f0f2f5" />
+    <SolidColorBrush x:Key="BlueStatus" Color="#03a9f4" />
 
 </ResourceDictionary>
