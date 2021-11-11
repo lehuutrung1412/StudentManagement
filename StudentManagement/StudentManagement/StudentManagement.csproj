@@ -115,6 +115,9 @@
     <Compile Include="Components\FalcutyDataGrid.xaml.cs">
       <DependentUpon>FalcutyDataGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ForgotPassword.xaml.cs">
+      <DependentUpon>ForgotPassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\LeftSideBar.xaml.cs">
       <DependentUpon>LeftSideBar.xaml</DependentUpon>
     </Compile>
@@ -304,6 +307,10 @@
       <DependentUpon>UserInfoStudent.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\FalcutyDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ForgotPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
