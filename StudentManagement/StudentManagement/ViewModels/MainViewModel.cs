@@ -17,11 +17,10 @@ namespace StudentManagement.ViewModels
         private object _currentViewModel;
         private object _loginViewModel;
         private object _LayoutViewModel;
-        private object _infoStudentViewModel;
 
         public object CurrentViewModel
         {
-            get { return _currentViewModel; }
+            get => _currentViewModel;
             set
             {
                 _currentViewModel = value;
@@ -38,8 +37,6 @@ namespace StudentManagement.ViewModels
 
             _LayoutViewModel = new LayoutViewModel();
 
-            _infoStudentViewModel = new UserInfoStudentViewModel();
-
             CurrentViewModel = _loginViewModel;
 
             GotoLoginViewCommand = new RelayCommand<object>((p) => { return true; }, (p) => GotoLoginView());
@@ -48,17 +45,15 @@ namespace StudentManagement.ViewModels
 
         private void GotoLayoutView()
         {
-            CurrentViewModel = _LayoutViewModel;
+            if ((_loginViewModel as LoginViewModel).IsExistAccount())
+            {
+                CurrentViewModel = _LayoutViewModel;
+            }
         }
 
         private void GotoLoginView()
         {
-            //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-            //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-            //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-            //MyMessageBox.Show("Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "ABC", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            // CurrentViewModel = _loginViewModel;
-            CurrentViewModel = _infoStudentViewModel;
+            CurrentViewModel = _loginViewModel;
         }
     }
 }

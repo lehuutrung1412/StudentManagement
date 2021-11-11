@@ -30,9 +30,7 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <WindowChrome.WindowChrome>
-        <WindowChrome
-            CaptionHeight="0"
-            ResizeBorderThickness="12" />
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="12" />
     </WindowChrome.WindowChrome>
     <Border
         Margin="8"
@@ -44,18 +42,16 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <component:TitleBar Grid.Row="0" />
-            <ContentControl 
-                Margin="0 0 0 5"
-                Grid.Row="1" Content="{Binding CurrentViewModel}">
+            <ContentControl
+                Grid.Row="1"
+                Margin="0,0,0,5"
+                Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                         <views:Layout />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                         <views:Login />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:UserInfoStudentViewModel}">
-                        <views:UserInfoStudent />
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
