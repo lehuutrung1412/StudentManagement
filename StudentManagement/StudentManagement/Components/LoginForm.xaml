@@ -9,13 +9,13 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     d:DataContext="{StaticResource LoginVM}"
-    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.56'}"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.64'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.28'}"
     Background="Transparent"
     FontSize="16"
     mc:Ignorable="d">
     <UserControl.InputBindings>
-        <KeyBinding Key="Enter" Command="{Binding Path=GotoLayoutViewCommand, Source={StaticResource MainVM}}" />
+        <KeyBinding Key="Enter" Command="{Binding DataContext.GotoLayoutViewCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
     </UserControl.InputBindings>
     <Border Background="White" CornerRadius="10">
         <Border.Effect>
@@ -34,14 +34,21 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                Margin="28,28,28,10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="28"
-                FontWeight="Bold"
-                Text="ĐĂNG NHẬP" />
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Image Margin="28,28,28,0" Source="{StaticResource Logo}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Margin="28,5,28,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="28"
+                    FontWeight="Bold"
+                    Text="ĐĂNG NHẬP" />
+            </Grid>
 
             <TextBox
                 Grid.Row="1"
@@ -55,6 +62,7 @@
                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                 materialDesign:TextFieldAssist.LeadingIcon="Account"
                 materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
+                materialDesign:ValidationAssist.Background="White"
                 FontSize="16"
                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.Style>
@@ -82,6 +90,7 @@
                 materialDesign:TextFieldAssist.LeadingIcon="Lock"
                 materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
                 materialDesign:TextFieldAssist.TrailingIcon="Eye"
+                materialDesign:ValidationAssist.Background="White"
                 FontSize="16">
                 <PasswordBox.Style>
                     <Style BasedOn="{StaticResource MaterialDesignOutlinedPasswordBoxCustom}" TargetType="PasswordBox">
@@ -94,26 +103,9 @@
                 </PasswordBox.Style>
             </PasswordBox>
 
-            <!--<local:BindablePasswordBox
-                Grid.Row="2"
-                Password="{Binding Password, ValidatesOnDataErrors=True}">
-            -->
-            <!--<local:BindablePasswordBox.Style>
-                    <Style
-                        TargetType="local:BindablePasswordBox">
-                        <Style.Triggers>
-                            <Trigger
-                                Property="Validation.HasError"
-                                Value="True">
-                                <Setter
-                                    Property="materialDesign:HintAssist.Foreground"
-                                    Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-            </local:BindablePasswordBox>-->
-
-            <DockPanel Grid.Row="3" Margin="28,8">
+            <DockPanel
+                Grid.Row="3"
+                Margin="28,8">
                 <CheckBox
                     VerticalContentAlignment="Center"
                     Content="Ghi nhớ"
@@ -121,6 +113,7 @@
                     DockPanel.Dock="Left"
                     FontWeight="SemiBold" />
                 <TextBlock
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     DockPanel.Dock="Right"
                     FontWeight="SemiBold"
@@ -136,6 +129,9 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
+                    <TextBlock.InputBindings>
+                        <MouseBinding Command="{Binding SwitchView}" MouseAction="LeftClick" />
+                    </TextBlock.InputBindings>
                 </TextBlock>
             </DockPanel>
 
@@ -143,14 +139,13 @@
                 Grid.Row="4"
                 Width="200"
                 Height="50"
-                Margin="28"
+                Margin="28,16"
                 materialDesign:ButtonAssist.CornerRadius="20"
-                Command="{Binding GotoLayoutViewCommand, Source={StaticResource MainVM}}"
+                Command="{Binding DataContext.GotoLayoutViewCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                 Content="Đăng nhập"
-                FontSize="20"
+                FontSize="16"
                 IsEnabled="{Binding CanLogin}"
                 Style="{StaticResource PrimaryButton}" />
-
         </Grid>
     </Border>
 </UserControl>
