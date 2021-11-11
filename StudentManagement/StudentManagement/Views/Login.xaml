@@ -50,12 +50,14 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="8*" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <components:LoginForm Grid.Row="1" Margin="0 0 48 0" />
+                <ContentControl Grid.Row="1" Margin="0 0 48 0" Content="{Binding CurrentView}"/>
 
+                <!--<components:LoginForm Grid.Row="1" Margin="0,0,48,0" />-->
+                <!--<components:ForgotPassword Grid.Row="1" Margin="0 0 48 0"/>-->
             </Grid>
         </Grid>
     </Border>
