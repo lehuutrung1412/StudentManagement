@@ -68,6 +68,10 @@
                     DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
                     <views:StudentScheduleTable />
                 </DataTemplate>
+                <DataTemplate
+                    DataType="{x:Type viewmodels:UserInfoStudentViewModel}">
+                    <views:UserInfoStudent />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />

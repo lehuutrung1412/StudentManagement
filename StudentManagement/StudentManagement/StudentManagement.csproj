@@ -190,7 +190,6 @@
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
-    <Compile Include="Utils\NotEmptyValidationRule.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="ViewModels\AdminFalcutyRightSideBarItemEditViewModel.cs" />

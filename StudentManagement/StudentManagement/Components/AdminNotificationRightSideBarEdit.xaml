@@ -37,10 +37,12 @@
             <TextBox
                 Padding="4"
                 FontSize="24"
+                Margin="0 0 0 24"
                 FontWeight="Bold"
                 Style="{DynamicResource MaterialDesignTextBox}"
-                Text="{Binding CurrentCard.ChuDe, FallbackValue='Tên chủ đề'}"
-                TextWrapping="Wrap" />
+                Text="{Binding ChuDe, FallbackValue='Tên chủ đề', UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap"
+                materialDesign:ValidationAssist.Background="Transparent"/>
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -61,12 +63,14 @@
                     Style="{StaticResource BorderStyle}">
                     <TextBox
                         Padding="8,0,0,0"
+                 
                         VerticalAlignment="Center"
                         FontSize="14"
                         Style="{StaticResource TextBox}"
                         Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
                         TextAlignment="Right"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap"
+                        IsEnabled="False"/>
                 </Border>
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
@@ -94,8 +98,10 @@
                     <DatePicker
                         x:Name="dpBirthDate"
                         Height="28"
+                 
                         Padding="8,0,8,0"
                         HorizontalAlignment="Stretch"
+                        IsEnabled="False"
                         FontSize="14"
                         FontWeight="SemiBold"
                         Foreground="#01579b"
@@ -131,14 +137,16 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="3"
                     Height="28"
-                    Margin="0.4,0,0,0"
+                    Margin="0,0,0,16"
                     Padding="8,4,8,4"
                     BorderBrush="Gray"
                     FontSize="14"
                     FontWeight="SemiBold"
                     Foreground="#01579b"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:ValidationAssist.Background="Transparent"
                     ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                    SelectedItem="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
+                    SelectedItem="{Binding LoaiBaiDang, FallbackValue='Thông báo chung',UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource ComboboxInfo}" />
 
             </Grid>
@@ -169,9 +177,9 @@
                         HorizontalAlignment="Stretch"
                         Command="{Binding UpdateNotificationCommand}"
                         Content="Chỉnh sửa"
-                        DataContext="{DynamicResource AdminNotificationVM}"
                         FontSize="14"
-                        Style="{StaticResource PrimaryButton}" />
+                        Style="{StaticResource PrimaryButton}"
+                        IsEnabled="{Binding CanUpdate}"/>
                     <Button
                         Grid.Column="1"
                         Margin="8,0,0,0"

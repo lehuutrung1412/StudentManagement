@@ -27,6 +27,7 @@ namespace StudentManagement.ViewModels
         private object _adminFalcutyTrainingFormViewModel;
         private object _scoreboardViewModel;
         private object _studentScheduleTableViewModel;
+        private object _adminUserInfoStudentViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
         private object _adminHomeRightSideBar;
@@ -80,7 +81,8 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Đăng ký học phần", false, null, _studentCourseRegistryViewModel, _studentCourseRegistryRightSideBar, this, "CreditCardPlusOutline"),
                 new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, this, "Cat"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, this, "Home"),
-                new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, this, "Home")
+                new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, this, "Home"),
+                new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoStudentViewModel, null, this, "AccountOutline")
             };
 
         }
@@ -104,6 +106,8 @@ namespace StudentManagement.ViewModels
             this._scoreboardViewModel = new ScoreBoardViewModel();
 
             this._studentScheduleTableViewModel = new StudentScheduleTableViewModel();
+
+            this._adminUserInfoStudentViewModel = new UserInfoStudentViewModel();
 
             
 

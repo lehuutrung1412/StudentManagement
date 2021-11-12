@@ -23,9 +23,9 @@
         </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="2*" />
                 <RowDefinition Height="5*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="0.8*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
                 <DockPanel>
@@ -42,46 +42,24 @@
                     <TextBox
                         VerticalAlignment="Center"
                         materialDesign:HintAssist.Hint="Chủ đề thông báo"
-                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:ValidationAssist.Background="Transparent"
                         FontSize="24"
                         FontWeight="Bold"
-                       >
-                        <!--<TextBox.Style>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignTextBox}"
-                                TargetType="TextBox">
+                        Text="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged}"
+                        TextWrapping="Wrap">
+                        <TextBox.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
                                 <Style.Triggers>
-                                    <Trigger
-                                        Property="Validation.HasError"
-                                        Value="True">
-                                        <Setter
-                                            Property="materialDesign:HintAssist.Foreground"
-                                            Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
-                        </TextBox.Style>-->
-                        <TextBox.Text>
-                            <Binding
-                                Path="CurrentCard.ChuDe"
-                                UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <utils:NotEmptyValidationRule
-                                        ErrorMessage="Vui lòng nhập chủ đề thông báo!" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger
-                                EventName="TextChanged">
-                                <i:InvokeCommandAction
-                                    Command="{Binding IsCreateNotificationCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        </TextBox.Style>
                     </TextBox>
                 </DockPanel>
 
-                <Grid Margin="16,0,16,4">
+                <Grid Margin="16,16,16,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition />
@@ -101,29 +79,22 @@
                             Padding="8,4,8,4"
                             materialDesign:HintAssist.Hint="Chọn loại thông báo"
                             materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:ValidationAssist.Background="Transparent"
                             BorderBrush="Gray"
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#01579b"
                             ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBox.SelectedItem>
-                                <Binding
-                                    Path="CurrentCard.LoaiBaiDang"
-                                    UpdateSourceTrigger="PropertyChanged"
-                                    TargetNullValue="true">
-                                    <Binding.ValidationRules>
-                                        <utils:NotEmptyValidationRule ErrorMessage="Vui lòng nhập loại thông báo!" />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedItem>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger
-                                    EventName="SelectionChanged">
-                                    <i:InvokeCommandAction
-                                        Command="{Binding IsCreateNotificationCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            SelectedItem="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBox.Style>
+                                <Style BasedOn="{StaticResource MaterialDesignOutlinedComboBox}" TargetType="ComboBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
                         </ComboBox>
                     </Grid>
                 </Grid>
@@ -141,34 +112,31 @@
                 Grid.Row="1"
                 Height="auto"
                 MinHeight="40"
-                Margin="16,8,16,8"
+                Margin="16,16,16,8"
                 Padding="16"
                 materialDesign:HintAssist.Hint="Nội dung thông báo?"
                 materialDesign:HintAssist.IsFloating="False"
                 materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
                 materialDesign:TextFieldAssist.UnderlineBrush="White"
+                materialDesign:ValidationAssist.Background="Transparent"
                 AcceptsReturn="True"
                 AcceptsTab="True"
                 Background="White"
                 DockPanel.Dock="Right"
                 FontSize="16"
                 HorizontalScrollBarVisibility="Disabled"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged}"
+                TextWrapping="Wrap"
                 VerticalScrollBarVisibility="auto">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger
-                        EventName="TextChanged">
-                        <i:InvokeCommandAction
-                            Command="{Binding IsCreateNotificationCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <TextBox.Text>
-                    <Binding Path="CurrentCard.NoiDung" UpdateSourceTrigger="PropertyChanged" >
-                        <Binding.ValidationRules>
-                            <utils:NotEmptyValidationRule ErrorMessage="Vui lòng nhập nội dung thông báo!" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" TargetType="TextBox">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
             </TextBox>
             <!--  Text="{Binding DraftPostText, Mode=TwoWay}"  -->
             <StackPanel
@@ -179,55 +147,26 @@
                 Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            Width="*" />
-                        <ColumnDefinition
-                            Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid
-                        Grid.Column="1">
-                        <StackPanel
-                            Orientation="Horizontal">
+                    <Grid Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
                             <Button
                                 Margin="0,0,16,0"
                                 HorizontalAlignment="Stretch"
                                 Content="Thêm"
                                 Style="{StaticResource PrimaryButton}"
-                                IsEnabled="{Binding IsCreateNotification, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                IsEnabled="{Binding CanCreate, UpdateSourceTrigger=PropertyChanged}">
                                 <i:Interaction.Triggers>
-                                    <i:EventTrigger
-                                        EventName="Click">
-                                        <i:InvokeCommandAction
-                                            Command="{Binding CreateNotificationCommand}" />
-                                        <i:InvokeCommandAction
-                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
+                                        <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
 
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                                <!--<Button.Style>
-                                    <Style TargetType="Button">
-                                        <Style.Triggers>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition
-                                                        Binding="{Binding CurrentCard.ChuDe}"
-                                                        Value="" />
-                                                    <Condition
-                                                        Binding="{Binding CurrentCard.NoiDung}"
-                                                        Value="" />
-                                                    <Condition
-                                                        Binding="{Binding CurrentCard.LoaiBaiDang}"
-                                                        Value="" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter
-                                                    Property="IsEnabled"
-                                                    Value="False" />
-                                            </MultiDataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>-->
                             </Button>
-                           
+
                             <Button
                                 HorizontalAlignment="Stretch"
                                 Background="Red"

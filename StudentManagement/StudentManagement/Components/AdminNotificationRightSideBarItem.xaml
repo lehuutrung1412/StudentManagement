@@ -46,6 +46,7 @@
             <TextBlock
                 Padding="4"
                 FontSize="24"
+                Margin="0 0 0 16"
                 FontWeight="Bold"
                 Style="{DynamicResource MaterialDesignTextBlock}"
                 Text="{Binding CurrentCard.ChuDe, FallbackValue='Tên chủ đề'}"

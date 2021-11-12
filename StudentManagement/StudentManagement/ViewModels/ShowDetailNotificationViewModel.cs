@@ -69,7 +69,7 @@ namespace StudentManagement.ViewModels
 
         }
 
-        public bool CanCreate => !HasErrors;
+        public bool CanUpdate => !HasErrors;
         public bool HasErrors => _errorBaseViewModel.HasErrors;
 
         public ICommand IsEditNotificationCommand { get => _isEditNotificationCommand; set => _isEditNotificationCommand = value; }
@@ -112,7 +112,7 @@ namespace StudentManagement.ViewModels
         private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {
             ErrorsChanged?.Invoke(this, e);
-            OnPropertyChanged(nameof(CanCreate));
+            OnPropertyChanged(nameof(CanUpdate));
         }
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
@@ -145,7 +145,11 @@ namespace StudentManagement.ViewModels
             {
                 if (AdminNotificationVM.Cards[i].Id == CurrentCard.Id)
                 {
-                    AdminNotificationVM.Cards[i] = CurrentCard;
+                    //AdminNotificationVM.Cards[i] = CurrentCard;
+
+                    AdminNotificationVM.Cards.Remove(AdminNotificationVM.Cards[i]);
+                    AdminNotificationVM.Cards.Insert(i, CurrentCard);
+
                     break;
                 }    
             }
@@ -153,7 +157,10 @@ namespace StudentManagement.ViewModels
             {
                 if (AdminNotificationVM.RealCards[i].Id == CurrentCard.Id)
                 {
-                    AdminNotificationVM.RealCards[i] = CurrentCard;
+                    //AdminNotificationVM.RealCards[i] = CurrentCard;
+
+                    AdminNotificationVM.RealCards.Remove(AdminNotificationVM.RealCards[i]);
+                    AdminNotificationVM.RealCards.Insert(i, CurrentCard);
                     break;
                 }
             }

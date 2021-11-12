@@ -79,10 +79,9 @@ namespace StudentManagement.ViewModels
             this.RightSideBarItemViewModel = this._adminNotificationRightSideBarItemViewModel;
         }
         public void EditnotificationByCardDataContext()
-        {
-            this._adminNotificationRightSideBarEditViewModel = new AdminNotificationRightSideBarEditViewModel();
+        {  
             var tmp = new CardNotification((this._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard);
-            (this._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard = tmp;
+            this._adminNotificationRightSideBarEditViewModel = new AdminNotificationRightSideBarEditViewModel(tmp);
             CurrentCard = tmp;  
             this.RightSideBarItemViewModel = this._adminNotificationRightSideBarEditViewModel;
         }
