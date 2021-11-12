@@ -12,8 +12,7 @@
     Name="RightSideBarComponent"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
-    Background="{DynamicResource MaterialDesignPaper}"
-
+    Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -24,23 +23,13 @@
     <Grid>
         <StackPanel>
             <StackPanel.Resources>
-                <Style
-                    x:Key="textblock_item"
-                    TargetType="TextBlock">
-                    <Setter
-                        Property="Margin"
-                        Value="8,0,8,0" />
-                    <Setter
-                        Property="TextTrimming"
-                        Value="CharacterEllipsis" />
+                <Style x:Key="textblock_item" TargetType="TextBlock">
+                    <Setter Property="Margin" Value="8,0,8,0" />
+                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                 </Style>
 
-                <Style
-                    x:Key="text_grid_item"
-                    TargetType="Grid">
-                    <Setter
-                        Property="Margin"
-                        Value="0,4,0,4" />
+                <Style x:Key="text_grid_item" TargetType="Grid">
+                    <Setter Property="Margin" Value="0,4,0,4" />
                 </Style>
             </StackPanel.Resources>
             <TextBlock
@@ -50,8 +39,7 @@
                 Style="{DynamicResource MaterialDesignTextBlock}"
                 Text="{Binding CurrentCard.ChuDe, FallbackValue='Tên chủ đề'}"
                 TextWrapping="Wrap" />
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -73,17 +61,12 @@
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="64*" />
-                    <ColumnDefinition
-                        Width="53*" />
-                    <ColumnDefinition
-                        Width="7*" />
-                    <ColumnDefinition
-                        Width="4*" />
+                    <ColumnDefinition Width="64*" />
+                    <ColumnDefinition Width="53*" />
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -104,8 +87,7 @@
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -128,8 +110,7 @@
                     TextWrapping="Wrap" />
             </Grid>
             <Grid>
-                <Separator
-                    Margin="5" />
+                <Separator Margin="5" />
             </Grid>
             <Button
                 x:Name="btnEdit"
@@ -140,8 +121,7 @@
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 
-                <Grid
-                    Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
+                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
                         FontSize="16"
                         FontWeight="Bold"
@@ -164,8 +144,7 @@
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 
-                <Grid
-                    Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
                     <TextBlock
                         FontSize="16"
                         FontWeight="Bold"

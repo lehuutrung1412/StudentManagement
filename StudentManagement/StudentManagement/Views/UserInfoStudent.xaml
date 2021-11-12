@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="617"
     d:DesignWidth="746"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource CenterColumn}"
     DataContext="{DynamicResource UserInfoStudentVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -43,14 +43,13 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Ellipse                                    
+                                    <Ellipse
                                         Width="168"
                                         Height="168"
                                         Stroke="Gray"
                                         StrokeThickness="2">
                                         <Ellipse.Fill>
-                                            <ImageBrush
-                                                ImageSource="{Binding Source={StaticResource UserInfoStudentVM}, Path= Image }" Stretch="UniformToFill"/>
+                                            <ImageBrush ImageSource="{Binding Source={StaticResource UserInfoStudentVM}, Path=Image}" Stretch="UniformToFill" />
                                         </Ellipse.Fill>
                                     </Ellipse>
                                 </Grid>
@@ -64,7 +63,6 @@
                         Background="#4caf50"
                         Command="{Binding ClickChangeImageCommand}"
                         DataContext="{DynamicResource UserInfoStudentVM}"
-                  
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners"
                         Visibility="{Binding Visibility}">
 
@@ -91,7 +89,6 @@
                                 Margin="16,0,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 Background="#4caf50"
-                          
                                 ToolTip="MaterialDesignRaisedLightButton with Round Corners">
 
                                 <TextBlock Text="Xuất thông tin" />
@@ -426,7 +423,6 @@
                             HorizontalAlignment="Right"
                             materialDesign:ButtonAssist.CornerRadius="5"
                             Background="#42a5f5"
-                      
                             ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                             <TextBlock Text="Xác nhận" />
                         </Button>

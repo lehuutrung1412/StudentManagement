@@ -9,7 +9,7 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -18,6 +18,18 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="Vui lòng chọn xem thông tin để hiển thị" />
+        <Viewbox>
+            <StackPanel
+                Margin="32"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Image Width="250" Source="{StaticResource NoData}" />
+                <TextBlock
+                    Margin="32"
+                    FontSize="20"
+                    Text="{Binding Guideline, FallbackValue='Vui lòng chọn xem thông tin để hiển thị', RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:EmptyStateRightSideBar}}}"
+                    TextAlignment="Center" />
+            </StackPanel>
+        </Viewbox>
     </Grid>
 </UserControl>

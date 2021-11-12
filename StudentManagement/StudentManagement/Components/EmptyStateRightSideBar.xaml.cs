@@ -24,5 +24,15 @@ namespace StudentManagement.Components
         {
             InitializeComponent();
         }
+
+        public string Guideline
+        {
+            get => (string)GetValue(GuidelineProperty);
+            set => SetValue(GuidelineProperty, value);
+        }
+
+        public static readonly DependencyProperty GuidelineProperty =
+           DependencyProperty.RegisterAttached("Guideline", typeof(string), typeof(EmptyStateRightSideBar), new PropertyMetadata("Vui lòng chọn xem thông tin để hiển thị"));
+
     }
 }

@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="StudentManagement.Views.StudentScheduleTable"
+﻿<UserControl
+    x:Class="StudentManagement.Views.StudentScheduleTable"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:component="clr-namespace:StudentManagement.Components"
@@ -10,7 +11,7 @@
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource CenterColumn}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -21,24 +22,23 @@
     <ScrollViewer>
         <DockPanel>
             <ComboBox
-                DockPanel.Dock="Top"
-                HorizontalAlignment="Left"
                 Width="300"
                 Height="36"
                 Margin="8,8"
                 Padding="4"
+                HorizontalAlignment="Left"
                 materialDesign:HintAssist.Hint="Chọn học kỳ"
                 BorderBrush="Gray"
+                DockPanel.Dock="Top"
                 FontSize="16"
                 Foreground="#01579b"
                 ItemsSource="{Binding Semesters}"
                 SelectedItem="{Binding SelectedSemester, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                Style="{StaticResource MaterialDesignComboBox}">
-            </ComboBox>
+                Style="{StaticResource MaterialDesignComboBox}" />
             <component:ScheduleTable
-                DockPanel.Dock="Bottom"
                 Margin="8"
-                Tag="{Binding Path=ScheduleItems}"></component:ScheduleTable>
+                DockPanel.Dock="Bottom"
+                Tag="{Binding Path=ScheduleItems}" />
         </DockPanel>
     </ScrollViewer>
 </UserControl>

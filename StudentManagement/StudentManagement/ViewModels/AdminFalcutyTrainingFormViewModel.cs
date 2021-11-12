@@ -182,7 +182,7 @@ namespace StudentManagement.ViewModels
             this.SearchFalcutyCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchFalcutyCardsFunction(p));
         }
 
-        #region function
+        #region methods
         public void SearchFalcutyCardsFunction(object p)
         {
             var tmp = StoredFalcutyCards.Where(x => !IsFirstSearchButtonEnabled ?

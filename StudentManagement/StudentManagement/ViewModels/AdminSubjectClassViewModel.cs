@@ -105,7 +105,7 @@ namespace StudentManagement.ViewModels
 
         }
 
-        #region function
+        #region methods
         public void SwitchSearchButtonFunction(UserControl p)
         {
             this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;

@@ -9,7 +9,7 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -20,23 +20,13 @@
     <Grid>
         <StackPanel>
             <StackPanel.Resources>
-                <Style
-                    x:Key="textblock_item"
-                    TargetType="TextBlock">
-                    <Setter
-                        Property="Margin"
-                        Value="8,0,8,0" />
-                    <Setter
-                        Property="TextTrimming"
-                        Value="CharacterEllipsis" />
+                <Style x:Key="textblock_item" TargetType="TextBlock">
+                    <Setter Property="Margin" Value="8,0,8,0" />
+                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                 </Style>
 
-                <Style
-                    x:Key="text_grid_item"
-                    TargetType="Grid">
-                    <Setter
-                        Property="Margin"
-                        Value="0,4,0,4" />
+                <Style x:Key="text_grid_item" TargetType="Grid">
+                    <Setter Property="Margin" Value="0,4,0,4" />
                 </Style>
             </StackPanel.Resources>
             <TextBlock
@@ -44,11 +34,9 @@
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 TextWrapping="Wrap">
-                <Run
-                    Text="{Binding CurrentItem.IdSubjectClass, FallbackValue='Mã lớp học'}" />
+                <Run Text="{Binding CurrentItem.IdSubjectClass, FallbackValue='Mã lớp học'}" />
             </TextBlock>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -65,8 +53,7 @@
                     Text="{Binding CurrentItem.SubjectName, FallbackValue='Ten Mon Hoc'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -83,8 +70,7 @@
                     Text="{Binding CurrentItem.TeacherName, FallbackValue='Nguyễn Tấn Toàn'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -101,8 +87,7 @@
                     Text="{Binding CurrentItem.StartDate, StringFormat='dd/MM/yyyy', FallbackValue='01/01/2001'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -119,8 +104,7 @@
                     Text="{Binding CurrentItem.EndDate, StringFormat='dd/MM/yyyy', FallbackValue='30/01/2001'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

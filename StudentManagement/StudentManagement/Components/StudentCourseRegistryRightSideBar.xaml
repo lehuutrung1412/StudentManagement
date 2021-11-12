@@ -11,7 +11,7 @@
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -20,16 +20,12 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <ContentControl
-            Content="{Binding RightSideBarItemViewModel}"
-            DataContext="{DynamicResource StudentCourseRegistryRightSideBarVM}">
+        <ContentControl Content="{Binding RightSideBarItemViewModel}" DataContext="{DynamicResource StudentCourseRegistryRightSideBarVM}">
             <ContentControl.Resources>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:StudentCourseRegistryRightSideBarItemViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryRightSideBarItemViewModel}">
                     <components:StudentCourseRegistryRightSideBarItem />
                 </DataTemplate>
             </ContentControl.Resources>
