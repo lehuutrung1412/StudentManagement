@@ -51,7 +51,7 @@ namespace StudentManagement.ViewModels
         }
         public void ShowCardInfoByCardDataContext(UserControl p)
         {
-            CardInfo card = p.DataContext as CardInfo;
+            SubjectCard card = p.DataContext as SubjectCard;
 
             this._adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(card);
 

@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -67,8 +68,7 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CardNotification> RealCards { get => _realCards; set { _realCards = value; OnPropertyChanged(); } }
         public ObservableCollection<string> TypeInMain { get => _typeInMain; set => _typeInMain = value; }
 
-        
-
+        public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
 
         private ICommand _popUpNotification;
         public ICommand PopUpNotification { get => _popUpNotification; set => _popUpNotification = value; }
@@ -177,7 +177,7 @@ namespace StudentManagement.ViewModels
         public void Search()
         {
             RealCards = Cards;
-            var tmp = Cards.Where(x => RemoveSign4VietnameseString(x.ChuDe).ToLower().Contains(RemoveSign4VietnameseString(SearchInfo.ToLower())));
+            var tmp = Cards.Where(x => vietnameseStringNormalizer.Normalize(x.ChuDe).Contains(vietnameseStringNormalizer.Normalize(SearchInfo.ToLower())));
             if (SearchDate != null)
             {
                 tmp = tmp.Where(x => x.NgayDang.Date == _searchDate);
@@ -225,48 +225,6 @@ namespace StudentManagement.ViewModels
             this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
             this.DialogItemViewModel = this._creatNewNotificationViewModel;
         }
-
-        private static readonly string[] VietnameseSigns = new string[]
-        {
-
-            "aAeEoOuUiIdDyY",
-
-            "áàạảãâấầậẩẫăắằặẳẵ",
-
-            "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
-
-            "éèẹẻẽêếềệểễ",
-
-            "ÉÈẸẺẼÊẾỀỆỂỄ",
-
-            "óòọỏõôốồộổỗơớờợởỡ",
-
-            "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
-
-            "úùụủũưứừựửữ",
-
-            "ÚÙỤỦŨƯỨỪỰỬỮ",
-
-            "íìịỉĩ",
-
-            "ÍÌỊỈĨ",
-
-            "đ",
-
-            "Đ",
-
-            "ýỳỵỷỹ",
-
-            "ÝỲỴỶỸ"
-        };
-        public static string RemoveSign4VietnameseString(string str)
-        {
-            for (int i = 1; i < VietnameseSigns.Length; i++)
-            {
-                for (int j = 0; j < VietnameseSigns[i].Length; j++)
-                    str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
-            }
-            return str;
-        }
+        
     }
 }

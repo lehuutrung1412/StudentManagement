@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -108,6 +109,8 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
+
         public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
         public ICommand SearchFalcutyCards { get => _searchFalcutyCards; set => _searchFalcutyCards = value; }
 
@@ -115,7 +118,7 @@ namespace StudentManagement.ViewModels
 
         private ICommand _searchFalcutyCards;
 
-        private bool _isFirstSearchButtonEnabled = true;
+        private bool _isFirstSearchButtonEnabled = false;
         public void SwitchSearchButtonFunction(UserControl p)
         {
             this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
@@ -123,7 +126,9 @@ namespace StudentManagement.ViewModels
 
         public void SearchFalcutyCardsFunction(object p)
         {
-            var tmp = StoredFalcutyCards.Where(x => x.TenKhoa.ToLower().Contains(SearchQuery.ToLower()));
+            var tmp = StoredFalcutyCards.Where(x => !IsFirstSearchButtonEnabled ?
+                                                    vietnameseStringNormalizer.Normalize(x.TenKhoa).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
+                                                    : vietnameseStringNormalizer.Normalize(x.CacHeDaoTao).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
             FalcutyCards.Clear();
             foreach (FalcutyCard card in tmp)
                 FalcutyCards.Add(card);

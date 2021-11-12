@@ -189,6 +189,7 @@
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
+    <Compile Include="Utils\VietnameseStringNormalizer.cs" />
     <Compile Include="ViewModels\AdminFalcutyRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\AdminTrainingFormRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\AdminFalcutyRightSideBarItemViewModel.cs" />
