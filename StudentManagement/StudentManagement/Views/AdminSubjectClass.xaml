@@ -37,6 +37,8 @@
                         Grid.Column="0"
                         DataContext="{DynamicResource AdminSubjectClassVM}"
                         FirstSearchButtonText="Mã lớp"
+                        SearchCommand="{Binding SearchSubjectCards}"
+                        SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SecondSearchButtonText="Giáo viên" />
                     <Button
                         Grid.Column="1"
@@ -45,7 +47,7 @@
                         Content="Thêm lớp học"
                         FontSize="16" />
                 </Grid>
-                <ItemsControl ItemsSource="{Binding Cards}">
+                <ItemsControl ItemsSource="{Binding SubjectCards}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel HorizontalAlignment="Center" />

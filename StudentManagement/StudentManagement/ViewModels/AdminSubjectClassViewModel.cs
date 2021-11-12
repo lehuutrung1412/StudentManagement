@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,7 @@ namespace StudentManagement.ViewModels
 {
     public class AdminSubjectClassViewModel : BaseViewModel
     {
+        #region class
         public class SubjectCard
         {
             private int _siSo;
@@ -32,13 +34,17 @@ namespace StudentManagement.ViewModels
             public string MaMon { get => _maMon; set => _maMon = value; }
             public string TenMon { get => _tenMon; set => _tenMon = value; }
         }
+        #endregion
 
+        #region properties
         static private ObservableCollection<SubjectCard> _storedSubjectCards;
         public static ObservableCollection<SubjectCard> StoredSubjectCards { get => _storedSubjectCards; set => _storedSubjectCards = value; }
 
         public ObservableCollection<SubjectCard> _subjectCards;
 
         public ObservableCollection<SubjectCard> SubjectCards { get => _subjectCards; set => _subjectCards = value; }
+
+        public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
 
         public bool IsFirstSearchButtonEnabled
         {
@@ -50,11 +56,29 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        private bool _isFirstSearchButtonEnabled = false;
+
+        private string _searchQuery;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
+        #region icommand
         public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
 
         private ICommand _switchSearchButton;
 
-        private bool _isFirstSearchButtonEnabled = true;
+        public ICommand SearchSubjectCards { get => _searchSubjectCards; set => _searchSubjectCards = value; }
+
+        private ICommand _searchSubjectCards;
+        #endregion 
 
         public AdminSubjectClassViewModel()
         {
@@ -77,11 +101,25 @@ namespace StudentManagement.ViewModels
             SubjectCards = new ObservableCollection<SubjectCard>(StoredSubjectCards.Select(el => el));
 
             this.SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
+            this.SearchSubjectCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectCardsFunction(p));
+
         }
 
+        #region function
         public void SwitchSearchButtonFunction(UserControl p)
         {
             this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
+
+        public void SearchSubjectCardsFunction(object p)
+        {
+            var tmp = StoredSubjectCards.Where(x => !IsFirstSearchButtonEnabled ?
+                                                    vietnameseStringNormalizer.Normalize(x.TenMon).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
+                                                    : vietnameseStringNormalizer.Normalize(x.GiaoVien).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
+            SubjectCards.Clear();
+            foreach (SubjectCard card in tmp)
+                SubjectCards.Add(card);
+        }
+        #endregion
     }
 }
