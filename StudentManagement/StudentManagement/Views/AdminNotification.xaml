@@ -154,27 +154,27 @@
                                     <materialDesign:PopupBox.ToggleContent>
                                         <materialDesign:PackIcon Kind="Bell" />
                                     </materialDesign:PopupBox.ToggleContent>
-                                    <ScrollViewer
-                                     
-                                        VerticalScrollBarVisibility="Auto"
-                                        MaxWidth="360">
-                                        <Grid
-                                            MaxHeight="400">
-                                            <StackPanel
-                                                >
-                                                <TextBlock
-                                                    HorizontalAlignment="Left"
-                                                    FontSize="24"
-                                                    Margin="4 8"
-                                                    FontWeight="Bold"
-                                                    Text="Thông báo" />
+
+                                    <Grid MaxHeight="300">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="5*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Left"
+                                                FontSize="24"
+                                                Margin="8"
+                                                FontWeight="Bold"
+                                                Text="Thông báo" />
+                                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
                                                 <ItemsControl
                                                     ItemsSource="{Binding Cards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <StackPanel
-                                                                Margin="0"
-                                                                HorizontalAlignment="Stretch" />
+                                                                Margin="8 8 0 8" />
                                                         </ItemsPanelTemplate>
                                                     </ItemsControl.ItemsPanel>
                                                     <ItemsControl.ItemTemplate>
@@ -183,15 +183,13 @@
                                                                 Width="360"
                                                                 Height="80"
                                                                 Margin="0"
-                                                                Padding="0"
-                                                                HorizontalAlignment="Stretch" />
+                                                                Padding="0" />
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>
-                                            </StackPanel>
+                                            </ScrollViewer>
                                         </Grid>
-
-                                    </ScrollViewer>
+                                    </Grid>
                                 </materialDesign:PopupBox>
 
                             </materialDesign:Badged>
