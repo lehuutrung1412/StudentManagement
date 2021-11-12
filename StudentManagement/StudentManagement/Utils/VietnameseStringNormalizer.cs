@@ -53,7 +53,7 @@ namespace StudentManagement.Utils
             "ÝỲỴỶỸ"
         };
 
-        public string Normalize(string str)
+        public string Normalize(string str="")
         {
             for (int i = 1; i < VietnameseSigns.Length; i++)
             {

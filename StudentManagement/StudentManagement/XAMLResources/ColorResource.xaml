@@ -11,6 +11,7 @@
     <!--<SolidColorBrush x:Key="SideBar" Color="#f0f2f5" />-->
     <SolidColorBrush x:Key="CenterColumn" Color="#FFFFFF" />
     <SolidColorBrush x:Key="SideBar" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="SelectedItemGray" Color="#e3e3e3" />
     <SolidColorBrush x:Key="Gray" Color="#f6f7fb" />
     <SolidColorBrush x:Key="Transparent" Color="Transparent" />
     <SolidColorBrush x:Key="Black" Color="Black" />

@@ -41,7 +41,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <component:TrainingFormCard Margin="12" />
+                        <component:TrainingFormCard Margin="8" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -68,8 +68,8 @@
                 <Button
                     Grid.Column="1"
                     Height="50"
-                    Margin="16"
-                    Content="Thêm lớp học"
+                    Margin="16,0,0,0"
+                    Content="Thêm khoa"
                     FontSize="16" />
             </Grid>
 

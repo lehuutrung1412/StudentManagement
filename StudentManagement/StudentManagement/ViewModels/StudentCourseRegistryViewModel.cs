@@ -83,7 +83,7 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CourseRegistryItem> CourseRegistryItems2 { get => courseRegistryItems2; set => courseRegistryItems2 = value; }
         private ObservableCollection<CourseRegistryItem> courseRegistryItems2Display;
         public ObservableCollection<CourseRegistryItem> CourseRegistryItems2Display { get => courseRegistryItems2Display; set { courseRegistryItems2Display = value; OnPropertyChanged(); } }
-        private string _searchQuery;
+        private string _searchQuery = "";
         public string SearchQuery
         {
             get => _searchQuery;

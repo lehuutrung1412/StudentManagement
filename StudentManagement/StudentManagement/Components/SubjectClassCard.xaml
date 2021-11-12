@@ -17,71 +17,99 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <materialDesign:Card Width="Auto" Height="Auto">
-            <Grid Width="{Binding ActualWidth, ElementName=CardImage}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="150" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Image
-                    x:Name="CardImage"
-                    Height="150"
-                    MinWidth="120"
-                    MaxWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.20'}"
-                    Source="https://picsum.photos/300/400"
-                    Stretch="UniformToFill" />
+        <Button
+            x:Name="CardButton"
+            Width="Auto"
+            Height="Auto"
+            Padding="6"
+            materialDesign:ShadowAssist.ShadowDepth="Depth0"
+            Background="{StaticResource CenterColumn}"
+            BorderBrush="{StaticResource CenterColumn}"
+            Command="{Binding ShowCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
+            CommandParameter="{Binding ElementName=SubjectClassCardComponent}"
+            FontWeight="Normal"
+            Foreground="Black">
+            <materialDesign:Card
+                Width="Auto"
+                Height="Auto"
+                materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                <materialDesign:Card.Style>
+                    <Style TargetType="materialDesign:Card">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding ElementName=CardButton, Path=IsFocused}" Value="true">
+                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </materialDesign:Card.Style>
+                <Grid Width="{Binding ActualWidth, ElementName=CardImage}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image
+                        x:Name="CardImage"
+                        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.17'}"
+                        Height="150"
+                        Source="https://picsum.photos/300/400"
+                        Stretch="UniformToFill" />
 
-                <StackPanel
-                    Grid.Row="1"
-                    Width="{Binding ActualWidth, ElementName=CardImage}"
-                    Margin="8,8,8,0">
-                    <TextBlock
-                        Height="30"
-                        Margin="0,0,0,8"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        TextTrimming="WordEllipsis"
-                        TextWrapping="WrapWithOverflow">
-                        <Run Text="{Binding MaMon, FallbackValue='MaMon'}" />
-                        <Run Text="-" />
-                        <Run Text="{Binding TenMon, FallbackValue='Ten Mon Hoc'}" />
-                    </TextBlock>
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontSize="12"
-                        TextWrapping="Wrap">
-                        <Run Text="Giáo viên:" />
-                        <Run Text="{Binding GiaoVien, FallbackValue='Ten Giao Vien'}" />
-                    </TextBlock>
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontSize="12"
-                        TextWrapping="Wrap">
-                        <Run Text="Sĩ số:" />
-                        <Run Text="{Binding SiSo, FallbackValue='100'}" />
-                    </TextBlock>
-                </StackPanel>
-                <Grid Grid.Row="2" Width="{Binding ActualWidth, ElementName=CardImage}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button
-                        Grid.Column="0"
-                        Command="{Binding ShowCardInfo}"
-                        CommandParameter="{Binding ElementName=SubjectClassCardComponent}"
-                        Content="Xem thông tin"
-                        DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
-                        FontSize="10"
-                        Style="{StaticResource MaterialDesignFlatDarkButton}" />
-                    <Button
-                        Grid.Column="1"
-                        Content="Đến lớp học"
-                        FontSize="10"
-                        Style="{StaticResource MaterialDesignFlatDarkButton}" />
+                    <StackPanel
+                        Grid.Row="1"
+                        Width="{Binding ActualWidth, ElementName=CardImage}"
+                        Margin="8,8,8,0">
+                        <TextBlock
+                            Height="20"
+                            Margin="0,0,0,8"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            TextTrimming="WordEllipsis"
+                            TextWrapping="WrapWithOverflow">
+                            <Run Text="{Binding MaMon, FallbackValue='MaMon'}" />
+                            <Run Text="-" />
+                            <Run Text="{Binding TenMon, FallbackValue='Ten Mon Hoc'}" />
+                        </TextBlock>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            TextWrapping="Wrap">
+                            <Run Text="Giáo viên:" />
+                            <Run Text="{Binding GiaoVien, FallbackValue='Ten Giao Vien'}" />
+                        </TextBlock>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            TextWrapping="Wrap">
+                            <Run Text="Sĩ số:" />
+                            <Run Text="{Binding SiSo, FallbackValue='100'}" />
+                        </TextBlock>
+                    </StackPanel>
+                    <Grid Grid.Row="2" Width="{Binding ActualWidth, ElementName=CardImage}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Command="{Binding ShowCardInfo}"
+                            CommandParameter="{Binding ElementName=SubjectClassCardComponent}"
+                            Content="Xem thông tin"
+                            DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
+                            FontSize="10"
+                            Style="{StaticResource MaterialDesignFlatDarkButton}" />
+                        <Button
+                            Grid.Column="1"
+                            Content="Đến lớp học"
+                            FontSize="10"
+                            Style="{StaticResource MaterialDesignFlatDarkButton}" />
+                    </Grid>
                 </Grid>
-            </Grid>
-        </materialDesign:Card>
+            </materialDesign:Card>
+        </Button>
     </Grid>
 </UserControl>

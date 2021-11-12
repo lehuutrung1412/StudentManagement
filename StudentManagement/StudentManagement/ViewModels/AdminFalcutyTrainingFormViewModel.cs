@@ -120,7 +120,7 @@ namespace StudentManagement.ViewModels
             this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
 
-        private string _searchQuery;
+        private string _searchQuery = "";
         public string SearchQuery
         {
             get => _searchQuery;

@@ -58,7 +58,7 @@ namespace StudentManagement.ViewModels
 
         private bool _isFirstSearchButtonEnabled = false;
 
-        private string _searchQuery;
+        private string _searchQuery = "";
         public string SearchQuery
         {
             get => _searchQuery;
@@ -98,8 +98,23 @@ namespace StudentManagement.ViewModels
                 new SubjectCard(40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
             };
 
-            SubjectCards = new ObservableCollection<SubjectCard>(StoredSubjectCards.Select(el => el));
-
+            //SubjectCards = new ObservableCollection<SubjectCard>(StoredSubjectCards.Select(el => el));
+            // Use this for displaying in design
+            SubjectCards = new  ObservableCollection<SubjectCard>() {
+                new SubjectCard(50, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan"),
+                new SubjectCard(150, "Nguyễn Thị Quý", "SE104", "Nhập môn CNPM"),
+                new SubjectCard(20, "Nguyễn Thị Quý", "IT009", "Mạng máy tính"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 1"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT010", "Cơ sở dữ liệu 2"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT011", "Cơ sở dữ liệu test tên siêu dài test tên siêu dài 3"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT012", "Cơ sở dữ liệu 4"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT013", "Cơ sở dữ liệu 5"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT014", "Cơ sở dữ liệu test tên siêu dài 6"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 7"),
+                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài 8"),
+                new SubjectCard(40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
+            };
             this.SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             this.SearchSubjectCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectCardsFunction(p));
 
