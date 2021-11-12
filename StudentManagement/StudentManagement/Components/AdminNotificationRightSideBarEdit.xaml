@@ -9,17 +9,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:AdminNotificationRightSideBarViewModel, IsDesignTimeCreatable=True}"
+    x:Name="RightSideBarEdit"
+    d:DataContext="{d:DesignInstance Type=viewmodels:AdminNotificationRightSideBarViewModel,
+                                     IsDesignTimeCreatable=True}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    x:Name="RightSideBarEdit"
     mc:Ignorable="d">
     <Grid>
 

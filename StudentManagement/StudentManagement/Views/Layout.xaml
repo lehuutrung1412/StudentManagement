@@ -12,7 +12,7 @@
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource CenterColumn}"
     DataContext="{StaticResource LayoutVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -64,8 +64,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:ScoreBoardViewModel}">
                     <views:ScoreBoard />
                 </DataTemplate>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
                     <views:StudentScheduleTable />
                 </DataTemplate>
                 <DataTemplate

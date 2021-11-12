@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace StudentManagement.ViewModels
 {
     public class AdminFalcutyTrainingFormViewModel : BaseViewModel
     {
+        #region class
         public class TrainingFormCard : BaseViewModel
         {
             private string _tenHeDaoTao;
@@ -88,6 +90,9 @@ namespace StudentManagement.ViewModels
 
         }
 
+        #endregion
+
+        #region properties
         static private ObservableCollection<FalcutyCard> _storedFalcutyCards;
         public static ObservableCollection<FalcutyCard> StoredFalcutyCards { get => _storedFalcutyCards; set => _storedFalcutyCards = value; }
 
@@ -98,6 +103,7 @@ namespace StudentManagement.ViewModels
 
         static public ObservableCollection<FalcutyCard> FalcutyCards { get => _falcutyCards; set => _falcutyCards = value; }
 
+        public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
         public bool IsFirstSearchButtonEnabled
         {
             get { return _isFirstSearchButtonEnabled; }
@@ -108,28 +114,13 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
-        public ICommand SearchFalcutyCards { get => _searchFalcutyCards; set => _searchFalcutyCards = value; }
-
-        private ICommand _switchSearchButton;
-
-        private ICommand _searchFalcutyCards;
-
-        private bool _isFirstSearchButtonEnabled = true;
+        private bool _isFirstSearchButtonEnabled = false;
         public void SwitchSearchButtonFunction(UserControl p)
         {
             this.IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
 
-        public void SearchFalcutyCardsFunction(object p)
-        {
-            var tmp = StoredFalcutyCards.Where(x => x.TenKhoa.ToLower().Contains(SearchQuery.ToLower()));
-            FalcutyCards.Clear();
-            foreach (FalcutyCard card in tmp)
-                FalcutyCards.Add(card);
-        }
-
-        private string _searchQuery;
+        private string _searchQuery = "";
         public string SearchQuery
         {
             get => _searchQuery;
@@ -139,6 +130,19 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion
+
+        #region icommand
+        public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
+
+        private ICommand _switchSearchButton;
+        public ICommand SearchFalcutyCards { get => _searchFalcutyCards; set => _searchFalcutyCards = value; }
+
+        private ICommand _searchFalcutyCards;
+        #endregion
+
+
+        
 
         public AdminFalcutyTrainingFormViewModel()
         {
@@ -177,5 +181,17 @@ namespace StudentManagement.ViewModels
             this.SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             this.SearchFalcutyCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchFalcutyCardsFunction(p));
         }
+
+        #region methods
+        public void SearchFalcutyCardsFunction(object p)
+        {
+            var tmp = StoredFalcutyCards.Where(x => !IsFirstSearchButtonEnabled ?
+                                                    vietnameseStringNormalizer.Normalize(x.TenKhoa).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
+                                                    : vietnameseStringNormalizer.Normalize(x.CacHeDaoTao).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
+            FalcutyCards.Clear();
+            foreach (FalcutyCard card in tmp)
+                FalcutyCards.Add(card);
+        }
+        #endregion
     }
 }

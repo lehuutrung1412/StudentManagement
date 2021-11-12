@@ -12,6 +12,7 @@ namespace StudentManagement.ViewModels
 {
     public class AdminSubjectClassRightSideBarViewModel : BaseViewModel
     {
+        #region properties
         private object _rightSideBarItemViewModel;
 
         public object RightSideBarItemViewModel
@@ -24,15 +25,18 @@ namespace StudentManagement.ViewModels
             }
         }
 
-
         private object _adminSubjectClassRightSideBarItemViewModel;
 
         private object _emptyStateRightSideBarViewModel;
+        #endregion
 
+        #region icommand
 
         public ICommand ShowCardInfo { get => _showCardInfo; set => _showCardInfo = value; }
 
         private ICommand _showCardInfo;
+
+        #endregion
 
         public AdminSubjectClassRightSideBarViewModel()
         {
@@ -41,7 +45,7 @@ namespace StudentManagement.ViewModels
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
         }
 
-
+        #region methods
         public void InitRightSideBarItemViewModel()
         {
             this._adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel();
@@ -51,11 +55,12 @@ namespace StudentManagement.ViewModels
         }
         public void ShowCardInfoByCardDataContext(UserControl p)
         {
-            CardInfo card = p.DataContext as CardInfo;
+            SubjectCard card = p.DataContext as SubjectCard;
 
             this._adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(card);
 
             this.RightSideBarItemViewModel = this._adminSubjectClassRightSideBarItemViewModel;
         }
+        #endregion
     }
 }

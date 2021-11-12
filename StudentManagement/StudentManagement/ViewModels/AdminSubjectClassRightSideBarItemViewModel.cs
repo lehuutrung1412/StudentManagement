@@ -9,15 +9,15 @@ namespace StudentManagement.ViewModels
 {
     public class AdminSubjectClassRightSideBarItemViewModel : BaseViewModel
     {
-        public CardInfo CurrentCard { get => _currentCard; set => _currentCard = value; }
-        private CardInfo _currentCard;
+        public SubjectCard CurrentCard { get => _currentCard; set => _currentCard = value; }
+        private SubjectCard _currentCard;
 
         public AdminSubjectClassRightSideBarItemViewModel()
         {
             this.CurrentCard = null;
         }
 
-        public AdminSubjectClassRightSideBarItemViewModel(CardInfo card)
+        public AdminSubjectClassRightSideBarItemViewModel(SubjectCard card)
         {
             this.CurrentCard = card;
         }

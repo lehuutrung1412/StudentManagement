@@ -35,19 +35,27 @@ namespace StudentManagement.Components
             get => (string)GetValue(SecondSearchButtonTextProperty);
             set => SetValue(SecondSearchButtonTextProperty, value);
         }
-        
+
         public string SearchQuery
         {
             get => (string)GetValue(SearchQueryProperty);
             set => SetValue(SearchQueryProperty, value);
         }
 
+        public ICommand SearchCommand
+        {
+            get => (ICommand)GetValue(SearchCommandProperty);
+            set => SetValue(SearchCommandProperty, value);
+        }
+
         public static readonly DependencyProperty FirstSearchButtonTextProperty =
             DependencyProperty.RegisterAttached("FirstSearchButtonText", typeof(string), typeof(SearchBarOne), new PropertyMetadata("Mã lớp"));
         public static readonly DependencyProperty SecondSearchButtonTextProperty =
             DependencyProperty.RegisterAttached("SecondSearchButtonText", typeof(string), typeof(SearchBarOne), new PropertyMetadata("Giáo viên"));
-        
+
         public static readonly DependencyProperty SearchQueryProperty =
             DependencyProperty.RegisterAttached("SearchQuery", typeof(string), typeof(SearchBarOne), new PropertyMetadata(""));
+        public static readonly DependencyProperty SearchCommandProperty =
+             DependencyProperty.RegisterAttached("SearchCommand", typeof(ICommand), typeof(SearchBarOne));
     }
 }

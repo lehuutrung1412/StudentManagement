@@ -16,67 +16,93 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <materialDesign:Card
-            Width="200"
-            Padding="8"
-            UniformCornerRadius="6">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="160" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        Height="40"
-                        FontSize="14"
-                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                        Text="{Binding TenHeDaoTao, FallbackValue='Chương trình chất lượng cao'}"
-                        TextTrimming="CharacterEllipsis"
-                        TextWrapping="WrapWithOverflow" />
-                    <materialDesign:PopupBox
-                        Grid.Column="1"
-                        Padding="2,0,2,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top">
-                        <StackPanel>
-                            <Button
-                                Command="{Binding ShowTrainingFormCardInfo}"
-                                CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
-                                Content="Xem thông tin"
-                                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
-                            <Button
-                                Command="{Binding EditTrainingFormCardInfo}"
-                                CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
-                                Content="Chỉnh sửa"
-                                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
-                            <Button
-                                Command="{Binding DeleteTrainingFormCardInfo}"
-                                CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
-                                Content="Xóa"
-                                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
-                        </StackPanel>
-                    </materialDesign:PopupBox>
-                </Grid>
+        <Button
+            x:Name="CardButton"
+            Width="Auto"
+            Height="Auto"
+            Padding="6"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            Command="{Binding ShowTrainingFormCardInfo, Source={StaticResource AdminFalcutyTrainingFormRightSideBarVM}}"
+            CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
+            FontWeight="Normal"
+            Foreground="Black">
 
-                <Grid Grid.Row="1">
-                    <StackPanel>
-                        <TextBlock TextWrapping="Wrap">
-                            <Run Text="Số lượng khoa:" />
-                            <Run Text="{Binding SoLuongKhoa, FallbackValue='5'}" />
-                        </TextBlock>
-                        <TextBlock TextWrapping="Wrap">
-                            <Run Text="Số lượng sinh viên:" />
-                            <Run Text="{Binding SoLuongSinhVien, FallbackValue='1200'}" />
-                        </TextBlock>
-                    </StackPanel>
+            <materialDesign:Card
+                Width="200"
+                Padding="8"
+                UniformCornerRadius="6">
+                <materialDesign:Card.Style>
+                    <Style TargetType="materialDesign:Card">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding ElementName=CardButton, Path=IsFocused}" Value="true">
+                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </materialDesign:Card.Style>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Height="40"
+                            FontSize="14"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="{Binding TenHeDaoTao, FallbackValue='Chương trình chất lượng cao'}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="WrapWithOverflow" />
+                        <materialDesign:PopupBox
+                            Grid.Column="1"
+                            Padding="2,0,2,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top">
+                            <StackPanel>
+                                <Button
+                                    Command="{Binding ShowTrainingFormCardInfo}"
+                                    CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
+                                    Content="Xem thông tin"
+                                    DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
+                                <Button
+                                    Command="{Binding EditTrainingFormCardInfo}"
+                                    CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
+                                    Content="Chỉnh sửa"
+                                    DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
+                                <Button
+                                    Command="{Binding DeleteTrainingFormCardInfo}"
+                                    CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
+                                    Content="Xóa"
+                                    DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <StackPanel>
+                            <TextBlock TextWrapping="Wrap">
+                                <Run Text="Số lượng khoa:" />
+                                <Run Text="{Binding SoLuongKhoa, FallbackValue='5'}" />
+                            </TextBlock>
+                            <TextBlock TextWrapping="Wrap">
+                                <Run Text="Số lượng sinh viên:" />
+                                <Run Text="{Binding SoLuongSinhVien, FallbackValue='1200'}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </materialDesign:Card>
+            </materialDesign:Card>
+        </Button>
     </Grid>
 </UserControl>

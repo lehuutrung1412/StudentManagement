@@ -11,7 +11,7 @@
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource CenterColumn}"
     DataContext="{DynamicResource AdminSubjectClassVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -24,10 +24,11 @@
         <Grid>
             <StackPanel>
                 <TextBlock
+                    Margin="16"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                     Text="Danh sách lớp môn học" />
-                <Grid Margin="16">
+                <Grid Margin="16" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5.5*" />
                         <ColumnDefinition Width="1.5*" />
@@ -36,15 +37,17 @@
                         Grid.Column="0"
                         DataContext="{DynamicResource AdminSubjectClassVM}"
                         FirstSearchButtonText="Mã lớp"
+                        SearchCommand="{Binding SearchSubjectCards}"
+                        SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SecondSearchButtonText="Giáo viên" />
                     <Button
                         Grid.Column="1"
                         Height="50"
-                        Margin="16"
+                        Margin="16,0,0,0"
                         Content="Thêm lớp học"
                         FontSize="16" />
                 </Grid>
-                <ItemsControl ItemsSource="{Binding Cards}">
+                <ItemsControl ItemsSource="{Binding SubjectCards}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel HorizontalAlignment="Center" />
@@ -52,7 +55,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <component:SubjectClassCard Margin="12" />
+                            <component:SubjectClassCard Margin="4" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

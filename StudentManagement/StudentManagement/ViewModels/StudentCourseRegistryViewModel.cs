@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -82,7 +83,7 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CourseRegistryItem> CourseRegistryItems2 { get => courseRegistryItems2; set => courseRegistryItems2 = value; }
         private ObservableCollection<CourseRegistryItem> courseRegistryItems2Display;
         public ObservableCollection<CourseRegistryItem> CourseRegistryItems2Display { get => courseRegistryItems2Display; set { courseRegistryItems2Display = value; OnPropertyChanged(); } }
-        private string _searchQuery;
+        private string _searchQuery = "";
         public string SearchQuery
         {
             get => _searchQuery;
@@ -94,6 +95,7 @@ namespace StudentManagement.ViewModels
         }
         private bool _isFirstSearchButtonEnabled;
         public bool IsFirstSearchButtonEnabled { get => _isFirstSearchButtonEnabled; set { _isFirstSearchButtonEnabled = value; OnPropertyChanged(); } }
+        public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
         #endregion
         #region Command
         public ICommand RegisterCommand { get => _registerCommand; set => _registerCommand = value; }
@@ -170,7 +172,7 @@ namespace StudentManagement.ViewModels
             }
             else
             {
-                var tmp = CourseRegistryItems2.Where(x => AdminNotificationViewModel.RemoveSign4VietnameseString(x.SubjectName).ToLower().Contains(AdminNotificationViewModel.RemoveSign4VietnameseString(SearchQuery.ToLower()))).ToList();
+                var tmp = CourseRegistryItems2.Where(x => vietnameseStringNormalizer.Normalize(x.SubjectName).ToLower().Contains(vietnameseStringNormalizer.Normalize(SearchQuery.ToLower()))).ToList();
                 CourseRegistryItems2Display = new ObservableCollection<CourseRegistryItem>(tmp);
             }
         }

@@ -11,7 +11,7 @@
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource CenterColumn}"
     DataContext="{DynamicResource AdminFalcutyTrainingFormVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -29,6 +29,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="0,0,0,16">
             <TextBlock
+                Margin="16"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 Text="Danh sách hệ đào tạo" />
@@ -40,7 +41,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <component:TrainingFormCard Margin="12" />
+                        <component:TrainingFormCard Margin="8" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -48,6 +49,7 @@
 
         <StackPanel Grid.Row="1">
             <TextBlock
+                Margin="16"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 Text="Danh sách khoa" />
@@ -60,14 +62,14 @@
                     Grid.Column="0"
                     DataContext="{Binding}"
                     FirstSearchButtonText="Khoa"
-                    SearchQuery="{Binding SearchQuery, Mode=TwoWay}"
+                    SearchCommand="{Binding SearchFalcutyCards}"
+                    SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SecondSearchButtonText="Hệ đào tạo" />
                 <Button
                     Grid.Column="1"
                     Height="50"
-                    Margin="16"
-                    Command="{Binding SearchFalcutyCards}"
-                    Content="Thêm lớp học"
+                    Margin="16,0,0,0"
+                    Content="Thêm khoa"
                     FontSize="16" />
             </Grid>
 

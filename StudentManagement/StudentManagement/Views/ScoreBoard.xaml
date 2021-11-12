@@ -10,7 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="617"
     d:DesignWidth="746"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{StaticResource CenterColumn}"
     DataContext="{DynamicResource ScoreBoardVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
