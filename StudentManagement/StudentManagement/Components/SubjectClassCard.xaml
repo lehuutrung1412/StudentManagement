@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="SubjectClassCardComponent"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
@@ -17,23 +18,31 @@
     mc:Ignorable="d">
     <Grid>
         <materialDesign:Card Width="Auto" Height="Auto">
-            <Grid>
+            <Grid Width="{Binding ActualWidth, ElementName=CardImage}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="150" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Image
-                    Width="250"
+                    x:Name="CardImage"
                     Height="150"
-                    Source="https://picsum.photos/200/300"
+                    MinWidth="120"
+                    MaxWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.20'}"
+                    Source="https://picsum.photos/300/400"
                     Stretch="UniformToFill" />
 
-                <StackPanel Grid.Row="1" Margin="8,8,8,0">
+                <StackPanel
+                    Grid.Row="1"
+                    Width="{Binding ActualWidth, ElementName=CardImage}"
+                    Margin="8,8,8,0">
                     <TextBlock
+                        Height="30"
                         Margin="0,0,0,8"
                         FontSize="16"
-                        FontWeight="Bold">
+                        FontWeight="Bold"
+                        TextTrimming="WordEllipsis"
+                        TextWrapping="WrapWithOverflow">
                         <Run Text="{Binding MaMon, FallbackValue='MaMon'}" />
                         <Run Text="-" />
                         <Run Text="{Binding TenMon, FallbackValue='Ten Mon Hoc'}" />
@@ -53,7 +62,7 @@
                         <Run Text="{Binding SiSo, FallbackValue='100'}" />
                     </TextBlock>
                 </StackPanel>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Width="{Binding ActualWidth, ElementName=CardImage}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />

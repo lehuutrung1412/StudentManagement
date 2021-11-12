@@ -29,6 +29,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="0,0,0,16">
             <TextBlock
+                Margin="16"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 Text="Danh sách hệ đào tạo" />
@@ -48,6 +49,7 @@
 
         <StackPanel Grid.Row="1">
             <TextBlock
+                Margin="16"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 Text="Danh sách khoa" />
@@ -60,13 +62,13 @@
                     Grid.Column="0"
                     DataContext="{Binding}"
                     FirstSearchButtonText="Khoa"
-                    SearchQuery="{Binding SearchQuery, Mode=TwoWay}"
+                    SearchCommand="{Binding SearchFalcutyCards}"
+                    SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SecondSearchButtonText="Hệ đào tạo" />
                 <Button
                     Grid.Column="1"
                     Height="50"
                     Margin="16"
-                    Command="{Binding SearchFalcutyCards}"
                     Content="Thêm lớp học"
                     FontSize="16" />
             </Grid>

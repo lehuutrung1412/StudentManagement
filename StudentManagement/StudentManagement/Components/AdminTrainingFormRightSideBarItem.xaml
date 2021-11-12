@@ -88,8 +88,6 @@
                     Text="{Binding CurrentCard.SoLuongSinhVien, FallbackValue='Số lượng sinh viên'}"
                     TextAlignment="Right" />
             </Grid>
-            <UserControl x:Name="DataContext" DataContext="{Binding CurrentCard}" />
-
             <Button
                 x:Name="btnEdit"
                 Padding="0"
