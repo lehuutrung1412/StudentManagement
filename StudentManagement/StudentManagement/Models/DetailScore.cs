@@ -9,15 +9,20 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class DetailScore
+    public partial class DetailScore : BaseViewModel
     {
-        public System.Guid Id { get; set; }
-        public System.Guid IdStudent { get; set; }
-        public System.Guid IdComponentScore { get; set; }
-        public Nullable<double> Score { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private System.Guid _idStudent { get; set; }
+        public System.Guid IdStudent { get => _idStudent; set { _idStudent = value; OnPropertyChanged(); } }
+        private System.Guid _idComponentScore { get; set; }
+        public System.Guid IdComponentScore { get => _idComponentScore; set { _idComponentScore = value; OnPropertyChanged(); } }
+        private Nullable<double> _score { get; set; }
+        public Nullable<double> Score { get => _score; set { _score = value; OnPropertyChanged(); } }
     
         public virtual ComponentScore ComponentScore { get; set; }
         public virtual Student Student { get; set; }

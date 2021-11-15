@@ -9,20 +9,25 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class ComponentScore
+    public partial class ComponentScore : BaseViewModel
     {
         public ComponentScore()
         {
             this.DetailScores = new HashSet<DetailScore>();
         }
     
-        public System.Guid Id { get; set; }
-        public System.Guid IdSubjectClass { get; set; }
-        public string DisplayName { get; set; }
-        public Nullable<double> ContributePercent { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private System.Guid _idSubjectClass { get; set; }
+        public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+        private string _displayName { get; set; }
+        public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private Nullable<double> _contributePercent { get; set; }
+        public Nullable<double> ContributePercent { get => _contributePercent; set { _contributePercent = value; OnPropertyChanged(); } }
     
         public virtual SubjectClass SubjectClass { get; set; }
         public virtual ICollection<DetailScore> DetailScores { get; set; }

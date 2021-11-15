@@ -9,15 +9,20 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class AbsentCalendar
+    public partial class AbsentCalendar : BaseViewModel
     {
-        public System.Guid Id { get; set; }
-        public System.Guid IdSubjectClass { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> Type { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private System.Guid _idSubjectClass { get; set; }
+        public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+        private Nullable<System.DateTime> _date { get; set; }
+        public Nullable<System.DateTime> Date { get => _date; set { _date = value; OnPropertyChanged(); } }
+        private Nullable<int> _type { get; set; }
+        public Nullable<int> Type { get => _type; set { _type = value; OnPropertyChanged(); } }
     
         public virtual SubjectClass SubjectClass { get; set; }
     }

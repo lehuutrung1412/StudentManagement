@@ -9,10 +9,11 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class Falcuty
+    public partial class Falcuty : BaseViewModel
     {
         public Falcuty()
         {
@@ -21,9 +22,12 @@ namespace StudentManagement.Models
             this.Users = new HashSet<User>();
         }
     
-        public System.Guid Id { get; set; }
-        public string DisplayName { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private string _displayName { get; set; }
+        public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private Nullable<bool> _isDeleted { get; set; }
+        public Nullable<bool> IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<Falcuty_TrainingForm> Falcuty_TrainingForm { get; set; }

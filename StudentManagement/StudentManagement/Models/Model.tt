@@ -69,10 +69,12 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
         foreach (var edmProperty in simpleProperties)
         {
 #>
+    <#=codeStringGenerator.PrivateProperty(edmProperty)#>
     <#=codeStringGenerator.Property(edmProperty)#>
 <#
         }
     }
+
 
     if (complexProperties.Any())
     {
@@ -276,12 +278,27 @@ public class CodeStringGenerator
 
     public string Property(EdmProperty edmProperty)
     {
+        string privateName = "_" + _code.Escape(edmProperty).Substring(0, 1).ToLower() + _code.Escape(edmProperty).Substring(1);
         return string.Format(
             CultureInfo.InvariantCulture,
-            "{0} {1} {2} {{ {3}get; {4}set; }}",
+            "{0} {1} {2} {{ {3}get => {5}; {4}set {{ {5} = value; OnPropertyChanged(); }} }}",
             Accessibility.ForProperty(edmProperty),
             _typeMapper.GetTypeName(edmProperty.TypeUsage),
             _code.Escape(edmProperty),
+            _code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
+            _code.SpaceAfter(Accessibility.ForSetter(edmProperty)),
+            privateName);
+    }
+
+    public string PrivateProperty(EdmProperty edmProperty)
+    {
+        string privateName = "_" + _code.Escape(edmProperty).Substring(0, 1).ToLower() + _code.Escape(edmProperty).Substring(1);
+        return string.Format(
+            CultureInfo.InvariantCulture,
+            "{0} {1} {2} {{ {3}get; {4}set; }}",
+            "private",
+            _typeMapper.GetTypeName(edmProperty.TypeUsage),
+            privateName,
             _code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
             _code.SpaceAfter(Accessibility.ForSetter(edmProperty)));
     }
@@ -308,7 +325,7 @@ public class CodeStringGenerator
     {
         return string.Format(
             CultureInfo.InvariantCulture,
-            "{0} {1}partial class {2}{3}",
+            "{0} {1}partial class {2}{3} : BaseViewModel",
             Accessibility.ForType(entity),
             _code.SpaceAfter(_code.AbstractOption(entity)),
             _code.Escape(entity),
@@ -418,11 +435,13 @@ public class CodeStringGenerator
         return inHeader == string.IsNullOrEmpty(_code.VsNamespaceSuggestion())
             ? string.Format(
                 CultureInfo.InvariantCulture,
-                "{0}using System;{1}" +
+                "{0}using StudentManagement.ViewModels;" +
+                "{3}using System;{1}" +
                 "{2}",
                 inHeader ? Environment.NewLine : "",
                 includeCollections ? (Environment.NewLine + "using System.Collections.Generic;") : "",
-                inHeader ? "" : Environment.NewLine)
+                inHeader ? "" : Environment.NewLine,
+                Environment.NewLine)
             : "";
     }
 }

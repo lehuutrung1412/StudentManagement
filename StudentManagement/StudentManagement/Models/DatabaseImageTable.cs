@@ -9,10 +9,11 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class DatabaseImageTable
+    public partial class DatabaseImageTable : BaseViewModel
     {
         public DatabaseImageTable()
         {
@@ -21,8 +22,10 @@ namespace StudentManagement.Models
             this.Users = new HashSet<User>();
         }
     
-        public System.Guid Id { get; set; }
-        public byte[] Image { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private byte[] _image { get; set; }
+        public byte[] Image { get => _image; set { _image = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<SubjectClass> SubjectClasses { get; set; }

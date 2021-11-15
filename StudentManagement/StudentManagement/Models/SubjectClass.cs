@@ -9,10 +9,11 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class SubjectClass
+    public partial class SubjectClass : BaseViewModel
     {
         public SubjectClass()
         {
@@ -26,14 +27,22 @@ namespace StudentManagement.Models
             this.Teachers = new HashSet<Teacher>();
         }
     
-        public System.Guid Id { get; set; }
-        public System.Guid IdSubject { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<System.Guid> IdSemester { get; set; }
-        public string Period { get; set; }
-        public string WeekDay { get; set; }
-        public System.Guid IdThumbnail { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private System.Guid _idSubject { get; set; }
+        public System.Guid IdSubject { get => _idSubject; set { _idSubject = value; OnPropertyChanged(); } }
+        private Nullable<System.DateTime> _startDate { get; set; }
+        public Nullable<System.DateTime> StartDate { get => _startDate; set { _startDate = value; OnPropertyChanged(); } }
+        private Nullable<System.DateTime> _endDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get => _endDate; set { _endDate = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idSemester { get; set; }
+        public Nullable<System.Guid> IdSemester { get => _idSemester; set { _idSemester = value; OnPropertyChanged(); } }
+        private string _period { get; set; }
+        public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
+        private string _weekDay { get; set; }
+        public string WeekDay { get => _weekDay; set { _weekDay = value; OnPropertyChanged(); } }
+        private System.Guid _idThumbnail { get; set; }
+        public System.Guid IdThumbnail { get => _idThumbnail; set { _idThumbnail = value; OnPropertyChanged(); } }
     
         public virtual ICollection<AbsentCalendar> AbsentCalendars { get; set; }
         public virtual ICollection<ComponentScore> ComponentScores { get; set; }

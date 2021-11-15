@@ -9,10 +9,11 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class User : BaseViewModel
     {
         public User()
         {
@@ -22,18 +23,30 @@ namespace StudentManagement.Models
             this.Teachers = new HashSet<Teacher>();
         }
     
-        public System.Guid Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string DisplayName { get; set; }
-        public Nullable<System.DateTime> DayOfBirth { get; set; }
-        public Nullable<int> Gender { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public Nullable<bool> Online { get; set; }
-        public Nullable<int> Roles { get; set; }
-        public System.Guid IdFalcuty { get; set; }
-        public System.Guid IdAvatar { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private string _username { get; set; }
+        public string Username { get => _username; set { _username = value; OnPropertyChanged(); } }
+        private string _password { get; set; }
+        public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
+        private string _displayName { get; set; }
+        public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private Nullable<System.DateTime> _dayOfBirth { get; set; }
+        public Nullable<System.DateTime> DayOfBirth { get => _dayOfBirth; set { _dayOfBirth = value; OnPropertyChanged(); } }
+        private Nullable<int> _gender { get; set; }
+        public Nullable<int> Gender { get => _gender; set { _gender = value; OnPropertyChanged(); } }
+        private string _email { get; set; }
+        public string Email { get => _email; set { _email = value; OnPropertyChanged(); } }
+        private string _phoneNumber { get; set; }
+        public string PhoneNumber { get => _phoneNumber; set { _phoneNumber = value; OnPropertyChanged(); } }
+        private Nullable<bool> _online { get; set; }
+        public Nullable<bool> Online { get => _online; set { _online = value; OnPropertyChanged(); } }
+        private Nullable<int> _roles { get; set; }
+        public Nullable<int> Roles { get => _roles; set { _roles = value; OnPropertyChanged(); } }
+        private System.Guid _idFalcuty { get; set; }
+        public System.Guid IdFalcuty { get => _idFalcuty; set { _idFalcuty = value; OnPropertyChanged(); } }
+        private System.Guid _idAvatar { get; set; }
+        public System.Guid IdAvatar { get => _idAvatar; set { _idAvatar = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Admin> Admins { get; set; }
         public virtual DatabaseImageTable DatabaseImageTable { get; set; }

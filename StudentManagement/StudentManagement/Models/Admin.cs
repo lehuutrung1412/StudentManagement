@@ -9,13 +9,16 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class Admin
+    public partial class Admin : BaseViewModel
     {
-        public System.Guid Id { get; set; }
-        public Nullable<System.Guid> IdUsers { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idUsers { get; set; }
+        public Nullable<System.Guid> IdUsers { get => _idUsers; set { _idUsers = value; OnPropertyChanged(); } }
     
         public virtual User User { get; set; }
     }

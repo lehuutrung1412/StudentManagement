@@ -9,10 +9,11 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class Semester
+    public partial class Semester : BaseViewModel
     {
         public Semester()
         {
@@ -21,10 +22,14 @@ namespace StudentManagement.Models
             this.TrainingScores = new HashSet<TrainingScore>();
         }
     
-        public System.Guid Id { get; set; }
-        public string Batch { get; set; }
-        public string DisplayName { get; set; }
-        public Nullable<int> CourseRegisterStatus { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private string _batch { get; set; }
+        public string Batch { get => _batch; set { _batch = value; OnPropertyChanged(); } }
+        private string _displayName { get; set; }
+        public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private Nullable<int> _courseRegisterStatus { get; set; }
+        public Nullable<int> CourseRegisterStatus { get => _courseRegisterStatus; set { _courseRegisterStatus = value; OnPropertyChanged(); } }
     
         public virtual ICollection<CourseRegister> CourseRegisters { get; set; }
         public virtual ICollection<SubjectClass> SubjectClasses { get; set; }

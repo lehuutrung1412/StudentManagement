@@ -9,14 +9,18 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class Falcuty_TrainingForm
+    public partial class Falcuty_TrainingForm : BaseViewModel
     {
-        public System.Guid IdTrainingForm { get; set; }
-        public System.Guid IdFalcuty { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        private System.Guid _idTrainingForm { get; set; }
+        public System.Guid IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
+        private System.Guid _idFalcuty { get; set; }
+        public System.Guid IdFalcuty { get => _idFalcuty; set { _idFalcuty = value; OnPropertyChanged(); } }
+        private Nullable<bool> _isDeleted { get; set; }
+        public Nullable<bool> IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
     
         public virtual Falcuty Falcuty { get; set; }
         public virtual TrainingForm TrainingForm { get; set; }

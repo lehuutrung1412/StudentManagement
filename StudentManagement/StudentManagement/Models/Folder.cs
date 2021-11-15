@@ -9,19 +9,23 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class Folder
+    public partial class Folder : BaseViewModel
     {
         public Folder()
         {
             this.Documents = new HashSet<Document>();
         }
     
-        public System.Guid Id { get; set; }
-        public string DisplayName { get; set; }
-        public System.Guid IdSubjectClass { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private string _displayName { get; set; }
+        public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private System.Guid _idSubjectClass { get; set; }
+        public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Document> Documents { get; set; }
         public virtual SubjectClass SubjectClass { get; set; }

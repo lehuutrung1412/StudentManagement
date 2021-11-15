@@ -9,10 +9,11 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class Teacher
+    public partial class Teacher : BaseViewModel
     {
         public Teacher()
         {
@@ -20,8 +21,10 @@ namespace StudentManagement.Models
             this.SubjectClasses = new HashSet<SubjectClass>();
         }
     
-        public System.Guid Id { get; set; }
-        public Nullable<System.Guid> IdUsers { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idUsers { get; set; }
+        public Nullable<System.Guid> IdUsers { get => _idUsers; set { _idUsers = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Class> Classes { get; set; }
         public virtual User User { get; set; }

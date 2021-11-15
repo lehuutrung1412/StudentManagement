@@ -9,22 +9,29 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class Subject
+    public partial class Subject : BaseViewModel
     {
         public Subject()
         {
             this.SubjectClasses = new HashSet<SubjectClass>();
         }
     
-        public System.Guid Id { get; set; }
-        public string Credit { get; set; }
-        public string DisplayName { get; set; }
-        public string Code { get; set; }
-        public string Describe { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private string _credit { get; set; }
+        public string Credit { get => _credit; set { _credit = value; OnPropertyChanged(); } }
+        private string _displayName { get; set; }
+        public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private string _code { get; set; }
+        public string Code { get => _code; set { _code = value; OnPropertyChanged(); } }
+        private string _describe { get; set; }
+        public string Describe { get => _describe; set { _describe = value; OnPropertyChanged(); } }
+        private Nullable<bool> _isDeleted { get; set; }
+        public Nullable<bool> IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
     
         public virtual ICollection<SubjectClass> SubjectClasses { get; set; }
     }

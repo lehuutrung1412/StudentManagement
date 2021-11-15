@@ -9,16 +9,22 @@
 
 namespace StudentManagement.Models
 {
+    using StudentManagement.ViewModels;
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseRegister
+    public partial class CourseRegister : BaseViewModel
     {
-        public System.Guid Id { get; set; }
-        public Nullable<int> Status { get; set; }
-        public System.Guid IdStudent { get; set; }
-        public System.Guid IdSubjectClass { get; set; }
-        public System.Guid IdSemester { get; set; }
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        private Nullable<int> _status { get; set; }
+        public Nullable<int> Status { get => _status; set { _status = value; OnPropertyChanged(); } }
+        private System.Guid _idStudent { get; set; }
+        public System.Guid IdStudent { get => _idStudent; set { _idStudent = value; OnPropertyChanged(); } }
+        private System.Guid _idSubjectClass { get; set; }
+        public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+        private System.Guid _idSemester { get; set; }
+        public System.Guid IdSemester { get => _idSemester; set { _idSemester = value; OnPropertyChanged(); } }
     
         public virtual Semester Semester { get; set; }
         public virtual Student Student { get; set; }
