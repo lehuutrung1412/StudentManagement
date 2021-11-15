@@ -104,7 +104,10 @@
                             Style="{StaticResource MaterialDesignFlatDarkButton}" />
                         <Button
                             Grid.Column="1"
+                            Command="{Binding ShowSubjectClassDetail}"
+                            CommandParameter="{Binding ElementName=SubjectClassCardComponent}"
                             Content="Đến lớp học"
+                            DataContext="{DynamicResource AdminSubjectClassVM}"
                             FontSize="10"
                             Style="{StaticResource MaterialDesignFlatDarkButton}" />
                     </Grid>
