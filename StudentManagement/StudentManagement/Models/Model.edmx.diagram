@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0f6e297b41a24231a98ff12ac1ffbeb4" Name="Diagram1">
+        <EntityTypeShape EntityType="StudentManagementModel.AbsentCalendar" Width="1.5" PointX="8.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Admin" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Class" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.ComponentScore" Width="1.5" PointX="8.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.CourseRegister" Width="1.5" PointX="10.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.DatabaseImageTable" Width="1.5" PointX="0.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.DetailScore" Width="1.5" PointX="10.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Document" Width="1.5" PointX="10.5" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Examination" Width="1.5" PointX="8.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Falcuty" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Falcuty_TrainingForm" Width="1.5" PointX="11.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Folder" Width="1.5" PointX="8.25" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Parent" Width="1.5" PointX="6" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Semester" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Student" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.StudyResult" Width="1.5" PointX="13.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Subject" Width="1.5" PointX="3.75" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.SubjectClass" Width="1.5" PointX="6" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Teacher" Width="1.5" PointX="8.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.TrainingForm" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.TrainingScore" Width="1.5" PointX="10.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.User" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="StudentManagementModel.FK__AbsentCal__IdSub__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Admin__IdUsers__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdFalcuty__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdTeacher__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdThumbna__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdTrainin__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Component__IdSub__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__DetailSco__IdCom__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdSem__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdStu__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdSub__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdThu__778AC167" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Users__IdAvatar__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__DetailSco__IdStu__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Document__IdFold__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Document__IdPost__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Document__IdSubj__04E4BC85" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Examinati__IdSub__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Falcuty_T__IdFal__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Users__IdFalcuty__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Falcuty_T__IdTra__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Folder__IdSubjec__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Student__IdParen__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdSem__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__TrainingS__IdSem__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Student__IdTrain__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Student__IdUsers__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__StudyResu__IdStu__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__TrainingS__IdStu__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__StudyResu__IdSub__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdSub__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Teacher__IdUsers__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.Teacher_SubjectClass" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
