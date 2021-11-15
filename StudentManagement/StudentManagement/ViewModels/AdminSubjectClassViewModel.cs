@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Utils;
+using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -78,6 +79,9 @@ namespace StudentManagement.ViewModels
         public ICommand SearchSubjectCards { get => _searchSubjectCards; set => _searchSubjectCards = value; }
 
         private ICommand _searchSubjectCards;
+
+        public ICommand ShowSubjectClassDetail { get; set; }
+
         #endregion 
 
         public AdminSubjectClassViewModel()
@@ -117,7 +121,7 @@ namespace StudentManagement.ViewModels
             };
             this.SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             this.SearchSubjectCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectCardsFunction(p));
-
+            this.ShowSubjectClassDetail = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowSubjectClassDetailFunction(p));
         }
 
         #region methods
@@ -135,6 +139,15 @@ namespace StudentManagement.ViewModels
             foreach (SubjectCard card in tmp)
                 SubjectCards.Add(card);
         }
-        #endregion
+
+        public void ShowSubjectClassDetailFunction(UserControl cardComponent)
+        {
+            SubjectClassDetail subjectClassDetail = new SubjectClassDetail
+            {
+                DataContext = new SubjectClassDetailViewModel(cardComponent)
+            };
+            subjectClassDetail.Show();
+        }
+        #endregion methods
     }
 }

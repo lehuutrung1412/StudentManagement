@@ -13,7 +13,6 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     Background="{StaticResource CenterColumn}"
-    DataContext="{StaticResource LayoutVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -67,8 +66,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
                     <views:StudentScheduleTable />
                 </DataTemplate>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:UserInfoStudentViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:UserInfoStudentViewModel}">
                     <views:UserInfoStudent />
                 </DataTemplate>
             </ContentControl.Resources>

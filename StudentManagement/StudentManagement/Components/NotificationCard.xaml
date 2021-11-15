@@ -24,7 +24,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Border x:Name="bdNotification">
-        
+
         <Grid HorizontalAlignment="Stretch">
             <Button
                 x:Name="btnNotification"
@@ -32,8 +32,8 @@
                 Margin="0"
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"
-                materialDesign:ShadowAssist.ShadowDepth="Depth4"
                 Panel.ZIndex="2"
+                materialDesign:ShadowAssist.ShadowDepth="Depth4"
                 Foreground="Black"
                 Style="{StaticResource AdminNotificationButton}">
                 <i:Interaction.Triggers>
@@ -112,14 +112,10 @@
                             Panel.ZIndex="1"
                             Style="{StaticResource MaterialDesignFlatButton}">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger
-                                    EventName="Click">
-                                    <i:InvokeCommandAction
-                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"/>
-                                    <i:InvokeCommandAction
-                                        Command="{Binding ShowDetailNotificationCommand , Source={StaticResource AdminNotificationVM}}"
-                                        CommandParameter="{Binding ElementName=NotificationComponent}" />
-    
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
+                                    <i:InvokeCommandAction Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
+
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <TextBlock

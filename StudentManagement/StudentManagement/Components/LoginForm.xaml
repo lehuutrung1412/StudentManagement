@@ -15,7 +15,7 @@
     FontSize="16"
     mc:Ignorable="d">
     <UserControl.InputBindings>
-        <KeyBinding Key="Enter" Command="{Binding DataContext.GotoLayoutViewCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
+        <KeyBinding Key="Enter" Command="{Binding DataContext.GotoLayoutViewCommand, ElementName=grid}" />
     </UserControl.InputBindings>
     <Border Background="White" CornerRadius="10">
         <Border.Effect>
@@ -135,13 +135,16 @@
                 </TextBlock>
             </DockPanel>
 
+            <Grid Name="grid" DataContext="{DynamicResource MainVM}">
+               
+            </Grid>
             <Button
                 Grid.Row="4"
                 Width="200"
                 Height="50"
                 Margin="28,16"
                 materialDesign:ButtonAssist.CornerRadius="20"
-                Command="{Binding DataContext.GotoLayoutViewCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                Command="{Binding DataContext.GotoLayoutViewCommand, ElementName=grid}"
                 Content="Đăng nhập"
                 FontSize="16"
                 IsEnabled="{Binding CanLogin}"

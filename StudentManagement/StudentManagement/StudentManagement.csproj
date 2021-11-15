@@ -188,6 +188,7 @@
       <DependentUpon>TrainingFormCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
+    <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="ViewModels\StudentCourseRegistryViewModel.cs" />
     <Compile Include="ViewModels\PostNewsfeedViewModel.cs" />
     <Compile Include="ViewModels\StudentScheduleTableViewModel.cs" />
+    <Compile Include="ViewModels\SubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminFalcutyTrainingForm.xaml.cs">
@@ -316,6 +318,9 @@
     </Compile>
     <Compile Include="Views\StudentScheduleTable.xaml.cs">
       <DependentUpon>StudentScheduleTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubjectClassDetail.xaml.cs">
+      <DependentUpon>SubjectClassDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserInfoAdmin.xaml.cs">
       <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
@@ -472,6 +477,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StudentScheduleTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubjectClassDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
