@@ -70,7 +70,7 @@ namespace StudentManagement.ViewModels
             GotoLoginViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLoginView());
             GotoLayoutViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLayoutView());
 
-            CurrentViewModel = _layoutViewModel;
+            CurrentViewModel = _loginViewModel;
         }
 
         private void GotoLayoutView()

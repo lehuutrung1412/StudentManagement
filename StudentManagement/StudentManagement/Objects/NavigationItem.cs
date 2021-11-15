@@ -13,7 +13,7 @@ namespace StudentManagement.Objects
         public object NavigationItemViewModel { get; set; }
         public object RightSideBarNavigationItemViewModel { get; set; }
         public ICommand GoToView { get; set; }
-        public static LayoutViewModel LayoutViewModel { get; set; }
+        public LayoutViewModel LayoutViewModel { get; set; }
         public string Icon { get; set; }
 
         public NavigationItem(string navigationHeader, bool canBeExpanded, ObservableCollection<NavigationItem> expandedItems, object navigationItemViewModel, object rightSideBarNavigationItemViewModel, LayoutViewModel layoutViewModel, string icon)
