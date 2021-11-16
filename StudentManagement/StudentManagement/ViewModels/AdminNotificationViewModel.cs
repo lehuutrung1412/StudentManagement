@@ -95,6 +95,9 @@ namespace StudentManagement.ViewModels
         public ICommand SeenNotificationCommand { get => _seenNotificationCommand; set => _seenNotificationCommand = value; }
         private ICommand _seenNotificationCommand;
 
+        public ICommand MarkAllAsReadCommand { get => _markAllAsReadCommand; set => _markAllAsReadCommand = value; }
+        private ICommand _markAllAsReadCommand;
+
         private string _searchInfo;
         public string SearchInfo 
         { 
@@ -176,6 +179,14 @@ namespace StudentManagement.ViewModels
             CreateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNewNotification());
             ShowDetailNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowDetailNotification(p));
             SeenNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SeenNotification());
+            MarkAllAsReadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAllAsRead());
+        }
+        public void MarkAllAsRead()
+        {
+            for(int i=0; i<Cards.Count;i++)
+            {
+                Cards[i].Status = true;
+            }    
         }
         public void SeenNotification()
         {
