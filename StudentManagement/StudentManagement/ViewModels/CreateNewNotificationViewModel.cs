@@ -69,7 +69,7 @@ namespace StudentManagement.ViewModels
 
         }
 
-        public bool CanCreate => !HasErrors;
+        
         public bool HasErrors => _errorBaseViewModel.HasErrors;
 
         public ICommand CreateNotificationCommand { get => _createNotificationCommand; set => _createNotificationCommand = value; }
@@ -98,7 +98,7 @@ namespace StudentManagement.ViewModels
         private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {
             ErrorsChanged?.Invoke(this, e);
-            OnPropertyChanged(nameof(CanCreate));
+          
         }
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
@@ -109,6 +109,11 @@ namespace StudentManagement.ViewModels
         }
         public void CreateNewNotification()
         {
+            if (!IsValid(NoiDung) || !IsValid(ChuDe) || !IsValid(LoaiBaiDang))
+            {
+                MyMessageBox.Show("Noi dung nhập chưa đầy đủ","Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return;
+            }
             var AdminNotificationVM = AdminNotificationViewModel.Instance;
             CurrentCard.NoiDung = NoiDung;
             CurrentCard.ChuDe = ChuDe;

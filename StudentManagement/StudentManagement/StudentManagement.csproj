@@ -281,6 +281,7 @@
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
+    <Compile Include="Utils\IsNullConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />

@@ -206,9 +206,24 @@
                                         Grid.Column="0"
                                         Margin="0,0,16,0"
                                         HorizontalAlignment="Stretch"
-                                        Content="Cập nhật"
-                                        IsEnabled="{Binding CanUpdate, UpdateSourceTrigger=PropertyChanged}"
-                                        Style="{StaticResource PrimaryButton}">
+                                        Content="Cập nhật">
+                                        <Button.Style>
+                                            <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                                <Style.Triggers>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                            <Condition Binding="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="IsEnabled" Value="True" />
+                                                    </MultiDataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Validation.ErrorTemplate>
+                                            <ControlTemplate />
+                                        </Validation.ErrorTemplate>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding EditNotificationCommand}" />

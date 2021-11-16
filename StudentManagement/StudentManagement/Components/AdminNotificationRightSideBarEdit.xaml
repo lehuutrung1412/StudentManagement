@@ -36,14 +36,14 @@
                 </Style>
             </StackPanel.Resources>
             <TextBox
+                Margin="0,0,0,24"
                 Padding="4"
+                materialDesign:ValidationAssist.Background="Transparent"
                 FontSize="24"
-                Margin="0 0 0 24"
                 FontWeight="Bold"
                 Style="{DynamicResource MaterialDesignTextBox}"
                 Text="{Binding ChuDe, FallbackValue='Tên chủ đề', UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap"
-                materialDesign:ValidationAssist.Background="Transparent"/>
+                TextWrapping="Wrap" />
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -64,14 +64,13 @@
                     Style="{StaticResource BorderStyle}">
                     <TextBox
                         Padding="8,0,0,0"
-                 
                         VerticalAlignment="Center"
                         FontSize="14"
+                        IsEnabled="False"
                         Style="{StaticResource TextBox}"
                         Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
                         TextAlignment="Right"
-                        TextWrapping="Wrap"
-                        IsEnabled="False"/>
+                        TextWrapping="Wrap" />
                 </Border>
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
@@ -99,13 +98,12 @@
                     <DatePicker
                         x:Name="dpBirthDate"
                         Height="28"
-                 
                         Padding="8,0,8,0"
                         HorizontalAlignment="Stretch"
-                        IsEnabled="False"
                         FontSize="14"
                         FontWeight="SemiBold"
                         Foreground="#01579b"
+                        IsEnabled="False"
                         SelectedDate="{Binding CurrentCard.NgayDang, ConverterCulture='vi-VN', StringFormat='dd/MM/yyyy'}" />
 
                 </Border>
@@ -140,14 +138,14 @@
                     Height="28"
                     Margin="0,0,0,16"
                     Padding="8,4,8,4"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:ValidationAssist.Background="Transparent"
                     BorderBrush="Gray"
                     FontSize="14"
                     FontWeight="SemiBold"
                     Foreground="#01579b"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
-                    materialDesign:ValidationAssist.Background="Transparent"
                     ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                    SelectedItem="{Binding LoaiBaiDang, FallbackValue='Thông báo chung',UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding LoaiBaiDang, FallbackValue='Thông báo chung', UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource ComboboxInfo}" />
 
             </Grid>
@@ -178,9 +176,26 @@
                         HorizontalAlignment="Stretch"
                         Command="{Binding UpdateNotificationCommand}"
                         Content="Chỉnh sửa"
-                        FontSize="14"
-                        Style="{StaticResource PrimaryButton}"
-                        IsEnabled="{Binding CanUpdate}"/>
+                        FontSize="14">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                            <Condition Binding="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate />
+                        </Validation.ErrorTemplate>
+                    </Button>
+
                     <Button
                         Grid.Column="1"
                         Margin="8,0,0,0"
