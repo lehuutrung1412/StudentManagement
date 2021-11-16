@@ -10,6 +10,15 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:views="clr-namespace:StudentManagement.Views"
+    xmlns:viewmodelsDashboard="clr-namespace:StudentManagement.ViewModels.Dashboard"
+    xmlns:viewmodelsCourseRegistry="clr-namespace:StudentManagement.ViewModels.CourseRegistry"
+    xmlns:viewmodelsFalcutyTrainingForm="clr-namespace:StudentManagement.ViewModels.FalcutyTrainingForm"
+    xmlns:viewmodelsNotification="clr-namespace:StudentManagement.ViewModels.Notification"
+    xmlns:viewmodelsScheduleTable="clr-namespace:StudentManagement.ViewModels.ScheduleTable"
+    xmlns:viewmodelsScoreBoard="clr-namespace:StudentManagement.ViewModels.ScoreBoard"
+    xmlns:viewmodelsSubjectClass="clr-namespace:StudentManagement.ViewModels.SubjectClass"
+    xmlns:viewmodelsSubjectClassDetail="clr-namespace:StudentManagement.ViewModels.SubjectClassDetail"
+    xmlns:viewmodelsUserInfo="clr-namespace:StudentManagement.ViewModels.UserInfo"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
@@ -31,22 +40,22 @@
             Grid.ColumnSpan="3"
             Content="{Binding RightSideBar}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:AdminHomeRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsDashboard:AdminHomeRightSideBarViewModel}">
                     <component:AdminHomeRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsSubjectClass:AdminSubjectClassRightSideBarViewModel}">
                     <component:AdminSubjectClassRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminNotificationRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsNotification:AdminNotificationRightSideBarViewModel}">
                     <component:AdminNotificationRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsCourseRegistry:StudentCourseRegistryRightSideBarViewModel}">
                     <component:StudentCourseRegistryRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsFalcutyTrainingForm:AdminFalcutyTrainingFormRightSideBarViewModel}">
                     <component:AdminFalcutyTrainingFormRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:ScoreBoardRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsScoreBoard:ScoreBoardRightSideBarViewModel}">
                     <component:ScoreBoardRightSideBar />
                 </DataTemplate>
             </ContentControl.Resources>

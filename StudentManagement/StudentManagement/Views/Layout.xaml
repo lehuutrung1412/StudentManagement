@@ -9,6 +9,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
+    xmlns:viewmodelsDashboard="clr-namespace:StudentManagement.ViewModels.Dashboard"
+    xmlns:viewmodelsCourseRegistry="clr-namespace:StudentManagement.ViewModels.CourseRegistry"
+    xmlns:viewmodelsFalcutyTrainingForm="clr-namespace:StudentManagement.ViewModels.FalcutyTrainingForm"
+    xmlns:viewmodelsNotification="clr-namespace:StudentManagement.ViewModels.Notification"
+    xmlns:viewmodelsScheduleTable="clr-namespace:StudentManagement.ViewModels.ScheduleTable"
+    xmlns:viewmodelsScoreBoard="clr-namespace:StudentManagement.ViewModels.ScoreBoard"
+    xmlns:viewmodelsSubjectClass="clr-namespace:StudentManagement.ViewModels.SubjectClass"
+    xmlns:viewmodelsSubjectClassDetail="clr-namespace:StudentManagement.ViewModels.SubjectClassDetail"
+    xmlns:viewmodelsUserInfo="clr-namespace:StudentManagement.ViewModels.UserInfo"
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
@@ -42,31 +51,31 @@
             Grid.ColumnSpan="7"
             Content="{Binding ContentViewModel}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsDashboard:AdminHomeViewModel}">
                     <views:AdminHome />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsSubjectClass:AdminSubjectClassViewModel}">
                     <views:AdminSubjectClass />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminNotificationViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsNotification:AdminNotificationViewModel}">
                     <views:AdminNotification />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:NewFeedSubjectClassDetailViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsSubjectClassDetail:NewFeedSubjectClassDetailViewModel}">
                     <views:NewfeedSubjectClassDetail />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsCourseRegistry:StudentCourseRegistryViewModel}">
                     <views:StudentCourseRegistry />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsFalcutyTrainingForm:AdminFalcutyTrainingFormViewModel}">
                     <views:AdminFalcutyTrainingForm />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:ScoreBoardViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsScoreBoard:ScoreBoardViewModel}">
                     <views:ScoreBoard />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsScheduleTable:StudentScheduleTableViewModel}">
                     <views:StudentScheduleTable />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:UserInfoStudentViewModel}">
+                <DataTemplate DataType="{x:Type viewmodelsUserInfo:UserInfoStudentViewModel}">
                     <views:UserInfoStudent />
                 </DataTemplate>
             </ContentControl.Resources>
