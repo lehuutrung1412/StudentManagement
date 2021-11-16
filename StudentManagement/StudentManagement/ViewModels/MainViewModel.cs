@@ -1,6 +1,14 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Components;
 using StudentManagement.Objects;
+using StudentManagement.ViewModels.CourseRegistry;
+using StudentManagement.ViewModels.Dashboard;
+using StudentManagement.ViewModels.FalcutyTrainingForm;
+using StudentManagement.ViewModels.Notification;
+using StudentManagement.ViewModels.ScheduleTable;
+using StudentManagement.ViewModels.ScoreBoard;
+using StudentManagement.ViewModels.SubjectClass;
+using StudentManagement.ViewModels.UserInfo;
 using StudentManagement.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -102,8 +110,6 @@ namespace StudentManagement.ViewModels
             _studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
 
             _adminFalcutyTrainingFormViewModel = new AdminFalcutyTrainingFormViewModel();
-
-            _studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
 
             _scoreboardViewModel = new ScoreBoardViewModel();
 
