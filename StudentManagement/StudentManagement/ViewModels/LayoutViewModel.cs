@@ -1,5 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using NavigationItem = StudentManagement.Objects.NavigationItem;
+﻿using StudentManagement.Objects;
+using System.Collections.ObjectModel;
 
 namespace StudentManagement.ViewModels
 {
@@ -29,10 +29,16 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        private bool _isMainWindow;
+
+        public bool IsMainWindow
+        {
+            get { return _isMainWindow; }
+            set { _isMainWindow = value; OnPropertyChanged(); }
+        }
+
         public ObservableCollection<NavigationItem> _navigationItems;
 
         public ObservableCollection<NavigationItem> NavigationItems { get => _navigationItems; set => _navigationItems = value; }
-        
-        public LayoutViewModel() { }
     }
 }

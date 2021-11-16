@@ -53,11 +53,11 @@
                     <RowDefinition Height="8*" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-
-                <ContentControl Grid.Row="1" Margin="0 0 48 0" Content="{Binding CurrentView}"/>
-
-                <!--<components:LoginForm Grid.Row="1" Margin="0,0,48,0" />-->
-                <!--<components:ForgotPassword Grid.Row="1" Margin="0 0 48 0"/>-->
+                <Grid.Resources>
+                    <components:LoginForm x:Key="defaultView"/>
+                </Grid.Resources>
+                <ContentControl Grid.Row="1" Margin="0 0 48 0" Content="{Binding CurrentView, TargetNullValue={StaticResource defaultView}}">
+                </ContentControl>
             </Grid>
         </Grid>
     </Border>

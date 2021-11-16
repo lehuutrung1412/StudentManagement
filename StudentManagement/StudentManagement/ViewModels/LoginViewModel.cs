@@ -56,28 +56,19 @@ namespace StudentManagement.ViewModels
 
         private object _currentView;
 
-        // Init view
-        private LoginForm _loginForm;
-        private ForgotPassword _forgotPasswordForm;
-
         public ICommand SwitchView { get; set; }
 
         public LoginViewModel()
         {
-            _loginForm = new LoginForm();
-            _forgotPasswordForm = new ForgotPassword();
-
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
 
             SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
-
-            CurrentView = _loginForm;
         }
 
         private void SwitchViewForm()
         {
-            CurrentView = CurrentView == _loginForm ? _forgotPasswordForm : (object)_loginForm;
+            CurrentView = (CurrentView == null) || (CurrentView.GetType() == typeof(LoginForm)) ? new ForgotPassword() : (object)new LoginForm();
         }
 
         public bool IsExistAccount()

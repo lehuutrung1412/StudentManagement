@@ -28,9 +28,9 @@ namespace StudentManagement.ViewModels
         {
             StackImageDraft = new ObservableCollection<string>();
 
-            DeleteImage = new RelayCommand<object>(_ => true, (p) => DeleteImageInDraftPost(p));
-            AddImage = new RelayCommand<object>(_ => true, _ => AddImageDraftPost());
-            SendPost = new RelayCommand<object>(_ => true, _ => SendDraftPost());
+            DeleteImage = new RelayCommand<object>((p) => true, (p) => DeleteImageInDraftPost(p));
+            AddImage = new RelayCommand<object>((p) => true, (p) => AddImageDraftPost());
+            SendPost = new RelayCommand<object>((p) => true, (p) => SendDraftPost());
 
         }
 

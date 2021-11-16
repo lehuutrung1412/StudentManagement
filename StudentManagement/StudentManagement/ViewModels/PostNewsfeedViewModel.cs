@@ -56,11 +56,11 @@ namespace StudentManagement.ViewModels
             IsShowComments = true;
             StackPostImage = new ObservableCollection<string>(stackImage);
             PostComments = new ObservableCollection<PostComment>();
-            SendComment = new RelayCommand<object>(_ => true, (p) => SendDraftComment(p));
-            ShowHideComments = new RelayCommand<object>(_ => true, (p) => ShowHideAllComments(p));
-            ChangeImage = new RelayCommand<object>(_ => true, (p) => ChangeImageToShow(p));
-            DeleteComment = new RelayCommand<Guid>(_ => true, (p) => DeleteOnComment(p));
-            EditComment = new RelayCommand<object>(_ => true, (p) => EditOnComment(p));
+            SendComment = new RelayCommand<object>((p) => true, (p) => SendDraftComment(p));
+            ShowHideComments = new RelayCommand<object>((p) => true, (p) => ShowHideAllComments(p));
+            ChangeImage = new RelayCommand<object>((p) => true, (p) => ChangeImageToShow(p));
+            DeleteComment = new RelayCommand<Guid>((p) => true, (p) => DeleteOnComment(p));
+            EditComment = new RelayCommand<object>((p) => true, (p) => EditOnComment(p));
         }
 
         private void SendDraftComment(object comment)
