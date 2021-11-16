@@ -1,14 +1,19 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Components;
 using StudentManagement.Objects;
+using StudentManagement.Views;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
+using NavigationItem = StudentManagement.Objects.NavigationItem;
 
 namespace StudentManagement.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
         private object _currentViewModel;
-        private object _loginViewModel;
+        private LoginViewModel _loginViewModel;
         private LayoutViewModel _layoutViewModel;
 
         public object CurrentViewModel
@@ -28,7 +33,6 @@ namespace StudentManagement.ViewModels
         private object _adminHomeViewModel;
         private object _adminSubjectClassViewModel;
         private object _adminNotificationViewModel;
-        private object _newFeedSubjectClassDetailViewModel;
         private object _studentCourseRegistryViewModel;
         private object _adminFalcutyTrainingFormViewModel;
         private object _scoreboardViewModel;
@@ -45,9 +49,14 @@ namespace StudentManagement.ViewModels
 
         public MainViewModel()
         {
-            _loginViewModel = new LoginViewModel();
-            _layoutViewModel = new LayoutViewModel();
+            GotoLoginViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLoginView());
+            GotoLayoutViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLayoutView());
 
+            _loginViewModel = new LoginViewModel();
+            _layoutViewModel = new LayoutViewModel
+            {
+                IsMainWindow = true
+            };
             InitContentView();
             InitRightSideBar();
 
@@ -58,7 +67,6 @@ namespace StudentManagement.ViewModels
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, _layoutViewModel, "Home"),
-                new NavigationItem("Lớp môn học", false, null, _newFeedSubjectClassDetailViewModel, null, _layoutViewModel, "Home"),
                 new NavigationItem("Đào tạo", true, temp, null, null, _layoutViewModel, "ClockOutline"),
                 new NavigationItem("Đăng ký học phần", false, null, _studentCourseRegistryViewModel, _studentCourseRegistryRightSideBar, _layoutViewModel, "CreditCardPlusOutline"),
                 new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, _layoutViewModel, "Cat"),
@@ -66,16 +74,13 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "Home"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoStudentViewModel, null, _layoutViewModel, "AccountOutline")
             };
-
-            GotoLoginViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLoginView());
-            GotoLayoutViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLayoutView());
-
-            CurrentViewModel = _loginViewModel;
+            
+            CurrentViewModel = _layoutViewModel;
         }
 
         private void GotoLayoutView()
         {
-            if ((_loginViewModel as LoginViewModel).IsExistAccount())
+            if (_loginViewModel.IsExistAccount())
             {
                 CurrentViewModel = _layoutViewModel;
             }
@@ -93,8 +98,6 @@ namespace StudentManagement.ViewModels
             _adminSubjectClassViewModel = new AdminSubjectClassViewModel();
 
             _adminNotificationViewModel = new AdminNotificationViewModel();
-
-            _newFeedSubjectClassDetailViewModel = new NewFeedSubjectClassDetailViewModel();
 
             _studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
 

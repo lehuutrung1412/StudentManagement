@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    Name="LoginFormUC"
     d:DataContext="{StaticResource LoginVM}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.64'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.28'}"
@@ -15,7 +16,7 @@
     FontSize="16"
     mc:Ignorable="d">
     <UserControl.InputBindings>
-        <KeyBinding Key="Enter" Command="{Binding DataContext.GotoLayoutViewCommand, ElementName=grid}" />
+        <KeyBinding Key="Enter" Command="{Binding GotoLayoutViewCommand, Source={StaticResource MainVM}}" />
     </UserControl.InputBindings>
     <Border Background="White" CornerRadius="10">
         <Border.Effect>
@@ -103,9 +104,7 @@
                 </PasswordBox.Style>
             </PasswordBox>
 
-            <DockPanel
-                Grid.Row="3"
-                Margin="28,8">
+            <DockPanel Grid.Row="3" Margin="28,8">
                 <CheckBox
                     VerticalContentAlignment="Center"
                     Content="Ghi nhớ"
@@ -113,8 +112,8 @@
                     DockPanel.Dock="Left"
                     FontWeight="SemiBold" />
                 <TextBlock
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     DockPanel.Dock="Right"
                     FontWeight="SemiBold"
                     Text="Quên mật khẩu?">
@@ -135,16 +134,13 @@
                 </TextBlock>
             </DockPanel>
 
-            <Grid Name="grid" DataContext="{DynamicResource MainVM}">
-               
-            </Grid>
             <Button
                 Grid.Row="4"
                 Width="200"
                 Height="50"
                 Margin="28,16"
                 materialDesign:ButtonAssist.CornerRadius="20"
-                Command="{Binding DataContext.GotoLayoutViewCommand, ElementName=grid}"
+                Command="{Binding GotoLayoutViewCommand, Source={StaticResource MainVM}}"
                 Content="Đăng nhập"
                 FontSize="16"
                 IsEnabled="{Binding CanLogin}"

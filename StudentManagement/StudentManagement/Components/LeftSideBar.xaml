@@ -10,6 +10,7 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:views="clr-namespace:StudentManagement.Views"
+    Name="LeftSideBarUC"
     d:DataContext="{d:DesignInstance Type=viewmodels:LayoutViewModel,
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
@@ -70,7 +71,8 @@
                 Height="auto"
                 Margin="0,0,0,10"
                 Command="{Binding GotoLoginViewCommand}"
-                DataContext="{DynamicResource MainVM}">
+                DataContext="{DynamicResource MainVM}"
+                Visibility="{Binding ElementName=LeftSideBarUC, Path=DataContext.IsMainWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <StackPanel Width="auto" Height="auto">
                     <materialDesign:PackIcon
                         Width="24"
