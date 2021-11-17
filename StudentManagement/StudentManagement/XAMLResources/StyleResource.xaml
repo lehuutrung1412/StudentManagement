@@ -316,9 +316,20 @@
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5" />
         <Style.Triggers>
             <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="{DynamicResource SelectedItemGray}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLight}" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="ButtonInPopupBox"
+        BasedOn="{StaticResource MaterialDesignPaperLightButton}"
+        TargetType="Button">
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinHeight" Value="48" />
     </Style>
 
     <!--<ControlTemplate x:Key="TextBoxErrorTemplate">

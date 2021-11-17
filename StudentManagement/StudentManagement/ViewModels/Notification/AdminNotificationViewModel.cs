@@ -98,6 +98,17 @@ namespace StudentManagement.ViewModels
         public ICommand MarkAllAsReadCommand { get => _markAllAsReadCommand; set => _markAllAsReadCommand = value; }
         private ICommand _markAllAsReadCommand;
 
+        public ICommand MarkAsUnreadCommand { get => _markAsUnreadCommand; set => _markAsUnreadCommand = value; }
+        private ICommand _markAsUnreadCommand;
+
+        public ICommand MarkAsReadCommand { get => _markAsReadCommand; set => _markAsReadCommand = value; }
+        private ICommand _markAsReadCommand;
+
+        public ICommand DeleteNotificationInBadgeCommand { get => _deleteNotificationInBadgeCommand; set => _deleteNotificationInBadgeCommand = value; }
+        private ICommand _deleteNotificationInBadgeCommand;
+
+
+
         private string _searchInfo;
         public string SearchInfo 
         { 
@@ -178,8 +189,33 @@ namespace StudentManagement.ViewModels
             DeleteNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteNotification());
             CreateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNewNotification());
             ShowDetailNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowDetailNotification(p));
-            SeenNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SeenNotification());
-            MarkAllAsReadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAllAsRead());
+            SeenNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => SeenNotification());
+            MarkAllAsReadCommand = new RelayCommand<object>((p) => { return true; }, (p) => MarkAllAsRead());
+            MarkAsUnreadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAsUnread(p));
+            MarkAsReadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAsRead(p));
+            DeleteNotificationInBadgeCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => DeleteNotificationCardInBadge(p));
+        }
+        
+        public void DeleteNotificationCardInBadge(UserControl p)
+        {
+            if (p.DataContext == null)
+                return;
+            var card = p.DataContext as CardNotification;
+            Cards.Remove(card);
+        }
+        public void MarkAsRead(UserControl p)
+        {
+            if (p.DataContext == null)
+                return;
+            var card = p.DataContext as CardNotification;
+            card.Status = true;
+        }
+        public void MarkAsUnread(UserControl p)
+        {
+            if (p.DataContext == null)
+                return;
+            var card = p.DataContext as CardNotification;
+            card.Status = false;
         }
         public void MarkAllAsRead()
         {

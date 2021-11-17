@@ -23,19 +23,26 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <ScrollViewer>
-        <materialDesign:DialogHost CloseOnClickAway="True">
+        <materialDesign:DialogHost CloseOnClickAway="True" Name="DialogHostNotification">
             <materialDesign:DialogHost.DialogContent>
-                <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminNotificationVM}">
+                <ContentControl
+                    Content="{Binding DialogItemViewModel}"
+                    DataContext="{DynamicResource AdminNotificationVM}">
                     <ContentControl.Resources>
-                        <DataTemplate DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
-                            <component:NewNotification Width="600" Height="500" />
+                        <DataTemplate
+                            DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
+                            <component:NewNotification
+                                Width="600"
+                                Height="500" />
                         </DataTemplate>
-                        <DataTemplate DataType="{x:Type viewmodels:ShowDetailNotificationViewModel}">
-                            <component:ShowDetailNotification Width="600" Height="500" />
+                        <DataTemplate
+                            DataType="{x:Type viewmodels:ShowDetailNotificationViewModel}">
+                            <component:ShowDetailNotification
+                                Width="600"
+                                Height="500" />
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
-
             </materialDesign:DialogHost.DialogContent>
             <Grid>
                 <StackPanel>
@@ -187,9 +194,7 @@
                                                                 Height="20"
                                                                 Kind="DotsHorizontal" />
                                                         </materialDesign:PopupBox.ToggleContent>
-                                                        <Button
-                                                            Width="372"
-                                                            Command="{Binding MarkAllAsReadCommand}">
+                                                        <Button Width="372" Command="{Binding MarkAllAsReadCommand}">
                                                             <Grid>
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="auto" />
@@ -250,7 +255,6 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-
                 </StackPanel>
             </Grid>
         </materialDesign:DialogHost>
