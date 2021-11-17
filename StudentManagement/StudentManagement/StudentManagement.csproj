@@ -92,6 +92,9 @@
     <Compile Include="Components\Dashboard\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ScoreBoard\TrainingScoreDataGrid.xaml.cs">
+      <DependentUpon>TrainingScoreDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassDetail\FileManagerClassDetail.xaml.cs">
       <DependentUpon>FileManagerClassDetail.xaml</DependentUpon>
     </Compile>
@@ -363,6 +366,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Dashboard\AdminHomeRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ScoreBoard\TrainingScoreDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
