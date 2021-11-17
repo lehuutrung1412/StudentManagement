@@ -69,6 +69,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:UserInfoStudentViewModel}">
                     <views:UserInfoStudent />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:FileManagerClassDetailViewModel}">
+                    <components:FileManagerClassDetail />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />
