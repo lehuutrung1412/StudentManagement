@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using static StudentManagement.ViewModels.SubjectClass.AdminSubjectClassViewModel;
+using static StudentManagement.ViewModels.AdminSubjectClassViewModel;
 
-namespace StudentManagement.ViewModels.SubjectClassDetail
+namespace StudentManagement.ViewModels
 {
     public class SubjectClassDetailViewModel : BaseViewModel
     {

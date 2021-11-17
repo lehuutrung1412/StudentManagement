@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace StudentManagement.ViewModels.ScoreBoard
+namespace StudentManagement.ViewModels
 {
     public class ScoreBoardViewModel : BaseViewModel
     {

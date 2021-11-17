@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentManagement.ViewModels.Dashboard
+namespace StudentManagement.ViewModels
 {
     public class AdminHomeViewModel : BaseViewModel
     {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace StudentManagement.ViewModels.Notification
+namespace StudentManagement.ViewModels
 {
     public class AdminNotificationViewModel : BaseViewModel
     {

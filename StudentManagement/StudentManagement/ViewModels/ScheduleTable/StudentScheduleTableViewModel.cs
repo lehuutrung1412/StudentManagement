@@ -4,14 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StudentManagement.ViewModels.CourseRegistry.StudentCourseRegistryRightSideBarViewModel;
-using StudentManagement.ViewModels.CourseRegistry;
+using static StudentManagement.ViewModels.StudentCourseRegistryRightSideBarViewModel;
 
-namespace StudentManagement.ViewModels.ScheduleTable
+namespace StudentManagement.ViewModels
 {
     public class StudentScheduleTableViewModel : BaseViewModel
     {
-        public class CourseClass : CourseRegistry.SubjectClass
+        public class CourseClass : SubjectClass
         {
             private string _day;
             private string _session;

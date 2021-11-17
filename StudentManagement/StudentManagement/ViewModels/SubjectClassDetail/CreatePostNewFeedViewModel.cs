@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace StudentManagement.ViewModels.SubjectClassDetail
+namespace StudentManagement.ViewModels
 {
     public class CreatePostNewFeedViewModel : BaseViewModel
     {
