@@ -4,9 +4,7 @@
     xmlns:viewmodel="clr-namespace:StudentManagement.ViewModels">
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:LayoutViewModel x:Key="LayoutVM" />
-    <viewmodel:AdminSubjectClassViewModel x:Key="AdminSubjectClassVM" />
-    <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
-    <viewmodel:AdminHomeRightSideBarViewModel x:Key="AdminHomeRightSideBarVM" />
+    <viewmodel:LoginViewModel x:Key="LoginVM" />
     <viewmodel:TitleBarViewModel x:Key="TitleBarVM" />
     <viewmodel:UserInfoStudentViewModel x:Key="UserInfoStudentVM" />
     <viewmodel:AdminNotificationViewModel x:Key="AdminNotificationVM" />
@@ -14,12 +12,13 @@
     <viewmodel:CreatePostNewFeedViewModel x:Key="CreatePostNewFeedVM" />
     <viewmodel:StudentCourseRegistryViewModel x:Key="StudentCourseRegistryVM" />
     <viewmodel:StudentCourseRegistryRightSideBarViewModel x:Key="StudentCourseRegistryRightSideBarVM" />
-    <viewmodel:PostNewsfeedViewModel x:Key="PostNewsfeedVM" />
     <viewmodel:NewFeedSubjectClassDetailViewModel x:Key="NewFeedSubjectClassDetailVM" />
     <viewmodel:AdminFalcutyTrainingFormViewModel x:Key="AdminFalcutyTrainingFormVM" />
     <viewmodel:AdminFalcutyTrainingFormRightSideBarViewModel x:Key="AdminFalcutyTrainingFormRightSideBarVM" />
     <viewmodel:ScoreBoardViewModel x:Key="ScoreBoardVM" />
     <viewmodel:ScoreBoardRightSideBarViewModel x:Key="ScoreBoardRightSideBarVM" />
-    <viewmodel:LoginViewModel x:Key="LoginVM" />
+    <viewmodel:AdminSubjectClassViewModel x:Key="AdminSubjectClassVM" />
+    <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
+    <viewmodel:AdminHomeRightSideBarViewModel x:Key="AdminHomeRightSideBarVM" />
     <viewmodel:StudentScheduleTableViewModel x:Key="StudentScheduleTableVM" />
 </ResourceDictionary>

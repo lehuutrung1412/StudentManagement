@@ -103,8 +103,6 @@ namespace StudentManagement.ViewModels
 
             _adminFalcutyTrainingFormViewModel = new AdminFalcutyTrainingFormViewModel();
 
-            _studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
-
             _scoreboardViewModel = new ScoreBoardViewModel();
 
             _studentScheduleTableViewModel = new StudentScheduleTableViewModel();
