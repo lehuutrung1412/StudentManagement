@@ -32,12 +32,21 @@
                 Margin="0"
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"
+                Panel.ZIndex="2"
                 materialDesign:ShadowAssist.ShadowDepth="Depth4"
                 Background="{DynamicResource White}"
                 BorderThickness="0"
                 Foreground="Black"
-                Style="{StaticResource AdminNotificationButton}">
-
+                >
+                <Button.Style>
+                    <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
@@ -66,8 +75,7 @@
                     <Grid
                         Grid.Column="1"
                         Margin="4,0,0,0"
-                        HorizontalAlignment="Stretch"
-                       />
+                        HorizontalAlignment="Stretch" />
                     <Grid Grid.Column="2" Margin="4,0,4,0">
                         <StackPanel>
 
@@ -79,8 +87,8 @@
                                 TextWrapping="Wrap">
                                 <Run
                                     FontSize="14"
-                                    Foreground="Gray"
                                     FontWeight="SemiBold"
+                                    Foreground="Gray"
                                     Text="{Binding NguoiDang, FallbackValue='Chủ đề'}" />
                                 <Run
                                     FontSize="12"
@@ -99,19 +107,14 @@
                             <TextBlock
                                 FontSize="12"
                                 FontWeight="SemiBold"
-                                Text="{Binding NgayDang, StringFormat='dd/MM/yyyy' , Converter={utils:DateTimeConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding NgayDang, StringFormat='dd/MM/yyyy', Converter={utils:DateTimeConverter}, UpdateSourceTrigger=PropertyChanged}"
                                 TextWrapping="Wrap">
                                 <TextBlock.Style>
-                                    <Style
-                                        TargetType="TextBlock">
-                                        <Setter
-                                            Property="Foreground"
-                                            Value="{StaticResource BlueStatus}" />
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{StaticResource BlueStatus}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                                <Setter
-                                                    Property="Foreground"
-                                                    Value="Gray" />
+                                                <Setter Property="Foreground" Value="Gray" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -119,6 +122,202 @@
                             </TextBlock>
 
                         </StackPanel>
+                        <Button
+                            Width="40"
+                            Height="40"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Panel.ZIndex="1">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse
+                                            Width="40"
+                                            Height="40"
+                                            Fill="{DynamicResource White}">
+                                            <Ellipse.Style>
+                                                <Style TargetType="Ellipse">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Fill" Value="{DynamicResource Gray}" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Ellipse.Style>
+                                        </Ellipse>
+                                        <materialDesign:PopupBox
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            PlacementMode="BottomAndAlignRightEdges">
+                                            <materialDesign:PopupBox.ToggleContent>
+                                                <materialDesign:PackIcon
+                                                    Width="20"
+                                                    Height="20"
+                                                    Kind="DotsHorizontal" />
+                                            </materialDesign:PopupBox.ToggleContent>
+                                            <StackPanel>
+                                                <Button
+                                                    Width="300"
+                                                    Command="{Binding MarkAsReadCommand, Source={StaticResource AdminNotificationVM}}"
+                                                    CommandParameter="{Binding ElementName=NotificationComponent}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition
+                                                                Width="auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <materialDesign:PackIcon
+                                                            Grid.Column="0"
+                                                            Margin="0,0,8,0"
+                                                            Kind="EyeOutline" />
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            FontWeight="SemiBold"
+                                                            Text="Xem chi tiết" />
+                                                    </Grid>
+                                                    <Button.Style>
+                                                        <Style
+                                                            BasedOn="{StaticResource ButtonInPopupBox}"
+                                                            TargetType="Button">
+                                                            <Setter
+                                                                Property="Visibility"
+                                                                Value="Collapsed" />
+
+                                                            <Setter
+                                                                Property="MinHeight"
+                                                                Value="48" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger
+                                                                    Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
+                                                                    Value="false">
+                                                                    <Setter
+                                                                        Property="Visibility"
+                                                                        Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger
+                                                            EventName="Click">
+                                                            <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
+                                                            <i:InvokeCommandAction
+                                                                Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}"
+                                                                CommandParameter="{Binding ElementName=NotificationComponent}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Button>
+                                                <Button
+                                                    Width="300"
+                                                    Command="{Binding MarkAsReadCommand, Source={StaticResource AdminNotificationVM}}"
+                                                    CommandParameter="{Binding ElementName=NotificationComponent}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <materialDesign:PackIcon
+                                                            Grid.Column="0"
+                                                            Margin="0,0,8,0"
+                                                            Kind="Check" />
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            FontWeight="SemiBold"
+                                                            Text="Đánh dấu là đã đọc" />
+                                                    </Grid>
+                                                    <Button.Style>
+                                                        <Style BasedOn="{StaticResource ButtonInPopupBox}" TargetType="Button">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+
+                                                            <Setter Property="MinHeight" Value="48" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="false">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
+                                                <Button
+                                                    Width="300"
+                                                    Command="{Binding MarkAsUnreadCommand, Source={StaticResource AdminNotificationVM}}"
+                                                    CommandParameter="{Binding ElementName=NotificationComponent}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <materialDesign:PackIcon
+                                                            Grid.Column="0"
+                                                            Margin="0,0,8,0"
+                                                            Kind="Check" />
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            FontWeight="SemiBold"
+                                                            Text="Đánh dấu là chưa đọc" />
+                                                    </Grid>
+                                                    <Button.Style>
+                                                        <Style BasedOn="{StaticResource ButtonInPopupBox}" TargetType="Button">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+
+                                                            <Setter Property="MinHeight" Value="48" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
+                                                <Button
+                                                    Width="300"
+                                                    Command="{Binding DeleteNotificationInBadgeCommand}"
+                                                    CommandParameter="{Binding ElementName=NotificationComponent}"
+                                                    DataContext="{DynamicResource AdminNotificationVM}"
+                                                    Style="{StaticResource ButtonInPopupBox}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <materialDesign:PackIcon
+                                                            Grid.Column="0"
+                                                            Margin="0,0,8,0"
+                                                            Kind="CloseBoxOutline" />
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            FontWeight="SemiBold"
+                                                            Text="Gỡ thông báo này" />
+                                                    </Grid>
+
+                                                </Button>
+                                            </StackPanel>
+
+                                        </materialDesign:PopupBox>
+
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=btnNotification, Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <!--<Ellipse
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Width="40"
+                            Height="40"
+                            Fill="{StaticResource White}">
+
+
+                        </Ellipse>-->
 
                     </Grid>
                     <Grid
@@ -134,22 +333,13 @@
                             VerticalAlignment="Center"
                             Fill="{DynamicResource BlueStatus}">
                             <Ellipse.Style>
-                                <Style
-                                    TargetType="Ellipse">
+                                <Style TargetType="Ellipse">
                                     <Style.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
-                                            Value="false">
-                                            <Setter
-                                                Property="Visibility"
-                                                Value="Visible" />
+                                        <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="false">
+                                            <Setter Property="Visibility" Value="Visible" />
                                         </DataTrigger>
-                                        <DataTrigger
-                                            Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
-                                            Value="true">
-                                            <Setter
-                                                Property="Visibility"
-                                                Value="Collapsed" />
+                                        <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                            <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>

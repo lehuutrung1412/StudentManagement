@@ -1,4 +1,4 @@
-﻿using StudentManagement.Commands;
+using StudentManagement.Commands;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,9 @@ using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
 {
-    public class AdminNotificationViewModel : BaseViewModel
+    public class AdminNotificationViewModel: BaseViewModel
     {
-        public class CardNotification : BaseViewModel
+        public class CardNotification: BaseViewModel
         {
             private int _id;
             private string _nguoiDang;
@@ -25,7 +25,7 @@ namespace StudentManagement.ViewModels
             private string _loaiBaiDang;
             private bool _status;
 
-            public CardNotification(int id, string nguoiDang, string loaiBaiDang, string noiDung, string chuDe, DateTime ngayDang)
+            public CardNotification(int id , string nguoiDang, string loaiBaiDang, string noiDung, string chuDe, DateTime ngayDang)
             {
                 Id = id;
                 NguoiDang = nguoiDang;
@@ -95,15 +95,29 @@ namespace StudentManagement.ViewModels
         public ICommand SeenNotificationCommand { get => _seenNotificationCommand; set => _seenNotificationCommand = value; }
         private ICommand _seenNotificationCommand;
 
+        public ICommand MarkAllAsReadCommand { get => _markAllAsReadCommand; set => _markAllAsReadCommand = value; }
+        private ICommand _markAllAsReadCommand;
+
+        public ICommand MarkAsUnreadCommand { get => _markAsUnreadCommand; set => _markAsUnreadCommand = value; }
+        private ICommand _markAsUnreadCommand;
+
+        public ICommand MarkAsReadCommand { get => _markAsReadCommand; set => _markAsReadCommand = value; }
+        private ICommand _markAsReadCommand;
+
+        public ICommand DeleteNotificationInBadgeCommand { get => _deleteNotificationInBadgeCommand; set => _deleteNotificationInBadgeCommand = value; }
+        private ICommand _deleteNotificationInBadgeCommand;
+
+
+
         private string _searchInfo;
-        public string SearchInfo
-        {
-            get => _searchInfo;
-            set
-            {
-                _searchInfo = value;
-                OnPropertyChanged();
-            }
+        public string SearchInfo 
+        { 
+            get => _searchInfo; 
+            set 
+            { 
+                _searchInfo = value; 
+                OnPropertyChanged(); 
+            } 
         }
 
         private DateTime? _searchDate;
@@ -175,7 +189,40 @@ namespace StudentManagement.ViewModels
             DeleteNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteNotification());
             CreateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNewNotification());
             ShowDetailNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowDetailNotification(p));
-            SeenNotificationCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SeenNotification());
+            SeenNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => SeenNotification());
+            MarkAllAsReadCommand = new RelayCommand<object>((p) => { return true; }, (p) => MarkAllAsRead());
+            MarkAsUnreadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAsUnread(p));
+            MarkAsReadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAsRead(p));
+            DeleteNotificationInBadgeCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => DeleteNotificationCardInBadge(p));
+        }
+        
+        public void DeleteNotificationCardInBadge(UserControl p)
+        {
+            if (p.DataContext == null)
+                return;
+            var card = p.DataContext as CardNotification;
+            Cards.Remove(card);
+        }
+        public void MarkAsRead(UserControl p)
+        {
+            if (p.DataContext == null)
+                return;
+            var card = p.DataContext as CardNotification;
+            card.Status = true;
+        }
+        public void MarkAsUnread(UserControl p)
+        {
+            if (p.DataContext == null)
+                return;
+            var card = p.DataContext as CardNotification;
+            card.Status = false;
+        }
+        public void MarkAllAsRead()
+        {
+            for(int i=0; i<Cards.Count;i++)
+            {
+                Cards[i].Status = true;
+            }    
         }
         public void SeenNotification()
         {
@@ -188,10 +235,10 @@ namespace StudentManagement.ViewModels
                 return;
             var card = p.DataContext as CardNotification;
             card.Status = true;
-            _showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
-            DialogItemViewModel = _showDetailNotificationViewModel;
+            this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
+            this.DialogItemViewModel = this._showDetailNotificationViewModel;
         }
-
+     
         public void Search()
         {
             RealCards = Cards;
@@ -200,10 +247,10 @@ namespace StudentManagement.ViewModels
             {
                 tmp = tmp.Where(x => x.NgayDang.Date == _searchDate);
             }
-            if (!SearchType.Equals("Tất cả"))
+            if(!SearchType.Equals("Tất cả"))
             {
                 tmp = tmp.Where(x => x.LoaiBaiDang.Contains(SearchType));
-            }
+            }    
             RealCards = new ObservableCollection<CardNotification>(tmp);
         }
         public void UpdateNotification()
@@ -212,7 +259,7 @@ namespace StudentManagement.ViewModels
             CardNotification card = (AdminNotificationRightSideBarVM._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard;
             (AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard = card;
             AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel;
-
+        
             for (int i = 0; i < Cards.Count; i++)
                 if (Cards[i].Id == card.Id)
                 {
@@ -240,9 +287,9 @@ namespace StudentManagement.ViewModels
         public void CreateNewNotification()
         {
             var card = new CardNotification(Cards.LastOrDefault().Id + 1, "Cuong", "", "", "", DateTime.Now);
-            _creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
-            DialogItemViewModel = _creatNewNotificationViewModel;
+            this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
+            this.DialogItemViewModel = this._creatNewNotificationViewModel;
         }
-
+        
     }
 }

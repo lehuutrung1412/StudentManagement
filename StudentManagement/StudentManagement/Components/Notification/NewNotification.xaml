@@ -155,9 +155,28 @@
                             <Button
                                 Margin="0,0,16,0"
                                 HorizontalAlignment="Stretch"
-                                Content="Thêm"
-                                Style="{StaticResource PrimaryButton}"
-                                IsEnabled="{Binding CanCreate, UpdateSourceTrigger=PropertyChanged}">
+                                Content="Thêm">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                    <Condition Binding="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                    <Condition Binding="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="IsEnabled" Value="True" />
+                                            </MultiDataTrigger>
+                                            <Trigger Property="Validation.HasError" Value="True">
+                                                <Setter Property="materialDesign:ValidationAssist.Background" Value="Transparent" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Validation.ErrorTemplate>
+                                    <ControlTemplate />
+                                </Validation.ErrorTemplate>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
                                         <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
