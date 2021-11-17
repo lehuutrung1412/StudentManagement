@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.ScoreBoard.ScoreBoardViewModel;
+using static StudentManagement.ViewModels.ScoreBoardViewModel;
 
-namespace StudentManagement.ViewModels.ScoreBoard
+namespace StudentManagement.ViewModels
 {
     public class ScoreBoardRightSideBarViewModel : BaseViewModel
     {

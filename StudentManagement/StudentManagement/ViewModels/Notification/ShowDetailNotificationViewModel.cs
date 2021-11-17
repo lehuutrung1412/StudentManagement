@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.Notification.AdminNotificationViewModel;
+using static StudentManagement.ViewModels.AdminNotificationViewModel;
 
-namespace StudentManagement.ViewModels.Notification
+namespace StudentManagement.ViewModels
 {
     public class ShowDetailNotificationViewModel : BaseViewModel, INotifyDataErrorInfo
     {

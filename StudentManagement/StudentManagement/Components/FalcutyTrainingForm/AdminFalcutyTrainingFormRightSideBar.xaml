@@ -9,7 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
-    xmlns:viewmodelsFalcutyTrainingForm="clr-namespace:StudentManagement.ViewModels.FalcutyTrainingForm"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
@@ -26,16 +25,16 @@
                 <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodelsFalcutyTrainingForm:AdminFalcutyRightSideBarItemViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyRightSideBarItemViewModel}">
                     <components:AdminFalcutyRightSideBarItem />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodelsFalcutyTrainingForm:AdminTrainingFormRightSideBarItemViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminTrainingFormRightSideBarItemViewModel}">
                     <components:AdminTrainingFormRightSideBarItem />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodelsFalcutyTrainingForm:AdminTrainingFormRightSideBarItemEditViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminTrainingFormRightSideBarItemEditViewModel}">
                     <components:AdminTrainingFormRightSideBarItemEdit />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodelsFalcutyTrainingForm:AdminFalcutyRightSideBarItemEditViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyRightSideBarItemEditViewModel}">
                     <components:AdminFalcutyRightSideBarItemEdit />
                 </DataTemplate>
             </ContentControl.Resources>

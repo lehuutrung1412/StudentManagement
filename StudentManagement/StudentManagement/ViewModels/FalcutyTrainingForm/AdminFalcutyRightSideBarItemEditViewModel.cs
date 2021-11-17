@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.FalcutyTrainingForm.AdminFalcutyTrainingFormViewModel;
+using static StudentManagement.ViewModels.AdminFalcutyTrainingFormViewModel;
 
-namespace StudentManagement.ViewModels.FalcutyTrainingForm
+namespace StudentManagement.ViewModels
 {
     class AdminFalcutyRightSideBarItemEditViewModel : BaseViewModel
     {

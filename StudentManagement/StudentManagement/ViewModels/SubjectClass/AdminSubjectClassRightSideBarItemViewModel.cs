@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StudentManagement.ViewModels.SubjectClass.AdminSubjectClassViewModel;
+using static StudentManagement.ViewModels.AdminSubjectClassViewModel;
 
-namespace StudentManagement.ViewModels.SubjectClass
+namespace StudentManagement.ViewModels
 {
     public class AdminSubjectClassRightSideBarItemViewModel : BaseViewModel
     {

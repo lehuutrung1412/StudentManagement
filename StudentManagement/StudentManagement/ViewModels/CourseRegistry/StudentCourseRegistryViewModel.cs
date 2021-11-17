@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace StudentManagement.ViewModels.CourseRegistry
+namespace StudentManagement.ViewModels
 {
     public class StudentCourseRegistryViewModel : BaseViewModel
     {

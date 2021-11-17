@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StudentManagement.ViewModels.FalcutyTrainingForm.AdminFalcutyTrainingFormViewModel;
+using static StudentManagement.ViewModels.AdminFalcutyTrainingFormViewModel;
 
-namespace StudentManagement.ViewModels.FalcutyTrainingForm
+namespace StudentManagement.ViewModels
 {
     public class AdminFalcutyRightSideBarItemViewModel : BaseViewModel
     {

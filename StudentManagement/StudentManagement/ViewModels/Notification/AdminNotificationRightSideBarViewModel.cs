@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.Notification.AdminNotificationViewModel;
+using static StudentManagement.ViewModels.AdminNotificationViewModel;
 
-namespace StudentManagement.ViewModels.Notification
+namespace StudentManagement.ViewModels
 {
     public class AdminNotificationRightSideBarViewModel : BaseViewModel
     {

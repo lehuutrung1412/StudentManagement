@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StudentManagement.ViewModels.ScoreBoard.ScoreBoardRightSideBarViewModel;
+using static StudentManagement.ViewModels.ScoreBoardRightSideBarViewModel;
 
-namespace StudentManagement.ViewModels.ScoreBoard
+namespace StudentManagement.ViewModels
 {
     public class ScoreBoardRightSideBarItemViewModel : BaseViewModel
     {

@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.CourseRegistry.StudentCourseRegistryViewModel;
+using static StudentManagement.ViewModels.StudentCourseRegistryViewModel;
 
-namespace StudentManagement.ViewModels.CourseRegistry
+namespace StudentManagement.ViewModels
 {
     public class StudentCourseRegistryRightSideBarViewModel : BaseViewModel
     {
@@ -76,7 +76,7 @@ namespace StudentManagement.ViewModels.CourseRegistry
             _emptyStateRightSideBarViewModel = new EmptyStateRightSideBarViewModel();
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
-        
+
     }
 
     public class SubjectClass

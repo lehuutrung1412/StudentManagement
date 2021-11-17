@@ -1,6 +1,5 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Utils;
-using StudentManagement.ViewModels.SubjectClassDetail;
 using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace StudentManagement.ViewModels.SubjectClass
+namespace StudentManagement.ViewModels
 {
     public class AdminSubjectClassViewModel : BaseViewModel
     {
@@ -143,7 +142,7 @@ namespace StudentManagement.ViewModels.SubjectClass
 
         public void ShowSubjectClassDetailFunction(UserControl cardComponent)
         {
-            Views.SubjectClassDetail subjectClassDetail = new Views.SubjectClassDetail
+            SubjectClassDetail subjectClassDetail = new SubjectClassDetail
             {
                 DataContext = new SubjectClassDetailViewModel(cardComponent)
             };

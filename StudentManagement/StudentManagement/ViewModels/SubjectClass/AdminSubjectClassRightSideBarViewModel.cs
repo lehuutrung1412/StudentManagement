@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.SubjectClass.AdminSubjectClassViewModel;
+using static StudentManagement.ViewModels.AdminSubjectClassViewModel;
 
-namespace StudentManagement.ViewModels.SubjectClass
+namespace StudentManagement.ViewModels
 {
     public class AdminSubjectClassRightSideBarViewModel : BaseViewModel
     {
