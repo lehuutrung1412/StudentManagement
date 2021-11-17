@@ -92,7 +92,7 @@
     <Compile Include="Components\Dashboard\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FileManagerClassDetail.xaml.cs">
+    <Compile Include="Components\SubjectClassDetail\FileManagerClassDetail.xaml.cs">
       <DependentUpon>FileManagerClassDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\SubjectClassDetail\FileManager.xaml.cs">
@@ -366,7 +366,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\FileManagerClassDetail.xaml">
+    <Page Include="Components\SubjectClassDetail\FileManagerClassDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
