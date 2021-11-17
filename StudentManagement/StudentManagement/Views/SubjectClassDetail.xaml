@@ -49,9 +49,6 @@
                     <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                         <views:Layout />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                        <views:Login />
-                    </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
         </Grid>

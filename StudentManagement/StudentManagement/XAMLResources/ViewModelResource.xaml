@@ -21,4 +21,5 @@
     <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
     <viewmodel:AdminHomeRightSideBarViewModel x:Key="AdminHomeRightSideBarVM" />
     <viewmodel:StudentScheduleTableViewModel x:Key="StudentScheduleTableVM" />
+    <viewmodel:FileManagerClassDetailViewModel x:Key="FileManagerClassDetailVM" />
 </ResourceDictionary>

@@ -92,6 +92,12 @@
     <Compile Include="Components\Dashboard\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\FileManagerClassDetail.xaml.cs">
+      <DependentUpon>FileManagerClassDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SubjectClassDetail\FileManager.xaml.cs">
+      <DependentUpon>FileManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\Notification\AdminNotificationRightSideBar.xaml.cs">
       <DependentUpon>AdminNotificationRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -281,6 +287,7 @@
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
+    <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
@@ -292,6 +299,7 @@
     <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyTrainingFormViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\SubjectClassDetail\FileManagerClassDetailViewModel.cs" />
     <Compile Include="ViewModels\Notification\AdminNotificationRightSideBarEditViewModel.cs" />
     <Compile Include="ViewModels\Notification\AdminNotificationRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\Notification\AdminNotificationRightSideBarViewModel.cs" />
@@ -355,6 +363,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Dashboard\AdminHomeRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\FileManagerClassDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SubjectClassDetail\FileManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -693,6 +709,16 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\doc.png" />
+    <Resource Include="Resources\Images\file.png" />
+    <Resource Include="Resources\Images\folder.png" />
+    <Resource Include="Resources\Images\jpg.png" />
+    <Resource Include="Resources\Images\pdf.png" />
+    <Resource Include="Resources\Images\png.png" />
+    <Resource Include="Resources\Images\ppt.png" />
+    <Resource Include="Resources\Images\txt.png" />
+    <Resource Include="Resources\Images\xls.png" />
+    <Resource Include="Resources\Images\zip.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
