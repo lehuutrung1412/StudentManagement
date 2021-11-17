@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace StudentManagement.Views
 {
     /// <summary>
-    /// Interaction logic for StudentScheduleTable.xaml
+    /// Interaction logic for AdminListStudents.xaml
     /// </summary>
-    public partial class StudentScheduleTable : UserControl
+    public partial class AdminListStudents : UserControl
     {
-        public StudentScheduleTable()
+        public AdminListStudents()
         {
             InitializeComponent();
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

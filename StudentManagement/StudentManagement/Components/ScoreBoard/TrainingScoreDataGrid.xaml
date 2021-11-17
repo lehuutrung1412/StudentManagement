@@ -1,5 +1,4 @@
-﻿<UserControl 
-    x:Class="StudentManagement.Components.ScoreboardDataGrid"
+﻿<UserControl x:Class="StudentManagement.Components.ScoreBoard.TrainingScoreDataGrid"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,12 +18,11 @@
         <materialDesign:Card VerticalAlignment="Top">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <DataGrid
-                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource ScoreBoardRightSideBarVM}}"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     HeadersVisibility="All"
                     IsReadOnly="True"
-                    ItemsSource="{Binding CurrentStudentScore}">
+                    ItemsSource="{Binding CurrentTrainingScore}">
                     <DataGrid.Columns>
                         <materialDesign:DataGridTextColumn
                             Width="auto"
@@ -54,22 +52,16 @@
                         </materialDesign:DataGridTextColumn>
 
                         <DataGridTextColumn
-                            Binding="{Binding IDSubject}"
+                            Binding="{Binding Event}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Mã môn học" />
+                            Header="Tên sự kiện" />
 
                         <DataGridTextColumn
-                            Binding="{Binding Subject}"
+                            Binding="{Binding Type}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Tên môn học" />
-
-                        <DataGridTextColumn
-                            Binding="{Binding Credit}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Số tín chỉ" />
+                            Header="Loại sự kiện" />
 
                         <DataGridTextColumn
                             Binding="{Binding Faculty}"
@@ -78,10 +70,10 @@
                             Header="Khoa" />
 
                         <DataGridTextColumn
-                            Binding="{Binding Status}"
+                            Binding="{Binding Score}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Trạng thái" />
+                            Header="Điểm số" />
 
                     </DataGrid.Columns>
                 </DataGrid>

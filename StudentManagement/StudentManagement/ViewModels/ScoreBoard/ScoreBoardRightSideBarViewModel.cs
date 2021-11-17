@@ -64,7 +64,8 @@ namespace StudentManagement.ViewModels.ScoreBoard
             InitRightSideBarItemViewModel();
             ScoreList = new ObservableCollection<DetailScore>
             {
-                new DetailScore() {QuaTrinh = "10", CuoiKi = "10", GiuaKi = "10", DiemTB = "10", ThucHanh = "10", IDSubject = "IT008"}
+                new DetailScore() {QuaTrinh = "10", CuoiKi = "10", GiuaKi = "10", DiemTB = "10", ThucHanh = "10", IDSubject = "IT008"},
+                new DetailScore() {QuaTrinh = "1", CuoiKi = "0", GiuaKi = "0", DiemTB = "1", ThucHanh = "1", IDSubject = "IT001"},
             };
 
         }

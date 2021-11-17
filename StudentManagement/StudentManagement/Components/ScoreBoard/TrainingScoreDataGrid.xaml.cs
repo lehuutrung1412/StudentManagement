@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StudentManagement.Views
+namespace StudentManagement.Components.ScoreBoard
 {
     /// <summary>
-    /// Interaction logic for StudentScheduleTable.xaml
+    /// Interaction logic for TrainingScoreDataGrid.xaml
     /// </summary>
-    public partial class StudentScheduleTable : UserControl
+    public partial class TrainingScoreDataGrid : UserControl
     {
-        public StudentScheduleTable()
+        public TrainingScoreDataGrid()
         {
             InitializeComponent();
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

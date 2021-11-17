@@ -104,6 +104,9 @@
     <Compile Include="Components\Notification\AdminNotificationSearchBar.xaml.cs">
       <DependentUpon>AdminNotificationSearchBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ScoreBoard\TrainingScoreDataGrid.xaml.cs">
+      <DependentUpon>TrainingScoreDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClass\AdminSubjectClassRightSideBar.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -371,6 +374,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Notification\AdminNotificationSearchBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ScoreBoard\TrainingScoreDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
