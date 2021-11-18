@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace StudentManagement.ViewModels
     public class AdminSubjectClassRightSideBarItemEditViewModel : BaseViewModel
     {
         // currentCard just for binding to view, actualcard is real card
-        
+
         public SubjectCard CurrentCard
         {
             get { return _currentCard; }
@@ -76,5 +77,5 @@ namespace StudentManagement.ViewModels
             adminSubjectClassRightSideBarViewModel.RightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(ActualCard);
         }
     }
-    
+
 }

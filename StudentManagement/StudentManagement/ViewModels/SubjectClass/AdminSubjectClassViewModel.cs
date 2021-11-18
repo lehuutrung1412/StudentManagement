@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
 using StudentManagement.Utils;
 using StudentManagement.Views;
 using System;
@@ -16,7 +17,7 @@ namespace StudentManagement.ViewModels
     public class AdminSubjectClassViewModel : BaseViewModel
     {
         #region class
-        public class SubjectCard : BaseViewModel
+        public class SubjectCard : BaseObjectWithBaseViewModel, IBaseCard
         {
             private int _siSo;
             private string _giaoVien;
@@ -32,21 +33,21 @@ namespace StudentManagement.ViewModels
                 TenMon = tenMon;
             }
 
-            public void CopyCardInfo(SubjectCard anotherSubjectCard)
-            {
-                SiSo = anotherSubjectCard.SiSo;
-                GiaoVien = anotherSubjectCard.GiaoVien;
-                MaMon = anotherSubjectCard.MaMon;
-                TenMon = anotherSubjectCard.TenMon;
-            }
+            //public void CopyCardInfo(SubjectCard anotherSubjectCard)
+            //{
+            //    SiSo = anotherSubjectCard.SiSo;
+            //    GiaoVien = anotherSubjectCard.GiaoVien;
+            //    MaMon = anotherSubjectCard.MaMon;
+            //    TenMon = anotherSubjectCard.TenMon;
+            //}
 
-            public void RunOnPropertyChanged()
-            {
-                foreach (PropertyInfo propertyInfo in GetType().GetProperties())
-                {
-                    OnPropertyChanged(propertyInfo.Name);
-                }
-            }
+            //public void RunOnPropertyChanged()
+            //{
+            //    foreach (PropertyInfo propertyInfo in GetType().GetProperties())
+            //    {
+            //        OnPropertyChanged(propertyInfo.Name);
+            //    }
+            //}
 
             public int SiSo { get => _siSo; set => _siSo = value; }
             public string GiaoVien { get => _giaoVien; set => _giaoVien = value; }
