@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -15,19 +16,36 @@ namespace StudentManagement.ViewModels
     public class AdminSubjectClassViewModel : BaseViewModel
     {
         #region class
-        public class SubjectCard
+        public class SubjectCard : BaseViewModel
         {
             private int _siSo;
             private string _giaoVien;
             private string _maMon;
             private string _tenMon;
 
+            public SubjectCard() { }
             public SubjectCard(int siSo, string giaoVien, string maMon, string tenMon)
             {
                 SiSo = siSo;
                 GiaoVien = giaoVien;
                 MaMon = maMon;
                 TenMon = tenMon;
+            }
+
+            public void CopyCardInfo(SubjectCard anotherSubjectCard)
+            {
+                SiSo = anotherSubjectCard.SiSo;
+                GiaoVien = anotherSubjectCard.GiaoVien;
+                MaMon = anotherSubjectCard.MaMon;
+                TenMon = anotherSubjectCard.TenMon;
+            }
+
+            public void RunOnPropertyChanged()
+            {
+                foreach (PropertyInfo propertyInfo in GetType().GetProperties())
+                {
+                    OnPropertyChanged(propertyInfo.Name);
+                }
             }
 
             public int SiSo { get => _siSo; set => _siSo = value; }
@@ -41,9 +59,9 @@ namespace StudentManagement.ViewModels
         static private ObservableCollection<SubjectCard> _storedSubjectCards;
         public static ObservableCollection<SubjectCard> StoredSubjectCards { get => _storedSubjectCards; set => _storedSubjectCards = value; }
 
-        public ObservableCollection<SubjectCard> _subjectCards;
+        private static ObservableCollection<SubjectCard> _subjectCards;
 
-        public ObservableCollection<SubjectCard> SubjectCards { get => _subjectCards; set => _subjectCards = value; }
+        public static ObservableCollection<SubjectCard> SubjectCards { get => _subjectCards; set => _subjectCards = value; }
 
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
 

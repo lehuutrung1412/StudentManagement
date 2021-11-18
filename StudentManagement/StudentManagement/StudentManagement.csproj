@@ -80,6 +80,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\SubjectClass\AdminSubjectClassRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>AdminSubjectClassRightSideBarItemEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\FalcutyTrainingForm\AdminFalcutyRightSideBarItem.xaml.cs">
       <DependentUpon>AdminFalcutyRightSideBarItem.xaml</DependentUpon>
     </Compile>
@@ -296,6 +299,7 @@
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
+    <Compile Include="ViewModels\SubjectClass\AdminSubjectClassRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\FalcutyTrainingForm\AdminTrainingFormRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyRightSideBarItemViewModel.cs" />
@@ -354,6 +358,10 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\SubjectClass\AdminSubjectClassRightSideBarItemEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\FalcutyTrainingForm\AdminFalcutyRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

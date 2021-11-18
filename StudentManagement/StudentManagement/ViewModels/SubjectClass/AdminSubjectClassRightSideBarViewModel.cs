@@ -13,6 +13,14 @@ namespace StudentManagement.ViewModels
     public class AdminSubjectClassRightSideBarViewModel : BaseViewModel
     {
         #region properties
+        private static AdminSubjectClassRightSideBarViewModel s_instance;
+        public static AdminSubjectClassRightSideBarViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new AdminSubjectClassRightSideBarViewModel());
+
+            private set => s_instance = value;
+        }
+
         private object _rightSideBarItemViewModel;
 
         public object RightSideBarItemViewModel
@@ -35,6 +43,12 @@ namespace StudentManagement.ViewModels
         public ICommand ShowCardInfo { get => _showCardInfo; set => _showCardInfo = value; }
 
         private ICommand _showCardInfo;
+        public ICommand EditSubjectCardInfo { get => _editSubjectCardInfo; set => _editSubjectCardInfo = value; }
+
+        private ICommand _editSubjectCardInfo;
+        public ICommand DeleteSubjectCardInfo { get => _deleteSubjectCardInfo; set => _deleteSubjectCardInfo = value; }
+
+        private ICommand _deleteSubjectCardInfo;
 
         #endregion
 
@@ -60,6 +74,24 @@ namespace StudentManagement.ViewModels
             _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(card);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
+        }
+
+        public void EditSubjectCardByCardFunction(object p)
+        {
+            SubjectCard card = p as SubjectCard;
+
+            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
+
+            RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
+        }
+
+        public void DeleteSubjectCardByCardFunction(object p)
+        {
+            SubjectCard card = p as SubjectCard;
+
+            SubjectCards.Remove(card);
+
+            RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
         #endregion
     }

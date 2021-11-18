@@ -10,6 +10,7 @@ using static StudentManagement.ViewModels.AdminFalcutyTrainingFormViewModel;
 
 namespace StudentManagement.ViewModels
 {
+    #region properties
     public class AdminFalcutyTrainingFormRightSideBarViewModel : BaseViewModel
     {
         private static AdminFalcutyTrainingFormRightSideBarViewModel s_instance;
@@ -54,6 +55,9 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        #endregion
+
+        #region icommands
         public ICommand ShowFalcutyCardInfo { get => _showFalcutyCardInfo; set => _showFalcutyCardInfo = value; }
 
         private ICommand _showFalcutyCardInfo;
@@ -77,6 +81,8 @@ namespace StudentManagement.ViewModels
 
         private ICommand _deleteFalcutyCardInfo;
 
+        #endregion
+
         public AdminFalcutyTrainingFormRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
@@ -84,6 +90,7 @@ namespace StudentManagement.ViewModels
             Instance = this;
         }
 
+        #region methods
         public void InitRightSideBarItemViewModel()
         {
             _adminFalcutyRightSideBarItemViewModel = new AdminFalcutyRightSideBarItemViewModel();
@@ -156,5 +163,6 @@ namespace StudentManagement.ViewModels
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
+        #endregion
     }
 }
