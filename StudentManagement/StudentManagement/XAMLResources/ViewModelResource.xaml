@@ -13,8 +13,8 @@
     <viewmodel:StudentCourseRegistryViewModel x:Key="StudentCourseRegistryVM" />
     <viewmodel:StudentCourseRegistryRightSideBarViewModel x:Key="StudentCourseRegistryRightSideBarVM" />
     <viewmodel:NewFeedSubjectClassDetailViewModel x:Key="NewFeedSubjectClassDetailVM" />
-    <viewmodel:AdminFalcutyTrainingFormViewModel x:Key="AdminFalcutyTrainingFormVM" />
-    <viewmodel:AdminFalcutyTrainingFormRightSideBarViewModel x:Key="AdminFalcutyTrainingFormRightSideBarVM" />
+    <viewmodel:AdminFacultyTrainingFormViewModel x:Key="AdminFacultyTrainingFormVM" />
+    <viewmodel:AdminFacultyTrainingFormRightSideBarViewModel x:Key="AdminFacultyTrainingFormRightSideBarVM" />
     <viewmodel:ScoreBoardViewModel x:Key="ScoreBoardVM" />
     <viewmodel:ScoreBoardRightSideBarViewModel x:Key="ScoreBoardRightSideBarVM" />
     <viewmodel:AdminSubjectClassViewModel x:Key="AdminSubjectClassVM" />

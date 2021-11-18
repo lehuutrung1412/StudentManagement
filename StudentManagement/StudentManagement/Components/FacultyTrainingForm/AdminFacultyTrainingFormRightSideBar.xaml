@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="StudentManagement.Components.AdminFalcutyTrainingFormRightSideBar"
+    x:Class="StudentManagement.Components.AdminFacultyTrainingFormRightSideBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:components="clr-namespace:StudentManagement.Components"
@@ -20,13 +20,13 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <ContentControl Content="{Binding RightSideBarItemViewModel}" DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}">
+        <ContentControl Content="{Binding RightSideBarItemViewModel}" DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyRightSideBarItemViewModel}">
-                    <components:AdminFalcutyRightSideBarItem />
+                <DataTemplate DataType="{x:Type viewmodels:AdminFacultyRightSideBarItemViewModel}">
+                    <components:AdminFacultyRightSideBarItem />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:AdminTrainingFormRightSideBarItemViewModel}">
                     <components:AdminTrainingFormRightSideBarItem />
@@ -34,8 +34,8 @@
                 <DataTemplate DataType="{x:Type viewmodels:AdminTrainingFormRightSideBarItemEditViewModel}">
                     <components:AdminTrainingFormRightSideBarItemEdit />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyRightSideBarItemEditViewModel}">
-                    <components:AdminFalcutyRightSideBarItemEdit />
+                <DataTemplate DataType="{x:Type viewmodels:AdminFacultyRightSideBarItemEditViewModel}">
+                    <components:AdminFacultyRightSideBarItemEdit />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

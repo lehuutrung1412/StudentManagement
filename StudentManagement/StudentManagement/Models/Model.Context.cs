@@ -34,8 +34,8 @@ namespace StudentManagement.Models
         public DbSet<DetailScore> DetailScores { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<Examination> Examinations { get; set; }
-        public DbSet<Falcuty> Falcuties { get; set; }
-        public DbSet<Falcuty_TrainingForm> Falcuty_TrainingForm { get; set; }
+        public DbSet<Faculty> Falcuties { get; set; }
+        public DbSet<Faculty_TrainingForm> Faculty_TrainingForm { get; set; }
         public DbSet<Folder> Folders { get; set; }
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Semester> Semesters { get; set; }

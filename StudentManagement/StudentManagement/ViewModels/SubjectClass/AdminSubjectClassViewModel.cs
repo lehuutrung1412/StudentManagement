@@ -33,22 +33,6 @@ namespace StudentManagement.ViewModels
                 TenMon = tenMon;
             }
 
-            //public void CopyCardInfo(SubjectCard anotherSubjectCard)
-            //{
-            //    SiSo = anotherSubjectCard.SiSo;
-            //    GiaoVien = anotherSubjectCard.GiaoVien;
-            //    MaMon = anotherSubjectCard.MaMon;
-            //    TenMon = anotherSubjectCard.TenMon;
-            //}
-
-            //public void RunOnPropertyChanged()
-            //{
-            //    foreach (PropertyInfo propertyInfo in GetType().GetProperties())
-            //    {
-            //        OnPropertyChanged(propertyInfo.Name);
-            //    }
-            //}
-
             public int SiSo { get => _siSo; set => _siSo = value; }
             public string GiaoVien { get => _giaoVien; set => _giaoVien = value; }
             public string MaMon { get => _maMon; set => _maMon = value; }

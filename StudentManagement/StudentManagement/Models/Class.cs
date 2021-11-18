@@ -19,8 +19,8 @@ namespace StudentManagement.Models
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
         private System.Guid _idTrainingForm { get; set; }
         public System.Guid IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
-        private System.Guid _idFalcuty { get; set; }
-        public System.Guid IdFalcuty { get => _idFalcuty; set { _idFalcuty = value; OnPropertyChanged(); } }
+        private System.Guid _idFaculty { get; set; }
+        public System.Guid IdFaculty { get => _idFaculty; set { _idFaculty = value; OnPropertyChanged(); } }
         private string _displayName { get; set; }
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
         private System.Guid _idTeacher { get; set; }
@@ -30,7 +30,7 @@ namespace StudentManagement.Models
         private System.Guid _idThumbnail { get; set; }
         public System.Guid IdThumbnail { get => _idThumbnail; set { _idThumbnail = value; OnPropertyChanged(); } }
     
-        public virtual Falcuty Falcuty { get; set; }
+        public virtual Faculty Faculty { get; set; }
         public virtual Teacher Teacher { get; set; }
         public virtual DatabaseImageTable DatabaseImageTable { get; set; }
         public virtual TrainingForm TrainingForm { get; set; }

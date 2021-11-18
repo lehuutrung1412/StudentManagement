@@ -43,8 +43,8 @@
                 <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryRightSideBarViewModel}">
                     <component:StudentCourseRegistryRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminFalcutyTrainingFormRightSideBarViewModel}">
-                    <component:AdminFalcutyTrainingFormRightSideBar />
+                <DataTemplate DataType="{x:Type viewmodels:AdminFacultyTrainingFormRightSideBarViewModel}">
+                    <component:AdminFacultyTrainingFormRightSideBar />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:ScoreBoardRightSideBarViewModel}">
                     <component:ScoreBoardRightSideBar />

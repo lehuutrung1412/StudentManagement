@@ -13,12 +13,12 @@ namespace StudentManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Falcuty : BaseViewModel
+    public partial class Faculty : BaseViewModel
     {
-        public Falcuty()
+        public Faculty()
         {
             this.Classes = new HashSet<Class>();
-            this.Falcuty_TrainingForm = new HashSet<Falcuty_TrainingForm>();
+            this.Faculty_TrainingForm = new HashSet<Faculty_TrainingForm>();
             this.Users = new HashSet<User>();
         }
     
@@ -30,7 +30,7 @@ namespace StudentManagement.Models
         public Nullable<bool> IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Class> Classes { get; set; }
-        public virtual ICollection<Falcuty_TrainingForm> Falcuty_TrainingForm { get; set; }
+        public virtual ICollection<Faculty_TrainingForm> Faculty_TrainingForm { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }

@@ -43,15 +43,15 @@ namespace StudentManagement.Models
         public Nullable<bool> Online { get => _online; set { _online = value; OnPropertyChanged(); } }
         private Nullable<int> _roles { get; set; }
         public Nullable<int> Roles { get => _roles; set { _roles = value; OnPropertyChanged(); } }
-        private System.Guid _idFalcuty { get; set; }
-        public System.Guid IdFalcuty { get => _idFalcuty; set { _idFalcuty = value; OnPropertyChanged(); } }
+        private System.Guid _idFaculty { get; set; }
+        public System.Guid IdFaculty { get => _idFaculty; set { _idFaculty = value; OnPropertyChanged(); } }
         private System.Guid _idAvatar { get; set; }
         public System.Guid IdAvatar { get => _idAvatar; set { _idAvatar = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Admin> Admins { get; set; }
         public virtual DatabaseImageTable DatabaseImageTable { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
-        public virtual Falcuty Falcuty { get; set; }
+        public virtual Faculty Faculty { get; set; }
         public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<Teacher> Teachers { get; set; }
     }

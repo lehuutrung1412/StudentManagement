@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StudentManagement.Components
+namespace StudentManagement.Views
 {
     /// <summary>
-    /// Interaction logic for AdminFalcutyTrainingFormRightSideBar.xaml
+    /// Interaction logic for AdminFacultyTrainingForm.xaml
     /// </summary>
-    public partial class AdminFalcutyTrainingFormRightSideBar : UserControl
+    public partial class AdminFacultyTrainingForm : UserControl
     {
-        public AdminFalcutyTrainingFormRightSideBar()
+        public AdminFacultyTrainingForm()
         {
             InitializeComponent();
         }

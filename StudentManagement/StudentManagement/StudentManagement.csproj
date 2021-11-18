@@ -83,14 +83,14 @@
     <Compile Include="Components\SubjectClass\AdminSubjectClassRightSideBarItemEdit.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FalcutyTrainingForm\AdminFalcutyRightSideBarItem.xaml.cs">
-      <DependentUpon>AdminFalcutyRightSideBarItem.xaml</DependentUpon>
+    <Compile Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminFacultyRightSideBarItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FalcutyTrainingForm\AdminFalcutyRightSideBarItemEdit.xaml.cs">
-      <DependentUpon>AdminFalcutyRightSideBarItemEdit.xaml</DependentUpon>
+    <Compile Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>AdminFacultyRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FalcutyTrainingForm\AdminFalcutyTrainingFormRightSideBar.xaml.cs">
-      <DependentUpon>AdminFalcutyTrainingFormRightSideBar.xaml</DependentUpon>
+    <Compile Include="Components\FacultyTrainingForm\AdminFacultyTrainingFormRightSideBar.xaml.cs">
+      <DependentUpon>AdminFacultyTrainingFormRightSideBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Dashboard\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
@@ -122,10 +122,10 @@
     <Compile Include="Components\SubjectClass\AdminSubjectClassRightSideBarItem.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBarItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FalcutyTrainingForm\AdminTrainingFormRightSideBarItem.xaml.cs">
+    <Compile Include="Components\FacultyTrainingForm\AdminTrainingFormRightSideBarItem.xaml.cs">
       <DependentUpon>AdminTrainingFormRightSideBarItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FalcutyTrainingForm\AdminTrainingFormRightSideBarItemEdit.xaml.cs">
+    <Compile Include="Components\FacultyTrainingForm\AdminTrainingFormRightSideBarItemEdit.xaml.cs">
       <DependentUpon>AdminTrainingFormRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\SubjectClassDetail\CreatePostNewfeed.xaml.cs">
@@ -134,8 +134,8 @@
     <Compile Include="Components\EmptyStateRightSideBar.xaml.cs">
       <DependentUpon>EmptyStateRightSideBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FalcutyTrainingForm\FalcutyDataGrid.xaml.cs">
-      <DependentUpon>FalcutyDataGrid.xaml</DependentUpon>
+    <Compile Include="Components\FacultyTrainingForm\FacultyDataGrid.xaml.cs">
+      <DependentUpon>FacultyDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Login\ForgotPassword.xaml.cs">
       <DependentUpon>ForgotPassword.xaml</DependentUpon>
@@ -203,7 +203,7 @@
     <Compile Include="Components\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FalcutyTrainingForm\TrainingFormCard.xaml.cs">
+    <Compile Include="Components\FacultyTrainingForm\TrainingFormCard.xaml.cs">
       <DependentUpon>TrainingFormCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AbsentCalendar.cs">
@@ -294,6 +294,7 @@
     <Compile Include="Objects\IBaseCard.cs" />
     <Compile Include="Objects\BaseObjectWithBaseViewModel.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
+    <Compile Include="Objects\TrainingFormCard.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\IsNullConverter.cs" />
@@ -302,11 +303,11 @@
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
     <Compile Include="ViewModels\SubjectClass\AdminSubjectClassRightSideBarItemEditViewModel.cs" />
-    <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyRightSideBarItemEditViewModel.cs" />
-    <Compile Include="ViewModels\FalcutyTrainingForm\AdminTrainingFormRightSideBarItemEditViewModel.cs" />
-    <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyRightSideBarItemViewModel.cs" />
-    <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyTrainingFormRightSideBarViewModel.cs" />
-    <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyTrainingFormViewModel.cs" />
+    <Compile Include="ViewModels\FacultyTrainingForm\AdminFacultyRightSideBarItemEditViewModel.cs" />
+    <Compile Include="ViewModels\FacultyTrainingForm\AdminTrainingFormRightSideBarItemEditViewModel.cs" />
+    <Compile Include="ViewModels\FacultyTrainingForm\AdminFacultyRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\FacultyTrainingForm\AdminFacultyTrainingFormRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\FacultyTrainingForm\AdminFacultyTrainingFormViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\FileManagerClassDetailViewModel.cs" />
@@ -317,7 +318,7 @@
     <Compile Include="ViewModels\SubjectClass\AdminSubjectClassRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\SubjectClass\AdminSubjectClassRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\SubjectClass\AdminSubjectClassViewModel.cs" />
-    <Compile Include="ViewModels\FalcutyTrainingForm\AdminTrainingFormRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\FacultyTrainingForm\AdminTrainingFormRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Notification\CreateNewNotificationViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\CreatePostNewFeedViewModel.cs" />
@@ -339,8 +340,8 @@
     <Compile Include="ViewModels\SubjectClassDetail\SubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoStudentViewModel.cs" />
-    <Compile Include="Views\AdminFalcutyTrainingForm.xaml.cs">
-      <DependentUpon>AdminFalcutyTrainingForm.xaml</DependentUpon>
+    <Compile Include="Views\Faculty.xaml.cs">
+      <DependentUpon>Faculty.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
@@ -364,15 +365,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\FalcutyTrainingForm\AdminFalcutyRightSideBarItem.xaml">
+    <Page Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\FalcutyTrainingForm\AdminFalcutyRightSideBarItemEdit.xaml">
+    <Page Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItemEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\FalcutyTrainingForm\AdminFalcutyTrainingFormRightSideBar.xaml">
+    <Page Include="Components\FacultyTrainingForm\AdminFacultyTrainingFormRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -416,11 +417,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\FalcutyTrainingForm\AdminTrainingFormRightSideBarItem.xaml">
+    <Page Include="Components\FacultyTrainingForm\AdminTrainingFormRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\FalcutyTrainingForm\AdminTrainingFormRightSideBarItemEdit.xaml">
+    <Page Include="Components\FacultyTrainingForm\AdminTrainingFormRightSideBarItemEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -453,7 +454,7 @@
     <Compile Include="Views\UserInfoStudent.xaml.cs">
       <DependentUpon>UserInfoStudent.xaml</DependentUpon>
     </Compile>
-    <Page Include="Components\FalcutyTrainingForm\FalcutyDataGrid.xaml">
+    <Page Include="Components\FacultyTrainingForm\FacultyDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -545,7 +546,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\FalcutyTrainingForm\TrainingFormCard.xaml">
+    <Page Include="Components\FacultyTrainingForm\TrainingFormCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -561,7 +562,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\AdminFalcutyTrainingForm.xaml">
+    <Page Include="Views\Faculty.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

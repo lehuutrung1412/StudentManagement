@@ -14,8 +14,8 @@
         <EntityTypeShape EntityType="StudentManagementModel.DetailScore" Width="1.5" PointX="10.5" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentManagementModel.Document" Width="1.5" PointX="10.5" PointY="20.25" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentManagementModel.Examination" Width="1.5" PointX="8.25" PointY="26.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentManagementModel.Falcuty" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentManagementModel.Falcuty_TrainingForm" Width="1.5" PointX="11.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Faculty" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentManagementModel.Faculty_TrainingForm" Width="1.5" PointX="11.25" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentManagementModel.Folder" Width="1.5" PointX="8.25" PointY="29.5" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentManagementModel.Parent" Width="1.5" PointX="6" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentManagementModel.Semester" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
@@ -30,7 +30,7 @@
         <EntityTypeShape EntityType="StudentManagementModel.User" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
         <AssociationConnector Association="StudentManagementModel.FK__AbsentCal__IdSub__06CD04F7" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__Admin__IdUsers__6D0D32F4" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentManagementModel.FK__Class__IdFalcuty__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdFaculty__72C60C4A" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__Class__IdTeacher__73BA3083" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__Class__IdThumbna__74AE54BC" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__Class__IdTrainin__71D1E811" ManuallyRouted="false" />
@@ -46,9 +46,9 @@
         <AssociationConnector Association="StudentManagementModel.FK__Document__IdPost__02FC7413" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__Document__IdSubj__04E4BC85" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__Examinati__IdSub__787EE5A0" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentManagementModel.FK__Falcuty_T__IdFal__6EF57B66" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentManagementModel.FK__Users__IdFalcuty__6754599E" ManuallyRouted="false" />
-        <AssociationConnector Association="StudentManagementModel.FK__Falcuty_T__IdTra__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Faculty_T__IdFal__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Users__IdFaculty__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentManagementModel.FK__Faculty_T__IdTra__6E01572D" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__Folder__IdSubjec__05D8E0BE" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__Student__IdParen__6B24EA82" ManuallyRouted="false" />
         <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdSem__76969D2E" ManuallyRouted="false" />

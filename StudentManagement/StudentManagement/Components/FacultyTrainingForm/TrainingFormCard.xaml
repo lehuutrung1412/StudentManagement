@@ -23,7 +23,7 @@
             Padding="6"
             Background="Transparent"
             BorderBrush="Transparent"
-            Command="{Binding ShowTrainingFormCardInfo, Source={StaticResource AdminFalcutyTrainingFormRightSideBarVM}}"
+            Command="{Binding ShowTrainingFormCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
             CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
             FontWeight="Normal"
             Foreground="Black">
@@ -74,17 +74,17 @@
                                     Command="{Binding ShowTrainingFormCardInfo}"
                                     CommandParameter="{Binding ElementName=TrainingFormCardComponent}"
                                     Content="Xem thông tin"
-                                    DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
+                                    DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}" />
                                 <Button
                                     Command="{Binding EditTrainingFormCardInfo}"
                                     CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
                                     Content="Chỉnh sửa"
-                                    DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
+                                    DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}" />
                                 <Button
                                     Command="{Binding DeleteTrainingFormCardInfo}"
                                     CommandParameter="{Binding ElementName=TrainingFormCardComponent, Path=DataContext}"
                                     Content="Xóa"
-                                    DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}" />
+                                    DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}" />
                             </StackPanel>
                         </materialDesign:PopupBox>
                     </Grid>

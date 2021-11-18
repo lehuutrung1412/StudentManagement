@@ -27,7 +27,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IdTrainingForm" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="IdFalcuty" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdFaculty" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar(max)" />
           <Property Name="IdTeacher" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" />
@@ -90,7 +90,7 @@
           <Property Name="WeekDay" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Period" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="Falcuty">
+        <EntityType Name="Faculty">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -98,13 +98,13 @@
           <Property Name="DisplayName" Type="nvarchar(max)" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
-        <EntityType Name="Falcuty_TrainingForm">
+        <EntityType Name="Faculty_TrainingForm">
           <Key>
             <PropertyRef Name="IdTrainingForm" />
-            <PropertyRef Name="IdFalcuty" />
+            <PropertyRef Name="IdFaculty" />
           </Key>
           <Property Name="IdTrainingForm" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="IdFalcuty" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdFaculty" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="Folder">
@@ -236,7 +236,7 @@
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="Online" Type="bit" />
           <Property Name="Roles" Type="int" />
-          <Property Name="IdFalcuty" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IdFaculty" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IdAvatar" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <Association Name="FK__AbsentCal__IdSub__06CD04F7">
@@ -263,15 +263,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdFalcuty__72C60C4A">
-          <End Role="Falcuty" Type="Self.Falcuty" Multiplicity="1" />
+        <Association Name="FK__Class__IdFaculty__72C60C4A">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
           <End Role="Class" Type="Self.Class" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Falcuty">
+            <Principal Role="Faculty">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Class">
-              <PropertyRef Name="IdFalcuty" />
+              <PropertyRef Name="IdFaculty" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -431,26 +431,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Falcuty_T__IdFal__6EF57B66">
-          <End Role="Falcuty" Type="Self.Falcuty" Multiplicity="1" />
-          <End Role="Falcuty_TrainingForm" Type="Self.Falcuty_TrainingForm" Multiplicity="*" />
+        <Association Name="FK__Faculty_T__IdFal__6EF57B66">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="Faculty_TrainingForm" Type="Self.Faculty_TrainingForm" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Falcuty">
+            <Principal Role="Faculty">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Falcuty_TrainingForm">
-              <PropertyRef Name="IdFalcuty" />
+            <Dependent Role="Faculty_TrainingForm">
+              <PropertyRef Name="IdFaculty" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Falcuty_T__IdTra__6E01572D">
+        <Association Name="FK__Faculty_T__IdTra__6E01572D">
           <End Role="TrainingForm" Type="Self.TrainingForm" Multiplicity="1" />
-          <End Role="Falcuty_TrainingForm" Type="Self.Falcuty_TrainingForm" Multiplicity="*" />
+          <End Role="Faculty_TrainingForm" Type="Self.Faculty_TrainingForm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TrainingForm">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Falcuty_TrainingForm">
+            <Dependent Role="Faculty_TrainingForm">
               <PropertyRef Name="IdTrainingForm" />
             </Dependent>
           </ReferentialConstraint>
@@ -635,15 +635,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__IdFalcuty__6754599E">
-          <End Role="Falcuty" Type="Self.Falcuty" Multiplicity="1" />
+        <Association Name="FK__Users__IdFaculty__6754599E">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Falcuty">
+            <Principal Role="Faculty">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Users">
-              <PropertyRef Name="IdFalcuty" />
+              <PropertyRef Name="IdFaculty" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -688,8 +688,8 @@
           <EntitySet Name="DetailScore" EntityType="Self.DetailScore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Examination" EntityType="Self.Examination" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Falcuty" EntityType="Self.Falcuty" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Falcuty_TrainingForm" EntityType="Self.Falcuty_TrainingForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faculty_TrainingForm" EntityType="Self.Faculty_TrainingForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parent" EntityType="Self.Parent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Semester" EntityType="Self.Semester" Schema="dbo" store:Type="Tables" />
@@ -711,8 +711,8 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Admin" EntitySet="Admin" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdFalcuty__72C60C4A" Association="Self.FK__Class__IdFalcuty__72C60C4A">
-            <End Role="Falcuty" EntitySet="Falcuty" />
+          <AssociationSet Name="FK__Class__IdFaculty__72C60C4A" Association="Self.FK__Class__IdFaculty__72C60C4A">
+            <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Class" EntitySet="Class" />
           </AssociationSet>
           <AssociationSet Name="FK__Class__IdTeacher__73BA3083" Association="Self.FK__Class__IdTeacher__73BA3083">
@@ -767,13 +767,13 @@
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="Examination" EntitySet="Examination" />
           </AssociationSet>
-          <AssociationSet Name="FK__Falcuty_T__IdFal__6EF57B66" Association="Self.FK__Falcuty_T__IdFal__6EF57B66">
-            <End Role="Falcuty" EntitySet="Falcuty" />
-            <End Role="Falcuty_TrainingForm" EntitySet="Falcuty_TrainingForm" />
+          <AssociationSet Name="FK__Faculty_T__IdFal__6EF57B66" Association="Self.FK__Faculty_T__IdFal__6EF57B66">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
-          <AssociationSet Name="FK__Falcuty_T__IdTra__6E01572D" Association="Self.FK__Falcuty_T__IdTra__6E01572D">
+          <AssociationSet Name="FK__Faculty_T__IdTra__6E01572D" Association="Self.FK__Faculty_T__IdTra__6E01572D">
             <End Role="TrainingForm" EntitySet="TrainingForm" />
-            <End Role="Falcuty_TrainingForm" EntitySet="Falcuty_TrainingForm" />
+            <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
           <AssociationSet Name="FK__Folder__IdSubjec__05D8E0BE" Association="Self.FK__Folder__IdSubjec__05D8E0BE">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
@@ -835,8 +835,8 @@
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTable" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__IdFalcuty__6754599E" Association="Self.FK__Users__IdFalcuty__6754599E">
-            <End Role="Falcuty" EntitySet="Falcuty" />
+          <AssociationSet Name="FK__Users__IdFaculty__6754599E" Association="Self.FK__Users__IdFaculty__6754599E">
+            <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
@@ -869,12 +869,12 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IdTrainingForm" Type="Guid" Nullable="false" />
-          <Property Name="IdFalcuty" Type="Guid" Nullable="false" />
+          <Property Name="IdFaculty" Type="Guid" Nullable="false" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IdTeacher" Type="Guid" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="IdThumbnail" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Falcuty" Relationship="Self.FK__Class__IdFalcuty__72C60C4A" FromRole="Class" ToRole="Falcuty" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK__Class__IdFaculty__72C60C4A" FromRole="Class" ToRole="Faculty" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK__Class__IdTeacher__73BA3083" FromRole="Class" ToRole="Teacher" />
           <NavigationProperty Name="DatabaseImageTable" Relationship="Self.FK__Class__IdThumbna__74AE54BC" FromRole="Class" ToRole="DatabaseImageTable" />
           <NavigationProperty Name="TrainingForm" Relationship="Self.FK__Class__IdTrainin__71D1E811" FromRole="Class" ToRole="TrainingForm" />
@@ -950,27 +950,27 @@
           <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="SubjectClass" Relationship="Self.FK__Examinati__IdSub__787EE5A0" FromRole="Examination" ToRole="SubjectClass" />
         </EntityType>
-        <EntityType Name="Falcuty">
+        <EntityType Name="Faculty">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Classes" Relationship="Self.FK__Class__IdFalcuty__72C60C4A" FromRole="Falcuty" ToRole="Class" />
-          <NavigationProperty Name="Falcuty_TrainingForm" Relationship="Self.FK__Falcuty_T__IdFal__6EF57B66" FromRole="Falcuty" ToRole="Falcuty_TrainingForm" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__Users__IdFalcuty__6754599E" FromRole="Falcuty" ToRole="Users" />
+          <NavigationProperty Name="Classes" Relationship="Self.FK__Class__IdFaculty__72C60C4A" FromRole="Faculty" ToRole="Class" />
+          <NavigationProperty Name="Faculty_TrainingForm" Relationship="Self.FK__Faculty_T__IdFal__6EF57B66" FromRole="Faculty" ToRole="Faculty_TrainingForm" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__IdFaculty__6754599E" FromRole="Faculty" ToRole="Users" />
         </EntityType>
-        <EntityType Name="Falcuty_TrainingForm">
+        <EntityType Name="Faculty_TrainingForm">
           <Key>
             <PropertyRef Name="IdTrainingForm" />
-            <PropertyRef Name="IdFalcuty" />
+            <PropertyRef Name="IdFaculty" />
           </Key>
           <Property Name="IdTrainingForm" Type="Guid" Nullable="false" />
-          <Property Name="IdFalcuty" Type="Guid" Nullable="false" />
+          <Property Name="IdFaculty" Type="Guid" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Falcuty" Relationship="Self.FK__Falcuty_T__IdFal__6EF57B66" FromRole="Falcuty_TrainingForm" ToRole="Falcuty" />
-          <NavigationProperty Name="TrainingForm" Relationship="Self.FK__Falcuty_T__IdTra__6E01572D" FromRole="Falcuty_TrainingForm" ToRole="TrainingForm" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK__Faculty_T__IdFal__6EF57B66" FromRole="Faculty_TrainingForm" ToRole="Faculty" />
+          <NavigationProperty Name="TrainingForm" Relationship="Self.FK__Faculty_T__IdTra__6E01572D" FromRole="Faculty_TrainingForm" ToRole="TrainingForm" />
         </EntityType>
         <EntityType Name="Folder">
           <Key>
@@ -1100,7 +1100,7 @@
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Classes" Relationship="Self.FK__Class__IdTrainin__71D1E811" FromRole="TrainingForm" ToRole="Class" />
-          <NavigationProperty Name="Falcuty_TrainingForm" Relationship="Self.FK__Falcuty_T__IdTra__6E01572D" FromRole="TrainingForm" ToRole="Falcuty_TrainingForm" />
+          <NavigationProperty Name="Faculty_TrainingForm" Relationship="Self.FK__Faculty_T__IdTra__6E01572D" FromRole="TrainingForm" ToRole="Faculty_TrainingForm" />
           <NavigationProperty Name="Students" Relationship="Self.FK__Student__IdTrain__693CA210" FromRole="TrainingForm" ToRole="Student" />
         </EntityType>
         <EntityType Name="TrainingScore">
@@ -1128,12 +1128,12 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Online" Type="Boolean" />
           <Property Name="Roles" Type="Int32" />
-          <Property Name="IdFalcuty" Type="Guid" Nullable="false" />
+          <Property Name="IdFaculty" Type="Guid" Nullable="false" />
           <Property Name="IdAvatar" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Admins" Relationship="Self.FK__Admin__IdUsers__6D0D32F4" FromRole="Users" ToRole="Admin" />
           <NavigationProperty Name="DatabaseImageTable" Relationship="Self.FK__Users__IdAvatar__68487DD7" FromRole="Users" ToRole="DatabaseImageTable" />
           <NavigationProperty Name="Documents" Relationship="Self.FK__Document__IdPost__02FC7413" FromRole="Users" ToRole="Document" />
-          <NavigationProperty Name="Falcuty" Relationship="Self.FK__Users__IdFalcuty__6754599E" FromRole="Users" ToRole="Falcuty" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK__Users__IdFaculty__6754599E" FromRole="Users" ToRole="Faculty" />
           <NavigationProperty Name="Students" Relationship="Self.FK__Student__IdUsers__6A30C649" FromRole="Users" ToRole="Student" />
           <NavigationProperty Name="Teachers" Relationship="Self.FK__Teacher__IdUsers__6C190EBB" FromRole="Users" ToRole="Teacher" />
         </EntityType>
@@ -1161,15 +1161,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdFalcuty__72C60C4A">
-          <End Role="Falcuty" Type="Self.Falcuty" Multiplicity="1" />
+        <Association Name="FK__Class__IdFaculty__72C60C4A">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
           <End Role="Class" Type="Self.Class" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Falcuty">
+            <Principal Role="Faculty">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Class">
-              <PropertyRef Name="IdFalcuty" />
+              <PropertyRef Name="IdFaculty" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1353,38 +1353,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Falcuty_T__IdFal__6EF57B66">
-          <End Role="Falcuty" Type="Self.Falcuty" Multiplicity="1" />
-          <End Role="Falcuty_TrainingForm" Type="Self.Falcuty_TrainingForm" Multiplicity="*" />
+        <Association Name="FK__Faculty_T__IdFal__6EF57B66">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+          <End Role="Faculty_TrainingForm" Type="Self.Faculty_TrainingForm" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Falcuty">
+            <Principal Role="Faculty">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Falcuty_TrainingForm">
-              <PropertyRef Name="IdFalcuty" />
+            <Dependent Role="Faculty_TrainingForm">
+              <PropertyRef Name="IdFaculty" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__IdFalcuty__6754599E">
-          <End Role="Falcuty" Type="Self.Falcuty" Multiplicity="1" />
+        <Association Name="FK__Users__IdFaculty__6754599E">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Falcuty">
+            <Principal Role="Faculty">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Users">
-              <PropertyRef Name="IdFalcuty" />
+              <PropertyRef Name="IdFaculty" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Falcuty_T__IdTra__6E01572D">
+        <Association Name="FK__Faculty_T__IdTra__6E01572D">
           <End Role="TrainingForm" Type="Self.TrainingForm" Multiplicity="1" />
-          <End Role="Falcuty_TrainingForm" Type="Self.Falcuty_TrainingForm" Multiplicity="*" />
+          <End Role="Faculty_TrainingForm" Type="Self.Faculty_TrainingForm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TrainingForm">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Falcuty_TrainingForm">
+            <Dependent Role="Faculty_TrainingForm">
               <PropertyRef Name="IdTrainingForm" />
             </Dependent>
           </ReferentialConstraint>
@@ -1535,8 +1535,8 @@
           <EntitySet Name="DetailScores" EntityType="Self.DetailScore" />
           <EntitySet Name="Documents" EntityType="Self.Document" />
           <EntitySet Name="Examinations" EntityType="Self.Examination" />
-          <EntitySet Name="Falcuties" EntityType="Self.Falcuty" />
-          <EntitySet Name="Falcuty_TrainingForm" EntityType="Self.Falcuty_TrainingForm" />
+          <EntitySet Name="Falcuties" EntityType="Self.Faculty" />
+          <EntitySet Name="Faculty_TrainingForm" EntityType="Self.Faculty_TrainingForm" />
           <EntitySet Name="Folders" EntityType="Self.Folder" />
           <EntitySet Name="Parents" EntityType="Self.Parent" />
           <EntitySet Name="Semesters" EntityType="Self.Semester" />
@@ -1557,8 +1557,8 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Admin" EntitySet="Admins" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdFalcuty__72C60C4A" Association="Self.FK__Class__IdFalcuty__72C60C4A">
-            <End Role="Falcuty" EntitySet="Falcuties" />
+          <AssociationSet Name="FK__Class__IdFaculty__72C60C4A" Association="Self.FK__Class__IdFaculty__72C60C4A">
+            <End Role="Faculty" EntitySet="Falcuties" />
             <End Role="Class" EntitySet="Classes" />
           </AssociationSet>
           <AssociationSet Name="FK__Class__IdTeacher__73BA3083" Association="Self.FK__Class__IdTeacher__73BA3083">
@@ -1621,17 +1621,17 @@
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="Examination" EntitySet="Examinations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Falcuty_T__IdFal__6EF57B66" Association="Self.FK__Falcuty_T__IdFal__6EF57B66">
-            <End Role="Falcuty" EntitySet="Falcuties" />
-            <End Role="Falcuty_TrainingForm" EntitySet="Falcuty_TrainingForm" />
+          <AssociationSet Name="FK__Faculty_T__IdFal__6EF57B66" Association="Self.FK__Faculty_T__IdFal__6EF57B66">
+            <End Role="Faculty" EntitySet="Falcuties" />
+            <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__IdFalcuty__6754599E" Association="Self.FK__Users__IdFalcuty__6754599E">
-            <End Role="Falcuty" EntitySet="Falcuties" />
+          <AssociationSet Name="FK__Users__IdFaculty__6754599E" Association="Self.FK__Users__IdFaculty__6754599E">
+            <End Role="Faculty" EntitySet="Falcuties" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Falcuty_T__IdTra__6E01572D" Association="Self.FK__Falcuty_T__IdTra__6E01572D">
+          <AssociationSet Name="FK__Faculty_T__IdTra__6E01572D" Association="Self.FK__Faculty_T__IdTra__6E01572D">
             <End Role="TrainingForm" EntitySet="TrainingForms" />
-            <End Role="Falcuty_TrainingForm" EntitySet="Falcuty_TrainingForm" />
+            <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
           <AssociationSet Name="FK__Folder__IdSubjec__05D8E0BE" Association="Self.FK__Folder__IdSubjec__05D8E0BE">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
@@ -1711,7 +1711,7 @@
               <MappingFragment StoreEntitySet="Class">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdTrainingForm" ColumnName="IdTrainingForm" />
-                <ScalarProperty Name="IdFalcuty" ColumnName="IdFalcuty" />
+                <ScalarProperty Name="IdFaculty" ColumnName="IdFaculty" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
@@ -1783,19 +1783,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Falcuties">
-            <EntityTypeMapping TypeName="StudentManagementModel.Falcuty">
-              <MappingFragment StoreEntitySet="Falcuty">
+            <EntityTypeMapping TypeName="StudentManagementModel.Faculty">
+              <MappingFragment StoreEntitySet="Faculty">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Falcuty_TrainingForm">
-            <EntityTypeMapping TypeName="StudentManagementModel.Falcuty_TrainingForm">
-              <MappingFragment StoreEntitySet="Falcuty_TrainingForm">
+          <EntitySetMapping Name="Faculty_TrainingForm">
+            <EntityTypeMapping TypeName="StudentManagementModel.Faculty_TrainingForm">
+              <MappingFragment StoreEntitySet="Faculty_TrainingForm">
                 <ScalarProperty Name="IdTrainingForm" ColumnName="IdTrainingForm" />
-                <ScalarProperty Name="IdFalcuty" ColumnName="IdFalcuty" />
+                <ScalarProperty Name="IdFaculty" ColumnName="IdFaculty" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1931,7 +1931,7 @@
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Online" ColumnName="Online" />
                 <ScalarProperty Name="Roles" ColumnName="Roles" />
-                <ScalarProperty Name="IdFalcuty" ColumnName="IdFalcuty" />
+                <ScalarProperty Name="IdFaculty" ColumnName="IdFaculty" />
                 <ScalarProperty Name="IdAvatar" ColumnName="IdAvatar" />
               </MappingFragment>
             </EntityTypeMapping>

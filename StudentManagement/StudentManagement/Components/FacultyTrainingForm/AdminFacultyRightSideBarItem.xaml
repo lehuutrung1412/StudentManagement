@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="StudentManagement.Components.AdminFalcutyRightSideBarItemEdit"
+    x:Class="StudentManagement.Components.AdminFacultyRightSideBarItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
-    x:Name="FalcutyRightSideBarItem"
+    x:Name="FacultyRightSideBar"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
@@ -48,14 +48,11 @@
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Tên khoa:" />
-                <TextBox
+                <TextBlock
                     Grid.Column="1"
-                    Padding="8,0,0,0"
-                    VerticalAlignment="Center"
-                    FontSize="14"
+                    Style="{StaticResource textblock_item}"
                     Text="{Binding CurrentCard.TenKhoa, FallbackValue='Tên khoa'}"
-                    TextAlignment="Right"
-                    TextWrapping="Wrap" />
+                    TextAlignment="Right" />
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
@@ -107,52 +104,39 @@
                     Style="{StaticResource textblock_item}"
                     Text="{Binding CurrentCard.CacHeDaoTao, FallbackValue='Các hệ đào tạo'}"
                     TextAlignment="Right" />
+
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
+            <Button
+                x:Name="btnEdit"
+                Padding="0"
+                BorderThickness="0"
+                Command="{Binding EditFacultyCardInfo}"
+                CommandParameter="{Binding ElementName=FacultyRightSideBar, Path=DataContext.CurrentCard}"
+                DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}"
+                Foreground="#DD000000"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
+
+                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
-                        VerticalAlignment="Center"
-                        FontSize="14"
+                        FontSize="16"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
                         Text="Chỉnh sửa:" />
+                    <materialDesign:PackIcon
+                        Width="18"
+                        Height="18"
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Right"
+                        Kind="Pencil" />
                 </Grid>
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button
-                        Grid.Column="0"
-                        Margin="8,0,8,0"
-                        HorizontalAlignment="Stretch"
-                        Command="{Binding ConfirmEditFalcutyCardInfo}"
-                        Content="Chỉnh sửa"
-                        FontSize="14"
-                        Style="{StaticResource PrimaryButton}" />
-                    <Button
-                        Grid.Column="1"
-                        Margin="8,0,0,0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Background="Red"
-                        Command="{Binding CancelEditFalcutyCardInfo}"
-                        Content="Huỷ"
-                        FontSize="14"
-                        Style="{StaticResource PrimaryButton}" />
-                </Grid>
-            </Grid>
+            </Button>
             <Button
                 x:Name="btnDelete"
                 Padding="0"
                 BorderThickness="0"
-                Command="{Binding DeleteFalcutyCardInfo}"
-                CommandParameter="{Binding ElementName=FalcutyRightSideBarItem, Path=DataContext.ActualCard}"
-                DataContext="{DynamicResource AdminFalcutyTrainingFormRightSideBarVM}"
+                Command="{Binding DeleteFacultyCardInfo}"
+                CommandParameter="{Binding ElementName=FacultyRightSideBar, Path=DataContext.CurrentCard}"
+                DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}"
                 Foreground="#DD000000"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 
@@ -173,4 +157,3 @@
         </StackPanel>
     </Grid>
 </UserControl>
-

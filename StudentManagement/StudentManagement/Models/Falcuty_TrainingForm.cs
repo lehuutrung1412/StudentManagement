@@ -13,16 +13,16 @@ namespace StudentManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Falcuty_TrainingForm : BaseViewModel
+    public partial class Faculty_TrainingForm : BaseViewModel
     {
         private System.Guid _idTrainingForm { get; set; }
         public System.Guid IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
-        private System.Guid _idFalcuty { get; set; }
-        public System.Guid IdFalcuty { get => _idFalcuty; set { _idFalcuty = value; OnPropertyChanged(); } }
+        private System.Guid _idFaculty { get; set; }
+        public System.Guid IdFaculty { get => _idFaculty; set { _idFaculty = value; OnPropertyChanged(); } }
         private Nullable<bool> _isDeleted { get; set; }
         public Nullable<bool> IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
     
-        public virtual Falcuty Falcuty { get; set; }
+        public virtual Faculty Faculty { get; set; }
         public virtual TrainingForm TrainingForm { get; set; }
     }
 }

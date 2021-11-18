@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace StudentManagement.Components
 {
     /// <summary>
-    /// Interaction logic for AdminFalcutyRightSideBarItem.xaml
+    /// Interaction logic for FacultyDataGrid.xaml
     /// </summary>
-    public partial class AdminFalcutyRightSideBarItem : UserControl
+    public partial class FacultyDataGrid : UserControl
     {
-        public AdminFalcutyRightSideBarItem()
+        public FacultyDataGrid()
         {
             InitializeComponent();
         }

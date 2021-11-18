@@ -34,7 +34,7 @@ namespace StudentManagement.ViewModels
         private object _adminSubjectClassViewModel;
         private object _adminNotificationViewModel;
         private object _studentCourseRegistryViewModel;
-        private object _adminFalcutyTrainingFormViewModel;
+        private object _adminFacultyTrainingFormViewModel;
         private object _scoreboardViewModel;
         private object _studentScheduleTableViewModel;
         private object _adminUserInfoStudentViewModel;
@@ -44,7 +44,7 @@ namespace StudentManagement.ViewModels
         private object _adminSubjectClassRightSideBar;
         private object _adminNotificationRightSideBar;
         private object _studentCourseRegistryRightSideBar;
-        private object _adminFalcutyTrainingFormRightSideBar;
+        private object _adminFacultyTrainingFormRightSideBar;
         private object _scoreboardRightSideBar;
 
         public MainViewModel()
@@ -62,7 +62,7 @@ namespace StudentManagement.ViewModels
 
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, _layoutViewModel, "School"),
-                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFalcutyTrainingFormViewModel, _adminFalcutyTrainingFormRightSideBar, _layoutViewModel, "School")
+                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, _layoutViewModel, "School")
             };
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
@@ -101,7 +101,7 @@ namespace StudentManagement.ViewModels
 
             _studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
 
-            _adminFalcutyTrainingFormViewModel = new AdminFalcutyTrainingFormViewModel();
+            _adminFacultyTrainingFormViewModel = new AdminFacultyTrainingFormViewModel();
 
             _scoreboardViewModel = new ScoreBoardViewModel();
 
@@ -122,7 +122,7 @@ namespace StudentManagement.ViewModels
 
             _studentCourseRegistryRightSideBar = new StudentCourseRegistryRightSideBarViewModel();
 
-            _adminFalcutyTrainingFormRightSideBar = new AdminFalcutyTrainingFormRightSideBarViewModel();
+            _adminFacultyTrainingFormRightSideBar = new AdminFacultyTrainingFormRightSideBarViewModel();
 
             _scoreboardRightSideBar = new ScoreBoardRightSideBarViewModel(); //ViewModel
 
