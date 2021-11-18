@@ -23,7 +23,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <ScrollViewer>
-        <materialDesign:DialogHost CloseOnClickAway="True" Name="DialogHostNotification">
+        <materialDesign:DialogHost CloseOnClickAway="True" Name="DialogHostNotification" IsOpen="{Binding IsOpen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl
                     Content="{Binding DialogItemViewModel}"

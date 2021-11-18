@@ -37,7 +37,8 @@
                 Background="{DynamicResource White}"
                 BorderThickness="0"
                 Foreground="Black"
-                >
+                Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}"
+                CommandParameter="{Binding ElementName=NotificationComponent}">
                 <Button.Style>
                     <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
                         <Style.Triggers>
@@ -49,7 +50,7 @@
                 </Button.Style>
                 <!--<i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        --><!--<i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />--><!--
+                        <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
                         <i:InvokeCommandAction Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
 
                     </i:EventTrigger>
@@ -156,7 +157,7 @@
                                                     Kind="DotsHorizontal" />
                                             </materialDesign:PopupBox.ToggleContent>
                                             <StackPanel>
-                                                <Button
+                                                <!--<Button
                                                     Width="300"
                                                     Command="{Binding MarkAsReadCommand, Source={StaticResource AdminNotificationVM}}"
                                                     CommandParameter="{Binding ElementName=NotificationComponent}">
@@ -206,7 +207,7 @@
                                                                 CommandParameter="{Binding ElementName=NotificationComponent}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
-                                                </Button>
+                                                </Button>-->
                                                 <Button
                                                     Width="300"
                                                     Command="{Binding MarkAsReadCommand, Source={StaticResource AdminNotificationVM}}"
