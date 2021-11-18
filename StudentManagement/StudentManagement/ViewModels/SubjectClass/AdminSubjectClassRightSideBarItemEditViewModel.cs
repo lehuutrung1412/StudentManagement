@@ -27,6 +27,8 @@ namespace StudentManagement.ViewModels
 
         //store card info before edit
         private SubjectCard _actualCard;
+        public SubjectCard ActualCard { get => _actualCard; set => _actualCard = value; }
+
 
         public AdminSubjectClassRightSideBarItemEditViewModel()
         {
@@ -36,7 +38,7 @@ namespace StudentManagement.ViewModels
         public AdminSubjectClassRightSideBarItemEditViewModel(SubjectCard card)
         {
             CurrentCard = new SubjectCard();
-            _actualCard = card;
+            ActualCard = card;
             CurrentCard.CopyCardInfo(card);
             InitCommand();
         }
@@ -57,21 +59,21 @@ namespace StudentManagement.ViewModels
 
         public void CancelEditSubjectCardInfoFunction()
         {
-            CurrentCard.CopyCardInfo(_actualCard);
+            CurrentCard.CopyCardInfo(ActualCard);
             ReturnToShowSubjectCardInfo();
         }
 
         public void ConfirmEditSubjectCardInfoFunction()
         {
-            _actualCard.CopyCardInfo(CurrentCard);
-            _actualCard.RunOnPropertyChanged();
+            ActualCard.CopyCardInfo(CurrentCard);
+            ActualCard.RunOnPropertyChanged();
             ReturnToShowSubjectCardInfo();
         }
 
         public void ReturnToShowSubjectCardInfo()
         {
-            AdminFalcutyTrainingFormRightSideBarViewModel adminFalcutyTrainingFormRightSideBarViewModel = AdminFalcutyTrainingFormRightSideBarViewModel.Instance;
-            adminFalcutyTrainingFormRightSideBarViewModel.RightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(_actualCard);
+            AdminSubjectClassRightSideBarViewModel adminSubjectClassRightSideBarViewModel = AdminSubjectClassRightSideBarViewModel.Instance;
+            adminSubjectClassRightSideBarViewModel.RightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(ActualCard);
         }
     }
     

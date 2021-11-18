@@ -48,11 +48,6 @@
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Tên khoa:" />
-                <!--<TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.TenKhoa, FallbackValue='Tên khoa'}"
-                    TextAlignment="Right" />-->
                 <TextBox
                     Grid.Column="1"
                     Padding="8,0,0,0"

@@ -54,9 +54,13 @@ namespace StudentManagement.ViewModels
 
         public AdminSubjectClassRightSideBarViewModel()
         {
+            Instance = this;
             InitRightSideBarItemViewModel();
 
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
+
+            EditSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditSubjectCardByCardFunction(p));
+            DeleteSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => DeleteSubjectCardByCardFunction(p));
         }
 
         #region methods
@@ -90,6 +94,7 @@ namespace StudentManagement.ViewModels
             SubjectCard card = p as SubjectCard;
 
             SubjectCards.Remove(card);
+            StoredSubjectCards.Remove(card);
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
