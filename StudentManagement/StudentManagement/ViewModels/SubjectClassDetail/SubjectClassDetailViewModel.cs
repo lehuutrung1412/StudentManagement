@@ -27,6 +27,7 @@ namespace StudentManagement.ViewModels
 
         // ViewModels -> To display view in layout
         private object _newFeedSubjectClassDetailViewModel;
+        private object _fileManagerClassDetailViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
 
@@ -39,7 +40,8 @@ namespace StudentManagement.ViewModels
             InitRightSideBar();
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Lớp môn học", false, null, _newFeedSubjectClassDetailViewModel, null, _layoutViewModel, "Home")
+                new NavigationItem("Lớp môn học", false, null, _newFeedSubjectClassDetailViewModel, null, _layoutViewModel, "Home"),
+                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, null, _layoutViewModel, "Home")
             };
 
             CurrentViewModel = _layoutViewModel;
@@ -48,6 +50,7 @@ namespace StudentManagement.ViewModels
         public void InitContentView()
         {
             _newFeedSubjectClassDetailViewModel = new NewFeedSubjectClassDetailViewModel();
+            _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel();
 
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;
         }

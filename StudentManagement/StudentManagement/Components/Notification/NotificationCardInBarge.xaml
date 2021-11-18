@@ -48,13 +48,13 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
-                <!--<i:Interaction.Triggers>
+                <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
                         <i:InvokeCommandAction Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
 
                     </i:EventTrigger>
-                </i:Interaction.Triggers>-->
+                </i:Interaction.Triggers>
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.2*" />

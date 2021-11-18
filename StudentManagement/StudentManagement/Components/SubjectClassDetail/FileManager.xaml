@@ -1,0 +1,126 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.FileManager"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    Name="FileManagerUC"
+    d:DataContext="{StaticResource FileManagerClassDetailVM}"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.5'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
+    Background="Transparent"
+    mc:Ignorable="d">
+    <Border Background="White" CornerRadius="10">
+        <Grid>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <DataGrid
+                    MaxHeight="400"
+                    VerticalContentAlignment="Center"
+                    AutoGenerateColumns="False"
+                    Background="{StaticResource Background}"
+                    CanUserAddRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserReorderColumns="False"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding FileDataGroup}">
+
+                    <DataGrid.CellStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                        <Grid Margin="16" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Style.Resources>
+                                        <ControlTemplate x:Key="MultiItemGroupTemplate" TargetType="{x:Type GroupItem}">
+                                            <Expander
+                                                Background="Linen"
+                                                IsExpanded="False"
+                                                Style="{StaticResource MaterialDesignExpander}">
+                                                <Expander.Header>
+                                                    <DockPanel Margin="-8,0,0,0">
+                                                        <Image
+                                                            Width="24"
+                                                            Height="24"
+                                                            Source="{StaticResource Folder}" />
+                                                        <TextBlock
+                                                            Margin="8"
+                                                            VerticalAlignment="Center"
+                                                            Text="{Binding Items[0].FolderName}" />
+                                                        <TextBlock
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Center"
+                                                            DockPanel.Dock="Right"
+                                                            Text="{Binding ItemCount, StringFormat={}{0} tài liệu}" />
+                                                    </DockPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                        <ControlTemplate x:Key="SingleItemGroupTemplate" TargetType="{x:Type GroupItem}">
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Items[0].FolderId}" Value="{x:Null}">
+                                            <Setter Property="Template" Value="{StaticResource SingleItemGroupTemplate}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Template" Value="{StaticResource MultiItemGroupTemplate}" />
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </DataGrid.GroupStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn
+                            MaxWidth="380"
+                            Width="auto"
+                            CanUserSort="True"
+                            Header="Tên tài liệu"
+                            SortMemberPath="Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            Width="24"
+                                            Height="24"
+                                            Source="{Binding Path=Name, Converter={utils:FileExtensionToImageConverter}}" />
+                                        <TextBlock
+                                            MaxWidth="320"
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            TextTrimming="WordEllipsis"
+                                            Text="{Binding Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding UploadTime}"
+                            Header="Thời gian tạo" />
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding Publisher}"
+                            Header="Người đăng" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>
