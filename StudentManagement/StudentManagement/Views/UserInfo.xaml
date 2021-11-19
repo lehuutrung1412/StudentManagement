@@ -1,0 +1,134 @@
+﻿<UserControl
+    x:Class="StudentManagement.Views.UserInfo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:StudentManagement.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:StudentManagement.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
+    xmlns:views="clr-namespace:StudentManagement.Views"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
+    Background="{StaticResource CenterColumn}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,32,0,16">
+                <StackPanel>
+                    <Button
+                        x:Name="btnImage"
+                        Width="168"
+                        Height="168"
+                        Command="{Binding ClickImageCommand}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Grid>
+                                    <Ellipse
+                                        Width="168"
+                                        Height="168"
+                                        Stroke="Gray"
+                                        StrokeThickness="2">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding Avatar, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button
+                        Width="200"
+                        Margin="0,16,0,0"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Background="#4caf50"
+                        Command="{Binding ClickChangeImageCommand}"
+                        ToolTip="Click vào đây để thay đổi ảnh đại diện">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
+                                <Setter
+                                    Property="Visibility"
+                                    Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChangeAvatar, UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <TextBlock Text="Thay đổi ảnh đại diện" Foreground="White" />
+                    </Button>
+                    <TextBlock
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="28"
+                        FontWeight="Bold"
+                        Text="Nguyễn Đỗ Mạnh Cường" />
+
+                </StackPanel>
+            </Grid>
+            <materialDesign:Card Grid.Row="1" Margin="8">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding InfoSource}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!--<component:SubjectClassCard Margin="12" />-->
+                                <ContentPresenter Content="{Binding}">
+
+                                    <!--  Presentations  -->
+                                    <ContentPresenter.Resources>
+                                        <DataTemplate x:Key="Combobox">
+                                            <component:UserCombobox />
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="DatePicker">
+                                            <component:UserDatePicker />
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="Textbox">
+                                            <component:UserTextBox />
+                                        </DataTemplate>
+                                    </ContentPresenter.Resources>
+
+                                    <!--  Triggers  -->
+                                    <ContentPresenter.Style>
+                                        <Style TargetType="{x:Type ContentPresenter}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Type}" Value="0">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource Textbox}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Type}" Value="1">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource DatePicker}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Type}" Value="2">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource Combobox}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentPresenter.Style>
+                                </ContentPresenter>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+    </ScrollViewer>
+
+</UserControl>

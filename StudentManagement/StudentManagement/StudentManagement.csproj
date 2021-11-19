@@ -203,6 +203,15 @@
     <Compile Include="Components\FalcutyTrainingForm\TrainingFormCard.xaml.cs">
       <DependentUpon>TrainingFormCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\UserInfo\UserCombobox.xaml.cs">
+      <DependentUpon>UserCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\UserInfo\UserDatePicker.xaml.cs">
+      <DependentUpon>UserDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\UserInfo\UserTextBox.xaml.cs">
+      <DependentUpon>UserTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AbsentCalendar.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -289,6 +298,7 @@
     </Compile>
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
+    <Compile Include="Utils\ConverterDateTimeFromString.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\IsNullConverter.cs" />
@@ -332,6 +342,7 @@
     <Compile Include="ViewModels\ScheduleTable\StudentScheduleTableViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
+    <Compile Include="ViewModels\UserInfo\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminFalcutyTrainingForm.xaml.cs">
       <DependentUpon>AdminFalcutyTrainingForm.xaml</DependentUpon>
@@ -437,6 +448,9 @@
     <Compile Include="Views\SubjectClassDetail.xaml.cs">
       <DependentUpon>SubjectClassDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserInfo.xaml.cs">
+      <DependentUpon>UserInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserInfoAdmin.xaml.cs">
       <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
     </Compile>
@@ -539,6 +553,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\UserInfo\UserCombobox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\UserInfo\UserDatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\UserInfo\UserTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -596,6 +622,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SubjectClassDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -72,7 +72,7 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, _layoutViewModel, "Cat"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, _layoutViewModel, "Home"),
                 new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "Home"),
-                new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoStudentViewModel, null, _layoutViewModel, "AccountOutline")
+                new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoStudentViewModel, null, _layoutViewModel, "AccountOutline"),
             };
             
             CurrentViewModel = _layoutViewModel;
@@ -107,7 +107,7 @@ namespace StudentManagement.ViewModels
 
             _studentScheduleTableViewModel = new StudentScheduleTableViewModel();
 
-            _adminUserInfoStudentViewModel = new UserInfoStudentViewModel();
+            _adminUserInfoStudentViewModel = new UserInfoViewModel();
 
             _layoutViewModel.ContentViewModel = _adminHomeViewModel;
         }
