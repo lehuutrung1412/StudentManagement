@@ -288,6 +288,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
+    <Compile Include="Objects\FacultyCard.cs" />
     <Compile Include="Objects\IBaseCard.cs" />
     <Compile Include="Objects\BaseObjectWithBaseViewModel.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
