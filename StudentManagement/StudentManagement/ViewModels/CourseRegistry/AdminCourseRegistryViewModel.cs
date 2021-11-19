@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static StudentManagement.ViewModels.StudentCourseRegistryViewModel;
 
 namespace StudentManagement.ViewModels
 {
@@ -60,12 +61,19 @@ namespace StudentManagement.ViewModels
         }
         private ObservableCollection<Models.SubjectClass> _subjectClasses;
         public ObservableCollection<Models.SubjectClass> SubjectClasses { get => _subjectClasses; set => _subjectClasses = value; }
-        private ObservableCollection<ObservableCollection<CourseItems>> _courseRegistryItemsAll;
+        /*private ObservableCollection<ObservableCollection<CourseItems>> _courseRegistryItemsAll;
         public ObservableCollection<ObservableCollection<CourseItems>> CourseRegistryItemsAll { get => _courseRegistryItemsAll; set => _courseRegistryItemsAll = value; }
         private ObservableCollection<CourseItems> _courseRegistryItems;
         public ObservableCollection<CourseItems> CourseRegistryItems { get => _courseRegistryItems; set => _courseRegistryItems = value; }
         private ObservableCollection<CourseItems> _courseRegistryItemsDisplay;
-        public ObservableCollection<CourseItems> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }
+        public ObservableCollection<CourseItems> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }*/
+        private ObservableCollection<ObservableCollection<CourseRegistryItem>> _courseRegistryItemsAll;
+        public ObservableCollection<ObservableCollection<CourseRegistryItem>> CourseRegistryItemsAll { get => _courseRegistryItemsAll; set => _courseRegistryItemsAll = value; }
+        private ObservableCollection<CourseRegistryItem> _courseRegistryItems;
+        public ObservableCollection<CourseRegistryItem> CourseRegistryItems { get => _courseRegistryItems; set => _courseRegistryItems = value; }
+        private ObservableCollection<CourseRegistryItem> _courseRegistryItemsDisplay;
+        public ObservableCollection<CourseRegistryItem> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }
+        //
         public ObservableCollection<TempSemester> Semesters { get => _semesters; set { _semesters = value; OnPropertyChanged(); } }
         private ObservableCollection<TempSemester> _semesters;
 
@@ -125,7 +133,8 @@ namespace StudentManagement.ViewModels
                 new TempSemester("2020-2021", "HK1", 1),
                 new TempSemester("2020-2021", "HK2", 0)
             };
-            CourseRegistryItemsAll = new ObservableCollection<ObservableCollection<CourseItems>>();
+            /*CourseRegistryItemsAll = new ObservableCollection<ObservableCollection<CourseItems>>();*/
+            CourseRegistryItemsAll = new ObservableCollection<ObservableCollection<CourseRegistryItem>>();
             for (int i = 0; i < Semesters.Count; i++)
             {
                 /*Semester semester = Semesters[i];*/
@@ -135,7 +144,13 @@ namespace StudentManagement.ViewModels
                 {
                     courseItems1Semester.Add(new CourseItems(a, false));
                 }*/
-                var courseItems1Semester = new ObservableCollection<CourseItems>();
+                /*var courseItems1Semester = new ObservableCollection<CourseItems>();*/
+                var courseItems1Semester = new ObservableCollection<CourseRegistryItem>()
+                {
+                    new CourseRegistryItem(false, "IT008.L21.KHTN " + i, "Lập trình trực quan " + i, 4, 50, 30),
+                    new CourseRegistryItem(false, "IT009.L21.KHCL " + i, "Không biết " + i, 2, 30, 30),
+                    new CourseRegistryItem(false, "ENG02.L21 " + i, "Anh văn 2 " + i, 4, 30, 28)
+                };
                 CourseRegistryItemsAll.Add(courseItems1Semester);
             }
             SelectedSemester = Semesters.Last();
@@ -156,12 +171,21 @@ namespace StudentManagement.ViewModels
 
         public void SearchCourseRegistryItemsFunction(object p)
         {
-            /*var tmp = StoredSubjectCards.Where(x => !IsFirstSearchButtonEnabled ?
-                                                    vietnameseStringNormalizer.Normalize(x.TenMon).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
-                                                    : vietnameseStringNormalizer.Normalize(x.GiaoVien).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
-            SubjectCards.Clear();
-            foreach (SubjectCard card in tmp)
-                SubjectCards.Add(card);*/
+            if (SearchQuery == "" || SearchQuery == null)
+            {
+                CourseRegistryItemsDisplay = CourseRegistryItems;
+                return;
+            }
+            if (!IsFirstSearchButtonEnabled)
+            {
+                var tmp = CourseRegistryItems.Where(x => x.IdSubjectClass.ToLower().Contains(SearchQuery.ToLower())).ToList();
+                CourseRegistryItemsDisplay = new ObservableCollection<CourseRegistryItem>(tmp);
+            }
+            else
+            {
+                var tmp = CourseRegistryItems.Where(x => vietnameseStringNormalizer.Normalize(x.SubjectName).ToLower().Contains(vietnameseStringNormalizer.Normalize(SearchQuery.ToLower()))).ToList();
+                CourseRegistryItemsDisplay = new ObservableCollection<CourseRegistryItem>(tmp);
+            }
         }
     }
 }

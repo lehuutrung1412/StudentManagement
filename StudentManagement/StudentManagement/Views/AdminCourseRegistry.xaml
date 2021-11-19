@@ -106,7 +106,6 @@
                     </Grid.ColumnDefinitions>
                     <component:SearchBarOne
                         Grid.Column="0"
-                        DataContext="{DynamicResource AdminCourseRegistryVM}"
                         FirstSearchButtonText="Mã lớp"
                         SearchCommand="{Binding SearchCourseRegistryItems}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -116,52 +115,47 @@
                     LastChildFill="False">
                     <Button
                         DockPanel.Dock="Right"
-                        Height="50"
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Xuất ra Excel"
-                        FontSize="16" />
+                        FontSize="14" />
                     <Button
                         DockPanel.Dock="Right"
-                        Height="50"
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Thêm từ Excel"
-                        FontSize="16" />
+                        FontSize="14" />
                     <Button
                         DockPanel.Dock="Left"
-                        Height="50"
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Thêm thủ công"
-                        FontSize="16" />
+                        FontSize="14" />
                     <Button
                         DockPanel.Dock="Left"
-                        Height="50"
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Xóa"
-                        FontSize="16" />
+                        FontSize="14" />
                 </DockPanel>
                 <component:SubjectRegistryDataGrid
+                    Margin="8"
                     Data="{Binding CourseRegistryItemsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 <DockPanel
                     LastChildFill="False">
                     <Button
                         DockPanel.Dock="Right"
-                        Height="50"
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Làm mới"
-                        FontSize="16" />
+                        FontSize="14" />
                     <Button
                         DockPanel.Dock="Right"
-                        Height="50"
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Lưu vào server"
-                        FontSize="16" />
+                        FontSize="14" />
                 </DockPanel>
             </StackPanel>
         </materialDesign:DialogHost>
