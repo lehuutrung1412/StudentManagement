@@ -23,7 +23,7 @@
                     CanUserAddRows="False"
                     HeadersVisibility="All"
                     ItemsSource="{Binding Path=Data, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=CourseDataGrid}"
-                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}"
+                    SelectedItem="{Binding Tag, Mode=OneWayToSource, ElementName=CourseDataGrid}"
                     PreviewMouseWheel="DataGrid_PreviewMouseWheel">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn
