@@ -6,7 +6,7 @@
     <viewmodel:LayoutViewModel x:Key="LayoutVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
     <viewmodel:TitleBarViewModel x:Key="TitleBarVM" />
-    <viewmodel:UserInfoViewModel x:Key="UserInfoStudentVM" />
+    <viewmodel:UserInfoViewModel x:Key="UserInfoVM" />
     <viewmodel:AdminNotificationViewModel x:Key="AdminNotificationVM" />
     <viewmodel:AdminNotificationRightSideBarViewModel x:Key="AdminNotificationRightSideBarVM" />
     <viewmodel:CreatePostNewFeedViewModel x:Key="CreatePostNewFeedVM" />

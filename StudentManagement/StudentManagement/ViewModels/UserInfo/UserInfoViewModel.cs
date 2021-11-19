@@ -30,6 +30,8 @@ namespace StudentManagement.ViewModels
 
             public bool IsEnable { get => _isEnable; set => _isEnable = value; }
 
+            public InfoItem() { }
+
             public InfoItem(string labelName, int type, ObservableCollection<string> itemSource, object value, int sTT, bool isEnable)
             {
                 LabelName = labelName;
@@ -40,6 +42,7 @@ namespace StudentManagement.ViewModels
                 IsEnable = isEnable;
             }
         }
+
         private ObservableCollection<InfoItem> _infoSource;
 
         public ObservableCollection<InfoItem> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
@@ -51,11 +54,38 @@ namespace StudentManagement.ViewModels
         public string Avatar { get => _avatar; set { _avatar = value; OnPropertyChanged(); } }
         private string _avatar;
 
-        public ICommand ClickImageCommand { get => clickImageCommand; set => clickImageCommand = value; }
-        public ICommand ClickChangeImageCommand { get => clickChangeImageCommand; set => clickChangeImageCommand = value; }
+        public object _userInfoItemViewModel;
 
-        private ICommand clickImageCommand;
-        private ICommand clickChangeImageCommand;
+        private object _dialogItemViewModel;
+        public object DialogItemViewModel
+        {
+            get { return _dialogItemViewModel; }
+            set
+            {
+                _dialogItemViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private object _isOpen;
+        public object IsOpen
+        {
+            get { return _isOpen; }
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand ClickImageCommand { get => _clickImageCommand; set => _clickImageCommand = value; }
+        private ICommand _clickImageCommand;
+
+        public ICommand ClickChangeImageCommand { get => _clickChangeImageCommand; set => _clickChangeImageCommand = value; }
+        private ICommand _clickChangeImageCommand;
+
+        public ICommand AddNewInfoItemCommand { get => _addNewInfoItemCommand; set => _addNewInfoItemCommand = value; }
+        private ICommand _addNewInfoItemCommand;
 
         public UserInfoViewModel()
         {
@@ -80,9 +110,20 @@ namespace StudentManagement.ViewModels
 
             };
             InfoSource = new ObservableCollection<InfoItem>(InfoSource.OrderBy(x => x.STT));
-
+            IsOpen = false;
+            this._userInfoItemViewModel = new UserInfoItemViewModel();
+            this.DialogItemViewModel = this._userInfoItemViewModel;
             ClickImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickImage());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
+            AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
+        }
+
+        public void AddNewInfoItem()
+        {
+            this._userInfoItemViewModel = new UserInfoItemViewModel();
+            this.DialogItemViewModel = this._userInfoItemViewModel;
+            OnPropertyChanged(nameof(DialogItemViewModel));
+            IsOpen = true;
         }
         public void ClickImage()
         {

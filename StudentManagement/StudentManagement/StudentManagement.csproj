@@ -92,6 +92,9 @@
     <Compile Include="Components\Dashboard\AdminHomeRightSideBar.xaml.cs">
       <DependentUpon>AdminHomeRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\UserInfo\NewInfoItem.xaml.cs">
+      <DependentUpon>NewInfoItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\ScoreBoard\TrainingScoreDataGrid.xaml.cs">
       <DependentUpon>TrainingScoreDataGrid.xaml</DependentUpon>
     </Compile>
@@ -342,6 +345,7 @@
     <Compile Include="ViewModels\ScheduleTable\StudentScheduleTableViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
+    <Compile Include="ViewModels\UserInfo\UserInfoItemViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminFalcutyTrainingForm.xaml.cs">
@@ -378,6 +382,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Dashboard\AdminHomeRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\UserInfo\NewInfoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
