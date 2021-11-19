@@ -123,6 +123,8 @@ namespace StudentManagement.ViewModels
         public ICommand SearchCourseRegistryItems { get => _searchCourseRegistryItems; set => _searchCourseRegistryItems = value; }
 
         private ICommand _searchCourseRegistryItems;
+        public ICommand DeleteSelectedItemsCommand { get => _deleteSelectedItemsCommand; set => _deleteSelectedItemsCommand = value; }
+        private ICommand _deleteSelectedItemsCommand;
         #endregion
         public AdminCourseRegistryViewModel()
         {
@@ -156,7 +158,16 @@ namespace StudentManagement.ViewModels
             SelectedSemester = Semesters.Last();
 
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
-            SearchCourseRegistryItems = new RelayCommand<object>((p) => { return true; }, (p) => SearchCourseRegistryItemsFunction(p));
+            SearchCourseRegistryItems = new RelayCommand<object>((p) => { return true; }, (p) => SearchCourseRegistryItemsFunction());
+            DeleteSelectedItemsCommand = new RelayCommand<UserControl>(
+                (p) => 
+                { 
+                    return true; 
+                }, 
+                (p) =>
+                {
+                    DeleteSelectedItems();
+                });
         }
 
         public void SelectData()
@@ -169,7 +180,7 @@ namespace StudentManagement.ViewModels
             IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
 
-        public void SearchCourseRegistryItemsFunction(object p)
+        public void SearchCourseRegistryItemsFunction()
         {
             if (SearchQuery == "" || SearchQuery == null)
             {
@@ -186,6 +197,16 @@ namespace StudentManagement.ViewModels
                 var tmp = CourseRegistryItems.Where(x => vietnameseStringNormalizer.Normalize(x.SubjectName).ToLower().Contains(vietnameseStringNormalizer.Normalize(SearchQuery.ToLower()))).ToList();
                 CourseRegistryItemsDisplay = new ObservableCollection<CourseRegistryItem>(tmp);
             }
+        }
+        public void DeleteSelectedItems()
+        {
+            var SelectedItems = CourseRegistryItems.Where(x => x.IsSelected == true).ToList();
+            foreach (CourseRegistryItem item in SelectedItems)
+            {
+                item.IsSelected = false;
+                CourseRegistryItems.Remove(item);
+            }
+            SearchCourseRegistryItemsFunction();
         }
     }
 }
