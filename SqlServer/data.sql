@@ -19,7 +19,7 @@ CREATE TABLE Users
   Online BIT DEFAULT 0,
   -- 1: online, 0: offline
   Roles INT,
-  IdFalcuty UNIQUEIDENTIFIER NOT NULL,
+  IdFaculty UNIQUEIDENTIFIER NOT NULL,
   IdAvatar UNIQUEIDENTIFIER NOT NULL,
 
 )
@@ -64,7 +64,7 @@ CREATE TABLE Admin
 )
 GO
 
-CREATE TABLE Falcuty
+CREATE TABLE Faculty
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   DisplayName NVARCHAR(MAX),
@@ -80,13 +80,13 @@ CREATE TABLE TrainingForm
 )
 GO
 
-CREATE TABLE Falcuty_TrainingForm
+CREATE TABLE Faculty_TrainingForm
 (
   IdTrainingForm UNIQUEIDENTIFIER NOT NULL,
-  IdFalcuty UNIQUEIDENTIFIER NOT NULL,
+  IdFaculty UNIQUEIDENTIFIER NOT NULL,
   IsDeleted BIT DEFAULT 0,
 
-  PRIMARY KEY (IdTrainingForm,IdFalcuty),
+  PRIMARY KEY (IdTrainingForm,IdFaculty),
 )
 GO
 
@@ -138,7 +138,7 @@ CREATE TABLE Class
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   IdTrainingForm UNIQUEIDENTIFIER NOT NULL,
-  IdFalcuty UNIQUEIDENTIFIER NOT NULL,
+  IdFaculty UNIQUEIDENTIFIER NOT NULL,
   DisplayName NVARCHAR(MAX),
   IdTeacher UNIQUEIDENTIFIER NOT NULL,
   IsDeleted BIT DEFAULT 0,
@@ -254,7 +254,7 @@ GO
 
 -- foreign key
 ALTER TABLE  Users
-ADD FOREIGN KEY (IdFalcuty) REFERENCES Falcuty(Id),
+ADD FOREIGN KEY (IdFaculty) REFERENCES Faculty(Id),
 FOREIGN KEY (IdAvatar) REFERENCES DatabaseImageTable(Id)
 GO
 
@@ -280,9 +280,9 @@ GO
 
 
 
-ALTER TABLE  Falcuty_TrainingForm
+ALTER TABLE  Faculty_TrainingForm
 ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
- FOREIGN KEY(IdFalcuty) REFERENCES Falcuty(Id)
+ FOREIGN KEY(IdFaculty) REFERENCES Faculty(Id)
  GO
 
 
@@ -296,7 +296,7 @@ ADD FOREIGN KEY(IdStudent) REFERENCES Student(Id),
 
 ALTER TABLE  Class
 ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
- FOREIGN KEY(IdFalcuty) REFERENCES Falcuty(Id),
+ FOREIGN KEY(IdFaculty) REFERENCES Faculty(Id),
  FOREIGN KEY(IdTeacher) REFERENCES Teacher(Id),
  FOREIGN KEY(IdThumbnail) REFERENCES DatabaseImageTable(Id)
  GO
