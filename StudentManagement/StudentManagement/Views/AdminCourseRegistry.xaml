@@ -48,6 +48,8 @@
                             Width="auto" />
                         <ColumnDefinition
                             Width="*" />
+                        <ColumnDefinition
+                            Width="auto" />
                     </Grid.ColumnDefinitions>
                     <ComboBox
                         x:Name="cbSemester"
@@ -96,6 +98,28 @@
                         FontWeight="Bold"
                         Foreground="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Red&quot; : &quot;Green&quot;), x)'}"
                         Text="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Chưa mở&quot; : &quot;Đã mở&quot;), x)'}" />
+                    <DockPanel
+                        LastChildFill="False"
+                        Grid.Column="3">
+                        <Button
+                            DockPanel.Dock="Left"
+                            Width="80"
+                            Margin="16,0,0,0"
+                            Content="Mở"
+                            FontSize="14" />
+                        <Button
+                            DockPanel.Dock="Left"
+                            Width="80"
+                            Margin="16,0,0,0"
+                            Content="Tạm đóng"
+                            FontSize="14" />
+                        <Button
+                            DockPanel.Dock="Left"
+                            Width="80"
+                            Margin="16,0,0,0"
+                            Content="Kết thúc"
+                            FontSize="14" />
+                    </DockPanel>
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>

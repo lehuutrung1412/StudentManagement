@@ -161,8 +161,8 @@ namespace StudentManagement.ViewModels
             SearchCourseRegistryItems = new RelayCommand<object>((p) => { return true; }, (p) => SearchCourseRegistryItemsFunction());
             DeleteSelectedItemsCommand = new RelayCommand<UserControl>(
                 (p) => 
-                { 
-                    return true; 
+                {
+                    return CourseRegistryItems.Where(x => x.IsSelected == true).Count() > 0;
                 }, 
                 (p) =>
                 {
