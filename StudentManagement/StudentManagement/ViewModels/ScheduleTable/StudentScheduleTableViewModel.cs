@@ -97,7 +97,7 @@ namespace StudentManagement.ViewModels
             };
             Semesters = new ObservableCollection<string>(SubjectClasses.Select(x => x.Semester).Distinct().ToList());
             ScheduleItems = new ObservableCollection<ScheduleItem>();
-            UpdateScheduleItems(Semesters.Last());
+            SelectedSemester = Semesters.Last();
         }
         public void UpdateScheduleItems(string semester)
         {
