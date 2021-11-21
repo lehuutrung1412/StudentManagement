@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
 {
-    public class UserInfoViewModel: BaseViewModel
+    public class UserInfoViewModel : BaseViewModel
     {
         public class InfoItem : BaseViewModel
         {
@@ -30,7 +30,10 @@ namespace StudentManagement.ViewModels
 
             public bool IsEnable { get => _isEnable; set => _isEnable = value; }
 
-            public InfoItem() { }
+            public InfoItem()
+            {
+                IsEnable = true;
+            }
 
             public InfoItem(string labelName, int type, ObservableCollection<string> itemSource, object value, int sTT, bool isEnable)
             {
@@ -43,6 +46,14 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        private static UserInfoViewModel s_instance;
+        public static UserInfoViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new UserInfoViewModel());
+
+            private set => s_instance = value;
+        }
+
         private ObservableCollection<InfoItem> _infoSource;
 
         public ObservableCollection<InfoItem> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
@@ -53,6 +64,11 @@ namespace StudentManagement.ViewModels
 
         public string Avatar { get => _avatar; set { _avatar = value; OnPropertyChanged(); } }
         private string _avatar;
+        public ObservableCollection<string> ListTypeControl { get => _listTypeControl; set { _listTypeControl = value; OnPropertyChanged(); } }
+        private ObservableCollection<string> _listTypeControl;
+
+        public ObservableCollection<string> ListTypeUser { get => _listTypeUser; set { _listTypeUser = value; OnPropertyChanged(); } }
+        private ObservableCollection<string> _listTypeUser;        
 
         public object _userInfoItemViewModel;
 
@@ -87,9 +103,13 @@ namespace StudentManagement.ViewModels
         public ICommand AddNewInfoItemCommand { get => _addNewInfoItemCommand; set => _addNewInfoItemCommand = value; }
         private ICommand _addNewInfoItemCommand;
 
+        public ICommand AddNewInfoItemInDialogCommand { get => _addNewInfoItemInDialogCommand; set => _addNewInfoItemInDialogCommand = value; }
+        private ICommand _addNewInfoItemInDialogCommand;
+
         public UserInfoViewModel()
         {
-            ObservableCollection<string> Faculty = new ObservableCollection<string> {"KHMT","KTPM" };
+            Instance = this;
+            ObservableCollection<string> Faculty = new ObservableCollection<string> { "KHMT", "KTPM" };
             ObservableCollection<string> Sex = new ObservableCollection<string> { "Nam", "Nữ" };
             ObservableCollection<string> Class = new ObservableCollection<string> { "KHMT2019", "KHTN2019" };
             ObservableCollection<string> TrainingForm = new ObservableCollection<string> { "CNTN", "CQDT" };
@@ -109,20 +129,44 @@ namespace StudentManagement.ViewModels
                 new InfoItem("Số điện thoại",0,null,"0937418670",4,true),
 
             };
+
+            ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
+            ListTypeUser = new ObservableCollection<string> { "Tất cả", "Admin", "Học sinh", "Sinh viên" };
+
             InfoSource = new ObservableCollection<InfoItem>(InfoSource.OrderBy(x => x.STT));
             IsOpen = false;
-            this._userInfoItemViewModel = new UserInfoItemViewModel();
-            this.DialogItemViewModel = this._userInfoItemViewModel;
+
             ClickImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickImage());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
+            AddNewInfoItemInDialogCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItemInDialog());
+
+        }
+        public void AddNewInfoItemInDialog()
+        {
+            var UserInfoItemVM = this.DialogItemViewModel as UserInfoItemViewModel;
+            if (UserInfoItemVM.TypeControl == "Combobox")
+            {
+                UserInfoItemVM.ListItem.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => UserInfoItemVM.CurrendInfo.ItemSource.Add(s.Value));
+                UserInfoItemVM.CurrendInfo.Type = 2;
+            }
+            else if (UserInfoItemVM.TypeControl == "DatePicker")
+            {
+                UserInfoItemVM.CurrendInfo.Type = 1;
+            }
+            else
+                UserInfoItemVM.CurrendInfo.Type = 0;
+            UserInfoItemVM.CurrendInfo.STT = InfoSource.LastOrDefault().STT + 1;
+            InfoSource.Add(UserInfoItemVM.CurrendInfo);
+            InfoSource.OrderBy(x => x.STT).ToList();
+            Instance.IsOpen = false;
         }
 
         public void AddNewInfoItem()
         {
             this._userInfoItemViewModel = new UserInfoItemViewModel();
             this.DialogItemViewModel = this._userInfoItemViewModel;
-            OnPropertyChanged(nameof(DialogItemViewModel));
+
             IsOpen = true;
         }
         public void ClickImage()
@@ -142,6 +186,6 @@ namespace StudentManagement.ViewModels
                 IsChangeAvatar = false;
             }
         }
-      
+
     }
 }

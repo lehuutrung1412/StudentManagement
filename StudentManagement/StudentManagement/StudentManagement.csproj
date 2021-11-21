@@ -345,8 +345,8 @@
     <Compile Include="ViewModels\ScheduleTable\StudentScheduleTableViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
-    <Compile Include="ViewModels\UserInfo\UserInfoItemViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoViewModel.cs" />
+    <Compile Include="ViewModels\UserInfo\UserInfoItemViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoStudentViewModel.cs" />
     <Compile Include="Views\AdminFalcutyTrainingForm.xaml.cs">
       <DependentUpon>AdminFalcutyTrainingForm.xaml</DependentUpon>

@@ -15,6 +15,7 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{StaticResource CenterColumn}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    DataContext="{DynamicResource UserInfoVM}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -28,8 +29,7 @@
             IsOpen="{Binding IsOpen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl
-                    Content="{Binding DialogItemViewModel, UpdateSourceTrigger=PropertyChanged}"
-                    DataContext="{DynamicResource UserInfoVM}">
+                    Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource UserInfoVM}">
                     <ContentControl.Resources>
                         <DataTemplate
                             DataType="{x:Type viewmodels:UserInfoItemViewModel}">
@@ -37,7 +37,6 @@
                                 Width="600"
                                 Height="500"/>
                         </DataTemplate>
-                     
                     </ContentControl.Resources>
                 </ContentControl>
                 
@@ -126,7 +125,7 @@
                             Content="Thêm trường thông tin"
                             Style="{StaticResource PrimaryButton}" />
                         <ItemsControl
-                            ItemsSource="{Binding InfoSource}">
+                            ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel />
@@ -137,8 +136,6 @@
 
                                     <ContentPresenter
                                         Content="{Binding}">
-
-
                                         <ContentPresenter.Resources>
                                             <DataTemplate
                                                 x:Key="Combobox">

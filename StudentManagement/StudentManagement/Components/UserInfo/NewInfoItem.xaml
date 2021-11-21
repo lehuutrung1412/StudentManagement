@@ -13,7 +13,9 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource Background}" CornerRadius="15">
+    <Border
+        Background="{DynamicResource Background}"
+        CornerRadius="15">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="15"
@@ -23,11 +25,14 @@
         </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="7*" />
+                <RowDefinition
+                    Height="7*" />
 
-                <RowDefinition Height="0.8*" />
+                <RowDefinition
+                    Height="0.8*" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0">
+            <StackPanel
+                Grid.Row="0">
                 <DockPanel>
                     <TextBox
                         VerticalAlignment="Center"
@@ -38,10 +43,16 @@
                         Text="{Binding CurrendInfo.LabelName, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="Wrap">
                         <TextBox.Style>
-                            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
+                            <Style
+                                BasedOn="{StaticResource MaterialDesignTextBox}"
+                                TargetType="TextBox">
                                 <Style.Triggers>
-                                    <Trigger Property="Validation.HasError" Value="True">
-                                        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                    <Trigger
+                                        Property="Validation.HasError"
+                                        Value="True">
+                                        <Setter
+                                            Property="materialDesign:HintAssist.Foreground"
+                                            Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -49,19 +60,24 @@
                     </TextBox>
                 </DockPanel>
 
-                <Grid Margin="16,16,16,4">
+                <Grid
+                    Margin="16,16,16,4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition
+                            Width="*" />
+                        <ColumnDefinition
+                            Width="1.2*" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
+                    <Grid
+                        Grid.Column="0">
                         <TextBlock
                             FontSize="16"
                             FontWeight="SemiBold"
                             Text="Loại thông tin" />
                     </Grid>
-                    <Grid Grid.Column="1">
+                    <Grid
+                        Grid.Column="1">
                         <ComboBox
                             Width="Auto"
                             Height="28"
@@ -74,13 +90,19 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#01579b"
-                            ItemsSource="{Binding listTypeControl, UpdateSourceTrigger=PropertyChanged}"
+                            ItemsSource="{Binding ListTypeControl, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
                             SelectedItem="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.Style>
-                                <Style BasedOn="{StaticResource MaterialDesignOutlinedComboBox}" TargetType="ComboBox">
+                                <Style
+                                    BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    TargetType="ComboBox">
                                     <Style.Triggers>
-                                        <Trigger Property="Validation.HasError" Value="True">
-                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        <Trigger
+                                            Property="Validation.HasError"
+                                            Value="True">
+                                            <Setter
+                                                Property="materialDesign:HintAssist.Foreground"
+                                                Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -88,19 +110,30 @@
                         </ComboBox>
                     </Grid>
                 </Grid>
-                <Grid Margin="16,16,16,4">
+                <Grid
+                    Margin="16,16,16,4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition
+                            Width="*" />
+                        <ColumnDefinition
+                            Width="1.2*" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
+                    <Grid
+                        Grid.Column="0">
                         <TextBlock
                             FontSize="16"
                             FontWeight="SemiBold"
                             Text="Đối tượng áp dụng thông tin" />
                     </Grid>
-                    <Grid Grid.Column="1">
+                    <Grid
+                        Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="113*" />
+                            <ColumnDefinition
+                                Width="28*" />
+                        </Grid.ColumnDefinitions>
                         <ComboBox
                             Width="Auto"
                             Height="28"
@@ -113,13 +146,20 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#01579b"
-                            ItemsSource="{Binding listTypeUser}"
-                            SelectedItem="{Binding TypeUser, UpdateSourceTrigger=PropertyChanged}">
+                            ItemsSource="{Binding ListTypeUser, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
+                            SelectedItem="{Binding TypeUser, UpdateSourceTrigger=PropertyChanged}"
+                            Grid.ColumnSpan="2">
                             <ComboBox.Style>
-                                <Style BasedOn="{StaticResource MaterialDesignOutlinedComboBox}" TargetType="ComboBox">
+                                <Style
+                                    BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    TargetType="ComboBox">
                                     <Style.Triggers>
-                                        <Trigger Property="Validation.HasError" Value="True">
-                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        <Trigger
+                                            Property="Validation.HasError"
+                                            Value="True">
+                                            <Setter
+                                                Property="materialDesign:HintAssist.Foreground"
+                                                Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -128,13 +168,21 @@
                     </Grid>
 
                 </Grid>
-                <Grid Margin="16,16,16,4">
+                <Grid
+                    Margin="16,16,16,4">
                     <Grid.Style>
-                        <Style TargetType="Grid">
-                            <Setter Property="Visibility" Value="Collapsed" />
+                        <Style
+                            TargetType="Grid">
+                            <Setter
+                                Property="Visibility"
+                                Value="Collapsed" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}" Value="Combobox">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger
+                                    Binding="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}"
+                                    Value="Combobox">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Visible" />
                                 </DataTrigger>
 
                             </Style.Triggers>
@@ -145,7 +193,8 @@
                             FontSize="16"
                             FontWeight="SemiBold"
                             Text="Đối tượng áp dụng thông tin" />
-                        <ItemsControl ItemsSource="{Binding CurrendInfo.ItemSource, UpdateSourceTrigger=PropertyChanged}">
+                        <ItemsControl
+                            ItemsSource="{Binding ListItem, UpdateSourceTrigger=PropertyChanged}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel />
@@ -153,15 +202,27 @@
 
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox Margin="0,8,16,8" Text="{Binding}" />
-                                        <Button Content="Xoá" Style="{StaticResource MaterialDesignFlatButton}" />
+                                <DataTemplate >
+                                    <StackPanel
+                                        Orientation="Horizontal">
+                                        <TextBox
+                                            x:Name="txbItem"
+                                            Margin="0,8,16,8"
+                                            Width="300"
+                                            Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                        <Button
+                                            Command="{Binding DeleteItemCommand}"
+                                            CommandParameter="{Binding ElementName=txbItem}"
+                                            DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            Content="Xoá"
+                                            Style="{StaticResource MaterialDesignFlatButton}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <Button Content="Thêm thông tin" />
+                        <Button
+                            Command="{Binding AddItemCommand}"
+                            Content="Thêm thông tin" />
                     </StackPanel>
 
                 </Grid>
@@ -176,16 +237,22 @@
                 Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition
+                            Width="*" />
+                        <ColumnDefinition
+                            Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="1">
-                        <StackPanel Orientation="Horizontal">
+                    <Grid
+                        Grid.Column="1">
+                        <StackPanel
+                            Orientation="Horizontal">
                             <Button
                                 Margin="0,0,16,0"
                                 HorizontalAlignment="Stretch"
                                 Content="Thêm"
-                                Style="{StaticResource PrimaryButton}">
+                                Style="{StaticResource PrimaryButton}"
+                                Command="{Binding AddInfoItemCommand}">
+
                                 <!--<Button.Style>
                                     <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
                                         <Setter Property="IsEnabled" Value="False" />
@@ -206,10 +273,10 @@
                                 </Button.Style>
                                 <Validation.ErrorTemplate>
                                     <ControlTemplate />
-                                </Validation.ErrorTemplate>
-                                <i:Interaction.Triggers>
+                                </Validation.ErrorTemplate>-->
+                                <!--<i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
+                                        <i:InvokeCommandAction Command="{Binding AddInfoItemCommand}" />
                                         <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
 
                                     </i:EventTrigger>
@@ -221,7 +288,9 @@
                                 Background="Red"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                                 Content="Huỷ"
-                                Style="{StaticResource PrimaryButton}" />
+                                Style="{StaticResource PrimaryButton}" >
+                                
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </Grid>
