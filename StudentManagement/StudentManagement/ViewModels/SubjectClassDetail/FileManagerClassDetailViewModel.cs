@@ -27,6 +27,7 @@ namespace StudentManagement.ViewModels
         public ICommand AddFolder { get; set; }
         public ICommand CreateFolder { get; set; }
         public ICommand DeleteFile { get; set; }
+        public ICommand DeleteFolder { get; set; }
 
         public bool IsShowDialog { get => _isShowDialog; set { _isShowDialog = value; OnPropertyChanged(); } }
         private bool _isShowDialog;
@@ -39,7 +40,7 @@ namespace StudentManagement.ViewModels
 
                 // Validation
                 _errorBaseViewModel.ClearErrors();
-                if (!IsValidString(NewFolderName))
+                if (NewFolderName == string.Empty)
                 {
                     _errorBaseViewModel.AddError(nameof(NewFolderName), "Vui lòng nhập tên thư mục!");
                 }
@@ -61,11 +62,50 @@ namespace StudentManagement.ViewModels
             DeleteFile = new RelayCommand<object>((p) => true, (p) => DeleteFileFunction(p));
             AddFolder = new RelayCommand<object>((p) => true, (p) => AddFolderFunction());
             CreateFolder = new RelayCommand<object>((p) => true, (p) => CreateFolderFunction());
+            DeleteFolder = new RelayCommand<object>((p) => true, (p) => DeleteFolderFunction(p));
         }
 
-        private void DeleteFileFunction(object p)
+        private void DeleteFolderFunction(object parameter)
         {
-            MyMessageBox.Show("Deleted");
+            try
+            {
+                if (parameter is CollectionViewGroup collectionViewGroup)
+                {
+                    if (MyMessageBox.Show($"Tất cả {collectionViewGroup.ItemCount} tài liệu sẽ bị xóa." +
+                                          $" Bạn có chắc chắn muốn xóa thư mục này không?",
+                                          "Xóa thư mục",
+                                          System.Windows.MessageBoxButton.OKCancel,
+                                          System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.OK)
+                    {
+                        foreach (var item in collectionViewGroup.Items.ToList())
+                        {
+                            FileInfo fileInfo = item as FileInfo;
+                            FileData.Remove(FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId));
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể xóa thư mục.",
+                                  "Xóa thư mục",
+                                  System.Windows.MessageBoxButton.OK,
+                                  System.Windows.MessageBoxImage.Error);
+            }
+        }
+
+        private void DeleteFileFunction(object parameter)
+        {
+            if (parameter is FileInfo fileInfo)
+            {
+                if (MyMessageBox.Show("Bạn có chắc chắn muốn xóa tài liệu này không?",
+                                      "Xóa tài liệu",
+                                      System.Windows.MessageBoxButton.OKCancel,
+                                      System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.OK)
+                {
+                    FileData.Remove(FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId));
+                }
+            }
         }
 
         private void CreateFolderFunction()
@@ -74,8 +114,28 @@ namespace StudentManagement.ViewModels
             {
                 return;
             }
-            IsShowDialog = false;
-            FileData.Add(new FileInfo(null, "", "Hữu Trung", DateTime.Now, Guid.NewGuid(), NewFolderName));
+            try
+            {
+                var existFile = FileData.FirstOrDefault(fileInfo => fileInfo.FolderName == NewFolderName);
+                if (existFile != null)
+                {
+                    MyMessageBox.Show("Thư mục này đã tồn tại trong lớp học",
+                                      "Thêm thư mục",
+                                      System.Windows.MessageBoxButton.OK,
+                                      System.Windows.MessageBoxImage.Error);
+                    return;
+                }
+                IsShowDialog = false;
+                FileData.Add(new FileInfo(null, "", "Hữu Trung", DateTime.Now, Guid.NewGuid(), NewFolderName));
+                NewFolderName = null;
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể thêm thư mục.",
+                                  "Thêm thư mục",
+                                  System.Windows.MessageBoxButton.OK,
+                                  System.Windows.MessageBoxImage.Error);
+            }
         }
 
         private void FileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -86,39 +146,73 @@ namespace StudentManagement.ViewModels
 
         private void AddFileFunction(object folder)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            try
             {
-                Multiselect = true,
-                Filter = "All files (*.*)|*.*"
-            };
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                foreach (string file in openFileDialog.FileNames)
+                OpenFileDialog openFileDialog = new OpenFileDialog
                 {
-                    string name = Path.GetFileName(file);
-                    if (!string.IsNullOrEmpty(name))
+                    Multiselect = true,
+                    Filter = "All files (*.*)|*.*"
+                };
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get data here to prevent error when data was removed
+                    Guid? folderId = null;
+                    string folderName = "";
+                    if (folder != null)
                     {
-                        if (folder != null)
-                        {
-                            Guid folderId = (Guid)((CollectionViewGroup)folder).Name;
-                            string folderName = (((CollectionViewGroup)folder).Items[0] as FileInfo).FolderName;
+                        folderId = (Guid)((CollectionViewGroup)folder).Name;
+                        folderName = (((CollectionViewGroup)folder).Items[0] as FileInfo).FolderName;
+                    }
 
-                            // Delete pseudo file info used for display folder only
-                            var pseudoFileInfo = FileData.FirstOrDefault(fileInfo => fileInfo.FolderId == folderId && fileInfo.Id == null);
-                            if (pseudoFileInfo != null)
+                    int existFileCount = 0;
+                    foreach (string file in openFileDialog.FileNames)
+                    {
+                        string name = Path.GetFileName(file);
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            var existFile = FileData.FirstOrDefault(fileInfo => fileInfo.Name == name && fileInfo.FolderId == folderId);
+                            if (existFile != null)
                             {
-                                FileData.Remove(pseudoFileInfo);
+                                existFileCount++;
+                                continue;
                             }
 
-                            FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, folderId, folderName));
-                        }
-                        else
-                        {
-                            FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, null, ""));
+                            if (folder != null)
+                            {
+                                // Delete pseudo file info used for display folder only
+                                var pseudoFileInfo = FileData.FirstOrDefault(fileInfo => fileInfo.FolderId == folderId && fileInfo.Id == null);
+                                if (pseudoFileInfo != null)
+                                {
+                                    FileData.Remove(pseudoFileInfo);
+                                }
+
+                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, folderId, folderName));
+                            }
+                            else
+                            {
+                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, null, ""));
+                            }
                         }
                     }
+
+                    if (existFileCount > 0)
+                    {
+                        MyMessageBox.Show($"Có {existFileCount} tài liệu đã tồn tại.",
+                                          "Thêm tài liệu",
+                                          System.Windows.MessageBoxButton.OK,
+                                          System.Windows.MessageBoxImage.Error);
+                    }
+
                 }
             }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể thêm tài liệu.",
+                                  "Thêm tài liệu",
+                                  System.Windows.MessageBoxButton.OK,
+                                  System.Windows.MessageBoxImage.Error);
+            }
+            
         }
         
         private void AddFolderFunction()
@@ -134,7 +228,7 @@ namespace StudentManagement.ViewModels
 
         private bool IsValidString(string propertyName)
         {
-            return !string.IsNullOrEmpty(propertyName) && !string.IsNullOrWhiteSpace(propertyName);
+            return !string.IsNullOrWhiteSpace(propertyName);
         }
 
         private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)

@@ -13,6 +13,9 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="Transparent"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <utils:BindingProxy x:Key="BindingProxy" Data="{Binding}" />
+    </UserControl.Resources>
     <Border Background="White" CornerRadius="10">
         <Grid>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
@@ -35,7 +38,12 @@
                                         <Grid Margin="16" Background="{TemplateBinding Background}">
                                             <Grid.ContextMenu>
                                                 <ContextMenu>
-                                                    <MenuItem Header="Xóa tài liệu" />
+                                                    <MenuItem
+                                                        Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DeleteFile}"
+                                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
+                                                        Foreground="{StaticResource ErrorMain}"
+                                                        Header="Xóa tài liệu"
+                                                        Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
                                                 </ContextMenu>
                                             </Grid.ContextMenu>
                                             <ContentPresenter VerticalAlignment="Center" />
@@ -63,7 +71,14 @@
                                                         <MenuItem
                                                             Command="{Binding AddFile}"
                                                             CommandParameter="{TemplateBinding DataContext}"
-                                                            Header="Thêm tài liệu" />
+                                                            Header="Thêm tài liệu"
+                                                            Icon="{materialDesign:PackIcon Kind=FilePlusOutline}" />
+                                                        <MenuItem
+                                                            Command="{Binding DeleteFolder}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Foreground="{StaticResource ErrorMain}"
+                                                            Header="Xóa thư mục"
+                                                            Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
                                                     </ContextMenu>
                                                 </Expander.ContextMenu>
                                                 <Expander.Header>
@@ -97,7 +112,14 @@
                                                         <MenuItem
                                                             Command="{Binding AddFile}"
                                                             CommandParameter="{TemplateBinding DataContext}"
-                                                            Header="Thêm tài liệu" />
+                                                            Header="Thêm tài liệu"
+                                                            Icon="{materialDesign:PackIcon Kind=FilePlusOutline}" />
+                                                        <MenuItem
+                                                            Command="{Binding DeleteFolder}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Foreground="{StaticResource ErrorMain}"
+                                                            Header="Xóa thư mục"
+                                                            Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
                                                     </ContextMenu>
                                                 </Border.ContextMenu>
                                                 <DockPanel>

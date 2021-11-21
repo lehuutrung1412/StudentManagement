@@ -80,7 +80,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Components\CreateFolder.xaml.cs">
+    <Compile Include="Components\SubjectClassDetail\CreateFolder.xaml.cs">
       <DependentUpon>CreateFolder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\SubjectClass\AdminSubjectClassRightSideBarItemEdit.xaml.cs">
@@ -295,6 +295,7 @@
     <Compile Include="Objects\BaseObjectWithBaseViewModel.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
+    <Compile Include="Utils\BindingProxy.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\IsNullConverter.cs" />
@@ -361,7 +362,7 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Components\CreateFolder.xaml">
+    <Page Include="Components\SubjectClassDetail\CreateFolder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

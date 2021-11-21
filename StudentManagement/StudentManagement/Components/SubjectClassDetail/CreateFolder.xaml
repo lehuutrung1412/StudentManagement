@@ -64,7 +64,7 @@
                 materialDesign:TextFieldAssist.LeadingIcon="FolderPlusOutline"
                 materialDesign:ValidationAssist.Background="Transparent"
                 FontSize="16"
-                Text="{Binding NewFolderName, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding NewFolderName, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Null}}">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding CreateFolder}" />
                 </TextBox.InputBindings>
