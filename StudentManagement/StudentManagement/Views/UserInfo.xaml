@@ -26,16 +26,14 @@
         <materialDesign:DialogHost
             Name="DialogHostUserInfo"
             CloseOnClickAway="True"
-            IsOpen="{Binding IsOpen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            IsOpen="{Binding IsOpen}">
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl
                     Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource UserInfoVM}">
                     <ContentControl.Resources>
                         <DataTemplate
                             DataType="{x:Type viewmodels:UserInfoItemViewModel}">
-                            <component:NewInfoItem
-                                Width="600"
-                                Height="500"/>
+                            <component:NewInfoItem MinWidth="600" />
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>

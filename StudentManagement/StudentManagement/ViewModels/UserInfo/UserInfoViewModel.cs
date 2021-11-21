@@ -103,9 +103,6 @@ namespace StudentManagement.ViewModels
         public ICommand AddNewInfoItemCommand { get => _addNewInfoItemCommand; set => _addNewInfoItemCommand = value; }
         private ICommand _addNewInfoItemCommand;
 
-        public ICommand AddNewInfoItemInDialogCommand { get => _addNewInfoItemInDialogCommand; set => _addNewInfoItemInDialogCommand = value; }
-        private ICommand _addNewInfoItemInDialogCommand;
-
         public UserInfoViewModel()
         {
             Instance = this;
@@ -139,29 +136,8 @@ namespace StudentManagement.ViewModels
             ClickImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickImage());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
-            AddNewInfoItemInDialogCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItemInDialog());
 
         }
-        public void AddNewInfoItemInDialog()
-        {
-            var UserInfoItemVM = this.DialogItemViewModel as UserInfoItemViewModel;
-            if (UserInfoItemVM.TypeControl == "Combobox")
-            {
-                UserInfoItemVM.ListItem.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => UserInfoItemVM.CurrendInfo.ItemSource.Add(s.Value));
-                UserInfoItemVM.CurrendInfo.Type = 2;
-            }
-            else if (UserInfoItemVM.TypeControl == "DatePicker")
-            {
-                UserInfoItemVM.CurrendInfo.Type = 1;
-            }
-            else
-                UserInfoItemVM.CurrendInfo.Type = 0;
-            UserInfoItemVM.CurrendInfo.STT = InfoSource.LastOrDefault().STT + 1;
-            InfoSource.Add(UserInfoItemVM.CurrendInfo);
-            InfoSource.OrderBy(x => x.STT).ToList();
-            Instance.IsOpen = false;
-        }
-
         public void AddNewInfoItem()
         {
             this._userInfoItemViewModel = new UserInfoItemViewModel();

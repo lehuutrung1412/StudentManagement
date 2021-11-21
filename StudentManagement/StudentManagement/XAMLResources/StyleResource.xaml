@@ -365,14 +365,16 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="MaxLines" Value="1" />
-        <Setter Property="Height" Value="28" />
+        <Setter Property="Height" Value="32" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="Padding" Value="12,4" />
+        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
     </Style>
 
     <Style x:Key="LabelText" TargetType="{x:Type Label}">
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="Gray" />
         <Setter Property="Padding" Value="0,4,0,4" />
         <Setter Property="FontSize" Value="12" />
@@ -396,25 +398,27 @@
         BasedOn="{StaticResource MaterialDesignDatePicker}"
         TargetType="DatePicker">
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Height" Value="28" />
-        <Setter Property="Padding" Value="8,4,8,4" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="12,4" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryDark}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Padding" Value="10,0" />
-
+        <Setter Property="Padding" Value="16,4" />
+        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
     </Style>
 
     <Style
         x:Key="ComboboxInfo"
-        BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
+        BasedOn="{StaticResource MaterialDesignComboBox}"
         TargetType="{x:Type ComboBox}">
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Height" Value="28" />
-        <Setter Property="Padding" Value="8,4,8,4" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="12,4" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryDark}" />
@@ -422,6 +426,8 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Padding" Value="10,0" />
+        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
     <Style x:Key="SeparatorStyle" TargetType="{x:Type Separator}">
@@ -446,7 +452,7 @@
     <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Background" Value="#FFE0E0E0" />
-        <!--<Setter Property="BorderBrush" Value="Gray" />-->
+        <Setter Property="BorderBrush" Value="Gray" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="5" />
     </Style>

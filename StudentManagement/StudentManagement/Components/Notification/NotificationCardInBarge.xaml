@@ -36,9 +36,9 @@
                 materialDesign:ShadowAssist.ShadowDepth="Depth4"
                 Background="{DynamicResource White}"
                 BorderThickness="0"
-                Foreground="Black"
                 Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}"
-                CommandParameter="{Binding ElementName=NotificationComponent}">
+                CommandParameter="{Binding ElementName=NotificationComponent}"
+                Foreground="Black">
                 <Button.Style>
                     <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
                         <Style.Triggers>

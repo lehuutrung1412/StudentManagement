@@ -50,8 +50,12 @@ namespace StudentManagement.ViewModels
         {
             CurrendInfo = new InfoItem();
             CurrendInfo.ItemSource = new ObservableCollection<string>();
-            ListItem =  new ObservableCollection<Item>();
-            ListItem.Add(new Item {Id= Guid.NewGuid(), Value =""});
+            ListItem =  new ObservableCollection<Item>() 
+            { 
+                new Item { Id = Guid.NewGuid(), Value = "" }, 
+                new Item { Id = Guid.NewGuid(), Value = "" }, 
+                new Item { Id = Guid.NewGuid(), Value = "" } 
+            };
             AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
             DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
             AddInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddInfoItem());
@@ -63,7 +67,7 @@ namespace StudentManagement.ViewModels
                 ListItem.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => CurrendInfo.ItemSource.Add(s.Value));
                 CurrendInfo.Type = 2;
             }
-            else if (TypeControl == "DatePicker")
+            else if (TypeControl == "Datepicker")
             {
                 CurrendInfo.Type = 1;
             }

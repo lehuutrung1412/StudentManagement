@@ -31,7 +31,7 @@
             <Border
                 Style="{StaticResource BorderStyle}">
                 <TextBox
-                    materialDesign:HintAssist.Hint="Nhập tên"
+                    materialDesign:HintAssist.Hint="{Binding LabelName}"
                     IsEnabled="{Binding IsEnable}"
                     Style="{StaticResource TextBox}"
                     Text="{Binding Value}" />

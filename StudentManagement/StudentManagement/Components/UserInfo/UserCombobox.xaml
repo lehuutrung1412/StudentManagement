@@ -31,7 +31,8 @@
                     Style="{StaticResource ComboboxInfo}"
                     IsEnabled="{Binding IsEnable}"
                     ItemsSource="{Binding ItemSource}"
-                    SelectedItem="{Binding Value}">
+                    SelectedItem="{Binding Value}"
+                    materialDesign:HintAssist.Hint="{Binding LabelName}">
                 </ComboBox>
             </Border>
         </StackPanel>

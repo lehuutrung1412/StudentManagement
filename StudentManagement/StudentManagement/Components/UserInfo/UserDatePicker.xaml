@@ -25,16 +25,14 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <Label
-                Content="{Binding LabelName}"
-                Style="{StaticResource LabelText}" />
+            <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
 
-            <Border
-                Style="{StaticResource BorderStyle}">
+            <Border Style="{StaticResource BorderStyle}">
                 <DatePicker
-                    Style="{StaticResource DatePickerInfo}"
+                    materialDesign:HintAssist.Hint="{Binding LabelName}"
                     IsEnabled="{Binding IsEnable}"
-                    SelectedDate="{Binding Value, Converter={utils:ConverterDateTimeFromString}}"/>
+                    SelectedDate="{Binding Value, Converter={utils:ConverterDateTimeFromString}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Style="{StaticResource DatePickerInfo}" />
             </Border>
         </StackPanel>
     </Grid>

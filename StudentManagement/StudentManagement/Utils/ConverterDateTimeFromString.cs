@@ -15,6 +15,8 @@ namespace StudentManagement.Utils
         private static ConverterDateTimeFromString _instance;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if(value == null)
+                return null;
             return DateTime.Parse(value.ToString());
         }
 
