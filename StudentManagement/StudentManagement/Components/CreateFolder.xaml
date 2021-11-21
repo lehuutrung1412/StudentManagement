@@ -36,6 +36,7 @@
                 <Button
                     Margin="16,0,0,0"
                     HorizontalAlignment="Right"
+                    IsEnabled="{Binding CanCreate}"
                     Command="{Binding CreateFolder}"
                     Style="{StaticResource PrimaryButton}">
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
@@ -51,7 +52,7 @@
 
             <TextBox
                 Grid.Row="1"
-                Margin="16"
+                Margin="16 16 16 28"
                 VerticalContentAlignment="Center"
                 materialDesign:HintAssist.Background="{DynamicResource Background}"
                 materialDesign:HintAssist.Hint="Nhập tên thư mục cần tạo"
@@ -61,6 +62,7 @@
                 materialDesign:TextFieldAssist.HasClearButton="True"
                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                 materialDesign:TextFieldAssist.LeadingIcon="FolderPlusOutline"
+                materialDesign:ValidationAssist.Background="Transparent"
                 FontSize="16"
                 Text="{Binding NewFolderName, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>

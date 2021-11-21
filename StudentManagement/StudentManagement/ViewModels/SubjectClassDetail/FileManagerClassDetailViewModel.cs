@@ -1,8 +1,10 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,7 +15,7 @@ using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
 {
-    public class FileManagerClassDetailViewModel : BaseViewModel
+    public class FileManagerClassDetailViewModel : BaseViewModel, INotifyDataErrorInfo
     {
         private ObservableCollection<FileInfo> _fileData;
 
@@ -28,29 +30,30 @@ namespace StudentManagement.ViewModels
 
         public bool IsShowDialog { get => _isShowDialog; set { _isShowDialog = value; OnPropertyChanged(); } }
         private bool _isShowDialog;
-        public string NewFolderName { get => _newFolderName; set { _newFolderName = value; OnPropertyChanged(); } }
+        public string NewFolderName
+        {
+            get => _newFolderName;
+            set
+            {
+                _newFolderName = value;
+
+                // Validation
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValidString(NewFolderName))
+                {
+                    _errorBaseViewModel.AddError(nameof(NewFolderName), "Vui lòng nhập tên thư mục!");
+                }
+
+                OnPropertyChanged();
+            }
+        }
         private string _newFolderName;
 
         public FileManagerClassDetailViewModel()
         {
-            //FileData = new ObservableCollection<FileInfo>()
-            //{
-            //    new FileInfo("Slide_chuong_1.pptx", "Lê Hữu Trung", DateTime.Now, null, ""),
-            //    new FileInfo("Slide_chuong_2.ppt", "Hữu Trung", DateTime.Now, new Guid(), "Folder nì"),
-            //    new FileInfo("Slide_chuong_4.doc", "Lê Hữu Trung", new DateTime(2021, 10, 5), new Guid(), "Folder nì"),
-            //    new FileInfo("Slide_chuong_6.docx", "Trung", DateTime.Now, null, ""),
-            //    new FileInfo("Slide_chuong_3.pdf", "Lê Hữu Trung", DateTime.Now, new Guid(), "Folder nì"),
-            //    new FileInfo("Slide_chuong_5.zip", "Lê Hữu Trung", DateTime.Now, null, ""),
-            //    new FileInfo("Slide_chuong_5.png", "Lê Hữu Trung", DateTime.Now, null, ""),
-            //    new FileInfo("Slide_chuong_5.jpg", "Lê Hữu Trung", DateTime.Now, null, ""),
-            //    new FileInfo("Slide_chuong_5.xls", "Lê Hữu Trung", DateTime.Now, null, ""),
-            //    new FileInfo("Slide_chuong_5.xlsx", "Lê Hữu Trung", DateTime.Now, null, ""),
-            //    new FileInfo("Slide_chuong_5.txt", "Lê Hữu Trung", DateTime.Now, null, ""),
-            //    new FileInfo("Slide_chuong_5", "Lê Hữu Trung", DateTime.Now, null, "")
-            //};
+            _errorBaseViewModel = new ErrorBaseViewModel();
+            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
 
-            //FileDataGroup = new ListCollectionView(FileData);
-            //FileDataGroup.GroupDescriptions.Add(new PropertyGroupDescription("FolderId"));
             FileData = new ObservableCollection<FileInfo>();
             FileData.CollectionChanged += FileData_CollectionChanged;
 
@@ -67,6 +70,10 @@ namespace StudentManagement.ViewModels
 
         private void CreateFolderFunction()
         {
+            if (!IsValidString(NewFolderName))
+            {
+                return;
+            }
             IsShowDialog = false;
             FileData.Add(new FileInfo(null, "", "Hữu Trung", DateTime.Now, Guid.NewGuid(), NewFolderName));
         }
@@ -118,6 +125,31 @@ namespace StudentManagement.ViewModels
         {
             IsShowDialog = true;
         }
+
+        #region Validation
+
+        private readonly ErrorBaseViewModel _errorBaseViewModel;
+        public bool CanCreate => !HasErrors;
+        public bool HasErrors => _errorBaseViewModel.HasErrors;
+
+        private bool IsValidString(string propertyName)
+        {
+            return !string.IsNullOrEmpty(propertyName) && !string.IsNullOrWhiteSpace(propertyName);
+        }
+
+        private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(this, e);
+            OnPropertyChanged(nameof(CanCreate));
+        }
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _errorBaseViewModel.GetErrors(propertyName);
+        }
+        #endregion
     }
 
     public class FileInfo : BaseViewModel
