@@ -26,7 +26,10 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Command="{Binding AddFile}" Width="200" Margin="32" Style="{StaticResource PrimaryButton}" Content="Thêm file"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Command="{Binding AddFile}" Width="200" Margin="32" Style="{StaticResource PrimaryButton}" Content="Thêm file"/>
+                    <Button Command="{Binding AddFolder}" Width="200" Margin="32" Style="{StaticResource PrimaryButton}" Content="Thêm folder"/>
+                </StackPanel>
                 <local:FileManager VerticalAlignment="Top" Grid.Row="1" Margin="16" />
             </Grid>
         </ScrollViewer>

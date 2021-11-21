@@ -12,7 +12,6 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{StaticResource CenterColumn}"
-    DataContext="{StaticResource NewFeedSubjectClassDetailVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -43,7 +42,7 @@
                     <components:CreatePostNewfeed
                         MaxHeight="350"
                         Margin="16"
-                        DataContext="{Binding CreatePostNewFeedViewModel, Source={StaticResource NewFeedSubjectClassDetailVM}}" />
+                        DataContext="{Binding CreatePostNewFeedViewModel}" />
                     <ItemsControl ItemsSource="{Binding Source={StaticResource PostNewsFeedView}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

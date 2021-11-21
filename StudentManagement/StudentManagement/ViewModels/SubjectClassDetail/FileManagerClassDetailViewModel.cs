@@ -22,6 +22,14 @@ namespace StudentManagement.ViewModels
         public ListCollectionView FileDataGroup { get => _fileDataGroup; set { _fileDataGroup = value; OnPropertyChanged(); } }
 
         public ICommand AddFile { get; set; }
+        public ICommand AddFolder { get; set; }
+        public ICommand CreateFolder { get; set; }
+        public ICommand DeleteFile { get; set; }
+
+        public bool IsShowDialog { get => _isShowDialog; set { _isShowDialog = value; OnPropertyChanged(); } }
+        private bool _isShowDialog;
+        public string NewFolderName { get => _newFolderName; set { _newFolderName = value; OnPropertyChanged(); } }
+        private string _newFolderName;
 
         public FileManagerClassDetailViewModel()
         {
@@ -46,10 +54,21 @@ namespace StudentManagement.ViewModels
             FileData = new ObservableCollection<FileInfo>();
             FileData.CollectionChanged += FileData_CollectionChanged;
 
-            FileData.Add(new FileInfo("Slide_chuong_2.ppt", "Hữu Trung", DateTime.Now, new Guid(), "Folder nì"));
-            FileData.Add(new FileInfo("Slide_chuong_4.doc", "Lê Hữu Trung", new DateTime(2021, 10, 5), new Guid(), "Folder nì"));
+            AddFile = new RelayCommand<object>((p) => true, (p) => AddFileFunction(p));
+            DeleteFile = new RelayCommand<object>((p) => true, (p) => DeleteFileFunction(p));
+            AddFolder = new RelayCommand<object>((p) => true, (p) => AddFolderFunction());
+            CreateFolder = new RelayCommand<object>((p) => true, (p) => CreateFolderFunction());
+        }
 
-            AddFile = new RelayCommand<object>((p) => true, (p) => AddFileFunction());
+        private void DeleteFileFunction(object p)
+        {
+            MyMessageBox.Show("Deleted");
+        }
+
+        private void CreateFolderFunction()
+        {
+            IsShowDialog = false;
+            FileData.Add(new FileInfo(null, "", "Hữu Trung", DateTime.Now, Guid.NewGuid(), NewFolderName));
         }
 
         private void FileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -58,7 +77,7 @@ namespace StudentManagement.ViewModels
             FileDataGroup.GroupDescriptions.Add(new PropertyGroupDescription("FolderId"));
         }
 
-        private void AddFileFunction()
+        private void AddFileFunction(object folder)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
@@ -72,15 +91,38 @@ namespace StudentManagement.ViewModels
                     string name = Path.GetFileName(file);
                     if (!string.IsNullOrEmpty(name))
                     {
-                        FileData.Add(new FileInfo(name, "Lê Hữu Trung", DateTime.Now, null, ""));
+                        if (folder != null)
+                        {
+                            Guid folderId = (Guid)((CollectionViewGroup)folder).Name;
+                            string folderName = (((CollectionViewGroup)folder).Items[0] as FileInfo).FolderName;
+
+                            // Delete pseudo file info used for display folder only
+                            var pseudoFileInfo = FileData.FirstOrDefault(fileInfo => fileInfo.FolderId == folderId && fileInfo.Id == null);
+                            if (pseudoFileInfo != null)
+                            {
+                                FileData.Remove(pseudoFileInfo);
+                            }
+
+                            FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, folderId, folderName));
+                        }
+                        else
+                        {
+                            FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, null, ""));
+                        }
                     }
                 }
             }
+        }
+        
+        private void AddFolderFunction()
+        {
+            IsShowDialog = true;
         }
     }
 
     public class FileInfo : BaseViewModel
     {
+        private Guid? _id;
         private string _name;
         private string _publisher;
         private DateTime _uploadTime;
@@ -93,8 +135,11 @@ namespace StudentManagement.ViewModels
         public Guid? FolderId { get => _folderId; set { _folderId = value; OnPropertyChanged(); } }
         public string FolderName { get => _folderName; set { _folderName = value; OnPropertyChanged(); } }
 
-        public FileInfo(string name, string publisher, DateTime uploadTime, Guid? folderId, string folderName)
+        public Guid? Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+
+        public FileInfo(Guid? id, string name, string publisher, DateTime uploadTime, Guid? folderId, string folderName)
         {
+            Id = id;
             Name = name;
             Publisher = publisher;
             UploadTime = uploadTime;

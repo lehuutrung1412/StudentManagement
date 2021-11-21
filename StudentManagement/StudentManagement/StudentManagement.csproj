@@ -80,6 +80,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\CreateFolder.xaml.cs">
+      <DependentUpon>CreateFolder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClass\AdminSubjectClassRightSideBarItemEdit.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
@@ -358,6 +361,10 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\CreateFolder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\SubjectClass\AdminSubjectClassRightSideBarItemEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

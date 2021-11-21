@@ -16,6 +16,8 @@ namespace StudentManagement.Utils
             {
                 case "full":
                     return GetFullTime(value);
+                case "standard":
+                    return GetStandardTime(value);
                 default:
                     return GetRelativeTime(value);
             }
@@ -29,6 +31,11 @@ namespace StudentManagement.Utils
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             return _instance ?? (_instance = new DateTimeConverter());
+        }
+
+        private object GetStandardTime(object value)
+        {
+            return DateTime.Parse(((DateTime)value).ToString(), _culture).ToString("dd/MM/yyyy HH:mm:ss");
         }
 
         private string GetRelativeTime(object value)

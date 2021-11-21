@@ -1,0 +1,81 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.CreateFolder"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    Width="500"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.2'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
+    Background="{DynamicResource Transparent}"
+    mc:Ignorable="d">
+    <Border Background="{DynamicResource Background}" CornerRadius="15">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="15"
+                Opacity="0.3"
+                ShadowDepth="0"
+                Color="DarkGray" />
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0" Margin="16">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Text="Thêm thư mục" />
+                <Button
+                    Margin="16,0,0,0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CreateFolder}"
+                    Style="{StaticResource PrimaryButton}">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            Kind="FolderPlus" />
+                        <TextBlock Margin="8 0 0 0" Text="Thêm thư mục" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </DockPanel>
+
+            <TextBox
+                Grid.Row="1"
+                Margin="16"
+                VerticalContentAlignment="Center"
+                materialDesign:HintAssist.Background="{DynamicResource Background}"
+                materialDesign:HintAssist.Hint="Nhập tên thư mục cần tạo"
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                materialDesign:HintAssist.HintOpacity="0.5"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="FolderPlusOutline"
+                FontSize="16"
+                Text="{Binding NewFolderName, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding CreateFolder}" />
+                </TextBox.InputBindings>
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" TargetType="TextBox">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Grid>
+    </Border>
+</UserControl>
