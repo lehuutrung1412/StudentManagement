@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="SubjectClassCardComponent"
+    d:DesignWidth="350"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -56,7 +57,7 @@
                         x:Name="CardImage"
                         Width="{Binding Width, ElementName=SubjectClassCardComponent}"
                         Height="150"
-                        Source="https://picsum.photos/400/500"
+                        Source="https://picsum.photos/200/200"
                         Stretch="UniformToFill" />
 
                     <StackPanel

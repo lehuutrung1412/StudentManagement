@@ -19,17 +19,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel>
-            <StackPanel.Resources>
-                <Style x:Key="textblock_item" TargetType="TextBlock">
-                    <Setter Property="Margin" Value="8,0,8,0" />
-                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-                </Style>
-
-                <Style x:Key="text_grid_item" TargetType="Grid">
-                    <Setter Property="Margin" Value="0,4,0,4" />
-                </Style>
-            </StackPanel.Resources>
+        <StackPanel Margin="8">
             <TextBlock
                 FontSize="28"
                 FontWeight="Bold"
@@ -39,6 +29,44 @@
                 <Run Text="-" />
                 <Run Text="{Binding CurrentCard.TenMon, FallbackValue='Ten Mon Hoc'}" />
             </TextBlock>
+            <Grid>
+                <Border
+                    x:Name="ImageBorder"
+                    Height="250"
+                    Margin="0,24"
+                    CornerRadius="16">
+                    <Border.Background>
+                        <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
+                    </Border.Background>
+                </Border>
+                <Button
+                    x:Name="btnUpdate"
+                    Width="500"
+                    Height="{Binding Height, ElementName=ImageBorder}"
+                    Padding="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Command="{Binding ClickChangeImageCommand}"
+                    Content="{materialDesign:PackIcon Camera,
+                                                      Size=50}"
+                    Visibility="Visible">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="Transparent" />
+                            <Setter Property="materialDesign:RippleAssist.Feedback" Value="White" />
+                            <Setter Property="Foreground" Value="{DynamicResource White}" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <!--<Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="{DynamicResource White}" />
+                                    <Setter Property="Cursor" Value="Hand" />
+                                </Trigger>
+                            </Style.Triggers>-->
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

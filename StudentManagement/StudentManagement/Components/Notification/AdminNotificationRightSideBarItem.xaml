@@ -21,21 +21,11 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel>
-            <StackPanel.Resources>
-                <Style x:Key="textblock_item" TargetType="TextBlock">
-                    <Setter Property="Margin" Value="8,0,8,0" />
-                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-                </Style>
-
-                <Style x:Key="text_grid_item" TargetType="Grid">
-                    <Setter Property="Margin" Value="0,4,0,4" />
-                </Style>
-            </StackPanel.Resources>
+        <StackPanel Margin="8">
             <TextBlock
+                Margin="0,0,0,16"
                 Padding="4"
                 FontSize="24"
-                Margin="0 0 0 16"
                 FontWeight="Bold"
                 Style="{DynamicResource MaterialDesignTextBlock}"
                 Text="{Binding CurrentCard.ChuDe, FallbackValue='Tên chủ đề'}"
