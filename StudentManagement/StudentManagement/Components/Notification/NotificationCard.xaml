@@ -36,19 +36,11 @@
                 materialDesign:ShadowAssist.ShadowDepth="Depth4"
                 Foreground="Black">
                 <Button.Style>
-                    <Style
-                        TargetType="Button"
-                        BasedOn="{StaticResource AdminNotificationButton}">
+                    <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
                         <Style.Triggers>
-                            <Trigger
-                                Property="IsMouseOver"
-                                Value="True">
-                                <Setter
-                                    Property="Cursor"
-                                    Value="Hand" />
-                                <Setter
-                                    Property="Background"
-                                    Value="{StaticResource SelectedItemGray}" />
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>

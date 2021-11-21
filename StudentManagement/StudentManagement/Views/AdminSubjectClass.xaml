@@ -6,9 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:views="clr-namespace:StudentManagement.Views"
+    x:Name="AdminSubjectClassUC"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{StaticResource CenterColumn}"
@@ -22,6 +24,9 @@
     mc:Ignorable="d">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
         <Grid>
+            <Grid.Resources>
+                <math:MathConverter x:Key="math" />
+            </Grid.Resources>
             <StackPanel>
                 <TextBlock
                     Margin="16"
@@ -50,12 +55,25 @@
                 <ItemsControl ItemsSource="{Binding SubjectCards}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel HorizontalAlignment="Center" />
+                            <WrapPanel x:Name="Container" HorizontalAlignment="Center" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <component:SubjectClassCard Margin="4" />
+                            <component:SubjectClassCard>
+                                <component:SubjectClassCard.Style>
+                                    <Style TargetType="component:SubjectClassCard">
+                                        <Setter Property="Margin" Value="8,12" />
+                                        <Setter Property="Width">
+                                            <Setter.Value>
+                                                <MultiBinding Converter="{StaticResource math}" ConverterParameter="((x/3&gt;370?x/3:x/2) - 16 &gt; 0) ? ((x/3&gt;370?x/3:x/2) - 16) : 0">
+                                                    <Binding ElementName="AdminSubjectClassUC" Path="ActualWidth" />
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </component:SubjectClassCard.Style>
+                            </component:SubjectClassCard>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

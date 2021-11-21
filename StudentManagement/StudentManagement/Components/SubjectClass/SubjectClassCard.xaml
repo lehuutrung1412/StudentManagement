@@ -54,9 +54,9 @@
                     </Grid.RowDefinitions>
                     <Image
                         x:Name="CardImage"
-                        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.17'}"
+                        Width="{Binding Width, ElementName=SubjectClassCardComponent}"
                         Height="150"
-                        Source="https://picsum.photos/300/400"
+                        Source="https://picsum.photos/400/500"
                         Stretch="UniformToFill" />
 
                     <StackPanel
