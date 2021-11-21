@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -89,23 +90,43 @@ namespace StudentManagement.ViewModels
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra! Không thể xóa thư mục.",
                                   "Xóa thư mục",
-                                  System.Windows.MessageBoxButton.OK,
-                                  System.Windows.MessageBoxImage.Error);
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
             }
         }
 
         private void DeleteFileFunction(object parameter)
         {
-            if (parameter is FileInfo fileInfo)
+            try
             {
-                if (MyMessageBox.Show("Bạn có chắc chắn muốn xóa tài liệu này không?",
-                                      "Xóa tài liệu",
-                                      System.Windows.MessageBoxButton.OKCancel,
-                                      System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.OK)
+                if (parameter != null)
                 {
-                    FileData.Remove(FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId));
+                    var collection = ((IList)parameter).Cast<FileInfo>().ToList();
+                    MessageBoxResult userResponse = collection.Count > 1
+                        ? MyMessageBox.Show($"Bạn có chắc chắn muốn xóa {collection.Count} tài liệu này không?",
+                                          "Xóa tài liệu",
+                                          MessageBoxButton.OKCancel,
+                                          MessageBoxImage.Question)
+                        : MyMessageBox.Show("Bạn có chắc chắn muốn xóa tài liệu này không?",
+                                          "Xóa tài liệu",
+                                          MessageBoxButton.OKCancel,
+                                          MessageBoxImage.Question);
+                    if (userResponse == MessageBoxResult.OK)
+                    {
+                        foreach (var item in collection)
+                        {
+                            FileData.Remove(FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId));
+                        }
+                    }
                 }
             }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể xóa tài liệu.",
+                                  "Xóa tài liệu",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
+            } 
         }
 
         private void CreateFolderFunction()
@@ -121,8 +142,8 @@ namespace StudentManagement.ViewModels
                 {
                     MyMessageBox.Show("Thư mục này đã tồn tại trong lớp học",
                                       "Thêm thư mục",
-                                      System.Windows.MessageBoxButton.OK,
-                                      System.Windows.MessageBoxImage.Error);
+                                      MessageBoxButton.OK,
+                                      MessageBoxImage.Error);
                     return;
                 }
                 IsShowDialog = false;
@@ -133,8 +154,8 @@ namespace StudentManagement.ViewModels
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra! Không thể thêm thư mục.",
                                   "Thêm thư mục",
-                                  System.Windows.MessageBoxButton.OK,
-                                  System.Windows.MessageBoxImage.Error);
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
             }
         }
 
@@ -199,8 +220,8 @@ namespace StudentManagement.ViewModels
                     {
                         MyMessageBox.Show($"Có {existFileCount} tài liệu đã tồn tại.",
                                           "Thêm tài liệu",
-                                          System.Windows.MessageBoxButton.OK,
-                                          System.Windows.MessageBoxImage.Error);
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Error);
                     }
 
                 }
@@ -209,12 +230,12 @@ namespace StudentManagement.ViewModels
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra! Không thể thêm tài liệu.",
                                   "Thêm tài liệu",
-                                  System.Windows.MessageBoxButton.OK,
-                                  System.Windows.MessageBoxImage.Error);
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
             }
-            
+
         }
-        
+
         private void AddFolderFunction()
         {
             IsShowDialog = true;

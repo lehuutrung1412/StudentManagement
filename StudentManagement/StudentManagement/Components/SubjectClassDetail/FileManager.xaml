@@ -13,13 +13,14 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="Transparent"
     mc:Ignorable="d">
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <utils:BindingProxy x:Key="BindingProxy" Data="{Binding}" />
-    </UserControl.Resources>
+    </UserControl.Resources>-->
     <Border Background="White" CornerRadius="10">
         <Grid>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid
+                    Name="FileGrid"
                     MaxHeight="400"
                     VerticalContentAlignment="Center"
                     AutoGenerateColumns="False"
@@ -30,6 +31,10 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding FileDataGroup}">
 
+                    <DataGrid.Resources>
+                        <utils:BindingProxy x:Key="BindingProxy" Data="{Binding ElementName=FileGrid}" />
+                    </DataGrid.Resources>
+                    
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
                             <Setter Property="Template">
@@ -39,8 +44,8 @@
                                             <Grid.ContextMenu>
                                                 <ContextMenu>
                                                     <MenuItem
-                                                        Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DeleteFile}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
+                                                        Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DataContext.DeleteFile}"
+                                                        CommandParameter="{Binding Source={StaticResource BindingProxy}, Path=Data.SelectedItems}"
                                                         Foreground="{StaticResource ErrorMain}"
                                                         Header="Xóa tài liệu"
                                                         Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
