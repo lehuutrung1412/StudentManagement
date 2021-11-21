@@ -300,6 +300,7 @@
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryViewModel.cs" />
+    <Compile Include="ViewModels\CourseRegistry\CreateNewCourseViewModel.cs" />
     <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\FalcutyTrainingForm\AdminTrainingFormRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\FalcutyTrainingForm\AdminFalcutyRightSideBarItemViewModel.cs" />

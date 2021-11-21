@@ -13,7 +13,9 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource Background}" CornerRadius="15">
+    <Border
+        Background="{DynamicResource Background}"
+        CornerRadius="15">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="15"
@@ -23,21 +25,16 @@
         </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="5*" />
-                <RowDefinition Height="0.8*" />
+                <RowDefinition
+                    Height="auto" />
+                <RowDefinition
+                    Height="auto" />
+                <RowDefinition
+                    Height="0.8*" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0">
+            <StackPanel
+                Grid.Row="0">
                 <DockPanel>
-                    <Ellipse
-                        Width="40"
-                        Height="40"
-                        Margin="16,16,16,16"
-                        VerticalAlignment="Top">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{DynamicResource DefaultUserAvatar}" Stretch="Uniform" />
-                        </Ellipse.Fill>
-                    </Ellipse>
 
                     <TextBox
                         VerticalAlignment="Center"
@@ -48,10 +45,16 @@
                         Text="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="Wrap">
                         <TextBox.Style>
-                            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
+                            <Style
+                                BasedOn="{StaticResource MaterialDesignTextBox}"
+                                TargetType="TextBox">
                                 <Style.Triggers>
-                                    <Trigger Property="Validation.HasError" Value="True">
-                                        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                    <Trigger
+                                        Property="Validation.HasError"
+                                        Value="True">
+                                        <Setter
+                                            Property="materialDesign:HintAssist.Foreground"
+                                            Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -59,86 +62,191 @@
                     </TextBox>
                 </DockPanel>
 
-                <Grid Margin="16,16,16,4">
+                <Grid
+                    Margin="16,16,16,4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition
+                            Width="auto" />
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
+                    <Grid
+                        Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                        </Grid.RowDefinitions>
                         <TextBlock
+                            Grid.Row="0"
                             FontSize="16"
                             FontWeight="SemiBold"
-                            Text="Loại thông báo" />
+                            Text="Môn học"
+                            Margin="0,0,-0.4,8" />
+                        <TextBlock
+                            Grid.Row="1"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Hệ đào tạo"
+                            Margin="0,0,-0.4,8" />
+                        <TextBlock
+                            Grid.Row="2"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Tiết"
+                            Margin="0,0,-0.4,8" />
+                        <TextBlock
+                            Grid.Row="3"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Thứ"
+                            Margin="0,0,-0.4,8" />
+                        <TextBlock
+                            Grid.Row="4"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Sĩ số tối đa"
+                            Margin="0,0,-0.4,8" />
                     </Grid>
-                    <Grid Grid.Column="1">
+                    <Grid
+                        Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                        </Grid.RowDefinitions>
                         <ComboBox
-                            Width="Auto"
+                            Grid.Row="0"
                             Height="28"
                             Margin="16,0,0,0"
                             Padding="8,4,8,4"
-                            materialDesign:HintAssist.Hint="Chọn loại thông báo"
+                            materialDesign:HintAssist.Hint="Chọn môn học"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             materialDesign:ValidationAssist.Background="Transparent"
                             BorderBrush="Gray"
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#01579b"
-                            ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                            SelectedItem="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged}">
-                            <ComboBox.Style>
-                                <Style BasedOn="{StaticResource MaterialDesignOutlinedComboBox}" TargetType="ComboBox">
-                                    <Style.Triggers>
-                                        <Trigger Property="Validation.HasError" Value="True">
-                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
+                            ItemsSource="{Binding Subjects, Source={StaticResource AdminCourseRegistryVM}}"
+                            SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource ComboBoxTriggerValidation}">
                         </ComboBox>
+                        <ComboBox
+                            Grid.Row="1"
+                            Width="Auto"
+                            Height="28"
+                            Margin="16,0,0,0"
+                            Padding="8,4,8,4"
+                            materialDesign:HintAssist.Hint="Chọn hệ đào tạo"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:ValidationAssist.Background="Transparent"
+                            BorderBrush="Gray"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="#01579b"
+                            ItemsSource="{Binding TrainingForms, Source={StaticResource AdminCourseRegistryVM}}"
+                            SelectedItem="{Binding SelectedTF, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource ComboBoxTriggerValidation}">
+                        </ComboBox>
+                        <TextBox
+                            Grid.Row="2"
+                            Width="Auto"
+                            Height="28"
+                            Margin="16,0,0,0"
+                            Padding="8,4,8,4"
+                            BorderBrush="Gray"
+                            materialDesign:HintAssist.Hint="Vd: 8910"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="#01579b"
+                            Text="{Binding Period, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource TextBoxTriggerValidation}">
+                        </TextBox>
+                        <ComboBox
+                            Grid.Row="3"
+                            Width="Auto"
+                            Height="28"
+                            Margin="16,0,0,0"
+                            Padding="8,4,8,4"
+                            materialDesign:HintAssist.Hint="Chọn thứ trong tuần"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:ValidationAssist.Background="Transparent"
+                            BorderBrush="Gray"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="#01579b"
+                            ItemsSource="{Binding DayOfWeeks, Source={StaticResource AdminCourseRegistryVM}}"
+                            SelectedItem="{Binding SelectedDay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource ComboBoxTriggerValidation}">
+                        </ComboBox>
+                        <TextBox
+                            Grid.Row="4"
+                            Width="Auto"
+                            Height="28"
+                            Margin="16,0,0,0"
+                            Padding="8,4,8,4"
+                            BorderBrush="Gray"
+                            materialDesign:HintAssist.Hint="Nhập số lượng sinh viên tối đa"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="#01579b"
+                            Text="{Binding MaxNumber, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource TextBoxTriggerValidation}">
+                        </TextBox>
                     </Grid>
+                    <StackPanel
+                        Margin="12, 0, 0, 0"
+                        Grid.Column="2">
+                        <CheckBox
+                            Content="Lớp thực hành"
+                            Height="28"
+                            FontSize="14"
+                            VerticalContentAlignment="Center"
+                            FontWeight="SemiBold"
+                            Foreground="#01579b"
+                            Opacity="0.8"
+                            Margin="0 0 0 8"
+                            IsChecked="{Binding IsPracticed}">
+                        </CheckBox>
+                        <Border
+                            BorderBrush="Gray"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="0 0 0 8">
+                            <StackPanel>
+                                <TextBlock
+                                    Text="Mã lớp môn học"
+                                    FontWeight="SemiBold"
+                                    HorizontalAlignment="Center"
+                                    Margin="0, 16, 0, 8"
+                                    FontSize="28" />
+                                <TextBox
+                                    Text="{Binding SubjectClassCode, FallbackValue='x.x.x'}"
+                                    IsReadOnly="True"
+                                    FontSize="24"
+                                    HorizontalAlignment="Center"
+                                    Foreground="Crimson"
+                                    FontStyle="Italic"
+                                    Style="{StaticResource MaterialDesignTextBox}" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
                 </Grid>
-
             </StackPanel>
-            <!--<materialDesign:PackIcon
-                        Margin="16,0,0,0"
-                        Kind="Earth"
-                        VerticalAlignment="Center"/>
-                    <TextBlock
-                        Margin="4,0,16,0"
-                        FontSize="16"
-                        Text="22:00 01/01/2022" />-->
-            <TextBox
-                Grid.Row="1"
-                Height="auto"
-                MinHeight="40"
-                Margin="16,16,16,8"
-                Padding="16"
-                materialDesign:HintAssist.Hint="Nội dung thông báo?"
-                materialDesign:HintAssist.IsFloating="False"
-                materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
-                materialDesign:TextFieldAssist.UnderlineBrush="White"
-                materialDesign:ValidationAssist.Background="Transparent"
-                AcceptsReturn="True"
-                AcceptsTab="True"
-                Background="White"
-                DockPanel.Dock="Right"
-                FontSize="16"
-                HorizontalScrollBarVisibility="Disabled"
-                Text="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="auto">
-                <TextBox.Style>
-                    <Style BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" TargetType="TextBox">
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError" Value="True">
-                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
-            <!--  Text="{Binding DraftPostText, Mode=TwoWay}"  -->
             <StackPanel
                 Grid.Row="2"
                 Margin="4,0,16,4"
@@ -147,11 +255,15 @@
                 Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition
+                            Width="*" />
+                        <ColumnDefinition
+                            Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="1">
-                        <StackPanel Orientation="Horizontal">
+                    <Grid
+                        Grid.Column="1">
+                        <StackPanel
+                            Orientation="Horizontal">
                             <Button
                                 Margin="0,0,16,0"
                                 HorizontalAlignment="Stretch"
@@ -159,9 +271,12 @@
                                 IsEnabled="{Binding CanCreate, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{StaticResource PrimaryButton}">
                                 <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
-                                        <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
+                                    <i:EventTrigger
+                                        EventName="Click">
+                                        <i:InvokeCommandAction
+                                            Command="{Binding CreateNotificationCommand}" />
+                                        <i:InvokeCommandAction
+                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
 
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>

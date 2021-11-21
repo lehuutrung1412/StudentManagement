@@ -115,6 +115,7 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        public object _creatNewCourseViewModel;
         #endregion
         #region commands
         public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
@@ -125,7 +126,10 @@ namespace StudentManagement.ViewModels
         private ICommand _searchCourseRegistryItems;
         public ICommand DeleteSelectedItemsCommand { get => _deleteSelectedItemsCommand; set => _deleteSelectedItemsCommand = value; }
         private ICommand _deleteSelectedItemsCommand;
+        public ICommand CreateNewCourseCommand { get => _createNewCourseCommand; set => _createNewCourseCommand = value; }
+        private ICommand _createNewCourseCommand;
         #endregion
+
         public AdminCourseRegistryViewModel()
         {
             /*Thiếu lấy dữ liệu từ model cho semester và SubjectClasses*/
@@ -162,12 +166,14 @@ namespace StudentManagement.ViewModels
             DeleteSelectedItemsCommand = new RelayCommand<UserControl>(
                 (p) => 
                 {
-                    return CourseRegistryItems.Where(x => x.IsSelected == true).Count() > 0;
+                    /*return CourseRegistryItems.Where(x => x.IsSelected == true).Count() > 0;*/
+                    return true;
                 }, 
                 (p) =>
                 {
                     DeleteSelectedItems();
                 });
+            CreateNewCourseCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNewCourse());
         }
 
         public void SelectData()
@@ -207,6 +213,12 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems.Remove(item);
             }
             SearchCourseRegistryItemsFunction();
+        }
+        public void CreateNewCourse()
+        {
+            CourseRegistryItem newCard = new CourseRegistryItem(false, "", "", 0, 0, 0);
+            _creatNewCourseViewModel = new CreateNewCourseViewModel(newCard, SelectedSemester, CourseRegistryItems);
+            this.DialogItemViewModel = this._creatNewCourseViewModel;
         }
     }
 }

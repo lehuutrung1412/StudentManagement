@@ -7,9 +7,11 @@
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:math="http://hexinnovation.com/math"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:views="clr-namespace:StudentManagement.Views"
+    xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{StaticResource CenterColumn}"
@@ -27,7 +29,6 @@
     <ScrollViewer>
         <materialDesign:DialogHost
             CloseOnClickAway="True">
-            <!--
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminCourseRegistryVM}">
                     <ContentControl.Resources>
@@ -37,7 +38,6 @@
                     </ContentControl.Resources>
                 </ContentControl>
             </materialDesign:DialogHost.DialogContent>
-            -->
             <StackPanel
                 Margin="8">
                 <Grid>
@@ -154,7 +154,17 @@
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Thêm thủ công"
-                        FontSize="14" />
+                        FontSize="14">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger
+                                EventName="Click">
+                                <i:InvokeCommandAction
+                                    Command="{Binding CreateNewCourseCommand}" />
+                                <i:InvokeCommandAction
+                                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                     <Button
                         DockPanel.Dock="Left"
                         Width="150"

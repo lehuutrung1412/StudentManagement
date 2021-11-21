@@ -425,4 +425,24 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="5" />
     </Style>
+    <Style
+        x:Key="ComboBoxTriggerValidation"
+        BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
+        TargetType="{x:Type ComboBox}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="TextBoxTriggerValidation"
+        BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"
+        TargetType="{x:Type TextBox}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
