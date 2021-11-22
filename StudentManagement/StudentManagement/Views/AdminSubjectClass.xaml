@@ -49,6 +49,7 @@
                         Grid.Column="1"
                         Height="50"
                         Margin="16,0,0,0"
+                        materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding CreateSubjectCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
                         Content="Thêm lớp học"
                         FontSize="16" />

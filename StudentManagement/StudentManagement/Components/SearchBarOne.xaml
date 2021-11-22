@@ -32,6 +32,7 @@
             Grid.ColumnSpan="5"
             VerticalAlignment="Center"
             materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
+            materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Text="{Binding SearchQuery, FallbackValue='TextSearch type 1', RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SearchBarOne}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>

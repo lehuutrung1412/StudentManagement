@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="SubjectClassCardComponent"
@@ -18,11 +19,15 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
+
+        <Grid.Resources>
+            <math:MathConverter x:Key="math" />
+        </Grid.Resources>
         <Button
             x:Name="CardButton"
             Width="Auto"
             Height="Auto"
-            Padding="6"
+            Padding="4"
             materialDesign:ShadowAssist.ShadowDepth="Depth0"
             Background="{StaticResource CenterColumn}"
             BorderBrush="{StaticResource CenterColumn}"
@@ -53,12 +58,15 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Image
-                        x:Name="CardImage"
-                        Width="{Binding Width, ElementName=SubjectClassCardComponent}"
-                        Height="150"
-                        Source="https://picsum.photos/200/200"
-                        Stretch="UniformToFill" />
+
+                    <Border
+                        Width="{Binding Width, ElementName=SubjectClassCardComponent, Converter={StaticResource math}, ConverterParameter='x-16'}"
+                        Margin="0,0,8,0"
+                        CornerRadius="8">
+                        <Border.Background>
+                            <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
 
                     <StackPanel
                         Grid.Row="1"

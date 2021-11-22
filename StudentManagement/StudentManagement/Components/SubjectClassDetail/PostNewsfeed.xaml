@@ -70,7 +70,7 @@
                         <materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignCentres">
                             <StackPanel>
                                 <Button
-                                    Command="{Binding Source={StaticResource NewFeedSubjectClassDetailVM}, Path=EditPost}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.EditPost}"
                                     CommandParameter="{Binding ElementName=PostNewsFeedUC}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Margin="0,0,8,0" Kind="PencilOutline" />
@@ -81,7 +81,7 @@
                                     </StackPanel>
                                 </Button>
                                 <Button
-                                    Command="{Binding Source={StaticResource NewFeedSubjectClassDetailVM}, Path=DeletePost}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.DeletePost}"
                                     CommandParameter="{Binding Path=PostId}"
                                     Foreground="{DynamicResource ErrorMain}">
                                     <StackPanel Orientation="Horizontal">
@@ -243,102 +243,6 @@
                 </StackPanel>
             </DockPanel>
 
-            <!--<Grid Grid.Row="5">
-                <DockPanel
-                    Margin="16 8 4 8">
-                    <Ellipse
-                        Width="40"
-                        Height="40"
-                        Margin="0,0,4,8"
-                        VerticalAlignment="Top"
-                        DockPanel.Dock="Left">
-                        <Ellipse.Fill>
-                            <ImageBrush
-                                ImageSource="{DynamicResource DefaultUserAvatar}"
-                                Stretch="Uniform" />
-                        </Ellipse.Fill>
-                    </Ellipse>
-
-                    <Grid
-                        HorizontalAlignment="Left">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition
-                                Width="*" />
-                            <ColumnDefinition
-                                Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Border
-                            HorizontalAlignment="Left"
-                            Grid.Column="0"
-                            DockPanel.Dock="Left"
-                            Margin="4,0,0,0"
-                            Padding="12"
-                            Background="#e9ebee"
-                            CornerRadius="15"
-                            ToolTip="Thứ 3, 2 tháng 11, 2021 vào lúc 20:00">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <StackPanel
-                                    Grid.Row="0"
-                                    Orientation="Horizontal">
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Text="Lê Hữu Trung" />
-                                    <Image
-                                        Height="18"
-                                        Margin="4,0,0,0"
-                                        Source="{StaticResource BlueTick}"
-                                        ToolTip="Người dùng đã xác minh" />
-                                </StackPanel>
-                                <TextBox
-                                    Grid.Row="1"
-                                    Style="{StaticResource TextBoxAsTextBlock}"
-                                    Text="Loremgsegseggesgesg LoremgsegseggesgesgLoremgsegseggesgesgLoremgsegseggesgesgLoremgsegseggesgesgLoremgsegseggesgesgLoremgsegseggesgesgtext of the printing." />
-                            </Grid>
-                        </Border>
-
-                        <materialDesign:PopupBox
-                            Grid.Column="1"
-                            DockPanel.Dock="Right"
-                            Margin="4,0,0,0">
-                            <StackPanel>
-                                <Button>
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                            Margin="0,0,8,0"
-                                            Kind="PencilOutline" />
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            FontWeight="SemiBold"
-                                            Text="Chỉnh sửa" />
-                                    </StackPanel>
-                                </Button>
-                                <Button
-                                    Command="{Binding ElementName=icComments, Path=DataContext.DeleteComment}"
-                                    CommandParameter="{Binding CommentId}"
-                                    Foreground="{DynamicResource ErrorMain}">
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                            Margin="0,0,8,0"
-                                            Kind="DeleteOutline" />
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            FontWeight="SemiBold"
-                                            Text="Xóa" />
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-                        </materialDesign:PopupBox>
-                    </Grid>
-                </DockPanel>-->
-
             <Grid Grid.Row="5">
                 <ItemsControl
                     Name="icComments"
@@ -472,49 +376,6 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <!--<StackPanel
-                    Orientation="Vertical">
-                    <DockPanel>
-                        <Ellipse
-                            Width="40"
-                            Height="40"
-                            Margin="16,0,4,8"
-                            VerticalAlignment="Top"
-                            DockPanel.Dock="Left">
-                            <Ellipse.Fill>
-                                <ImageBrush
-                                    ImageSource="{DynamicResource DefaultUserAvatar}"
-                                    Stretch="Uniform" />
-                            </Ellipse.Fill>
-                        </Ellipse>
-
-                        <Border
-                            Margin="4,0,16,16"
-                            Padding="12"
-                            HorizontalAlignment="Left"
-                            Background="#e9ebee"
-                            CornerRadius="15"
-                            ToolTip="Thứ 3, 2 tháng 11, 2021 vào lúc 20:00">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <TextBlock
-                                    Grid.Row="0"
-                                    VerticalAlignment="Center"
-                                    FontSize="16"
-                                    FontWeight="SemiBold"
-                                    Text="Lê Hữu Trung" />
-                                <TextBox
-                                    Grid.Row="1"
-                                    Style="{StaticResource TextBoxAsTextBlock}"
-                                    Text="Đã quá pepsi ơi!!!" />
-                            </Grid>
-                        </Border>
-                    </DockPanel>
-                </StackPanel>-->
-
             </Grid>
 
             <DockPanel Grid.Row="6" Margin="16,0,16,16">

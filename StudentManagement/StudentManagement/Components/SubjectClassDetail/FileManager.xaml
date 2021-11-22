@@ -17,6 +17,7 @@
         <Grid>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid
+                    Name="FileGrid"
                     MaxHeight="400"
                     VerticalContentAlignment="Center"
                     AutoGenerateColumns="False"
@@ -27,12 +28,29 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding FileDataGroup}">
 
+                    <DataGrid.Resources>
+                        <utils:BindingProxy x:Key="BindingProxy" Data="{Binding ElementName=FileGrid}" />
+                    </DataGrid.Resources>
+                    
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                                         <Grid Margin="16" Background="{TemplateBinding Background}">
+                                            <Grid.ToolTip>
+                                                <ToolTip Content="{Binding Name}"/>
+                                            </Grid.ToolTip>
+                                            <Grid.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem
+                                                        Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DataContext.DeleteFile}"
+                                                        CommandParameter="{Binding Source={StaticResource BindingProxy}, Path=Data.SelectedItems}"
+                                                        Foreground="{StaticResource ErrorMain}"
+                                                        Header="Xóa tài liệu"
+                                                        Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
+                                                </ContextMenu>
+                                            </Grid.ContextMenu>
                                             <ContentPresenter VerticalAlignment="Center" />
                                         </Grid>
                                     </ControlTemplate>
@@ -48,9 +66,26 @@
                                     <Style.Resources>
                                         <ControlTemplate x:Key="MultiItemGroupTemplate" TargetType="{x:Type GroupItem}">
                                             <Expander
+                                                Name="ExpanderFolder"
                                                 Background="Linen"
                                                 IsExpanded="False"
-                                                Style="{StaticResource MaterialDesignExpander}">
+                                                Style="{StaticResource MaterialDesignExpander}"
+                                                Tag="{Binding ElementName=FileManagerUC, Path=DataContext}">
+                                                <Expander.ContextMenu>
+                                                    <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                                                        <MenuItem
+                                                            Command="{Binding AddFile}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Header="Thêm tài liệu"
+                                                            Icon="{materialDesign:PackIcon Kind=FilePlusOutline}" />
+                                                        <MenuItem
+                                                            Command="{Binding DeleteFolder}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Foreground="{StaticResource ErrorMain}"
+                                                            Header="Xóa thư mục"
+                                                            Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
+                                                    </ContextMenu>
+                                                </Expander.ContextMenu>
                                                 <Expander.Header>
                                                     <DockPanel Margin="-8,0,0,0">
                                                         <Image
@@ -71,6 +106,39 @@
                                                 <ItemsPresenter />
                                             </Expander>
                                         </ControlTemplate>
+                                        <ControlTemplate x:Key="SingleGroupTemplate" TargetType="{x:Type GroupItem}">
+                                            <Border
+                                                Margin="0"
+                                                Padding="16"
+                                                Background="Linen"
+                                                Tag="{Binding ElementName=FileManagerUC, Path=DataContext}">
+                                                <Border.ContextMenu>
+                                                    <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                                                        <MenuItem
+                                                            Command="{Binding AddFile}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Header="Thêm tài liệu"
+                                                            Icon="{materialDesign:PackIcon Kind=FilePlusOutline}" />
+                                                        <MenuItem
+                                                            Command="{Binding DeleteFolder}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Foreground="{StaticResource ErrorMain}"
+                                                            Header="Xóa thư mục"
+                                                            Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
+                                                    </ContextMenu>
+                                                </Border.ContextMenu>
+                                                <DockPanel>
+                                                    <Image
+                                                        Width="24"
+                                                        Height="24"
+                                                        Source="{StaticResource Folder}" />
+                                                    <TextBlock
+                                                        Margin="8"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding Items[0].FolderName}" />
+                                                </DockPanel>
+                                            </Border>
+                                        </ControlTemplate>
                                         <ControlTemplate x:Key="SingleItemGroupTemplate" TargetType="{x:Type GroupItem}">
                                             <ItemsPresenter />
                                         </ControlTemplate>
@@ -78,6 +146,9 @@
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Items[0].FolderId}" Value="{x:Null}">
                                             <Setter Property="Template" Value="{StaticResource SingleItemGroupTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Items[0].Id}" Value="{x:Null}">
+                                            <Setter Property="Template" Value="{StaticResource SingleGroupTemplate}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                     <Setter Property="Template" Value="{StaticResource MultiItemGroupTemplate}" />
@@ -88,8 +159,8 @@
 
                     <DataGrid.Columns>
                         <DataGridTemplateColumn
-                            MaxWidth="380"
                             Width="auto"
+                            MaxWidth="280"
                             CanUserSort="True"
                             Header="Tên tài liệu"
                             SortMemberPath="Name">
@@ -101,23 +172,27 @@
                                             Height="24"
                                             Source="{Binding Path=Name, Converter={utils:FileExtensionToImageConverter}}" />
                                         <TextBlock
-                                            MaxWidth="320"
+                                            MaxWidth="210"
                                             Margin="8,0,0,0"
                                             VerticalAlignment="Center"
-                                            TextTrimming="WordEllipsis"
-                                            Text="{Binding Name}" />
+                                            Text="{Binding Name}"
+                                            TextTrimming="WordEllipsis" />
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding UploadTime}"
+                            Binding="{Binding UploadTime, Converter={utils:DateTimeConverter}, ConverterParameter=standard}"
                             Header="Thời gian tạo" />
                         <DataGridTextColumn
                             Width="auto"
                             Binding="{Binding Publisher}"
                             Header="Người đăng" />
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding Size, Converter={utils:FileSizeConverter}}"
+                            Header="Dung lượng" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

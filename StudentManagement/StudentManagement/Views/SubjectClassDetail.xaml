@@ -31,26 +31,40 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="12" />
     </WindowChrome.WindowChrome>
-    <Border
-        Margin="8"
-        Background="{DynamicResource White}"
-        CornerRadius="5">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <component:TitleBar Grid.Row="0" />
-            <ContentControl
-                Grid.Row="1"
-                Margin="0,0,0,5"
-                Content="{Binding CurrentViewModel}">
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsShowDialog}">
+        <materialDesign:DialogHost.DialogContent>
+            <ContentControl Content="{Binding DialogViewModel}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
-                        <views:Layout />
+                    <DataTemplate DataType="{x:Type viewmodels:FileManagerClassDetailViewModel}">
+                        <component:CreateFolder />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:CreatePostNewFeedViewModel}">
+                        <component:CreatePostNewfeed Width="600" MaxHeight="350" />
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
-        </Grid>
-    </Border>
+        </materialDesign:DialogHost.DialogContent>
+        <Border
+            Margin="8"
+            Background="{DynamicResource White}"
+            CornerRadius="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <component:TitleBar Grid.Row="0" />
+                <ContentControl
+                    Grid.Row="1"
+                    Margin="0,0,0,5"
+                    Content="{Binding CurrentViewModel}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
+                            <views:Layout />
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Grid>
+        </Border>
+    </materialDesign:DialogHost>
 </Window>

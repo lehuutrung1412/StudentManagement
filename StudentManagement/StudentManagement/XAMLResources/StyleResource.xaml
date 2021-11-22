@@ -479,6 +479,7 @@
         <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="8" />
     </Style>
 
 
