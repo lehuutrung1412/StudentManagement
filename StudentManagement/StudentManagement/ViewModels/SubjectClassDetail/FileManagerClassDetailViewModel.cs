@@ -126,7 +126,7 @@ namespace StudentManagement.ViewModels
                                   "Xóa tài liệu",
                                   MessageBoxButton.OK,
                                   MessageBoxImage.Error);
-            } 
+            }
         }
 
         private void CreateFolderFunction()
@@ -147,7 +147,7 @@ namespace StudentManagement.ViewModels
                     return;
                 }
                 IsShowDialog = false;
-                FileData.Add(new FileInfo(null, "", "Hữu Trung", DateTime.Now, Guid.NewGuid(), NewFolderName));
+                FileData.Add(new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName));
                 NewFolderName = null;
             }
             catch (Exception)
@@ -186,11 +186,21 @@ namespace StudentManagement.ViewModels
                     }
 
                     int existFileCount = 0;
+                    int notValidFileSizeCount = 0;
                     foreach (string file in openFileDialog.FileNames)
                     {
                         string name = Path.GetFileName(file);
                         if (!string.IsNullOrEmpty(name))
                         {
+                            // File size limit: 10MB
+                            long fileSize = GetFileSize(file);
+                            if (!IsValidFileSize(fileSize))
+                            {
+                                notValidFileSizeCount++;
+                                continue;
+                            }
+
+                            // Detect exist file
                             var existFile = FileData.FirstOrDefault(fileInfo => fileInfo.Name == name && fileInfo.FolderId == folderId);
                             if (existFile != null)
                             {
@@ -207,11 +217,11 @@ namespace StudentManagement.ViewModels
                                     FileData.Remove(pseudoFileInfo);
                                 }
 
-                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, folderId, folderName));
+                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, fileSize, folderId, folderName));
                             }
                             else
                             {
-                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, null, ""));
+                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, fileSize, null, ""));
                             }
                         }
                     }
@@ -224,6 +234,13 @@ namespace StudentManagement.ViewModels
                                           MessageBoxImage.Error);
                     }
 
+                    if (notValidFileSizeCount > 0)
+                    {
+                        MyMessageBox.Show($"Không thể tải lên {notValidFileSizeCount} tài liệu có dung lượng > 10MB.",
+                                          "Thêm tài liệu",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Error);
+                    }
                 }
             }
             catch (Exception)
@@ -234,6 +251,22 @@ namespace StudentManagement.ViewModels
                                   MessageBoxImage.Error);
             }
 
+        }
+
+        private long GetFileSize(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                return new System.IO.FileInfo(filePath).Length;
+            }
+            return 0;
+        }
+
+        private bool IsValidFileSize(long fileSizeInBytes)
+        {
+            // File limit: 10MB
+            long FILE_SIZE_LIMIT = 10485760;
+            return fileSizeInBytes <= FILE_SIZE_LIMIT;
         }
 
         private void AddFolderFunction()
@@ -275,6 +308,7 @@ namespace StudentManagement.ViewModels
         private DateTime _uploadTime;
         private Guid? _folderId;
         private string _folderName;
+        private long _size;
 
         public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public string Publisher { get => _publisher; set { _publisher = value; OnPropertyChanged(); } }
@@ -284,12 +318,15 @@ namespace StudentManagement.ViewModels
 
         public Guid? Id { get => _id; set { _id = value; OnPropertyChanged(); } }
 
-        public FileInfo(Guid? id, string name, string publisher, DateTime uploadTime, Guid? folderId, string folderName)
+        public long Size { get => _size; set { _size = value; OnPropertyChanged(); } }
+
+        public FileInfo(Guid? id, string name, string publisher, DateTime uploadTime, long size, Guid? folderId, string folderName)
         {
             Id = id;
             Name = name;
             Publisher = publisher;
             UploadTime = uploadTime;
+            Size = size;
             FolderId = folderId;
             FolderName = folderName;
         }

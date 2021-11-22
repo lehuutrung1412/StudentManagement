@@ -160,7 +160,7 @@
                     <DataGrid.Columns>
                         <DataGridTemplateColumn
                             Width="auto"
-                            MaxWidth="380"
+                            MaxWidth="280"
                             CanUserSort="True"
                             Header="Tên tài liệu"
                             SortMemberPath="Name">
@@ -172,7 +172,7 @@
                                             Height="24"
                                             Source="{Binding Path=Name, Converter={utils:FileExtensionToImageConverter}}" />
                                         <TextBlock
-                                            MaxWidth="300"
+                                            MaxWidth="210"
                                             Margin="8,0,0,0"
                                             VerticalAlignment="Center"
                                             Text="{Binding Name}"
@@ -189,6 +189,10 @@
                             Width="auto"
                             Binding="{Binding Publisher}"
                             Header="Người đăng" />
+                        <DataGridTextColumn
+                            Width="auto"
+                            Binding="{Binding Size, Converter={utils:FileSizeConverter}}"
+                            Header="Dung lượng" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>
