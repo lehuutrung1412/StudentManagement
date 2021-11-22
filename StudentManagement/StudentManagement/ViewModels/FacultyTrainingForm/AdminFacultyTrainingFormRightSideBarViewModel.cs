@@ -11,9 +11,9 @@ using static StudentManagement.ViewModels.AdminFacultyTrainingFormViewModel;
 
 namespace StudentManagement.ViewModels
 {
-    #region properties
     public class AdminFacultyTrainingFormRightSideBarViewModel : BaseViewModel
     {
+        #region properties
         private static AdminFacultyTrainingFormRightSideBarViewModel s_instance;
         public static AdminFacultyTrainingFormRightSideBarViewModel Instance
         {

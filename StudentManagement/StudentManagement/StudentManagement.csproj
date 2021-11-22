@@ -288,9 +288,11 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
+    <Compile Include="Objects\FacultyCard.cs" />
     <Compile Include="Objects\IBaseCard.cs" />
     <Compile Include="Objects\BaseObjectWithBaseViewModel.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
+    <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Win32;
 using static StudentManagement.ViewModels.AdminSubjectClassViewModel;
 
 namespace StudentManagement.ViewModels
@@ -52,10 +53,13 @@ namespace StudentManagement.ViewModels
 
         private ICommand _cancelEditSubjectCardInfo;
 
+        public ICommand ClickChangeImageCommand { get; set; }
+
         public void InitCommand()
         {
             CancelEditSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditSubjectCardInfoFunction());
             ConfirmEditSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => ConfirmEditSubjectCardInfoFunction());
+            ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
         }
 
         public void CancelEditSubjectCardInfoFunction()
@@ -66,15 +70,37 @@ namespace StudentManagement.ViewModels
 
         public void ConfirmEditSubjectCardInfoFunction()
         {
+            bool isCardExist = AdminSubjectClassViewModel.StoredSubjectCards.Contains(ActualCard);
             ActualCard.CopyCardInfo(CurrentCard);
+
+            // check if card exist -> Not exist insert new
+            if (!isCardExist)
+            {
+                AdminSubjectClassViewModel.StoredSubjectCards.Insert(0, ActualCard);
+                AdminSubjectClassViewModel.SubjectCards.Insert(0, ActualCard);
+            }
+
             ActualCard.RunOnPropertyChanged();
             ReturnToShowSubjectCardInfo();
+
         }
 
         public void ReturnToShowSubjectCardInfo()
         {
             AdminSubjectClassRightSideBarViewModel adminSubjectClassRightSideBarViewModel = AdminSubjectClassRightSideBarViewModel.Instance;
             adminSubjectClassRightSideBarViewModel.RightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(ActualCard);
+        }
+
+        public void ClickChangeImage()
+        {
+            OpenFileDialog op = new OpenFileDialog
+            {
+                Title = "Select a picture",
+                Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png"
+            };
+            if (op.ShowDialog() == true)
+            {
+            }
         }
     }
 

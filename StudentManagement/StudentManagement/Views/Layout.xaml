@@ -74,6 +74,9 @@
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
-        <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />
+        <components:RightSideBar
+            Grid.Column="9"
+            Grid.ColumnSpan="3"
+            Margin="0,0,12,0" />
     </Grid>
 </UserControl>
