@@ -70,9 +70,19 @@ namespace StudentManagement.ViewModels
 
         public void ConfirmEditSubjectCardInfoFunction()
         {
+            bool isCardExist = AdminSubjectClassViewModel.StoredSubjectCards.Contains(ActualCard);
             ActualCard.CopyCardInfo(CurrentCard);
+
+            // check if card exist -> Not exist insert new
+            if (!isCardExist)
+            {
+                AdminSubjectClassViewModel.StoredSubjectCards.Insert(0, ActualCard);
+                AdminSubjectClassViewModel.SubjectCards.Insert(0, ActualCard);
+            }
+
             ActualCard.RunOnPropertyChanged();
             ReturnToShowSubjectCardInfo();
+
         }
 
         public void ReturnToShowSubjectCardInfo()

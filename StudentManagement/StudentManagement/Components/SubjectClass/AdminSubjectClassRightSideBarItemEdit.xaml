@@ -143,6 +143,7 @@
                     <TextBox
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập sĩ số lớp"
+                        IsEnabled="False"
                         Style="{StaticResource textbox_item}"
                         Text="{Binding CurrentCard.SiSo}" />
                 </Grid>

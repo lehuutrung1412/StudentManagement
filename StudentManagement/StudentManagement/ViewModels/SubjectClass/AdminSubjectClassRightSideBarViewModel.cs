@@ -51,6 +51,9 @@ namespace StudentManagement.ViewModels
 
         private ICommand _deleteSubjectCardInfo;
 
+        public ICommand CreateSubjectCardInfo { get => _createSubjectCardInfo; set => _createSubjectCardInfo = value; }
+
+        private ICommand _createSubjectCardInfo;
         #endregion
 
         public AdminSubjectClassRightSideBarViewModel()
@@ -59,9 +62,9 @@ namespace StudentManagement.ViewModels
             InitRightSideBarItemViewModel();
 
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
-
             EditSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditSubjectCardByCardFunction(p));
             DeleteSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => DeleteSubjectCardByCardFunction(p));
+            CreateSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CreateSubjectCardByCardFunction());
         }
 
         #region methods
@@ -90,6 +93,15 @@ namespace StudentManagement.ViewModels
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
         }
 
+        public void CreateSubjectCardByCardFunction()
+        {
+            SubjectCard card = new SubjectCard();
+
+            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
+
+            RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
+        }
+        
         public void DeleteSubjectCardByCardFunction(object p)
         {
             SubjectCard card = p as SubjectCard;
