@@ -151,6 +151,10 @@ namespace StudentManagement.ViewModels
                     {
                         foreach (var item in collection)
                         {
+                            if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
+                            {
+                                FileData.Add(new FileInfo(null, "", item.Publisher, item.UploadTime, 0, item.FolderId, item.FolderName));
+                            }
                             FileData.Remove(FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId));
                         }
                     }
