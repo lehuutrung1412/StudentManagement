@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using static StudentManagement.ViewModels.AdminSubjectClassViewModel;
 using Microsoft.Win32;
+using StudentManagement.Objects;
 
 namespace StudentManagement.ViewModels
 {

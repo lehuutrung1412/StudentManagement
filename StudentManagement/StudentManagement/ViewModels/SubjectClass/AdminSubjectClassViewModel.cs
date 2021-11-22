@@ -16,30 +16,6 @@ namespace StudentManagement.ViewModels
 {
     public class AdminSubjectClassViewModel : BaseViewModel
     {
-        #region class
-        public class SubjectCard : BaseObjectWithBaseViewModel, IBaseCard
-        {
-            private int _siSo;
-            private string _giaoVien;
-            private string _maMon;
-            private string _tenMon;
-
-            public SubjectCard() { }
-            public SubjectCard(int siSo, string giaoVien, string maMon, string tenMon)
-            {
-                SiSo = siSo;
-                GiaoVien = giaoVien;
-                MaMon = maMon;
-                TenMon = tenMon;
-            }
-
-            public int SiSo { get => _siSo; set => _siSo = value; }
-            public string GiaoVien { get => _giaoVien; set => _giaoVien = value; }
-            public string MaMon { get => _maMon; set => _maMon = value; }
-            public string TenMon { get => _tenMon; set => _tenMon = value; }
-        }
-        #endregion
-
         #region properties
         static private ObservableCollection<SubjectCard> _storedSubjectCards;
         public static ObservableCollection<SubjectCard> StoredSubjectCards { get => _storedSubjectCards; set => _storedSubjectCards = value; }
