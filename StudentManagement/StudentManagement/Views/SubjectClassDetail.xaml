@@ -38,6 +38,9 @@
                     <DataTemplate DataType="{x:Type viewmodels:FileManagerClassDetailViewModel}">
                         <component:CreateFolder />
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:CreatePostNewFeedViewModel}">
+                        <component:CreatePostNewfeed Width="600" MaxHeight="350" />
+                    </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
         </materialDesign:DialogHost.DialogContent>

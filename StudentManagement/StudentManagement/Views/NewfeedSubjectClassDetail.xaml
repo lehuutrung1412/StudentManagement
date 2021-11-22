@@ -19,45 +19,35 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <materialDesign:DialogHost
-        CloseOnClickAway="True"
-        DialogTheme="Inherit"
-        IsOpen="{Binding IsEditing}">
-        <materialDesign:DialogHost.DialogContent>
-            <components:CreatePostNewfeed
-                Width="600"
-                MaxHeight="350"
-                DataContext="{Binding EditPostNewFeedViewModel, Source={StaticResource NewFeedSubjectClassDetailVM}}" />
-        </materialDesign:DialogHost.DialogContent>
-        <Grid>
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel VerticalAlignment="Top" Orientation="Vertical">
-                    <StackPanel.Resources>
-                        <CollectionViewSource x:Key="PostNewsFeedView" Source="{Binding PostNewsfeedViewModels}">
-                            <CollectionViewSource.SortDescriptions>
-                                <scm:SortDescription Direction="Descending" PropertyName="PostTime" />
-                            </CollectionViewSource.SortDescriptions>
-                        </CollectionViewSource>
-                    </StackPanel.Resources>
-                    <components:CreatePostNewfeed
-                        MaxHeight="350"
-                        Margin="16"
-                        DataContext="{Binding CreatePostNewFeedViewModel}" />
-                    <ItemsControl ItemsSource="{Binding Source={StaticResource PostNewsFeedView}}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <components:PostNewsfeed Height="auto" Margin="16" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </ScrollViewer>
-            <!--<materialDesign:Snackbar
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel VerticalAlignment="Top" Orientation="Vertical">
+                <StackPanel.Resources>
+                    <CollectionViewSource x:Key="PostNewsFeedView" Source="{Binding PostNewsfeedViewModels}">
+                        <CollectionViewSource.SortDescriptions>
+                            <scm:SortDescription Direction="Descending" PropertyName="PostTime" />
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </StackPanel.Resources>
+                <components:CreatePostNewfeed
+                    MaxHeight="350"
+                    Margin="16"
+                    DataContext="{Binding CreatePostNewFeedViewModel}" />
+                <ItemsControl ItemsSource="{Binding Source={StaticResource PostNewsFeedView}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <components:PostNewsfeed Height="auto" Margin="16" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+        <!--<materialDesign:Snackbar
             x:Name="MySnackbar"
             Background="{StaticResource Background}"
             FontSize="16"
@@ -67,6 +57,5 @@
             IsActive="True">
             <materialDesign:SnackbarMessage ActionContent="UNDO" Content="Hello Hello Hello Hello Hello Hello Hello" />
         </materialDesign:Snackbar>-->
-        </Grid>
-    </materialDesign:DialogHost>
+    </Grid>
 </UserControl>

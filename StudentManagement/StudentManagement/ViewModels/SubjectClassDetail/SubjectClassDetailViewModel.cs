@@ -60,9 +60,22 @@ namespace StudentManagement.ViewModels
         public void InitContentView()
         {
             _newFeedSubjectClassDetailViewModel = new NewFeedSubjectClassDetailViewModel();
+            (_newFeedSubjectClassDetailViewModel as NewFeedSubjectClassDetailViewModel).PropertyChanged += NewFeedSubjectClassDetailViewModel_PropertyChanged;
             _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel();
             (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).PropertyChanged += FileManagerClassDetailViewModel_PropertyChanged;
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;
+        }
+
+        private void NewFeedSubjectClassDetailViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsEditing")
+            {
+                IsShowDialog = (_newFeedSubjectClassDetailViewModel as NewFeedSubjectClassDetailViewModel).IsEditing;
+                if (IsShowDialog)
+                {
+                    DialogViewModel = (_newFeedSubjectClassDetailViewModel as NewFeedSubjectClassDetailViewModel).EditPostNewFeedViewModel;
+                }
+            }
         }
 
         public void InitRightSideBar()
