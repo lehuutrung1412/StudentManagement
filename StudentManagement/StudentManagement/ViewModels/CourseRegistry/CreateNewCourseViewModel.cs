@@ -13,6 +13,7 @@ namespace StudentManagement.ViewModels
     {
         private CourseRegistryItem _currentCard;
         public CourseRegistryItem CurrentCard { get => _currentCard; set => _currentCard = value; }
+
         public CreateNewCourseViewModel(CourseRegistryItem card, TempSemester temp, ObservableCollection<CourseRegistryItem> list)
         {
             

@@ -33,7 +33,7 @@
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminCourseRegistryVM}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewmodels:CreateNewCourseViewModel}">
-                            <component:NewNotification Width="600" Height="500" />
+                            <component:CreateNewCourse Width="600" Height="500" />
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
