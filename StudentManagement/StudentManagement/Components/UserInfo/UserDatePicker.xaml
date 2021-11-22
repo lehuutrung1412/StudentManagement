@@ -26,14 +26,28 @@
     <Grid>
         <StackPanel>
             <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
-
-            <Border Style="{StaticResource BorderStyle}">
-                <DatePicker
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource BorderStyle}" Grid.Column="0">
+                    <DatePicker
                     materialDesign:HintAssist.Hint="{Binding LabelName}"
                     IsEnabled="{Binding IsEnable}"
                     SelectedDate="{Binding Value, Converter={utils:ConverterDateTimeFromString}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Style="{StaticResource DatePickerInfo}" />
-            </Border>
+                </Border>
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding EditInfoItemCommand}"
+                    CommandParameter="{Binding ElementName=NotificationComponent}"
+                    DataContext="{DynamicResource UserInfoVM}"
+                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon Kind="PencilOutline" />
+                </Button>
+            </Grid>
+          
         </StackPanel>
     </Grid>
 </UserControl>

@@ -26,15 +26,29 @@
     <Grid>
         <StackPanel>
             <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
-            <Border Style="{StaticResource BorderStyle}">
-                <ComboBox
-                    Style="{StaticResource ComboboxInfo}"
-                    IsEnabled="{Binding IsEnable}"
-                    ItemsSource="{Binding ItemSource}"
-                    SelectedItem="{Binding Value}"
-                    materialDesign:HintAssist.Hint="{Binding LabelName}">
-                </ComboBox>
-            </Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Style="{StaticResource BorderStyle}">
+                    <ComboBox
+                        materialDesign:HintAssist.Hint="{Binding LabelName}"
+                        IsEnabled="{Binding IsEnable}"
+                        ItemsSource="{Binding ItemSource}"
+                        SelectedItem="{Binding Value}"
+                        Style="{StaticResource ComboboxInfo}" />
+
+                </Border>
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding EditInfoItemCommand}"
+                    CommandParameter="{Binding ElementName=NotificationComponent}"
+                    DataContext="{DynamicResource UserInfoVM}"
+                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon Kind="PencilOutline" />
+                </Button>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

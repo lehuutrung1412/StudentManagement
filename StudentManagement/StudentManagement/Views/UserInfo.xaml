@@ -35,6 +35,10 @@
                             DataType="{x:Type viewmodels:UserInfoItemViewModel}">
                             <component:NewInfoItem MinWidth="600" />
                         </DataTemplate>
+                        <DataTemplate
+                            DataType="{x:Type viewmodels:EditInfoItemViewModel}">
+                            <component:EditInfoItem MinWidth="600" />
+                        </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
                 

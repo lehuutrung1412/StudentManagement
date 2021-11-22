@@ -5,8 +5,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace StudentManagement.ViewModels
 {
@@ -14,6 +15,7 @@ namespace StudentManagement.ViewModels
     {
         public class InfoItem : BaseViewModel
         {
+            private Guid _id;
             private string _labelName;
             private int _type;
             private ObservableCollection<string> _itemSource;
@@ -21,6 +23,7 @@ namespace StudentManagement.ViewModels
             private int _sTT;
             private bool _isEnable;
 
+            public Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
             public string LabelName { get => _labelName; set { _labelName = value; OnPropertyChanged(); } }
             public int Type { get => _type; set { _type = value; OnPropertyChanged(); } }
             public ObservableCollection<string> ItemSource { get => _itemSource; set { _itemSource = value; OnPropertyChanged(); } }
@@ -29,6 +32,7 @@ namespace StudentManagement.ViewModels
             public int STT { get => _sTT; set { _sTT = value; OnPropertyChanged(); } }
 
             public bool IsEnable { get => _isEnable; set => _isEnable = value; }
+            
 
             public InfoItem()
             {
@@ -37,12 +41,23 @@ namespace StudentManagement.ViewModels
 
             public InfoItem(string labelName, int type, ObservableCollection<string> itemSource, object value, int sTT, bool isEnable)
             {
+                Id = Guid.NewGuid();
                 LabelName = labelName;
                 Type = type;
                 ItemSource = itemSource;
                 Value = value;
                 STT = sTT;
                 IsEnable = isEnable;
+            }
+            public InfoItem(InfoItem item)
+            {
+                Id = item.Id;
+                LabelName = item.LabelName;
+                Type = item.Type;
+                ItemSource = item.ItemSource;
+                Value = item.Value;
+                STT = item.STT;
+                IsEnable = item.IsEnable;
             }
         }
 
@@ -71,6 +86,7 @@ namespace StudentManagement.ViewModels
         private ObservableCollection<string> _listTypeUser;        
 
         public object _userInfoItemViewModel;
+        public object _editInfoItemViewModel;
 
         private object _dialogItemViewModel;
         public object DialogItemViewModel
@@ -102,6 +118,9 @@ namespace StudentManagement.ViewModels
 
         public ICommand AddNewInfoItemCommand { get => _addNewInfoItemCommand; set => _addNewInfoItemCommand = value; }
         private ICommand _addNewInfoItemCommand;
+
+        public ICommand EditInfoItemCommand { get => _editInfoItemCommand; set => _editInfoItemCommand = value; }
+        private ICommand _editInfoItemCommand;
 
         public UserInfoViewModel()
         {
@@ -136,7 +155,17 @@ namespace StudentManagement.ViewModels
             ClickImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickImage());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
+            EditInfoItemCommand = new RelayCommand<System.Windows.Controls.UserControl>((p) => { return true; }, (p) => EditInfoItem(p));
 
+        }
+        public void EditInfoItem(System.Windows.Controls.UserControl p)
+        {
+            if(p.DataContext == null)
+                return;
+            var item = p.DataContext as InfoItem;
+            this._editInfoItemViewModel = new EditInfoItemViewModel(item);
+            this.DialogItemViewModel = this._editInfoItemViewModel;
+            IsOpen = true;
         }
         public void AddNewInfoItem()
         {

@@ -13,13 +13,13 @@ namespace StudentManagement.ViewModels
 {
     public class UserInfoItemViewModel: BaseViewModel
     {
-        public class Item
+        public class ItemInCombobox
         {
             public string Value { get; set; }
             public Guid Id { get; set; }
         }
-        private ObservableCollection<Item> _listItem;
-        public ObservableCollection<Item> ListItem { get => _listItem; set { _listItem = value; OnPropertyChanged(); } }
+        private ObservableCollection<ItemInCombobox> _listItemInCombobox;
+        public ObservableCollection<ItemInCombobox> ListItemInCombobox { get => _listItemInCombobox; set { _listItemInCombobox = value; OnPropertyChanged(); } }
 
         private InfoItem _currendInfo;
 
@@ -50,11 +50,11 @@ namespace StudentManagement.ViewModels
         {
             CurrendInfo = new InfoItem();
             CurrendInfo.ItemSource = new ObservableCollection<string>();
-            ListItem =  new ObservableCollection<Item>() 
+            ListItemInCombobox =  new ObservableCollection<ItemInCombobox>() 
             { 
-                new Item { Id = Guid.NewGuid(), Value = "" }, 
-                new Item { Id = Guid.NewGuid(), Value = "" }, 
-                new Item { Id = Guid.NewGuid(), Value = "" } 
+                new ItemInCombobox { Id = Guid.NewGuid(), Value = "" }, 
+                new ItemInCombobox { Id = Guid.NewGuid(), Value = "" }, 
+                new ItemInCombobox { Id = Guid.NewGuid(), Value = "" } 
             };
             AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
             DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
@@ -64,7 +64,7 @@ namespace StudentManagement.ViewModels
         {
             if (TypeControl == "Combobox")
             {
-                ListItem.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => CurrendInfo.ItemSource.Add(s.Value));
+                ListItemInCombobox.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => CurrendInfo.ItemSource.Add(s.Value));
                 CurrendInfo.Type = 2;
             }
             else if (TypeControl == "Datepicker")
@@ -83,12 +83,12 @@ namespace StudentManagement.ViewModels
         {
             if (p.DataContext == null)
                 return;
-            var item = p.DataContext as Item;
-            ListItem.Remove(item);
+            var item = p.DataContext as ItemInCombobox;
+            ListItemInCombobox.Remove(item);
         }
         public void AddItem()
         {
-            ListItem.Add(new Item { Id = Guid.NewGuid(), Value = "" });
+            ListItemInCombobox.Add(new ItemInCombobox { Id = Guid.NewGuid(), Value = "" });
         }
     }
 }

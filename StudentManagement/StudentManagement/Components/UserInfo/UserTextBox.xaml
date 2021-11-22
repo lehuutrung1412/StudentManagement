@@ -25,17 +25,29 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <Label
-                Content="{Binding LabelName}"
-                Style="{StaticResource LabelText}" />
-            <Border
-                Style="{StaticResource BorderStyle}">
-                <TextBox
-                    materialDesign:HintAssist.Hint="{Binding LabelName}"
-                    IsEnabled="{Binding IsEnable}"
-                    Style="{StaticResource TextBox}"
-                    Text="{Binding Value}" />
-            </Border>
+            <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource BorderStyle}">
+                    <TextBox
+                        materialDesign:HintAssist.Hint="{Binding LabelName}"
+                        IsEnabled="{Binding IsEnable}"
+                        Style="{StaticResource TextBox}"
+                        Text="{Binding Value}" />
+                </Border>
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding EditInfoItemCommand}"
+                    CommandParameter="{Binding ElementName=NotificationComponent}"
+                    DataContext="{DynamicResource UserInfoVM}"
+                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon Kind="PencilOutline" />
+                </Button>
+            </Grid>
+
         </StackPanel>
     </Grid>
 </UserControl>
