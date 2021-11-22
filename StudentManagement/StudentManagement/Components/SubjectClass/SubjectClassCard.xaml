@@ -60,8 +60,8 @@
                     </Grid.RowDefinitions>
 
                     <Border
-                        Width="{Binding Width, ElementName=SubjectClassCardComponent, Converter={StaticResource math}, ConverterParameter='x-16'}"
-                        Margin="0,0,8,0"
+                        x:Name="CardImage"
+                        Width="{Binding Width, ElementName=SubjectClassCardComponent, Converter={StaticResource math}, ConverterParameter='x - 16 > 0? x - 16 : x'}"
                         CornerRadius="8">
                         <Border.Background>
                             <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />

@@ -37,7 +37,7 @@
                         x:Name="ImageBorder"
                         Height="250"
                         Margin="0,24"
-                        CornerRadius="16">
+                        CornerRadius="8">
                         <Border.Background>
                             <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
                         </Border.Background>
