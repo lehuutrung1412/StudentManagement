@@ -30,7 +30,7 @@
         <materialDesign:DialogHost
             CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
-                <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminCourseRegistryVM}">
+                <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{StaticResource AdminCourseRegistryVM}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewmodels:CreateNewCourseViewModel}">
                             <component:CreateNewCourse Width="600" Height="500" />
@@ -96,8 +96,8 @@
                         Margin="8"
                         VerticalAlignment="Center"
                         FontWeight="Bold"
-                        Foreground="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Red&quot; : &quot;Green&quot;), x)'}"
-                        Text="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Chưa mở&quot; : &quot;Đã mở&quot;), x)'}" />
+                        Foreground="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Green&quot; : (x == 1 ? &quot;Red&quot; : &quot;Gray&quot;)), x)'}"
+                        Text="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Tạm đóng&quot; : (x == 1 ? &quot;Đang mở&quot; : &quot;Kết thúc&quot;)), x)'}" />
                     <DockPanel
                         LastChildFill="False"
                         Grid.Column="3">
@@ -174,7 +174,7 @@
                         Command="{Binding DeleteSelectedItemsCommand}"/>
                 </DockPanel>
                 <component:SubjectRegistryDataGrid
-                    Margin="8"
+                    Margin="0 8 0 8"
                     Data="{Binding CourseRegistryItemsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 <DockPanel
@@ -183,7 +183,7 @@
                         DockPanel.Dock="Right"
                         Width="150"
                         Margin="16,0,0,0"
-                        Content="Làm mới"
+                        Content="Khôi phục"
                         FontSize="14" />
                     <Button
                         DockPanel.Dock="Right"

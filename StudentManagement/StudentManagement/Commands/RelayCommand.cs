@@ -11,16 +11,17 @@ namespace StudentManagement.Commands
 
         public RelayCommand(Predicate<T> canExecute, Action<T> execute)
         {
+            if (execute == null)
+                throw new ArgumentNullException("execute");
             _canExecute = canExecute;
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _execute = execute;
         }
 
-        [DebuggerStepThrough]
-        public override bool CanExecute(object parameter)
+        public bool CanExecute(object parameter)
         {
             try
             {
-                return _canExecute == null || _canExecute((T)parameter);
+                return _canExecute == null ? true : _canExecute((T)parameter);
             }
             catch
             {

@@ -30,7 +30,7 @@
                 <RowDefinition
                     Height="auto" />
                 <RowDefinition
-                    Height="0.8*" />
+                    Height="auto" />
             </Grid.RowDefinitions>
             <StackPanel
                 Grid.Row="0">

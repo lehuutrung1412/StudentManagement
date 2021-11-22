@@ -77,7 +77,8 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<TempSemester> Semesters { get => _semesters; set { _semesters = value; OnPropertyChanged(); } }
         private ObservableCollection<TempSemester> _semesters;
 
-        public TempSemester SelectedSemester { get => _selectedSemester; set { _selectedSemester = value; OnPropertyChanged(); } }
+        public TempSemester SelectedSemester { get => _selectedSemester; 
+            set { _selectedSemester = value; OnPropertyChanged(); } }
         private TempSemester _selectedSemester;
         public int SelectedSemesterIndex { get => _selectedSemesterIndex; set { _selectedSemesterIndex = value; OnPropertyChanged(); SelectData(); } }
         private int _selectedSemesterIndex;
@@ -124,10 +125,8 @@ namespace StudentManagement.ViewModels
         public ICommand SearchCourseRegistryItems { get => _searchCourseRegistryItems; set => _searchCourseRegistryItems = value; }
 
         private ICommand _searchCourseRegistryItems;
-        public ICommand DeleteSelectedItemsCommand { get => _deleteSelectedItemsCommand; set => _deleteSelectedItemsCommand = value; }
-        private ICommand _deleteSelectedItemsCommand;
-        public ICommand CreateNewCourseCommand { get => _createNewCourseCommand; set => _createNewCourseCommand = value; }
-        private ICommand _createNewCourseCommand;
+        public ICommand DeleteSelectedItemsCommand { get; set; }
+        public ICommand CreateNewCourseCommand { get; set; }
         #endregion
 
         public AdminCourseRegistryViewModel()
@@ -135,7 +134,7 @@ namespace StudentManagement.ViewModels
             /*Thiếu lấy dữ liệu từ model cho semester và SubjectClasses*/
             Semesters = new ObservableCollection<TempSemester>()
             {
-                new TempSemester("2019-2020", "HK2", 1),
+                new TempSemester("2019-2020", "HK2", 2),
                 new TempSemester("2020-2021", "HK1", 1),
                 new TempSemester("2020-2021", "HK2", 0)
             };
@@ -166,14 +165,21 @@ namespace StudentManagement.ViewModels
             DeleteSelectedItemsCommand = new RelayCommand<UserControl>(
                 (p) => 
                 {
-                    /*return CourseRegistryItems.Where(x => x.IsSelected == true).Count() > 0;*/
-                    return true;
+                    return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0;
                 }, 
                 (p) =>
                 {
                     DeleteSelectedItems();
                 });
-            CreateNewCourseCommand = new RelayCommand<object>((p) => { return true; }, (p) => CreateNewCourse());
+            CreateNewCourseCommand = new RelayCommand<object>((p) => {
+                if (SelectedSemester == null)
+                    return true;
+                if (SelectedSemester.CourseRegisterStatus > 0)
+                {
+                    return false;
+                }
+                return true;
+            }, (p) => CreateNewCourse());
         }
 
         public void SelectData()
