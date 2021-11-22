@@ -38,7 +38,8 @@
             <materialDesign:Card
                 Width="Auto"
                 Height="Auto"
-                materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                UniformCornerRadius="8">
                 <materialDesign:Card.Style>
                     <Style TargetType="materialDesign:Card">
                         <Style.Triggers>

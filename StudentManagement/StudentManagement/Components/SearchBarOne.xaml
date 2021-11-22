@@ -73,6 +73,7 @@
             Grid.Column="4"
             Width="Auto"
             Height="{Binding ActualHeight, ElementName=SearchBar}"
+            materialDesign:ButtonAssist.CornerRadius="8"
             Command="{Binding SearchCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:SearchBarOne}}}"
             Style="{StaticResource MaterialDesignFlatButton}">
             <materialDesign:PackIcon
