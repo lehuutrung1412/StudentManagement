@@ -65,7 +65,8 @@
             <component:SubjectRegistryDataGrid
                 Grid.Row="1"
                 Data="{Binding CourseRegistryItems1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                IsAllItemsSelected="{Binding IsAllItemsSelected1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                IsAllItemsSelected="{Binding IsAllItemsSelected1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}"/>
             <TextBlock
                 Grid.Row="2"
                 Margin="10"
@@ -110,7 +111,8 @@
             <component:SubjectRegistryDataGrid
                 Grid.Row="2"
                 Data="{Binding CourseRegistryItems2Display, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                IsAllItemsSelected="{Binding IsAllItemsSelected2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                IsAllItemsSelected="{Binding IsAllItemsSelected2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
             <Grid Grid.Row="2" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

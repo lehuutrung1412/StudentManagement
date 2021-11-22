@@ -83,14 +83,14 @@
     <Compile Include="Components\SubjectClass\AdminSubjectClassRightSideBarItemEdit.xaml.cs">
       <DependentUpon>AdminSubjectClassRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\UserInfo\EditInfoItem.xaml.cs">
-      <DependentUpon>EditInfoItem.xaml</DependentUpon>
+    <Compile Include="Components\CourseRegistry\CreateNewCourse.xaml.cs">
+      <DependentUpon>CreateNewCourse.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItem.xaml.cs">
       <DependentUpon>AdminFacultyRightSideBarItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItemEdit.xaml.cs">
-      <DependentUpon>AdminFacultyRightSideBarItemEdit.xaml</DependentUpon>
+    <Compile Include="Components\UserInfo\EditInfoItem.xaml.cs">
+      <DependentUpon>EditInfoItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\FacultyTrainingForm\AdminFacultyTrainingFormRightSideBar.xaml.cs">
       <DependentUpon>AdminFacultyTrainingFormRightSideBar.xaml</DependentUpon>
@@ -324,6 +324,8 @@
     <Compile Include="ViewModels\FacultyTrainingForm\AdminFacultyTrainingFormRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\FacultyTrainingForm\AdminFacultyTrainingFormViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\EditInfoItemViewModel.cs" />
+    <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryViewModel.cs" />
+    <Compile Include="ViewModels\CourseRegistry\CreateNewCourseViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\AdminHomeRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\FileManagerClassDetailViewModel.cs" />
@@ -358,8 +360,11 @@
     <Compile Include="ViewModels\UserInfo\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoItemViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoStudentViewModel.cs" />
-    <Compile Include="Views\Faculty.xaml.cs">
-      <DependentUpon>Faculty.xaml</DependentUpon>
+    <Compile Include="Views\AdminCourseRegistry.xaml.cs">
+      <DependentUpon>AdminCourseRegistry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminFacultyTrainingForm.xaml.cs">
+      <DependentUpon>AdminFacultyTrainingForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
@@ -383,11 +388,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\UserInfo\EditInfoItem.xaml">
+    <Page Include="Components\CourseRegistry\CreateNewCourse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\UserInfo\EditInfoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -603,7 +612,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Faculty.xaml">
+    <Page Include="Views\AdminCourseRegistry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminFacultyTrainingForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

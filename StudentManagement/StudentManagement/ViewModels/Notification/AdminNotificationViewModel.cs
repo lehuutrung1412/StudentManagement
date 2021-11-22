@@ -303,8 +303,6 @@ namespace StudentManagement.ViewModels
             var card = new CardNotification(Cards.LastOrDefault().Id + 1, "Cuong", "", "", "", DateTime.Now);
             this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
             this.DialogItemViewModel = this._creatNewNotificationViewModel;
-            IsOpen = true;
-        }
-        
+        }  
     }
 }

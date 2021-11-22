@@ -28,12 +28,13 @@
                 Padding="4"
                 HorizontalAlignment="Left"
                 materialDesign:HintAssist.Hint="Chọn học kỳ"
+                materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                 BorderBrush="Gray"
                 DockPanel.Dock="Top"
                 FontSize="16"
                 Foreground="#01579b"
                 ItemsSource="{Binding Semesters}"
-                SelectedItem="{Binding SelectedSemester, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedSemester, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource MaterialDesignComboBox}" />
             <component:ScheduleTable
                 Margin="8"

@@ -147,6 +147,7 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems1.Add(item);
                 CourseRegistryItems2.Remove(item);
             }
+            Search();
         }
         public void UnregisterSelectedCourses()
         {
