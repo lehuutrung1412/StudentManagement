@@ -66,8 +66,8 @@
                 <DataTemplate DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
                     <views:StudentScheduleTable />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:UserInfoStudentViewModel}">
-                    <views:UserInfoStudent />
+                <DataTemplate DataType="{x:Type viewmodels:UserInfoViewModel}">
+                    <views:UserInfo />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:FileManagerClassDetailViewModel}">
                     <components:FileManagerClassDetail />

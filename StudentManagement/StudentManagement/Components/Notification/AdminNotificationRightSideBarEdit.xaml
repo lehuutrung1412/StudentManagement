@@ -38,6 +38,7 @@
             <TextBox
                 Margin="0,0,0,24"
                 Padding="4"
+                HorizontalContentAlignment="Left"
                 materialDesign:ValidationAssist.Background="Transparent"
                 FontSize="24"
                 FontWeight="Bold"
@@ -63,9 +64,7 @@
                     Background="Transparent"
                     Style="{StaticResource BorderStyle}">
                     <TextBox
-                        Padding="8,0,0,0"
                         VerticalAlignment="Center"
-                        FontSize="14"
                         IsEnabled="False"
                         Style="{StaticResource TextBox}"
                         Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
@@ -97,24 +96,17 @@
                     Style="{StaticResource BorderStyle}">
                     <DatePicker
                         x:Name="dpBirthDate"
-                        Height="28"
-                        Padding="8,0,8,0"
-                        HorizontalAlignment="Stretch"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Foreground="#01579b"
                         IsEnabled="False"
-                        SelectedDate="{Binding CurrentCard.NgayDang, ConverterCulture='vi-VN', StringFormat='dd/MM/yyyy'}" />
+                        SelectedDate="{Binding CurrentCard.NgayDang, ConverterCulture='vi-VN', StringFormat='dd/MM/yyyy'}"
+                        Style="{DynamicResource DatePickerInfo}" />
 
                 </Border>
 
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="510*" />
-                    <ColumnDefinition Width="746*" />
-                    <ColumnDefinition Width="77*" />
-                    <ColumnDefinition Width="196*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -126,27 +118,18 @@
                     Style="{StaticResource textblock_item}"
                     Text="Loại bài đăng:"
                     TextWrapping="Wrap" />
-                <!--<Border
+                <Border
                     Grid.Column="1"
                     Background="Transparent"
                     Style="{StaticResource BorderStyle}">
-
-                </Border>-->
-                <ComboBox
-                    Grid.Column="1"
-                    Grid.ColumnSpan="3"
-                    Height="28"
-                    Margin="0,0,0,16"
-                    Padding="8,4,8,4"
-                    materialDesign:ValidationAssist.Background="Transparent"
-                    BorderBrush="Gray"
-                    IsEnabled="False"
-                    FontSize="14"
-                    FontWeight="SemiBold"
-                    Foreground="#01579b"
-                    ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                    SelectedItem="{Binding LoaiBaiDang, FallbackValue='Thông báo chung', UpdateSourceTrigger=PropertyChanged}"
-                    Style="{StaticResource ComboboxInfo}" />
+                    <ComboBox
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
+                        SelectedItem="{Binding LoaiBaiDang, FallbackValue='Thông báo chung', UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource ComboboxInfo}" />
+                </Border>
 
             </Grid>
             <Grid>

@@ -153,6 +153,17 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        private object _isOpen;
+        public object IsOpen
+        {
+            get { return _isOpen; }
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
         public int NumCardInBadged { get => _numCardInBadged; set { _numCardInBadged = value; OnPropertyChanged(); } }
 
         private int _numCardInBadged;
@@ -184,6 +195,7 @@ namespace StudentManagement.ViewModels
             };
             NumCardInBadged = Cards.Count;
             RealCards = Cards;
+            IsOpen = false;
             SearchCommand = new RelayCommand<object>((p) => { return true; }, (p) => Search());
             UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
             DeleteNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteNotification());
@@ -216,6 +228,7 @@ namespace StudentManagement.ViewModels
                 return;
             var card = p.DataContext as CardNotification;
             card.Status = false;
+            //NumCardInBadged += 1;
         }
         public void MarkAllAsRead()
         {
@@ -234,6 +247,7 @@ namespace StudentManagement.ViewModels
             if (p.DataContext == null)
                 return;
             var card = p.DataContext as CardNotification;
+            IsOpen = true;
             card.Status = true;
             this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
             this.DialogItemViewModel = this._showDetailNotificationViewModel;
@@ -289,6 +303,7 @@ namespace StudentManagement.ViewModels
             var card = new CardNotification(Cards.LastOrDefault().Id + 1, "Cuong", "", "", "", DateTime.Now);
             this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
             this.DialogItemViewModel = this._creatNewNotificationViewModel;
+            IsOpen = true;
         }
         
     }

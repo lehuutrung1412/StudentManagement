@@ -23,23 +23,18 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <ScrollViewer>
-        <materialDesign:DialogHost CloseOnClickAway="True" Name="DialogHostNotification">
+        <materialDesign:DialogHost
+            Name="DialogHostNotification"
+            CloseOnClickAway="True"
+            IsOpen="{Binding IsOpen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <materialDesign:DialogHost.DialogContent>
-                <ContentControl
-                    Content="{Binding DialogItemViewModel}"
-                    DataContext="{DynamicResource AdminNotificationVM}">
+                <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminNotificationVM}">
                     <ContentControl.Resources>
-                        <DataTemplate
-                            DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
-                            <component:NewNotification
-                                Width="600"
-                                Height="500" />
+                        <DataTemplate DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
+                            <component:NewNotification Width="600" Height="500" />
                         </DataTemplate>
-                        <DataTemplate
-                            DataType="{x:Type viewmodels:ShowDetailNotificationViewModel}">
-                            <component:ShowDetailNotification
-                                Width="600"
-                                Height="500" />
+                        <DataTemplate DataType="{x:Type viewmodels:ShowDetailNotificationViewModel}">
+                            <component:ShowDetailNotification Width="600" Height="500" />
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
