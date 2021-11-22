@@ -8,9 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     Name="FileManagerClassDetailUC"
+    d:DataContext="{StaticResource FileManagerClassDetailVM}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
-    d:DataContext="{StaticResource FileManagerClassDetailVM}"
     Background="{StaticResource CenterColumn}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -23,14 +23,41 @@
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Command="{Binding AddFile}" Width="200" Margin="32" Style="{StaticResource PrimaryButton}" Content="Thêm file"/>
-                    <Button Command="{Binding AddFolder}" Width="200" Margin="32" Style="{StaticResource PrimaryButton}" Content="Thêm folder"/>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button
+                        Width="200"
+                        Margin="32"
+                        Command="{Binding AddFile}"
+                        Content="Thêm file"
+                        Style="{StaticResource PrimaryButton}" />
+                    <Button
+                        Width="200"
+                        Margin="32"
+                        Command="{Binding AddFolder}"
+                        Content="Thêm folder"
+                        Style="{StaticResource PrimaryButton}" />
                 </StackPanel>
-                <local:FileManager VerticalAlignment="Top" Grid.Row="1" Margin="16" />
+
+                <TextBox
+                    Grid.Row="1"
+                    Margin="16"
+                    materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="14"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SearchFile}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+
+                <local:FileManager
+                    Grid.Row="2"
+                    Margin="16"
+                    VerticalAlignment="Top" />
             </Grid>
         </ScrollViewer>
     </Grid>

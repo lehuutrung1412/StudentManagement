@@ -22,6 +22,7 @@ namespace StudentManagement.ViewModels
 
         private ListCollectionView _fileDataGroup;
         public ObservableCollection<FileInfo> FileData { get => _fileData; set => _fileData = value; }
+        public ObservableCollection<FileInfo> BindingFileData { get; set; }
         public ListCollectionView FileDataGroup { get => _fileDataGroup; set { _fileDataGroup = value; OnPropertyChanged(); } }
 
         public ICommand AddFile { get; set; }
@@ -29,6 +30,7 @@ namespace StudentManagement.ViewModels
         public ICommand CreateFolder { get; set; }
         public ICommand DeleteFile { get; set; }
         public ICommand DeleteFolder { get; set; }
+        public ICommand SearchFile { get; set; }
 
         public bool IsShowDialog { get => _isShowDialog; set { _isShowDialog = value; OnPropertyChanged(); } }
         private bool _isShowDialog;
@@ -51,6 +53,9 @@ namespace StudentManagement.ViewModels
         }
         private string _newFolderName;
 
+        public string SearchQuery { get => _searchQuery; set { _searchQuery = value; OnPropertyChanged(); } }
+        private string _searchQuery;
+
         public FileManagerClassDetailViewModel()
         {
             _errorBaseViewModel = new ErrorBaseViewModel();
@@ -58,12 +63,43 @@ namespace StudentManagement.ViewModels
 
             FileData = new ObservableCollection<FileInfo>();
             FileData.CollectionChanged += FileData_CollectionChanged;
+            BindingFileData = new ObservableCollection<FileInfo>(FileData);
+            BindingFileData.CollectionChanged += BindingFileData_CollectionChanged;
 
             AddFile = new RelayCommand<object>((p) => true, (p) => AddFileFunction(p));
             DeleteFile = new RelayCommand<object>((p) => true, (p) => DeleteFileFunction(p));
             AddFolder = new RelayCommand<object>((p) => true, (p) => AddFolderFunction());
             CreateFolder = new RelayCommand<object>((p) => true, (p) => CreateFolderFunction());
             DeleteFolder = new RelayCommand<object>((p) => true, (p) => DeleteFolderFunction(p));
+            SearchFile = new RelayCommand<object>((p) => true, (p) => SearchFileFunction());
+        }
+
+        private void BindingFileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            FileDataGroup = new ListCollectionView(BindingFileData);
+            FileDataGroup.GroupDescriptions.Add(new PropertyGroupDescription("FolderId"));
+        }
+
+        private void SearchFileFunction()
+        {
+            if (SearchQuery == null)
+            {
+                SearchQuery = "";
+            }
+            var searchResult = FileData.Where
+            (
+                file => 
+                    VietnameseStringNormalizer.Instance.Normalize(file.Name)
+                    .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery))
+                    ||
+                    VietnameseStringNormalizer.Instance.Normalize(file.FolderName)
+                    .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery))
+            );
+            BindingFileData.Clear();
+            foreach (var item in searchResult)
+            {
+                BindingFileData.Add(item);
+            }
         }
 
         private void DeleteFolderFunction(object parameter)
@@ -161,8 +197,7 @@ namespace StudentManagement.ViewModels
 
         private void FileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            FileDataGroup = new ListCollectionView(FileData);
-            FileDataGroup.GroupDescriptions.Add(new PropertyGroupDescription("FolderId"));
+            SearchFileFunction();
         }
 
         private void AddFileFunction(object folder)
