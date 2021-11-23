@@ -24,16 +24,13 @@
                 FontSize="28"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                TextWrapping="Wrap">
-                <Run Text="{Binding CurrentCard.MaMon, FallbackValue='MaMon'}" />
-                <Run Text="-" />
-                <Run Text="{Binding CurrentCard.TenMon, FallbackValue='Ten Mon Hoc'}" />
-            </TextBlock>
+                Text="Thông tin chi tiết"
+                TextWrapping="Wrap" />
             <Grid>
                 <Border
                     x:Name="ImageBorder"
                     Height="250"
-                    Margin="0,24"
+                    Margin="0,16"
                     CornerRadius="8">
                     <Border.Background>
                         <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
@@ -137,13 +134,10 @@
             </Grid>
             <Button
                 x:Name="btnEdit"
-                Padding="0"
-                BorderThickness="0"
                 Command="{Binding EditSubjectCardInfo}"
                 CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentCard}"
                 DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
+                Style="{StaticResource grid_button_item}">
 
                 <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
@@ -161,13 +155,10 @@
             </Button>
             <Button
                 x:Name="btnDelete"
-                Padding="0"
-                BorderThickness="0"
                 Command="{Binding DeleteSubjectCardInfo}"
                 CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentCard}"
                 DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
+                Style="{StaticResource grid_button_item}">
 
                 <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
                     <TextBlock

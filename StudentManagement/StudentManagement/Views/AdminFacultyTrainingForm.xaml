@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:objects="clr-namespace:StudentManagement.Objects"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
@@ -34,16 +35,27 @@
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 Text="Danh sách hệ đào tạo" />
             <ItemsControl ItemsSource="{Binding TrainingFormCards}">
+                <ItemsControl.Resources>
+                    <DataTemplate DataType="{x:Type objects:TrainingFormCard}">
+                        <component:TrainingFormCard Margin="8" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type objects:EmptyCard}">
+                        <TextBlock Text="sdfsdf" />
+                    </DataTemplate>
+                </ItemsControl.Resources>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Margin="16,16,16,16" HorizontalAlignment="Left" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+                <!--<ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type objects:TrainingFormCard}">
                         <component:TrainingFormCard Margin="8" />
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type objects:EmptyCard}">
+                        <TextBlock Text="sdfsdf" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>-->
             </ItemsControl>
         </StackPanel>
 
@@ -68,8 +80,10 @@
                 <Button
                     Grid.Column="1"
                     Height="50"
-                    Margin="16,0,0,0"
+                    Margin="16,5,0,0"
+                    VerticalAlignment="Top"
                     materialDesign:ButtonAssist.CornerRadius="8"
+                    Command="{Binding CreateFacultyCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
                     Content="Thêm khoa"
                     FontSize="16" />
             </Grid>
