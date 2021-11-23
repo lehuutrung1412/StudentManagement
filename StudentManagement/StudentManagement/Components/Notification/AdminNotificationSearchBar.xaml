@@ -55,7 +55,6 @@
                 
             </Grid>
             
-            <!--IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedPasswordFieldPasswordBoxEnabledComboBox}"-->
             <DatePicker
                 Grid.Column="1"
                 Padding="8 16 0 0"

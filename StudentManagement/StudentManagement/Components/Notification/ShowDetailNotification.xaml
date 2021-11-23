@@ -93,14 +93,7 @@
 
                 </StackPanel>
             </StackPanel>
-            <!--<materialDesign:PackIcon
-                        Margin="16,0,0,0"
-                        Kind="Earth"
-                        VerticalAlignment="Center"/>
-                    <TextBlock
-                        Margin="4,0,16,0"
-                        FontSize="16"
-                        Text="22:00 01/01/2022" />-->
+
             <TextBox
                 Grid.Row="1"
                 Height="auto"
@@ -132,7 +125,7 @@
                     </Style>
                 </TextBox.Style>
             </TextBox>
-            <!--  Text="{Binding DraftPostText, Mode=TwoWay}"  -->
+
             <StackPanel
                 Grid.Row="2"
                 Margin="4,0,16,4"
@@ -145,34 +138,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <!--<Grid Grid.Column="1">
-                    -->
-                    <!--<StackPanel Orientation="Horizontal">
 
-                    -->
-                    <!--<Button
-                                Margin="0,0,16,0"
-                                HorizontalAlignment="Stretch"
-                                Content="Thêm"
-                                Style="{StaticResource PrimaryButton}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
-                                        <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
-
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>-->
-                    <!--
-                            <Button
-                                HorizontalAlignment="Stretch"
-                                Background="Red"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                Content="Huỷ"
-                                Style="{StaticResource PrimaryButton}" />
-                        </StackPanel>-->
-                    <!--
-                    </Grid>-->
                     <StackPanel
                         Grid.Row="2"
                         Margin="4,0,16,4"

@@ -100,14 +100,6 @@
                 </Grid>
 
             </StackPanel>
-            <!--<materialDesign:PackIcon
-                        Margin="16,0,0,0"
-                        Kind="Earth"
-                        VerticalAlignment="Center"/>
-                    <TextBlock
-                        Margin="4,0,16,0"
-                        FontSize="16"
-                        Text="22:00 01/01/2022" />-->
             <TextBox
                 Grid.Row="1"
                 Height="auto"
@@ -138,7 +130,7 @@
                     </Style>
                 </TextBox.Style>
             </TextBox>
-            <!--  Text="{Binding DraftPostText, Mode=TwoWay}"  -->
+
             <StackPanel
                 Grid.Row="2"
                 Margin="4,0,16,4"
