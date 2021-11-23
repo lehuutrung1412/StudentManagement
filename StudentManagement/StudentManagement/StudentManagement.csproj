@@ -92,6 +92,9 @@
     <Compile Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItem.xaml.cs">
       <DependentUpon>AdminFacultyRightSideBarItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\FacultyTrainingForm\AdminFacultyRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>AdminFacultyRightSideBarItemEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\UserInfo\EditInfoItem.xaml.cs">
       <DependentUpon>EditInfoItem.xaml</DependentUpon>
     </Compile>

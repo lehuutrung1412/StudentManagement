@@ -53,7 +53,16 @@ namespace StudentManagement.ViewModels
         }
         private string _newFolderName;
 
-        public string SearchQuery { get => _searchQuery; set { _searchQuery = value; OnPropertyChanged(); } }
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                SearchFileFunction();
+                OnPropertyChanged();
+            }
+        }
         private string _searchQuery;
 
         public FileManagerClassDetailViewModel()

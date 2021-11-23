@@ -2,6 +2,7 @@
     x:Class="StudentManagement.Components.FileManagerClassDetail"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:components="clr-namespace:StudentManagement.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -42,7 +43,7 @@
                         Style="{StaticResource PrimaryButton}" />
                 </StackPanel>
 
-                <TextBox
+                <!--<TextBox
                     Grid.Row="1"
                     Margin="16"
                     materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
@@ -52,7 +53,14 @@
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding SearchFile}" />
                     </TextBox.InputBindings>
-                </TextBox>
+                </TextBox>-->
+                <components:SearchBarOne
+                    Grid.Row="1"
+                    Margin="16"
+                    FirstSearchButtonVisibility="False"
+                    SecondSearchButtonVisibility="False"
+                    SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SearchCommand="{Binding SearchFile}"/>
 
                 <local:FileManager
                     Grid.Row="2"
