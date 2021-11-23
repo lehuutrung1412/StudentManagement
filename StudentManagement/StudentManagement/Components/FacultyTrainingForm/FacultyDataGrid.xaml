@@ -20,13 +20,18 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <DataGrid
                     AutoGenerateColumns="False"
+                    Background="{StaticResource Background}"
                     CanUserAddRows="False"
-                    HeadersVisibility="All"
+                    CanUserDeleteRows="False"
+                    CanUserReorderColumns="False"
+                    HeadersVisibility="Column"
                     IsReadOnly="True"
                     ItemsSource="{Binding .}"
                     SelectedItem="{Binding SelectedFaculty, Mode=OneWayToSource, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}">
                     <DataGrid.Resources>
-                        <!--  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}"  -->
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
                             <Setter Property="ContentTemplate">
@@ -40,38 +45,43 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                         </Style>
-                    </DataGrid.Resources>
-                    <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Tên khoa">
-                            <materialDesign:DataGridTextColumn.Binding>
-                                <Binding Path="TenKhoa" />
-                            </materialDesign:DataGridTextColumn.Binding>
-                        </materialDesign:DataGridTextColumn>
-                        <materialDesign:DataGridTextColumn
-                            Width="auto"
-                            Binding="{Binding NgayThanhLap, StringFormat='dd/MM/yyyy'}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                            Header="Ngày thành lập" />
-                        <materialDesign:DataGridTextColumn
-                            Width="auto"
-                            Binding="{Binding SoLuongSinhVien}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                            Header="Số lượng sinh viên" />
 
-                        <materialDesign:DataGridTextColumn
-                            Width="auto"
-                            Binding="{Binding CacHeDaoTao}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                            Header="Các hệ đào tạo" />
+
+                    </DataGrid.Resources>
+                    <DataGrid.CellStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                        <Grid Margin="16" Background="{TemplateBinding Background}">
+                                            <Grid.ToolTip>
+                                                <ToolTip Content="{Binding TenKhoa}" />
+                                            </Grid.ToolTip>
+                                            <Grid.ContextMenu>
+                                                <ContextMenu>
+                                                    <!--<MenuItem
+                                                        Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DataContext.DeleteFile}"
+                                                        CommandParameter="{Binding Source={StaticResource BindingProxy}, Path=Data.SelectedItems}"
+                                                        Foreground="{StaticResource ErrorMain}"
+                                                        Header="Xóa tài liệu"
+                                                        Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />-->
+                                                </ContextMenu>
+                                            </Grid.ContextMenu>
+                                            <ContentPresenter VerticalAlignment="Center" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.CellStyle>
+                    <DataGrid.Columns>
+                        <materialDesign:DataGridTextColumn Binding="{Binding TenKhoa}" Header="Tên khoa" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding NgayThanhLap, StringFormat='dd/MM/yyyy'}" Header="Ngày thành lập" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding SoLuongSinhVien}" Header="Số lượng sinh viên" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding CacHeDaoTao}" Header="Các hệ đào tạo" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

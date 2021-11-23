@@ -31,7 +31,7 @@
             <materialDesign:Card
                 Width="200"
                 Padding="8"
-                UniformCornerRadius="6">
+                UniformCornerRadius="8">
                 <materialDesign:Card.Style>
                     <Style TargetType="materialDesign:Card">
                         <Style.Triggers>
