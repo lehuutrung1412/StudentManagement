@@ -136,7 +136,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Height" Value="40" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="10" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
@@ -155,7 +155,7 @@
                         Background="Transparent"
                         BorderBrush="LightGray"
                         BorderThickness="2"
-                        CornerRadius="10">
+                        CornerRadius="8">
                         <Grid>
                             <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}" Stretch="Uniform" />
                             <Button
@@ -210,10 +210,10 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="Gray"
                         BorderThickness="2"
-                        CornerRadius="10">
+                        CornerRadius="8">
                         <Border.Effect>
                             <DropShadowEffect
-                                BlurRadius="10"
+                                BlurRadius="8"
                                 Opacity="0.3"
                                 ShadowDepth="0"
                                 Color="White" />

@@ -13,7 +13,7 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="Transparent"
     mc:Ignorable="d">
-    <Border Background="White" CornerRadius="10">
+    <Border Background="White" CornerRadius="8">
         <Grid>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid

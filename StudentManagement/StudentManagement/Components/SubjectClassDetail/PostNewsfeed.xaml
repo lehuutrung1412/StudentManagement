@@ -13,10 +13,10 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource Background}" CornerRadius="15">
+    <Border Background="{DynamicResource Background}" CornerRadius="8">
         <Border.Effect>
             <DropShadowEffect
-                BlurRadius="15"
+                BlurRadius="8"
                 Opacity="0.3"
                 ShadowDepth="0"
                 Color="DarkGray" />
@@ -278,7 +278,7 @@
                                         Padding="12"
                                         HorizontalAlignment="Left"
                                         Background="#e9ebee"
-                                        CornerRadius="15"
+                                        CornerRadius="16"
                                         DockPanel.Dock="Left">
                                         <Border.ToolTip>
                                             <TextBlock Text="{Binding Time, Converter={utils:DateTimeConverter}, ConverterParameter=full}" />
