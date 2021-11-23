@@ -365,6 +365,8 @@
     <Compile Include="ViewModels\UserInfo\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoItemViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoStudentViewModel.cs" />
+    <Compile Include="Services\UserServices.cs" />
+    <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Views\AdminCourseRegistry.xaml.cs">
       <DependentUpon>AdminCourseRegistry.xaml</DependentUpon>
     </Compile>
