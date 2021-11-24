@@ -76,6 +76,10 @@
                     DataType="{x:Type viewmodels:AdminCourseRegistryViewModel}">
                     <views:AdminCourseRegistry />
                 </DataTemplate>
+                <DataTemplate
+                    DataType="{x:Type viewmodels:AdminStudentListViewModel}">
+                    <views:AdminCourseRegistry />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <components:RightSideBar

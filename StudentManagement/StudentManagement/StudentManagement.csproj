@@ -325,7 +325,7 @@
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
-    <Compile Include="ViewModels\AdminStudentListViewModel.cs" />
+    <Compile Include="ViewModels\StudentList\AdminStudentListViewModel.cs" />
     <Compile Include="ViewModels\SubjectClass\AdminSubjectClassRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\FacultyTrainingForm\AdminFacultyRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\FacultyTrainingForm\AdminTrainingFormRightSideBarItemEditViewModel.cs" />
