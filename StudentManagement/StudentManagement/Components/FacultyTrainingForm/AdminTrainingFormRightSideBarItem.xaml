@@ -21,12 +21,13 @@
     <Grid>
         <StackPanel Margin="8">
             <TextBlock
+                Margin="0,0,0,16"
                 FontSize="28"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                TextWrapping="Wrap">
-                <Run Text="{Binding CurrentCard.TenHeDaoTao, FallbackValue='Chương trình chất lượng cao'}" />
-            </TextBlock>
+                Text="Thông tin chi tiết"
+                TextWrapping="Wrap" />
+
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -80,13 +81,10 @@
             </Grid>
             <Button
                 x:Name="btnEdit"
-                Padding="0"
-                BorderThickness="0"
                 Command="{Binding EditTrainingFormCardInfo}"
                 CommandParameter="{Binding ElementName=TrainingFormRightSideBar, Path=DataContext.CurrentCard}"
                 DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
+                Style="{StaticResource grid_button_item}">
 
                 <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
@@ -104,21 +102,24 @@
             </Button>
             <Button
                 x:Name="btnDelete"
-                Padding="0"
-                BorderThickness="0"
                 Command="{Binding DeleteTrainingFormCardInfo}"
                 CommandParameter="{Binding ElementName=TrainingFormRightSideBar, Path=DataContext.CurrentCard}"
                 DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
+                Style="{StaticResource grid_button_item}">
 
                 <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="171*" />
+                        <ColumnDefinition Width="245*" />
+                    </Grid.ColumnDefinitions>
                     <TextBlock
+                        Grid.ColumnSpan="2"
                         FontSize="16"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
                         Text="Xoá:" />
                     <materialDesign:PackIcon
+                        Grid.Column="1"
                         Width="18"
                         Height="18"
                         Margin="0,0,8,0"

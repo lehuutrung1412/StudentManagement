@@ -70,6 +70,10 @@ namespace StudentManagement.ViewModels
 
         private ICommand _deleteTrainingFormCardInfo;
 
+        public ICommand CreateTrainingFormCardInfo { get => _createTrainingFormCardInfo; set => _createTrainingFormCardInfo = value; }
+
+        private ICommand _createTrainingFormCardInfo;
+
         public ICommand ShowTrainingFormCardInfo { get => _showTrainingFormCardInfo; set => _showTrainingFormCardInfo = value; }
 
         private ICommand _showTrainingFormCardInfo;
@@ -81,7 +85,9 @@ namespace StudentManagement.ViewModels
         public ICommand DeleteFacultyCardInfo { get => _deleteFacultyCardInfo; set => _deleteFacultyCardInfo = value; }
 
         private ICommand _deleteFacultyCardInfo;
+        public ICommand CreateFacultyCardInfo { get => _createFacultyCardInfo; set => _createFacultyCardInfo = value; }
 
+        private ICommand _createFacultyCardInfo;
         #endregion
 
         public AdminFacultyTrainingFormRightSideBarViewModel()
@@ -109,6 +115,8 @@ namespace StudentManagement.ViewModels
             EditFacultyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditFacultyCardByCardFunction(p));
             DeleteFacultyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => DeleteFacultyCardByCardFunction(p));
             DeleteTrainingFormCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => DeleteTrainingFormCardByCardFunction(p));
+            CreateFacultyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CreateFacultyCardByCardFunction());
+            CreateTrainingFormCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CreateTrainingFormCardByCardFunction());
         }
 
         public void ShowFacultyCardByCardDataContext(UserControl p)
@@ -143,6 +151,24 @@ namespace StudentManagement.ViewModels
             FacultyCard card = p as FacultyCard;
 
             _adminFacultyRightSideBarItemViewModel = new AdminFacultyRightSideBarItemEditViewModel(card);
+
+            RightSideBarItemViewModel = _adminFacultyRightSideBarItemViewModel;
+        }
+
+        public void CreateFacultyCardByCardFunction()
+        {
+            FacultyCard card = new FacultyCard();
+
+            _adminFacultyRightSideBarItemViewModel = new AdminFacultyRightSideBarItemEditViewModel(card);
+
+            RightSideBarItemViewModel = _adminFacultyRightSideBarItemViewModel;
+        }
+
+        public void CreateTrainingFormCardByCardFunction()
+        {
+            TrainingFormCard card = new TrainingFormCard();
+
+            _adminFacultyRightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemEditViewModel(card);
 
             RightSideBarItemViewModel = _adminFacultyRightSideBarItemViewModel;
         }

@@ -19,8 +19,8 @@ namespace StudentManagement.ViewModels
         static private ObservableCollection<FacultyCard> _storedFacultyCards;
         public static ObservableCollection<FacultyCard> StoredFacultyCards { get => _storedFacultyCards; set => _storedFacultyCards = value; }
 
-        static private ObservableCollection<TrainingFormCard> _trainingFormCards;
-        static public ObservableCollection<TrainingFormCard> TrainingFormCards { get => _trainingFormCards; set => _trainingFormCards = value; }
+        static private ObservableCollection<IBaseCard> _trainingFormCards;
+        static public ObservableCollection<IBaseCard> TrainingFormCards { get => _trainingFormCards; set => _trainingFormCards = value; }
 
         static private ObservableCollection<FacultyCard> _FacultyCards = new ObservableCollection<FacultyCard>();
 
@@ -69,8 +69,9 @@ namespace StudentManagement.ViewModels
 
         public AdminFacultyTrainingFormViewModel()
         {
-            TrainingFormCards = new ObservableCollection<TrainingFormCard>() {
-                new TrainingFormCard("Chương trình chất lượng cao", 5, 1200),
+            TrainingFormCards = new ObservableCollection<IBaseCard>() {
+                new EmptyCard(),
+                new TrainingFormCard("Chương trình chất lượng cao", 5, 1200) ,
                 new TrainingFormCard("Chương trình tiên tiến", 3, 1123),
                 new TrainingFormCard("Chương trình đại trà", 10, 3000),
                 new TrainingFormCard("Chương trình chất lượng cao", 5, 1200),

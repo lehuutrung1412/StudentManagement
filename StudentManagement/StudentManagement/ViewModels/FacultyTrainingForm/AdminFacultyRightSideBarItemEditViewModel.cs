@@ -64,7 +64,16 @@ namespace StudentManagement.ViewModels
 
         public void ConfirmEditFacultyCardInfoFunction()
         {
+            bool isCardExist = AdminFacultyTrainingFormViewModel.StoredFacultyCards.Contains(ActualCard);
             ActualCard.CopyCardInfo(CurrentCard);
+
+            // check if card exist -> Not exist insert new
+            if (!isCardExist)
+            {
+                AdminFacultyTrainingFormViewModel.StoredFacultyCards.Insert(0, ActualCard);
+                AdminFacultyTrainingFormViewModel.FacultyCards.Insert(0, ActualCard);
+            }
+
             ActualCard.RunOnPropertyChanged();
             ReturnToShowFacultyCardInfo();
         }

@@ -21,12 +21,12 @@
     <Grid>
         <StackPanel Margin="8">
             <TextBlock
+                Margin="0,0,0,16"
                 FontSize="28"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                TextWrapping="Wrap">
-                <Run Text="{Binding CurrentCard.TenKhoa, FallbackValue='Ten Khoa'}" />
-            </TextBlock>
+                Text="Thông tin chi tiết"
+                TextWrapping="Wrap" />
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
