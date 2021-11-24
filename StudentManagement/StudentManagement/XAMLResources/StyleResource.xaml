@@ -449,6 +449,13 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type Border}" x:Key="HorizontalDividerBorder">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignDivider}"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Height" Value="1"/>
+    </Style>
+
     <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Background" Value="#FFE0E0E0" />

@@ -103,7 +103,7 @@ namespace StudentManagement.ViewModels
                     }
                 case 1:
                     {
-                        TypeControl = "Datapicker";
+                        TypeControl = "Datepicker";
                         break;
                     }
                 case 2:

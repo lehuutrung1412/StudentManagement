@@ -29,7 +29,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="6*" />
-                    <ColumnDefinition Width="*" />
+
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Style="{StaticResource BorderStyle}">
                     <ComboBox
@@ -53,14 +53,14 @@
                     </ComboBox>
 
                 </Border>
-                <Button
+                <!--<Button
                     Grid.Column="1"
                     Command="{Binding EditInfoItemCommand}"
                     CommandParameter="{Binding ElementName=NotificationComponent}"
                     DataContext="{DynamicResource UserInfoVM}"
                     Style="{StaticResource MaterialDesignFlatButton}">
                     <materialDesign:PackIcon Kind="PencilOutline" />
-                </Button>
+                </Button>-->
             </Grid>
         </StackPanel>
     </Grid>

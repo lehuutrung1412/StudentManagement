@@ -39,6 +39,7 @@ namespace StudentManagement.ViewModels
         private object _studentScheduleTableViewModel;
         private object _adminUserInfoViewModel;
         private object _adminCourseRegistryViewModel;
+        private object _settingUserInfoViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
         private object _adminHomeRightSideBar;
@@ -65,6 +66,9 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, _layoutViewModel, "School"),
                 new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, _layoutViewModel, "School")
             };
+            ObservableCollection<NavigationItem> tempInfo = new ObservableCollection<NavigationItem>() {
+                new NavigationItem("Thông tin cá nhân", false, null, _settingUserInfoViewModel, null, _layoutViewModel, "AccountOutline"),
+            };
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, _layoutViewModel, "Home"),
@@ -74,7 +78,8 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, _layoutViewModel, "Home"),
                 new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "Home"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, _layoutViewModel, "AccountOutline"),
-                new NavigationItem("Admin - ĐKHP", false, null, _adminCourseRegistryViewModel, null, _layoutViewModel, "CreditCardPlusOutline")
+                new NavigationItem("Admin - ĐKHP", false, null, _adminCourseRegistryViewModel, null, _layoutViewModel, "CreditCardPlusOutline"),
+                new NavigationItem("Cài đặt", true, tempInfo, null, null, _layoutViewModel, "ClockOutline"),
             };
             
             CurrentViewModel = _layoutViewModel;
@@ -112,6 +117,8 @@ namespace StudentManagement.ViewModels
             _adminUserInfoViewModel = new UserInfoViewModel();
 
             _adminCourseRegistryViewModel = new AdminCourseRegistryViewModel();
+
+            _settingUserInfoViewModel = new SettingUserInfoViewModel();
 
             _layoutViewModel.ContentViewModel = _adminHomeViewModel;
         }

@@ -28,8 +28,7 @@
             <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6*" />
-                    <ColumnDefinition Width="*" />
+
                 </Grid.ColumnDefinitions>
                 <Border Style="{StaticResource BorderStyle}">
                     <TextBox
@@ -52,14 +51,14 @@
                         </TextBox.Style>
                     </TextBox>
                 </Border>
-                <Button
+                <!--<Button
                     Grid.Column="1"
                     Command="{Binding EditInfoItemCommand}"
                     CommandParameter="{Binding ElementName=NotificationComponent}"
                     DataContext="{DynamicResource UserInfoVM}"
                     Style="{StaticResource MaterialDesignFlatButton}">
                     <materialDesign:PackIcon Kind="PencilOutline" />
-                </Button>
+                </Button>-->
             </Grid>
 
         </StackPanel>
