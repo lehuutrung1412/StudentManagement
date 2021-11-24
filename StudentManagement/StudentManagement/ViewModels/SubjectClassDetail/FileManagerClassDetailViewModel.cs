@@ -32,6 +32,10 @@ namespace StudentManagement.ViewModels
         public ICommand DeleteFolder { get; set; }
         public ICommand SearchFile { get; set; }
         public ICommand ShowFolderInfo { get; set; }
+        public ICommand RenameFolder { get; set; }
+
+        public Guid? FolderEditingId { get => _folderEditingId; set { _folderEditingId = value; OnPropertyChanged(); } }
+        private Guid? _folderEditingId;
 
         public bool IsShowDialog { get => _isShowDialog; set { _isShowDialog = value; OnPropertyChanged(); } }
         private bool _isShowDialog;
@@ -86,6 +90,14 @@ namespace StudentManagement.ViewModels
             DeleteFolder = new RelayCommand<object>((p) => true, (p) => DeleteFolderFunction(p));
             SearchFile = new RelayCommand<object>((p) => true, (p) => SearchFileFunction());
             ShowFolderInfo = new RelayCommand<object>((p) => { return true; }, (p) => ShowFolderInfoFunction(p));
+            RenameFolder = new RelayCommand<object>((p) => true, (p) => RenameFolderFunction(p));
+
+        }
+
+        private void RenameFolderFunction(object p)
+        {
+            if (p is CollectionViewGroup collectionViewGroup)
+                FolderEditingId = (Guid?)collectionViewGroup.Name;
         }
 
         private void ShowFolderInfoFunction(object p)
@@ -206,7 +218,9 @@ namespace StudentManagement.ViewModels
                     return;
                 }
                 IsShowDialog = false;
-                FileData.Add(new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName));
+                FileInfo newFile = new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
+                newFile.PropertyChanged += NewFile_PropertyChanged;
+                FileData.Add(newFile);
                 NewFolderName = null;
             }
             catch (Exception)
@@ -215,6 +229,14 @@ namespace StudentManagement.ViewModels
                                   "Thêm thư mục",
                                   MessageBoxButton.OK,
                                   MessageBoxImage.Error);
+            }
+        }
+
+        private void NewFile_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "FolderName")
+            {
+                FolderEditingId = null;
             }
         }
 

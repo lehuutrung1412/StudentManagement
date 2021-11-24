@@ -113,16 +113,18 @@
                                                 <Expander.Header>
                                                     <DockPanel Margin="-8,0,0,0">
                                                         <DockPanel.InputBindings>
-                                                            <MouseBinding MouseAction="LeftClick" Command="{Binding ElementName=ExpanderFolder, Path=Tag.ShowFolderInfo}"/>
+                                                            <MouseBinding Command="{Binding ElementName=ExpanderFolder, Path=Tag.ShowFolderInfo}" MouseAction="LeftClick" />
                                                         </DockPanel.InputBindings>
                                                         <Image
                                                             Width="24"
                                                             Height="24"
                                                             Source="{StaticResource Folder}" />
                                                         <TextBlock
+                                                            MaxWidth="500"
                                                             Margin="8"
                                                             VerticalAlignment="Center"
-                                                            Text="{Binding Items[0].FolderName}" />
+                                                            Text="{Binding Items[0].FolderName}"
+                                                            TextTrimming="CharacterEllipsis" />
                                                         <TextBlock
                                                             HorizontalAlignment="Right"
                                                             VerticalAlignment="Center"
@@ -135,6 +137,7 @@
                                         </ControlTemplate>
                                         <ControlTemplate x:Key="SingleGroupTemplate" TargetType="{x:Type GroupItem}">
                                             <Border
+                                                Name="brdSingleFolder"
                                                 Margin="0"
                                                 Padding="16"
                                                 Background="Linen"
@@ -152,17 +155,62 @@
                                                             Foreground="{StaticResource ErrorMain}"
                                                             Header="Xóa thư mục"
                                                             Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
+                                                        <MenuItem
+                                                            Command="{Binding RenameFolder}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Header="Đổi tên"
+                                                            Icon="{materialDesign:PackIcon Kind=Pencil}" />
                                                     </ContextMenu>
                                                 </Border.ContextMenu>
                                                 <DockPanel>
+                                                    <DockPanel.Style>
+                                                        <Style TargetType="{x:Type DockPanel}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Value="True">
+                                                                    <DataTrigger.Binding>
+                                                                        <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
+                                                                            <Binding Path="Items[0].FolderId" />
+                                                                            <Binding ElementName="brdSingleFolder" Path="Tag.FolderEditingId" />
+                                                                        </MultiBinding>
+                                                                    </DataTrigger.Binding>
+                                                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=SingleFolderName}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DockPanel.Style>
                                                     <Image
                                                         Width="24"
                                                         Height="24"
                                                         Source="{StaticResource Folder}" />
-                                                    <TextBlock
-                                                        Margin="8"
+                                                    <TextBox
+                                                        Name="SingleFolderName"
+                                                        MaxWidth="500"
+                                                        Margin="8,0,0,0"
+                                                        HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
-                                                        Text="{Binding Items[0].FolderName}" />
+                                                        Text="{Binding Items[0].FolderName, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                                                        ToolTip="{Binding Items[0].FolderName}">
+                                                        <TextBox.Style>
+                                                            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+                                                                <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
+                                                                <Setter Property="BorderThickness" Value="0" />
+                                                                <Setter Property="IsReadOnly" Value="True" />
+                                                                <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Value="True">
+                                                                        <DataTrigger.Binding>
+                                                                            <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
+                                                                                <Binding Path="Items[0].FolderId" />
+                                                                                <Binding ElementName="brdSingleFolder" Path="Tag.FolderEditingId" />
+                                                                            </MultiBinding>
+                                                                        </DataTrigger.Binding>
+                                                                        <Setter Property="IsReadOnly" Value="False" />
+                                                                        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBox.Style>
+                                                    </TextBox>
                                                 </DockPanel>
                                             </Border>
                                         </ControlTemplate>
