@@ -16,15 +16,6 @@ namespace StudentManagement.ViewModels
     public class AdminCourseRegistryViewModel : BaseViewModel
     {
         #region classes
-        public class TempSemester : Models.Semester
-        {
-            public TempSemester(string batch, string displayName, int status)
-            {
-                this.Batch = batch;
-                this.DisplayName = displayName;
-                this.CourseRegisterStatus = status;
-            }
-        }
         public class CourseItems : Models.SubjectClass
         {
             private bool _isSelected;
@@ -74,12 +65,12 @@ namespace StudentManagement.ViewModels
         private ObservableCollection<CourseRegistryItem> _courseRegistryItemsDisplay;
         public ObservableCollection<CourseRegistryItem> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }
         //
-        public ObservableCollection<TempSemester> Semesters { get => _semesters; set { _semesters = value; OnPropertyChanged(); } }
-        private ObservableCollection<TempSemester> _semesters;
+        public ObservableCollection<Models.Semester> Semesters { get => _semesters; set { _semesters = value; OnPropertyChanged(); } }
+        private ObservableCollection<Models.Semester> _semesters;
 
-        public TempSemester SelectedSemester { get => _selectedSemester; 
+        public Models.Semester SelectedSemester { get => _selectedSemester; 
             set { _selectedSemester = value; OnPropertyChanged(); } }
-        private TempSemester _selectedSemester;
+        private Models.Semester _selectedSemester;
         public int SelectedSemesterIndex { get => _selectedSemesterIndex; set { _selectedSemesterIndex = value; OnPropertyChanged(); SelectData(); } }
         private int _selectedSemesterIndex;
 
@@ -132,11 +123,11 @@ namespace StudentManagement.ViewModels
         public AdminCourseRegistryViewModel()
         {
             /*Thiếu lấy dữ liệu từ model cho semester và SubjectClasses*/
-            Semesters = new ObservableCollection<TempSemester>()
+            Semesters = new ObservableCollection<Models.Semester>()
             {
-                new TempSemester("2019-2020", "HK2", 2),
-                new TempSemester("2020-2021", "HK1", 1),
-                new TempSemester("2020-2021", "HK2", 0)
+                new Semester(){Batch = "2019-2020", DisplayName = "Học kỳ 2", CourseRegisterStatus = 2},
+                new Semester(){Batch = "2020-2021", DisplayName = "Học kỳ 1", CourseRegisterStatus = 1},
+                new Semester(){Batch = "2020-2021", DisplayName = "Học kỳ 2", CourseRegisterStatus = 0}
             };
             /*CourseRegistryItemsAll = new ObservableCollection<ObservableCollection<CourseItems>>();*/
             CourseRegistryItemsAll = new ObservableCollection<ObservableCollection<CourseRegistryItem>>();

@@ -14,11 +14,13 @@ namespace StudentManagement.ViewModels
 {
     public class CreateNewCourseViewModel : BaseViewModel
     {
+        private readonly ErrorBaseViewModel _errorBaseViewModel;
+
         private CourseRegistryItem _currentCard;
         public CourseRegistryItem CurrentCard { get => _currentCard; set => _currentCard = value; }
-        private TempSemester _semester;
+        private Semester _semester;
         private ObservableCollection<CourseRegistryItem> _courses;
-        public TempSemester Semester { get => _semester; set => _semester = value; }
+        public Semester Semester { get => _semester; set => _semester = value; }
         public ObservableCollection<CourseRegistryItem> Courses { get => _courses; set => _courses = value; }
         public ObservableCollection<Subject> Subjects { get => _subjects; set => _subjects = value; }
         public ObservableCollection<TrainingForm> TrainingForms { get => _trainingForms; set => _trainingForms = value; }
@@ -37,7 +39,11 @@ namespace StudentManagement.ViewModels
         private string _maxNumber;
         private bool _isPracticed;
         private string _subjectClassCode;
-        public Subject SelectedSubject { get => _selectedSubject; set { _selectedSubject = value; OnPropertyChanged(); UpdateSubjectClassCode(); } }
+        public Subject SelectedSubject { get => _selectedSubject; set { 
+                _selectedSubject = value; 
+                OnPropertyChanged(); 
+                UpdateSubjectClassCode(); 
+                } }
         public TrainingForm SelectedTF { get => _selectedTF; set { _selectedTF = value; OnPropertyChanged(); UpdateSubjectClassCode(); } }
         public string Period { get => _period; set{ _period = value; OnPropertyChanged();} }
         public string SelectedDay { get => _selectedDay; set{ _selectedDay = value; OnPropertyChanged();} }
@@ -47,7 +53,7 @@ namespace StudentManagement.ViewModels
 
         public ICommand ConfirmCommand { get; set; }
 
-        public CreateNewCourseViewModel(CourseRegistryItem card, TempSemester semester, ObservableCollection<CourseRegistryItem> list)
+        public CreateNewCourseViewModel(CourseRegistryItem card, Semester semester, ObservableCollection<CourseRegistryItem> list)
         {
             CurrentCard = card;
             Semester = semester;
@@ -85,7 +91,6 @@ namespace StudentManagement.ViewModels
             codeTF += "KHTN";
             SubjectClassCode += codeSemester;
             SubjectClassCode += codeTF;
-
         }
 
         
