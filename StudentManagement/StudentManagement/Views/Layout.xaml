@@ -72,9 +72,11 @@
                 <DataTemplate DataType="{x:Type viewmodels:FileManagerClassDetailViewModel}">
                     <components:FileManagerClassDetail />
                 </DataTemplate>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:AdminCourseRegistryViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminCourseRegistryViewModel}">
                     <views:AdminCourseRegistry />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminStudentListViewModel}">
+                    <views:AdminStudentList />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

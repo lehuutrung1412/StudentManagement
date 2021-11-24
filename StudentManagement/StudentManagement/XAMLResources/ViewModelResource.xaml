@@ -23,4 +23,5 @@
     <viewmodel:StudentScheduleTableViewModel x:Key="StudentScheduleTableVM" />
     <viewmodel:FileManagerClassDetailViewModel x:Key="FileManagerClassDetailVM" />
     <viewmodel:AdminCourseRegistryViewModel x:Key="AdminCourseRegistryVM" />
+    <viewmodel:AdminStudentListViewModel x:Key="AdminStudentListVM" />
 </ResourceDictionary>

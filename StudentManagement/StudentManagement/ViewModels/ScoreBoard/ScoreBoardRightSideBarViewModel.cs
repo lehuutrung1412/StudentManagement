@@ -76,54 +76,6 @@ namespace StudentManagement.ViewModels
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
 
-        public class DetailScore
-        {
-            private string _quaTrinh;
-            private string _thucHanh;
-            private string _giuaKi;
-            private string _cuoiKi;
-            private string _diemTB;
-            private string _idSubject;
-
-            public string QuaTrinh
-            {
-                get => _quaTrinh;
-                set => _quaTrinh = value;
-            }
-
-
-            public string ThucHanh
-            {
-                get => _thucHanh;
-                set => _thucHanh = value;
-            }
-
-            public string GiuaKi
-            {
-                get => _giuaKi;
-                set => _giuaKi = value;
-            }
-
-            public string CuoiKi
-            {
-                get => _cuoiKi;
-                set => _cuoiKi = value;
-            }
-
-            public string DiemTB
-            {
-                get => _diemTB;
-                set => _diemTB = value;
-            }
-
-            public string IDSubject
-            {
-                get => _idSubject;
-                set => _idSubject = value;
-            }
-
-        }
-
 
     }
 }

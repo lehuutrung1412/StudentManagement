@@ -40,6 +40,7 @@ namespace StudentManagement.ViewModels
         private object _adminUserInfoViewModel;
         private object _adminUserInfoStudentViewModel;
         private object _adminCourseRegistryViewModel;
+        private object _adminStudentListViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
         private object _adminHomeRightSideBar;
@@ -75,6 +76,7 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, _layoutViewModel, "Home"),
                 new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "Home"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, _layoutViewModel, "AccountOutline"),
+                new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, null, _layoutViewModel, "School"),
                 new NavigationItem("Admin - ĐKHP", false, null, _adminCourseRegistryViewModel, null, _layoutViewModel, "CreditCardPlusOutline")
             };
             
@@ -113,6 +115,8 @@ namespace StudentManagement.ViewModels
             _adminUserInfoViewModel = new UserInfoViewModel();
 
             _adminCourseRegistryViewModel = new AdminCourseRegistryViewModel();
+
+            _adminStudentListViewModel = new AdminStudentListViewModel();
 
             _layoutViewModel.ContentViewModel = _adminHomeViewModel;
         }

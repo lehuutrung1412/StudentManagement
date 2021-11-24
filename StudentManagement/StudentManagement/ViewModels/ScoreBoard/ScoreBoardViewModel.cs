@@ -97,6 +97,9 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        private ObservableCollection<DetailScore> _scoreList;
+        public ObservableCollection<DetailScore> ScoreList { get => _scoreList; set => _scoreList = value; }
+
         public ScoreBoardViewModel()
         {
             StudentScoreItems = new ObservableCollection<Score>();
@@ -107,8 +110,8 @@ namespace StudentManagement.ViewModels
             StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 3, Semester = "Học kì I, 2018-2019" });
             StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 4, Semester = "Học kì II, 2018-2019" });
             StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 5, Semester = "Học kì I, 2018-2019" });
-            StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 6, Semester = "Học kì I, 2018-2019" });
-            StudentScoreItems.Add(new Score() { IDSubject = "IT001", Subject = "Nhập môn lập trình", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 7, Semester = "Học kì II, 2018-2019" });
+            StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 6, Semester = "Học kì II, 2018-2019" });
+            StudentScoreItems.Add(new Score() { IDSubject = "IT001", Subject = "Nhập môn lập trình", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 7, Semester = "Học kì I, 2018-2019" });
 
 
             StudentTrainingScoreItems.Add(new TrainingScore() { Event = "ACM ICPC Contest", Faculty = "KHMT", Type = "Học thuật", Score = 30, Semester = "Học kì I, 2018-2019" });
@@ -118,10 +121,15 @@ namespace StudentManagement.ViewModels
             StudentTrainingScoreItems.Add(new TrainingScore() { Event = "Thủ lĩnh sinh viên", Faculty = "KHMT", Type = "Ngoại khóa", Score = 30, Semester = "Học kì I, 2018-2019" });
             StudentTrainingScoreItems.Add(new TrainingScore() { Event = "Phương pháp học tập bậc đại học", Faculty = "CNPM", Type = "Chia sẻ", Score = 30, Semester = "Học kì II, 2018-2019" });
 
+            ScoreList = new ObservableCollection<DetailScore>
+            {
+                new DetailScore() {QuaTrinh = "10", CuoiKi = "10", GiuaKi = "10", DiemTB = "10", ThucHanh = "10", IDSubject = "IT008"},
+                new DetailScore() {QuaTrinh = "1", CuoiKi = "1", GiuaKi = "1", DiemTB = "1", ThucHanh = "0", IDSubject = "IT001"}
+            };
+
             Semesters = new ObservableCollection<string>(StudentScoreItems.Select(x => x.Semester).Distinct().ToList());
+
             UpdateScoreBoard(Semesters.Last());
-            GPA = "Điểm tích lũy: 10";
-            TrainingScore = "Điểm rèn luyện: 100";
         }
 
         private void UpdateScoreBoard(string semester)
@@ -129,18 +137,17 @@ namespace StudentManagement.ViewModels
             if (semester == null)
                 return;
 
-            int size = 0;
-            GPA = "Điểm tích lũy: 10";
-            TrainingScore = "Điểm rèn luyện: 100";
+            int size = 0, _gpa = 0, _trainingscore = 0;
+            GPA = "Điểm tích lũy: ";
+            TrainingScore = "Điểm rèn luyện: ";
             CurrentStudentScore = new ObservableCollection<Score>();
             foreach (Score item in StudentScoreItems)
                 if (item.Semester.Contains(semester))
                 {
-                    Score temp = item;
-                    temp.STT = size + 1;
-                    CurrentStudentScore.Add(temp);
+                    item.STT = size + 1;
+                    CurrentStudentScore.Add(item);
                     size += 1;
-                    // Calc GPA please
+                    _gpa += int.Parse(ScoreList.Where(x => x.IDSubject == item.IDSubject).ToList()[0].DiemTB);
                 }
 
             int size2 = 0;
@@ -148,11 +155,15 @@ namespace StudentManagement.ViewModels
             foreach (TrainingScore item in StudentTrainingScoreItems)
                 if (item.Semester.Contains(semester))
                 {
-                    TrainingScore temp = item;
-                    temp.STT = size2 + 1;
-                    CurrentTrainingScore.Add(temp);
+                    item.STT = size2 + 1;
+                    CurrentTrainingScore.Add(item);
+                    _trainingscore += item.Score;
                     size2 += 1;
                 }
+
+            double full_gpa = 1.0 * _gpa / size;
+            GPA += full_gpa.ToString();
+            TrainingScore += _trainingscore.ToString();
         }
 
     }
@@ -264,4 +275,84 @@ namespace StudentManagement.ViewModels
 
     }
 
+    public class DetailScore
+    {
+        private string _quaTrinh;
+        private string _thucHanh;
+        private string _giuaKi;
+        private string _cuoiKi;
+        private string _diemTB;
+        private string _idSubject;
+
+        public string QuaTrinh
+        {
+            get => _quaTrinh;
+            set => _quaTrinh = value;
+        }
+
+
+        public string ThucHanh
+        {
+            get => _thucHanh;
+            set => _thucHanh = value;
+        }
+
+        public string GiuaKi
+        {
+            get => _giuaKi;
+            set => _giuaKi = value;
+        }
+
+        public string CuoiKi
+        {
+            get => _cuoiKi;
+            set => _cuoiKi = value;
+        }
+
+        public string DiemTB
+        {
+            get => _diemTB;
+            set => _diemTB = value;
+        }
+
+        public string IDSubject
+        {
+            get => _idSubject;
+            set => _idSubject = value;
+        }
+
+    }
+
+    public class SemesterDetail
+    {
+        private string _score;
+        private string _training;
+        private ObservableCollection<TrainingScore> _semesterTraining;
+        private ObservableCollection<Score> _semesterScore;
+
+        public ObservableCollection<Score> SemesterScore
+        {
+            get => _semesterScore;
+            set => _semesterScore = value;
+        }
+
+        public ObservableCollection<TrainingScore> SemesterTraining
+        {
+            get => _semesterTraining;
+            set => _semesterTraining = value;
+        }
+
+        public string Score
+        {
+            get => _score;
+            set => _score = value;
+        }
+
+        public string Training
+        {
+            get => _training;
+            set => _training = value;
+        }
+
+    }
 }
