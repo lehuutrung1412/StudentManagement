@@ -127,22 +127,25 @@
                         Margin="16,0,0,0"
                         Content="Xuất ra Excel"
                         DockPanel.Dock="Right"
+                        Style="{StaticResource rounded_btn}"
                         FontSize="14" />
                     <Button
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Thêm từ Excel"
                         DockPanel.Dock="Right"
+                        Style="{StaticResource rounded_btn}"
                         FontSize="14" />
                     <Button
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Thêm thủ công"
                         DockPanel.Dock="Left"
-                        FontSize="14">
+                        FontSize="14"
+                        Style="{StaticResource rounded_btn}"
+                        Command="{Binding CreateNewCourseCommand}">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewKeyDown">
-                                <i:InvokeCommandAction Command="{Binding CreateNewCourseCommand}" />
+                            <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -153,6 +156,7 @@
                         Command="{Binding DeleteSelectedItemsCommand}"
                         Content="Xóa"
                         DockPanel.Dock="Left"
+                        Style="{StaticResource rounded_btn}"
                         FontSize="14" />
                 </DockPanel>
                 <component:SubjectRegistryDataGrid
@@ -165,12 +169,14 @@
                         Margin="16,0,0,0"
                         Content="Khôi phục"
                         DockPanel.Dock="Right"
+                        Style="{StaticResource rounded_btn}"
                         FontSize="14" />
                     <Button
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Lưu vào server"
                         DockPanel.Dock="Right"
+                        Style="{StaticResource rounded_btn}"
                         FontSize="14" />
                 </DockPanel>
             </StackPanel>

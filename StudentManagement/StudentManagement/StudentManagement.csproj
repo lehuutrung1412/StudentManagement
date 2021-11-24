@@ -312,6 +312,7 @@
     <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
+    <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
     <Compile Include="Utils\BindingProxy.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />

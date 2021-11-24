@@ -172,15 +172,14 @@ namespace StudentManagement.ViewModels
                     DeleteSelectedItems();
                 });
             CreateNewCourseCommand = new RelayCommand<object>((p) => {
-                //if (SelectedSemester == null)
-                //    return true;
-                //if (SelectedSemester.CourseRegisterStatus > 0)
-                //{
-                //    return false;
-                //}
+                if (SelectedSemester == null)
+                    return true;
+                if (SelectedSemester.CourseRegisterStatus > 0)
+                {
+                    return false;
+                }
                 return true;
-            }, (p) => 
-            
+            }, (p) =>         
             CreateNewCourse());
         }
 

@@ -132,7 +132,7 @@
                         <ComboBox
                             Grid.Row="0"
                             Height="28"
-                            Margin="16,0,0,0"
+                            Margin="16,0,0,4"
                             Padding="8,4,8,4"
                             materialDesign:HintAssist.Hint="Chọn môn học"
                             materialDesign:TextFieldAssist.HasClearButton="True"
@@ -141,15 +141,23 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#01579b"
-                            ItemsSource="{Binding Subjects, Source={StaticResource AdminCourseRegistryVM}}"
+                            ItemsSource="{Binding Subjects}"
                             SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:ComboBoxAssist.ShowSelectedItem="True"
+                            
                             Style="{StaticResource ComboBoxTriggerValidation}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding DisplayName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                         <ComboBox
                             Grid.Row="1"
                             Width="Auto"
                             Height="28"
-                            Margin="16,0,0,0"
+                            Margin="16,0,0,4"
                             Padding="8,4,8,4"
                             materialDesign:HintAssist.Hint="Chọn hệ đào tạo"
                             materialDesign:TextFieldAssist.HasClearButton="True"
@@ -158,9 +166,16 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#01579b"
-                            ItemsSource="{Binding TrainingForms, Source={StaticResource AdminCourseRegistryVM}}"
+                            ItemsSource="{Binding TrainingForms}"
                             SelectedItem="{Binding SelectedTF, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                             Style="{StaticResource ComboBoxTriggerValidation}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding DisplayName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                         <TextBox
                             Grid.Row="2"
@@ -174,7 +189,7 @@
                             FontWeight="SemiBold"
                             Foreground="#01579b"
                             Text="{Binding Period, UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource TextBoxTriggerValidation}">
+                            Style="{StaticResource textbox_item}">
                         </TextBox>
                         <ComboBox
                             Grid.Row="3"
@@ -189,8 +204,9 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#01579b"
-                            ItemsSource="{Binding DayOfWeeks, Source={StaticResource AdminCourseRegistryVM}}"
+                            ItemsSource="{Binding DayOfWeeks}"
                             SelectedItem="{Binding SelectedDay, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                             Style="{StaticResource ComboBoxTriggerValidation}">
                         </ComboBox>
                         <TextBox
@@ -235,8 +251,7 @@
                                     Margin="0, 16, 0, 8"
                                     FontSize="28" />
                                 <TextBox
-                                    Text="{Binding SubjectClassCode, FallbackValue='x.x.x'}"
-                                    IsReadOnly="True"
+                                    Text="{Binding SubjectClassCode, Mode=TwoWay, FallbackValue='x.x.x'}"
                                     FontSize="24"
                                     HorizontalAlignment="Center"
                                     Foreground="Crimson"
@@ -274,7 +289,7 @@
                                     <i:EventTrigger
                                         EventName="Click">
                                         <i:InvokeCommandAction
-                                            Command="{Binding CreateNotificationCommand}" />
+                                            Command="{Binding ConfirmCommand}" />
                                         <i:InvokeCommandAction
                                             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
 
