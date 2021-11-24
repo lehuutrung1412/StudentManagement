@@ -118,6 +118,10 @@ namespace StudentManagement.ViewModels
         private ICommand _searchCourseRegistryItems;
         public ICommand DeleteSelectedItemsCommand { get; set; }
         public ICommand CreateNewCourseCommand { get; set; }
+
+        public ICommand OpenSemesterCommand { get; set; }
+        public ICommand PauseSemesterCommand { get; set; }
+        public ICommand StopSemesterCommand { get; set; }
         #endregion
 
         public AdminCourseRegistryViewModel()
@@ -150,14 +154,19 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItemsAll.Add(courseItems1Semester);
             }
             SelectedSemester = Semesters.Last();
+            InitCommand();
+            
+        }
 
+        public void InitCommand()
+        {
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchCourseRegistryItems = new RelayCommand<object>((p) => { return true; }, (p) => SearchCourseRegistryItemsFunction());
             DeleteSelectedItemsCommand = new RelayCommand<UserControl>(
-                (p) => 
+                (p) =>
                 {
                     return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0;
-                }, 
+                },
                 (p) =>
                 {
                     DeleteSelectedItems();
@@ -170,10 +179,12 @@ namespace StudentManagement.ViewModels
                     return false;
                 }
                 return true;
-            }, (p) =>         
-            CreateNewCourse());
+            }, (p) => CreateNewCourse());
+            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => 
+            SelectedSemester.CourseRegisterStatus = 1);
+            PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 0);
+            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 2);
         }
-
         public void SelectData()
         {
             CourseRegistryItems = CourseRegistryItemsAll[SelectedSemesterIndex];
