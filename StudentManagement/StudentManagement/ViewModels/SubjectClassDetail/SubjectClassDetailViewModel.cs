@@ -19,6 +19,7 @@ namespace StudentManagement.ViewModels
         private object _fileManagerClassDetailViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
+        private object _fileManagerRightSideBarViewModel;
 
         // Properties
         private bool _isShowDialog;
@@ -49,7 +50,7 @@ namespace StudentManagement.ViewModels
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Lớp môn học", false, null, _newFeedSubjectClassDetailViewModel, null, _layoutViewModel, "Home"),
-                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, null, _layoutViewModel, "Home")
+                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "Home")
             };
 
             CurrentViewModel = _layoutViewModel;
@@ -80,6 +81,8 @@ namespace StudentManagement.ViewModels
 
         public void InitRightSideBar()
         {
+            _fileManagerRightSideBarViewModel = new FileManagerRightSideBarViewModel();
+            _layoutViewModel.RightSideBar = _fileManagerRightSideBarViewModel;
         }
 
         #endregion Methods
@@ -94,6 +97,11 @@ namespace StudentManagement.ViewModels
                 {
                     DialogViewModel = _fileManagerClassDetailViewModel;
                 }
+            }
+            else if (e.PropertyName == "SelectedFile")
+            {
+                object selectedFile = (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).SelectedFile;
+                (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).CurrentFile = selectedFile as FileInfo;
             }
         }
         #endregion Events

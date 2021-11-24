@@ -31,6 +31,11 @@ namespace StudentManagement.ViewModels
         public ICommand DeleteFile { get; set; }
         public ICommand DeleteFolder { get; set; }
         public ICommand SearchFile { get; set; }
+        public ICommand ShowFolderInfo { get; set; }
+        public ICommand RenameFolder { get; set; }
+
+        public Guid? FolderEditingId { get => _folderEditingId; set { _folderEditingId = value; OnPropertyChanged(); } }
+        private Guid? _folderEditingId;
 
         public bool IsShowDialog { get => _isShowDialog; set { _isShowDialog = value; OnPropertyChanged(); } }
         private bool _isShowDialog;
@@ -53,8 +58,20 @@ namespace StudentManagement.ViewModels
         }
         private string _newFolderName;
 
-        public string SearchQuery { get => _searchQuery; set { _searchQuery = value; OnPropertyChanged(); } }
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                SearchFileFunction();
+                OnPropertyChanged();
+            }
+        }
         private string _searchQuery;
+
+        public object SelectedFile { get => _selectedFile; set { _selectedFile = value; OnPropertyChanged(); } }
+        private object _selectedFile;
 
         public FileManagerClassDetailViewModel()
         {
@@ -72,6 +89,20 @@ namespace StudentManagement.ViewModels
             CreateFolder = new RelayCommand<object>((p) => true, (p) => CreateFolderFunction());
             DeleteFolder = new RelayCommand<object>((p) => true, (p) => DeleteFolderFunction(p));
             SearchFile = new RelayCommand<object>((p) => true, (p) => SearchFileFunction());
+            ShowFolderInfo = new RelayCommand<object>((p) => { return true; }, (p) => ShowFolderInfoFunction(p));
+            RenameFolder = new RelayCommand<object>((p) => true, (p) => RenameFolderFunction(p));
+
+        }
+
+        private void RenameFolderFunction(object p)
+        {
+            if (p is CollectionViewGroup collectionViewGroup)
+                FolderEditingId = (Guid?)collectionViewGroup.Name;
+        }
+
+        private void ShowFolderInfoFunction(object p)
+        {
+            MyMessageBox.Show("Oke");
         }
 
         private void BindingFileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -187,7 +218,9 @@ namespace StudentManagement.ViewModels
                     return;
                 }
                 IsShowDialog = false;
-                FileData.Add(new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName));
+                FileInfo newFile = new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
+                newFile.PropertyChanged += NewFile_PropertyChanged;
+                FileData.Add(newFile);
                 NewFolderName = null;
             }
             catch (Exception)
@@ -196,6 +229,14 @@ namespace StudentManagement.ViewModels
                                   "Thêm thư mục",
                                   MessageBoxButton.OK,
                                   MessageBoxImage.Error);
+            }
+        }
+
+        private void NewFile_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "FolderName")
+            {
+                FolderEditingId = null;
             }
         }
 

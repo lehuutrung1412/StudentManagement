@@ -12,10 +12,10 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource Background}" CornerRadius="15">
+    <Border Background="{DynamicResource Background}" CornerRadius="8">
         <Border.Effect>
             <DropShadowEffect
-                BlurRadius="15"
+                BlurRadius="8"
                 Opacity="0.3"
                 ShadowDepth="0"
                 Color="DarkGray" />
@@ -56,7 +56,7 @@
                 VerticalContentAlignment="Center"
                 materialDesign:HintAssist.Background="{DynamicResource Background}"
                 materialDesign:HintAssist.Hint="Nhập tên thư mục cần tạo"
-                materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
                 materialDesign:HintAssist.HintOpacity="0.5"
                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
                 materialDesign:TextFieldAssist.HasClearButton="True"

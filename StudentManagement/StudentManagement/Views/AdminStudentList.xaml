@@ -1,5 +1,6 @@
-﻿<UserControl x:Class="StudentManagement.Views.AdminStudentList"
-               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl
+    x:Class="StudentManagement.Views.AdminStudentList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:component="clr-namespace:StudentManagement.Components.ListStudents"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +11,7 @@
     d:DesignHeight="617"
     d:DesignWidth="746"
     Background="{StaticResource CenterColumn}"
-    DataContext="{DynamicResource AdminListStudentVM}"
+    DataContext="{DynamicResource AdminStudentListVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -35,41 +36,41 @@
                 <Grid Grid.Column="0">
                     <TextBox
                         Margin="16,0,16,0"
-                    materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
-                    materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}">
+                        materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding SearchFile}" />
+                            <KeyBinding Key="Enter" Command="{Binding SearchName}" />
                         </TextBox.InputBindings>
                     </TextBox>
                 </Grid>
 
                 <Grid Grid.Column="1">
                     <Button
-                            Width="140"
-                            Margin="16,0,16,0"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            Background="#6200ee"
-                            ToolTip="MaterialDesignRaisedLightButton with Round Corners">
+                        Width="140"
+                        Margin="16,0,16,0"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Background="#6200ee"
+                        ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                         <TextBlock Text="Thêm sinh viên" />
                     </Button>
                 </Grid>
 
                 <Grid Grid.Column="2">
                     <Button
-                            Width="140"
-                            Margin="16,0,16,0"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            Background="#4caf50"
-                            ToolTip="MaterialDesignRaisedLightButton with Round Corners">
+                        Width="140"
+                        Margin="16,0,16,0"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Background="#4caf50"
+                        ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                         <TextBlock Text="Xuất bảng điểm" />
                     </Button>
                 </Grid>
             </Grid>
 
-            <component:AdminListStudentDataGrid Grid.Row="1"  Margin="16,0,16,0"/>
-            
+            <component:AdminListStudentDataGrid Grid.Row="1" Margin="16,0,16,0" />
+
         </Grid>
     </ScrollViewer>
 

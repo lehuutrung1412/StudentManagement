@@ -2,6 +2,7 @@
     x:Class="StudentManagement.Components.FileManager"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:StudentManagement.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
@@ -12,13 +13,22 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.5'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="Transparent"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Border Background="White" CornerRadius="10">
+    <Border Background="White" CornerRadius="8">
         <Grid>
+            <component:EmptyStateRightSideBar
+                Width="600"
+                Height="300"
+                Guideline="Không có tài liệu nào trong lớp học." />
+
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid
                     Name="FileGrid"
-                    MaxHeight="400"
                     VerticalContentAlignment="Center"
                     AutoGenerateColumns="False"
                     Background="{StaticResource Background}"
@@ -26,12 +36,26 @@
                     CanUserDeleteRows="False"
                     CanUserReorderColumns="False"
                     IsReadOnly="True"
-                    ItemsSource="{Binding FileDataGroup}">
+                    ItemsSource="{Binding FileDataGroup}"
+                    SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}">
+
+                    <DataGrid.Style>
+                        <Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FileDataGroup}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding FileDataGroup.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Style>
 
                     <DataGrid.Resources>
                         <utils:BindingProxy x:Key="BindingProxy" Data="{Binding ElementName=FileGrid}" />
                     </DataGrid.Resources>
-                    
+
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
                             <Setter Property="Template">
@@ -39,7 +63,7 @@
                                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                                         <Grid Margin="16" Background="{TemplateBinding Background}">
                                             <Grid.ToolTip>
-                                                <ToolTip Content="{Binding Name}"/>
+                                                <ToolTip Content="{Binding Name}" />
                                             </Grid.ToolTip>
                                             <Grid.ContextMenu>
                                                 <ContextMenu>
@@ -88,14 +112,19 @@
                                                 </Expander.ContextMenu>
                                                 <Expander.Header>
                                                     <DockPanel Margin="-8,0,0,0">
+                                                        <DockPanel.InputBindings>
+                                                            <MouseBinding Command="{Binding ElementName=ExpanderFolder, Path=Tag.ShowFolderInfo}" MouseAction="LeftClick" />
+                                                        </DockPanel.InputBindings>
                                                         <Image
                                                             Width="24"
                                                             Height="24"
                                                             Source="{StaticResource Folder}" />
                                                         <TextBlock
+                                                            MaxWidth="500"
                                                             Margin="8"
                                                             VerticalAlignment="Center"
-                                                            Text="{Binding Items[0].FolderName}" />
+                                                            Text="{Binding Items[0].FolderName}"
+                                                            TextTrimming="CharacterEllipsis" />
                                                         <TextBlock
                                                             HorizontalAlignment="Right"
                                                             VerticalAlignment="Center"
@@ -108,6 +137,7 @@
                                         </ControlTemplate>
                                         <ControlTemplate x:Key="SingleGroupTemplate" TargetType="{x:Type GroupItem}">
                                             <Border
+                                                Name="brdSingleFolder"
                                                 Margin="0"
                                                 Padding="16"
                                                 Background="Linen"
@@ -125,17 +155,62 @@
                                                             Foreground="{StaticResource ErrorMain}"
                                                             Header="Xóa thư mục"
                                                             Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
+                                                        <MenuItem
+                                                            Command="{Binding RenameFolder}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Header="Đổi tên"
+                                                            Icon="{materialDesign:PackIcon Kind=Pencil}" />
                                                     </ContextMenu>
                                                 </Border.ContextMenu>
                                                 <DockPanel>
+                                                    <DockPanel.Style>
+                                                        <Style TargetType="{x:Type DockPanel}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Value="True">
+                                                                    <DataTrigger.Binding>
+                                                                        <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
+                                                                            <Binding Path="Items[0].FolderId" />
+                                                                            <Binding ElementName="brdSingleFolder" Path="Tag.FolderEditingId" />
+                                                                        </MultiBinding>
+                                                                    </DataTrigger.Binding>
+                                                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=SingleFolderName}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DockPanel.Style>
                                                     <Image
                                                         Width="24"
                                                         Height="24"
                                                         Source="{StaticResource Folder}" />
-                                                    <TextBlock
-                                                        Margin="8"
+                                                    <TextBox
+                                                        Name="SingleFolderName"
+                                                        MaxWidth="500"
+                                                        Margin="8,0,0,0"
+                                                        HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
-                                                        Text="{Binding Items[0].FolderName}" />
+                                                        Text="{Binding Items[0].FolderName, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                                                        ToolTip="{Binding Items[0].FolderName}">
+                                                        <TextBox.Style>
+                                                            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+                                                                <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
+                                                                <Setter Property="BorderThickness" Value="0" />
+                                                                <Setter Property="IsReadOnly" Value="True" />
+                                                                <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Value="True">
+                                                                        <DataTrigger.Binding>
+                                                                            <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
+                                                                                <Binding Path="Items[0].FolderId" />
+                                                                                <Binding ElementName="brdSingleFolder" Path="Tag.FolderEditingId" />
+                                                                            </MultiBinding>
+                                                                        </DataTrigger.Binding>
+                                                                        <Setter Property="IsReadOnly" Value="False" />
+                                                                        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBox.Style>
+                                                    </TextBox>
                                                 </DockPanel>
                                             </Border>
                                         </ControlTemplate>
