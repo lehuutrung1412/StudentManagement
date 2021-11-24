@@ -23,9 +23,9 @@
         </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="7*" />
+                <RowDefinition Height="5*" />
 
-                <RowDefinition Height="0.8*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
                 <DockPanel>
@@ -65,9 +65,9 @@
                     <Grid Grid.Column="1">
                         <Border Background="Transparent" Style="{StaticResource BorderStyle}">
                             <ComboBox
-                                IsEnabled="False"
                                 materialDesign:HintAssist.Hint="Loại thông tin"
                                 materialDesign:TextFieldAssist.HasClearButton="True"
+                                IsEnabled="False"
                                 ItemsSource="{Binding ListTypeControl, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
                                 SelectedItem="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}">
                                 <ComboBox.Style>
@@ -138,24 +138,24 @@
                         </Grid.ColumnDefinitions>
                         <RadioButton
                             x:Name="rbtnCheck"
-                            IsChecked="{Binding DisplayInfoItem.IsEnable}"
                             Grid.Column="0"
                             Content="Có"
                             FontSize="16"
                             Foreground="{DynamicResource PrimaryDark}"
+                            IsChecked="{Binding DisplayInfoItem.IsEnable}"
                             Style="{StaticResource MaterialDesignAccentRadioButton}" />
                         <RadioButton
                             Grid.Column="1"
+                            Content="Không"
                             FontSize="16"
-                            Foreground="{DynamicResource PrimaryDark}"
-                            Content="Không" >
+                            Foreground="{DynamicResource PrimaryDark}">
                             <RadioButton.Style>
-                                <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                                <Style BasedOn="{StaticResource MaterialDesignAccentRadioButton}" TargetType="RadioButton">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding DisplayInfoItem.IsEnable}" Value="false">
-                                            <Setter Property="IsChecked" Value="True"/>
+                                            <Setter Property="IsChecked" Value="True" />
                                         </DataTrigger>
-                                    </Style.Triggers>    
+                                    </Style.Triggers>
                                 </Style>
                             </RadioButton.Style>
                         </RadioButton>
@@ -260,28 +260,25 @@
 
                 </Grid>
             </StackPanel>
-            <StackPanel
-                Grid.Row="1"
-                Margin="4,16,16,4"
-                HorizontalAlignment="Right"
-                DockPanel.Dock="Right"
-                Orientation="Horizontal">
-                <Grid>
+            <Grid Grid.Row="1" Margin="0 8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="1">
-                        <StackPanel Orientation="Horizontal">
-                            <Button
-                                Margin="0,0,16,0"
-                                HorizontalAlignment="Stretch"
-                                Command="{Binding UpdateInfoItemCommand}"
-                                Content="Cập nhật"
-                                Grid.Column="0"
-                                Style="{StaticResource PrimaryButton}">
+                    <Button
+                        Grid.Column="0"
+                        Margin="0,0,16,0"
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding UpdateInfoItemCommand}"
+                        Content="Cập nhật"
+                        Style="{StaticResource PrimaryButton}">
 
-                                <!--<Button.Style>
+                        <!--<Button.Style>
                                     <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
                                         <Setter Property="IsEnabled" Value="False" />
                                         <Style.Triggers>
@@ -302,25 +299,25 @@
                                 <Validation.ErrorTemplate>
                                     <ControlTemplate />
                                 </Validation.ErrorTemplate>-->
-                                <!--<i:Interaction.Triggers>
+                        <!--<i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
                                         <i:InvokeCommandAction Command="{Binding AddInfoItemCommand}" />
                                         <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
 
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>-->
-                            </Button>
+                    </Button>
 
-                            <Button
-                                HorizontalAlignment="Stretch"
-                                Background="Red"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                Content="Huỷ"
-                                Style="{StaticResource PrimaryButton}" />
-                        </StackPanel>
-                    </Grid>
+                    <Button
+                        Grid.Column="1"
+                        Margin="0 0 16 0"
+                        HorizontalAlignment="Stretch"
+                        Background="Red"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        Content="Huỷ"
+                        Style="{StaticResource PrimaryButton}" />
                 </Grid>
-            </StackPanel>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>

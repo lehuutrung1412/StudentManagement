@@ -313,7 +313,7 @@
         TargetType="{x:Type Button}">
         <Setter Property="BorderBrush" Value="{DynamicResource DarkGray}" />
         <Setter Property="BorderThickness" Value="3" />
-        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
         <Style.Triggers>
             <Trigger Property="IsFocused" Value="True">
                 <Setter Property="Background" Value="{DynamicResource SelectedItemGray}" />
@@ -395,9 +395,8 @@
 
     <Style
         x:Key="DatePickerInfo"
-        BasedOn="{StaticResource MaterialDesignDatePicker}"
+        BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}"
         TargetType="DatePicker">
-        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Height" Value="32" />
         <Setter Property="Padding" Value="12,4" />
         <Setter Property="FontSize" Value="16" />
@@ -407,9 +406,10 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Padding" Value="16,4" />
+        <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
         <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False"/>
+        <!--<Setter Property="BorderBrush" Value="Transparent"/>-->
     </Style>
 
     <Style
@@ -480,8 +480,44 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
         <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="8" />
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
+    <Style
+        x:Key="combobox_item"
+        BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
+        TargetType="ComboBox">
+        <Setter Property="Margin" Value="8,4,8,16" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="8" />
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="datepicker_item"
+        BasedOn="{StaticResource MaterialDesignOutlinedDatePicker }"
+        TargetType="DatePicker">
+        <Setter Property="Margin" Value="8,4,8,16" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
+        <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="8" />
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <Style
         x:Key="ComboBoxTriggerValidation"

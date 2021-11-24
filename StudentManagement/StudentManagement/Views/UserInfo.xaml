@@ -126,6 +126,14 @@
                             Command="{Binding AddNewInfoItemCommand}"
                             Content="Thêm trường thông tin"
                             Style="{StaticResource PrimaryButton}" />
+                        <Button
+                            Command="{Binding UpdateUserInfoCommand}"
+                            Content="Cập nhật"
+                            Style="{StaticResource PrimaryButton}" />
+                        <Button
+                            Command="{Binding ConfirmUserInfoCommand}"
+                            Content="Xác nhận"
+                            Style="{StaticResource PrimaryButton}" />
                         <ItemsControl
                             ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
                             <ItemsControl.ItemsPanel>
