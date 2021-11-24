@@ -82,7 +82,6 @@ namespace StudentManagement.ViewModels
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowSubjectCardInfo();
-
         }
 
         public void ReturnToShowSubjectCardInfo()

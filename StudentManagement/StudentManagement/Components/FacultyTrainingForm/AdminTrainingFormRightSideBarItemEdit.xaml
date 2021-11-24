@@ -29,9 +29,8 @@
                     FontSize="28"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                    TextWrapping="Wrap">
-                    <Run Text="{Binding CurrentCard.TenHeDaoTao, FallbackValue='Chương trình chất lượng cao'}" />
-                </TextBlock>
+                    Text="Cập nhật thông tin"
+                    TextWrapping="Wrap" />
 
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>

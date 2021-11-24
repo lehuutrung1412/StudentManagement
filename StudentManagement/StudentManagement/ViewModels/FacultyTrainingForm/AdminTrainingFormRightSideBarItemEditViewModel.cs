@@ -36,7 +36,7 @@ namespace StudentManagement.ViewModels
         public AdminTrainingFormRightSideBarItemEditViewModel(TrainingFormCard card)
         {
             CurrentCard = new TrainingFormCard();
-            _actualCard = card;
+            ActualCard = card;
             CurrentCard.CopyCardInfo(card);
             InitCommand();
         }
@@ -46,6 +46,7 @@ namespace StudentManagement.ViewModels
         private ICommand _confirmEditTrainingFormCardInfo;
 
         public ICommand CancelEditTrainingFormCardInfo { get => _cancelEditTrainingFormCardInfo; set => _cancelEditTrainingFormCardInfo = value; }
+        public TrainingFormCard ActualCard { get => _actualCard; set => _actualCard = value; }
 
         private ICommand _cancelEditTrainingFormCardInfo;
 
@@ -57,21 +58,29 @@ namespace StudentManagement.ViewModels
 
         public void CancelEditTrainingFormCardInfoFunction()
         {
-            CurrentCard.CopyCardInfo(_actualCard);
+            CurrentCard.CopyCardInfo(ActualCard);
             ReturnToShowTrainingFormCardInfo();
         }
 
         public void ConfirmEditTrainingFormCardInfoFunction()
         {
-            _actualCard.CopyCardInfo(CurrentCard);
-            _actualCard.RunOnPropertyChanged();
+            bool isCardExist = AdminFacultyTrainingFormViewModel.TrainingFormCards.Contains(ActualCard);
+            ActualCard.CopyCardInfo(CurrentCard);
+
+            // check if card exist -> Not exist insert new
+            if (!isCardExist)
+            {
+                AdminFacultyTrainingFormViewModel.TrainingFormCards.Insert(1, ActualCard);
+            }
+
+            ActualCard.RunOnPropertyChanged();
             ReturnToShowTrainingFormCardInfo();
         }
 
         public void ReturnToShowTrainingFormCardInfo()
         {
             AdminFacultyTrainingFormRightSideBarViewModel adminFacultyTrainingFormRightSideBarViewModel = AdminFacultyTrainingFormRightSideBarViewModel.Instance;
-            adminFacultyTrainingFormRightSideBarViewModel.RightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemViewModel(_actualCard);
+            adminFacultyTrainingFormRightSideBarViewModel.RightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemViewModel(ActualCard);
         }
     }
 }

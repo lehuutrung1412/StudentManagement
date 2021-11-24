@@ -34,13 +34,66 @@
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 Text="Danh sách hệ đào tạo" />
+
             <ItemsControl ItemsSource="{Binding TrainingFormCards}">
                 <ItemsControl.Resources>
                     <DataTemplate DataType="{x:Type objects:TrainingFormCard}">
                         <component:TrainingFormCard Margin="8" />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type objects:EmptyCard}">
-                        <TextBlock Text="sdfsdf" />
+                        <Border
+                            x:Name="MyBorderedButton"
+                            Width="200"
+                            Height="96"
+                            Margin="12"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <Border.BorderBrush>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
+                                        <Rectangle
+                                            Width="{Binding ElementName=MyBorderedButton, Path=Width}"
+                                            Height="{Binding ElementName=MyBorderedButton, Path=Height}"
+                                            Stroke="Gray"
+                                            StrokeDashArray="4 2"
+                                            StrokeThickness="3" />
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Border.BorderBrush>
+                            <Button
+                                Width="192"
+                                Height="88"
+                                Margin="0"
+                                Padding="0"
+                                materialDesign:ButtonAssist.CornerRadius="8"
+                                materialDesign:RippleAssist.Feedback="White"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                BorderBrush="Transparent"
+                                Command="{Binding CreateTrainingFormCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
+                                FontWeight="Normal"
+                                Foreground="Black">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource OverrideBackgroundButton}" TargetType="Button">
+                                        <Setter Property="Background" Value="{StaticResource DarkGray}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Gray" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <StackPanel>
+                                    <materialDesign:PackIcon
+                                        Width="30"
+                                        Height="30"
+                                        Margin="8"
+                                        HorizontalAlignment="Center"
+                                        Kind="PlusCircle" />
+                                    <TextBlock Text="Thêm hệ đào tạo" />
+                                </StackPanel>
+                            </Button>
+                        </Border>
+
                     </DataTemplate>
                 </ItemsControl.Resources>
                 <ItemsControl.ItemsPanel>
@@ -48,14 +101,6 @@
                         <WrapPanel Margin="16,16,16,16" HorizontalAlignment="Left" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <!--<ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type objects:TrainingFormCard}">
-                        <component:TrainingFormCard Margin="8" />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type objects:EmptyCard}">
-                        <TextBlock Text="sdfsdf" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>-->
             </ItemsControl>
         </StackPanel>
 
