@@ -145,8 +145,6 @@ namespace StudentManagement.ViewModels
             {
                 if (AdminNotificationVM.Cards[i].Id == CurrentCard.Id)
                 {
-                    //AdminNotificationVM.Cards[i] = CurrentCard;
-
                     AdminNotificationVM.Cards.Remove(AdminNotificationVM.Cards[i]);
                     AdminNotificationVM.Cards.Insert(i, CurrentCard);
 
@@ -157,7 +155,6 @@ namespace StudentManagement.ViewModels
             {
                 if (AdminNotificationVM.RealCards[i].Id == CurrentCard.Id)
                 {
-                    //AdminNotificationVM.RealCards[i] = CurrentCard;
 
                     AdminNotificationVM.RealCards.Remove(AdminNotificationVM.RealCards[i]);
                     AdminNotificationVM.RealCards.Insert(i, CurrentCard);

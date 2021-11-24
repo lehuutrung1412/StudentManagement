@@ -45,7 +45,7 @@
                     materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
                     TextWrapping="Wrap"
                     MaxWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid }}, Path=ActualWidth}"
-                    Style="{StaticResource MaterialDesignTextBoxBase}" >
+                    Style="{StaticResource TextBox}" >
                     <TextBox.InputBindings>
                         <KeyBinding
                             Key="Enter"
@@ -55,14 +55,14 @@
                 
             </Grid>
             
-            <!--IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedPasswordFieldPasswordBoxEnabledComboBox}"-->
             <DatePicker
                 Grid.Column="1"
                 Padding="8 16 0 0"
                 FontSize="14"
                 SelectedDate="{Binding SearchDate, UpdateSourceTrigger=PropertyChanged}"
                 DataContext="{DynamicResource AdminNotificationVM}"
-                materialDesign:HintAssist.Hint="Chọn ngày" />
+                materialDesign:HintAssist.Hint="Chọn ngày"
+                Style="{StaticResource DatePickerInfo}"/>
             <Button
                 Width="auto"
                 Grid.Column="2"

@@ -110,6 +110,17 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        private object _isUpdate;
+        public object IsUpdate
+        {
+            get { return _isUpdate; }
+            set
+            {
+                _isUpdate = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand ClickImageCommand { get => _clickImageCommand; set => _clickImageCommand = value; }
         private ICommand _clickImageCommand;
 
@@ -121,6 +132,12 @@ namespace StudentManagement.ViewModels
 
         public ICommand EditInfoItemCommand { get => _editInfoItemCommand; set => _editInfoItemCommand = value; }
         private ICommand _editInfoItemCommand;
+
+        public ICommand UpdateUserInfoCommand { get => _updateUserInfoCommand; set => _updateUserInfoCommand = value; }
+        private ICommand _updateUserInfoCommand;
+
+        public ICommand ConfirmUserInfoCommand { get => _confirmUserInfoCommand; set => _confirmUserInfoCommand = value; }
+        private ICommand _confirmUserInfoCommand;
 
         public UserInfoViewModel()
         {
@@ -151,12 +168,22 @@ namespace StudentManagement.ViewModels
 
             InfoSource = new ObservableCollection<InfoItem>(InfoSource.OrderBy(x => x.STT));
             IsOpen = false;
-
+            IsUpdate = false;
             ClickImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickImage());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
             EditInfoItemCommand = new RelayCommand<System.Windows.Controls.UserControl>((p) => { return true; }, (p) => EditInfoItem(p));
+            UpdateUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateUserInfo());
+            ConfirmUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => ComfirmUserInfo());
 
+        }
+        public void ComfirmUserInfo()
+        {
+            IsUpdate = false;
+        }
+        public void UpdateUserInfo()
+        {
+            IsUpdate = true;
         }
         public void EditInfoItem(System.Windows.Controls.UserControl p)
         {

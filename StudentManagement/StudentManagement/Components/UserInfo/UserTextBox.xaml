@@ -28,24 +28,37 @@
             <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6*" />
-                    <ColumnDefinition Width="*" />
+
                 </Grid.ColumnDefinitions>
                 <Border Style="{StaticResource BorderStyle}">
                     <TextBox
                         materialDesign:HintAssist.Hint="{Binding LabelName}"
-                        IsEnabled="{Binding IsEnable}"
-                        Style="{StaticResource TextBox}"
-                        Text="{Binding Value}" />
+                       
+                        Text="{Binding Value}" >
+                        <TextBox.Style>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource TextBox}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsEnable}" Value="true"/>
+                                            <Condition Binding="{Binding IsUpdate, Source={StaticResource UserInfoVM}}" Value="true"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
                 </Border>
-                <Button
+                <!--<Button
                     Grid.Column="1"
                     Command="{Binding EditInfoItemCommand}"
                     CommandParameter="{Binding ElementName=NotificationComponent}"
                     DataContext="{DynamicResource UserInfoVM}"
                     Style="{StaticResource MaterialDesignFlatButton}">
                     <materialDesign:PackIcon Kind="PencilOutline" />
-                </Button>
+                </Button>-->
             </Grid>
 
         </StackPanel>

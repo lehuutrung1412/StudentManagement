@@ -41,6 +41,7 @@
 
                     <TextBox
                         VerticalAlignment="Center"
+                        Margin="0 0 16 0"
                         materialDesign:HintAssist.Hint="Chủ đề thông báo"
                         materialDesign:ValidationAssist.Background="Transparent"
                         FontSize="24"
@@ -100,14 +101,6 @@
                 </Grid>
 
             </StackPanel>
-            <!--<materialDesign:PackIcon
-                        Margin="16,0,0,0"
-                        Kind="Earth"
-                        VerticalAlignment="Center"/>
-                    <TextBlock
-                        Margin="4,0,16,0"
-                        FontSize="16"
-                        Text="22:00 01/01/2022" />-->
             <TextBox
                 Grid.Row="1"
                 Height="auto"
@@ -138,64 +131,70 @@
                     </Style>
                 </TextBox.Style>
             </TextBox>
-            <!--  Text="{Binding DraftPostText, Mode=TwoWay}"  -->
-            <StackPanel
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Margin="0,0,16,0"
+                        HorizontalAlignment="Stretch"
+                        Content="Thêm">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                            <Condition Binding="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                            <Condition Binding="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True" />
+                                    </MultiDataTrigger>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="materialDesign:ValidationAssist.Background" Value="Transparent" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate />
+                        </Validation.ErrorTemplate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
+                                <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
+
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+
+                    <Button
+                        Grid.Column="1"
+                        Margin="0 0 16 0"
+                        HorizontalAlignment="Stretch"
+                        Background="Red"
+                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        Content="Huỷ"
+                        Style="{StaticResource PrimaryButton}" />
+                </Grid>
+            </Grid>
+            <!--<StackPanel
                 Grid.Row="2"
                 Margin="4,0,16,4"
                 HorizontalAlignment="Right"
                 DockPanel.Dock="Right"
                 Orientation="Horizontal">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="1">
-                        <StackPanel Orientation="Horizontal">
-                            <Button
-                                Margin="0,0,16,0"
-                                HorizontalAlignment="Stretch"
-                                Content="Thêm">
-                                <Button.Style>
-                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
-                                        <Setter Property="IsEnabled" Value="False" />
-                                        <Style.Triggers>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                                    <Condition Binding="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                                    <Condition Binding="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                                </MultiDataTrigger.Conditions>
-                                                <Setter Property="IsEnabled" Value="True" />
-                                            </MultiDataTrigger>
-                                            <Trigger Property="Validation.HasError" Value="True">
-                                                <Setter Property="materialDesign:ValidationAssist.Background" Value="Transparent" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <Validation.ErrorTemplate>
-                                    <ControlTemplate />
-                                </Validation.ErrorTemplate>
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
-                                        <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
 
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>
-
-                            <Button
-                                HorizontalAlignment="Stretch"
-                                Background="Red"
-                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                Content="Huỷ"
-                                Style="{StaticResource PrimaryButton}" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
     </Border>
 </UserControl>

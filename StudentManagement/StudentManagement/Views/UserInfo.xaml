@@ -14,8 +14,8 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{StaticResource CenterColumn}"
-    FontFamily="{DynamicResource MaterialDesignFont}"
     DataContext="{DynamicResource UserInfoVM}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -28,32 +28,24 @@
             CloseOnClickAway="True"
             IsOpen="{Binding IsOpen}">
             <materialDesign:DialogHost.DialogContent>
-                <ContentControl
-                    Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource UserInfoVM}">
+                <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource UserInfoVM}">
                     <ContentControl.Resources>
-                        <DataTemplate
-                            DataType="{x:Type viewmodels:UserInfoItemViewModel}">
+                        <DataTemplate DataType="{x:Type viewmodels:UserInfoItemViewModel}">
                             <component:NewInfoItem MinWidth="600" />
                         </DataTemplate>
-                        <DataTemplate
-                            DataType="{x:Type viewmodels:EditInfoItemViewModel}">
+                        <DataTemplate DataType="{x:Type viewmodels:EditInfoItemViewModel}">
                             <component:EditInfoItem MinWidth="600" />
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
-                
+
             </materialDesign:DialogHost.DialogContent>
-            <Grid
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
-                    <RowDefinition
-                        Height="auto" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Grid
-                    Grid.Row="0"
-                    Margin="0,32,0,16">
+                <Grid Grid.Row="0" Margin="0,32,0,16">
                     <StackPanel>
                         <Button
                             x:Name="btnImage"
@@ -61,8 +53,7 @@
                             Height="168"
                             Command="{Binding ClickImageCommand}">
                             <Button.Template>
-                                <ControlTemplate
-                                    TargetType="Button">
+                                <ControlTemplate TargetType="Button">
                                     <Grid>
                                         <Ellipse
                                             Width="168"
@@ -70,9 +61,7 @@
                                             Stroke="Gray"
                                             StrokeThickness="2">
                                             <Ellipse.Fill>
-                                                <ImageBrush
-                                                    ImageSource="{Binding Avatar, UpdateSourceTrigger=PropertyChanged}"
-                                                    Stretch="UniformToFill" />
+                                                <ImageBrush ImageSource="{Binding Avatar, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
                                             </Ellipse.Fill>
                                         </Ellipse>
                                     </Grid>
@@ -87,26 +76,16 @@
                             Command="{Binding ClickChangeImageCommand}"
                             ToolTip="Click vào đây để thay đổi ảnh đại diện">
                             <Button.Style>
-                                <Style
-                                    BasedOn="{StaticResource MaterialDesignFlatButton}"
-                                    TargetType="Button">
-                                    <Setter
-                                        Property="Visibility"
-                                        Value="Collapsed" />
+                                <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
+                                    <Setter Property="Visibility" Value="Collapsed" />
                                     <Style.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding IsChangeAvatar, UpdateSourceTrigger=PropertyChanged}"
-                                            Value="true">
-                                            <Setter
-                                                Property="Visibility"
-                                                Value="Visible" />
+                                        <DataTrigger Binding="{Binding IsChangeAvatar, UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                            <Setter Property="Visibility" Value="Visible" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
-                            <TextBlock
-                                Foreground="White"
-                                Text="Thay đổi ảnh đại diện" />
+                            <TextBlock Foreground="White" Text="Thay đổi ảnh đại diện" />
                         </Button>
                         <TextBlock
                             Margin="0,16,0,0"
@@ -117,17 +96,54 @@
 
                     </StackPanel>
                 </Grid>
-                <materialDesign:Card
-                    Grid.Row="1"
-                    Margin="16,8,16,8">
-                    <StackPanel
-                        Margin="64,8,64,8">
-                        <Button
-                            Command="{Binding AddNewInfoItemCommand}"
-                            Content="Thêm trường thông tin"
-                            Style="{StaticResource PrimaryButton}" />
-                        <ItemsControl
-                            ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
+
+                <Grid Grid.Row="1" Margin="16,8,16,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0 8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                            Text="Thông tin sinh viên" />
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Grid.Column="0"
+                                Margin="0,0,8,0"
+                                Command="{Binding AddNewInfoItemCommand}"
+                                Content="Thêm thông tin"
+                                Style="{StaticResource PrimaryButton}" />
+                            <Button
+                                Name="btnUpdate"
+                                Grid.Column="1"
+                                Margin="8,0,0,0"
+                                Command="{Binding UpdateUserInfoCommand}"
+                                Content="Cập nhật" >
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsUpdate}" Value="true">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <materialDesign:Card Grid.Row="1" Margin="0 8">
+                        <ItemsControl Margin="16 8" ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel />
@@ -136,48 +152,31 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
 
-                                    <ContentPresenter
-                                        Content="{Binding}">
+                                    <ContentPresenter Content="{Binding}">
                                         <ContentPresenter.Resources>
-                                            <DataTemplate
-                                                x:Key="Combobox">
+                                            <DataTemplate x:Key="Combobox">
                                                 <component:UserCombobox />
                                             </DataTemplate>
-                                            <DataTemplate
-                                                x:Key="DatePicker">
+                                            <DataTemplate x:Key="DatePicker">
                                                 <component:UserDatePicker />
                                             </DataTemplate>
-                                            <DataTemplate
-                                                x:Key="Textbox">
+                                            <DataTemplate x:Key="Textbox">
                                                 <component:UserTextBox />
                                             </DataTemplate>
                                         </ContentPresenter.Resources>
 
 
                                         <ContentPresenter.Style>
-                                            <Style
-                                                TargetType="{x:Type ContentPresenter}">
+                                            <Style TargetType="{x:Type ContentPresenter}">
                                                 <Style.Triggers>
-                                                    <DataTrigger
-                                                        Binding="{Binding Type}"
-                                                        Value="0">
-                                                        <Setter
-                                                            Property="ContentTemplate"
-                                                            Value="{StaticResource Textbox}" />
+                                                    <DataTrigger Binding="{Binding Type}" Value="0">
+                                                        <Setter Property="ContentTemplate" Value="{StaticResource Textbox}" />
                                                     </DataTrigger>
-                                                    <DataTrigger
-                                                        Binding="{Binding Type}"
-                                                        Value="1">
-                                                        <Setter
-                                                            Property="ContentTemplate"
-                                                            Value="{StaticResource DatePicker}" />
+                                                    <DataTrigger Binding="{Binding Type}" Value="1">
+                                                        <Setter Property="ContentTemplate" Value="{StaticResource DatePicker}" />
                                                     </DataTrigger>
-                                                    <DataTrigger
-                                                        Binding="{Binding Type}"
-                                                        Value="2">
-                                                        <Setter
-                                                            Property="ContentTemplate"
-                                                            Value="{StaticResource Combobox}" />
+                                                    <DataTrigger Binding="{Binding Type}" Value="2">
+                                                        <Setter Property="ContentTemplate" Value="{StaticResource Combobox}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -186,8 +185,44 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </StackPanel>
-                </materialDesign:Card>
+                    </materialDesign:Card>
+                    <Button
+                        Margin="0 8"
+                        Grid.Row="2"
+                        Command="{Binding ConfirmUserInfoCommand}"
+                        HorizontalAlignment="Right"
+                        Width="{Binding Path=ActualWidth, ElementName=btnUpdate}"
+                        Content="Xác nhận" >
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsUpdate}" Value="true">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+                <!--<StackPanel
+                        Margin="64,8,64,8">
+
+                        <Button
+                            Command="{Binding AddNewInfoItemCommand}"
+                            Content="Thêm trường thông tin"
+                            Style="{StaticResource PrimaryButton}" />
+                        <Button
+                            Command="{Binding UpdateUserInfoCommand}"
+                            Content="Cập nhật"
+                            Style="{StaticResource PrimaryButton}" />
+                        <Button
+                            Command="{Binding ConfirmUserInfoCommand}"
+                            Content="Xác nhận"
+                            Style="{StaticResource PrimaryButton}" />
+
+                    </StackPanel>-->
+
             </Grid>
         </materialDesign:DialogHost>
     </ScrollViewer>

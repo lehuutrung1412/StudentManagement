@@ -78,6 +78,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:AdminStudentListViewModel}">
                     <views:AdminStudentList />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:SettingUserInfoViewModel}">
+                    <views:SettingUserInfo />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <components:RightSideBar

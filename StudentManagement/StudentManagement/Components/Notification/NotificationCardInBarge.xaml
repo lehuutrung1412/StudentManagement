@@ -48,13 +48,6 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
-                <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
-                        <i:InvokeCommandAction Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
-
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.2*" />
@@ -157,57 +150,6 @@
                                                     Kind="DotsHorizontal" />
                                             </materialDesign:PopupBox.ToggleContent>
                                             <StackPanel>
-                                                <!--<Button
-                                                    Width="300"
-                                                    Command="{Binding MarkAsReadCommand, Source={StaticResource AdminNotificationVM}}"
-                                                    CommandParameter="{Binding ElementName=NotificationComponent}">
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition
-                                                                Width="auto" />
-                                                            <ColumnDefinition />
-                                                        </Grid.ColumnDefinitions>
-                                                        <materialDesign:PackIcon
-                                                            Grid.Column="0"
-                                                            Margin="0,0,8,0"
-                                                            Kind="EyeOutline" />
-                                                        <TextBlock
-                                                            Grid.Column="1"
-                                                            FontWeight="SemiBold"
-                                                            Text="Xem chi tiết" />
-                                                    </Grid>
-                                                    <Button.Style>
-                                                        <Style
-                                                            BasedOn="{StaticResource ButtonInPopupBox}"
-                                                            TargetType="Button">
-                                                            <Setter
-                                                                Property="Visibility"
-                                                                Value="Collapsed" />
-
-                                                            <Setter
-                                                                Property="MinHeight"
-                                                                Value="48" />
-                                                            <Style.Triggers>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
-                                                                    Value="false">
-                                                                    <Setter
-                                                                        Property="Visibility"
-                                                                        Value="Visible" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Button.Style>
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger
-                                                            EventName="Click">
-                                                            <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
-                                                            <i:InvokeCommandAction
-                                                                Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}"
-                                                                CommandParameter="{Binding ElementName=NotificationComponent}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </Button>-->
                                                 <Button
                                                     Width="300"
                                                     Command="{Binding MarkAsReadCommand, Source={StaticResource AdminNotificationVM}}"
@@ -310,15 +252,6 @@
                                 </Style>
                             </Button.Style>
                         </Button>
-                        <!--<Ellipse
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Width="40"
-                            Height="40"
-                            Fill="{StaticResource White}">
-
-
-                        </Ellipse>-->
 
                     </Grid>
                     <Grid

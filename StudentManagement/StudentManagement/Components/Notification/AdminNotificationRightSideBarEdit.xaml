@@ -13,7 +13,7 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:AdminNotificationRightSideBarViewModel,
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
-    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -23,200 +23,148 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-
-        <StackPanel>
-            <StackPanel.Resources>
-                <Style x:Key="textblock_item" TargetType="TextBlock">
-                    <Setter Property="Margin" Value="8,0,8,0" />
-                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-                </Style>
-
-                <Style x:Key="text_grid_item" TargetType="Grid">
-                    <Setter Property="Margin" Value="0,4,8,4" />
-                </Style>
-            </StackPanel.Resources>
-            <TextBox
-                Margin="0,0,0,24"
-                Padding="4"
-                HorizontalContentAlignment="Left"
-                materialDesign:ValidationAssist.Background="Transparent"
-                FontSize="24"
-                FontWeight="Bold"
-                Style="{DynamicResource MaterialDesignTextBox}"
-                Text="{Binding ChuDe, FallbackValue='Tên chủ đề', UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap" />
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="8">
                 <TextBlock
-                    Grid.Column="0"
-                    FontSize="16"
+                    Margin="0,0,0,12"
+                    FontSize="28"
                     FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Người đăng:"
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Text="Cập nhật thông tin"
                     TextWrapping="Wrap" />
 
-                <Border
-                    Grid.Column="1"
-                    Background="Transparent"
-                    Style="{StaticResource BorderStyle}">
+
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Tên chủ đề" />
+
                     <TextBox
-                        VerticalAlignment="Center"
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Nhập tên môn học"
+                        Style="{StaticResource textbox_item}"
+                        Text="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Người đăng" />
+
+                    <TextBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Nhập mã môn học"
                         IsEnabled="False"
-                        Style="{StaticResource TextBox}"
-                        Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
-                        TextAlignment="Right"
-                        TextWrapping="Wrap" />
-                </Border>
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
+                        Style="{StaticResource textbox_item}"
+                        Text="{Binding CurrentCard.NguoiDang, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
 
 
-                </Grid.ColumnDefinitions>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                <TextBlock
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3"
-                    Margin="8,0,8,-1.4"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Ngày đăng:"
-                    TextWrapping="Wrap" />
-                <Border
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    Background="Transparent"
-                    Style="{StaticResource BorderStyle}">
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Ngày đăng" />
+
                     <DatePicker
-                        x:Name="dpBirthDate"
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Nhập tên giáo viên"
                         IsEnabled="False"
-                        SelectedDate="{Binding CurrentCard.NgayDang, ConverterCulture='vi-VN', StringFormat='dd/MM/yyyy'}"
-                        Style="{DynamicResource DatePickerInfo}" />
+                        SelectedDate="{Binding CurrentCard.NgayDang, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource datepicker_item}" />
+                </Grid>
 
-                </Border>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Loại bài đăng" />
 
-                <TextBlock
-                    x:Name="tbTypeNotification"
-                    Grid.Column="0"
-                    Margin="8,0,7.6,0"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Loại bài đăng:"
-                    TextWrapping="Wrap" />
-                <Border
-                    Grid.Column="1"
-                    Background="Transparent"
-                    Style="{StaticResource BorderStyle}">
                     <ComboBox
-                        Grid.Column="1"
-                        Grid.ColumnSpan="3"
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Nhập sĩ số lớp"
                         IsEnabled="False"
                         ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
                         SelectedItem="{Binding LoaiBaiDang, FallbackValue='Thông báo chung', UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource ComboboxInfo}" />
-                </Border>
-
-            </Grid>
-            <Grid>
-                <Separator Margin="5" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Chỉnh sửa:" />
+                        Style="{StaticResource combobox_item}" />
                 </Grid>
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button
-                        Grid.Column="0"
-                        Margin="8,0,8,0"
-                        HorizontalAlignment="Stretch"
-                        Command="{Binding UpdateNotificationCommand}"
-                        Content="Chỉnh sửa"
-                        FontSize="14">
-                        <Button.Style>
-                            <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
-                                <Setter Property="IsEnabled" Value="False" />
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                            <Condition Binding="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="IsEnabled" Value="True" />
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Validation.ErrorTemplate>
-                            <ControlTemplate />
-                        </Validation.ErrorTemplate>
-                    </Button>
 
-                    <Button
-                        Grid.Column="1"
-                        Margin="8,0,0,0"
-                        HorizontalAlignment="Stretch"
-                        Background="Red"
-                        Command="{Binding CancelNotificationCommand}"
-                        Content="Huỷ"
-                        DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
-                        FontSize="14"
-                        Style="{StaticResource PrimaryButton}" />
-                </Grid>
-            </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+        <Grid
+            Grid.Row="1"
+            Margin="8"
+            Style="{StaticResource text_grid_item}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
             <Button
-                x:Name="btnDelete"
-                Padding="0"
-                BorderThickness="0"
-                Command="{Binding DeleteNotificationCommand}"
-                DataContext="{DynamicResource AdminNotificationVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
-
-                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
-                    <TextBlock
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Xoá:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Eraser" />
-                </Grid>
+                Grid.Column="3"
+                Command="{Binding UpdateNotificationCommand}"
+                Content="Lưu"
+                FontSize="16">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource rounded_btn}" TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                    <Condition Binding="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate />
+                </Validation.ErrorTemplate>
             </Button>
-        </StackPanel>
-
-
+            <Button
+                Grid.Column="2"
+                Background="{StaticResource DarkGray}"
+                Command="{Binding CancelNotificationCommand}"
+                Content="Hủy"
+                DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
+                FontSize="16"
+                Foreground="White"
+                Style="{StaticResource rounded_btn}" />
+        </Grid>
     </Grid>
 </UserControl>
 
