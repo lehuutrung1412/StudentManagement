@@ -1,5 +1,4 @@
-﻿<UserControl 
-    x:Class="StudentManagement.Components.ScoreboardDataGrid"
+﻿<UserControl x:Class="StudentManagement.Components.ListStudents.AdminListStudentDataGrid"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,12 +18,12 @@
         <materialDesign:Card VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <DataGrid
-                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource ScoreBoardRightSideBarVM}}"
+                   
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     HeadersVisibility="All"
                     IsReadOnly="True"
-                    ItemsSource="{Binding CurrentStudentScore}">
+                    ItemsSource="{Binding FindNameData}">
                     <DataGrid.Columns>
                         <materialDesign:DataGridTextColumn
                             Width="auto"
@@ -54,22 +53,22 @@
                         </materialDesign:DataGridTextColumn>
 
                         <DataGridTextColumn
-                            Binding="{Binding IDSubject}"
+                            Binding="{Binding IDStudent}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Mã môn học" />
+                            Header="Mã số sinh viên" />
 
                         <DataGridTextColumn
-                            Binding="{Binding Subject}"
+                            Binding="{Binding NameStudent}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Tên môn học" />
+                            Header="Tên sinh viên" />
 
                         <DataGridTextColumn
-                            Binding="{Binding Credit}"
+                            Binding="{Binding Gender}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Số tín chỉ" />
+                            Header="Giới tính" />
 
                         <DataGridTextColumn
                             Binding="{Binding Faculty}"
