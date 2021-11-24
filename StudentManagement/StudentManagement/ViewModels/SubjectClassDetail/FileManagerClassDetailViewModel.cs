@@ -31,6 +31,7 @@ namespace StudentManagement.ViewModels
         public ICommand DeleteFile { get; set; }
         public ICommand DeleteFolder { get; set; }
         public ICommand SearchFile { get; set; }
+        public ICommand ShowFolderInfo { get; set; }
 
         public bool IsShowDialog { get => _isShowDialog; set { _isShowDialog = value; OnPropertyChanged(); } }
         private bool _isShowDialog;
@@ -65,6 +66,9 @@ namespace StudentManagement.ViewModels
         }
         private string _searchQuery;
 
+        public object SelectedFile { get => _selectedFile; set { _selectedFile = value; OnPropertyChanged(); } }
+        private object _selectedFile;
+
         public FileManagerClassDetailViewModel()
         {
             _errorBaseViewModel = new ErrorBaseViewModel();
@@ -81,6 +85,12 @@ namespace StudentManagement.ViewModels
             CreateFolder = new RelayCommand<object>((p) => true, (p) => CreateFolderFunction());
             DeleteFolder = new RelayCommand<object>((p) => true, (p) => DeleteFolderFunction(p));
             SearchFile = new RelayCommand<object>((p) => true, (p) => SearchFileFunction());
+            ShowFolderInfo = new RelayCommand<object>((p) => { return true; }, (p) => ShowFolderInfoFunction(p));
+        }
+
+        private void ShowFolderInfoFunction(object p)
+        {
+            MyMessageBox.Show("Oke");
         }
 
         private void BindingFileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

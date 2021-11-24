@@ -13,12 +13,17 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.5'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="Transparent"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Border Background="White" CornerRadius="8">
         <Grid>
             <component:EmptyStateRightSideBar
                 Width="600"
-                Height="400"
+                Height="300"
                 Guideline="Không có tài liệu nào trong lớp học." />
 
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
@@ -31,7 +36,8 @@
                     CanUserDeleteRows="False"
                     CanUserReorderColumns="False"
                     IsReadOnly="True"
-                    ItemsSource="{Binding FileDataGroup}">
+                    ItemsSource="{Binding FileDataGroup}"
+                    SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}">
 
                     <DataGrid.Style>
                         <Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
@@ -106,6 +112,9 @@
                                                 </Expander.ContextMenu>
                                                 <Expander.Header>
                                                     <DockPanel Margin="-8,0,0,0">
+                                                        <DockPanel.InputBindings>
+                                                            <MouseBinding MouseAction="LeftClick" Command="{Binding ElementName=ExpanderFolder, Path=Tag.ShowFolderInfo}"/>
+                                                        </DockPanel.InputBindings>
                                                         <Image
                                                             Width="24"
                                                             Height="24"

@@ -1,0 +1,171 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.FileManagerRightSideBarItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
+    Background="{StaticResource SideBar}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Margin="8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Width="32"
+                    Height="32"
+                    Source="{Binding Name, Converter={utils:FileExtensionToImageConverter}}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Grid.Column="1"
+                    Margin="4"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    TextWrapping="Wrap">
+                    <Run Text="{Binding Name, FallbackValue='File Name'}" />
+                </TextBlock>
+            </Grid>
+
+            <Grid Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Thời gian:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding UploadTime, FallbackValue='01/01/2022 00:00:00', Converter={utils:DateTimeConverter}, ConverterParameter=standard}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Người đăng:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding Publisher, FallbackValue='Lê Hữu Trung'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Dung lượng:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding Size, FallbackValue='7 MB', Converter={utils:FileSizeConverter}}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}" BasedOn="{StaticResource text_grid_item}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding FolderId}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Thư mục:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding FolderName, FallbackValue='Folder'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <!--<Button
+                x:Name="btnEdit"
+                Padding="0"
+                BorderThickness="0"
+                Command="{Binding EditSubjectCardInfo}"
+                CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentFile}"
+                DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
+                Foreground="#DD000000"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
+
+                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Chỉnh sửa:" />
+                    <materialDesign:PackIcon
+                        Width="18"
+                        Height="18"
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Right"
+                        Kind="Pencil" />
+                </Grid>
+            </Button>
+            <Button
+                x:Name="btnDelete"
+                Padding="0"
+                BorderThickness="0"
+                Command="{Binding DeleteSubjectCardInfo}"
+                CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentFile}"
+                DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
+                Foreground="#DD000000"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
+
+                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Xoá:" />
+                    <materialDesign:PackIcon
+                        Width="18"
+                        Height="18"
+                        Margin="0,0,8,0"
+                        HorizontalAlignment="Right"
+                        Kind="Eraser" />
+                </Grid>
+            </Button>-->
+        </StackPanel>
+    </Grid>
+</UserControl>
