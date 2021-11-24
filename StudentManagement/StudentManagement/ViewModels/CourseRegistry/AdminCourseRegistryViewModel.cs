@@ -180,8 +180,7 @@ namespace StudentManagement.ViewModels
                 }
                 return true;
             }, (p) => CreateNewCourse());
-            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => 
-            SelectedSemester.CourseRegisterStatus = 1);
+            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 1);
             PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 0);
             StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 2);
         }

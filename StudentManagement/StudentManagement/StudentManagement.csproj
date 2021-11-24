@@ -319,6 +319,7 @@
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\FileSizeConverter.cs" />
     <Compile Include="Utils\IsNullConverter.cs" />
+    <Compile Include="Utils\IsNumericConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />

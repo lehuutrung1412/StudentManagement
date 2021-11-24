@@ -32,7 +32,6 @@ namespace StudentManagement.ViewModels
                 {
                     _errorBaseViewModel.AddError(nameof(ChuDe), "Vui lòng nhập chủ đề!");
                 }
-
                 OnPropertyChanged();
             }
 

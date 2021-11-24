@@ -526,4 +526,31 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style
+        x:Key="combobox_item"
+        BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
+        TargetType="ComboBox">
+        <Setter
+            Property="Margin"
+            Value="8,4,8,16" />
+        <Setter
+            Property="Height"
+            Value="50" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Top" />
+        <Setter
+            Property="materialDesign:HintAssist.IsFloating"
+            Value="False" />
+        <Setter
+            Property="materialDesign:TextFieldAssist.TextFieldCornerRadius"
+            Value="8" />
+        <Setter
+            Property="materialDesign:TextFieldAssist.HasClearButton"
+            Value="True" />
+        <Setter
+            Property="materialDesign:ComboBoxAssist.ShowSelectedItem"
+            Value="True" />
+    </Style>
 </ResourceDictionary>

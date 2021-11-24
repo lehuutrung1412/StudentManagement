@@ -1,8 +1,10 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +16,16 @@ namespace StudentManagement.ViewModels
 {
     public class CreateNewCourseViewModel : BaseViewModel
     {
+        #region error
         private readonly ErrorBaseViewModel _errorBaseViewModel;
-
+        public bool HasErrors => _errorBaseViewModel.HasErrors;
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _errorBaseViewModel.GetErrors(propertyName);
+        }
+        #endregion
+        #region properties
         private CourseRegistryItem _currentCard;
         public CourseRegistryItem CurrentCard { get => _currentCard; set => _currentCard = value; }
         private Semester _semester;
@@ -45,25 +55,45 @@ namespace StudentManagement.ViewModels
                 UpdateSubjectClassCode(); 
                 } }
         public TrainingForm SelectedTF { get => _selectedTF; set { _selectedTF = value; OnPropertyChanged(); UpdateSubjectClassCode(); } }
-        public string Period { get => _period; set{ _period = value; OnPropertyChanged();} }
-        public string SelectedDay { get => _selectedDay; set{ _selectedDay = value; OnPropertyChanged();} }
+        public string Period { get => _period; set{ 
+                _period = value; 
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(Period))
+                {
+                    _errorBaseViewModel.AddError(nameof(Period), "Vui lòng nhập tiết!");
+                }
+                OnPropertyChanged();
+            } }
+        public string SelectedDay { get => _selectedDay; set{ 
+                _selectedDay = value; 
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(Period))
+                {
+                    _errorBaseViewModel.AddError(nameof(Period), "Vui lòng chọn thứ!");
+                }
+                OnPropertyChanged();} }
         public string MaxNumber { get => _maxNumber; set{ _maxNumber = value; OnPropertyChanged();} }
         public bool IsPracticed { get => _isPracticed; set{ _isPracticed = value; OnPropertyChanged(); UpdateSubjectClassCode(); } }
         public string SubjectClassCode { get => _subjectClassCode; set{ _subjectClassCode = value; OnPropertyChanged();} }
+        #endregion
 
+        #region command
         public ICommand ConfirmCommand { get; set; }
-
+        #endregion
         public CreateNewCourseViewModel(CourseRegistryItem card, Semester semester, ObservableCollection<CourseRegistryItem> list)
         {
             CurrentCard = card;
             Semester = semester;
             Courses = list;
+            IsPracticed = false;
             SubjectClassCode = "x.x.x";
             InitCombobox();
             InitCommand();
+            _errorBaseViewModel = new ErrorBaseViewModel();
+            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
 
         }
-
+        #region methods
         public void InitCombobox()
         {
             Subjects = new ObservableCollection<Subject>(DataProvider.Instance.Database.Subjects);
@@ -82,17 +112,25 @@ namespace StudentManagement.ViewModels
         }
         public void UpdateSubjectClassCode()
         {
-            SubjectClassCode = "";
+            /*SubjectClassCode = "";
             SubjectClassCode += SelectedSubject.Code;
             string codeTF = "";
             string codeSemester = ".";
-            /*string codePractice = Courses.Where(x=>x.)*/
+            *//*string codePractice = Courses.Where(x=>x.)*//*
             codeSemester += (char)(Convert.ToInt32(Semester.Batch.Split('-')[0]) - 2010 + 65);
             codeTF += "KHTN";
             SubjectClassCode += codeSemester;
-            SubjectClassCode += codeTF;
+            SubjectClassCode += codeTF;*/
         }
+        private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(this, e);
+        }
+        private bool IsValid(string propertyName)
+        {
+            return !string.IsNullOrEmpty(propertyName) && !string.IsNullOrWhiteSpace(propertyName);
+        }
+        #endregion
 
-        
     }
 }
