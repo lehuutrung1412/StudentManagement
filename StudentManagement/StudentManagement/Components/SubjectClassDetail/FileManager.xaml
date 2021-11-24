@@ -2,6 +2,7 @@
     x:Class="StudentManagement.Components.FileManager"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:StudentManagement.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
@@ -15,10 +16,14 @@
     mc:Ignorable="d">
     <Border Background="White" CornerRadius="8">
         <Grid>
+            <component:EmptyStateRightSideBar
+                Width="600"
+                Height="400"
+                Guideline="Không có tài liệu nào trong lớp học." />
+
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid
                     Name="FileGrid"
-                    MaxHeight="400"
                     VerticalContentAlignment="Center"
                     AutoGenerateColumns="False"
                     Background="{StaticResource Background}"
@@ -28,10 +33,23 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding FileDataGroup}">
 
+                    <DataGrid.Style>
+                        <Style BasedOn="{StaticResource MaterialDesignDataGrid}" TargetType="{x:Type DataGrid}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FileDataGroup}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding FileDataGroup.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Style>
+
                     <DataGrid.Resources>
                         <utils:BindingProxy x:Key="BindingProxy" Data="{Binding ElementName=FileGrid}" />
                     </DataGrid.Resources>
-                    
+
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
                             <Setter Property="Template">
@@ -39,7 +57,7 @@
                                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                                         <Grid Margin="16" Background="{TemplateBinding Background}">
                                             <Grid.ToolTip>
-                                                <ToolTip Content="{Binding Name}"/>
+                                                <ToolTip Content="{Binding Name}" />
                                             </Grid.ToolTip>
                                             <Grid.ContextMenu>
                                                 <ContextMenu>

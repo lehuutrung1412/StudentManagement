@@ -37,47 +37,50 @@
         </Grid.ColumnDefinitions>
         <components:LeftSideBar Grid.Column="0" Grid.ColumnSpan="2" />
 
-        <ContentControl
+        <Border
             Grid.Column="2"
             Grid.ColumnSpan="7"
-            Content="{Binding ContentViewModel}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
-                    <views:AdminHome />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassViewModel}">
-                    <views:AdminSubjectClass />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminNotificationViewModel}">
-                    <views:AdminNotification />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:NewFeedSubjectClassDetailViewModel}">
-                    <views:NewfeedSubjectClassDetail />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryViewModel}">
-                    <views:StudentCourseRegistry />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AdminFacultyTrainingFormViewModel}">
-                    <views:AdminFacultyTrainingForm />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:ScoreBoardViewModel}">
-                    <views:ScoreBoard />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
-                    <views:StudentScheduleTable />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:UserInfoViewModel}">
-                    <views:UserInfo />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:FileManagerClassDetailViewModel}">
-                    <components:FileManagerClassDetail />
-                </DataTemplate>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:AdminCourseRegistryViewModel}">
-                    <views:AdminCourseRegistry />
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+            BorderBrush="LightGray"
+            BorderThickness="1,0">
+            <ContentControl Content="{Binding ContentViewModel}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
+                        <views:AdminHome />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassViewModel}">
+                        <views:AdminSubjectClass />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AdminNotificationViewModel}">
+                        <views:AdminNotification />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:NewFeedSubjectClassDetailViewModel}">
+                        <views:NewfeedSubjectClassDetail />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:StudentCourseRegistryViewModel}">
+                        <views:StudentCourseRegistry />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AdminFacultyTrainingFormViewModel}">
+                        <views:AdminFacultyTrainingForm />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:ScoreBoardViewModel}">
+                        <views:ScoreBoard />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:StudentScheduleTableViewModel}">
+                        <views:StudentScheduleTable />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:UserInfoViewModel}">
+                        <views:UserInfo />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:FileManagerClassDetailViewModel}">
+                        <components:FileManagerClassDetail />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AdminCourseRegistryViewModel}">
+                        <views:AdminCourseRegistry />
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Border>
+
         <components:RightSideBar
             Grid.Column="9"
             Grid.ColumnSpan="3"

@@ -25,45 +25,70 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <components:SearchBarOne
+                        Grid.Column="0"
+                        Margin="16 16 4 16"
+                        FirstSearchButtonVisibility="False"
+                        SearchCommand="{Binding SearchFile}"
+                        SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SecondSearchButtonVisibility="False" />
                     <Button
-                        Width="200"
-                        Margin="32"
+                        Padding="8"
+                        FontSize="14"
+                        Grid.Column="1"
+                        Width="auto"
+                        Height="50"
+                        Margin="4 16"
                         Command="{Binding AddFile}"
-                        Content="Thêm file"
-                        Style="{StaticResource PrimaryButton}" />
+                        Style="{StaticResource PrimaryButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Margin="0 0 4 0"  Kind="FilePlusOutline"/>
+                            <TextBlock VerticalAlignment="Center" Text="Thêm tài liệu" />
+                        </StackPanel>
+                    </Button>
                     <Button
-                        Width="200"
-                        Margin="32"
+                        Padding="8"
+                        FontSize="14"
+                        Grid.Column="2"
+                        Width="auto"
+                        Height="50"
+                        Margin="4,16,4,16"
+                        materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding AddFolder}"
-                        Content="Thêm folder"
-                        Style="{StaticResource PrimaryButton}" />
-                </StackPanel>
-
-                <!--<TextBox
-                    Grid.Row="1"
-                    Margin="16"
-                    materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
-                    materialDesign:TextFieldAssist.TextFieldCornerRadius="14"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Enter" Command="{Binding SearchFile}" />
-                    </TextBox.InputBindings>
-                </TextBox>-->
-                <components:SearchBarOne
-                    Grid.Row="1"
-                    Margin="16"
-                    FirstSearchButtonVisibility="False"
-                    SecondSearchButtonVisibility="False"
-                    SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SearchCommand="{Binding SearchFile}"/>
+                        Style="{StaticResource PrimaryButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Margin="0 0 4 0"  Kind="FolderPlusOutline"/>
+                            <TextBlock VerticalAlignment="Center" Text="Thêm thư mục" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Padding="8"
+                        FontSize="14"
+                        Grid.Column="3"
+                        Width="auto"
+                        Height="50"
+                        Margin="4,16,16,16"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        Command="{Binding AddFolder}"
+                        Style="{StaticResource PrimaryButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Margin="0 0 4 0"  Kind="CloudDownloadOutline"/>
+                            <TextBlock VerticalAlignment="Center" Text="Tải toàn bộ" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
 
                 <local:FileManager
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Margin="16"
                     VerticalAlignment="Top" />
             </Grid>
