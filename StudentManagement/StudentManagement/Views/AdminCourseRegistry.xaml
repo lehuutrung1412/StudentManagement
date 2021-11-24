@@ -90,23 +90,36 @@
                         Text="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Tạm đóng&quot; : (x == 1 ? &quot;Đang mở&quot; : &quot;Kết thúc&quot;)), x)'}" />
                     <DockPanel Grid.Column="3" LastChildFill="False">
                         <Button
-                            Width="80"
-                            Margin="16,0,0,0"
-                            Content="Mở"
-                            DockPanel.Dock="Left"
-                            FontSize="14" />
-                        <Button
-                            Width="80"
-                            Margin="16,0,0,0"
-                            Content="Tạm đóng"
-                            DockPanel.Dock="Left"
-                            FontSize="14" />
-                        <Button
-                            Width="80"
-                            Margin="16,0,0,0"
-                            Content="Kết thúc"
-                            DockPanel.Dock="Left"
-                            FontSize="14" />
+                            Background="Transparent"
+                            BorderThickness="0"
+                            DockPanel.Dock="Left">
+                            <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <materialDesign:PackIcon Kind="Hammer" />
+                                </materialDesign:PopupBox.ToggleContent>
+                                <StackPanel>
+                                    <Button
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Command="{Binding Path=OpenSemesterCommand}"
+                                        Content="Mở"
+                                        Foreground="Green" />
+                                    <Button
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Command="{Binding PauseSemesterCommand}"
+                                        Content="Tạm đóng"
+                                        Foreground="BlueViolet" />
+                                    <Button
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Command="{Binding StopSemesterCommand}"
+                                        Content="Kết thúc"
+                                        Foreground="Firebrick" />
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+                        </Button>
+                        <Button Content="Thêm học kỳ" DockPanel.Dock="Right" />
                     </DockPanel>
                 </Grid>
                 <Grid>
@@ -127,22 +140,25 @@
                         Margin="16,0,0,0"
                         Content="Xuất ra Excel"
                         DockPanel.Dock="Right"
-                        FontSize="14" />
+                        FontSize="14"
+                        Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Thêm từ Excel"
                         DockPanel.Dock="Right"
-                        FontSize="14" />
+                        FontSize="14"
+                        Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
                         Margin="16,0,0,0"
+                        Command="{Binding CreateNewCourseCommand}"
                         Content="Thêm thủ công"
                         DockPanel.Dock="Left"
-                        FontSize="14">
+                        FontSize="14"
+                        Style="{StaticResource rounded_btn}">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewKeyDown">
-                                <i:InvokeCommandAction Command="{Binding CreateNewCourseCommand}" />
+                            <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -153,7 +169,8 @@
                         Command="{Binding DeleteSelectedItemsCommand}"
                         Content="Xóa"
                         DockPanel.Dock="Left"
-                        FontSize="14" />
+                        FontSize="14"
+                        Style="{StaticResource rounded_btn}" />
                 </DockPanel>
                 <component:SubjectRegistryDataGrid
                     Margin="0,8,0,8"
@@ -165,13 +182,15 @@
                         Margin="16,0,0,0"
                         Content="Khôi phục"
                         DockPanel.Dock="Right"
-                        FontSize="14" />
+                        FontSize="14"
+                        Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Lưu vào server"
                         DockPanel.Dock="Right"
-                        FontSize="14" />
+                        FontSize="14"
+                        Style="{StaticResource rounded_btn}" />
                 </DockPanel>
             </StackPanel>
         </materialDesign:DialogHost>
