@@ -95,6 +95,7 @@ namespace StudentManagement.ViewModels
             {
                 _searchQuery = value;
                 OnPropertyChanged();
+                SearchCourseRegistryItemsFunction();
             }
         }
         private object _dialogItemViewModel;
