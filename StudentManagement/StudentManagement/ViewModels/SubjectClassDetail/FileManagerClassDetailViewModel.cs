@@ -33,6 +33,7 @@ namespace StudentManagement.ViewModels
         public ICommand SearchFile { get; set; }
         public ICommand ShowFolderInfo { get; set; }
         public ICommand RenameFolder { get; set; }
+        public ICommand SubmitFolderName { get; set; }
 
         public Guid? FolderEditingId { get => _folderEditingId; set { _folderEditingId = value; OnPropertyChanged(); } }
         private Guid? _folderEditingId;
@@ -91,7 +92,13 @@ namespace StudentManagement.ViewModels
             SearchFile = new RelayCommand<object>((p) => true, (p) => SearchFileFunction());
             ShowFolderInfo = new RelayCommand<object>((p) => { return true; }, (p) => ShowFolderInfoFunction(p));
             RenameFolder = new RelayCommand<object>((p) => true, (p) => RenameFolderFunction(p));
+            SubmitFolderName = new RelayCommand<object>((p) => true, (p) => SubmitFolderNameFunction());
 
+        }
+
+        private void SubmitFolderNameFunction()
+        {
+            FolderEditingId = null;
         }
 
         private void RenameFolderFunction(object p)
@@ -218,9 +225,8 @@ namespace StudentManagement.ViewModels
                     return;
                 }
                 IsShowDialog = false;
-                FileInfo newFile = new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
-                newFile.PropertyChanged += NewFile_PropertyChanged;
-                FileData.Add(newFile);
+                FileInfo newFolder = new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
+                FileData.Add(newFolder);
                 NewFolderName = null;
             }
             catch (Exception)
@@ -229,14 +235,6 @@ namespace StudentManagement.ViewModels
                                   "Thêm thư mục",
                                   MessageBoxButton.OK,
                                   MessageBoxImage.Error);
-            }
-        }
-
-        private void NewFile_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "FolderName")
-            {
-                FolderEditingId = null;
             }
         }
 

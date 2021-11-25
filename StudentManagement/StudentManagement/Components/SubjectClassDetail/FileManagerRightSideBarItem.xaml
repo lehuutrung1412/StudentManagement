@@ -11,6 +11,7 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    Name="FileManagerRightSideBarItemUC"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -19,7 +20,16 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel Margin="8">
-            <Grid>
+            <StackPanel.Style>
+                <Style TargetType="{x:Type StackPanel}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Id}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Grid Margin="0,0,0,16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
@@ -28,22 +38,20 @@
                     Width="32"
                     Height="32"
                     Source="{Binding Name, Converter={utils:FileExtensionToImageConverter}}" />
-                <TextBlock
-                    VerticalAlignment="Center"
+                <TextBox
                     Grid.Column="1"
                     Margin="4"
+                    VerticalAlignment="Center"
                     FontSize="16"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    TextWrapping="Wrap">
-                    <Run Text="{Binding Name, FallbackValue='File Name'}" />
-                </TextBlock>
+                    Text="{Binding Name, FallbackValue='File Name', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
             </Grid>
 
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -98,10 +106,10 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.Style>
-                    <Style TargetType="{x:Type Grid}" BasedOn="{StaticResource text_grid_item}">
+                    <Style BasedOn="{StaticResource text_grid_item}" TargetType="{x:Type Grid}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding FolderId}" Value="{x:Null}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -118,54 +126,33 @@
                     Text="{Binding FolderName, FallbackValue='Folder'}"
                     TextAlignment="Right" />
             </Grid>
-            <!--<Button
-                x:Name="btnEdit"
-                Padding="0"
-                BorderThickness="0"
-                Command="{Binding EditSubjectCardInfo}"
-                CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentFile}"
-                DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
-
-                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
-                    <TextBlock
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Chỉnh sửa:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Pencil" />
-                </Grid>
-            </Button>
-            <Button
-                x:Name="btnDelete"
-                Padding="0"
-                BorderThickness="0"
-                Command="{Binding DeleteSubjectCardInfo}"
-                CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentFile}"
-                DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
-
-                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
-                    <TextBlock
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Xoá:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Eraser" />
-                </Grid>
-            </Button>-->
+            <Grid Margin="0" Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="0"
+                    Content="Tải về"
+                    FontSize="14"
+                    Foreground="White"
+                    Style="{StaticResource rounded_btn}" />
+                <Button
+                    Grid.Column="1"
+                    Content="Đổi tên"
+                    FontSize="14"
+                    Foreground="White"
+                    Style="{StaticResource rounded_btn}" />
+                <Button
+                    Grid.Column="2"
+                    Background="{StaticResource ErrorMain}"
+                    Command="{Binding Tag.DeleteFile, ElementName=FileManagerRightSideBarItemUC}"
+                    CommandParameter="{Binding Tag.SelectedItems, ElementName=FileManagerRightSideBarItemUC}"
+                    Content="Xóa"
+                    FontSize="14"
+                    Style="{StaticResource rounded_btn}" />
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

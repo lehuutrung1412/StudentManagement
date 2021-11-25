@@ -108,23 +108,73 @@
                                                             Foreground="{StaticResource ErrorMain}"
                                                             Header="Xóa thư mục"
                                                             Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
+                                                        <MenuItem
+                                                            Command="{Binding RenameFolder}"
+                                                            CommandParameter="{TemplateBinding DataContext}"
+                                                            Header="Đổi tên"
+                                                            Icon="{materialDesign:PackIcon Kind=PencilOutline}" />
                                                     </ContextMenu>
                                                 </Expander.ContextMenu>
                                                 <Expander.Header>
                                                     <DockPanel Margin="-8,0,0,0">
-                                                        <DockPanel.InputBindings>
-                                                            <MouseBinding Command="{Binding ElementName=ExpanderFolder, Path=Tag.ShowFolderInfo}" MouseAction="LeftClick" />
-                                                        </DockPanel.InputBindings>
+                                                        <DockPanel.Style>
+                                                            <Style TargetType="{x:Type DockPanel}">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Value="True">
+                                                                        <DataTrigger.Binding>
+                                                                            <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
+                                                                                <Binding Path="Items[0].FolderId" />
+                                                                                <Binding ElementName="ExpanderFolder" Path="Tag.FolderEditingId" />
+                                                                            </MultiBinding>
+                                                                        </DataTrigger.Binding>
+                                                                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=SingleFolderName}" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </DockPanel.Style>
                                                         <Image
                                                             Width="24"
                                                             Height="24"
                                                             Source="{StaticResource Folder}" />
-                                                        <TextBlock
+                                                        <TextBox
+                                                            x:Name="SingleFolderName"
+                                                            MaxWidth="500"
+                                                            Margin="8"
+                                                            HorizontalAlignment="Left"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="14"
+                                                            Text="{Binding Items[0].FolderName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                            ToolTip="{Binding Items[0].FolderName}">
+                                                            <TextBox.InputBindings>
+                                                                <KeyBinding Key="Enter" Command="{Binding Tag.SubmitFolderName, ElementName=ExpanderFolder}" />
+                                                            </TextBox.InputBindings>
+                                                            <TextBox.Style>
+                                                                <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+                                                                    <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
+                                                                    <Setter Property="BorderThickness" Value="0" />
+                                                                    <Setter Property="IsReadOnly" Value="True" />
+                                                                    <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Value="True">
+                                                                            <DataTrigger.Binding>
+                                                                                <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
+                                                                                    <Binding Path="Items[0].FolderId" />
+                                                                                    <Binding ElementName="ExpanderFolder" Path="Tag.FolderEditingId" />
+                                                                                </MultiBinding>
+                                                                            </DataTrigger.Binding>
+                                                                            <Setter Property="IsReadOnly" Value="False" />
+                                                                            <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Visible" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBox.Style>
+                                                        </TextBox>
+                                                        <!--<TextBlock
                                                             MaxWidth="500"
                                                             Margin="8"
                                                             VerticalAlignment="Center"
                                                             Text="{Binding Items[0].FolderName}"
-                                                            TextTrimming="CharacterEllipsis" />
+                                                            TextTrimming="CharacterEllipsis" />-->
                                                         <TextBlock
                                                             HorizontalAlignment="Right"
                                                             VerticalAlignment="Center"
@@ -159,7 +209,7 @@
                                                             Command="{Binding RenameFolder}"
                                                             CommandParameter="{TemplateBinding DataContext}"
                                                             Header="Đổi tên"
-                                                            Icon="{materialDesign:PackIcon Kind=Pencil}" />
+                                                            Icon="{materialDesign:PackIcon Kind=PencilOutline}" />
                                                     </ContextMenu>
                                                 </Border.ContextMenu>
                                                 <DockPanel>
@@ -183,13 +233,17 @@
                                                         Height="24"
                                                         Source="{StaticResource Folder}" />
                                                     <TextBox
-                                                        Name="SingleFolderName"
+                                                        x:Name="SingleFolderName"
                                                         MaxWidth="500"
-                                                        Margin="8,0,0,0"
+                                                        Margin="8"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
-                                                        Text="{Binding Items[0].FolderName, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                                                        FontSize="14"
+                                                        Text="{Binding Items[0].FolderName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                         ToolTip="{Binding Items[0].FolderName}">
+                                                        <TextBox.InputBindings>
+                                                            <KeyBinding Key="Enter" Command="{Binding Tag.SubmitFolderName, ElementName=brdSingleFolder}" />
+                                                        </TextBox.InputBindings>
                                                         <TextBox.Style>
                                                             <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
                                                                 <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />

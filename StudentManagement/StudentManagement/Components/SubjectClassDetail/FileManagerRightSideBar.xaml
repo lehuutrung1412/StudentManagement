@@ -13,6 +13,7 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    Name="FileManagerRightSideBarUC"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -26,7 +27,7 @@
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:FileInfo}">
-                    <components:FileManagerRightSideBarItem />
+                    <components:FileManagerRightSideBarItem Tag="{Binding ElementName=FileManagerRightSideBarUC, Path=DataContext}"/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
