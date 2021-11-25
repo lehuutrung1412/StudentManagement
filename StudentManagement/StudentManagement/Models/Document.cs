@@ -15,7 +15,6 @@ namespace StudentManagement.Models
     
     public partial class Document : BaseViewModel
     {
-        public object ShallowCopy() { return this.MemberwiseClone(); }
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
         private string _displayName { get; set; }

@@ -69,6 +69,7 @@ CREATE TABLE Faculty
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   DisplayName NVARCHAR(MAX),
   IsDeleted BIT DEFAULT 0,
+  FoundationDay DateTime,
 )
 GO
 

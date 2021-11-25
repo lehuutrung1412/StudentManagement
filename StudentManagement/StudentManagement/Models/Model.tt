@@ -26,7 +26,6 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
 <#=codeStringGenerator.EntityClassOpening(entity)#>
 {
-    <#=codeStringGenerator.EntityClassShallowCopy()#>
 <#
     var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
     var collectionNavigationProperties = typeMapper.GetCollectionNavigationProperties(entity);
@@ -322,11 +321,6 @@ public class CodeStringGenerator
         return accessibility + (accessibility != "private" ? " virtual" : "");
     }
     
-    public string EntityClassShallowCopy()
-    {
-        return "public object ShallowCopy() { return this.MemberwiseClone(); }";
-    }
-
     public string EntityClassOpening(EntityType entity)
     {
         return string.Format(

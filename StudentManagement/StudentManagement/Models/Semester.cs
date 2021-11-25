@@ -15,7 +15,6 @@ namespace StudentManagement.Models
     
     public partial class Semester : BaseViewModel
     {
-        public object ShallowCopy() { return this.MemberwiseClone(); }
         public Semester()
         {
             this.CourseRegisters = new HashSet<CourseRegister>();

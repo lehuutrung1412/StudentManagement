@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -77,7 +78,7 @@ namespace StudentManagement.Services
             else
             {
                 //savedFaculty = (faculty.ShallowCopy() as Faculty);
-                savedFaculty.DisplayName = faculty.DisplayName;
+                Reflection.CopyProperties(faculty, savedFaculty);
             }
             DataProvider.Instance.Database.SaveChanges();
         }

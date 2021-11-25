@@ -343,6 +343,7 @@
     <Compile Include="Utils\MultiBindingValueCompareConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
+    <Compile Include="Utils\Reflection.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
     <Compile Include="ViewModels\StudentList\AdminStudentListViewModel.cs" />
