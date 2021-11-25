@@ -33,20 +33,40 @@ namespace StudentManagement.ViewModels
         }
         private FileInfo _currentFile;
 
-        public ICommand ShowFileInfo { get; set; }
-        
+        public bool IsDeleteFile { get; set; }
+
+        public ICommand DeleteCurrentFile { get; set; }
+        public ICommand EditCurrentFile { get; set; }
+        public ICommand CancelEditCurrentFile { get; set; }
+        public bool IsEditing { get => _isEditing; set { _isEditing = value; OnPropertyChanged(); } }
+
+        private bool _isEditing;
+
+        public string CurrentName { get; set; }
 
         public FileManagerRightSideBarViewModel()
         {
-            ShowFileInfo = new RelayCommand<object>((p) => { return true; }, (p) => ShowFileInfoFunction(p));
-
-            //RightSideBarItemViewModel = new EmptyStateRightSideBarViewModel();
+            DeleteCurrentFile = new RelayCommand<object>((p) => { return true; }, (p) => DeleteCurrentFileFunction());
+            EditCurrentFile = new RelayCommand<object>((p) => { return true; }, (p) => EditCurrentFileFunction());
+            CancelEditCurrentFile = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditCurrentFileFunction());
+            
         }
 
-        private void ShowFileInfoFunction(object p)
+        private void CancelEditCurrentFileFunction()
         {
-            CurrentFile = p as FileInfo;
-            RightSideBarItemViewModel = CurrentFile;
+            CurrentFile.Name = CurrentName;
+            IsEditing = false;
+        }
+
+        private void EditCurrentFileFunction()
+        {
+            CurrentName = CurrentFile.Name;
+            IsEditing = !IsEditing;
+        }
+
+        private void DeleteCurrentFileFunction()
+        {
+            OnPropertyChanged(nameof(IsDeleteFile));
         }
     }
 }

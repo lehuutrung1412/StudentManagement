@@ -169,7 +169,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void DeleteFileFunction(object parameter)
+        public void DeleteFileFunction(object parameter)
         {
             try
             {

@@ -24,7 +24,18 @@
             <component:EmptyStateRightSideBar
                 Width="600"
                 Height="300"
-                Guideline="Không có tài liệu nào trong lớp học." />
+                Guideline="Không có tài liệu nào trong lớp học.">
+                <component:EmptyStateRightSideBar.Style>
+                    <Style TargetType="component:EmptyStateRightSideBar">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding FileDataGroup.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </component:EmptyStateRightSideBar.Style>
+            </component:EmptyStateRightSideBar>
 
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid
@@ -150,7 +161,6 @@
                                                             </TextBox.InputBindings>
                                                             <TextBox.Style>
                                                                 <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
-                                                                    <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
                                                                     <Setter Property="BorderThickness" Value="0" />
                                                                     <Setter Property="IsReadOnly" Value="True" />
                                                                     <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />

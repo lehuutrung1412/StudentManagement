@@ -82,7 +82,18 @@ namespace StudentManagement.ViewModels
         public void InitRightSideBar()
         {
             _fileManagerRightSideBarViewModel = new FileManagerRightSideBarViewModel();
+            (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).PropertyChanged += FileManagerRightSideBarViewModel_PropertyChanged;
             _layoutViewModel.RightSideBar = _fileManagerRightSideBarViewModel;
+        }
+
+        private void FileManagerRightSideBarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsDeleteFile")
+            {
+                object selectedItems = new ObservableCollection<FileInfo>
+                    { (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).CurrentFile };
+                (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).DeleteFileFunction(selectedItems);
+            }
         }
 
         #endregion Methods

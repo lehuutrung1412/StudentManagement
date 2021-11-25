@@ -45,7 +45,22 @@
                     FontSize="16"
                     FontWeight="Bold"
                     Text="{Binding Name, FallbackValue='File Name', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    TextWrapping="Wrap" />
+                    TextWrapping="Wrap">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="IsReadOnly" Value="True" />
+                            <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                    <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Visible" />
+                                    <Setter Property="IsReadOnly" Value="False" />
+                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
             </Grid>
 
             <Grid Style="{StaticResource text_grid_item}">
@@ -136,22 +151,68 @@
                     Grid.Column="0"
                     Content="Tải về"
                     FontSize="14"
-                    Foreground="White"
-                    Style="{StaticResource rounded_btn}" />
+                    Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <Button
+                    Command="{Binding Tag.EditCurrentFile, ElementName=FileManagerRightSideBarItemUC}"
                     Grid.Column="1"
-                    Content="Đổi tên"
                     FontSize="14"
-                    Foreground="White"
-                    Style="{StaticResource rounded_btn}" />
+                    Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
+                            <Setter Property="Content" Value="Đổi tên"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                    <Setter Property="Content" Value="Lưu"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <Button
                     Grid.Column="2"
                     Background="{StaticResource ErrorMain}"
-                    Command="{Binding Tag.DeleteFile, ElementName=FileManagerRightSideBarItemUC}"
-                    CommandParameter="{Binding Tag.SelectedItems, ElementName=FileManagerRightSideBarItemUC}"
+                    Command="{Binding Tag.DeleteCurrentFile, ElementName=FileManagerRightSideBarItemUC}"
                     Content="Xóa"
-                    FontSize="14"
-                    Style="{StaticResource rounded_btn}" />
+                    FontSize="14">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button
+                    Grid.Column="2"
+                    Background="{StaticResource DarkGray}"
+                    Command="{Binding Tag.CancelEditCurrentFile, ElementName=FileManagerRightSideBarItemUC}"
+                    Content="Hủy"
+                    FontSize="14">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
         </StackPanel>
     </Grid>
