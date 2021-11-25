@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:component="clr-namespace:StudentManagement.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -128,26 +129,12 @@
                                                 </Expander.ContextMenu>
                                                 <Expander.Header>
                                                     <DockPanel Margin="-8,0,0,0">
-                                                        <DockPanel.Style>
-                                                            <Style TargetType="{x:Type DockPanel}">
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Value="True">
-                                                                        <DataTrigger.Binding>
-                                                                            <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
-                                                                                <Binding Path="Items[0].FolderId" />
-                                                                                <Binding ElementName="ExpanderFolder" Path="Tag.FolderEditingId" />
-                                                                            </MultiBinding>
-                                                                        </DataTrigger.Binding>
-                                                                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=SingleFolderName}" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </DockPanel.Style>
                                                         <Image
                                                             Width="24"
                                                             Height="24"
                                                             Source="{StaticResource Folder}" />
                                                         <TextBox
+                                                            FontWeight="SemiBold"
                                                             x:Name="SingleFolderName"
                                                             MaxWidth="500"
                                                             Margin="8"
@@ -156,6 +143,11 @@
                                                             FontSize="14"
                                                             Text="{Binding Items[0].FolderName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                             ToolTip="{Binding Items[0].FolderName}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="LostFocus">
+                                                                    <i:InvokeCommandAction Command="{Binding Tag.SubmitFolderName, ElementName=ExpanderFolder}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
                                                             <TextBox.InputBindings>
                                                                 <KeyBinding Key="Enter" Command="{Binding Tag.SubmitFolderName, ElementName=ExpanderFolder}" />
                                                             </TextBox.InputBindings>
@@ -174,17 +166,12 @@
                                                                             </DataTrigger.Binding>
                                                                             <Setter Property="IsReadOnly" Value="False" />
                                                                             <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Visible" />
+                                                                            <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}" />
                                                                         </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
                                                             </TextBox.Style>
                                                         </TextBox>
-                                                        <!--<TextBlock
-                                                            MaxWidth="500"
-                                                            Margin="8"
-                                                            VerticalAlignment="Center"
-                                                            Text="{Binding Items[0].FolderName}"
-                                                            TextTrimming="CharacterEllipsis" />-->
                                                         <TextBlock
                                                             HorizontalAlignment="Right"
                                                             VerticalAlignment="Center"
@@ -223,21 +210,6 @@
                                                     </ContextMenu>
                                                 </Border.ContextMenu>
                                                 <DockPanel>
-                                                    <DockPanel.Style>
-                                                        <Style TargetType="{x:Type DockPanel}">
-                                                            <Style.Triggers>
-                                                                <DataTrigger Value="True">
-                                                                    <DataTrigger.Binding>
-                                                                        <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
-                                                                            <Binding Path="Items[0].FolderId" />
-                                                                            <Binding ElementName="brdSingleFolder" Path="Tag.FolderEditingId" />
-                                                                        </MultiBinding>
-                                                                    </DataTrigger.Binding>
-                                                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=SingleFolderName}" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </DockPanel.Style>
                                                     <Image
                                                         Width="24"
                                                         Height="24"
@@ -245,18 +217,23 @@
                                                     <TextBox
                                                         x:Name="SingleFolderName"
                                                         MaxWidth="500"
-                                                        Margin="8"
+                                                        Margin="8 4"
+                                                        FontWeight="SemiBold"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
                                                         FontSize="14"
                                                         Text="{Binding Items[0].FolderName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                         ToolTip="{Binding Items[0].FolderName}">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="LostFocus">
+                                                                <i:InvokeCommandAction Command="{Binding Tag.SubmitFolderName, ElementName=brdSingleFolder}" />
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
                                                         <TextBox.InputBindings>
                                                             <KeyBinding Key="Enter" Command="{Binding Tag.SubmitFolderName, ElementName=brdSingleFolder}" />
                                                         </TextBox.InputBindings>
                                                         <TextBox.Style>
                                                             <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
-                                                                <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
                                                                 <Setter Property="BorderThickness" Value="0" />
                                                                 <Setter Property="IsReadOnly" Value="True" />
                                                                 <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
@@ -270,6 +247,7 @@
                                                                         </DataTrigger.Binding>
                                                                         <Setter Property="IsReadOnly" Value="False" />
                                                                         <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Visible" />
+                                                                        <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>

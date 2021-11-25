@@ -18,27 +18,28 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid>
-        <StackPanel Margin="8">
-            <StackPanel.Style>
-                <Style TargetType="{x:Type StackPanel}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Id}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <Grid Margin="0,0,0,16">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <StackPanel Margin="8">
+                <StackPanel.Style>
+                    <Style TargetType="{x:Type StackPanel}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Id}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
                     Width="32"
                     Height="32"
                     Source="{Binding Name, Converter={utils:FileExtensionToImageConverter}}" />
-                <TextBox
+                    <TextBox
                     Grid.Column="1"
                     Margin="4"
                     VerticalAlignment="Center"
@@ -46,174 +47,175 @@
                     FontWeight="Bold"
                     Text="{Binding Name, FallbackValue='File Name', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap">
-                    <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
-                            <Setter Property="BorderThickness" Value="0" />
-                            <Setter Property="IsReadOnly" Value="True" />
-                            <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
-                                    <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Visible" />
-                                    <Setter Property="IsReadOnly" Value="False" />
-                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-            </Grid>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="IsReadOnly" Value="True" />
+                                <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Visible" />
+                                        <Setter Property="IsReadOnly" Value="False" />
+                                        <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                </Grid>
 
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock
+                    <TextBlock
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Thời gian:" />
-                <TextBlock
+                    <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding UploadTime, FallbackValue='01/01/2022 00:00:00', Converter={utils:DateTimeConverter}, ConverterParameter=standard}"
                     TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock
+                    <TextBlock
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Người đăng:" />
-                <TextBlock
+                    <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding Publisher, FallbackValue='Lê Hữu Trung'}"
                     TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock
+                    <TextBlock
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Dung lượng:" />
-                <TextBlock
+                    <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding Size, FallbackValue='7 MB', Converter={utils:FileSizeConverter}}"
                     TextAlignment="Right" />
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <Grid.Style>
-                    <Style BasedOn="{StaticResource text_grid_item}" TargetType="{x:Type Grid}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding FolderId}" Value="{x:Null}">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
+                    <Grid.Style>
+                        <Style BasedOn="{StaticResource text_grid_item}" TargetType="{x:Type Grid}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FolderId}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
 
-                <TextBlock
+                    <TextBlock
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Thư mục:" />
-                <TextBlock
+                    <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding FolderName, FallbackValue='Folder'}"
                     TextAlignment="Right" />
-            </Grid>
-            <Grid Margin="0" Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button
+                </Grid>
+                <Grid Margin="0" Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button
                     Grid.Column="0"
                     Content="Tải về"
                     FontSize="14"
                     Foreground="White">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Button
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button
                     Command="{Binding Tag.EditCurrentFile, ElementName=FileManagerRightSideBarItemUC}"
                     Grid.Column="1"
                     FontSize="14"
                     Foreground="White">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
-                            <Setter Property="Content" Value="Đổi tên"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
-                                    <Setter Property="Content" Value="Lưu"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Button
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
+                                <Setter Property="Content" Value="Đổi tên"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                        <Setter Property="Content" Value="Lưu"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button
                     Grid.Column="2"
                     Background="{StaticResource ErrorMain}"
                     Command="{Binding Tag.DeleteCurrentFile, ElementName=FileManagerRightSideBarItemUC}"
                     Content="Xóa"
                     FontSize="14">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Button
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button
                     Grid.Column="2"
                     Background="{StaticResource DarkGray}"
                     Command="{Binding Tag.CancelEditCurrentFile, ElementName=FileManagerRightSideBarItemUC}"
                     Content="Hủy"
                     FontSize="14">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-            </Grid>
-        </StackPanel>
-    </Grid>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource rounded_btn}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
