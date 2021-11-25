@@ -58,7 +58,7 @@
                                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                                         <Grid Margin="16" Background="{TemplateBinding Background}">
                                             <Grid.ToolTip>
-                                                <ToolTip Content="{Binding TenKhoa}" />
+                                                <ToolTip Content="{Binding DisplayName}" />
                                             </Grid.ToolTip>
                                             <Grid.ContextMenu>
                                                 <ContextMenu>
@@ -78,9 +78,9 @@
                         </Style>
                     </DataGrid.CellStyle>
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Binding="{Binding TenKhoa}" Header="Tên khoa" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding NgayThanhLap, StringFormat='dd/MM/yyyy'}" Header="Ngày thành lập" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding SoLuongSinhVien}" Header="Số lượng sinh viên" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding DisplayName}" Header="Tên khoa" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding FoundationDay, StringFormat='dd/MM/yyyy'}" Header="Ngày thành lập" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding NumberOfStudents}" Header="Số lượng sinh viên" />
                         <materialDesign:DataGridTextColumn Binding="{Binding CacHeDaoTao}" Header="Các hệ đào tạo" />
                     </DataGrid.Columns>
                 </DataGrid>

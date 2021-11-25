@@ -8,21 +8,26 @@ namespace StudentManagement.Objects
 {
     public class TrainingFormCard : BaseObjectWithBaseViewModel, IBaseCard
     {
-        private string _tenHeDaoTao;
-        private int _soLuongKhoa;
-        private int _soLuongSinhVien;
+        private string _displayName;
+        private int _numberOfFaculties;
+        private int _numberOfStudents;
+        private bool _isDeleted;
+        private Guid _id;
 
         public TrainingFormCard() { }
 
-        public TrainingFormCard(string tenHeDaoTao, int soLuongKhoa, int soLuongSinhVien)
+        public TrainingFormCard(Guid id, string displayName, int numberOfFaculties, int numberOfStudents)
         {
-            TenHeDaoTao = tenHeDaoTao;
-            SoLuongKhoa = soLuongKhoa;
-            SoLuongSinhVien = soLuongSinhVien;
+            Id = id;
+            DisplayName = displayName;
+            NumberOfFaculties = numberOfFaculties;
+            NumberOfStudents = numberOfStudents;
         }
 
-        public string TenHeDaoTao { get => _tenHeDaoTao; set => _tenHeDaoTao = value; }
-        public int SoLuongKhoa { get => _soLuongKhoa; set => _soLuongKhoa = value; }
-        public int SoLuongSinhVien { get => _soLuongSinhVien; set => _soLuongSinhVien = value; }
+        public string DisplayName { get => _displayName; set => _displayName = value; }
+        public int NumberOfFaculties { get => _numberOfFaculties; set => _numberOfFaculties = value; }
+        public int NumberOfStudents { get => _numberOfStudents; set => _numberOfStudents = value; }
+        public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
+        public Guid Id { get => _id; set => _id = value; }
     }
 }

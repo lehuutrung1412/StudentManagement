@@ -42,7 +42,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.TenHeDaoTao, FallbackValue='Ten hệ đào tạo'}"
+                    Text="{Binding CurrentCard.DisplayName, FallbackValue='Ten hệ đào tạo'}"
                     TextAlignment="Right" />
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
@@ -59,7 +59,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.SoLuongKhoa, FallbackValue='Số lượng khoa'}"
+                    Text="{Binding CurrentCard.NumberOfFaculties, FallbackValue='Số lượng khoa'}"
                     TextAlignment="Right" />
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
@@ -76,7 +76,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.SoLuongSinhVien, FallbackValue='Số lượng sinh viên'}"
+                    Text="{Binding CurrentCard.NumberOfStudents, FallbackValue='Số lượng sinh viên'}"
                     TextAlignment="Right" />
             </Grid>
             <Button

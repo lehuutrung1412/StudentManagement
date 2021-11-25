@@ -48,7 +48,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tên khoa"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.TenKhoa}" />
+                        Text="{Binding CurrentCard.DisplayName}" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
@@ -66,7 +66,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Ngày thành lập"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.NgayThanhLap}" />
+                        Text="{Binding CurrentCard.FoundationDay}" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
@@ -84,7 +84,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Số lượng sinh viên"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.SoLuongSinhVien}" />
+                        Text="{Binding CurrentCard.NumberOfStudents}" />
                 </Grid>
 
                 <Grid Style="{StaticResource text_grid_item}">
