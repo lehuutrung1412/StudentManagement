@@ -15,6 +15,7 @@ namespace StudentManagement.Models
     
     public partial class SubjectClass : BaseViewModel
     {
+        public object ShallowCopy() { return this.MemberwiseClone(); }
         public SubjectClass()
         {
             this.AbsentCalendars = new HashSet<AbsentCalendar>();

@@ -15,6 +15,7 @@ namespace StudentManagement.Models
     
     public partial class ComponentScore : BaseViewModel
     {
+        public object ShallowCopy() { return this.MemberwiseClone(); }
         public ComponentScore()
         {
             this.DetailScores = new HashSet<DetailScore>();

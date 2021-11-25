@@ -97,6 +97,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar(max)" />
           <Property Name="IsDeleted" Type="bit" />
+          <Property Name="FoundationDay" Type="datetime" />
         </EntityType>
         <EntityType Name="Faculty_TrainingForm">
           <Key>
@@ -1073,6 +1074,7 @@
           <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdFaculty__72C60C4A" FromRole="Faculty" ToRole="Class" />
           <NavigationProperty Name="Faculty_TrainingForm" Relationship="StudentManagementModel.FK__Faculty_T__IdFac__6EF57B66" FromRole="Faculty" ToRole="Faculty_TrainingForm" />
           <NavigationProperty Name="Users" Relationship="StudentManagementModel.FK__Users__IdFaculty__6754599E" FromRole="Faculty" ToRole="User" />
+          <Property Name="FoundationDay" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Faculty_TrainingForm">
           <Key>
@@ -1731,6 +1733,7 @@
           <EntitySetMapping Name="Faculties">
             <EntityTypeMapping TypeName="StudentManagementModel.Faculty">
               <MappingFragment StoreEntitySet="Faculty">
+                <ScalarProperty Name="FoundationDay" ColumnName="FoundationDay" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

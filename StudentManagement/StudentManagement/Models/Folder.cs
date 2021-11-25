@@ -15,6 +15,7 @@ namespace StudentManagement.Models
     
     public partial class Folder : BaseViewModel
     {
+        public object ShallowCopy() { return this.MemberwiseClone(); }
         public Folder()
         {
             this.Documents = new HashSet<Document>();

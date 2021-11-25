@@ -15,6 +15,7 @@ namespace StudentManagement.Models
     
     public partial class DatabaseImageTable : BaseViewModel
     {
+        public object ShallowCopy() { return this.MemberwiseClone(); }
         public DatabaseImageTable()
         {
             this.Classes = new HashSet<Class>();

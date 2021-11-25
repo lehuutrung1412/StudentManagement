@@ -15,6 +15,7 @@ namespace StudentManagement.Models
     
     public partial class CourseRegister : BaseViewModel
     {
+        public object ShallowCopy() { return this.MemberwiseClone(); }
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
         private Nullable<int> _status { get; set; }

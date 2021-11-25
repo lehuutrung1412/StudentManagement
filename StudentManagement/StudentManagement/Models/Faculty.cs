@@ -15,6 +15,7 @@ namespace StudentManagement.Models
     
     public partial class Faculty : BaseViewModel
     {
+        public object ShallowCopy() { return this.MemberwiseClone(); }
         public Faculty()
         {
             this.Classes = new HashSet<Class>();
@@ -28,6 +29,8 @@ namespace StudentManagement.Models
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
         private Nullable<bool> _isDeleted { get; set; }
         public Nullable<bool> IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
+        private Nullable<System.DateTime> _foundationDay { get; set; }
+        public Nullable<System.DateTime> FoundationDay { get => _foundationDay; set { _foundationDay = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<Faculty_TrainingForm> Faculty_TrainingForm { get; set; }
