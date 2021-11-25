@@ -43,7 +43,6 @@ namespace StudentManagement.ViewModels
 
         public EditInfoItemViewModel(InfoItem infoItem)
         {
-            CurrendInfoItem = infoItem;
             DisplayInfoItem = new InfoItem(infoItem);
             ListItemInCombobox = new ObservableCollection<ItemInCombobox>();
             if (infoItem.Type == 2)
@@ -71,8 +70,12 @@ namespace StudentManagement.ViewModels
 
             for (int i =0; i<UserInfoViewModel.Instance.InfoSource.Count; i++)
             {
-                if (UserInfoViewModel.Instance.InfoSource[i] == CurrendInfoItem)
+                if (UserInfoViewModel.Instance.InfoSource[i].STT == DisplayInfoItem.STT)
+                {
                     UserInfoViewModel.Instance.InfoSource[i] = DisplayInfoItem;
+                    break;
+                }    
+                    
             }    
             UserInfoViewModel.Instance.IsOpen = false;
         }

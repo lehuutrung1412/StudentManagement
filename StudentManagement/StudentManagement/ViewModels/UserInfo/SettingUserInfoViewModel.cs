@@ -22,7 +22,7 @@ namespace StudentManagement.ViewModels
 
             public InfoItemWithViewMode(InfoItem infoItem)
             {
-                InfoItem = infoItem;
+                InfoItem = new InfoItem(infoItem);
                 EditInfoItemViewModel = new EditInfoItemViewModel(InfoItem);
             }
         }
@@ -42,11 +42,13 @@ namespace StudentManagement.ViewModels
 
         public void ConfirmSetting()
         {
-            //if(MyMessageBox.Show("Bạn muốn lưu cài đặt này","Thông báo",System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) == System.Windows.MessageBoxResult.Yes)
-            //{
-            InfoSource.ToList().ForEach(x => x.EditInfoItemViewModel.UpdateInfoItem());
-            //MyMessageBox.Show("Cài đặt thành công", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            //}
+            if (MyMessageBox.Show("Bạn muốn lưu cài đặt này", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) == System.Windows.MessageBoxResult.Yes)
+            {
+                MyMessageBox.Show("Cài đặt thành công", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                InfoSource.ToList().ForEach(infoSource => infoSource.EditInfoItemViewModel.UpdateInfoItem());  
+            }
+            InfoSource = new ObservableCollection<InfoItemWithViewMode>();
+            UserInfoViewModel.Instance.InfoSource.ToList().ForEach(infoSource => InfoSource.Add(new InfoItemWithViewMode(infoSource)));
             return;
         }
     }

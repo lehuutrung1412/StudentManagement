@@ -39,15 +39,25 @@ namespace StudentManagement.ViewModels
                 IsEnable = true;
             }
 
-            public InfoItem(string labelName, int type, ObservableCollection<string> itemSource, object value, int sTT, bool isEnable)
+            public InfoItem(Guid id, string labelName, int type, ObservableCollection<string> itemSource, object value, int sTT, bool isEnable)
             {
-                Id = Guid.NewGuid();
+                Id = id;
                 LabelName = labelName;
                 Type = type;
                 ItemSource = itemSource;
                 Value = value;
                 STT = sTT;
                 IsEnable = isEnable;
+            }
+            public void  CopyItem(InfoItem item)
+            {
+                Id = item.Id;
+                LabelName = item.LabelName;
+                Type = item.Type;
+                ItemSource = item.ItemSource;
+                Value = item.Value;
+                STT = item.STT;
+                IsEnable = item.IsEnable;
             }
             public InfoItem(InfoItem item)
             {
@@ -150,16 +160,16 @@ namespace StudentManagement.ViewModels
             Avatar = "https://picsum.photos/200";
             InfoSource = new ObservableCollection<InfoItem>()
             {
-                new InfoItem("Giới tính",2,Sex,"Nam",5,false),
-                new InfoItem("Địa chỉ mail",0,null,"cuongnguyen14022001",6,true),
-                new InfoItem("Hệ",2,TrainingForm,"CNTN",7,false),
-                new InfoItem("Lớp sinh hoạt",2,Class,"KHTN2019",8,false),
+                new InfoItem(Guid.NewGuid(),"Giới tính",2,Sex,"Nam",5,false),
+                new InfoItem(Guid.NewGuid(),"Địa chỉ mail",0,null,"cuongnguyen14022001",6,true),
+                new InfoItem(Guid.NewGuid(),"Hệ",2,TrainingForm,"CNTN",7,false),
+                new InfoItem(Guid.NewGuid(),"Lớp sinh hoạt",2,Class,"KHTN2019",8,false),
 
-                new InfoItem("Họ và tên",0,null,"Nguyễn Đỗ Mạnh Cường",0,false),
-                new InfoItem("Ngày sinh",1,null,"14/02/2001",1,false),
-                new InfoItem("Địa chỉ",0,null,"02B1, chợ mới Ninh Hoà",2,true),
-                new InfoItem("Khoa",2,Faculty,"KHMT",3,false),
-                new InfoItem("Số điện thoại",0,null,"0937418670",4,true),
+                new InfoItem(Guid.NewGuid(),"Họ và tên",0,null,"Nguyễn Đỗ Mạnh Cường",0,false),
+                new InfoItem(Guid.NewGuid(),"Ngày sinh",1,null,"14/02/2001",1,false),
+                new InfoItem(Guid.NewGuid(),"Địa chỉ",0,null,"02B1, chợ mới Ninh Hoà",2,true),
+                new InfoItem(Guid.NewGuid(),"Khoa",2,Faculty,"KHMT",3,false),
+                new InfoItem(Guid.NewGuid(),"Số điện thoại",0,null,"0937418670",4,true),
 
             };
 

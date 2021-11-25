@@ -75,7 +75,6 @@ namespace StudentManagement.ViewModels
                 CurrendInfo.Type = 0;
             CurrendInfo.STT = UserInfoViewModel.Instance.InfoSource.LastOrDefault().STT + 1;
             UserInfoViewModel.Instance.InfoSource.Add(CurrendInfo);
-            OnPropertyChanged(nameof(UserInfoViewModel.Instance.InfoSource));
             UserInfoViewModel.Instance.InfoSource.OrderBy(x => x.STT).ToList();
             UserInfoViewModel.Instance.IsOpen = false;
         }
