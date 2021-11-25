@@ -2,6 +2,7 @@
 using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,12 @@ namespace StudentManagement.Services
         public static FacultyServices Instance => s_instance ?? (s_instance = new FacultyServices());
 
         public FacultyServices() { }
+
+        public DbSet<Faculty> LoadFacultyList()
+        {
+            return DataProvider.Instance.Database.Faculties;
+        }
+
         /// <summary>
         /// Convert FacultyCard To Faculty
         /// </summary>
@@ -30,6 +37,7 @@ namespace StudentManagement.Services
 
             return faculty;
         }
+
         /// <summary>
         /// Convert Faculty To Faculty Card
         /// </summary>
@@ -54,6 +62,10 @@ namespace StudentManagement.Services
             return faculty;
         }
 
+        /// <summary>
+        /// Save Faculty To Database
+        /// </summary>
+        /// <param name="faculty"></param>
         public void SaveFacultyToDatabase(Faculty faculty)
         {
             Faculty savedFaculty = FindFacultyByFacultyId(faculty.Id);
@@ -61,10 +73,24 @@ namespace StudentManagement.Services
             if (savedFaculty == null)
             {
                 DataProvider.Instance.Database.Faculties.Add(faculty);
-            } else
-            {
-
             }
+            else
+            {
+                //savedFaculty = (faculty.ShallowCopy() as Faculty);
+                savedFaculty.DisplayName = faculty.DisplayName;
+            }
+            DataProvider.Instance.Database.SaveChanges();
+        }
+
+        /// <summary>
+        /// Save Faculty Card To Database
+        /// </summary>
+        /// <param name="facultyCard"></param>
+        public void SaveFacultyCardToDatabase(FacultyCard facultyCard)
+        {
+            Faculty faculty = ConvertFacultyCardToFaculty(facultyCard);
+
+            SaveFacultyToDatabase(faculty);
         }
     }
 }

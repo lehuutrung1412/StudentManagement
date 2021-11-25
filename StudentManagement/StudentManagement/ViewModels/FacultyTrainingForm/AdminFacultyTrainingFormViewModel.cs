@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace StudentManagement.ViewModels
     public class AdminFacultyTrainingFormViewModel : BaseViewModel
     {
         #region properties
-        static private ObservableCollection<FacultyCard> _storedFacultyCards;
+        static private ObservableCollection<FacultyCard> _storedFacultyCards = new ObservableCollection<FacultyCard>();
         public static ObservableCollection<FacultyCard> StoredFacultyCards { get => _storedFacultyCards; set => _storedFacultyCards = value; }
 
         static private ObservableCollection<IBaseCard> _trainingFormCards;
@@ -69,44 +70,61 @@ namespace StudentManagement.ViewModels
 
         public AdminFacultyTrainingFormViewModel()
         {
-            TrainingFormCards = new ObservableCollection<IBaseCard>() {
-                new EmptyCard(),
-                new TrainingFormCard(new Guid(), "Chương trình chất lượng cao", 5, 1200) ,
-                new TrainingFormCard(new Guid(), "Chương trình tiên tiến", 3, 1123),
-                new TrainingFormCard(new Guid(), "Chương trình đại trà", 10, 3000),
-                new TrainingFormCard(new Guid(), "Chương trình chất lượng cao", 5, 1200),
-                new TrainingFormCard(new Guid(), "Chương trình đại trà", 10, 3000),
-            };
+            LoadTrainingFormCard();
 
+            LoadFacultyCard();
 
-            StoredFacultyCards = new ObservableCollection<FacultyCard>()
-            {
-                new FacultyCard(new Guid(), "Khoa học máy tính 1", new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 2", new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 3", new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-                new FacultyCard(new Guid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
-            };
-
-            FacultyCards = new ObservableCollection<FacultyCard>(StoredFacultyCards.Select(el => el));
 
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchFacultyCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchFacultyCardsFunction(p));
         }
 
         #region methods
+        public void LoadTrainingFormCard()
+        {
+            TrainingFormCards = new ObservableCollection<IBaseCard>() {
+                new EmptyCard(),
+                new TrainingFormCard(Guid.NewGuid(), "Chương trình chất lượng cao", 5, 1200) ,
+                new TrainingFormCard(Guid.NewGuid(), "Chương trình tiên tiến", 3, 1123),
+                new TrainingFormCard(Guid.NewGuid(), "Chương trình đại trà", 10, 3000),
+                new TrainingFormCard(Guid.NewGuid(), "Chương trình chất lượng cao", 5, 1200),
+                new TrainingFormCard(Guid.NewGuid(), "Chương trình đại trà", 10, 3000),
+            };
+        }
+
+        public void LoadFacultyCard()
+        {
+            //StoredFacultyCards = new ObservableCollection<FacultyCard>()
+            //{
+
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 1", new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 2", new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 3", new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
+            //};
+            var faculties = FacultyServices.Instance.LoadFacultyList();
+
+            StoredFacultyCards = new ObservableCollection<FacultyCard>();
+
+            faculties.ToList().ForEach(faculty => StoredFacultyCards.Add(FacultyServices.Instance.ConvertFacultyToFacultyCard(faculty)));
+
+            FacultyCards = new ObservableCollection<FacultyCard>(StoredFacultyCards.Select(el => el));
+        }
+
+
         public void SearchFacultyCardsFunction(object p)
         {
             var tmp = StoredFacultyCards.Where(x => !IsFirstSearchButtonEnabled ?

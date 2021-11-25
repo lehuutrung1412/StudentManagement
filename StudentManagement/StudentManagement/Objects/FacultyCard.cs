@@ -15,7 +15,10 @@ namespace StudentManagement.Objects
         private bool _isDeleted;
         private Guid _id;
 
-        public FacultyCard() { }
+        public FacultyCard()
+        {
+            Id = Guid.NewGuid();
+        }
         public FacultyCard(Guid id, string displayName, DateTime foundationDay, int numberOfStudents, string cacHeDaoTao)
         {
             Id = id;
