@@ -10,7 +10,7 @@
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="White"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -19,18 +19,89 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
+        <Grid.Resources>
+            <Style x:Key="LeftSideBarButton" TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Name="brdNavigate" CornerRadius="20 0 0 20">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Background" Value="{DynamicResource Red}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsPressed}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource Gray}"/>
+                                            </DataTrigger>
+                                            <!--<EventTrigger RoutedEvent="MouseDown">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource Gray}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>-->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <!--<Border.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource Gray}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Border.Triggers>-->
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                        Foreground="DimGray"
+                                        Width="24"
+                                        Height="24"
+                                        Margin="16"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Kind="{Binding Icon}" />
+                                        <TextBlock
+                                        Foreground="DimGray"
+                                        FontWeight="SemiBold"
+                                        FontSize="14"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding NavigationHeader, FallbackValue='NavigationHeader'}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <!--<ControlTemplate.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="brdNavigate" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="LightGray"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ControlTemplate.Triggers>-->
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
         <Button
             Height="50"
             Margin="0,0,0,10"
-            Command="{Binding GoToView}">
-            <StackPanel Width="auto" Height="auto">
+            Command="{Binding GoToView}"
+            Style="{StaticResource LeftSideBarButton}">
+            <!--<StackPanel Width="auto" Height="auto">
                 <materialDesign:PackIcon
                     Width="24"
                     Height="24"
                     HorizontalAlignment="Center"
                     Kind="{Binding Icon}" />
                 <TextBlock HorizontalAlignment="Center" Text="{Binding NavigationHeader, FallbackValue='NavigationHeader'}" />
-            </StackPanel>
+            </StackPanel>-->
         </Button>
     </Grid>
 </UserControl>

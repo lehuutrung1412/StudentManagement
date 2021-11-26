@@ -24,9 +24,27 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel>
-            <!--<components:NavigationItem />
-            <components:NavigationDropdownList />-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image
+                Height="40"
+                Margin="8"
+                Source="{StaticResource Logo}" />
+            <TextBlock
+                Foreground="DimGray"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="Bauhaus 93"
+                FontSize="24"
+                FontWeight="Bold"
+                Text="STUMAN" />
+        </StackPanel>
+        <Separator Grid.Row="1" Width="150" Margin="8"/>
+        <StackPanel Grid.Row="2">
             <ItemsControl ItemsSource="{Binding NavigationItems}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -35,7 +53,6 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <!--<component:SubjectClassCard Margin="12" />-->
                         <ContentPresenter Content="{Binding}">
 
                             <!--  Presentations  -->
