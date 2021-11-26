@@ -41,8 +41,8 @@ namespace StudentManagement.ViewModels
 
             }
         }
-        private SubjectClass _selectedClass;
-        public SubjectClass SelectedClass
+        private TempSubjectClass _selectedClass;
+        public TempSubjectClass SelectedClass
         {
             get => _selectedClass; set
             {
@@ -50,8 +50,8 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        private ObservableCollection<SubjectClass> _subjectClasses;
-        public ObservableCollection<SubjectClass> SubjectClasses { get => _subjectClasses; set => _subjectClasses = value; }
+        private ObservableCollection<TempSubjectClass> _subjectClasses;
+        public ObservableCollection<TempSubjectClass> SubjectClasses { get => _subjectClasses; set => _subjectClasses = value; }
 
 
         private object _studentCourseRegistryRightSideBarItemViewModel;
@@ -61,11 +61,11 @@ namespace StudentManagement.ViewModels
         public StudentCourseRegistryRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
-            SubjectClasses = new ObservableCollection<SubjectClass>
+            SubjectClasses = new ObservableCollection<TempSubjectClass>
             {
-                new SubjectClass("IT008.L21.KHTN", "Lập trình trực quan", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new SubjectClass("IT009.L21.KHCL", "Không biết", 2, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new SubjectClass("ENG02.L21", "Anh văn 2", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
+                new TempSubjectClass("IT008.L21.KHTN", "Lập trình trực quan", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
+                new TempSubjectClass("IT009.L21.KHCL", "Không biết", 2, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
+                new TempSubjectClass("ENG02.L21", "Anh văn 2", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
             };
         }
 
@@ -79,7 +79,7 @@ namespace StudentManagement.ViewModels
 
     }
 
-    public class SubjectClass
+    public class TempSubjectClass
     {
         private string _idSubjectClass;
         private string _subjectName;
@@ -88,7 +88,7 @@ namespace StudentManagement.ViewModels
         private DateTime _startDate;
         private DateTime _endDate;
         private string _tKB;
-        public SubjectClass(string idSubjectClass, string subjectName, int credit, string teacherName, DateTime startDate, DateTime endDate, string tKB)
+        public TempSubjectClass(string idSubjectClass, string subjectName, int credit, string teacherName, DateTime startDate, DateTime endDate, string tKB)
         {
             IdSubjectClass = idSubjectClass;
             SubjectName = subjectName;

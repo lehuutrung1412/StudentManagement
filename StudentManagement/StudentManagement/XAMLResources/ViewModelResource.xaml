@@ -25,4 +25,5 @@
     <viewmodel:AdminCourseRegistryViewModel x:Key="AdminCourseRegistryVM" />
     <viewmodel:AdminStudentListViewModel x:Key="AdminStudentListVM" />
     <viewmodel:SettingUserInfoViewModel x:Key="SettingUserInfoVM" />
+    <viewmodel:AdminCourseRegistryRightSideBarViewModel x:Key="AdminCourseRegistryRightSideBarVM" />
 </ResourceDictionary>

@@ -190,7 +190,8 @@
                 <component:SubjectRegistryDataGrid
                     Margin="0,8,0,8"
                     Data="{Binding CourseRegistryItemsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource AdminCourseRegistryRightSideBarVM}}"/>
                 <DockPanel
                     LastChildFill="False">
                     <Button

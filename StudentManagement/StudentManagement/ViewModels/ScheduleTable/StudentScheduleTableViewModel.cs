@@ -10,7 +10,7 @@ namespace StudentManagement.ViewModels
 {
     public class StudentScheduleTableViewModel : BaseViewModel
     {
-        public class CourseClass : SubjectClass
+        public class CourseClass : TempSubjectClass
         {
             private string _day;
             private string _session;

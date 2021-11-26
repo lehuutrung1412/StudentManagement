@@ -30,39 +30,20 @@
                 <RowDefinition
                     Height="auto" />
             </Grid.RowDefinitions>
-            <!--
-            <StackPanel
+            <DockPanel
                 Grid.Row="0">
-                <DockPanel>
-                    <TextBox
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="Chủ đề thông báo"
-                        materialDesign:ValidationAssist.Background="Transparent"
-                        FontSize="24"
-                        FontWeight="Bold"
-                        Text="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged}"
-                        TextWrapping="Wrap">
-                        <TextBox.Style>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignTextBox}"
-                                TargetType="TextBox">
-                                <Style.Triggers>
-                                    <Trigger
-                                        Property="Validation.HasError"
-                                        Value="True">
-                                        <Setter
-                                            Property="materialDesign:HintAssist.Foreground"
-                                            Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
-                </DockPanel>
-
-                
-            </StackPanel>
-            -->
+                <TextBlock
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Chủ đề thông báo"
+                    materialDesign:ValidationAssist.Background="Transparent"
+                    FontSize="24"
+                    Margin="4 4 4 8"
+                    Foreground="{StaticResource Black}"
+                    FontWeight="Bold"
+                    Text="Tạo Lớp Môn Học"
+                    TextWrapping="Wrap">
+                </TextBlock>
+            </DockPanel>
             <ScrollViewer
                 Grid.Row="1"
                 HorizontalScrollBarVisibility="Visible">
@@ -130,6 +111,34 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </Grid>
+                            <Border
+                                Grid.Column="0"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Margin="8"
+                                Padding="0 0 0 8">
+                                <StackPanel>
+                                    <TextBlock
+                                        Text="Mã lớp môn học"
+                                        FontWeight="SemiBold"
+                                        HorizontalAlignment="Center"
+                                        Margin="0, 16, 0, 8"
+                                        FontSize="28" />
+                                    <TextBox
+                                        Text="{Binding SubjectClassCode, Mode=TwoWay, FallbackValue='x.x.x'}"
+                                        FontSize="24"
+                                        HorizontalAlignment="Center"
+                                        Foreground="Crimson"
+                                        FontStyle="Italic"
+                                        Style="{StaticResource MaterialDesignTextBox}" />
+                                </StackPanel>
+                            </Border>
+                            
+                        </StackPanel>
+                        <StackPanel
+                            Margin="12, 0, 0, 0"
+                            Grid.Column="2">
                             <Grid
                                 Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
@@ -149,11 +158,6 @@
                                     ItemsSource="{Binding DayOfWeeks}"
                                     SelectedItem="{Binding SelectedDay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
-
-                        </StackPanel>
-                        <StackPanel
-                            Margin="12, 0, 0, 0"
-                            Grid.Column="2">
                             <Grid
                                 Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
@@ -207,17 +211,8 @@
                                     Style="{StaticResource textbox_item}"
                                     Text="{Binding MaxNumber, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
-                            <CheckBox
-                                Content="Lớp thực hành"
-                                Height="28"
-                                FontSize="14"
-                                VerticalContentAlignment="Center"
-                                FontWeight="Bold"
-                                Foreground="Black"
-                                Opacity="0.8"
-                                Margin="8 32 0 8"
-                                IsChecked="{Binding IsPracticed}">
-                            </CheckBox>
+                            
+
                         </StackPanel>
                     </Grid>
                     <Grid
@@ -226,29 +221,6 @@
                             <ColumnDefinition />
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
-                        <Border
-                            Grid.Column="0"
-                            BorderBrush="Gray"
-                            BorderThickness="1"
-                            CornerRadius="8"
-                            Margin="8"
-                            Padding="0 0 0 8">
-                            <StackPanel>
-                                <TextBlock
-                                    Text="Mã lớp môn học"
-                                    FontWeight="SemiBold"
-                                    HorizontalAlignment="Center"
-                                    Margin="0, 16, 0, 8"
-                                    FontSize="28" />
-                                <TextBox
-                                    Text="{Binding SubjectClassCode, Mode=TwoWay, FallbackValue='x.x.x'}"
-                                    FontSize="24"
-                                    HorizontalAlignment="Center"
-                                    Foreground="Crimson"
-                                    FontStyle="Italic"
-                                    Style="{StaticResource MaterialDesignTextBox}" />
-                            </StackPanel>
-                        </Border>
                         <StackPanel
                             Grid.Column="1"
                             Margin="4,0,16,4"
