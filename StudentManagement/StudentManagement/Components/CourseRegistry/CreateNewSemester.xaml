@@ -78,7 +78,7 @@
                 VerticalAlignment="Center"
                 Foreground="Green"
                 Kind="Check"
-                Opacity="{Binding OpacityDone, FallbackValue=0., Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Visibility="{Binding IsDoneVisible, Converter={utils:BooleanToVisibilityConverter}}"
                 Style="{StaticResource AutoDecreaseOpacityPackIcon}"/>
             <materialDesign:PackIcon
                 Grid.Column="1"
@@ -88,7 +88,7 @@
                 VerticalAlignment="Center"
                 Foreground="{DynamicResource ErrorLight}"
                 Kind="Cancel"
-                Opacity="{Binding OpacityError, FallbackValue=0., Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                Visibility="{Binding IsErrorVisible, Converter={utils:BooleanToVisibilityConverter}}"
                 Style="{StaticResource AutoDecreaseOpacityPackIcon}"/>
         </Grid>
     </StackPanel>

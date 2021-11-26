@@ -667,7 +667,7 @@
     <Style x:Key="AutoDecreaseOpacityPackIcon" TargetType="materialDesign:PackIcon">
         <Style.Triggers>
             <Trigger
-                Property="materialDesign:PackIcon.Opacity" Value="1.0">
+                Property="IsVisible" Value="True">
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
@@ -680,6 +680,13 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
+            </Trigger>
+            <Trigger
+                Property="Opacity"
+                Value="0.0">
+                <Setter
+                    Property="Visibility"
+                    Value="Hidden" />
             </Trigger>
         </Style.Triggers>
     </Style>

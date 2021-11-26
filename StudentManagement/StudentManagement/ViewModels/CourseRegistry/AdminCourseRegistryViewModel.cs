@@ -124,10 +124,10 @@ namespace StudentManagement.ViewModels
         private string _newSemesterName;
         public string NewSemesterName { get => _newSemesterName; set { _newSemesterName = value; OnPropertyChanged(); } }
 
-        private double _opacityDone;
-        private double _opacityError;
-        public double OpacityDone { get => _opacityDone; set { _opacityDone = value; OnPropertyChanged(); } }
-        public double OpacityError { get => _opacityError; set { _opacityError = value; OnPropertyChanged();} }
+        private bool _isDoneVisible;
+        private bool _isErrorVisible;
+        public bool IsDoneVisible { get => _isDoneVisible; set { _isDoneVisible = value; OnPropertyChanged(); } }
+        public bool IsErrorVisible { get => _isErrorVisible; set { _isErrorVisible = value; OnPropertyChanged(); } }
         #endregion
         #endregion
         #region commands
@@ -145,9 +145,7 @@ namespace StudentManagement.ViewModels
         public ICommand StopSemesterCommand { get; set; }
         public ICommand CreateNewSemesterCommand { get; set; }
         public ICommand AddFromExcelCommand { get; set; }
-
-
-
+        
 
         #endregion
 
@@ -195,8 +193,8 @@ namespace StudentManagement.ViewModels
             CreateNewBatch();
             SelectedBatch = Batches.Last();
 
-            OpacityDone = 1.0;
-            OpacityError = 1.0;
+            IsDoneVisible = false;
+            IsErrorVisible = false;
         }
         public void InitCommand()
         {
@@ -284,7 +282,7 @@ namespace StudentManagement.ViewModels
             try
             {
                 Semesters.Add(new Semester() { Batch = SelectedBatch, CourseRegisterStatus = 0, DisplayName = NewSemesterName });
-                OpacityDone = 1.0;
+                IsDoneVisible = true;
                 var courseItemsNewSemester = new ObservableCollection<CourseRegistryItem>() { };
                 CourseRegistryItemsAll.Add(courseItemsNewSemester);
                 SelectedSemester = Semesters.Last();
@@ -292,7 +290,7 @@ namespace StudentManagement.ViewModels
             }
             catch
             {
-                OpacityError = 1.0;
+                IsErrorVisible = true;
             }
         }
 
