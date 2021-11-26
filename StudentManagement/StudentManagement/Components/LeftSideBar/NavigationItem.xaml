@@ -24,74 +24,65 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Name="brdNavigate" CornerRadius="20 0 0 20">
+                            <Border Name="brdNavigate" CornerRadius="20">
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
-                                        <Setter Property="Background" Value="{DynamicResource Red}"/>
+                                        <Setter Property="Background" Value="{DynamicResource Transparent}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsPressed}" Value="True">
-                                                <Setter Property="Background" Value="{DynamicResource Gray}"/>
+                                                <Setter Property="Background" Value="{DynamicResource PrimaryMain}" />
                                             </DataTrigger>
-                                            <!--<EventTrigger RoutedEvent="MouseDown">
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background">
-                                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource Gray}" />
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>-->
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <!--<Border.Triggers>
-                                    <EventTrigger RoutedEvent="MouseEnter">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background">
-                                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource Gray}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </Border.Triggers>-->
                                 <Grid>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon
-                                        Foreground="DimGray"
-                                        Width="24"
-                                        Height="24"
-                                        Margin="16"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Kind="{Binding Icon}" />
+                                            Width="24"
+                                            Height="24"
+                                            Margin="12"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Kind="{Binding Icon}">
+                                            <materialDesign:PackIcon.Style>
+                                                <Style TargetType="{x:Type materialDesign:PackIcon}">
+                                                    <Setter Property="Foreground" Value="Gray" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsPressed}" Value="True">
+                                                            <Setter Property="Foreground" Value="{DynamicResource White}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </materialDesign:PackIcon.Style>
+                                        </materialDesign:PackIcon>
                                         <TextBlock
-                                        Foreground="DimGray"
-                                        FontWeight="SemiBold"
-                                        FontSize="14"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding NavigationHeader, FallbackValue='NavigationHeader'}" />
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Text="{Binding NavigationHeader, FallbackValue='NavigationHeader'}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MaterialDesignTextBlock}">
+                                                    <Setter Property="Foreground" Value="Gray" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsPressed}" Value="True">
+                                                            <Setter Property="Foreground" Value="{DynamicResource White}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </StackPanel>
                                 </Grid>
                             </Border>
-                            <!--<ControlTemplate.Triggers>
-                                <EventTrigger RoutedEvent="MouseEnter">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation Storyboard.TargetName="brdNavigate" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="LightGray"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </ControlTemplate.Triggers>-->
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
         </Grid.Resources>
         <Button
-            Height="50"
-            Margin="0,0,0,10"
+            Height="40"
+            Margin="8"
             Command="{Binding GoToView}"
             Style="{StaticResource LeftSideBarButton}">
             <!--<StackPanel Width="auto" Height="auto">
