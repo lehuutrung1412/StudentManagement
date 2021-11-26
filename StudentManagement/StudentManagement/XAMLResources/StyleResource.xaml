@@ -663,4 +663,25 @@
             Property="materialDesign:ComboBoxAssist.ShowSelectedItem"
             Value="True" />
     </Style>-->
+
+    <Style x:Key="AutoDecreaseOpacityPackIcon" TargetType="materialDesign:PackIcon">
+        <Style.Triggers>
+            <Trigger
+                Property="materialDesign:PackIcon.Opacity" Value="1.0">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                AutoReverse="False"
+                                Storyboard.TargetProperty="Opacity"
+                                From="1.0"
+                                To="0.0"
+                                Duration="0:0:2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

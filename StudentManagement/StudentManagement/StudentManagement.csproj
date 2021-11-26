@@ -80,6 +80,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\CourseRegistry\CreateNewSemester.xaml.cs">
+      <DependentUpon>CreateNewSemester.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\ListStudents\AdminListStudentDataGrid.xaml.cs">
       <DependentUpon>AdminListStudentDataGrid.xaml</DependentUpon>
     </Compile>
@@ -419,6 +422,10 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\CourseRegistry\CreateNewSemester.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\ListStudents\AdminListStudentDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

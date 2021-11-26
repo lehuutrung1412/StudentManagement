@@ -93,7 +93,7 @@
                             Background="Transparent"
                             BorderThickness="0"
                             DockPanel.Dock="Left">
-                            
+
                             <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                                 <materialDesign:PopupBox.ToggleContent>
                                     <materialDesign:PackIcon Kind="Hammer" />
@@ -120,7 +120,20 @@
                                 </StackPanel>
                             </materialDesign:PopupBox>
                         </Button>
-                        <Button Content="Thêm học kỳ" DockPanel.Dock="Right" />
+                        <Button DockPanel.Dock="Right">
+                            <materialDesign:PopupBox
+                                PlacementMode="BottomAndAlignRightEdges"
+                                PopupMode="Click"
+                                StaysOpen="True">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="White"
+                                        Text="Tạo học kỳ" />
+                                </materialDesign:PopupBox.ToggleContent>
+                                <component:CreateNewSemester />
+                            </materialDesign:PopupBox>
+                        </Button>
                     </DockPanel>
                 </Grid>
                 <Grid>
@@ -177,7 +190,8 @@
                     Margin="0,8,0,8"
                     Data="{Binding CourseRegistryItemsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                <DockPanel LastChildFill="False">
+                <DockPanel
+                    LastChildFill="False">
                     <Button
                         Width="150"
                         Margin="16,0,0,0"

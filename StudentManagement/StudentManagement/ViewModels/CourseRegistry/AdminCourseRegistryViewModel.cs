@@ -109,6 +109,22 @@ namespace StudentManagement.ViewModels
             }
         }
         public object _creatNewCourseViewModel;
+
+        #region CreateNewSemester
+        private ObservableCollection<string> _batches;
+        public ObservableCollection<string> Batches { get => _batches; set => _batches = value; }
+
+        private string _selectedBatch;
+        public string SelectedBatch { get => _selectedBatch; set { _selectedBatch = value; OnPropertyChanged(); } }
+
+        private string _newSemesterName;
+        public string NewSemesterName { get => _newSemesterName; set { _newSemesterName = value; OnPropertyChanged(); } }
+
+        private double _opacityDone;
+        private double _opacityError;
+        public double OpacityDone { get => _opacityDone; set { _opacityDone = value; OnPropertyChanged(); } }
+        public double OpacityError { get => _opacityError; set { _opacityError = value; OnPropertyChanged();} }
+        #endregion
         #endregion
         #region commands
         public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
@@ -123,6 +139,12 @@ namespace StudentManagement.ViewModels
         public ICommand OpenSemesterCommand { get; set; }
         public ICommand PauseSemesterCommand { get; set; }
         public ICommand StopSemesterCommand { get; set; }
+
+        public ICommand CreateNewSemesterCommand { get; set; }
+        
+
+
+
         #endregion
 
         public AdminCourseRegistryViewModel()
@@ -155,10 +177,30 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItemsAll.Add(courseItems1Semester);
             }
             SelectedSemester = Semesters.Last();
+            InitCreateNewSemesterProperty();
             InitCommand();
             
         }
 
+        public void InitCreateNewSemesterProperty()
+        {
+            var temp = Semesters.Select(x => x.Batch).Distinct().ToList();
+            Batches = new ObservableCollection<string>(temp);
+            NewSemesterName = "Học kỳ 1";
+
+            //Tạo thêm 1 batch mới cho Batches
+            string defaultNewBatch = "";
+            foreach(string year in Batches.Last().Split('-'))
+            {
+                defaultNewBatch += Convert.ToString(Convert.ToInt32(year) + 1) + '-';
+            }
+            defaultNewBatch = defaultNewBatch.Remove(defaultNewBatch.Length-1);
+            Batches.Add(defaultNewBatch);
+            SelectedBatch = Batches.Last();
+
+            OpacityDone = 1.0;
+            OpacityError = 1.0;
+        }
         public void InitCommand()
         {
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
@@ -173,17 +215,21 @@ namespace StudentManagement.ViewModels
                     DeleteSelectedItems();
                 });
             CreateNewCourseCommand = new RelayCommand<object>((p) => {
-                if (SelectedSemester == null)
-                    return true;
-                if (SelectedSemester.CourseRegisterStatus > 0)
-                {
-                    return false;
-                }
-                return true;
+                return !(SelectedSemester.CourseRegisterStatus > 0);
             }, (p) => CreateNewCourse());
             OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 1);
             PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 0);
             StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 2);
+
+            CreateNewSemesterCommand = new RelayCommand<object>((p) =>
+            {
+                if (String.IsNullOrEmpty(SelectedBatch) || String.IsNullOrEmpty(NewSemesterName))
+                    return false;
+                if (Semesters.Where(x => x.Batch.Replace(" ", "") == SelectedBatch.Replace(" ", "")).
+                                Where(y => y.DisplayName.Replace(" ", "") == NewSemesterName.Replace(" ", "")).Count() > 0)
+                    return false;
+                return true;
+            }, (p) => CreateNewSemester());
         }
         public void SelectData()
         {
@@ -228,6 +274,23 @@ namespace StudentManagement.ViewModels
             CourseRegistryItem newCard = new CourseRegistryItem(false, "", "", 0, 0, 0);
             _creatNewCourseViewModel = new CreateNewCourseViewModel(newCard, SelectedSemester, CourseRegistryItems);
             this.DialogItemViewModel = this._creatNewCourseViewModel;
+        }
+
+        public void CreateNewSemester()
+        {
+            /*Thiếu cập nhật database*/
+            try
+            {
+                Semesters.Add(new Semester() { Batch = SelectedBatch, CourseRegisterStatus = 0, DisplayName = NewSemesterName });
+                OpacityDone = 1.0;
+                var courseItemsNewSemester = new ObservableCollection<CourseRegistryItem>() { };
+                CourseRegistryItemsAll.Add(courseItemsNewSemester);
+                SelectedSemester = Semesters.Last();
+            }
+            catch
+            {
+                OpacityError = 1.0;
+            }
         }
     }
 }

@@ -168,6 +168,7 @@
                                     Text="Tiết" />
                                 <TextBox
                                     Grid.Row="1"
+                                    AcceptsReturn="False"
                                     materialDesign:HintAssist.Hint="Nhập tiết (Vd: 8910)"
                                     Text="{Binding Period, UpdateSourceTrigger=PropertyChanged}">
                                     <TextBox.Style>
@@ -201,6 +202,7 @@
                                     Text="Sĩ số tối đa" />
                                 <TextBox
                                     Grid.Row="1"
+                                    AcceptsReturn="False"
                                     materialDesign:HintAssist.Hint="Nhập số sinh viên tối đa"
                                     Style="{StaticResource textbox_item}"
                                     Text="{Binding MaxNumber, UpdateSourceTrigger=PropertyChanged}" />
