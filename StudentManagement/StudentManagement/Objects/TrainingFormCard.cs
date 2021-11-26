@@ -14,7 +14,10 @@ namespace StudentManagement.Objects
         private bool _isDeleted;
         private Guid _id;
 
-        public TrainingFormCard() { }
+        public TrainingFormCard()
+        {
+            Id = Guid.NewGuid();
+        }
 
         public TrainingFormCard(Guid id, string displayName, int numberOfFaculties, int numberOfStudents)
         {

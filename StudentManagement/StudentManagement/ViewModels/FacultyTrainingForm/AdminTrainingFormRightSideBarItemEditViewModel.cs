@@ -74,6 +74,8 @@ namespace StudentManagement.ViewModels
                 AdminFacultyTrainingFormViewModel.TrainingFormCards.Insert(1, ActualCard);
             }
 
+            TrainingFormServices.Instance.SaveTrainingFormCardToDatabase(ActualCard);
+
             ActualCard.RunOnPropertyChanged();
             ReturnToShowTrainingFormCardInfo();
         }

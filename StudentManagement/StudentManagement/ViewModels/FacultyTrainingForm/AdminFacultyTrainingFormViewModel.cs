@@ -82,14 +82,20 @@ namespace StudentManagement.ViewModels
         #region methods
         public void LoadTrainingFormCard()
         {
-            TrainingFormCards = new ObservableCollection<IBaseCard>() {
-                new EmptyCard(),
-                new TrainingFormCard(Guid.NewGuid(), "Chương trình chất lượng cao", 5, 1200) ,
-                new TrainingFormCard(Guid.NewGuid(), "Chương trình tiên tiến", 3, 1123),
-                new TrainingFormCard(Guid.NewGuid(), "Chương trình đại trà", 10, 3000),
-                new TrainingFormCard(Guid.NewGuid(), "Chương trình chất lượng cao", 5, 1200),
-                new TrainingFormCard(Guid.NewGuid(), "Chương trình đại trà", 10, 3000),
-            };
+            //TrainingFormCards = new ObservableCollection<IBaseCard>() {
+            //    new EmptyCard(),
+            //    new TrainingFormCard(Guid.NewGuid(), "Chương trình chất lượng cao", 5, 1200) ,
+            //    new TrainingFormCard(Guid.NewGuid(), "Chương trình tiên tiến", 3, 1123),
+            //    new TrainingFormCard(Guid.NewGuid(), "Chương trình đại trà", 10, 3000),
+            //    new TrainingFormCard(Guid.NewGuid(), "Chương trình chất lượng cao", 5, 1200),
+            //    new TrainingFormCard(Guid.NewGuid(), "Chương trình đại trà", 10, 3000),
+            //};
+
+            var trainingForms = TrainingFormServices.Instance.LoadTrainingFormList();
+
+            TrainingFormCards = new ObservableCollection<IBaseCard> { new EmptyCard() };
+
+            trainingForms.ToList().ForEach(trainingForm => TrainingFormCards.Add(TrainingFormServices.Instance.ConvertTrainingFormToTrainingFormCard(trainingForm)));
         }
 
         public void LoadFacultyCard()
