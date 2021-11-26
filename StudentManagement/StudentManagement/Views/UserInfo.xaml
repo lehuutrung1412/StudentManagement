@@ -26,8 +26,9 @@
         <materialDesign:DialogHost
             Name="DialogHostUserInfo"
             CloseOnClickAway="True"
+            VerticalContentAlignment="Center"
             IsOpen="{Binding IsOpen}">
-            <materialDesign:DialogHost.DialogContent>
+            <materialDesign:DialogHost.DialogContent >
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource UserInfoVM}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewmodels:UserInfoItemViewModel}">
@@ -110,19 +111,20 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Grid.Column="0"
+                            FontWeight="Bold"
                             Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                             Text="Thông tin sinh viên" />
                         <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
+                                <ColumnDefinition  />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Button
+                            <!--<Button
                                 Grid.Column="0"
-                                Margin="0,0,8,0"
+                                 Margin="0,0,8,0"
                                 Command="{Binding AddNewInfoItemCommand}"
                                 Content="Thêm thông tin"
-                                Style="{StaticResource PrimaryButton}" />
+                                Style="{StaticResource PrimaryButton}" />-->
                             <Button
                                 Name="btnUpdate"
                                 Grid.Column="1"
@@ -152,7 +154,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
 
-                                    <ContentPresenter Content="{Binding}">
+                                    <ContentPresenter Content="{Binding}" Margin="0 4">
                                         <ContentPresenter.Resources>
                                             <DataTemplate x:Key="Combobox">
                                                 <component:UserCombobox />

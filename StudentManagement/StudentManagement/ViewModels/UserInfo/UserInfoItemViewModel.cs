@@ -76,7 +76,8 @@ namespace StudentManagement.ViewModels
             CurrendInfo.STT = UserInfoViewModel.Instance.InfoSource.LastOrDefault().STT + 1;
             UserInfoViewModel.Instance.InfoSource.Add(CurrendInfo);
             UserInfoViewModel.Instance.InfoSource.OrderBy(x => x.STT).ToList();
-            UserInfoViewModel.Instance.IsOpen = false;
+            SettingUserInfoViewModel.Instance.IsOpen = false;
+            SettingUserInfoViewModel.Instance.ReloadInfoSource();
         }
         public void DeleteItem(TextBox p)
         {

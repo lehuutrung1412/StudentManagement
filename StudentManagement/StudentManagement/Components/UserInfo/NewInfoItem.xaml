@@ -57,29 +57,31 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock
+                            VerticalAlignment="Center"
                             HorizontalAlignment="Stretch"
                             FontSize="16"
                             FontWeight="SemiBold"
                             Text="Loại thông tin" />
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Border Background="Transparent" Style="{StaticResource BorderStyle}">
-                            <ComboBox
+                        <ComboBox
                                 materialDesign:HintAssist.Hint="Loại thông tin"
                                 materialDesign:TextFieldAssist.HasClearButton="True"
                                 ItemsSource="{Binding ListTypeControl, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
                                 SelectedItem="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}">
-                                <ComboBox.Style>
-                                    <Style BasedOn="{StaticResource ComboboxInfo}" TargetType="ComboBox">
-                                        <Style.Triggers>
-                                            <Trigger Property="Validation.HasError" Value="True">
-                                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-                            </ComboBox>
-                        </Border>
+                            <ComboBox.Style>
+                                <Style BasedOn="{StaticResource combobox_item}" TargetType="ComboBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
+                        <!--<Border Background="Transparent" Style="{StaticResource BorderStyle}">
+
+                        </Border>-->
 
                     </Grid>
                 </Grid>
@@ -90,30 +92,32 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock
+                            VerticalAlignment="Center"
                             HorizontalAlignment="Stretch"
                             FontSize="16"
                             FontWeight="SemiBold"
                             Text="Đối tượng áp dụng" />
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Border Background="Transparent" Style="{StaticResource BorderStyle}">
-                            <ComboBox
+                        <ComboBox
                                 Grid.ColumnSpan="2"
                                 materialDesign:HintAssist.Hint="Đối tượng áp dụng"
                                 materialDesign:TextFieldAssist.HasClearButton="True"
                                 ItemsSource="{Binding ListTypeUser, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
                                 SelectedItem="{Binding TypeUser, UpdateSourceTrigger=PropertyChanged}">
-                                <ComboBox.Style>
-                                    <Style BasedOn="{StaticResource ComboboxInfo}" TargetType="ComboBox">
-                                        <Style.Triggers>
-                                            <Trigger Property="Validation.HasError" Value="True">
-                                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-                            </ComboBox>
-                        </Border>
+                            <ComboBox.Style>
+                                <Style BasedOn="{StaticResource combobox_item}" TargetType="ComboBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
+                        <!--<Border Background="Transparent" Style="{StaticResource BorderStyle}">
+                           
+                        </Border>-->
 
                     </Grid>
 

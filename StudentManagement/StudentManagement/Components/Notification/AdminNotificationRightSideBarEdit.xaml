@@ -44,11 +44,11 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
                         FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Tên chủ đề" />
+                        Style="{StaticResource  LabelText}"
+                        Content="Tên chủ đề" />
 
                     <TextBox
                         Grid.Row="1"
@@ -63,11 +63,11 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
                         FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Người đăng" />
+                        Style="{StaticResource LabelText}"
+                        Content="Người đăng" />
 
                     <TextBox
                         Grid.Row="1"
@@ -84,11 +84,11 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
                         FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Ngày đăng" />
+                        Style="{StaticResource LabelText}"
+                        Content="Ngày đăng" />
 
                     <DatePicker
                         Grid.Row="1"
@@ -104,11 +104,11 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
                         FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Loại bài đăng" />
+                        Style="{StaticResource LabelText}"
+                        Content="Loại bài đăng" />
 
                     <ComboBox
                         Grid.Row="1"

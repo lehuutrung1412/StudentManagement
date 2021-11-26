@@ -36,6 +36,7 @@ namespace StudentManagement.ViewModels
 
             public InfoItem()
             {
+                Id = Guid.NewGuid();
                 IsEnable = true;
             }
 
@@ -213,7 +214,8 @@ namespace StudentManagement.ViewModels
         }
         public void ClickImage()
         {
-            IsChangeAvatar = true;
+            IsChangeAvatar = !IsChangeAvatar;
+
         }
         public void ClickChangeImage()
         {
@@ -227,6 +229,7 @@ namespace StudentManagement.ViewModels
                 Avatar = op.FileName;
                 IsChangeAvatar = false;
             }
+            IsChangeAvatar = false;
         }
 
     }

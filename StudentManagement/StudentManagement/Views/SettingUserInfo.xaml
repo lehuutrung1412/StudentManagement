@@ -23,43 +23,67 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <ScrollViewer>
-        <Grid Margin="16,8">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*" />
-                <RowDefinition Height="10*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="0 8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="Cài đặt thông tin sinh viên" />
+        <materialDesign:DialogHost
+            Name="DialogHostUserInfo"
+            VerticalContentAlignment="Center"
+            CloseOnClickAway="True"
+            IsOpen="{Binding IsOpen}">
+            <materialDesign:DialogHost.DialogContent>
+                <component:NewInfoItem MinWidth="600" DataContext="{Binding AddNewInfoItem}" />
+            </materialDesign:DialogHost.DialogContent>
+            <Grid Margin="16,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontWeight="Bold"
+                            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                            Text="Cài đặt thông tin sinh viên" />
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding AddNewInfoItemCommand}"
+                            Content="Thêm thông tin"
+                            Style="{StaticResource PrimaryButton}" />
+                    </Grid>
                 </Grid>
-            </Grid>
 
-            <materialDesign:Card Grid.Row="1" Margin="0 8">
-                <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <component:SettingInfoItem MinWidth="600" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </materialDesign:Card>
-            <Button
-                Grid.Row="2"
-                HorizontalAlignment="Right"
-                Content="Xác nhận"
-                Command="{Binding ConfirmSettingCommand}"
-                Style="{StaticResource PrimaryButton}" />
-        </Grid>
+                <materialDesign:Card Grid.Row="1" Margin="0,8">
+                    <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <component:SettingInfoItem MinWidth="600" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </materialDesign:Card>
+                <Button
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    Command="{Binding ConfirmSettingCommand}"
+                    Content="Xác nhận"
+                    Style="{StaticResource PrimaryButton}" />
+            </Grid>
+        </materialDesign:DialogHost>
+
 
     </ScrollViewer>
 </UserControl>
