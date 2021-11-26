@@ -84,15 +84,13 @@
                             <ComboBox
                                 x:Name="cbTypeNotification"
                                 Height="36"
-                                Margin="8,8"
-                                Padding="4"
+                                Margin="8,4"
                                 materialDesign:HintAssist.Hint="Chọn loại thông báo"
-                                BorderBrush="Gray"
                                 FontSize="16"
-                                Foreground="#01579b"
+                                Foreground="Black"
                                 ItemsSource="{Binding TypeInMain, Source={StaticResource AdminNotificationVM}}"
                                 SelectedItem="{Binding SearchType}"
-                                Style="{StaticResource MaterialDesignComboBox}">
+                                Style="{StaticResource ComboboxInfo}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="DropDownClosed">
                                         <i:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=cbTypeNotification}" />

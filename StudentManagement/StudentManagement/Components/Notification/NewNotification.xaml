@@ -80,6 +80,7 @@
                             Padding="8,4,8,4"
                             materialDesign:HintAssist.Hint="Chọn loại thông báo"
                             materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:HintAssist.IsFloating ="False"
                             materialDesign:ValidationAssist.Background="Transparent"
                             BorderBrush="Gray"
                             FontSize="14"
