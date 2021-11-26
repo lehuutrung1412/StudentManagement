@@ -1,5 +1,8 @@
-﻿using System;
+﻿using StudentManagement.Models;
+using StudentManagement.Services;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,8 @@ namespace StudentManagement.Objects
         private int _numberOfStudents;
         private bool _isDeleted;
         private Guid _id;
+        public ObservableCollection<Faculty> TrainingFormsOfFacultyList = new ObservableCollection<Faculty>();
+
 
         public TrainingFormCard()
         {
@@ -25,6 +30,10 @@ namespace StudentManagement.Objects
             DisplayName = displayName;
             NumberOfFaculties = numberOfFaculties;
             NumberOfStudents = numberOfStudents;
+
+            var tempTrainingForm = TrainingFormServices.Instance.FindTrainingFormByTrainingFormId(Id);
+
+            TrainingFormsOfFacultyList = new ObservableCollection<Faculty>(Faculty_TrainingFormServices.Instance.LoadFacultyByTrainingForm(tempTrainingForm));
         }
 
         public string DisplayName { get => _displayName; set => _displayName = value; }

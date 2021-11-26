@@ -332,6 +332,7 @@
     <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
     <Compile Include="Services\FacultyServies.cs" />
+    <Compile Include="Services\Faculty_TrainingFormServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Services\TrainingFormServices.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
