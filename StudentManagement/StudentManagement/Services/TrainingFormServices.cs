@@ -92,5 +92,29 @@ namespace StudentManagement.Services
 
             SaveTrainingFormToDatabase(trainingForm);
         }
+
+        /// <summary>
+        /// Remove TrainingForm From Database
+        /// </summary>
+        /// <param name="traingingForm"></param>
+        public void RemoveTrainingFormFromDatabase(TrainingForm traingingForm)
+        {
+            TrainingForm savedTrainingForm = FindTrainingFormByTrainingFormId(traingingForm.Id);
+
+            DataProvider.Instance.Database.TrainingForms.Remove(savedTrainingForm);
+
+            DataProvider.Instance.Database.SaveChanges();
+        }
+
+        /// <summary>
+        /// Remove TrainingFormCard From Database
+        /// </summary>
+        /// <param name="traingingFormCard"></param>
+        public void RemoveTrainingFormCardFromDatabase(TrainingFormCard traingingFormCard)
+        {
+            TrainingForm traingingForm = ConvertTrainingFormCardToTrainingForm(traingingFormCard);
+
+            RemoveTrainingFormFromDatabase(traingingForm);
+        }
     }
 }

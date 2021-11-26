@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -180,6 +181,8 @@ namespace StudentManagement.ViewModels
             FacultyCards.Remove(card);
             StoredFacultyCards.Remove(card);
 
+            FacultyServices.Instance.RemoveFacultyCardFromDatabase(card);
+
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
         public void DeleteTrainingFormCardByCardFunction(object p)
@@ -187,6 +190,8 @@ namespace StudentManagement.ViewModels
             TrainingFormCard card = p as TrainingFormCard;
 
             TrainingFormCards.Remove(card);
+
+            TrainingFormServices.Instance.RemoveTrainingFormCardFromDatabase(card);
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }

@@ -93,5 +93,29 @@ namespace StudentManagement.Services
 
             SaveFacultyToDatabase(faculty);
         }
+
+        /// <summary>
+        /// Remove Faculty From Database
+        /// </summary>
+        /// <param name="faculty"></param>
+        public void RemoveFacultyFromDatabase(Faculty faculty)
+        {
+            Faculty savedFaculty = FindFacultyByFacultyId(faculty.Id);
+
+            DataProvider.Instance.Database.Faculties.Remove(savedFaculty);
+
+            DataProvider.Instance.Database.SaveChanges();
+        }
+
+        /// <summary>
+        /// Remove FacultyCard From Database
+        /// </summary>
+        /// <param name="facultyCard"></param>
+        public void RemoveFacultyCardFromDatabase(FacultyCard facultyCard)
+        {
+            Faculty faculty = ConvertFacultyCardToFaculty(facultyCard);
+
+            RemoveFacultyFromDatabase(faculty);
+        }
     }
 }
