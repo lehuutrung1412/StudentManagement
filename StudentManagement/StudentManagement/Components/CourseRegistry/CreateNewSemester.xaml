@@ -26,6 +26,7 @@
                 Text="Năm học" />
             <ComboBox
                 Grid.Row="1"
+                materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                 materialDesign:HintAssist.Hint="Chọn năm học"
                 ItemsSource="{Binding Batches}"
                 SelectedItem="{Binding SelectedBatch, UpdateSourceTrigger=PropertyChanged}"

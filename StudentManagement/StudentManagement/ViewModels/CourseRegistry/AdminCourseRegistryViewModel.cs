@@ -1,13 +1,17 @@
-﻿using StudentManagement.Commands;
+﻿using ExcelDataReader;
+using StudentManagement.Commands;
 using StudentManagement.Models;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using static StudentManagement.ViewModels.StudentCourseRegistryViewModel;
 
@@ -139,9 +143,9 @@ namespace StudentManagement.ViewModels
         public ICommand OpenSemesterCommand { get; set; }
         public ICommand PauseSemesterCommand { get; set; }
         public ICommand StopSemesterCommand { get; set; }
-
         public ICommand CreateNewSemesterCommand { get; set; }
-        
+        public ICommand AddFromExcelCommand { get; set; }
+
 
 
 
@@ -188,14 +192,7 @@ namespace StudentManagement.ViewModels
             Batches = new ObservableCollection<string>(temp);
             NewSemesterName = "Học kỳ 1";
 
-            //Tạo thêm 1 batch mới cho Batches
-            string defaultNewBatch = "";
-            foreach(string year in Batches.Last().Split('-'))
-            {
-                defaultNewBatch += Convert.ToString(Convert.ToInt32(year) + 1) + '-';
-            }
-            defaultNewBatch = defaultNewBatch.Remove(defaultNewBatch.Length-1);
-            Batches.Add(defaultNewBatch);
+            CreateNewBatch();
             SelectedBatch = Batches.Last();
 
             OpacityDone = 1.0;
@@ -203,9 +200,9 @@ namespace StudentManagement.ViewModels
         }
         public void InitCommand()
         {
-            SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
+            SwitchSearchButton = new RelayCommand<object>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchCourseRegistryItems = new RelayCommand<object>((p) => { return true; }, (p) => SearchCourseRegistryItemsFunction());
-            DeleteSelectedItemsCommand = new RelayCommand<UserControl>(
+            DeleteSelectedItemsCommand = new RelayCommand<object>(
                 (p) =>
                 {
                     return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0;
@@ -230,13 +227,18 @@ namespace StudentManagement.ViewModels
                     return false;
                 return true;
             }, (p) => CreateNewSemester());
+
+            AddFromExcelCommand = new RelayCommand<object>((p) =>
+            {
+                return !(SelectedSemester.CourseRegisterStatus > 0);
+            }, (p) => AddFromExcel());
         }
         public void SelectData()
         {
             CourseRegistryItems = CourseRegistryItemsAll[SelectedSemesterIndex];
             CourseRegistryItemsDisplay = CourseRegistryItems;
         }
-        public void SwitchSearchButtonFunction(UserControl p)
+        public void SwitchSearchButtonFunction(object p)
         {
             IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
@@ -286,11 +288,62 @@ namespace StudentManagement.ViewModels
                 var courseItemsNewSemester = new ObservableCollection<CourseRegistryItem>() { };
                 CourseRegistryItemsAll.Add(courseItemsNewSemester);
                 SelectedSemester = Semesters.Last();
+                CreateNewBatch();
             }
             catch
             {
                 OpacityError = 1.0;
             }
+        }
+
+        public void CreateNewBatch()
+        {
+            string defaultNewBatch = "";
+            foreach (string year in Batches.Last().Split('-'))
+            {
+                defaultNewBatch += Convert.ToString(Convert.ToInt32(year) + 1) + '-';
+            }
+            defaultNewBatch = defaultNewBatch.Remove(defaultNewBatch.Length - 1);
+            Batches.Add(defaultNewBatch);
+        }
+        DataTableCollection dataSheets;
+        public void AddFromExcel()
+        {
+            
+            using (OpenFileDialog op = new OpenFileDialog() { Filter = "Excel|*.xls;*.xlsx;" })
+            {
+                if (op.ShowDialog() == DialogResult.OK)
+                {
+                    using (var stream = File.Open(op.FileName, FileMode.Open, FileAccess.Read))
+                    {
+                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                        {
+                            DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                            {
+                                ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                            });
+                            dataSheets = result.Tables;
+                        }
+                    }
+                }
+            }
+            /*DataTable data = dataSheets[dataSheets.Cast<DataTable>().Select(t=>t.TableName).Last().ToString()];*/
+            DataTable data = dataSheets[0];
+
+            ObservableCollection<CourseRegistryItem> excelList = new ObservableCollection<CourseRegistryItem>();
+            foreach(DataRow course in data.Rows)
+            {
+                var temp = new CourseRegistryItem(false, 
+                                                    Convert.ToString(course[0]), 
+                                                    Convert.ToString(course[1]), 
+                                                    Convert.ToInt32(course[2]), 
+                                                    Convert.ToInt32(course[3]), 
+                                                    0);
+                excelList.Add(temp);
+            }
+            CourseRegistryItemsAll[SelectedSemesterIndex] = excelList;
+            SelectData();
+            /*CourseRegistryItems = excelList;*/
         }
     }
 }

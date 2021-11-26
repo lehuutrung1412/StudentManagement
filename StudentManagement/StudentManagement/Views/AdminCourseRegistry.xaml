@@ -162,6 +162,7 @@
                         Content="Thêm từ Excel"
                         DockPanel.Dock="Right"
                         FontSize="14"
+                        Command="{Binding AddFromExcelCommand}"
                         Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
