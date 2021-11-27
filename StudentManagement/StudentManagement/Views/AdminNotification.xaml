@@ -48,18 +48,27 @@
                         Text="Danh sách lớp môn học" />
                     <Grid Height="56" Margin="16">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="209*" />
-                            <ColumnDefinition Width="865*" />
-                            <ColumnDefinition Width="430*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1.5*" />
                         </Grid.ColumnDefinitions>
-                        <component:AdminNotificationSearchBar
+                        <component:SearchBarOne
+                            Grid.Column="0"
+                            DataContext="{DynamicResource AdminNotificationVM}"
+                            FirstSearchButtonVisibility="False"
+                            SecondSearchButtonVisibility="False"
+                            TextInTextBlockSearchBaseOn="Chọn ngày"
+                            SelectedDateInSearchBar="{Binding SearchDate, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   
+                            SearchCommand="{Binding SearchCommand}"
+                            SearchQuery="{Binding SearchInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <!--<component:
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Margin="0,0,0.4,0"
-                            DataContext="{DynamicResource AdminNotificationVM}" />
+                            DataContext="{DynamicResource AdminNotificationVM}" />-->
                         <Button
                             Grid.Column="2"
-                            Margin="16,8,0,8"
+                            HorizontalAlignment="Right"
+                            Margin="16,0,0,0"
                             Style="{StaticResource PrimaryButton}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">

@@ -41,6 +41,7 @@
                     <component:SearchBarOne
                         Grid.Column="0"
                         DataContext="{DynamicResource AdminSubjectClassVM}"
+                        DatePickerVisibility="False"
                         FirstSearchButtonText="Mã lớp"
                         SearchCommand="{Binding SearchSubjectCards}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

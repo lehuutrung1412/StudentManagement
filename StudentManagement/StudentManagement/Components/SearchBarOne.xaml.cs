@@ -82,7 +82,44 @@ namespace StudentManagement.Components
         public static readonly DependencyProperty SecondSearchButtonVisibilityProperty =
             DependencyProperty.Register("SecondSearchButtonVisibility", typeof(bool), typeof(SearchBarOne), new PropertyMetadata(true));
 
+        public string TextInTextBlockSearchBaseOn
+        {
+            get { return (string)GetValue(TextInTextBlockSearchBaseOnProperty); }
+            set { SetValue(TextInTextBlockSearchBaseOnProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for TextInTextBlockSearchBaseOn.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextInTextBlockSearchBaseOnProperty =
+            DependencyProperty.Register("TextInTextBlockSearchBaseOn", typeof(string), typeof(SearchBarOne), new PropertyMetadata("Tìm kiếm theo"));
+        public bool TextblockSearchBaseOnVisibility
+        {
+            get { return (bool)GetValue(TextblockSearchBaseOnVisibilityProperty); }
+            set { SetValue(TextblockSearchBaseOnVisibilityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TextblockSearchBaseOnVisibility.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextblockSearchBaseOnVisibilityProperty =
+            DependencyProperty.Register("TextblockSearchBaseOnVisibility", typeof(bool), typeof(SearchBarOne), new PropertyMetadata(true));
+
+        public bool DatePickerVisibility
+        {
+            get { return (bool)GetValue(DatePickerVisibilityProperty); }
+            set { SetValue(DatePickerVisibilityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DatePickerVisibility.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DatePickerVisibilityProperty =
+            DependencyProperty.Register("DatePickerVisibility", typeof(bool), typeof(SearchBarOne), new PropertyMetadata(true));
+
+        public DateTime? SelectedDateInSearchBar
+        {
+            get { return (DateTime?)GetValue(SelectedDateInSearchBarProperty); }
+            set { SetValue(SelectedDateInSearchBarProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedDateInSearchBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedDateInSearchBarProperty =
+            DependencyProperty.Register("SelectedDateInSearchBar", typeof(DateTime?), typeof(SearchBarOne),new PropertyMetadata(DateTime.Now));
 
         public ICommand SwitchSearchButton
         {

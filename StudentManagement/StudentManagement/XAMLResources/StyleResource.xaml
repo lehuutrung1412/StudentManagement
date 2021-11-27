@@ -398,10 +398,7 @@
         BasedOn="{StaticResource MaterialDesignDatePicker}"
         TargetType="DatePicker">
         <Setter Property="Height" Value="32" />
-        <Setter Property="Padding" Value="12,4" />
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="Padding" Value="0,4" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -410,7 +407,6 @@
         <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
         <Setter Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
 
     <Style
