@@ -72,16 +72,16 @@ namespace StudentManagement.ViewModels
             };
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Trang chủ", false, null, _adminHomeViewModel, _adminHomeRightSideBar, _layoutViewModel, "Home"),
-                new NavigationItem("Đào tạo", true, temp, null, null, _layoutViewModel, "ClockOutline"),
+                new NavigationItem("Tổng quan", false, null, _adminHomeViewModel, _adminHomeRightSideBar, _layoutViewModel, "ViewDashboardOutline"),
+                new NavigationItem("Đào tạo", true, temp, null, null, _layoutViewModel, "SchoolOutline"),
                 new NavigationItem("Đăng ký học phần", false, null, _studentCourseRegistryViewModel, _studentCourseRegistryRightSideBar, _layoutViewModel, "CreditCardPlusOutline"),
-                new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, _layoutViewModel, "Cat"),
-                new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, _layoutViewModel, "Home"),
-                new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "Home"),
-                new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, _layoutViewModel, "AccountOutline"),
-                new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, null, _layoutViewModel, "School"),
+                new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, _layoutViewModel, "DiceD10Outline"),
+                new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, _layoutViewModel, "BellOutline"),
+                new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "CalendarMonthOutline"),
+                new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, _layoutViewModel, "AccountCircleOutline"),
+                new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, null, _layoutViewModel, "SchoolOutline"),
                 new NavigationItem("Admin - ĐKHP", false, null, _adminCourseRegistryViewModel, null, _layoutViewModel, "CreditCardPlusOutline"),
-                new NavigationItem("Cài đặt", true, tempInfo, null, null, _layoutViewModel, "ClockOutline"),
+                new NavigationItem("Cài đặt", true, tempInfo, null, null, _layoutViewModel, "CogOutline"),
             };
             
             CurrentViewModel = _layoutViewModel;
