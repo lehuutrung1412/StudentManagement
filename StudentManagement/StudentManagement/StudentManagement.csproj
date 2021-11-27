@@ -87,6 +87,12 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\CourseRegistry\AdminCourseRegistryRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminCourseRegistryRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CourseRegistry\AdminCourseRegistryRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>AdminCourseRegistryRightSideBarItemEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\CourseRegistry\AdminCourseRegistryRightSideBar.xaml.cs">
       <DependentUpon>AdminCourseRegistryRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -358,6 +364,8 @@
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
+    <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />
+    <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\AdminStudentListViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\SettingUserInfoViewModel.cs" />
@@ -434,6 +442,14 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\CourseRegistry\AdminCourseRegistryRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CourseRegistry\AdminCourseRegistryRightSideBarItemEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\CourseRegistry\AdminCourseRegistryRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

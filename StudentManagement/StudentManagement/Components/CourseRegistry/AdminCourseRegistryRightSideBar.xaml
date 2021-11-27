@@ -28,8 +28,12 @@
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
                 <DataTemplate
-                    DataType="{x:Type viewmodels:StudentCourseRegistryRightSideBarItemViewModel}">
-                    <components:StudentCourseRegistryRightSideBarItem />
+                    DataType="{x:Type viewmodels:AdminCourseRegistryRightSideBarItemViewModel}">
+                    <components:AdminCourseRegistryRightSideBarItem />
+                </DataTemplate>
+                <DataTemplate
+                    DataType="{x:Type viewmodels:AdminCourseRegistryRightSideBarItemEditViewModel}">
+                    <components:AdminCourseRegistryRightSideBarItemEdit />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

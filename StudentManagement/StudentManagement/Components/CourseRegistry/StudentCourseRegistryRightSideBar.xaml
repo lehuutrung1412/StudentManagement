@@ -20,7 +20,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <ContentControl Content="{Binding RightSideBarItemViewModel}" DataContext="{DynamicResource StudentCourseRegistryRightSideBarVM}">
+        <ContentControl Content="{Binding RightSideBarItemViewModel}" DataContext="{StaticResource StudentCourseRegistryRightSideBarVM}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
                     <components:EmptyStateRightSideBar />

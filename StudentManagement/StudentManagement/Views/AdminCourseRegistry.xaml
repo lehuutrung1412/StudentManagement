@@ -67,9 +67,13 @@
                             <DataTemplate>
                                 <TextBlock>
                                     <TextBlock.Text>
-                                        <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
-                                            <Binding Path="Batch" />
-                                            <Binding Path="DisplayName" />
+                                        <MultiBinding
+                                            Converter="{StaticResource math}"
+                                            ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
+                                            <Binding
+                                                Path="Batch" />
+                                            <Binding
+                                                Path="DisplayName" />
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
@@ -155,6 +159,7 @@
                         Content="Xuất ra Excel"
                         DockPanel.Dock="Right"
                         FontSize="14"
+                        Command="{Binding ExportExcelCommand}"
                         Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
@@ -171,6 +176,7 @@
                         Content="Thêm thủ công"
                         DockPanel.Dock="Left"
                         FontSize="14"
+                        IsEnabled="{Binding Source={StaticResource AdminCourseRegistryRightSideBarVM}, Path=CanEdit, Mode=OneWayToSource}"
                         Style="{StaticResource rounded_btn}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -200,6 +206,7 @@
                         Content="Khôi phục"
                         DockPanel.Dock="Right"
                         FontSize="14"
+                        Command="{Binding ConvertChangesCommand}"
                         Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
@@ -207,6 +214,7 @@
                         Content="Lưu vào server"
                         DockPanel.Dock="Right"
                         FontSize="14"
+                        Command="{Binding SaveChangesCommand}"
                         Style="{StaticResource rounded_btn}" />
                 </DockPanel>
             </StackPanel>

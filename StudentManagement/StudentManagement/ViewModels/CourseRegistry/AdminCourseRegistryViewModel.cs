@@ -64,18 +64,31 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CourseItems> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }*/
         private ObservableCollection<ObservableCollection<CourseRegistryItem>> _courseRegistryItemsAll;
         public ObservableCollection<ObservableCollection<CourseRegistryItem>> CourseRegistryItemsAll { get => _courseRegistryItemsAll; set => _courseRegistryItemsAll = value; }
-        private ObservableCollection<CourseRegistryItem> _courseRegistryItems;
-        public ObservableCollection<CourseRegistryItem> CourseRegistryItems { get => _courseRegistryItems; set => _courseRegistryItems = value; }
-        private ObservableCollection<CourseRegistryItem> _courseRegistryItemsDisplay;
-        public ObservableCollection<CourseRegistryItem> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }
+        private static ObservableCollection<CourseRegistryItem> _courseRegistryItems;
+        public static ObservableCollection<CourseRegistryItem> CourseRegistryItems { get => _courseRegistryItems; set => _courseRegistryItems = value; }
+        private  ObservableCollection<CourseRegistryItem> _courseRegistryItemsDisplay;
+        public  ObservableCollection<CourseRegistryItem> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }
         //
         public ObservableCollection<Models.Semester> Semesters { get => _semesters; set { _semesters = value; OnPropertyChanged(); } }
         private ObservableCollection<Models.Semester> _semesters;
 
         public Models.Semester SelectedSemester { get => _selectedSemester; 
-            set { _selectedSemester = value; OnPropertyChanged(); } }
+            set 
+            { 
+                _selectedSemester = value; 
+                OnPropertyChanged(); 
+                AdminCourseRegistryRightSideBarViewModel.Instance.CanEdit = !(_selectedSemester.CourseRegisterStatus > 0); 
+            } }
         private Models.Semester _selectedSemester;
-        public int SelectedSemesterIndex { get => _selectedSemesterIndex; set { _selectedSemesterIndex = value; OnPropertyChanged(); SelectData(); } }
+        public int SelectedSemesterIndex { get => _selectedSemesterIndex; 
+            set 
+            { 
+                _selectedSemesterIndex = value; 
+                OnPropertyChanged(); 
+                SelectData();
+
+                AdminCourseRegistryRightSideBarViewModel.Instance.RightSideBarItemViewModel = new EmptyStateRightSideBarViewModel();
+            } }
         private int _selectedSemesterIndex;
 
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
@@ -145,7 +158,10 @@ namespace StudentManagement.ViewModels
         public ICommand StopSemesterCommand { get; set; }
         public ICommand CreateNewSemesterCommand { get; set; }
         public ICommand AddFromExcelCommand { get; set; }
-        
+        public ICommand SaveChangesCommand { get; set; }
+        public ICommand ConvertChangesCommand { get; set; }
+        public ICommand ExportExcelCommand { get; set; }
+
 
         #endregion
 
@@ -203,7 +219,7 @@ namespace StudentManagement.ViewModels
             DeleteSelectedItemsCommand = new RelayCommand<object>(
                 (p) =>
                 {
-                    return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0;
+                    return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0 && !(SelectedSemester.CourseRegisterStatus > 0);
                 },
                 (p) =>
                 {
@@ -230,6 +246,14 @@ namespace StudentManagement.ViewModels
             {
                 return !(SelectedSemester.CourseRegisterStatus > 0);
             }, (p) => AddFromExcel());
+            SaveChangesCommand = new RelayCommand<object>((p) =>
+            {
+                return !(SelectedSemester.CourseRegisterStatus > 0);
+            }, (p) => SaveChanges());
+            ConvertChangesCommand = new RelayCommand<object>((p) =>
+            {
+                return !(SelectedSemester.CourseRegisterStatus > 0);
+            }, (p) => ConvertChanges());
         }
         public void SelectData()
         {
@@ -342,6 +366,16 @@ namespace StudentManagement.ViewModels
             CourseRegistryItemsAll[SelectedSemesterIndex] = excelList;
             SelectData();
             /*CourseRegistryItems = excelList;*/
+        }
+
+        public void SaveChanges()
+        {
+
+        }
+
+        public void ConvertChanges()
+        {
+
         }
     }
 }
