@@ -283,6 +283,7 @@ namespace StudentManagement.ViewModels
         private string _cuoiKi;
         private string _diemTB;
         private string _idSubject;
+        private string _idStudent;
 
         public string QuaTrinh
         {
@@ -319,6 +320,12 @@ namespace StudentManagement.ViewModels
         {
             get => _idSubject;
             set => _idSubject = value;
+        }
+
+        public string IDStudent
+        {
+            get => _idStudent;
+            set => _idStudent = value;
         }
 
     }

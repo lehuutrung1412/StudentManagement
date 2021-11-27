@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:viewmodel="clr-namespace:StudentManagement.ViewModels">
+    xmlns:viewmodel="clr-namespace:StudentManagement.ViewModels" >
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:LayoutViewModel x:Key="LayoutVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
@@ -24,5 +24,6 @@
     <viewmodel:FileManagerClassDetailViewModel x:Key="FileManagerClassDetailVM" />
     <viewmodel:AdminCourseRegistryViewModel x:Key="AdminCourseRegistryVM" />
     <viewmodel:AdminStudentListViewModel x:Key="AdminStudentListVM" />
+    <viewmodel:StudentListRightSideBarViewModel x:Key="StudentListRightSideBarVM" />
     <viewmodel:SettingUserInfoViewModel x:Key="SettingUserInfoVM" />
 </ResourceDictionary>
