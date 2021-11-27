@@ -83,7 +83,18 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Admin - ĐKHP", false, null, _adminCourseRegistryViewModel, null, _layoutViewModel, "CreditCardPlusOutline"),
                 new NavigationItem("Cài đặt", true, tempInfo, null, null, _layoutViewModel, "CogOutline"),
             };
-            
+
+            // Set corresponding active button to default view
+            ObservableCollection<NavigationItem> navigationItems = _layoutViewModel.NavigationItems;
+            foreach (var item in navigationItems)
+            {
+                if (item.NavigationItemViewModel == _layoutViewModel.ContentViewModel)
+                {
+                    item.IsPressed = true;
+                    break;
+                }
+            }
+
             CurrentViewModel = _layoutViewModel;
         }
 
@@ -123,6 +134,7 @@ namespace StudentManagement.ViewModels
             _adminStudentListViewModel = new AdminStudentListViewModel();
             _settingUserInfoViewModel = new SettingUserInfoViewModel();
 
+            // Set default view
             _layoutViewModel.ContentViewModel = _adminHomeViewModel;
         }
 

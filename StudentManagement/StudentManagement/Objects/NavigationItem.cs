@@ -36,6 +36,13 @@ namespace StudentManagement.Objects
             foreach (var item in navigationItems)
             {
                 item.IsPressed = false;
+                if (item.ExpandedItems != null)
+                {
+                    foreach (var expandedItem in item.ExpandedItems)
+                    {
+                        expandedItem.IsPressed = false;
+                    }
+                }
             }
             IsPressed = true;
             LayoutViewModel.ContentViewModel = NavigationItemViewModel;
