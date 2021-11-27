@@ -15,7 +15,7 @@
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
-    Background="{StaticResource SideBar}"
+    Background="{StaticResource Gray}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -44,61 +44,63 @@
                 Text="STUMAN" />
         </StackPanel>
         <Separator Grid.Row="1" Width="150" Margin="8"/>
-        <StackPanel Grid.Row="2">
-            <ItemsControl ItemsSource="{Binding NavigationItems}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <ContentPresenter Content="{Binding}">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+            <StackPanel Grid.Row="2">
+                <ItemsControl ItemsSource="{Binding NavigationItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ContentPresenter Content="{Binding}">
 
-                            <!--  Presentations  -->
-                            <ContentPresenter.Resources>
-                                <DataTemplate x:Key="NavigationItem">
-                                    <components:NavigationItem />
-                                </DataTemplate>
-                                <DataTemplate x:Key="NavigationDropDownList">
-                                    <components:NavigationDropdownList />
-                                </DataTemplate>
-                            </ContentPresenter.Resources>
+                                <!--  Presentations  -->
+                                <ContentPresenter.Resources>
+                                    <DataTemplate x:Key="NavigationItem">
+                                        <components:NavigationItem />
+                                    </DataTemplate>
+                                    <DataTemplate x:Key="NavigationDropDownList">
+                                        <components:NavigationDropdownList />
+                                    </DataTemplate>
+                                </ContentPresenter.Resources>
 
-                            <!--  Triggers  -->
-                            <ContentPresenter.Style>
-                                <Style TargetType="{x:Type ContentPresenter}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding CanBeExpanded}" Value="False">
-                                            <Setter Property="ContentTemplate" Value="{StaticResource NavigationItem}" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding CanBeExpanded}" Value="True">
-                                            <Setter Property="ContentTemplate" Value="{StaticResource NavigationDropDownList}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentPresenter.Style>
+                                <!--  Triggers  -->
+                                <ContentPresenter.Style>
+                                    <Style TargetType="{x:Type ContentPresenter}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CanBeExpanded}" Value="False">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource NavigationItem}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding CanBeExpanded}" Value="True">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource NavigationDropDownList}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentPresenter.Style>
 
-                        </ContentPresenter>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-            <Button
+                <!--<Button
                 Height="auto"
                 Margin="0,0,0,10"
                 Command="{Binding GotoLoginViewCommand}"
                 DataContext="{DynamicResource MainVM}"
                 Visibility="{Binding ElementName=LeftSideBarUC, Path=DataContext.IsMainWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <StackPanel Width="auto" Height="auto">
-                    <materialDesign:PackIcon
+                    <StackPanel Width="auto" Height="auto">
+                        <materialDesign:PackIcon
                         Width="24"
                         Height="24"
                         HorizontalAlignment="Center"
                         Kind="Images" />
-                    <TextBlock HorizontalAlignment="Center" Text="Logout" />
-                </StackPanel>
-            </Button>
-        </StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Text="Logout" />
+                    </StackPanel>
+                </Button>-->
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

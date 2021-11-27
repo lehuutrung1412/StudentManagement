@@ -10,7 +10,7 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
-    Background="{DynamicResource White}"
+    Background="{DynamicResource Gray}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -19,7 +19,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <Expander Background="{DynamicResource White}" HorizontalAlignment="Stretch" Header="{Binding NavigationHeader, FallbackValue='NavigationHeader'}">
+        <Expander Background="{DynamicResource Gray}" HorizontalAlignment="Stretch" Header="{Binding NavigationHeader, FallbackValue='NavigationHeader'}">
             <StackPanel
                 Margin="0,8,0,16"
                 Orientation="Vertical"
