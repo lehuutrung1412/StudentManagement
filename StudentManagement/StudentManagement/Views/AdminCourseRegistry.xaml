@@ -32,7 +32,7 @@
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{StaticResource AdminCourseRegistryVM}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewmodels:CreateNewCourseViewModel}">
-                            <component:CreateNewCourse Width="600" Height="500" />
+                            <component:CreateNewCourse Width="600" Height="600" />
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
@@ -42,8 +42,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <ComboBox
                         x:Name="cbSemester"
@@ -67,9 +67,13 @@
                             <DataTemplate>
                                 <TextBlock>
                                     <TextBlock.Text>
-                                        <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
-                                            <Binding Path="Batch" />
-                                            <Binding Path="DisplayName" />
+                                        <MultiBinding
+                                            Converter="{StaticResource math}"
+                                            ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
+                                            <Binding
+                                                Path="Batch" />
+                                            <Binding
+                                                Path="DisplayName" />
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
@@ -93,6 +97,7 @@
                             Background="Transparent"
                             BorderThickness="0"
                             DockPanel.Dock="Left">
+
                             <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                                 <materialDesign:PopupBox.ToggleContent>
                                     <materialDesign:PackIcon Kind="Hammer" />
@@ -119,7 +124,20 @@
                                 </StackPanel>
                             </materialDesign:PopupBox>
                         </Button>
-                        <Button Content="Thêm học kỳ" DockPanel.Dock="Right" />
+                        <Button DockPanel.Dock="Right">
+                            <materialDesign:PopupBox
+                                PlacementMode="BottomAndAlignRightEdges"
+                                PopupMode="Click"
+                                StaysOpen="True">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="White"
+                                        Text="Tạo học kỳ" />
+                                </materialDesign:PopupBox.ToggleContent>
+                                <component:CreateNewSemester />
+                            </materialDesign:PopupBox>
+                        </Button>
                     </DockPanel>
                 </Grid>
                 <Grid>
@@ -141,6 +159,7 @@
                         Content="Xuất ra Excel"
                         DockPanel.Dock="Right"
                         FontSize="14"
+                        Command="{Binding ExportExcelCommand}"
                         Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
@@ -148,6 +167,7 @@
                         Content="Thêm từ Excel"
                         DockPanel.Dock="Right"
                         FontSize="14"
+                        Command="{Binding AddFromExcelCommand}"
                         Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
@@ -156,6 +176,7 @@
                         Content="Thêm thủ công"
                         DockPanel.Dock="Left"
                         FontSize="14"
+                        IsEnabled="{Binding Source={StaticResource AdminCourseRegistryRightSideBarVM}, Path=CanEdit, Mode=OneWayToSource}"
                         Style="{StaticResource rounded_btn}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -175,14 +196,17 @@
                 <component:SubjectRegistryDataGrid
                     Margin="0,8,0,8"
                     Data="{Binding CourseRegistryItemsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                <DockPanel LastChildFill="False">
+                    IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource AdminCourseRegistryRightSideBarVM}}"/>
+                <DockPanel
+                    LastChildFill="False">
                     <Button
                         Width="150"
                         Margin="16,0,0,0"
                         Content="Khôi phục"
                         DockPanel.Dock="Right"
                         FontSize="14"
+                        Command="{Binding ConvertChangesCommand}"
                         Style="{StaticResource rounded_btn}" />
                     <Button
                         Width="150"
@@ -190,6 +214,7 @@
                         Content="Lưu vào server"
                         DockPanel.Dock="Right"
                         FontSize="14"
+                        Command="{Binding SaveChangesCommand}"
                         Style="{StaticResource rounded_btn}" />
                 </DockPanel>
             </StackPanel>

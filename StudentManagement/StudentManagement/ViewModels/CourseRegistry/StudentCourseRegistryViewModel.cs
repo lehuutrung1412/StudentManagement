@@ -91,6 +91,7 @@ namespace StudentManagement.ViewModels
             {
                 _searchQuery = value;
                 OnPropertyChanged();
+                Search();
             }
         }
         private bool _isFirstSearchButtonEnabled;

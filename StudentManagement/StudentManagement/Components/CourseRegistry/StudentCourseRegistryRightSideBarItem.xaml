@@ -18,32 +18,43 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel Margin="8">
+        <StackPanel
+            Margin="8">
             <TextBlock
                 FontSize="28"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 TextWrapping="Wrap">
-                <Run Text="{Binding CurrentItem.IdSubjectClass, FallbackValue='Mã lớp học'}" />
+                <Run
+                    Text="{Binding CurrentItem.IdSubjectClass, FallbackValue='Mã lớp học'}" />
             </TextBlock>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition
+                        Width="43*" />
+                    <ColumnDefinition
+                        Width="147*" />
+                    <ColumnDefinition
+                        Width="190*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
-                    Text="Môn học:" />
+                    Text="Môn học:"
+                    Grid.ColumnSpan="2"
+                    Margin="4 0" />
                 <TextBlock
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding CurrentItem.SubjectName, FallbackValue='Ten Mon Hoc'}"
-                    TextAlignment="Right" />
+                    TextAlignment="Right"
+                    Margin="4 0" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -60,7 +71,8 @@
                     Text="{Binding CurrentItem.TeacherName, FallbackValue='Nguyễn Tấn Toàn'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -77,7 +89,8 @@
                     Text="{Binding CurrentItem.StartDate, StringFormat='dd/MM/yyyy', FallbackValue='01/01/2001'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -94,7 +107,8 @@
                     Text="{Binding CurrentItem.EndDate, StringFormat='dd/MM/yyyy', FallbackValue='30/01/2001'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

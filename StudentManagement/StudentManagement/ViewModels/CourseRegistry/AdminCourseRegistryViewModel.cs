@@ -1,13 +1,17 @@
-﻿using StudentManagement.Commands;
+﻿using ExcelDataReader;
+using StudentManagement.Commands;
 using StudentManagement.Models;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using static StudentManagement.ViewModels.StudentCourseRegistryViewModel;
 
@@ -60,18 +64,31 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<CourseItems> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }*/
         private ObservableCollection<ObservableCollection<CourseRegistryItem>> _courseRegistryItemsAll;
         public ObservableCollection<ObservableCollection<CourseRegistryItem>> CourseRegistryItemsAll { get => _courseRegistryItemsAll; set => _courseRegistryItemsAll = value; }
-        private ObservableCollection<CourseRegistryItem> _courseRegistryItems;
-        public ObservableCollection<CourseRegistryItem> CourseRegistryItems { get => _courseRegistryItems; set => _courseRegistryItems = value; }
-        private ObservableCollection<CourseRegistryItem> _courseRegistryItemsDisplay;
-        public ObservableCollection<CourseRegistryItem> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }
+        private static ObservableCollection<CourseRegistryItem> _courseRegistryItems;
+        public static ObservableCollection<CourseRegistryItem> CourseRegistryItems { get => _courseRegistryItems; set => _courseRegistryItems = value; }
+        private  ObservableCollection<CourseRegistryItem> _courseRegistryItemsDisplay;
+        public  ObservableCollection<CourseRegistryItem> CourseRegistryItemsDisplay { get => _courseRegistryItemsDisplay; set { _courseRegistryItemsDisplay = value; OnPropertyChanged(); } }
         //
         public ObservableCollection<Models.Semester> Semesters { get => _semesters; set { _semesters = value; OnPropertyChanged(); } }
         private ObservableCollection<Models.Semester> _semesters;
 
         public Models.Semester SelectedSemester { get => _selectedSemester; 
-            set { _selectedSemester = value; OnPropertyChanged(); } }
+            set 
+            { 
+                _selectedSemester = value; 
+                OnPropertyChanged(); 
+                AdminCourseRegistryRightSideBarViewModel.Instance.CanEdit = !(_selectedSemester.CourseRegisterStatus > 0); 
+            } }
         private Models.Semester _selectedSemester;
-        public int SelectedSemesterIndex { get => _selectedSemesterIndex; set { _selectedSemesterIndex = value; OnPropertyChanged(); SelectData(); } }
+        public int SelectedSemesterIndex { get => _selectedSemesterIndex; 
+            set 
+            { 
+                _selectedSemesterIndex = value; 
+                OnPropertyChanged(); 
+                SelectData();
+
+                AdminCourseRegistryRightSideBarViewModel.Instance.RightSideBarItemViewModel = new EmptyStateRightSideBarViewModel();
+            } }
         private int _selectedSemesterIndex;
 
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
@@ -95,6 +112,7 @@ namespace StudentManagement.ViewModels
             {
                 _searchQuery = value;
                 OnPropertyChanged();
+                SearchCourseRegistryItemsFunction();
             }
         }
         private object _dialogItemViewModel;
@@ -108,6 +126,22 @@ namespace StudentManagement.ViewModels
             }
         }
         public object _creatNewCourseViewModel;
+
+        #region CreateNewSemester
+        private ObservableCollection<string> _batches;
+        public ObservableCollection<string> Batches { get => _batches; set => _batches = value; }
+
+        private string _selectedBatch;
+        public string SelectedBatch { get => _selectedBatch; set { _selectedBatch = value; OnPropertyChanged(); } }
+
+        private string _newSemesterName;
+        public string NewSemesterName { get => _newSemesterName; set { _newSemesterName = value; OnPropertyChanged(); } }
+
+        private bool _isDoneVisible;
+        private bool _isErrorVisible;
+        public bool IsDoneVisible { get => _isDoneVisible; set { _isDoneVisible = value; OnPropertyChanged(); } }
+        public bool IsErrorVisible { get => _isErrorVisible; set { _isErrorVisible = value; OnPropertyChanged(); } }
+        #endregion
         #endregion
         #region commands
         public ICommand SwitchSearchButton { get => _switchSearchButton; set => _switchSearchButton = value; }
@@ -122,6 +156,13 @@ namespace StudentManagement.ViewModels
         public ICommand OpenSemesterCommand { get; set; }
         public ICommand PauseSemesterCommand { get; set; }
         public ICommand StopSemesterCommand { get; set; }
+        public ICommand CreateNewSemesterCommand { get; set; }
+        public ICommand AddFromExcelCommand { get; set; }
+        public ICommand SaveChangesCommand { get; set; }
+        public ICommand ConvertChangesCommand { get; set; }
+        public ICommand ExportExcelCommand { get; set; }
+
+
         #endregion
 
         public AdminCourseRegistryViewModel()
@@ -154,42 +195,72 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItemsAll.Add(courseItems1Semester);
             }
             SelectedSemester = Semesters.Last();
+            InitCreateNewSemesterProperty();
             InitCommand();
             
         }
 
+        public void InitCreateNewSemesterProperty()
+        {
+            var temp = Semesters.Select(x => x.Batch).Distinct().ToList();
+            Batches = new ObservableCollection<string>(temp);
+            NewSemesterName = "Học kỳ 1";
+
+            CreateNewBatch();
+            SelectedBatch = Batches.Last();
+
+            IsDoneVisible = false;
+            IsErrorVisible = false;
+        }
         public void InitCommand()
         {
-            SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
+            SwitchSearchButton = new RelayCommand<object>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchCourseRegistryItems = new RelayCommand<object>((p) => { return true; }, (p) => SearchCourseRegistryItemsFunction());
-            DeleteSelectedItemsCommand = new RelayCommand<UserControl>(
+            DeleteSelectedItemsCommand = new RelayCommand<object>(
                 (p) =>
                 {
-                    return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0;
+                    return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0 && !(SelectedSemester.CourseRegisterStatus > 0);
                 },
                 (p) =>
                 {
                     DeleteSelectedItems();
                 });
             CreateNewCourseCommand = new RelayCommand<object>((p) => {
-                if (SelectedSemester == null)
-                    return true;
-                if (SelectedSemester.CourseRegisterStatus > 0)
-                {
-                    return false;
-                }
-                return true;
+                return !(SelectedSemester.CourseRegisterStatus > 0);
             }, (p) => CreateNewCourse());
             OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 1);
             PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 0);
             StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 2);
+
+            CreateNewSemesterCommand = new RelayCommand<object>((p) =>
+            {
+                if (String.IsNullOrEmpty(SelectedBatch) || String.IsNullOrEmpty(NewSemesterName))
+                    return false;
+                if (Semesters.Where(x => x.Batch.Replace(" ", "") == SelectedBatch.Replace(" ", "")).
+                                Where(y => y.DisplayName.Replace(" ", "") == NewSemesterName.Replace(" ", "")).Count() > 0)
+                    return false;
+                return true;
+            }, (p) => CreateNewSemester());
+
+            AddFromExcelCommand = new RelayCommand<object>((p) =>
+            {
+                return !(SelectedSemester.CourseRegisterStatus > 0);
+            }, (p) => AddFromExcel());
+            SaveChangesCommand = new RelayCommand<object>((p) =>
+            {
+                return !(SelectedSemester.CourseRegisterStatus > 0);
+            }, (p) => SaveChanges());
+            ConvertChangesCommand = new RelayCommand<object>((p) =>
+            {
+                return !(SelectedSemester.CourseRegisterStatus > 0);
+            }, (p) => ConvertChanges());
         }
         public void SelectData()
         {
             CourseRegistryItems = CourseRegistryItemsAll[SelectedSemesterIndex];
             CourseRegistryItemsDisplay = CourseRegistryItems;
         }
-        public void SwitchSearchButtonFunction(UserControl p)
+        public void SwitchSearchButtonFunction(object p)
         {
             IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
@@ -227,6 +298,84 @@ namespace StudentManagement.ViewModels
             CourseRegistryItem newCard = new CourseRegistryItem(false, "", "", 0, 0, 0);
             _creatNewCourseViewModel = new CreateNewCourseViewModel(newCard, SelectedSemester, CourseRegistryItems);
             this.DialogItemViewModel = this._creatNewCourseViewModel;
+        }
+
+        public void CreateNewSemester()
+        {
+            /*Thiếu cập nhật database*/
+            try
+            {
+                Semesters.Add(new Semester() { Batch = SelectedBatch, CourseRegisterStatus = 0, DisplayName = NewSemesterName });
+                IsDoneVisible = true;
+                var courseItemsNewSemester = new ObservableCollection<CourseRegistryItem>() { };
+                CourseRegistryItemsAll.Add(courseItemsNewSemester);
+                SelectedSemester = Semesters.Last();
+                CreateNewBatch();
+            }
+            catch
+            {
+                IsErrorVisible = true;
+            }
+        }
+
+        public void CreateNewBatch()
+        {
+            string defaultNewBatch = "";
+            foreach (string year in Batches.Last().Split('-'))
+            {
+                defaultNewBatch += Convert.ToString(Convert.ToInt32(year) + 1) + '-';
+            }
+            defaultNewBatch = defaultNewBatch.Remove(defaultNewBatch.Length - 1);
+            Batches.Add(defaultNewBatch);
+        }
+        DataTableCollection dataSheets;
+        public void AddFromExcel()
+        {
+            
+            using (OpenFileDialog op = new OpenFileDialog() { Filter = "Excel|*.xls;*.xlsx;" })
+            {
+                if (op.ShowDialog() == DialogResult.OK)
+                {
+                    using (var stream = File.Open(op.FileName, FileMode.Open, FileAccess.Read))
+                    {
+                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                        {
+                            DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                            {
+                                ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                            });
+                            dataSheets = result.Tables;
+                        }
+                    }
+                }
+            }
+            /*DataTable data = dataSheets[dataSheets.Cast<DataTable>().Select(t=>t.TableName).Last().ToString()];*/
+            DataTable data = dataSheets[0];
+
+            ObservableCollection<CourseRegistryItem> excelList = new ObservableCollection<CourseRegistryItem>();
+            foreach(DataRow course in data.Rows)
+            {
+                var temp = new CourseRegistryItem(false, 
+                                                    Convert.ToString(course[0]), 
+                                                    Convert.ToString(course[1]), 
+                                                    Convert.ToInt32(course[2]), 
+                                                    Convert.ToInt32(course[3]), 
+                                                    0);
+                excelList.Add(temp);
+            }
+            CourseRegistryItemsAll[SelectedSemesterIndex] = excelList;
+            SelectData();
+            /*CourseRegistryItems = excelList;*/
+        }
+
+        public void SaveChanges()
+        {
+
+        }
+
+        public void ConvertChanges()
+        {
+
         }
     }
 }
