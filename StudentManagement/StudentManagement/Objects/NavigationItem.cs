@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace StudentManagement.Objects
 {
-    public class NavigationItem
+    public class NavigationItem : BaseViewModel
     {
         public string NavigationHeader { get; set; }
         public bool CanBeExpanded { get; set; }
@@ -15,6 +15,8 @@ namespace StudentManagement.Objects
         public ICommand GoToView { get; set; }
         public LayoutViewModel LayoutViewModel { get; set; }
         public string Icon { get; set; }
+        public bool IsPressed { get => _isPressed; set { _isPressed = value; OnPropertyChanged(); } }
+        private bool _isPressed;
 
         public NavigationItem(string navigationHeader, bool canBeExpanded, ObservableCollection<NavigationItem> expandedItems, object navigationItemViewModel, object rightSideBarNavigationItemViewModel, LayoutViewModel layoutViewModel, string icon)
         {
@@ -30,6 +32,19 @@ namespace StudentManagement.Objects
 
         private void GoToViewFunction()
         {
+            ObservableCollection<NavigationItem> navigationItems = LayoutViewModel.NavigationItems;
+            foreach (var item in navigationItems)
+            {
+                item.IsPressed = false;
+                if (item.ExpandedItems != null)
+                {
+                    foreach (var expandedItem in item.ExpandedItems)
+                    {
+                        expandedItem.IsPressed = false;
+                    }
+                }
+            }
+            IsPressed = true;
             LayoutViewModel.ContentViewModel = NavigationItemViewModel;
             LayoutViewModel.RightSideBar = RightSideBarNavigationItemViewModel;
         }

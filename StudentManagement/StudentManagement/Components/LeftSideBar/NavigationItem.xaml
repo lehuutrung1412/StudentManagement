@@ -10,7 +10,7 @@
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.14'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{DynamicResource Gray}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -19,18 +19,91 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
+        <Grid.Resources>
+            <Style x:Key="LeftSideBarButton" TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Name="brdNavigate" CornerRadius="20">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Background" Value="{DynamicResource Transparent}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsPressed}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource PrimaryMain}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="20"
+                                            Height="20"
+                                            Margin="12 12 8 12"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Kind="{Binding Icon}">
+                                            <materialDesign:PackIcon.Style>
+                                                <Style TargetType="materialDesign:PackIcon">
+                                                    <Setter Property="Foreground" Value="Gray"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsPressed}" Value="True">
+                                                            <Setter Property="Foreground" Value="{DynamicResource White}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </materialDesign:PackIcon.Style>
+                                        </materialDesign:PackIcon>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Text="{Binding NavigationHeader, FallbackValue='NavigationHeader'}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource MaterialDesignTextBlock}" TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Foreground" Value="Gray" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsPressed}" Value="True">
+                                                            <Setter Property="Foreground" Value="{DynamicResource White}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
         <Button
-            Height="50"
-            Margin="0,0,0,10"
-            Command="{Binding GoToView}">
-            <StackPanel Width="auto" Height="auto">
-                <materialDesign:PackIcon
-                    Width="24"
-                    Height="24"
-                    HorizontalAlignment="Center"
-                    Kind="{Binding Icon}" />
-                <TextBlock HorizontalAlignment="Center" Text="{Binding NavigationHeader, FallbackValue='NavigationHeader'}" />
-            </StackPanel>
-        </Button>
+            Grid.Column="0"
+            Height="48"
+            Margin="8"
+            Command="{Binding GoToView}"
+            Style="{StaticResource LeftSideBarButton}" />
+        <Border
+            Grid.Column="1"
+            BorderThickness="2"
+            Margin="0 8">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="{DynamicResource Transparent}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsPressed}" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryMain}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
     </Grid>
 </UserControl>

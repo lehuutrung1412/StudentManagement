@@ -49,9 +49,20 @@ namespace StudentManagement.ViewModels
             InitRightSideBar();
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Lớp môn học", false, null, _newFeedSubjectClassDetailViewModel, null, _layoutViewModel, "Home"),
-                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "Home")
+                new NavigationItem("Bảng tin", false, null, _newFeedSubjectClassDetailViewModel, null, _layoutViewModel, "NewspaperVariantOutline"),
+                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "FileDocumentMultipleOutline")
             };
+
+            // Set corresponding active button to default view
+            ObservableCollection<NavigationItem> navigationItems = _layoutViewModel.NavigationItems;
+            foreach (var item in navigationItems)
+            {
+                if (item.NavigationItemViewModel == _layoutViewModel.ContentViewModel)
+                {
+                    item.IsPressed = true;
+                    break;
+                }
+            }
 
             CurrentViewModel = _layoutViewModel;
         }
