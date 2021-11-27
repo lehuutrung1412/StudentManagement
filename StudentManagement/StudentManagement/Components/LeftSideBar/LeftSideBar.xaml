@@ -28,24 +28,34 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
             <Image
                 Height="40"
                 Margin="8"
                 Source="{StaticResource Logo}" />
             <TextBlock
-                Foreground="DimGray"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontFamily="Bauhaus 93"
                 FontSize="24"
                 FontWeight="Bold"
+                Foreground="DimGray"
                 Text="STUMAN" />
         </StackPanel>
-        <Separator Grid.Row="1" Width="150" Margin="8"/>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
-            <StackPanel Grid.Row="2">
+        <Separator
+            Grid.Row="1"
+            Width="150"
+            Margin="8" />
+        <ScrollViewer
+            Grid.Row="2"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Hidden">
+            <Grid>
                 <ItemsControl ItemsSource="{Binding NavigationItems}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -84,23 +94,49 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-
-                <!--<Button
-                Height="auto"
-                Margin="0,0,0,10"
-                Command="{Binding GotoLoginViewCommand}"
-                DataContext="{DynamicResource MainVM}"
-                Visibility="{Binding ElementName=LeftSideBarUC, Path=DataContext.IsMainWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <StackPanel Width="auto" Height="auto">
-                        <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        HorizontalAlignment="Center"
-                        Kind="Images" />
-                        <TextBlock HorizontalAlignment="Center" Text="Logout" />
-                    </StackPanel>
-                </Button>-->
-            </StackPanel>
+            </Grid>
         </ScrollViewer>
+        <Button
+            Margin="8"
+            Grid.Row="3"
+            Height="auto"
+            Command="{Binding GotoLoginViewCommand}"
+            DataContext="{DynamicResource MainVM}"
+            Visibility="{Binding ElementName=LeftSideBarUC, Path=DataContext.IsMainWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Name="brdNavigate" CornerRadius="20">
+                                    <Grid>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Foreground="Gray"
+                                                Width="20"
+                                                Height="20"
+                                                Margin="12,12,8,12"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Kind="Logout">
+                                            </materialDesign:PackIcon>
+                                            <TextBlock
+                                                Foreground="Gray"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                FontWeight="SemiBold"
+                                                Text="Đăng xuất">
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
+
 </UserControl>

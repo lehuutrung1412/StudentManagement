@@ -46,7 +46,7 @@
                                             Kind="{Binding Icon}">
                                             <materialDesign:PackIcon.Style>
                                                 <Style TargetType="materialDesign:PackIcon">
-                                                    <Setter Property="Foreground" Value="{DynamicResource DarkGray}"/>
+                                                    <Setter Property="Foreground" Value="Gray"/>
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsPressed}" Value="True">
                                                             <Setter Property="Foreground" Value="{DynamicResource White}" />
@@ -54,16 +54,6 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </materialDesign:PackIcon.Style>
-                                            <!--<materialDesign:PackIcon.Style>
-                                                <Style TargetType="{x:Type materialDesign:PackIcon}">
-                                                    <Setter Property="Foreground" Value="Gray" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsPressed}" Value="True">
-                                                            <Setter Property="Foreground" Value="{DynamicResource White}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </materialDesign:PackIcon.Style>-->
                                         </materialDesign:PackIcon>
                                         <TextBlock
                                             HorizontalAlignment="Center"
