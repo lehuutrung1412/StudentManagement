@@ -61,7 +61,7 @@
                             Height="40"
                             FontSize="14"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                            Text="{Binding TenHeDaoTao, FallbackValue='Chương trình chất lượng cao'}"
+                            Text="{Binding DisplayName, FallbackValue='Chương trình chất lượng cao'}"
                             TextTrimming="CharacterEllipsis"
                             TextWrapping="WrapWithOverflow" />
                         <materialDesign:PopupBox
@@ -93,11 +93,11 @@
                         <StackPanel>
                             <TextBlock TextWrapping="Wrap">
                                 <Run Text="Số lượng khoa:" />
-                                <Run Text="{Binding SoLuongKhoa, FallbackValue='5'}" />
+                                <Run Text="{Binding NumberOfFaculties, FallbackValue='5'}" />
                             </TextBlock>
                             <TextBlock TextWrapping="Wrap">
                                 <Run Text="Số lượng sinh viên:" />
-                                <Run Text="{Binding SoLuongSinhVien, FallbackValue='1200'}" />
+                                <Run Text="{Binding NumberOfStudents, FallbackValue='1200'}" />
                             </TextBlock>
                         </StackPanel>
                     </Grid>

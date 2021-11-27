@@ -350,8 +350,11 @@
     <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
+    <Compile Include="Services\FacultyServies.cs" />
+    <Compile Include="Services\Faculty_TrainingFormServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Utils\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Services\TrainingFormServices.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
     <Compile Include="Utils\BindingProxy.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
@@ -362,6 +365,7 @@
     <Compile Include="Utils\MultiBindingValueCompareConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
+    <Compile Include="Utils\Reflection.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />

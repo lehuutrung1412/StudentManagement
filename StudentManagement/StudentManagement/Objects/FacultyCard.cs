@@ -1,5 +1,8 @@
-﻿using System;
+﻿using StudentManagement.Models;
+using StudentManagement.Services;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,23 +11,36 @@ namespace StudentManagement.Objects
 {
     public class FacultyCard : BaseObjectWithBaseViewModel, IBaseCard
     {
-        private string _tenKhoa;
-        private DateTime _ngayThanhLap;
-        private int _soLuongSinhVien;
+        private string _displayName;
+        private DateTime _foundationDay;
+        private int _numberOfStudents;
         private string _cacHeDaoTao;
+        private bool _isDeleted;
+        private Guid _id;
+        public ObservableCollection<TrainingForm> TrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>();
 
-        public FacultyCard() { }
-        public FacultyCard(string tenKhoa, DateTime ngayThanhLap, int soLuongSinhVien, string cacHeDaoTao)
+        public FacultyCard()
         {
-            _tenKhoa = tenKhoa;
-            _ngayThanhLap = ngayThanhLap;
-            _soLuongSinhVien = soLuongSinhVien;
-            _cacHeDaoTao = cacHeDaoTao;
+            Id = Guid.NewGuid();
+        }
+        public FacultyCard(Guid id, string displayName, DateTime foundationDay, int numberOfStudents, string cacHeDaoTao)
+        {
+            Id = id;
+            DisplayName = displayName;
+            FoundationDay = foundationDay;
+            NumberOfStudents = numberOfStudents;
+            CacHeDaoTao = cacHeDaoTao;
+
+            var tempFaculty = FacultyServices.Instance.FindFacultyByFacultyId(Id);
+
+            TrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>(Faculty_TrainingFormServices.Instance.LoadTrainingFormByFaculty(tempFaculty));
         }
 
-        public string TenKhoa { get => _tenKhoa; set => _tenKhoa = value; }
-        public DateTime NgayThanhLap { get => _ngayThanhLap; set => _ngayThanhLap = value; }
-        public int SoLuongSinhVien { get => _soLuongSinhVien; set => _soLuongSinhVien = value; }
+        public string DisplayName { get => _displayName; set => _displayName = value; }
+        public DateTime FoundationDay { get => _foundationDay; set => _foundationDay = value; }
+        public int NumberOfStudents { get => _numberOfStudents; set => _numberOfStudents = value; }
         public string CacHeDaoTao { get => _cacHeDaoTao; set => _cacHeDaoTao = value; }
+        public Guid Id { get => _id; set => _id = value; }
+        public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
     }
 }

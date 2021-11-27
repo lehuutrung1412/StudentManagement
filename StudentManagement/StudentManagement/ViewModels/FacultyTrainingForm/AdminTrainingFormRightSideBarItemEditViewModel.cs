@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +73,8 @@ namespace StudentManagement.ViewModels
             {
                 AdminFacultyTrainingFormViewModel.TrainingFormCards.Insert(1, ActualCard);
             }
+
+            TrainingFormServices.Instance.SaveTrainingFormCardToDatabase(ActualCard);
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowTrainingFormCardInfo();
