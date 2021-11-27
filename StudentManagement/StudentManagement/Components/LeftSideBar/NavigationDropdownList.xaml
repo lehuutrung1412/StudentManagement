@@ -19,7 +19,28 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <Expander Background="{DynamicResource Gray}" HorizontalAlignment="Stretch" Header="{Binding NavigationHeader, FallbackValue='NavigationHeader'}">
+        <Expander
+            HorizontalAlignment="Stretch"
+            Background="{DynamicResource Gray}">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Margin="-4 0 8 0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="Gray"
+                        Kind="{Binding Icon}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Foreground="Gray"
+                        Text="{Binding NavigationHeader, FallbackValue='NavigationHeader'}" />
+                </StackPanel>
+            </Expander.Header>
             <StackPanel
                 Margin="0,8,0,16"
                 Orientation="Vertical"
@@ -38,6 +59,5 @@
                 </ItemsControl>
             </StackPanel>
         </Expander>
-
     </Grid>
 </UserControl>
