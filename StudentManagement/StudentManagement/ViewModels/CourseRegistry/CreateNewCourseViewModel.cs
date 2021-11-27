@@ -47,8 +47,10 @@ namespace StudentManagement.ViewModels
         private string _period;
         private string _selectedDay;
         private string _maxNumber;
-        private bool _isPracticed;
         private string _subjectClassCode;
+        private DateTime? _startDate;
+        private DateTime? _endDate;
+
         public Subject SelectedSubject { get => _selectedSubject; set { 
                 _selectedSubject = value; 
                 OnPropertyChanged(); 
@@ -73,8 +75,10 @@ namespace StudentManagement.ViewModels
                 }
                 OnPropertyChanged();} }
         public string MaxNumber { get => _maxNumber; set{ _maxNumber = value; OnPropertyChanged();} }
-        public bool IsPracticed { get => _isPracticed; set{ _isPracticed = value; OnPropertyChanged(); UpdateSubjectClassCode(); } }
         public string SubjectClassCode { get => _subjectClassCode; set{ _subjectClassCode = value; OnPropertyChanged();} }
+
+        public DateTime? StartDate { get => _startDate; set { _startDate = value; OnPropertyChanged(); } }
+        public DateTime? EndDate { get => _endDate; set { _endDate = value; OnPropertyChanged(); } }
         #endregion
 
         #region command
@@ -85,7 +89,6 @@ namespace StudentManagement.ViewModels
             CurrentCard = card;
             Semester = semester;
             Courses = list;
-            IsPracticed = false;
             SubjectClassCode = "x.x.x";
             InitCombobox();
             InitCommand();

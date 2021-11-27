@@ -664,6 +664,7 @@
             Value="True" />
     </Style>-->
 
+    <!--  iconAnimation  -->
     <Style x:Key="AutoDecreaseOpacityPackIcon" TargetType="materialDesign:PackIcon">
         <Style.Triggers>
             <Trigger
