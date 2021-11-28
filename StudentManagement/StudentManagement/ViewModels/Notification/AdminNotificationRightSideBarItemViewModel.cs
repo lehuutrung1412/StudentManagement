@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentManagement.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,15 @@ namespace StudentManagement.ViewModels
 {
     class AdminNotificationRightSideBarItemViewModel
     {
-        public CardNotification CurrentCard { get => _currentCard; set => _currentCard = value; }
-        private CardNotification _currentCard;
+        public NotificationCard CurrentCard { get => _currentCard; set => _currentCard = value; }
+        private NotificationCard _currentCard;
 
         public AdminNotificationRightSideBarItemViewModel()
         {
             CurrentCard = null;
         }
 
-        public AdminNotificationRightSideBarItemViewModel(CardNotification card)
+        public AdminNotificationRightSideBarItemViewModel(NotificationCard card)
         {
             CurrentCard = card;
         }

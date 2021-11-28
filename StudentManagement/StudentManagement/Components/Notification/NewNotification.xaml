@@ -46,7 +46,7 @@
                         materialDesign:ValidationAssist.Background="Transparent"
                         FontSize="24"
                         FontWeight="Bold"
-                        Text="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding Topic, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="Wrap">
                         <TextBox.Style>
                             <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
@@ -87,7 +87,7 @@
                             FontWeight="SemiBold"
                             Foreground="#01579b"
                             ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                            SelectedItem="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged}">
+                            SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.Style>
                                 <Style BasedOn="{StaticResource MaterialDesignOutlinedComboBox}" TargetType="ComboBox">
                                     <Style.Triggers>
@@ -119,7 +119,7 @@
                 DockPanel.Dock="Right"
                 FontSize="16"
                 HorizontalScrollBarVisibility="Disabled"
-                Text="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="Wrap"
                 VerticalScrollBarVisibility="auto">
                 <TextBox.Style>
@@ -154,9 +154,9 @@
                                 <Style.Triggers>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                            <Condition Binding="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                            <Condition Binding="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                            <Condition Binding="{Binding Topic, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                            <Condition Binding="{Binding Content, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                            <Condition Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="IsEnabled" Value="True" />
                                     </MultiDataTrigger>

@@ -54,7 +54,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tên môn học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding Topic, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
                 <Grid Style="{StaticResource text_grid_item}">
@@ -74,7 +74,7 @@
                         materialDesign:HintAssist.Hint="Nhập mã môn học"
                         IsEnabled="False"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.NguoiDang, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding CurrentCard.Poster, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
 
@@ -94,7 +94,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tên giáo viên"
                         IsEnabled="False"
-                        SelectedDate="{Binding CurrentCard.NgayDang, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding CurrentCard.Time, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource datepicker_item}" />
                 </Grid>
 
@@ -115,7 +115,7 @@
                         materialDesign:HintAssist.Hint="Nhập sĩ số lớp"
                         IsEnabled="False"
                         ItemsSource="{Binding Type, Source={StaticResource AdminNotificationVM}}"
-                        SelectedItem="{Binding LoaiBaiDang, FallbackValue='Thông báo chung', UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding Type, FallbackValue='Thông báo chung', UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource combobox_item}" />
                 </Grid>
 
@@ -143,8 +143,8 @@
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                    <Condition Binding="{Binding LoaiBaiDang, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                    <Condition Binding="{Binding Topic, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                    <Condition Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="True" />
                             </MultiDataTrigger>

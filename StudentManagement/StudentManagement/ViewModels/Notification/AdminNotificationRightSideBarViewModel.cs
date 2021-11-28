@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
 using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace StudentManagement.ViewModels
 {
     public class AdminNotificationRightSideBarViewModel : BaseViewModel
     {
+        #region Properties
         private static AdminNotificationRightSideBarViewModel s_instance;
         public static AdminNotificationRightSideBarViewModel Instance
         {
@@ -38,7 +40,11 @@ namespace StudentManagement.ViewModels
 
         public object _emptyStateRightSideBarViewModel;
 
+        private NotificationCard _currentCard;
+        public NotificationCard CurrentCard { get => _currentCard; set => _currentCard = value; }
+        #endregion
 
+        #region Icommand
         public ICommand ShowCardInfo { get => _showCardInfo; set => _showCardInfo = value; }
 
         private ICommand _showCardInfo;
@@ -50,9 +56,9 @@ namespace StudentManagement.ViewModels
         public ICommand CancelNotificationCommand { get => _cancelNotification; set => _cancelNotification = value; }
 
         private ICommand _cancelNotification;
+        #endregion
 
-        private CardNotification _currentCard;
-        public CardNotification CurrentCard { get => _currentCard; set => _currentCard = value; }
+
         public AdminNotificationRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
@@ -63,7 +69,7 @@ namespace StudentManagement.ViewModels
             Instance = this;
         }
 
-
+        #region Method
         public void InitRightSideBarItemViewModel()
         {
             _adminNotificationRightSideBarItemViewModel = new AdminNotificationRightSideBarItemViewModel();
@@ -73,14 +79,14 @@ namespace StudentManagement.ViewModels
         }
         public void ShowCardInfoByCardDataContext(UserControl p)
         {
-            CurrentCard = p.DataContext as CardNotification;
+            CurrentCard = p.DataContext as NotificationCard;
 
             _adminNotificationRightSideBarItemViewModel = new AdminNotificationRightSideBarItemViewModel(CurrentCard);
             RightSideBarItemViewModel = _adminNotificationRightSideBarItemViewModel;
         }
         public void EditnotificationByCardDataContext()
         {
-            var tmp = new CardNotification((_adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard);
+            var tmp = new NotificationCard((_adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard);
             _adminNotificationRightSideBarEditViewModel = new AdminNotificationRightSideBarEditViewModel(tmp);
             CurrentCard = tmp;
             RightSideBarItemViewModel = _adminNotificationRightSideBarEditViewModel;
@@ -89,5 +95,6 @@ namespace StudentManagement.ViewModels
         {
             RightSideBarItemViewModel = _adminNotificationRightSideBarItemViewModel;
         }
+        #endregion
     }
 }

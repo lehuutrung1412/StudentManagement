@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,39 +14,40 @@ namespace StudentManagement.ViewModels
 {
     class AdminNotificationRightSideBarEditViewModel : BaseViewModel, INotifyDataErrorInfo
     {
-        public CardNotification CurrentCard { get => _currentCard; set => _currentCard = value; }
-        private CardNotification _currentCard;
+        #region Properties
+        public NotificationCard CurrentCard { get => _currentCard; set => _currentCard = value; }
+        private NotificationCard _currentCard;
 
         private readonly ErrorBaseViewModel _errorBaseViewModel;
-        private string _chuDe;
-        private string _loaiBaiDang;
+        private string _Topic;
+        private string _Type;
 
-        public string ChuDe
+        public string Topic
         {
-            get => _chuDe;
+            get => _Topic;
             set
             {
-                _chuDe = value;
+                _Topic = value;
                 _errorBaseViewModel.ClearErrors();
-                if (!IsValid(ChuDe))
+                if (!IsValid(Topic))
                 {
-                    _errorBaseViewModel.AddError(nameof(ChuDe), "Vui lòng nhập chủ đề!");
+                    _errorBaseViewModel.AddError(nameof(Topic), "Vui lòng nhập chủ đề!");
                 }
 
                 OnPropertyChanged();
             }
 
         }
-        public string LoaiBaiDang
+        public string Type
         {
-            get => _loaiBaiDang;
+            get => _Type;
             set
             {
-                _loaiBaiDang = value;
+                _Type = value;
                 _errorBaseViewModel.ClearErrors();
-                if (!IsValid(LoaiBaiDang))
+                if (!IsValid(Type))
                 {
-                    _errorBaseViewModel.AddError(nameof(LoaiBaiDang), "Vui lòng nhập loại bài đăng!");
+                    _errorBaseViewModel.AddError(nameof(Type), "Vui lòng nhập loại bài đăng!");
                 }
 
                 OnPropertyChanged();
@@ -55,24 +57,25 @@ namespace StudentManagement.ViewModels
 
         public bool CanUpdate => !HasErrors;
         public bool HasErrors => _errorBaseViewModel.HasErrors;
-
+        #endregion
+        #region Icommnad
         public ICommand UpdateNotificationCommand { get => _updateNotification; set => _updateNotification = value; }
         private ICommand _updateNotification;
-
+        #endregion
         public AdminNotificationRightSideBarEditViewModel()
         {
             CurrentCard = null;
-
         }
-        public AdminNotificationRightSideBarEditViewModel(CardNotification card)
+        public AdminNotificationRightSideBarEditViewModel(NotificationCard card)
         {
             CurrentCard = card;
             UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-            ChuDe = CurrentCard.ChuDe;
-            LoaiBaiDang = CurrentCard.LoaiBaiDang;
+            Topic = CurrentCard.Topic;
+            Type = CurrentCard.Type;
         }
+        #region Method
         private bool IsValid(string propertyName)
         {
             return !string.IsNullOrEmpty(propertyName) && !string.IsNullOrWhiteSpace(propertyName);
@@ -93,11 +96,11 @@ namespace StudentManagement.ViewModels
         public void UpdateNotification()
         {
             var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
-            CardNotification card = (AdminNotificationRightSideBarVM._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard;
+            NotificationCard card = (AdminNotificationRightSideBarVM._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard;
             (AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard = card;
             AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel;
-            CurrentCard.ChuDe = ChuDe;
-            CurrentCard.LoaiBaiDang = LoaiBaiDang;
+            CurrentCard.Topic = Topic;
+            CurrentCard.Type = Type;
             var AdminNotificationVM = Instance;
             for (int i = 0; i < AdminNotificationVM.Cards.Count; i++)
                 if (AdminNotificationVM.Cards[i].Id == card.Id)
@@ -112,5 +115,6 @@ namespace StudentManagement.ViewModels
                     break;
                 }
         }
+        #endregion
     }
 }

@@ -28,7 +28,7 @@
                 FontSize="24"
                 FontWeight="Bold"
                 Style="{DynamicResource MaterialDesignTextBlock}"
-                Text="{Binding CurrentCard.ChuDe, FallbackValue='Tên chủ đề'}"
+                Text="{Binding CurrentCard.Topic, FallbackValue='Tên chủ đề'}"
                 TextWrapping="Wrap" />
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
@@ -48,7 +48,7 @@
                     VerticalAlignment="Center"
                     FontSize="14"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.NguoiDang, FallbackValue='Người đăng'}"
+                    Text="{Binding CurrentCard.Poster, FallbackValue='Người đăng'}"
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </Grid>
@@ -74,7 +74,7 @@
                     VerticalAlignment="Center"
                     FontSize="14"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.NgayDang, FallbackValue='Ngày đăng', StringFormat='dd/MM/yyyy'}"
+                    Text="{Binding CurrentCard.Time, FallbackValue='Ngày đăng', StringFormat='dd/MM/yyyy'}"
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </Grid>
@@ -96,7 +96,7 @@
                     VerticalAlignment="Center"
                     FontSize="14"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.LoaiBaiDang, FallbackValue='Thông báo chung'}"
+                    Text="{Binding CurrentCard.Type, FallbackValue='Thông báo chung'}"
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </Grid>

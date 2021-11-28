@@ -1,4 +1,5 @@
 using StudentManagement.Commands;
+using StudentManagement.Objects;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,46 +16,7 @@ namespace StudentManagement.ViewModels
 {
     public class AdminNotificationViewModel: BaseViewModel
     {
-        public class CardNotification: BaseViewModel
-        {
-            private int _id;
-            private string _nguoiDang;
-            private string _noiDung;
-            private string _chuDe;
-            private DateTime _ngayDang;
-            private string _loaiBaiDang;
-            private bool _status;
-
-            public CardNotification(int id , string nguoiDang, string loaiBaiDang, string noiDung, string chuDe, DateTime ngayDang)
-            {
-                Id = id;
-                NguoiDang = nguoiDang;
-                LoaiBaiDang = loaiBaiDang;
-                NoiDung = noiDung;
-                ChuDe = chuDe;
-                NgayDang = ngayDang;
-                Status = false;
-            }
-            public CardNotification(CardNotification a)
-            {
-                Id = a.Id;
-                ChuDe = a.ChuDe;
-                NguoiDang = a.NguoiDang;
-                LoaiBaiDang = a.LoaiBaiDang;
-                NoiDung = a.NoiDung;
-                NgayDang = a.NgayDang;
-                Status = a.Status;
-            }
-
-            public string NguoiDang { get => _nguoiDang; set => _nguoiDang = value; }
-            public string NoiDung { get => _noiDung; set => _noiDung = value; }
-            public string ChuDe { get => _chuDe; set => _chuDe = value; }
-            public DateTime NgayDang { get => _ngayDang; set => _ngayDang = value; }
-            public string LoaiBaiDang { get => _loaiBaiDang; set => _loaiBaiDang = value; }
-            public int Id { get => _id; set => _id = value; }
-            public bool Status { get => _status; set { _status = value; OnPropertyChanged(); } }
-        }
-
+        #region properties
         private static AdminNotificationViewModel s_instance;
         public static AdminNotificationViewModel Instance
         {
@@ -63,61 +25,25 @@ namespace StudentManagement.ViewModels
             private set => s_instance = value;
         }
 
-        public ObservableCollection<CardNotification> _cards;
-        private ObservableCollection<CardNotification> _realCards;
+        public ObservableCollection<NotificationCard> _cards;
+        private ObservableCollection<NotificationCard> _realCards;
         private ObservableCollection<string> _type;
         private ObservableCollection<string> _typeInMain;
         public ObservableCollection<string> Type { get => _type; set => _type = value; }
-        public ObservableCollection<CardNotification> Cards { get => _cards; set => _cards = value; }
-        public ObservableCollection<CardNotification> RealCards { get => _realCards; set { _realCards = value; OnPropertyChanged(); } }
+        public ObservableCollection<NotificationCard> Cards { get => _cards; set => _cards = value; }
+        public ObservableCollection<NotificationCard> RealCards { get => _realCards; set { _realCards = value; OnPropertyChanged(); } }
         public ObservableCollection<string> TypeInMain { get => _typeInMain; set => _typeInMain = value; }
 
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
-
-        private ICommand _popUpNotification;
-        public ICommand PopUpNotification { get => _popUpNotification; set => _popUpNotification = value; }
-
-        private ICommand _searchCommand;
-        public ICommand SearchCommand { get => _searchCommand; set => _searchCommand = value; }
-
-        public ICommand UpdateNotificationCommand { get => _updateNotification; set => _updateNotification = value; }
-        private ICommand _updateNotification;
-
-        public ICommand DeleteNotificationCommand { get => _deleteNotification; set => _deleteNotification = value; }
-        private ICommand _deleteNotification;
-
-        public ICommand CreateNotificationCommand { get => _createNotificationCommand; set => _createNotificationCommand = value; }
-        private ICommand _createNotificationCommand;
-
-        public ICommand ShowDetailNotificationCommand { get => _showDetailNotificationCommand; set => _showDetailNotificationCommand = value; }
-        private ICommand _showDetailNotificationCommand;
-
-        public ICommand SeenNotificationCommand { get => _seenNotificationCommand; set => _seenNotificationCommand = value; }
-        private ICommand _seenNotificationCommand;
-
-        public ICommand MarkAllAsReadCommand { get => _markAllAsReadCommand; set => _markAllAsReadCommand = value; }
-        private ICommand _markAllAsReadCommand;
-
-        public ICommand MarkAsUnreadCommand { get => _markAsUnreadCommand; set => _markAsUnreadCommand = value; }
-        private ICommand _markAsUnreadCommand;
-
-        public ICommand MarkAsReadCommand { get => _markAsReadCommand; set => _markAsReadCommand = value; }
-        private ICommand _markAsReadCommand;
-
-        public ICommand DeleteNotificationInBadgeCommand { get => _deleteNotificationInBadgeCommand; set => _deleteNotificationInBadgeCommand = value; }
-        private ICommand _deleteNotificationInBadgeCommand;
-
-
-
         private string _searchInfo;
-        public string SearchInfo 
-        { 
-            get => _searchInfo; 
-            set 
-            { 
-                _searchInfo = value; 
-                OnPropertyChanged(); 
-            } 
+        public string SearchInfo
+        {
+            get => _searchInfo;
+            set
+            {
+                _searchInfo = value;
+                OnPropertyChanged();
+            }
         }
 
         private DateTime? _searchDate;
@@ -164,13 +90,49 @@ namespace StudentManagement.ViewModels
             }
         }
 
+
         public int NumCardInBadged { get => _numCardInBadged; set { _numCardInBadged = value; OnPropertyChanged(); } }
 
         private int _numCardInBadged;
 
         public object _creatNewNotificationViewModel;
         public object _showDetailNotificationViewModel;
+        #endregion
 
+        #region Icommand
+        private ICommand _popUpNotification;
+        public ICommand PopUpNotification { get => _popUpNotification; set => _popUpNotification = value; }
+
+        private ICommand _searchCommand;
+        public ICommand SearchCommand { get => _searchCommand; set => _searchCommand = value; }
+
+        public ICommand UpdateNotificationCommand { get => _updateNotification; set => _updateNotification = value; }
+        private ICommand _updateNotification;
+
+        public ICommand DeleteNotificationCommand { get => _deleteNotification; set => _deleteNotification = value; }
+        private ICommand _deleteNotification;
+
+        public ICommand CreateNotificationCommand { get => _createNotificationCommand; set => _createNotificationCommand = value; }
+        private ICommand _createNotificationCommand;
+
+        public ICommand ShowDetailNotificationCommand { get => _showDetailNotificationCommand; set => _showDetailNotificationCommand = value; }
+        private ICommand _showDetailNotificationCommand;
+
+        public ICommand SeenNotificationCommand { get => _seenNotificationCommand; set => _seenNotificationCommand = value; }
+        private ICommand _seenNotificationCommand;
+
+        public ICommand MarkAllAsReadCommand { get => _markAllAsReadCommand; set => _markAllAsReadCommand = value; }
+        private ICommand _markAllAsReadCommand;
+
+        public ICommand MarkAsUnreadCommand { get => _markAsUnreadCommand; set => _markAsUnreadCommand = value; }
+        private ICommand _markAsUnreadCommand;
+
+        public ICommand MarkAsReadCommand { get => _markAsReadCommand; set => _markAsReadCommand = value; }
+        private ICommand _markAsReadCommand;
+
+        public ICommand DeleteNotificationInBadgeCommand { get => _deleteNotificationInBadgeCommand; set => _deleteNotificationInBadgeCommand = value; }
+        private ICommand _deleteNotificationInBadgeCommand;
+        #endregion
 
         public AdminNotificationViewModel()
         {
@@ -185,17 +147,23 @@ namespace StudentManagement.ViewModels
             SearchInfo = "";
             SearchType = "Tất cả";
             SearchDate = null;
-            Cards = new ObservableCollection<CardNotification>() {
-                new CardNotification(0,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new CardNotification( 1,"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new CardNotification(2,"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new CardNotification(3,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new CardNotification(4,"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
+            Cards = new ObservableCollection<NotificationCard>() {
+                new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
             };
             NumCardInBadged = Cards.Count;
-            RealCards = new ObservableCollection<CardNotification>(Cards.Select(card=>card));
+            RealCards = new ObservableCollection<NotificationCard>(Cards.Select(card=>card));
             IsOpen = false;
+            InitIcommand();
+        }
+
+        #region method
+        public void InitIcommand()
+        {
             SearchCommand = new RelayCommand<object>((p) => { return true; }, (p) => Search());
             UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
             DeleteNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteNotification());
@@ -212,21 +180,21 @@ namespace StudentManagement.ViewModels
         {
             if (p.DataContext == null)
                 return;
-            var card = p.DataContext as CardNotification;
+            var card = p.DataContext as NotificationCard;
             Cards.Remove(card);
         }
         public void MarkAsRead(UserControl p)
         {
             if (p.DataContext == null)
                 return;
-            var card = p.DataContext as CardNotification;
+            var card = p.DataContext as NotificationCard;
             card.Status = true;
         }
         public void MarkAsUnread(UserControl p)
         {
             if (p.DataContext == null)
                 return;
-            var card = p.DataContext as CardNotification;
+            var card = p.DataContext as NotificationCard;
             card.Status = false;
             //NumCardInBadged += 1;
         }
@@ -243,7 +211,7 @@ namespace StudentManagement.ViewModels
         {
             if (p.DataContext == null)
                 return;
-            var card = p.DataContext as CardNotification;
+            var card = p.DataContext as NotificationCard;
             IsOpen = true;
             card.Status = true;
             this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
@@ -253,21 +221,21 @@ namespace StudentManagement.ViewModels
         public void Search()
         {
             //RealCards = Cards;
-            var tmp = Cards.Where(x => vietnameseStringNormalizer.Normalize(x.ChuDe).Contains(vietnameseStringNormalizer.Normalize(SearchInfo.ToLower())));
+            var tmp = Cards.Where(x => vietnameseStringNormalizer.Normalize(x.Topic).Contains(vietnameseStringNormalizer.Normalize(SearchInfo.ToLower())));
             if (SearchDate != null)
             {
-                tmp = tmp.Where(x => x.NgayDang.Date == _searchDate);
+                tmp = tmp.Where(x => x.Time.Date == _searchDate);
             }
             if(!SearchType.Equals("Tất cả"))
             {
-                tmp = tmp.Where(x => x.LoaiBaiDang.Contains(SearchType));
+                tmp = tmp.Where(x => x.Type.Contains(SearchType));
             }    
-            RealCards = new ObservableCollection<CardNotification>(tmp);
+            RealCards = new ObservableCollection<NotificationCard>(tmp);
         }
         public void UpdateNotification()
         {
             var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
-            CardNotification card = (AdminNotificationRightSideBarVM._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard;
+            NotificationCard card = (AdminNotificationRightSideBarVM._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard;
             (AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard = card;
             AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel;
         
@@ -297,9 +265,10 @@ namespace StudentManagement.ViewModels
 
         public void CreateNewNotification()
         {
-            var card = new CardNotification(Cards.LastOrDefault().Id + 1, "Cuong", "", "", "", DateTime.Now);
+            var card = new NotificationCard(Guid.NewGuid(), "Cuong", "", "", "", DateTime.Now);
             this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
             this.DialogItemViewModel = this._creatNewNotificationViewModel;
         }  
     }
+    #endregion
 }

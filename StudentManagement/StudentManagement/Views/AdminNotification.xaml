@@ -55,20 +55,15 @@
                             Grid.Column="0"
                             DataContext="{DynamicResource AdminNotificationVM}"
                             FirstSearchButtonVisibility="False"
-                            SecondSearchButtonVisibility="False"
-                            TextInTextBlockSearchBaseOn="Chọn ngày"
-                            SelectedDateInSearchBar="{Binding SearchDate, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   
                             SearchCommand="{Binding SearchCommand}"
-                            SearchQuery="{Binding SearchInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <!--<component:
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Margin="0,0,0.4,0"
-                            DataContext="{DynamicResource AdminNotificationVM}" />-->
+                            SearchQuery="{Binding SearchInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SecondSearchButtonVisibility="False"
+                            SelectedDateInSearchBar="{Binding SearchDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            TextInTextBlockSearchBaseOn="Chọn ngày" />
                         <Button
                             Grid.Column="2"
-                            HorizontalAlignment="Right"
                             Margin="16,0,0,0"
+                            HorizontalAlignment="Right"
                             Style="{StaticResource PrimaryButton}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -104,142 +99,131 @@
                                     <i:EventTrigger EventName="DropDownClosed">
                                         <i:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=cbTypeNotification}" />
                                     </i:EventTrigger>
-
                                 </i:Interaction.Triggers>
                             </ComboBox>
                         </StackPanel>
                         <Button
                             Height="auto"
+                            Margin="0,0,16,0"
                             HorizontalAlignment="Right"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Visibility="Visible">
+                            VerticalAlignment="Center"
+                            Background="Transparent">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding SeenNotificationCommand}" />
                                 </i:EventTrigger>
-
                             </i:Interaction.Triggers>
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <materialDesign:Badged
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Badge="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}">
+                                        <materialDesign:Badged.Style>
+                                            <Style TargetType="materialDesign:Badged">
+                                                <Setter Property="BadgeBackground" Value="{DynamicResource ErrorMain}" />
+                                                <Setter Property="BadgeForeground" Value="{DynamicResource White}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                                        <Setter Property="BadgeBackground" Value="Transparent" />
+                                                        <Setter Property="BadgeForeground" Value="Transparent" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </materialDesign:Badged.Style>
 
-                            <materialDesign:Badged Badge="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}">
-                                <materialDesign:Badged.Style>
-                                    <Style TargetType="materialDesign:Badged">
-                                        <Setter Property="BadgeBackground" Value="{DynamicResource ErrorMain}" />
-                                        <Setter Property="BadgeForeground" Value="{DynamicResource White}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                                                <Setter Property="BadgeBackground" Value="Transparent" />
-                                                <Setter Property="BadgeForeground" Value="Transparent" />
-                                            </DataTrigger>
-                                            <!--<DataTrigger
-                                                Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}"
-                                                Value="!=0"
-                                                >
-                                                <Setter
-                                                    Property="BadgeBackground"
-                                                    Value="{DynamicResource ErrorMain}" />
-                                                <Setter
-                                                    Property="BadgeForeground"
-                                                    Value="{DynamicResource White}" />
-                                            </DataTrigger>-->
-                                        </Style.Triggers>
-                                    </Style>
-                                </materialDesign:Badged.Style>
+                                        <materialDesign:PopupBox
+                                            Name="PopupNotification"
+                                            PlacementMode="BottomAndAlignRightEdges"
+                                            StaysOpen="True">
+                                            <materialDesign:PopupBox.ToggleContent>
+                                                <materialDesign:PackIcon Kind="Bell" />
+                                            </materialDesign:PopupBox.ToggleContent>
+                                            <Grid MaxHeight="300">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="5*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock
+                                                            Grid.Column="0"
+                                                            Margin="8"
+                                                            HorizontalAlignment="Left"
+                                                            FontSize="24"
+                                                            FontWeight="Bold"
+                                                            Text="Thông báo" />
+                                                        <Grid
+                                                            Grid.Column="2"
+                                                            Margin="0,0,18,0"
+                                                            HorizontalAlignment="Right">
+                                                            <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges">
+                                                                <materialDesign:PopupBox.ToggleContent>
+                                                                    <materialDesign:PackIcon
+                                                                        Width="20"
+                                                                        Height="20"
+                                                                        Kind="DotsHorizontal" />
+                                                                </materialDesign:PopupBox.ToggleContent>
+                                                                <Button Width="372" Command="{Binding MarkAllAsReadCommand}">
+                                                                    <Grid>
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="auto" />
+                                                                            <ColumnDefinition />
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <materialDesign:PackIcon
+                                                                            Grid.Column="0"
+                                                                            Margin="0,0,4,0"
+                                                                            Kind="Check" />
+                                                                        <TextBlock
+                                                                            Grid.Column="1"
+                                                                            FontWeight="SemiBold"
+                                                                            Text="Đánh dấu là tất cả đã đọc" />
+                                                                    </Grid>
+                                                                </Button>
+                                                            </materialDesign:PopupBox>
+                                                        </Grid>
 
-                                <materialDesign:PopupBox
-                                    Name="PopupNotification"
-                                    PlacementMode="BottomAndAlignRightEdges"
-                                    StaysOpen="True">
-                                    <!--<materialDesign:PopupBox.Style>
-                                        <Style TargetType="materialDesign:PopupBox">
-                                            <Style.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}"
-                                                    Value="0">
-                                                    <Setter
-                                                        Property="Visibility"
-                                                        Value="Visible" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </materialDesign:PopupBox.Style>-->
-                                    <materialDesign:PopupBox.ToggleContent>
-                                        <materialDesign:PackIcon Kind="Bell" />
-                                    </materialDesign:PopupBox.ToggleContent>
+                                                    </Grid>
 
-                                    <Grid MaxHeight="300">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="5*" />
-                                            </Grid.RowDefinitions>
-                                            <Grid Grid.Row="0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock
-                                                    Grid.Column="0"
-                                                    Margin="8"
-                                                    HorizontalAlignment="Left"
-                                                    FontSize="24"
-                                                    FontWeight="Bold"
-                                                    Text="Thông báo" />
-                                                <Grid
-                                                    Grid.Column="2"
-                                                    Margin="0,0,18,0"
-                                                    HorizontalAlignment="Right">
-                                                    <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges">
-                                                        <materialDesign:PopupBox.ToggleContent>
-                                                            <materialDesign:PackIcon
-                                                                Width="20"
-                                                                Height="20"
-                                                                Kind="DotsHorizontal" />
-                                                        </materialDesign:PopupBox.ToggleContent>
-                                                        <Button Width="372" Command="{Binding MarkAllAsReadCommand}">
-                                                            <Grid>
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="auto" />
-                                                                    <ColumnDefinition />
-                                                                </Grid.ColumnDefinitions>
-                                                                <materialDesign:PackIcon
-                                                                    Grid.Column="0"
-                                                                    Margin="0,0,4,0"
-                                                                    Kind="Check" />
-                                                                <TextBlock
-                                                                    Grid.Column="1"
-                                                                    FontWeight="SemiBold"
-                                                                    Text="Đánh dấu là tất cả đã đọc" />
-                                                            </Grid>
-                                                        </Button>
-                                                    </materialDesign:PopupBox>
+                                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                                                        <ItemsControl ItemsSource="{Binding Cards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <StackPanel Margin="8,8,0,8" />
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <component:NotificationCardInBarge
+                                                                        Width="360"
+                                                                        Height="80"
+                                                                        Margin="0"
+                                                                        Padding="0" />
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                    </ScrollViewer>
                                                 </Grid>
-
                                             </Grid>
+                                            <materialDesign:PopupBox.Style>
+                                                <Style TargetType="materialDesign:PopupBox">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=IsFocused, RelativeSource={RelativeSource AncestorType={x:Type Button}} }" Value="true">
+                                                            <Setter Property="IsPopupOpen" Value="True"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </materialDesign:PopupBox.Style>
+                                        </materialDesign:PopupBox>
 
-                                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-                                                <ItemsControl ItemsSource="{Binding Cards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Margin="8,8,0,8" />
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <component:NotificationCardInBarge
-                                                                Width="360"
-                                                                Height="80"
-                                                                Margin="0"
-                                                                Padding="0" />
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </ScrollViewer>
-                                        </Grid>
-                                    </Grid>
-                                </materialDesign:PopupBox>
+                                    </materialDesign:Badged>
 
-                            </materialDesign:Badged>
+                                </ControlTemplate>
+                            </Button.Template>
 
                         </Button>
 

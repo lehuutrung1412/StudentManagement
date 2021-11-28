@@ -87,7 +87,7 @@
                                 FontWeight="Bold"
                                 LineHeight="14"
                                 LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding ChuDe, FallbackValue='Chủ đề'}"
+                                Text="{Binding Topic, FallbackValue='Chủ đề'}"
                                 TextTrimming="WordEllipsis"
                                 TextWrapping="Wrap" />
                             <TextBlock
@@ -97,7 +97,7 @@
                                 Foreground="Gray"
                                 LineHeight="12"
                                 LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding NoiDung, FallbackValue='Nội dung'}"
+                                Text="{Binding Content, FallbackValue='Nội dung'}"
                                 TextWrapping="Wrap" />
 
                         </StackPanel>
@@ -118,7 +118,7 @@
                             FontSize="14"
                             FontWeight="SemiBold"
                             Foreground="#03a9f4"
-                            Text="{Binding NgayDang, StringFormat='dd/MM/yyyy', FallbackValue='Ngày Đăng'}" />
+                            Text="{Binding Time, StringFormat='dd/MM/yyyy', FallbackValue='Ngày Đăng'}" />
                         <Button
                             Grid.Row="1"
                             Padding="0"

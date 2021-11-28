@@ -48,7 +48,7 @@
                         FontWeight="Bold"
                         IsEnabled="{Binding IsEnable}"
                         MaxLines="1"
-                        Text="{Binding ChuDe, TargetNullValue=true, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding Topic, TargetNullValue=true, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="Wrap">
                         <TextBox.Style>
                             <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
@@ -85,11 +85,11 @@
                     <TextBlock
                         Margin="0,0,16,0"
                         Style="{StaticResource MaterialDesignButtonTextBlock}"
-                        Text="{Binding CurrentCard.NgayDang, StringFormat='dd/MM/yyyy', Converter={utils:DateTimeConverter}}" />
+                        Text="{Binding CurrentCard.Time, StringFormat='dd/MM/yyyy', Converter={utils:DateTimeConverter}}" />
                     <TextBlock
                         Margin="0,0,4,0"
                         Style="{StaticResource MaterialDesignButtonTextBlock}"
-                        Text="{Binding CurrentCard.LoaiBaiDang}" />
+                        Text="{Binding CurrentCard.Type}" />
 
                 </StackPanel>
             </StackPanel>
@@ -112,7 +112,7 @@
                 FontSize="16"
                 HorizontalScrollBarVisibility="Disabled"
                 IsEnabled="{Binding IsEnable}"
-                Text="{Binding NoiDung, TargetNullValue=true, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding Content, TargetNullValue=true, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="Wrap"
                 VerticalScrollBarVisibility="auto">
                 <TextBox.Style>
@@ -161,8 +161,8 @@
                                     <Style.Triggers>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding ChuDe, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
-                                                <Condition Binding="{Binding NoiDung, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                <Condition Binding="{Binding Topic, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                <Condition Binding="{Binding Content, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
                                             </MultiDataTrigger.Conditions>
                                             <Setter Property="IsEnabled" Value="True" />
                                         </MultiDataTrigger>
