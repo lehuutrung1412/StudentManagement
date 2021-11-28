@@ -53,12 +53,14 @@
                 <DataTemplate DataType="{x:Type viewmodels:FileManagerRightSideBarViewModel}">
                     <component:FileManagerRightSideBar />
                 </DataTemplate>
-                <DataTemplate
-                    DataType="{x:Type viewmodels:AdminCourseRegistryRightSideBarViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:AdminCourseRegistryRightSideBarViewModel}">
                     <component:AdminCourseRegistryRightSideBar />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:StudentListRightSideBarViewModel}">
                     <component1:StudentListsRightSideBar />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:NewsfeedRightSideBarViewModel}">
+                    <component:NewsfeedRightSideBar />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

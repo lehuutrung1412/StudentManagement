@@ -20,6 +20,7 @@ namespace StudentManagement.ViewModels
 
         // Rightsidebar corresponding to _contentViewModel
         private object _fileManagerRightSideBarViewModel;
+        private object _newsFeedRightSideBarViewModel;
 
         // Properties
         private bool _isShowDialog;
@@ -49,7 +50,7 @@ namespace StudentManagement.ViewModels
             InitRightSideBar();
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Bảng tin", false, null, _newFeedSubjectClassDetailViewModel, null, _layoutViewModel, "NewspaperVariantOutline"),
+                new NavigationItem("Bảng tin", false, null, _newFeedSubjectClassDetailViewModel, _newsFeedRightSideBarViewModel, _layoutViewModel, "NewspaperVariantOutline"),
                 new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "FileDocumentMultipleOutline")
             };
 
@@ -93,8 +94,9 @@ namespace StudentManagement.ViewModels
         public void InitRightSideBar()
         {
             _fileManagerRightSideBarViewModel = new FileManagerRightSideBarViewModel();
+            _newsFeedRightSideBarViewModel = new NewsfeedRightSideBarViewModel();
             (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).PropertyChanged += FileManagerRightSideBarViewModel_PropertyChanged;
-            _layoutViewModel.RightSideBar = _fileManagerRightSideBarViewModel;
+            _layoutViewModel.RightSideBar = _newsFeedRightSideBarViewModel;
         }
 
         private void FileManagerRightSideBarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
