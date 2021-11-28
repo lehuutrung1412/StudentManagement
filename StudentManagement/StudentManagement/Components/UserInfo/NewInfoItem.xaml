@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="CreateNewInfoItem"
-    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.3'}"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.4'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
@@ -28,97 +28,124 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
-                <DockPanel>
-                    <TextBox
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="Tên thông tin"
-                        materialDesign:ValidationAssist.Background="Transparent"
-                        FontSize="24"
-                        FontWeight="Bold"
-                        Text="{Binding CurrendInfo.LabelName, UpdateSourceTrigger=PropertyChanged}"
-                        TextWrapping="Wrap">
-                        <TextBox.Style>
-                            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
-                                <Style.Triggers>
-                                    <Trigger Property="Validation.HasError" Value="True">
-                                        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
-                </DockPanel>
-
-                <Grid Margin="16,16,16,4">
+                <TextBlock
+                    Margin="16,4"
+                    FontWeight="SemiBold"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="Thêm thông tin" />
+                <Grid Margin="16,8">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.8*" />
                         <ColumnDefinition Width="1.2*" />
 
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock
                             HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="Tên thông tin" />
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBox
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="Tên thông tin"
+                            FontWeight="SemiBold"
+                            Text="{Binding CurrendInfo.LabelName, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap">
+                            <TextBox.Style>
+                                <Style BasedOn="{StaticResource textbox_item}" TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                        <!--<Border Background="Transparent" Style="{StaticResource BorderStyle}">
+
+                        </Border>-->
+
+                    </Grid>
+                </Grid>
+                <Grid Margin="16,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*" />
+                        <ColumnDefinition Width="1.2*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
                             FontSize="16"
                             FontWeight="SemiBold"
                             Text="Loại thông tin" />
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Border Background="Transparent" Style="{StaticResource BorderStyle}">
-                            <ComboBox
-                                materialDesign:HintAssist.Hint="Loại thông tin"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                ItemsSource="{Binding ListTypeControl, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
-                                SelectedItem="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}">
-                                <ComboBox.Style>
-                                    <Style BasedOn="{StaticResource ComboboxInfo}" TargetType="ComboBox">
-                                        <Style.Triggers>
-                                            <Trigger Property="Validation.HasError" Value="True">
-                                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-                            </ComboBox>
-                        </Border>
+                        <ComboBox
+                            materialDesign:HintAssist.Hint="Loại thông tin"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            FontWeight="SemiBold"
+                            ItemsSource="{Binding ListTypeControl, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
+                            SelectedItem="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBox.Style>
+                                <Style BasedOn="{StaticResource combobox_item}" TargetType="ComboBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
+                        <!--<Border Background="Transparent" Style="{StaticResource BorderStyle}">
+
+                        </Border>-->
 
                     </Grid>
                 </Grid>
-                <Grid Margin="16,16,16,4">
+                <Grid Margin="16,8">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.8*" />
                         <ColumnDefinition Width="1.2*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock
                             HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
                             FontSize="16"
                             FontWeight="SemiBold"
                             Text="Đối tượng áp dụng" />
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Border Background="Transparent" Style="{StaticResource BorderStyle}">
-                            <ComboBox
-                                Grid.ColumnSpan="2"
-                                materialDesign:HintAssist.Hint="Đối tượng áp dụng"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                ItemsSource="{Binding ListTypeUser, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
-                                SelectedItem="{Binding TypeUser, UpdateSourceTrigger=PropertyChanged}">
-                                <ComboBox.Style>
-                                    <Style BasedOn="{StaticResource ComboboxInfo}" TargetType="ComboBox">
-                                        <Style.Triggers>
-                                            <Trigger Property="Validation.HasError" Value="True">
-                                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ComboBox.Style>
-                            </ComboBox>
-                        </Border>
+                        <ComboBox
+                            Grid.ColumnSpan="2"
+                            materialDesign:HintAssist.Hint="Đối tượng áp dụng"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            FontWeight="SemiBold"
+                            ItemsSource="{Binding ListTypeUser, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
+                            SelectedItem="{Binding TypeUser, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBox.Style>
+                                <Style BasedOn="{StaticResource combobox_item}" TargetType="ComboBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
+                        <!--<Border Background="Transparent" Style="{StaticResource BorderStyle}">
+
+                        </Border>-->
 
                     </Grid>
 
                 </Grid>
-                <Grid Margin="16,16,16,4">
+                <Grid Margin="16,8">
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Setter Property="Visibility" Value="Collapsed" />
@@ -139,6 +166,7 @@
                             </Grid.RowDefinitions>
                             <TextBlock
                                 Grid.Row="0"
+                                VerticalAlignment="Center"
                                 FontSize="16"
                                 FontWeight="SemiBold"
                                 Text="Các trường thông tin" />
@@ -163,6 +191,7 @@
                                                         x:Name="txbItem"
                                                         Grid.Column="0"
                                                         materialDesign:HintAssist.Hint="Thêm trường thông tin"
+                                                        Foreground="Black"
                                                         Style="{StaticResource TextBox}"
                                                         Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                                                 </Border>
@@ -173,6 +202,7 @@
                                                     Command="{Binding DeleteItemCommand}"
                                                     CommandParameter="{Binding ElementName=txbItem}"
                                                     DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                    Foreground="Black"
                                                     Style="{StaticResource MaterialDesignFlatButton}">
                                                     <materialDesign:PackIcon
                                                         Width="20"
@@ -191,6 +221,7 @@
                             HorizontalContentAlignment="Left"
                             Command="{Binding AddItemCommand}"
                             FontSize="16"
+                            Foreground="Black"
                             Style="{StaticResource MaterialDesignFlatButton}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -221,7 +252,7 @@
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" Margin="0 8">
+                <Grid Grid.Column="1" Margin="0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -266,9 +297,9 @@
 
                     <Button
                         Grid.Column="1"
+                        Margin="0,0,16,0"
                         HorizontalAlignment="Stretch"
                         Background="Red"
-                        Margin="0 0 16 0"
                         Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                         Content="Huỷ"
                         Style="{StaticResource PrimaryButton}" />

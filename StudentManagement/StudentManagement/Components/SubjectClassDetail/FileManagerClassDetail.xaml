@@ -38,6 +38,8 @@
                         Grid.Column="0"
                         Margin="16 16 4 16"
                         FirstSearchButtonVisibility="False"
+                        TextblockSearchBaseOnVisibility="False"
+                        DatePickerVisibility="False"
                         SearchCommand="{Binding SearchFile}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SecondSearchButtonVisibility="False" />

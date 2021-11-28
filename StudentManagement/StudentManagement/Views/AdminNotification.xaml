@@ -48,18 +48,27 @@
                         Text="Danh sách lớp môn học" />
                     <Grid Height="56" Margin="16">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="209*" />
-                            <ColumnDefinition Width="865*" />
-                            <ColumnDefinition Width="430*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1.5*" />
                         </Grid.ColumnDefinitions>
-                        <component:AdminNotificationSearchBar
+                        <component:SearchBarOne
+                            Grid.Column="0"
+                            DataContext="{DynamicResource AdminNotificationVM}"
+                            FirstSearchButtonVisibility="False"
+                            SecondSearchButtonVisibility="False"
+                            TextInTextBlockSearchBaseOn="Chọn ngày"
+                            SelectedDateInSearchBar="{Binding SearchDate, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   
+                            SearchCommand="{Binding SearchCommand}"
+                            SearchQuery="{Binding SearchInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <!--<component:
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Margin="0,0,0.4,0"
-                            DataContext="{DynamicResource AdminNotificationVM}" />
+                            DataContext="{DynamicResource AdminNotificationVM}" />-->
                         <Button
                             Grid.Column="2"
-                            Margin="16,8,0,8"
+                            HorizontalAlignment="Right"
+                            Margin="16,0,0,0"
                             Style="{StaticResource PrimaryButton}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -84,15 +93,13 @@
                             <ComboBox
                                 x:Name="cbTypeNotification"
                                 Height="36"
-                                Margin="8,8"
-                                Padding="4"
+                                Margin="8,4"
                                 materialDesign:HintAssist.Hint="Chọn loại thông báo"
-                                BorderBrush="Gray"
                                 FontSize="16"
-                                Foreground="#01579b"
+                                Foreground="Black"
                                 ItemsSource="{Binding TypeInMain, Source={StaticResource AdminNotificationVM}}"
                                 SelectedItem="{Binding SearchType}"
-                                Style="{StaticResource MaterialDesignComboBox}">
+                                Style="{StaticResource ComboboxInfo}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="DropDownClosed">
                                         <i:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=cbTypeNotification}" />

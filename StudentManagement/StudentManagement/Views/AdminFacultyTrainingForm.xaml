@@ -119,6 +119,7 @@
                     Grid.Column="0"
                     DataContext="{Binding}"
                     FirstSearchButtonText="Khoa"
+                    DatePickerVisibility="False"
                     SearchCommand="{Binding SearchFacultyCards}"
                     SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SecondSearchButtonText="Hệ đào tạo" />

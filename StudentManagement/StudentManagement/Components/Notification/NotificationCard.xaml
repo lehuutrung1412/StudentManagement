@@ -6,6 +6,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="NotificationComponent"
@@ -15,7 +16,7 @@
     VerticalContentAlignment="Stretch"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{DynamicResource CenterColumn}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -26,9 +27,12 @@
     <Border x:Name="bdNotification">
 
         <Grid HorizontalAlignment="Stretch">
+            <Grid.Resources>
+                <math:MathConverter x:Key="math" />
+            </Grid.Resources>
             <Button
                 x:Name="btnNotification"
-                Height="76"
+                Height="{Binding Path=ActualWidth, ElementName=grdImg, Converter={StaticResource math}, ConverterParameter='x+16'}"
                 Margin="0"
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"

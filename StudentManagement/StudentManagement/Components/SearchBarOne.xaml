@@ -40,6 +40,7 @@
                                         <ColumnDefinition Width="auto" />
                                         <ColumnDefinition Width="auto" />
                                         <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox
                                         x:Name="SearchBar"
@@ -79,8 +80,8 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Text="Tìm kiếm theo:"
-                                        Visibility="{Binding FirstSearchButtonVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Text="{Binding TextInTextBlockSearchBaseOn, ElementName=SubjectClassCardComponent,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                        Visibility="{Binding TextblockSearchBaseOnVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     <Button
                                         Grid.Column="2"
                                         Width="auto"
@@ -107,8 +108,16 @@
                                         Visibility="{Binding SecondSearchButtonVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <TextBlock Text="{Binding SecondSearchButtonText, FallbackValue='TextSearch type 2', ElementName=SubjectClassCardComponent}" />
                                     </Button>
-                                    <Button
+                                    <DatePicker
                                         Grid.Column="4"
+                                        Width="auto"
+                                        Margin="4"
+                                        VerticalAlignment="Center"
+                                        SelectedDate="{Binding SelectedDateInSearchBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=SubjectClassCardComponent}"
+                                        Style="{StaticResource DatePickerInfo}"
+                                        Visibility="{Binding DatePickerVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    <Button
+                                        Grid.Column="5"
                                         Width="auto"
                                         Height="{Binding ActualHeight, ElementName=SearchBar}"
                                         VerticalAlignment="Center"

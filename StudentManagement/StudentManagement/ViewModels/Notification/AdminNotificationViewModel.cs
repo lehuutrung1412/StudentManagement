@@ -194,7 +194,7 @@ namespace StudentManagement.ViewModels
 
             };
             NumCardInBadged = Cards.Count;
-            RealCards = Cards;
+            RealCards = new ObservableCollection<CardNotification>(Cards.Select(card=>card));
             IsOpen = false;
             SearchCommand = new RelayCommand<object>((p) => { return true; }, (p) => Search());
             UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
@@ -232,10 +232,7 @@ namespace StudentManagement.ViewModels
         }
         public void MarkAllAsRead()
         {
-            for(int i=0; i<Cards.Count;i++)
-            {
-                Cards[i].Status = true;
-            }    
+            Cards.ToList().ForEach(card => card.Status = true);
         }
         public void SeenNotification()
         {
@@ -255,7 +252,7 @@ namespace StudentManagement.ViewModels
      
         public void Search()
         {
-            RealCards = Cards;
+            //RealCards = Cards;
             var tmp = Cards.Where(x => vietnameseStringNormalizer.Normalize(x.ChuDe).Contains(vietnameseStringNormalizer.Normalize(SearchInfo.ToLower())));
             if (SearchDate != null)
             {

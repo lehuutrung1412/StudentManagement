@@ -15,7 +15,7 @@
     VerticalContentAlignment="Stretch"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{DynamicResource CenterColumn}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -31,7 +31,25 @@
                     <ColumnDefinition Width="6*" />
 
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" Style="{StaticResource BorderStyle}">
+                <DatePicker
+                    materialDesign:HintAssist.Hint="{Binding LabelName}"
+                    SelectedDate="{Binding Value, Converter={utils:ConverterDateTimeFromString}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <DatePicker.Style>
+                        <Style BasedOn="{StaticResource datepicker_item}" TargetType="DatePicker">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsEnable}" Value="true" />
+                                        <Condition Binding="{Binding IsUpdate, Source={StaticResource UserInfoVM}}" Value="true" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DatePicker.Style>
+                </DatePicker>
+                <!--<Border Grid.Column="0" Style="{StaticResource BorderStyle}">
                     <DatePicker
                         materialDesign:HintAssist.Hint="{Binding LabelName}"
                         SelectedDate="{Binding Value, Converter={utils:ConverterDateTimeFromString}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
@@ -50,7 +68,7 @@
                             </Style>
                         </DatePicker.Style>
                     </DatePicker>
-                </Border>
+                </Border>-->
                 <!--<Button
                     Grid.Column="1"
                     Command="{Binding EditInfoItemCommand}"
