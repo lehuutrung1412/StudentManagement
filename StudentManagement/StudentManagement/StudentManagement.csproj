@@ -102,6 +102,12 @@
     <Compile Include="Components\ListStudents\AdminListStudentDataGrid.xaml.cs">
       <DependentUpon>AdminListStudentDataGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ListStudents\StudentListRightSideBarItem.xaml.cs">
+      <DependentUpon>StudentListRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ListStudents\StudentListsRightSideBar.xaml.cs">
+      <DependentUpon>StudentListsRightSideBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\UserInfo\EditInfoItemInSetting.xaml.cs">
       <DependentUpon>EditInfoItemInSetting.xaml</DependentUpon>
     </Compile>
@@ -371,6 +377,8 @@
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\StudentList\StudentListRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\AdminStudentListViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\SettingUserInfoViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\FileManagerRightSideBarViewModel.cs" />
@@ -463,6 +471,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\ListStudents\AdminListStudentDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ListStudents\StudentListRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ListStudents\StudentListsRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

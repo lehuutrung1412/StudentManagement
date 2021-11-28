@@ -28,7 +28,7 @@
                     <DataGrid.Columns>
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding ID}"
+                            Binding="{Binding STT}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Số thứ tự">
                             <DataGridTextColumn.HeaderStyle>

@@ -72,64 +72,11 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public class Score
-        {
-            private string _quaTrinh;
-            private string _thucHanh;
-            private string _giuaKi;
-            private string _cuoiKi;
-            private string _diemTB;
-            private string _idSubject;
-            private string _idStudent;
-
-            public string QuaTrinh
-            {
-                get => _quaTrinh;
-                set => _quaTrinh = value;
-            }
-
-
-            public string ThucHanh
-            {
-                get => _thucHanh;
-                set => _thucHanh = value;
-            }
-
-            public string GiuaKi
-            {
-                get => _giuaKi;
-                set => _giuaKi = value;
-            }
-
-            public string CuoiKi
-            {
-                get => _cuoiKi;
-                set => _cuoiKi = value;
-            }
-
-            public string DiemTB
-            {
-                get => _diemTB;
-                set => _diemTB = value;
-            }
-
-            public string IDSubject
-            {
-                get => _idSubject;
-                set => _idSubject = value;
-            }
-
-            public string IDStudent
-            {
-                get => _idStudent;
-                set => _idStudent = value;
-            }
-
-        }
+       
 
         #endregion
 
-        public string SearchQuery { get => _searchQuery; set { _searchQuery = value; OnPropertyChanged(); } }
+        public string SearchQuery { get => _searchQuery; set { _searchQuery = value; SearchNameFunction(); OnPropertyChanged(); } }
         private string _searchQuery;
 
         private ObservableCollection<Student> _findNameData;
@@ -161,20 +108,13 @@ namespace StudentManagement.ViewModels
         public AdminStudentListViewModel()
         {
             StudentDatabase = new ObservableCollection<Student>();
-            StudentDatabase.Add(new Student { NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123" });
-            StudentDatabase.Add(new Student { NameStudent = "Ngô Quang Vinh", EmailStudent = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520124" });
-            StudentDatabase.Add(new Student { NameStudent = "Lê Hữu Trung", EmailStudent = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520125" });
-            StudentDatabase.Add(new Student { NameStudent = "Hứa Thanh Tân", EmailStudent = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520126" });
-            StudentDatabase.Add(new Student { NameStudent = "Nguyễn Đỗ Mạnh Cường", EmailStudent = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520127" });
-            StudentDatabase.Add(new Student { NameStudent = "Nguyễn Đình Bình An", EmailStudent = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520128" });
+            StudentDatabase.Add(new Student { NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123", STT = 1});
+            StudentDatabase.Add(new Student { NameStudent = "Ngô Quang Vinh", EmailStudent = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520124", STT = 2 });
+            StudentDatabase.Add(new Student { NameStudent = "Lê Hữu Trung", EmailStudent = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520125", STT = 3 });
+            StudentDatabase.Add(new Student { NameStudent = "Hứa Thanh Tân", EmailStudent = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520126", STT = 4 });
+            StudentDatabase.Add(new Student { NameStudent = "Nguyễn Đỗ Mạnh Cường", EmailStudent = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520127", STT = 5 });
+            StudentDatabase.Add(new Student { NameStudent = "Nguyễn Đình Bình An", EmailStudent = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520128", STT = 6 });
 
-            StudentScore = new ObservableCollection<Score>();
-            StudentScore.Add(new Score { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520123" });
-            StudentScore.Add(new Score { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520124" });
-            StudentScore.Add(new Score { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520125" });
-            StudentScore.Add(new Score { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520126" });
-            StudentScore.Add(new Score { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520127" });
-            StudentScore.Add(new Score { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520128" });
 
             FindNameData = new ObservableCollection<Student>(StudentDatabase);
             
@@ -190,12 +130,12 @@ namespace StudentManagement.ViewModels
             }
 
             int stt = 0;
-            FindNameData = new ObservableCollection<Student>();
+            FindNameData.Clear();
             foreach (var item in StudentDatabase)
             {
                 if (VietnameseStringNormalizer.Instance.Normalize(item.NameStudent)
                     .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery))
-                    || (SearchQuery == "")
+                    || item.IDStudent.Contains(SearchQuery)
                 )
                 {
                     item.STT = stt + 1;
@@ -203,30 +143,6 @@ namespace StudentManagement.ViewModels
                     FindNameData.Add(item);
                 }
             }
-
-            if (stt > 0) return;
-            foreach (var item in StudentDatabase)
-            {
-                if (item.IDStudent.Contains(SearchQuery))
-                {
-                    item.STT = stt + 1;
-                    stt += 1;
-                    FindNameData.Add(item);
-                }
-            }
-
-            if (stt > 0) return;
-            foreach (var item in StudentDatabase)
-            {
-                if (item.EmailStudent.Contains(SearchQuery))
-                {
-                    item.STT = stt + 1;
-                    stt += 1;
-                    FindNameData.Add(item);
-                }
-            }
-
         }
-
     }
 }

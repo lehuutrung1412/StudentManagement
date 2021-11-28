@@ -18,7 +18,7 @@
         <materialDesign:Card VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <DataGrid
-                   
+                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentListRightSideBarVM}}"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     HeadersVisibility="All"
@@ -27,7 +27,7 @@
                     <DataGrid.Columns>
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding ID}"
+                            Binding="{Binding STT}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Số thứ tự">
                             <DataGridTextColumn.HeaderStyle>
