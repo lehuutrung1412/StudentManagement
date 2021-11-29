@@ -27,6 +27,7 @@
                             <Border Name="brdNavigate" CornerRadius="20">
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Cursor" Value="Hand" />
                                         <Setter Property="Background" Value="{DynamicResource Transparent}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsPressed}" Value="True">
@@ -38,15 +39,16 @@
                                 <Grid>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon
+                                            Name="packicon"
                                             Width="20"
                                             Height="20"
-                                            Margin="12 12 8 12"
+                                            Margin="12,12,8,12"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Kind="{Binding Icon}">
                                             <materialDesign:PackIcon.Style>
                                                 <Style TargetType="materialDesign:PackIcon">
-                                                    <Setter Property="Foreground" Value="Gray"/>
+                                                    <Setter Property="Foreground" Value="Gray" />
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsPressed}" Value="True">
                                                             <Setter Property="Foreground" Value="{DynamicResource White}" />
@@ -56,6 +58,7 @@
                                             </materialDesign:PackIcon.Style>
                                         </materialDesign:PackIcon>
                                         <TextBlock
+                                            Name="navigationName"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="14"
@@ -75,6 +78,13 @@
                                     </StackPanel>
                                 </Grid>
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="packicon" Property="Foreground" Value="{DynamicResource White}" />
+                                    <Setter TargetName="navigationName" Property="Foreground" Value="{DynamicResource White}" />
+                                    <Setter TargetName="brdNavigate" Property="Background" Value="{DynamicResource PrimaryLight}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -92,11 +102,11 @@
             Style="{StaticResource LeftSideBarButton}" />
         <Border
             Grid.Column="1"
-            BorderThickness="2"
-            Margin="0 8">
+            Margin="0,8"
+            BorderThickness="2">
             <Border.Style>
                 <Style TargetType="Border">
-                    <Setter Property="BorderBrush" Value="{DynamicResource Transparent}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Transparent}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsPressed}" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryMain}" />
