@@ -41,8 +41,28 @@
                 <Calendar
                     Grid.Row="1"
                     Margin="8"
-                    Style="{StaticResource MaterialDesignCalendarNew}" />
-                <Grid Grid.Row="2">
+                    Style="{StaticResource MaterialDesignCalendarNew}">
+                    <Calendar.CalendarDayButtonStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignCalendarDayButton}" TargetType="{x:Type CalendarDayButton}">
+                            <Setter Property="local:CalendarHelper.Date" Value="{Binding}" />
+                            <Style.Triggers>
+                                <Trigger Property="local:CalendarHelper.IsScheduleDay" Value="True">
+                                    <Setter Property="materialDesign:CalendarAssist.SelectionColor" Value="{DynamicResource PrimaryLight}" />
+                                    <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
+                                </Trigger>
+                                <Trigger Property="local:CalendarHelper.IsAbsentDay" Value="True">
+                                    <Setter Property="materialDesign:CalendarAssist.SelectionColor" Value="{DynamicResource Orange}" />
+                                    <Setter Property="Background" Value="{DynamicResource Orange}" />
+                                </Trigger>
+                                <Trigger Property="local:CalendarHelper.IsMakeUpDay" Value="True">
+                                    <Setter Property="materialDesign:CalendarAssist.SelectionColor" Value="{DynamicResource LightGreen}" />
+                                    <Setter Property="Background" Value="{DynamicResource LightGreen}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Calendar.CalendarDayButtonStyle>
+                </Calendar>
+                <Grid Grid.Row="2" Margin="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -50,7 +70,7 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
-                        Background="{DynamicResource SecondaryMain}"
+                        Background="{DynamicResource Orange}"
                         Content="Báo nghỉ"
                         FontSize="14">
                         <Button.Style>
@@ -77,8 +97,8 @@
                     </Button>
                 </Grid>
                 <TextBox
-                    Margin="8"
                     Grid.Row="3"
+                    Margin="8"
                     materialDesign:HintAssist.Hint="Nhập tiết học... Ví dụ: 123"
                     Style="{StaticResource textbox_item}" />
             </Grid>
