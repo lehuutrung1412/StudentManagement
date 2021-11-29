@@ -27,7 +27,7 @@ namespace StudentManagement.ViewModels
 
                     IsEvent = AbsentTimes.Contains(_selectedDate) || MakeUpTimes.Contains(_selectedDate);
 
-                    IsAbsentDay = ScheduleTimes.Contains(_selectedDate) || MakeUpTimes.Contains(_selectedDate);
+                    IsAbsentDay = ScheduleTimes.Contains(_selectedDate);
                 }
                 catch (Exception)
                 {
@@ -50,17 +50,21 @@ namespace StudentManagement.ViewModels
         public bool IsEvent { get => _isEvent; set { _isEvent = value; OnPropertyChanged(); } }
         public bool IsAbsentDay { get => _isAbsentDay; set { _isAbsentDay = value; OnPropertyChanged(); } }
         public bool IsMakeUpDay { get => _isMakeUpDay; set { _isMakeUpDay = value; OnPropertyChanged(); } }
+        public string PeriodMakeUp { get => _periodMakeUp; set { _periodMakeUp = value; OnPropertyChanged(); } }
+        public bool AddMakeUpMode { get => _addMakeUpMode; set { _addMakeUpMode = value; OnPropertyChanged(); } }
 
         private DateTime _selectedDate;
 
         private bool _isEvent;
         private bool _isAbsentDay;
         private bool _isMakeUpDay;
+        private bool _addMakeUpMode;
+        private string _periodMakeUp;
 
         public ICommand AddAbsentDay { get; set; }
         public ICommand AddMakeUpDay { get; set; }
         public ICommand DeleteEvent { get; set; }
-        
+        public ICommand CancelAddMakeUpDay { get; set; }
 
         public NewsfeedRightSideBarViewModel()
         {
@@ -87,6 +91,12 @@ namespace StudentManagement.ViewModels
             AddAbsentDay = new RelayCommand<object>((p) => true, (p) => AddAbsentDayFunction());
             AddMakeUpDay = new RelayCommand<object>((p) => true, (p) => AddMakeUpDayFunction());
             DeleteEvent = new RelayCommand<object>((p) => true, (p) => DeleteEventFunction());
+            CancelAddMakeUpDay = new RelayCommand<object>((p) => true, (p) => CancelAddMakeUpDayFunction());
+        }
+
+        private void CancelAddMakeUpDayFunction()
+        {
+            AddMakeUpMode = false;
         }
 
         private void DeleteEventFunction()
@@ -105,6 +115,8 @@ namespace StudentManagement.ViewModels
                 {
                     ScheduleTimes.Add(SelectedDate);
                 }
+                IsEvent = false;
+                MyMessageBox.Show("Xóa sự kiện thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception) { }
         }
@@ -113,7 +125,17 @@ namespace StudentManagement.ViewModels
         {
             try
             {
+                if (!AddMakeUpMode)
+                {
+                    AddMakeUpMode = !AddMakeUpMode;
+                    IsEvent = false;
+                    IsAbsentDay = false;
+                    IsMakeUpDay = false;
+                    return;
+                }
+                AddMakeUpMode = false;
                 MakeUpTimes.Add(SelectedDate);
+                MyMessageBox.Show("Thêm lịch học bù thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception) { }
         }
@@ -125,6 +147,7 @@ namespace StudentManagement.ViewModels
                 AbsentTimes.Add(SelectedDate);
                 ScheduleTimes.Remove(SelectedDate);
                 MakeUpTimes.Remove(SelectedDate);
+                MyMessageBox.Show("Thêm lịch nghỉ học thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception) { }
         }

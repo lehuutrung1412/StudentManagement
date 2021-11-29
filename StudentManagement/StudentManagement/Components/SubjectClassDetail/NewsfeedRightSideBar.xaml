@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
@@ -21,6 +22,7 @@
     mc:Ignorable="d">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
         <Grid>
+
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -98,11 +100,45 @@
                         </Button.Style>
                     </Button>
                 </StackPanel>
-                <TextBox
+                <Grid
                     Grid.Row="3"
                     Margin="8"
-                    materialDesign:HintAssist.Hint="Nhập tiết học... Ví dụ: 123"
-                    Style="{StaticResource textbox_item}" />
+                    Visibility="{Binding AddMakeUpMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBox
+                        Grid.Row="0"
+                        materialDesign:HintAssist.Hint="Nhập tiết học... Ví dụ: 123"
+                        Style="{StaticResource textbox_item}"
+                        Text="{Binding PeriodMakeUp}" />
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            Grid.Column="0"
+                            Background="{DynamicResource Green}"
+                            Command="{Binding AddMakeUpDay}"
+                            Content="Báo bù"
+                            FontSize="14"
+                            Style="{StaticResource rounded_btn}"/>
+                        <Button
+                            Grid.Column="1"
+                            Background="{StaticResource DarkGray}"
+                            Command="{Binding CancelAddMakeUpDay}"
+                            Content="Hủy"
+                            FontSize="14"
+                            Style="{StaticResource rounded_btn}"/>
+
+                    </Grid>
+
+                </Grid>
             </Grid>
 
             <Grid Grid.Row="1">
