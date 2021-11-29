@@ -168,6 +168,10 @@ CREATE TABLE SubjectClass
   Period NVARCHAR(MAX) NOT NULL,
   WeekDay NVARCHAR(MAX) NOT NULL,
   IdThumbnail UNIQUEIDENTIFIER NOT NULL,
+  IdTraningForm UNIQUEIDENTIFIER NOT NULL,
+  Code NVARCHAR(MAX) NOT NULL,
+  NumberStudent INT NOT NULL,
+  MaxOfRegister INT NOT NULL,
 )
 GO
 
@@ -307,7 +311,8 @@ ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
 ALTER TABLE SubjectClass ADD
 FOREIGN KEY (IdSubject) REFERENCES Subject(Id),
 FOREIGN KEY (IdSemester) REFERENCES Semester(Id),
-FOREIGN KEY(IdThumbnail) REFERENCES DatabaseImageTable(Id)
+FOREIGN KEY(IdThumbnail) REFERENCES DatabaseImageTable(Id),
+FOREIGN KEY (IdTrainingForm) REFERENCES TrainingForm(Id)
 GO
 
 
@@ -363,3 +368,20 @@ GO
 ALTER TABLE AbsentCalendar ADD
 FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id)
 GO
+
+
+
+--INSERT
+
+INSERT INTO dbo.Subject(Code, DisplayName, Credit, Describe)
+VALUES	(N'CS106', N'Trí tuệ Nhân tạo', 4, N''),
+		(N'CS116', N'Lập trình Python cho Máy học', 4, N''),
+		(N'IT008', N'Lập trình Trực quan', 4, N''),
+		(N'CS336', N'Truy vấn thông tin đa phương tiện', 4, N'')
+
+INSERT INTO dbo.Semester(DisplayName, Batch, CourseRegisterStatus)
+VALUES	(N'Học kỳ 1', N'2019-2020', 0),
+		(N'Học kỳ 2', N'2019-2020', 0),
+		(N'Học kỳ 1', N'2020-2021', 0)
+
+
