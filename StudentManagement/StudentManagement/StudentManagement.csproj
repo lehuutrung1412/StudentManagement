@@ -99,14 +99,17 @@
     <Compile Include="Components\CourseRegistry\CreateNewSemester.xaml.cs">
       <DependentUpon>CreateNewSemester.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ListStudents\AdminListStudentDataGrid.xaml.cs">
-      <DependentUpon>AdminListStudentDataGrid.xaml</DependentUpon>
+    <Compile Include="Components\SubjectClassDetail\StudentListRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>StudentListRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ListStudents\StudentListRightSideBarItem.xaml.cs">
+    <Compile Include="Components\SubjectClassDetail\StudentListDataGrid.xaml.cs">
+      <DependentUpon>StudentListDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SubjectClassDetail\StudentListRightSideBar.xaml.cs">
+      <DependentUpon>StudentListRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SubjectClassDetail\StudentListRightSideBarItem.xaml.cs">
       <DependentUpon>StudentListRightSideBarItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Components\ListStudents\StudentListsRightSideBar.xaml.cs">
-      <DependentUpon>StudentListsRightSideBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\SubjectClassDetail\NewsfeedRightSideBar.xaml.cs">
       <DependentUpon>NewsfeedRightSideBar.xaml</DependentUpon>
@@ -384,6 +387,7 @@
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\NewsfeedRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\AdminStudentListViewModel.cs" />
@@ -477,15 +481,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\ListStudents\AdminListStudentDataGrid.xaml">
+    <Page Include="Components\SubjectClassDetail\StudentListRightSideBarItemEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\ListStudents\StudentListRightSideBarItem.xaml">
+    <Page Include="Components\SubjectClassDetail\StudentListDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\ListStudents\StudentListsRightSideBar.xaml">
+    <Page Include="Components\SubjectClassDetail\StudentListRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SubjectClassDetail\StudentListRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

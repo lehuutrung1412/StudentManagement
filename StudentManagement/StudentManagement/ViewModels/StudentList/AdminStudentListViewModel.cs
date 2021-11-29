@@ -18,6 +18,8 @@ namespace StudentManagement.ViewModels
 {
     public class AdminStudentListViewModel : BaseViewModel
     {
+
+
         #region
         public class Student
         {
@@ -28,6 +30,13 @@ namespace StudentManagement.ViewModels
             private string _faculty;
             private string _status;
             private int _stt;
+            private bool _isSelected;
+
+            public bool IsSelected
+            {
+                get => _isSelected;
+                set => _isSelected = value;
+            }
 
             public string NameStudent
             {
@@ -109,7 +118,7 @@ namespace StudentManagement.ViewModels
         {
             StudentDatabase = new ObservableCollection<Student>();
             StudentDatabase.Add(new Student { NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123", STT = 1});
-            StudentDatabase.Add(new Student { NameStudent = "Ngô Quang Vinh", EmailStudent = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520124", STT = 2 });
+            StudentDatabase.Add(new Student { NameStudent = "Ngô Quang Vinh", EmailStudent = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520124", STT = 2});
             StudentDatabase.Add(new Student { NameStudent = "Lê Hữu Trung", EmailStudent = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520125", STT = 3 });
             StudentDatabase.Add(new Student { NameStudent = "Hứa Thanh Tân", EmailStudent = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520126", STT = 4 });
             StudentDatabase.Add(new Student { NameStudent = "Nguyễn Đỗ Mạnh Cường", EmailStudent = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520127", STT = 5 });
