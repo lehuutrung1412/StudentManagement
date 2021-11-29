@@ -1,5 +1,7 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Models;
+using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,12 +28,12 @@ namespace StudentManagement.ViewModels
         }
         #endregion
         #region properties
-        private CourseRegistryItem _currentCard;
-        public CourseRegistryItem CurrentCard { get => _currentCard; set => _currentCard = value; }
+        private SubjectClass _currentCard;
+        public SubjectClass CurrentCard { get => _currentCard; set => _currentCard = value; }
         private Semester _semester;
-        private ObservableCollection<CourseRegistryItem> _courses;
+        private ObservableCollection<CourseItem> _courses;
         public Semester Semester { get => _semester; set => _semester = value; }
-        public ObservableCollection<CourseRegistryItem> Courses { get => _courses; set => _courses = value; }
+        public ObservableCollection<CourseItem> Courses { get => _courses; set => _courses = value; }
         public ObservableCollection<Subject> Subjects { get => _subjects; set => _subjects = value; }
         public ObservableCollection<TrainingForm> TrainingForms { get => _trainingForms; set => _trainingForms = value; }
         public ObservableCollection<string> DayOfWeeks { get => _dayOfWeeks; set { _dayOfWeeks = value; OnPropertyChanged(); } }
@@ -56,7 +58,7 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged(); 
                 UpdateSubjectClassCode(); 
                 } }
-        public TrainingForm SelectedTF { get => _selectedTF; set { _selectedTF = value; OnPropertyChanged(); UpdateSubjectClassCode(); } }
+        public TrainingForm SelectedTF { get => _selectedTF; set { _selectedTF = value; OnPropertyChanged(); /*UpdateSubjectClassCode();*/ } }
         public string Period { get => _period; set{ 
                 _period = value; 
                 _errorBaseViewModel.ClearErrors();
@@ -84,7 +86,7 @@ namespace StudentManagement.ViewModels
         #region command
         public ICommand ConfirmCommand { get; set; }
         #endregion
-        public CreateNewCourseViewModel(CourseRegistryItem card, Semester semester, ObservableCollection<CourseRegistryItem> list)
+        public CreateNewCourseViewModel(SubjectClass card, Semester semester, ObservableCollection<CourseItem> list)
         {
             CurrentCard = card;
             Semester = semester;
@@ -94,7 +96,6 @@ namespace StudentManagement.ViewModels
             InitCommand();
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-
         }
         #region methods
         public void InitCombobox()
@@ -111,19 +112,39 @@ namespace StudentManagement.ViewModels
 
         public void Confirm()
         {
-
+            var newCourse = new SubjectClass()
+            {
+                Id = Guid.NewGuid(),
+                Subject = SelectedSubject,
+                StartDate = StartDate,
+                EndDate = EndDate,
+                Semester = Semester,
+                Period = Period,
+                WeekDay = SelectedDay/*,
+                Code = SubjectClassCode,
+                MaxOfRegister = MaxNumber,
+                NumberStudent = 0,
+                TraningForm = SelectedTF*/
+            };
+            CurrentCard = newCourse;
+            /*SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);*/
+            Courses.Add(new CourseItem(newCourse, false));
         }
         public void UpdateSubjectClassCode()
         {
-            /*SubjectClassCode = "";
-            SubjectClassCode += SelectedSubject.Code;
-            string codeTF = "";
+            SubjectClassCode = "";
+            if (SelectedSubject != null)
+                SubjectClassCode += SelectedSubject.Code;
+
             string codeSemester = ".";
-            *//*string codePractice = Courses.Where(x=>x.)*//*
             codeSemester += (char)(Convert.ToInt32(Semester.Batch.Split('-')[0]) - 2010 + 65);
-            codeTF += "KHTN";
+            var listSemester = SemesterServices.Instance.LoadListSemestersByBatch(Semester.Batch);
+            int indexSemester = listSemester.IndexOf(Semester) + 1;
+            codeSemester += Convert.ToString(indexSemester);
             SubjectClassCode += codeSemester;
-            SubjectClassCode += codeTF;*/
+
+            int indexCourse = Courses.Where(course => course.Subject.DisplayName == SelectedSubject.DisplayName).Count() + 1;
+            SubjectClassCode += Convert.ToString(indexCourse);
         }
         private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {

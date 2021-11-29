@@ -1,4 +1,6 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
+using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,8 +33,8 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        private CourseRegistryItem _selectedItem;
-        public CourseRegistryItem SelectedItem
+        private CourseItem _selectedItem;
+        public CourseItem SelectedItem
         {
             get => _selectedItem; set
             {
@@ -40,24 +42,13 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
                 if (_selectedItem != null)
                 {
-                    int count = SubjectClasses.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass).Count();
-                    SelectedClass = SubjectClasses.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass).ToList()[0];
-                    _adminCourseRegistryRightSideBarItemViewModel = new AdminCourseRegistryRightSideBarItemViewModel(SelectedClass);
+                    
+                    _adminCourseRegistryRightSideBarItemViewModel = new AdminCourseRegistryRightSideBarItemViewModel(_selectedItem);
                     RightSideBarItemViewModel = _adminCourseRegistryRightSideBarItemViewModel;
                 }
             }
         }
-        private TempSubjectClass _selectedClass;
-        public TempSubjectClass SelectedClass
-        {
-            get => _selectedClass; set
-            {
-                _selectedClass = value;
-                OnPropertyChanged();
-            }
-        }
-        private ObservableCollection<TempSubjectClass> _subjectClasses;
-        public ObservableCollection<TempSubjectClass> SubjectClasses { get => _subjectClasses; set => _subjectClasses = value; }
+        
         
 
         private object _adminCourseRegistryRightSideBarItemEditViewModel;
@@ -77,16 +68,8 @@ namespace StudentManagement.ViewModels
         public AdminCourseRegistryRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
+            InitCommand();
             Instance = this;
-            SubjectClasses = new ObservableCollection<TempSubjectClass>
-            {
-                new TempSubjectClass("IT008.L21.KHTN 1", "Lập trình trực quan", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new TempSubjectClass("IT009.L21.KHCL 1", "Không biết", 2, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new TempSubjectClass("ENG02.L21 1", "Anh văn 2", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new TempSubjectClass("IT008.L21.KHTN 2", "Lập trình trực quan", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new TempSubjectClass("IT009.L21.KHCL 2", "Không biết", 2, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-                new TempSubjectClass("ENG02.L21 2", "Anh văn 2", 4, "Trương Tấn Toàn", new DateTime(2021, 1, 1), new DateTime(2021, 1, 30), "Tiết 678 Thứ 2"),
-            };
         }
 
         public void InitCommand()
@@ -109,7 +92,7 @@ namespace StudentManagement.ViewModels
             _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;*/
-            TempSubjectClass item = p as TempSubjectClass;
+            CourseItem item = p as CourseItem;
             _adminCourseRegistryRightSideBarItemViewModel = new AdminCourseRegistryRightSideBarItemEditViewModel(item);
             RightSideBarItemViewModel = _adminCourseRegistryRightSideBarItemViewModel;
             
@@ -117,7 +100,7 @@ namespace StudentManagement.ViewModels
 
         public void DeleteCourse(object p)
         {
-            /*SubjectCard card = p as SubjectCard;
+            /*SubjectClass card = p as SubjectCard;
 
             SubjectCards.Remove(card);
             StoredSubjectCards.Remove(card);

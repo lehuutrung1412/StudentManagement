@@ -43,6 +43,14 @@ namespace StudentManagement.Models
         public string WeekDay { get => _weekDay; set { _weekDay = value; OnPropertyChanged(); } }
         private System.Guid _idThumbnail { get; set; }
         public System.Guid IdThumbnail { get => _idThumbnail; set { _idThumbnail = value; OnPropertyChanged(); } }
+        private System.Guid _idTrainingForm { get; set; }
+        public System.Guid IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
+        private string _code { get; set; }
+        public string Code { get => _code; set { _code = value; OnPropertyChanged(); } }
+        private int _numberOfStudents { get; set; }
+        public int NumberOfStudents { get => _numberOfStudents; set { _numberOfStudents = value; OnPropertyChanged(); } }
+        private int _maxNumberOfStudents { get; set; }
+        public int MaxNumberOfStudents { get => _maxNumberOfStudents; set { _maxNumberOfStudents = value; OnPropertyChanged(); } }
     
         public virtual ICollection<AbsentCalendar> AbsentCalendars { get; set; }
         public virtual ICollection<ComponentScore> ComponentScores { get; set; }
@@ -55,5 +63,6 @@ namespace StudentManagement.Models
         public virtual ICollection<StudyResult> StudyResults { get; set; }
         public virtual Subject Subject { get; set; }
         public virtual ICollection<Teacher> Teachers { get; set; }
+        public virtual TrainingForm TrainingForm { get; set; }
     }
 }

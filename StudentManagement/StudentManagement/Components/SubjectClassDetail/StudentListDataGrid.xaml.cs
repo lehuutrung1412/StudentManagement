@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StudentManagement.Components.ListStudents
+namespace StudentManagement.Components
 {
     /// <summary>
-    /// Interaction logic for StudentListRightSideBarItem.xaml
+    /// Interaction logic for StudentListDataGrid.xaml
     /// </summary>
-    public partial class StudentListRightSideBarItem : UserControl
+    public partial class StudentListDataGrid : UserControl
     {
-        public StudentListRightSideBarItem()
+        public StudentListDataGrid()
         {
             InitializeComponent();
         }

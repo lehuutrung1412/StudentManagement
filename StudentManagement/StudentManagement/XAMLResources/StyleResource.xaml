@@ -306,6 +306,38 @@
         </Setter>
     </Style>
 
+    <Style x:Key="MaterialDesignCalendarNew" TargetType="{x:Type Calendar}">
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+        <Setter Property="Background" Value="{DynamicResource Background}" />
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="CalendarDayButtonStyle" Value="{StaticResource MaterialDesignCalendarDayButton}" />
+        <Setter Property="CalendarButtonStyle" Value="{StaticResource MaterialDesignCalendarButton}" />
+        <Setter Property="materialDesign:CalendarAssist.HeaderBackground" Value="{DynamicResource Background}"/>
+        <Setter Property="materialDesign:CalendarAssist.HeaderForeground" Value="DimGray"/>
+        <Setter Property="materialDesign:CalendarAssist.Orientation" Value="Vertical"/>
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Calendar}">
+                    <Border CornerRadius="8" Background="{DynamicResource Background}" Padding="4">
+                        <CalendarItem
+                        x:Name="PART_CalendarItem"
+                        Style="{DynamicResource MaterialDesignCalendarItemPortrait}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Background="{TemplateBinding Background}"
+                        Foreground="{TemplateBinding Foreground}"
+                        materialDesign:CalendarAssist.IsHeaderVisible="{TemplateBinding materialDesign:CalendarAssist.IsHeaderVisible}"
+                        materialDesign:CalendarAssist.Orientation="{TemplateBinding materialDesign:CalendarAssist.Orientation}"
+                        materialDesign:ShadowAssist.ShadowDepth="{TemplateBinding materialDesign:ShadowAssist.ShadowDepth}"
+                        materialDesign:CalendarAssist.HeaderBackground="{TemplateBinding materialDesign:CalendarAssist.HeaderBackground}"
+                        materialDesign:CalendarAssist.HeaderForeground="{TemplateBinding materialDesign:CalendarAssist.HeaderForeground}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--  AdminNotification  -->
     <Style
         x:Key="AdminNotificationButton"

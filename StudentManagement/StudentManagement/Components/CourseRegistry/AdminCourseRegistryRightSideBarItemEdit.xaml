@@ -20,12 +20,17 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="60" />
+            <RowDefinition
+                Height="*" />
+            <RowDefinition
+                Height="60" />
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="8">
-                <Grid Style="{StaticResource text_grid_item}">
+        <ScrollViewer
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel
+                Margin="8">
+                <Grid
+                    Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -43,7 +48,8 @@
                         Style="{StaticResource textbox_item}"
                         Text="{Binding SubjectName}" />
                 </Grid>
-                <Grid Style="{StaticResource text_grid_item}">
+                <Grid
+                    Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -61,7 +67,8 @@
                         Style="{StaticResource textbox_item}"
                         Text="{Binding SubjectClassCode}" />
                 </Grid>
-                <Grid Style="{StaticResource text_grid_item}">
+                <Grid
+                    Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -71,14 +78,109 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Thời khóa biểu" />
+                        Text="Tiết" />
 
                     <TextBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập tiết và thứ"
+                        materialDesign:HintAssist.Hint="Nhập tiết"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding TKB}" />
+                        Text="{Binding Period}" />
                 </Grid>
+                <Grid
+                    Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Thứ" />
+                    <ComboBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Nhập tiết"
+                        Style="{StaticResource combobox_item}"
+                        ItemsSource="{Binding DayOfWeeks}"
+                        SelectedItem="{Binding WeekDay}" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid
+                        Grid.Column="0"
+                        Style="{StaticResource text_grid_item}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            FontWeight="Bold"
+                            Style="{StaticResource textblock_item}"
+                            Text="Ngày bắt đầu" />
+                        <DatePicker
+                            Name="dpStart"
+                            Grid.Row="1"
+                            materialDesign:HintAssist.Hint="Chọn ngày bắt đầu"
+                            SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Style="{StaticResource datepicker_item}" />
+                    </Grid>
+                    <Grid
+                        Grid.Column="1"
+                        Style="{StaticResource text_grid_item}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            FontWeight="Bold"
+                            Style="{StaticResource textblock_item}"
+                            Text="Ngày kết thúc" />
+                        <DatePicker
+                            Name="dpEnd"
+                            Grid.Row="1"
+                            materialDesign:HintAssist.Hint="Chọn ngày kết thúc"
+                            SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Style="{StaticResource datepicker_item}" />
+                    </Grid>
+                </Grid>
+                <Grid
+                    Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="571*" />
+                        <ColumnDefinition
+                            Width="189*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Sĩ số tối đa"
+                        Grid.ColumnSpan="2"
+                        Margin="4,0,4,0.6" />
+                    <TextBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Nhập số sinh viên tối đa"
+                        AcceptsReturn="False"
+                        Style="{StaticResource textbox_item}"
+                        Text="{Binding MaxOfRegister, UpdateSourceTrigger=PropertyChanged}"
+                        Grid.ColumnSpan="2"
+                        Margin="8,4.4,8,0" />
+                </Grid>
+
             </StackPanel>
         </ScrollViewer>
         <Grid
@@ -86,10 +188,14 @@
             Margin="8"
             Style="{StaticResource text_grid_item}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="*" />
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="3"

@@ -42,17 +42,17 @@
                             </DataGridCheckBoxColumn.HeaderStyle>
                         </DataGridCheckBoxColumn>
                         <DataGridTextColumn
-                            Binding="{Binding IdSubjectClass, Mode=OneWay}"
+                            Binding="{Binding Code, Mode=OneWay}"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                             Header="Mã lớp học" />
                         <materialDesign:DataGridTextColumn ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" Header="Tên môn học">
                             <materialDesign:DataGridTextColumn.Binding>
-                                <Binding Mode="OneWay" Path="SubjectName" />
+                                <Binding Mode="OneWay" Path="Subject.DisplayName" />
                             </materialDesign:DataGridTextColumn.Binding>
                         </materialDesign:DataGridTextColumn>
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding Credit, Mode=OneWay}"
+                            Binding="{Binding Subject.Credit, Mode=OneWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Số tín chỉ">
                             <DataGridTextColumn.HeaderStyle>
@@ -76,9 +76,17 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </materialDesign:DataGridTextColumn>
+                        <DataGridTextColumn
+                            Binding="{Binding WeekDay, Mode=OneWay}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="Thứ" />
+                        <materialDesign:DataGridTextColumn
+                            Binding="{Binding Period, Mode=OneWay}"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            Header="Tiết" />
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding LimitStudentCount, Mode=OneWay}"
+                            Binding="{Binding MaxOfRegister, Mode=OneWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Giới hạn">
                             <DataGridTextColumn.HeaderStyle>
@@ -105,7 +113,7 @@
                         <!--  use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo  -->
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding RegisteredCount, Mode=OneWay}"
+                            Binding="{Binding NumberStudent, Mode=OneWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Đã đăng ký">
                             <DataGridTextColumn.HeaderStyle>

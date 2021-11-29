@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:component="clr-namespace:StudentManagement.Components"
-    xmlns:component1="clr-namespace:StudentManagement.Components.ListStudents"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:StudentManagement.Views"
@@ -48,6 +47,8 @@
                     <component:SearchBarOne 
                         FirstSearchButtonVisibility="False"
                         SecondSearchButtonVisibility="False"
+                        TextblockSearchBaseOnVisibility="False"
+                        DatePickerVisibility="False"
                         SearchQuery="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
                         SearchCommand="{Binding SearchName}"
                         ></component:SearchBarOne>
@@ -58,7 +59,7 @@
                         Width="140"
                         Margin="16,0,16,0"
                         materialDesign:ButtonAssist.CornerRadius="5"
-                        Background="#6200ee"
+                        Background="#4caf50"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                         <TextBlock Text="Thêm sinh viên" />
                     </Button>
@@ -69,14 +70,17 @@
                         Width="140"
                         Margin="16,0,16,0"
                         materialDesign:ButtonAssist.CornerRadius="5"
-                        Background="#4caf50"
+                        Background="#ff0000"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners">
-                        <TextBlock Text="Xuất bảng điểm" />
+                        <TextBlock Text="Xóa sinh viên" />
                     </Button>
                 </Grid>
             </Grid>
 
-            <component1:AdminListStudentDataGrid Grid.Row="1" Margin="16,0,16,0" />
+            <component:StudentListDataGrid 
+                Grid.Row="1" 
+                
+                Margin="16,0,16,0" />
 
         </Grid>
     </ScrollViewer>

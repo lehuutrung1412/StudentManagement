@@ -13,9 +13,7 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
-    <Border
-        Background="{DynamicResource Background}"
-        CornerRadius="15">
+    <Border Background="{DynamicResource Background}" CornerRadius="15">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="15"
@@ -25,41 +23,30 @@
         </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition
-                    Height="auto" />
-                <RowDefinition
-                    Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <DockPanel
-                Background="{StaticResource AttentionToActionBrush}"
-                Grid.Row="0">
+            <DockPanel Grid.Row="0" Background="{StaticResource AttentionToActionBrush}">
                 <TextBlock
+                    Margin="16,8,4,8"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Chủ đề thông báo"
                     materialDesign:ValidationAssist.Background="Transparent"
                     FontSize="24"
-                    Margin="16 8 4 8"
-                    Foreground="{StaticResource Black}"
                     FontWeight="Bold"
+                    Foreground="{StaticResource Black}"
                     Text="Tạo Lớp Môn Học"
-                    TextWrapping="Wrap">
-                </TextBlock>
+                    TextWrapping="Wrap" />
             </DockPanel>
-            <ScrollViewer
-                Grid.Row="1"
-                HorizontalScrollBarVisibility="Visible">
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible">
                 <StackPanel>
-                    <Grid
-                        Margin="16,16,16,4">
+                    <Grid Margin="16,16,16,4">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition
-                                Width="1.5*" />
+                            <ColumnDefinition Width="1.5*" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <StackPanel
-                            Grid.Column="0">
-                            <Grid
-                                Style="{StaticResource text_grid_item}">
+                        <StackPanel Grid.Column="0">
+                            <Grid Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -74,19 +61,17 @@
                                     Name="cbSubject"
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Chọn tên môn học"
-                                    Style="{StaticResource combobox_item}"
                                     ItemsSource="{Binding Subjects}"
-                                    SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged}">
+                                    SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource combobox_item}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding DisplayName}"/>
+                                            <TextBlock Text="{Binding DisplayName}" />
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </Grid>
-                            <Grid
-                                Style="{StaticResource text_grid_item}">
+                            <Grid Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -101,19 +86,17 @@
                                     Name="cbTF"
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Chọn tên hệ đào tạo"
-                                    Style="{StaticResource combobox_item}"
                                     ItemsSource="{Binding TrainingForms}"
-                                    SelectedItem="{Binding SelectedTF, UpdateSourceTrigger=PropertyChanged}">
+                                    SelectedItem="{Binding SelectedTF, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource combobox_item}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock
-                                                Text="{Binding DisplayName}" />
+                                            <TextBlock Text="{Binding DisplayName}" />
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </Grid>
-                            <Grid
-                                Style="{StaticResource text_grid_item}">
+                            <Grid Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -126,41 +109,38 @@
                                     Text="Sĩ số tối đa" />
                                 <TextBox
                                     Grid.Row="1"
-                                    AcceptsReturn="False"
                                     materialDesign:HintAssist.Hint="Nhập số sinh viên tối đa"
+                                    AcceptsReturn="False"
                                     Style="{StaticResource textbox_item}"
                                     Text="{Binding MaxNumber, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                             <Border
                                 Grid.Column="0"
+                                Margin="8"
+                                Padding="0,0,0,8"
                                 BorderBrush="Gray"
                                 BorderThickness="1"
-                                CornerRadius="8"
-                                Margin="8"
-                                Padding="0 0 0 8">
+                                CornerRadius="8">
                                 <StackPanel>
                                     <TextBlock
-                                        Text="Mã lớp môn học"
+                                        Margin="0,16,0,8"
+                                        HorizontalAlignment="Center"
+                                        FontSize="28"
                                         FontWeight="SemiBold"
-                                        HorizontalAlignment="Center"
-                                        Margin="0, 16, 0, 8"
-                                        FontSize="28" />
+                                        Text="Mã lớp môn học" />
                                     <TextBox
-                                        Text="{Binding SubjectClassCode, Mode=TwoWay, FallbackValue='x.x.x'}"
-                                        FontSize="24"
                                         HorizontalAlignment="Center"
-                                        Foreground="Crimson"
+                                        FontSize="24"
                                         FontStyle="Italic"
-                                        Style="{StaticResource MaterialDesignTextBox}" />
+                                        Foreground="Crimson"
+                                        Style="{StaticResource MaterialDesignTextBox}"
+                                        Text="{Binding SubjectClassCode, Mode=TwoWay, FallbackValue='x.x.x'}" />
                                 </StackPanel>
                             </Border>
-                            
+
                         </StackPanel>
-                        <StackPanel
-                            Margin="12, 0, 0, 0"
-                            Grid.Column="2">
-                            <Grid
-                                Style="{StaticResource text_grid_item}">
+                        <StackPanel Grid.Column="2" Margin="12,0,0,0">
+                            <Grid Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -174,12 +154,11 @@
                                 <ComboBox
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Chọn thứ"
-                                    Style="{StaticResource combobox_item}"
                                     ItemsSource="{Binding DayOfWeeks}"
-                                    SelectedItem="{Binding SelectedDay, UpdateSourceTrigger=PropertyChanged}" />
+                                    SelectedItem="{Binding SelectedDay, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource combobox_item}" />
                             </Grid>
-                            <Grid
-                                Style="{StaticResource text_grid_item}">
+                            <Grid Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -192,28 +171,21 @@
                                     Text="Tiết" />
                                 <TextBox
                                     Grid.Row="1"
-                                    AcceptsReturn="False"
                                     materialDesign:HintAssist.Hint="Nhập tiết (Vd: 8910)"
+                                    AcceptsReturn="False"
                                     Text="{Binding Period, UpdateSourceTrigger=PropertyChanged}">
                                     <TextBox.Style>
-                                        <Style
-                                            BasedOn="{StaticResource textbox_item}"
-                                            TargetType="TextBox">
+                                        <Style BasedOn="{StaticResource textbox_item}" TargetType="TextBox">
                                             <Style.Triggers>
-                                                <Trigger
-                                                    Property="Validation.HasError"
-                                                    Value="True">
-                                                    <Setter
-                                                        Property="materialDesign:HintAssist.Foreground"
-                                                        Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                                <Trigger Property="Validation.HasError" Value="True">
+                                                    <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
                                     </TextBox.Style>
                                 </TextBox>
                             </Grid>
-                            <Grid
-                                Style="{StaticResource text_grid_item}">
+                            <Grid Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -229,10 +201,9 @@
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Chọn ngày bắt đầu"
                                     SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                    Style="{StaticResource datepicker_item}"/>
+                                    Style="{StaticResource datepicker_item}" />
                             </Grid>
-                            <Grid
-                                Style="{StaticResource text_grid_item}">
+                            <Grid Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
@@ -252,8 +223,7 @@
                             </Grid>
                         </StackPanel>
                     </Grid>
-                    <Grid
-                        Margin="16,16,16,4">
+                    <Grid Margin="16,16,16,4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="auto" />
@@ -265,72 +235,36 @@
                             Orientation="Horizontal">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition
-                                        Width="*" />
-                                    <ColumnDefinition
-                                        Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Grid
-                                    Grid.Column="1">
-                                    <StackPanel
-                                        Orientation="Horizontal">
+                                <Grid Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal">
                                         <Button
                                             Margin="16,0,16,0"
                                             HorizontalAlignment="Stretch"
                                             Content="Thêm">
                                             <Button.Style>
-                                                <Style
-                                                    BasedOn="{StaticResource PrimaryButton}"
-                                                    TargetType="Button">
-                                                    <Setter
-                                                        Property="IsEnabled"
-                                                        Value="False" />
+                                                <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                                    <Setter Property="IsEnabled" Value="False" />
                                                     <Style.Triggers>
                                                         <MultiDataTrigger>
                                                             <MultiDataTrigger.Conditions>
-                                                                <Condition
-                                                                    Binding="{Binding SelectedDay, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}"
-                                                                    Value="False" />
-                                                                <Condition
-                                                                    Binding="{Binding Period, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}"
-                                                                    Value="False" />
-                                                                <Condition
-                                                                    Binding="{Binding MaxNumber, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}"
-                                                                    Value="False" />
-                                                                <!--
-                                                                <Condition
-                                                                    Binding="{Binding SubjectClassCode, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}"
-                                                                    Value="False" />
-                                                                <Condition
-                                                                    Binding="{Binding ElementName=cbSubject, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}"
-                                                                    Value="False" />
-                                                                <Condition
-                                                                    Binding="{Binding ElementName=cbTF, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}"
-                                                                    Value="False" />
-                                                                -->
-                                                                <Condition
-                                                                    Binding="{Binding MaxNumber, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNumericConverter}}"
-                                                                    Value="True" />
-                                                                <Condition
-                                                                    Binding="{Binding Period, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNumericConverter}}"
-                                                                    Value="True" />
-                                                                <Condition
-                                                                    Binding="{Binding ElementName=dpStart, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}"
-                                                                    Value="False" />
-                                                                <Condition
-                                                                    Binding="{Binding ElementName=dpEnd, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}"
-                                                                    Value="False" />
+                                                                <Condition Binding="{Binding SelectedDay, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                                <Condition Binding="{Binding Period, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                                <Condition Binding="{Binding MaxNumber, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                                <Condition Binding="{Binding SubjectClassCode, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                                <Condition Binding="{Binding ElementName=cbSubject, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                                <Condition Binding="{Binding ElementName=cbTF, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                                <Condition Binding="{Binding MaxNumber, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNumericConverter}}" Value="True" />
+                                                                <Condition Binding="{Binding Period, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNumericConverter}}" Value="True" />
+                                                                <Condition Binding="{Binding ElementName=dpStart, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                                <Condition Binding="{Binding ElementName=dpEnd, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
                                                             </MultiDataTrigger.Conditions>
-                                                            <Setter
-                                                                Property="IsEnabled"
-                                                                Value="True" />
+                                                            <Setter Property="IsEnabled" Value="True" />
                                                         </MultiDataTrigger>
-                                                        <Trigger
-                                                            Property="Validation.HasError"
-                                                            Value="True">
-                                                            <Setter
-                                                                Property="materialDesign:ValidationAssist.Background"
-                                                                Value="Transparent" />
+                                                        <Trigger Property="Validation.HasError" Value="True">
+                                                            <Setter Property="materialDesign:ValidationAssist.Background" Value="Transparent" />
                                                         </Trigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -339,13 +273,9 @@
                                                 <ControlTemplate />
                                             </Validation.ErrorTemplate>
                                             <i:Interaction.Triggers>
-                                                <i:EventTrigger
-                                                    EventName="Click">
-                                                    <i:InvokeCommandAction
-                                                        Command="{Binding CreateNotificationCommand}" />
-                                                    <i:InvokeCommandAction
-                                                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
-
+                                                <i:EventTrigger EventName="Click">
+                                                    <i:InvokeCommandAction Command="{Binding ConfirmCommand}" />
+                                                    <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </Button>
@@ -361,11 +291,11 @@
                             </Grid>
                         </StackPanel>
                     </Grid>
-                    
+
                 </StackPanel>
-                
+
             </ScrollViewer>
-            
+
         </Grid>
     </Border>
 </UserControl>

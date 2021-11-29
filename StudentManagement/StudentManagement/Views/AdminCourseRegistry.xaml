@@ -92,7 +92,9 @@
                         FontWeight="Bold"
                         Foreground="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Green&quot; : (x == 1 ? &quot;Red&quot; : &quot;Gray&quot;)), x)'}"
                         Text="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Tạm đóng&quot; : (x == 1 ? &quot;Đang mở&quot; : &quot;Kết thúc&quot;)), x)'}" />
-                    <DockPanel Grid.Column="3" LastChildFill="False">
+                    <DockPanel
+                        Grid.Column="3"
+                        LastChildFill="False">
                         <Button
                             Background="Transparent"
                             BorderThickness="0"
@@ -150,6 +152,7 @@
                         FirstSearchButtonText="Mã lớp"
                         SearchCommand="{Binding SearchCourseRegistryItems}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        DatePickerVisibility="False"
                         SecondSearchButtonText="Tên lớp học" />
                 </Grid>
                 <DockPanel LastChildFill="False">
@@ -198,6 +201,7 @@
                     Data="{Binding CourseRegistryItemsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource AdminCourseRegistryRightSideBarVM}}"/>
+                <!--
                 <DockPanel
                     LastChildFill="False">
                     <Button
@@ -217,6 +221,7 @@
                         Command="{Binding SaveChangesCommand}"
                         Style="{StaticResource rounded_btn}" />
                 </DockPanel>
+                -->
             </StackPanel>
         </materialDesign:DialogHost>
     </ScrollViewer>

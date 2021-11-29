@@ -6,8 +6,9 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
+    x:Name="AdminCourseRSBItem"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
@@ -17,51 +18,42 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    x:Name="AdminCourseRSBItem"
     mc:Ignorable="d">
     <StackPanel>
         <StackPanel.Resources>
-            <viewmodels:AdminCourseRegistryRightSideBarItemViewModel
-                x:Key="AdminCourseRegistryRightSideBarItemVM" />
+            <viewmodels:AdminCourseRegistryRightSideBarItemViewModel x:Key="AdminCourseRegistryRightSideBarItemVM" />
         </StackPanel.Resources>
         <Grid>
-            <StackPanel
-                Margin="8">
+            <StackPanel Margin="8">
                 <TextBlock
                     FontSize="28"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                     TextWrapping="Wrap">
-                <Run
-                        Text="{Binding CurrentItem.IdSubjectClass, FallbackValue='Mã lớp học'}" />
+                    <Run Text="{Binding CurrentItem.Code, FallbackValue='Mã lớp học'}" />
                 </TextBlock>
-                <Grid
-                    Style="{StaticResource text_grid_item}">
+                <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            Width="43*" />
-                        <ColumnDefinition
-                            Width="147*" />
-                        <ColumnDefinition
-                            Width="190*" />
+                        <ColumnDefinition Width="43*" />
+                        <ColumnDefinition Width="147*" />
+                        <ColumnDefinition Width="190*" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
                         Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="4,0,4,-0.2"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Môn học:"
-                        Grid.ColumnSpan="2"
-                        Margin="4,0,4,-0.2" />
+                        Text="Môn học:" />
                     <TextBlock
                         Grid.Column="2"
+                        Margin="4,0,4,-0.2"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentItem.SubjectName, FallbackValue='Ten Mon Hoc'}"
-                        TextAlignment="Right"
-                        Margin="4,0,4,-0.2" />
+                        Text="{Binding CurrentItem.Subject.DisplayName, FallbackValue='Ten Mon Hoc'}"
+                        TextAlignment="Right" />
                 </Grid>
-                <Grid
-                    Style="{StaticResource text_grid_item}">
+                <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -78,8 +70,7 @@
                         Text="{Binding CurrentItem.TeacherName, FallbackValue='Nguyễn Tấn Toàn'}"
                         TextAlignment="Right" />
                 </Grid>
-                <Grid
-                    Style="{StaticResource text_grid_item}">
+                <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -93,11 +84,10 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentItem.StartDate, StringFormat='dd/MM/yyyy', FallbackValue='01/01/2001'}"
+                        Text="{Binding CurrentItem.StartDate, StringFormat='dd/MM/yyyy'}"
                         TextAlignment="Right" />
                 </Grid>
-                <Grid
-                    Style="{StaticResource text_grid_item}">
+                <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -111,11 +101,10 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentItem.EndDate, StringFormat='dd/MM/yyyy', FallbackValue='30/01/2001'}"
+                        Text="{Binding CurrentItem.EndDate, StringFormat='dd/MM/yyyy'}"
                         TextAlignment="Right" />
                 </Grid>
-                <Grid
-                    Style="{StaticResource text_grid_item}">
+                <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -129,15 +118,21 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentItem.TKB, FallbackValue='Lịch học'}"
-                        TextAlignment="Right" />
+                        TextAlignment="Right">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}, Tiết {1}">
+                                <Binding Path="CurrentItem.WeekDay" />
+                                <Binding Path="CurrentItem.Period" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </Grid>
             </StackPanel>
         </Grid>
         <StackPanel
-            Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=CanEdit, Mode=OneWay}"
+            Margin="8"
             DataContext="{DynamicResource AdminCourseRegistryRightSideBarVM}"
-            Margin="8">
+            Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=CanEdit, Mode=OneWay}">
             <Button
                 x:Name="btnEdit"
                 Command="{Binding EditCourseInfoCommand}"
@@ -145,8 +140,7 @@
                 DataContext="{DynamicResource AdminCourseRegistryRightSideBarVM}"
                 Style="{StaticResource grid_button_item}">
 
-                <Grid
-                    Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
+                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
                         FontSize="16"
                         FontWeight="Bold"
@@ -167,28 +161,25 @@
                 DataContext="{DynamicResource AdminCourseRegistryRightSideBarVM}"
                 Style="{StaticResource grid_button_item}">
 
-                <Grid
-                    Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            Width="29*" />
-                        <ColumnDefinition
-                            Width="161*" />
+                        <ColumnDefinition Width="29*" />
+                        <ColumnDefinition Width="161*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
+                        Grid.ColumnSpan="2"
+                        Margin="4,0,4,-0.2"
                         FontSize="16"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Xoá:"
-                        Grid.ColumnSpan="2"
-                        Margin="4,0,4,-0.2" />
+                        Text="Xoá:" />
                     <materialDesign:PackIcon
+                        Grid.Column="1"
                         Width="18"
                         Height="18"
                         Margin="0,0,8,0"
                         HorizontalAlignment="Right"
-                        Kind="Eraser"
-                        Grid.Column="1" />
+                        Kind="Eraser" />
                 </Grid>
             </Button>
         </StackPanel>
