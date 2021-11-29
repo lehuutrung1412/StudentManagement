@@ -1,5 +1,7 @@
-﻿using System;
+﻿using StudentManagement.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +47,7 @@ namespace StudentManagement.Components
         {
             SetIsAbsentDay(d, CheckAbsentDay((DateTime)d.GetValue(DateProperty)));
             SetIsMakeUpDay(d, CheckMakeUpDay((DateTime)d.GetValue(DateProperty)));
-            SetIsScheduleDay(d, CheckScheduleDay((DateTime)d.GetValue(DateProperty)));
+            SetIsScheduleDay(d, CheckScheduleDay((DateTime)d.GetValue(DateProperty), d));
         }
 
         private static bool CheckAbsentDay(DateTime date)
@@ -60,10 +62,10 @@ namespace StudentManagement.Components
             return list.Any(dateItem => dateItem == date);
         }
 
-        private static bool CheckScheduleDay(DateTime date)
+        private static bool CheckScheduleDay(DateTime date, DependencyObject d)
         {
-            List<DateTime> list = new List<DateTime>() { new DateTime(2021, 11, 28), new DateTime(2021, 11, 21) };
-            return list.Any(dateItem => dateItem == date);
+            ObservableCollection<DateTime> dateTimes = (ObservableCollection<DateTime>)d.GetValue(ListScheduleProperty);
+            return dateTimes.Any(dateItem => dateItem == date);
         }
 
         public static DependencyProperty IsAbsentProperty = DependencyProperty.RegisterAttached(
@@ -103,6 +105,19 @@ namespace StudentManagement.Components
         public static void SetIsScheduleDay(DependencyObject obj, bool value)
         {
             obj.SetValue(IsScheduleProperty, value);
+        }
+
+        public static DependencyProperty ListScheduleProperty = DependencyProperty.RegisterAttached(
+            "ListSchedule", typeof(ObservableCollection<DateTime>), typeof(CalendarHelper));
+
+        public static ObservableCollection<DateTime> GetListSchedule(DependencyObject obj)
+        {
+            return (ObservableCollection<DateTime>)obj.GetValue(ListScheduleProperty);
+        }
+
+        public static void SetListSchedule(DependencyObject obj, ObservableCollection<DateTime> value)
+        {
+            obj.SetValue(ListScheduleProperty, value);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace StudentManagement.ViewModels
 
         public NewsfeedRightSideBarViewModel()
         {
-            ScheduleTimes = new ObservableCollection<DateTime> { new DateTime(2021, 11, 28), new DateTime(2021, 11, 21) };
+            ScheduleTimes = new ObservableCollection<DateTime> { new DateTime(2021, 11, 28), new DateTime(2021, 11, 21), new DateTime(2021, 12, 21) };
         }
     }
 }

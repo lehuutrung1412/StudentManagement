@@ -44,6 +44,7 @@
                     Style="{StaticResource MaterialDesignCalendarNew}">
                     <Calendar.CalendarDayButtonStyle>
                         <Style BasedOn="{StaticResource MaterialDesignCalendarDayButton}" TargetType="{x:Type CalendarDayButton}">
+                            <Setter Property="local:CalendarHelper.ListSchedule" Value="{Binding DataContext.ScheduleTimes, RelativeSource={RelativeSource AncestorType={x:Type Calendar}}}" />
                             <Setter Property="local:CalendarHelper.Date" Value="{Binding}" />
                             <Style.Triggers>
                                 <Trigger Property="local:CalendarHelper.IsScheduleDay" Value="True">
