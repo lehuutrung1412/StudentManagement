@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +9,15 @@ namespace StudentManagement.ViewModels
 {
     public class AdminCourseRegistryRightSideBarItemViewModel : BaseViewModel
     {
-        public TempSubjectClass CurrentItem { get => _currentItem; set => _currentItem = value; }
-        private TempSubjectClass _currentItem;
+        public SubjectClass CurrentItem { get => _currentItem; set => _currentItem = value; }
+        private SubjectClass _currentItem;
         
         public AdminCourseRegistryRightSideBarItemViewModel()
         {
             CurrentItem = null;
         }
 
-        public AdminCourseRegistryRightSideBarItemViewModel(TempSubjectClass item)
+        public AdminCourseRegistryRightSideBarItemViewModel(SubjectClass item)
         {
             CurrentItem = item;
         }

@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace StudentManagement.ViewModels
     {
         // currentCard just for binding to view, actualcard is real card
 
-        public TempSubjectClass CurrentItem
+        public SubjectClass CurrentItem
         {
             get { return _currentItem; }
             set
@@ -23,30 +24,43 @@ namespace StudentManagement.ViewModels
         }
         public string SubjectName { get => _subjectName; set { _subjectName = value; OnPropertyChanged(); } }
         public string SubjectClassCode { get => _subjectClassCode; set { _subjectClassCode = value; OnPropertyChanged(); } }
-        public string Limit { get => _limit; set { _limit = value; OnPropertyChanged(); } }
-        public string TKB { get => _tKB; set { _tKB = value; OnPropertyChanged(); } }
+        public string MaxOfRegister { get => _maxOfRegister; set { _maxOfRegister = value; OnPropertyChanged(); }
+}
+        public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
+        public string WeekDay { get => _weekDay; set { _weekDay = value; OnPropertyChanged(); } }
+        public DateTime? StartDate { get => _startDate; set { _startDate = value; OnPropertyChanged(); } }
+        public DateTime? EndDate { get => _endDate; set { _endDate = value; OnPropertyChanged(); } }
 
 
-        private TempSubjectClass _currentItem;
+        private SubjectClass _currentItem;
 
         private string _subjectName;
         private string _subjectClassCode;
-        private string _limit;
-        private string _tKB;
+        private string _maxOfRegister;
+        private string _period;
+        private string _weekDay;
+        private DateTime? _startDate;
+        private DateTime? _endDate;
+
         public ICommand ConfirmCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         
 
-        public AdminCourseRegistryRightSideBarItemEditViewModel()
+        string[] DayOfWeeks = { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
+
+    public AdminCourseRegistryRightSideBarItemEditViewModel()
         {
             CurrentItem = null;
             SubjectName = "";
             SubjectClassCode = "";
-            TKB = "";
+            StartDate = null;
+            EndDate = null;
+            Period = "";
+            MaxOfRegister = "";
             InitCommand();
         }
 
-        public AdminCourseRegistryRightSideBarItemEditViewModel(TempSubjectClass item)
+        public AdminCourseRegistryRightSideBarItemEditViewModel(SubjectClass item)
         {
             CurrentItem = item;
             InitProperties();
@@ -56,9 +70,13 @@ namespace StudentManagement.ViewModels
 
         public void InitProperties()
         {
-            SubjectName = CurrentItem.SubjectName;
-            SubjectClassCode = CurrentItem.IdSubjectClass;
-            TKB = CurrentItem.TKB;
+            SubjectName = CurrentItem.Subject.DisplayName;
+            /*SubjectClassCode = CurrentItem.Code;*/
+            StartDate = CurrentItem.StartDate;
+            EndDate = CurrentItem.EndDate;
+            Period = CurrentItem.Period;
+            WeekDay = CurrentItem.WeekDay;
+            /*MaxOfRegister = CurrentItem.MaxOfRegister;*/
         }
 
         public void InitCommand()
@@ -85,7 +103,11 @@ namespace StudentManagement.ViewModels
 
         public void Confirm()
         {
-            CurrentItem.TKB = TKB;
+            CurrentItem.Subject.DisplayName = SubjectName;
+            CurrentItem.StartDate = StartDate;
+            CurrentItem.EndDate = EndDate;
+            CurrentItem.Period = Period;
+            CurrentItem.WeekDay = WeekDay;
             Cancel();
         }
 

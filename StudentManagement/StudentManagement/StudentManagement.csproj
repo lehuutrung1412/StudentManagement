@@ -349,6 +349,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
+    <Compile Include="Objects\CourseItems.cs" />
     <Compile Include="Objects\EmptyCard.cs" />
     <Compile Include="Objects\FacultyCard.cs" />
     <Compile Include="Objects\IBaseCard.cs" />
@@ -359,6 +360,8 @@
     <Compile Include="Services\FacultyServies.cs" />
     <Compile Include="Services\Faculty_TrainingFormServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
+    <Compile Include="Services\SubjectClassServices.cs" />
+    <Compile Include="Services\SubjectServices.cs" />
     <Compile Include="Utils\BooleanToVisibilityConverter.cs" />
     <Compile Include="Services\TrainingFormServices.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
