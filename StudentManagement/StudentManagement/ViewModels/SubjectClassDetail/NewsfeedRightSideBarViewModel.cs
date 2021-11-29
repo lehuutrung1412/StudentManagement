@@ -97,6 +97,9 @@ namespace StudentManagement.ViewModels
         private void CancelAddMakeUpDayFunction()
         {
             AddMakeUpMode = false;
+            IsMakeUpDay = true;
+            IsEvent = AbsentTimes.Contains(_selectedDate) || MakeUpTimes.Contains(_selectedDate);
+            IsAbsentDay = ScheduleTimes.Contains(_selectedDate);
         }
 
         private void DeleteEventFunction()
