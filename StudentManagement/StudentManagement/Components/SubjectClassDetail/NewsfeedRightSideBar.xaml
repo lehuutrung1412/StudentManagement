@@ -41,10 +41,13 @@
                 <Calendar
                     Grid.Row="1"
                     Margin="8"
+                    SelectedDate="{Binding SelectedDate}"
                     Style="{StaticResource MaterialDesignCalendarNew}">
                     <Calendar.CalendarDayButtonStyle>
                         <Style BasedOn="{StaticResource MaterialDesignCalendarDayButton}" TargetType="{x:Type CalendarDayButton}">
                             <Setter Property="local:CalendarHelper.ListSchedule" Value="{Binding DataContext.ScheduleTimes, RelativeSource={RelativeSource AncestorType={x:Type Calendar}}}" />
+                            <Setter Property="local:CalendarHelper.ListAbsent" Value="{Binding DataContext.AbsentTimes, RelativeSource={RelativeSource AncestorType={x:Type Calendar}}}" />
+                            <Setter Property="local:CalendarHelper.ListMakeUp" Value="{Binding DataContext.MakeUpTimes, RelativeSource={RelativeSource AncestorType={x:Type Calendar}}}" />
                             <Setter Property="local:CalendarHelper.Date" Value="{Binding}" />
                             <Style.Triggers>
                                 <Trigger Property="local:CalendarHelper.IsScheduleDay" Value="True">
@@ -63,40 +66,38 @@
                         </Style>
                     </Calendar.CalendarDayButtonStyle>
                 </Calendar>
-                <Grid Grid.Row="2" Margin="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="2" Margin="4">
                     <Button
-                        Grid.Column="0"
                         Background="{DynamicResource Orange}"
+                        Command="{Binding AddAbsentDay}"
                         Content="Báo nghỉ"
-                        FontSize="14">
+                        FontSize="14"
+                        Visibility="{Binding IsAbsentDay, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Button.Style>
                             <Style BasedOn="{StaticResource rounded_btn}" TargetType="{x:Type Button}" />
                         </Button.Style>
                     </Button>
                     <Button
-                        Grid.Column="1"
                         Background="{DynamicResource Green}"
+                        Command="{Binding AddMakeUpDay}"
                         Content="Báo bù"
-                        FontSize="14">
+                        FontSize="14"
+                        Visibility="{Binding IsMakeUpDay, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Button.Style>
                             <Style BasedOn="{StaticResource rounded_btn}" TargetType="{x:Type Button}" />
                         </Button.Style>
                     </Button>
                     <Button
-                        Grid.Column="2"
                         Background="{StaticResource ErrorMain}"
+                        Command="{Binding DeleteEvent}"
                         Content="Xóa"
-                        FontSize="14">
+                        FontSize="14"
+                        Visibility="{Binding IsEvent, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Button.Style>
                             <Style BasedOn="{StaticResource rounded_btn}" TargetType="{x:Type Button}" />
                         </Button.Style>
                     </Button>
-                </Grid>
+                </StackPanel>
                 <TextBox
                     Grid.Row="3"
                     Margin="8"

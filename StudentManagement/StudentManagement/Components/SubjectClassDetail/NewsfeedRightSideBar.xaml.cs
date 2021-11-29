@@ -45,27 +45,48 @@ namespace StudentManagement.Components
 
         private static void DatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            SetIsAbsentDay(d, CheckAbsentDay((DateTime)d.GetValue(DateProperty)));
-            SetIsMakeUpDay(d, CheckMakeUpDay((DateTime)d.GetValue(DateProperty)));
+            SetIsAbsentDay(d, CheckAbsentDay((DateTime)d.GetValue(DateProperty), d));
+            SetIsMakeUpDay(d, CheckMakeUpDay((DateTime)d.GetValue(DateProperty), d));
             SetIsScheduleDay(d, CheckScheduleDay((DateTime)d.GetValue(DateProperty), d));
         }
 
-        private static bool CheckAbsentDay(DateTime date)
+        private static bool CheckAbsentDay(DateTime date, DependencyObject d)
         {
-            List<DateTime> list = new List<DateTime>() { new DateTime(2021, 10, 15), new DateTime(2021, 10, 18) };
-            return list.Any(dateItem => dateItem == date);
+            try
+            {
+                ObservableCollection<DateTime> dateTimes = (ObservableCollection<DateTime>)d.GetValue(ListAbsentProperty);
+                return dateTimes.Any(dateItem => dateItem == date);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        private static bool CheckMakeUpDay(DateTime date)
+        private static bool CheckMakeUpDay(DateTime date, DependencyObject d)
         {
-            List<DateTime> list = new List<DateTime>() { new DateTime(2021, 10, 16), new DateTime(2021, 10, 22) };
-            return list.Any(dateItem => dateItem == date);
+            try
+            {
+                ObservableCollection<DateTime> dateTimes = (ObservableCollection<DateTime>)d.GetValue(ListMakeUpProperty);
+                return dateTimes.Any(dateItem => dateItem == date);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         private static bool CheckScheduleDay(DateTime date, DependencyObject d)
         {
-            ObservableCollection<DateTime> dateTimes = (ObservableCollection<DateTime>)d.GetValue(ListScheduleProperty);
-            return dateTimes.Any(dateItem => dateItem == date);
+            try
+            {
+                ObservableCollection<DateTime> dateTimes = (ObservableCollection<DateTime>)d.GetValue(ListScheduleProperty);
+                return dateTimes.Any(dateItem => dateItem == date);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public static DependencyProperty IsAbsentProperty = DependencyProperty.RegisterAttached(
@@ -118,6 +139,32 @@ namespace StudentManagement.Components
         public static void SetListSchedule(DependencyObject obj, ObservableCollection<DateTime> value)
         {
             obj.SetValue(ListScheduleProperty, value);
+        }
+
+        public static DependencyProperty ListAbsentProperty = DependencyProperty.RegisterAttached(
+            "ListAbsent", typeof(ObservableCollection<DateTime>), typeof(CalendarHelper));
+
+        public static ObservableCollection<DateTime> GetListAbsent(DependencyObject obj)
+        {
+            return (ObservableCollection<DateTime>)obj.GetValue(ListAbsentProperty);
+        }
+
+        public static void SetListAbsent(DependencyObject obj, ObservableCollection<DateTime> value)
+        {
+            obj.SetValue(ListAbsentProperty, value);
+        }
+
+        public static DependencyProperty ListMakeUpProperty = DependencyProperty.RegisterAttached(
+            "ListMakeUp", typeof(ObservableCollection<DateTime>), typeof(CalendarHelper));
+
+        public static ObservableCollection<DateTime> GetListMakeUp(DependencyObject obj)
+        {
+            return (ObservableCollection<DateTime>)obj.GetValue(ListMakeUpProperty);
+        }
+
+        public static void SetListMakeUp(DependencyObject obj, ObservableCollection<DateTime> value)
+        {
+            obj.SetValue(ListMakeUpProperty, value);
         }
     }
 }
