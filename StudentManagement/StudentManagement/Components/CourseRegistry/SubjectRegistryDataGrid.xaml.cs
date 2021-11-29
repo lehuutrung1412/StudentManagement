@@ -37,15 +37,15 @@ namespace StudentManagement.Components
         }
 
 
-        public ObservableCollection<CourseItems> Data
+        public ObservableCollection<CourseItem> Data
         {
-            get { return (ObservableCollection<CourseItems>)GetValue(DataProperty); }
+            get { return (ObservableCollection<CourseItem>)GetValue(DataProperty); }
             set { SetValue(DataProperty, value);  }
         }
 
         // Using a DependencyProperty as the backing store for Data.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register("Data", typeof(ObservableCollection<CourseItems>), typeof(SubjectRegistryDataGrid), new PropertyMetadata(null));
+            DependencyProperty.Register("Data", typeof(ObservableCollection<CourseItem>), typeof(SubjectRegistryDataGrid), new PropertyMetadata(null));
 
 
 

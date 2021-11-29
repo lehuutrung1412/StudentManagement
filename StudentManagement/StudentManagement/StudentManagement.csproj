@@ -349,7 +349,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
-    <Compile Include="Objects\CourseItems.cs" />
+    <Compile Include="Objects\CourseItem.cs" />
     <Compile Include="Objects\EmptyCard.cs" />
     <Compile Include="Objects\FacultyCard.cs" />
     <Compile Include="Objects\IBaseCard.cs" />

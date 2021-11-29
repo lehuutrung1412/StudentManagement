@@ -31,9 +31,9 @@ namespace StudentManagement.ViewModels
         private SubjectClass _currentCard;
         public SubjectClass CurrentCard { get => _currentCard; set => _currentCard = value; }
         private Semester _semester;
-        private ObservableCollection<CourseItems> _courses;
+        private ObservableCollection<CourseItem> _courses;
         public Semester Semester { get => _semester; set => _semester = value; }
-        public ObservableCollection<CourseItems> Courses { get => _courses; set => _courses = value; }
+        public ObservableCollection<CourseItem> Courses { get => _courses; set => _courses = value; }
         public ObservableCollection<Subject> Subjects { get => _subjects; set => _subjects = value; }
         public ObservableCollection<TrainingForm> TrainingForms { get => _trainingForms; set => _trainingForms = value; }
         public ObservableCollection<string> DayOfWeeks { get => _dayOfWeeks; set { _dayOfWeeks = value; OnPropertyChanged(); } }
@@ -86,7 +86,7 @@ namespace StudentManagement.ViewModels
         #region command
         public ICommand ConfirmCommand { get; set; }
         #endregion
-        public CreateNewCourseViewModel(SubjectClass card, Semester semester, ObservableCollection<CourseItems> list)
+        public CreateNewCourseViewModel(SubjectClass card, Semester semester, ObservableCollection<CourseItem> list)
         {
             CurrentCard = card;
             Semester = semester;
@@ -128,7 +128,7 @@ namespace StudentManagement.ViewModels
             };
             CurrentCard = newCourse;
             /*SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);*/
-            Courses.Add(new CourseItems(newCourse, false));
+            Courses.Add(new CourseItem(newCourse, false));
         }
         public void UpdateSubjectClassCode()
         {

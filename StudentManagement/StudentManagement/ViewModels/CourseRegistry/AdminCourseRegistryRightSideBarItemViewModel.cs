@@ -10,15 +10,15 @@ namespace StudentManagement.ViewModels
 {
     public class AdminCourseRegistryRightSideBarItemViewModel : BaseViewModel
     {
-        public CourseItems CurrentItem { get => _currentItem; set => _currentItem = value; }
-        private CourseItems _currentItem;
+        public CourseItem CurrentItem { get => _currentItem; set => _currentItem = value; }
+        private CourseItem _currentItem;
         
         public AdminCourseRegistryRightSideBarItemViewModel()
         {
             CurrentItem = null;
         }
 
-        public AdminCourseRegistryRightSideBarItemViewModel(CourseItems item)
+        public AdminCourseRegistryRightSideBarItemViewModel(CourseItem item)
         {
             CurrentItem = item;
         }

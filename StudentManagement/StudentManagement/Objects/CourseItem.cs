@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StudentManagement.Objects
 {
-    public class CourseItems : Models.SubjectClass
+    public class CourseItem : Models.SubjectClass
     {
         private bool _isSelected;
         public bool IsSelected
@@ -15,7 +15,7 @@ namespace StudentManagement.Objects
             get => _isSelected;
             set { _isSelected = value; OnPropertyChanged(); }
         }
-        public CourseItems(Models.SubjectClass a, bool isSelected)
+        public CourseItem(Models.SubjectClass a, bool isSelected)
         {
             this.Id = a.Id;
             this.Teachers = a.Teachers;

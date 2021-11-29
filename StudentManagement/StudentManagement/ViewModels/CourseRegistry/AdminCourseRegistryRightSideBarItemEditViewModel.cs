@@ -14,7 +14,7 @@ namespace StudentManagement.ViewModels
     {
         // currentCard just for binding to view, actualcard is real card
 
-        public CourseItems CurrentItem
+        public CourseItem CurrentItem
         {
             get { return _currentItem; }
             set
@@ -33,7 +33,7 @@ namespace StudentManagement.ViewModels
         public DateTime? EndDate { get => _endDate; set { _endDate = value; OnPropertyChanged(); } }
 
 
-        private CourseItems _currentItem;
+        private CourseItem _currentItem;
 
         private string _subjectName;
         private string _subjectClassCode;
@@ -61,7 +61,7 @@ namespace StudentManagement.ViewModels
             InitCommand();
         }
 
-        public AdminCourseRegistryRightSideBarItemEditViewModel(CourseItems item)
+        public AdminCourseRegistryRightSideBarItemEditViewModel(CourseItem item)
         {
             CurrentItem = item;
             InitProperties();

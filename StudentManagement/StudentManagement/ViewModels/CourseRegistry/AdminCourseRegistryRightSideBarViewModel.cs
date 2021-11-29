@@ -33,8 +33,8 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        private CourseItems _selectedItem;
-        public CourseItems SelectedItem
+        private CourseItem _selectedItem;
+        public CourseItem SelectedItem
         {
             get => _selectedItem; set
             {
@@ -92,7 +92,7 @@ namespace StudentManagement.ViewModels
             _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;*/
-            CourseItems item = p as CourseItems;
+            CourseItem item = p as CourseItem;
             _adminCourseRegistryRightSideBarItemViewModel = new AdminCourseRegistryRightSideBarItemEditViewModel(item);
             RightSideBarItemViewModel = _adminCourseRegistryRightSideBarItemViewModel;
             
