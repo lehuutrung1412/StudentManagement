@@ -18,5 +18,8 @@
     <SolidColorBrush x:Key="DarkGray" Color="#b0b0b0" />
     <SolidColorBrush x:Key="Background" Color="#f0f2f5" />
     <SolidColorBrush x:Key="BlueStatus" Color="#03a9f4" />
-
+    <SolidColorBrush x:Key="SecondaryMain" Color="#673ab7" />
+    <SolidColorBrush x:Key="Green" Color="#408400" />
+    <SolidColorBrush x:Key="Orange" Color="Orange" />
+    <SolidColorBrush x:Key="LightGreen" Color="LightGreen" />
 </ResourceDictionary>

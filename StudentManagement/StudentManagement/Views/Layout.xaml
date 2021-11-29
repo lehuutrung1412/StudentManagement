@@ -41,7 +41,7 @@
             Grid.Column="2"
             Grid.ColumnSpan="7"
             BorderBrush="LightGray"
-            BorderThickness="0 0 1 0">
+            BorderThickness="0,0,1,0">
             <ContentControl Content="{Binding ContentViewModel}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
@@ -87,9 +87,6 @@
             </ContentControl>
         </Border>
 
-        <components:RightSideBar
-            Grid.Column="9"
-            Grid.ColumnSpan="3"
-            Margin="0,0,12,0" />
+        <components:RightSideBar Grid.Column="9" Grid.ColumnSpan="3" />
     </Grid>
 </UserControl>
