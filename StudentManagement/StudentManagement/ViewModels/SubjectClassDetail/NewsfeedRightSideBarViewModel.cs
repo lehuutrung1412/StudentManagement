@@ -67,9 +67,22 @@ namespace StudentManagement.ViewModels
             SelectedDate = DateTime.Now;
             IsMakeUpDay = true;
 
-            ScheduleTimes = new ObservableCollection<DateTime> { new DateTime(2021, 11, 28), new DateTime(2021, 11, 21), new DateTime(2021, 12, 21) };
-            AbsentTimes = new ObservableCollection<DateTime> { new DateTime(2021, 11, 27), new DateTime(2021, 11, 20), new DateTime(2021, 12, 20) };
+            ScheduleTimes = new ObservableCollection<DateTime>();
+            AbsentTimes = new ObservableCollection<DateTime>();
             MakeUpTimes = new ObservableCollection<DateTime>();
+
+            DateTime dateStart = new DateTime(2021, 9, 6);
+            DateTime dateEnd = new DateTime(2021, 12, 13);
+            int weekDay = 1; // Tuesday
+
+            for (DateTime date = dateStart.AddDays(weekDay); date <= dateEnd; date = date.AddDays(7))
+            {
+                if (AbsentTimes.Contains(date) || MakeUpTimes.Contains(date))
+                {
+                    continue;
+                }
+                ScheduleTimes.Add(date);
+            }
 
             AddAbsentDay = new RelayCommand<object>((p) => true, (p) => AddAbsentDayFunction());
             AddMakeUpDay = new RelayCommand<object>((p) => true, (p) => AddMakeUpDayFunction());
@@ -87,6 +100,10 @@ namespace StudentManagement.ViewModels
                 if (MakeUpTimes.Contains(SelectedDate))
                 {
                     MakeUpTimes.Remove(SelectedDate);
+                }
+                if (Math.Abs((SelectedDate - ScheduleTimes[0]).Days) % 7 == 0)
+                {
+                    ScheduleTimes.Add(SelectedDate);
                 }
             }
             catch (Exception) { }
