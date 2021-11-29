@@ -98,6 +98,14 @@ namespace StudentManagement.Services
             DataProvider.Instance.Database.SaveChanges();
         }
 
+        public void RemoveSubjectClassFromDatabaseBySubjectClassId(Guid id)
+        {
+            SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(id);
+
+            DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
+
+            DataProvider.Instance.Database.SaveChanges();
+        }
         /// <summary>
         /// Remove SubjectClassCard From Database
         /// </summary>

@@ -42,21 +42,13 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
                 if (_selectedItem != null)
                 {
-                    SelectedClass = _selectedItem.ConvertToSubjectClass();
-                    _adminCourseRegistryRightSideBarItemViewModel = new AdminCourseRegistryRightSideBarItemViewModel(SelectedClass);
+                    
+                    _adminCourseRegistryRightSideBarItemViewModel = new AdminCourseRegistryRightSideBarItemViewModel(_selectedItem);
                     RightSideBarItemViewModel = _adminCourseRegistryRightSideBarItemViewModel;
                 }
             }
         }
-        private SubjectClass _selectedClass;
-        public SubjectClass SelectedClass
-        {
-            get => _selectedClass; set
-            {
-                _selectedClass = value;
-                OnPropertyChanged();
-            }
-        }
+        
         
 
         private object _adminCourseRegistryRightSideBarItemEditViewModel;
@@ -100,7 +92,7 @@ namespace StudentManagement.ViewModels
             _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;*/
-            SubjectClass item = p as SubjectClass;
+            CourseItems item = p as CourseItems;
             _adminCourseRegistryRightSideBarItemViewModel = new AdminCourseRegistryRightSideBarItemEditViewModel(item);
             RightSideBarItemViewModel = _adminCourseRegistryRightSideBarItemViewModel;
             
@@ -108,7 +100,7 @@ namespace StudentManagement.ViewModels
 
         public void DeleteCourse(object p)
         {
-            /*SubjectCard card = p as SubjectCard;
+            /*SubjectClass card = p as SubjectCard;
 
             SubjectCards.Remove(card);
             StoredSubjectCards.Remove(card);

@@ -30,7 +30,7 @@
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                     TextWrapping="Wrap">
-                    <Run Text="{Binding CurrentItem.IdSubjectClass, FallbackValue='Mã lớp học'}" />
+                    <Run Text="{Binding CurrentItem.Code, FallbackValue='Mã lớp học'}" />
                 </TextBlock>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>

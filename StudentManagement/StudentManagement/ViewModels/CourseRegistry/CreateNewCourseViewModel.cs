@@ -127,6 +127,7 @@ namespace StudentManagement.ViewModels
                 TraningForm = SelectedTF*/
             };
             CurrentCard = newCourse;
+            /*SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);*/
             Courses.Add(new CourseItems(newCourse, false));
         }
         public void UpdateSubjectClassCode()

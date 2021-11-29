@@ -251,14 +251,15 @@ namespace StudentManagement.ViewModels
             var SelectedItems = CourseRegistryItems.Where(x => x.IsSelected == true).ToList();
             foreach (CourseItems item in SelectedItems)
             {
-                item.IsSelected = false;
+                /*SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id);*/
                 CourseRegistryItems.Remove(item);
             }
             SearchCourseRegistryItemsFunction();
         }
         public void CreateNewCourse()
         {
-            _creatNewCourseViewModel = new CreateNewCourseViewModel(new SubjectClass(), SelectedSemester, CourseRegistryItems);
+            var newSubjectClass = new SubjectClass(); 
+            _creatNewCourseViewModel = new CreateNewCourseViewModel(newSubjectClass, SelectedSemester, CourseRegistryItems);
             this.DialogItemViewModel = this._creatNewCourseViewModel;
         }
 
@@ -333,17 +334,25 @@ namespace StudentManagement.ViewModels
                             Teachers,*/
                         };
                         var tempCourse = new CourseItems(tempSubjectClass, false);
+                        /*SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);*/
                         excelList.Add(tempCourse);
+
                     }
                 }
             }
             /*DataTable data = dataSheets[dataSheets.Cast<DataTable>().Select(t=>t.TableName).Last().ToString()];*/
-            
         }
 
         public void SaveChanges()
         {
-            
+
+            /*foreach(ObservableCollection<CourseItems> list1Semester in CourseRegistryItemsAll)
+            {
+                foreach(CourseItems item in list1Semester)
+                {
+
+                }
+            }*/
         }
 
         public void ConvertChanges()

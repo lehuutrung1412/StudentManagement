@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Models;
+using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace StudentManagement.ViewModels
     {
         // currentCard just for binding to view, actualcard is real card
 
-        public SubjectClass CurrentItem
+        public CourseItems CurrentItem
         {
             get { return _currentItem; }
             set
@@ -23,7 +24,7 @@ namespace StudentManagement.ViewModels
             }
         }
         public string SubjectName { get => _subjectName; set { _subjectName = value; OnPropertyChanged(); } }
-        public string SubjectClassCode { get => _subjectClassCode; set { _subjectClassCode = value; OnPropertyChanged(); } }
+        public string CourseItemsCode { get => _subjectClassCode; set { _subjectClassCode = value; OnPropertyChanged(); } }
         public string MaxOfRegister { get => _maxOfRegister; set { _maxOfRegister = value; OnPropertyChanged(); }
 }
         public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
@@ -32,7 +33,7 @@ namespace StudentManagement.ViewModels
         public DateTime? EndDate { get => _endDate; set { _endDate = value; OnPropertyChanged(); } }
 
 
-        private SubjectClass _currentItem;
+        private CourseItems _currentItem;
 
         private string _subjectName;
         private string _subjectClassCode;
@@ -52,7 +53,7 @@ namespace StudentManagement.ViewModels
         {
             CurrentItem = null;
             SubjectName = "";
-            SubjectClassCode = "";
+            CourseItemsCode = "";
             StartDate = null;
             EndDate = null;
             Period = "";
@@ -60,7 +61,7 @@ namespace StudentManagement.ViewModels
             InitCommand();
         }
 
-        public AdminCourseRegistryRightSideBarItemEditViewModel(SubjectClass item)
+        public AdminCourseRegistryRightSideBarItemEditViewModel(CourseItems item)
         {
             CurrentItem = item;
             InitProperties();
@@ -71,7 +72,7 @@ namespace StudentManagement.ViewModels
         public void InitProperties()
         {
             SubjectName = CurrentItem.Subject.DisplayName;
-            /*SubjectClassCode = CurrentItem.Code;*/
+            /*CourseItemsCode = CurrentItem.Code;*/
             StartDate = CurrentItem.StartDate;
             EndDate = CurrentItem.EndDate;
             Period = CurrentItem.Period;
