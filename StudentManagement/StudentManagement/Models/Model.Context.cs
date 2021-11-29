@@ -37,7 +37,6 @@ namespace StudentManagement.Models
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Faculty_TrainingForm> Faculty_TrainingForm { get; set; }
         public DbSet<Folder> Folders { get; set; }
-        public DbSet<Parent> Parents { get; set; }
         public DbSet<Semester> Semesters { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudyResult> StudyResults { get; set; }
@@ -46,6 +45,11 @@ namespace StudentManagement.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TrainingForm> TrainingForms { get; set; }
         public DbSet<TrainingScore> TrainingScores { get; set; }
+        public DbSet<User_UserRole_UserInfo> User_UserRole_UserInfo { get; set; }
+        public DbSet<UserInfo> UserInfoes { get; set; }
+        public DbSet<UserInfoItem> UserInfoItems { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<UserRole_UserInfo> UserRole_UserInfo { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace StudentManagement.Models
             this.Documents = new HashSet<Document>();
             this.Students = new HashSet<Student>();
             this.Teachers = new HashSet<Teacher>();
+            this.User_UserRole_UserInfo = new HashSet<User_UserRole_UserInfo>();
         }
     
         private System.Guid _id { get; set; }
@@ -31,18 +32,10 @@ namespace StudentManagement.Models
         public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
         private string _displayName { get; set; }
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _dayOfBirth { get; set; }
-        public Nullable<System.DateTime> DayOfBirth { get => _dayOfBirth; set { _dayOfBirth = value; OnPropertyChanged(); } }
-        private Nullable<int> _gender { get; set; }
-        public Nullable<int> Gender { get => _gender; set { _gender = value; OnPropertyChanged(); } }
-        private string _email { get; set; }
-        public string Email { get => _email; set { _email = value; OnPropertyChanged(); } }
-        private string _phoneNumber { get; set; }
-        public string PhoneNumber { get => _phoneNumber; set { _phoneNumber = value; OnPropertyChanged(); } }
         private Nullable<bool> _online { get; set; }
         public Nullable<bool> Online { get => _online; set { _online = value; OnPropertyChanged(); } }
-        private Nullable<int> _roles { get; set; }
-        public Nullable<int> Roles { get => _roles; set { _roles = value; OnPropertyChanged(); } }
+        private System.Guid _idUserRole { get; set; }
+        public System.Guid IdUserRole { get => _idUserRole; set { _idUserRole = value; OnPropertyChanged(); } }
         private System.Guid _idFaculty { get; set; }
         public System.Guid IdFaculty { get => _idFaculty; set { _idFaculty = value; OnPropertyChanged(); } }
         private System.Guid _idAvatar { get; set; }
@@ -54,5 +47,7 @@ namespace StudentManagement.Models
         public virtual Faculty Faculty { get; set; }
         public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<Teacher> Teachers { get; set; }
+        public virtual ICollection<User_UserRole_UserInfo> User_UserRole_UserInfo { get; set; }
+        public virtual UserRole UserRole { get; set; }
     }
 }

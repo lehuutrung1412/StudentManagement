@@ -4,63 +4,72 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0f6e297b41a24231a98ff12ac1ffbeb4" Name="Diagram1" ZoomLevel="121">
-        <EntityTypeShape EntityType="StudentManagementModel.AbsentCalendar" Width="1.5" PointX="5.25" PointY="19.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.Admin" Width="1.5" PointX="3" PointY="20.125" />
-        <EntityTypeShape EntityType="StudentManagementModel.Class" Width="1.5" PointX="10.5" PointY="9.875" />
-        <EntityTypeShape EntityType="StudentManagementModel.ComponentScore" Width="1.5" PointX="5.25" PointY="22" />
-        <EntityTypeShape EntityType="StudentManagementModel.CourseRegister" Width="1.5" PointX="6" PointY="15.125" />
-        <EntityTypeShape EntityType="StudentManagementModel.DatabaseImageTable" Width="1.5" PointX="0.75" PointY="12" />
-        <EntityTypeShape EntityType="StudentManagementModel.DetailScore" Width="1.5" PointX="7.5" PointY="22" />
-        <EntityTypeShape EntityType="StudentManagementModel.Document" Width="1.5" PointX="8.5" PointY="16.5" />
-        <EntityTypeShape EntityType="StudentManagementModel.Examination" Width="1.5" PointX="5.25" PointY="11.625" />
-        <EntityTypeShape EntityType="StudentManagementModel.Faculty" Width="1.5" PointX="1.5" PointY="24.875" />
-        <EntityTypeShape EntityType="StudentManagementModel.Faculty_TrainingForm" Width="1.5" PointX="7.75" PointY="7.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.Folder" Width="1.5" PointX="5.25" PointY="24.875" />
-        <EntityTypeShape EntityType="StudentManagementModel.Parent" Width="1.5" PointX="0.75" PointY="5.125" />
-        <EntityTypeShape EntityType="StudentManagementModel.Semester" Width="1.5" PointX="0.75" PointY="15.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.Student" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="StudentManagementModel.StudyResult" Width="1.5" PointX="5.25" PointY="8.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.Subject" Width="1.5" PointX="0.75" PointY="8.875" />
-        <EntityTypeShape EntityType="StudentManagementModel.SubjectClass" Width="1.5" PointX="3" PointY="9.125" />
-        <EntityTypeShape EntityType="StudentManagementModel.Teacher" Width="1.5" PointX="8.25" PointY="10.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.TrainingForm" Width="1.5" PointX="0.75" PointY="1.75" />
-        <EntityTypeShape EntityType="StudentManagementModel.TrainingScore" Width="1.5" PointX="3" PointY="15.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.User" Width="1.5" PointX="0.75" PointY="18.75" />
-        <AssociationConnector Association="StudentManagementModel.FK__AbsentCal__IdSub__06CD04F7" />
-        <AssociationConnector Association="StudentManagementModel.FK__Admin__IdUsers__6D0D32F4" />
-        <AssociationConnector Association="StudentManagementModel.FK__Class__IdFaculty__72C60C4A" />
-        <AssociationConnector Association="StudentManagementModel.FK__Class__IdTeacher__73BA3083" />
-        <AssociationConnector Association="StudentManagementModel.FK__Class__IdThumbna__74AE54BC" />
-        <AssociationConnector Association="StudentManagementModel.FK__Class__IdTrainin__71D1E811" />
-        <AssociationConnector Association="StudentManagementModel.FK__Component__IdSub__00200768" />
-        <AssociationConnector Association="StudentManagementModel.FK__DetailSco__IdCom__02084FDA" />
-        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdSem__7D439ABD" />
-        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdStu__7C4F7684" />
-        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdSub__7B5B524B" />
-        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdThu__778AC167" />
-        <AssociationConnector Association="StudentManagementModel.FK__Users__IdAvatar__68487DD7" />
-        <AssociationConnector Association="StudentManagementModel.FK__DetailSco__IdStu__01142BA1" />
-        <AssociationConnector Association="StudentManagementModel.FK__Document__IdFold__03F0984C" />
-        <AssociationConnector Association="StudentManagementModel.FK__Document__IdPost__02FC7413" />
-        <AssociationConnector Association="StudentManagementModel.FK__Document__IdSubj__04E4BC85" />
-        <AssociationConnector Association="StudentManagementModel.FK__Examinati__IdSub__787EE5A0" />
-        <AssociationConnector Association="StudentManagementModel.FK__Faculty_T__IdFac__6EF57B66" />
-        <AssociationConnector Association="StudentManagementModel.FK__Users__IdFaculty__6754599E" />
-        <AssociationConnector Association="StudentManagementModel.FK__Faculty_T__IdTra__6E01572D" />
-        <AssociationConnector Association="StudentManagementModel.FK__Folder__IdSubjec__05D8E0BE" />
-        <AssociationConnector Association="StudentManagementModel.FK__Student__IdParen__6B24EA82" />
-        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdSem__76969D2E" />
-        <AssociationConnector Association="StudentManagementModel.FK__TrainingS__IdSem__7F2BE32F" />
-        <AssociationConnector Association="StudentManagementModel.FK__Student__IdTrain__693CA210" />
-        <AssociationConnector Association="StudentManagementModel.FK__Student__IdUsers__6A30C649" />
-        <AssociationConnector Association="StudentManagementModel.FK__StudyResu__IdStu__6FE99F9F" />
-        <AssociationConnector Association="StudentManagementModel.FK__TrainingS__IdStu__7E37BEF6" />
-        <AssociationConnector Association="StudentManagementModel.FK__StudyResu__IdSub__70DDC3D8" />
-        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdSub__75A278F5" />
-        <AssociationConnector Association="StudentManagementModel.FK__Teacher__IdUsers__6C190EBB" />
+      <Diagram DiagramId="0f6e297b41a24231a98ff12ac1ffbeb4" Name="Diagram1" ZoomLevel="51">
+        <EntityTypeShape EntityType="StudentManagementModel.AbsentCalendar" Width="1.5" PointX="8.25" PointY="21.625" />
+        <EntityTypeShape EntityType="StudentManagementModel.Admin" Width="1.5" PointX="8.25" PointY="5.75" />
+        <EntityTypeShape EntityType="StudentManagementModel.Class" Width="1.5" PointX="3" PointY="17" />
+        <EntityTypeShape EntityType="StudentManagementModel.ComponentScore" Width="1.5" PointX="8.25" PointY="27.125" />
+        <EntityTypeShape EntityType="StudentManagementModel.CourseRegister" Width="1.5" PointX="11.25" PointY="15.125" />
+        <EntityTypeShape EntityType="StudentManagementModel.DatabaseImageTable" Width="1.5" PointX="3.75" PointY="13.5" />
+        <EntityTypeShape EntityType="StudentManagementModel.DetailScore" Width="1.5" PointX="10.5" PointY="27.125" />
+        <EntityTypeShape EntityType="StudentManagementModel.Document" Width="1.5" PointX="10.5" PointY="19.125" />
+        <EntityTypeShape EntityType="StudentManagementModel.Examination" Width="1.5" PointX="8.25" PointY="15" />
+        <EntityTypeShape EntityType="StudentManagementModel.Faculty" Width="1.5" PointX="3.75" PointY="6.625" />
+        <EntityTypeShape EntityType="StudentManagementModel.Faculty_TrainingForm" Width="1.5" PointX="6" PointY="21.625" />
+        <EntityTypeShape EntityType="StudentManagementModel.Folder" Width="1.5" PointX="8.25" PointY="24.375" />
+        <EntityTypeShape EntityType="StudentManagementModel.Semester" Width="1.5" PointX="3.75" PointY="28.375" />
+        <EntityTypeShape EntityType="StudentManagementModel.Student" Width="1.5" PointX="3" PointY="21.125" />
+        <EntityTypeShape EntityType="StudentManagementModel.StudyResult" Width="1.5" PointX="11.25" PointY="23.375" />
+        <EntityTypeShape EntityType="StudentManagementModel.Subject" Width="1.5" PointX="3.75" PointY="10.25" />
+        <EntityTypeShape EntityType="StudentManagementModel.SubjectClass" Width="1.5" PointX="6" PointY="14.75" />
+        <EntityTypeShape EntityType="StudentManagementModel.Teacher" Width="1.5" PointX="8.25" PointY="18.625" />
+        <EntityTypeShape EntityType="StudentManagementModel.TrainingForm" Width="1.5" PointX="0.75" PointY="21.375" />
+        <EntityTypeShape EntityType="StudentManagementModel.TrainingScore" Width="1.5" PointX="5.25" PointY="24.5" />
+        <EntityTypeShape EntityType="StudentManagementModel.User_UserRole_UserInfo" Width="1.5" PointX="8.25" PointY="2.625" />
+        <EntityTypeShape EntityType="StudentManagementModel.UserInfo" Width="1.5" PointX="3.75" PointY="31.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.UserInfoItem" Width="1.5" PointX="6" PointY="31.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.UserRole" Width="1.5" PointX="3.75" PointY="4.125" />
+        <EntityTypeShape EntityType="StudentManagementModel.UserRole_UserInfo" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="StudentManagementModel.User" Width="1.5" PointX="6" PointY="4.5" />
+        <AssociationConnector Association="StudentManagementModel.FK__AbsentCal__IdSub__17F790F9" />
+        <AssociationConnector Association="StudentManagementModel.FK__Admin__IdUsers__7D439ABD" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdFaculty__02FC7413" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdTeacher__03F0984C" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdThumbna__04E4BC85" />
+        <AssociationConnector Association="StudentManagementModel.FK__Class__IdTrainin__02084FDA" />
+        <AssociationConnector Association="StudentManagementModel.FK__Component__IdSub__114A936A" />
+        <AssociationConnector Association="StudentManagementModel.FK__DetailSco__IdCom__1332DBDC" />
+        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdSem__0E6E26BF" />
+        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdStu__0D7A0286" />
+        <AssociationConnector Association="StudentManagementModel.FK__CourseReg__IdSub__0C85DE4D" />
+        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdThu__07C12930" />
+        <AssociationConnector Association="StudentManagementModel.FK__Users__IdAvatar__73BA3083" />
+        <AssociationConnector Association="StudentManagementModel.FK__DetailSco__IdStu__123EB7A3" />
+        <AssociationConnector Association="StudentManagementModel.FK__Document__IdFold__151B244E" />
+        <AssociationConnector Association="StudentManagementModel.FK__Document__IdPost__14270015" />
+        <AssociationConnector Association="StudentManagementModel.FK__Document__IdSubj__160F4887" />
+        <AssociationConnector Association="StudentManagementModel.FK__Examinati__IdSub__09A971A2" />
+        <AssociationConnector Association="StudentManagementModel.FK__Faculty_T__IdFac__7F2BE32F" />
+        <AssociationConnector Association="StudentManagementModel.FK__Users__IdFaculty__72C60C4A" />
+        <AssociationConnector Association="StudentManagementModel.FK__Faculty_T__IdTra__7E37BEF6" />
+        <AssociationConnector Association="StudentManagementModel.FK__Folder__IdSubjec__17036CC0" />
+        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdSem__06CD04F7" />
+        <AssociationConnector Association="StudentManagementModel.FK__TrainingS__IdSem__10566F31" />
+        <AssociationConnector Association="StudentManagementModel.FK__Student__IdTrain__7A672E12" />
+        <AssociationConnector Association="StudentManagementModel.FK__Student__IdUsers__7B5B524B" />
+        <AssociationConnector Association="StudentManagementModel.FK__StudyResu__IdStu__00200768" />
+        <AssociationConnector Association="StudentManagementModel.FK__TrainingS__IdStu__0F624AF8" />
+        <AssociationConnector Association="StudentManagementModel.FK__StudyResu__IdSub__01142BA1" />
+        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdSub__05D8E0BE" />
+        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdTra__08B54D69" />
+        <AssociationConnector Association="StudentManagementModel.FK__Teacher__IdUsers__7C4F7684" />
+        <AssociationConnector Association="StudentManagementModel.FK__User_User__IdUse__778AC167" />
+        <AssociationConnector Association="StudentManagementModel.FK__User_User__IdUse__787EE5A0" />
+        <AssociationConnector Association="StudentManagementModel.FK__UserInfoI__IdUse__797309D9" />
+        <AssociationConnector Association="StudentManagementModel.FK__UserRole___IdUse__76969D2E" />
+        <AssociationConnector Association="StudentManagementModel.FK__UserRole___IdRol__75A278F5" />
+        <AssociationConnector Association="StudentManagementModel.FK__Users__IdUserRol__74AE54BC" />
         <AssociationConnector Association="StudentManagementModel.Teacher_SubjectClass" />
-        <AssociationConnector Association="StudentManagementModel.FK__SubjectCl__IdTra__787EE5A0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
