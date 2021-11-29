@@ -150,6 +150,7 @@
                         FirstSearchButtonText="Mã lớp"
                         SearchCommand="{Binding SearchCourseRegistryItems}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        DatePickerVisibility="False"
                         SecondSearchButtonText="Tên lớp học" />
                 </Grid>
                 <DockPanel LastChildFill="False">

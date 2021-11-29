@@ -110,6 +110,7 @@
                     FirstSearchButtonText="Mã lớp"
                     SearchCommand="{Binding SearchCommand}"
                     SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    DatePickerVisibility="False"
                     SecondSearchButtonText="Tên lớp học" />
             </Grid>
             <component:SubjectRegistryDataGrid

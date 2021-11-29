@@ -77,6 +77,7 @@ namespace StudentManagement.ViewModels
         public AdminCourseRegistryRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
+            InitCommand();
             Instance = this;
             SubjectClasses = new ObservableCollection<TempSubjectClass>
             {

@@ -129,7 +129,7 @@ namespace StudentManagement.ViewModels
 
         #region CreateNewSemester
         private ObservableCollection<string> _batches;
-        public ObservableCollection<string> Batches { get => _batches; set => _batches = value; }
+        public ObservableCollection<string> Batches { get => _batches; set { _batches = value; OnPropertyChanged(); } }
 
         private string _selectedBatch;
         public string SelectedBatch { get => _selectedBatch; set { _selectedBatch = value; OnPropertyChanged(); } }
@@ -202,8 +202,6 @@ namespace StudentManagement.ViewModels
 
         public void InitCreateNewSemesterProperty()
         {
-            var temp = Semesters.Select(x => x.Batch).Distinct().ToList();
-            Batches = new ObservableCollection<string>(temp);
             NewSemesterName = "Học kỳ 1";
 
             CreateNewBatch();
@@ -310,6 +308,7 @@ namespace StudentManagement.ViewModels
                 var courseItemsNewSemester = new ObservableCollection<CourseRegistryItem>() { };
                 CourseRegistryItemsAll.Add(courseItemsNewSemester);
                 SelectedSemester = Semesters.Last();
+                Semesters = new ObservableCollection<Semester>(Semesters.OrderBy(y => y.DisplayName).OrderBy(x => x.Batch).ToList());
                 CreateNewBatch();
             }
             catch
@@ -320,6 +319,8 @@ namespace StudentManagement.ViewModels
 
         public void CreateNewBatch()
         {
+            var temp = Semesters.Select(x => x.Batch).Distinct().ToList();
+            Batches = new ObservableCollection<string>(temp);
             string defaultNewBatch = "";
             foreach (string year in Batches.Last().Split('-'))
             {
