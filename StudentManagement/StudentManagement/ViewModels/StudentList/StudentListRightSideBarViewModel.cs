@@ -14,6 +14,14 @@ namespace StudentManagement.ViewModels
 {
     public class StudentListRightSideBarViewModel : BaseViewModel
     {
+        private static StudentListRightSideBarViewModel s_instance;
+        public static StudentListRightSideBarViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new StudentListRightSideBarViewModel());
+
+            private set => s_instance = value;
+        }
+
         private object _rightSideBarItemViewModel;
 
         public object RightSideBarItemViewModel
@@ -44,7 +52,7 @@ namespace StudentManagement.ViewModels
                 if (_selectedItem != null)
                 {
                     SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.IDStudent).ToList()[0];
-                    _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SelectedScore, SelectedItem);
+                    _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SelectedScore);
                     RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;
                 }
                 OnPropertyChanged();
@@ -65,11 +73,15 @@ namespace StudentManagement.ViewModels
 
         private object _emptyStateRightSideBarViewModel;
 
+        public ICommand EditDetailScore { get => _editDetailScore; set => _editDetailScore = value; }
+
+        private ICommand _editDetailScore;
 
 
         public StudentListRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
+            InitRightSideBarCommand();
 
             StudentScore = new ObservableCollection<DetailScore>();
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520123" });
@@ -85,6 +97,18 @@ namespace StudentManagement.ViewModels
             _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel();
             _emptyStateRightSideBarViewModel = new EmptyStateRightSideBarViewModel();
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
+        }
+
+        public void InitRightSideBarCommand()
+        {
+            EditDetailScore = new RelayCommand<object>((p) => { return true; }, (p) => EditDetailScoreFunction(p));
+        }
+
+        public void EditDetailScoreFunction(object p)
+        {
+            DetailScore currentScore = p as DetailScore;
+            _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemEditViewModel(currentScore);
+            RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;
         }
     }
 }

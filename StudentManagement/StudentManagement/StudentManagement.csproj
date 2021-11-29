@@ -99,14 +99,17 @@
     <Compile Include="Components\CourseRegistry\CreateNewSemester.xaml.cs">
       <DependentUpon>CreateNewSemester.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ListStudents\AdminListStudentDataGrid.xaml.cs">
-      <DependentUpon>AdminListStudentDataGrid.xaml</DependentUpon>
+    <Compile Include="Components\SubjectClassDetail\StudentListRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>StudentListRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ListStudents\StudentListRightSideBarItem.xaml.cs">
+    <Compile Include="Components\SubjectClassDetail\StudentListDataGrid.xaml.cs">
+      <DependentUpon>StudentListDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SubjectClassDetail\StudentListRightSideBar.xaml.cs">
+      <DependentUpon>StudentListRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SubjectClassDetail\StudentListRightSideBarItem.xaml.cs">
       <DependentUpon>StudentListRightSideBarItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Components\ListStudents\StudentListsRightSideBar.xaml.cs">
-      <DependentUpon>StudentListsRightSideBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\UserInfo\EditInfoItemInSetting.xaml.cs">
       <DependentUpon>EditInfoItemInSetting.xaml</DependentUpon>
@@ -267,6 +270,11 @@
     <Compile Include="Components\UserInfo\UserTextBox.xaml.cs">
       <DependentUpon>UserTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="masterDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>masterDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\AbsentCalendar.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -359,6 +367,11 @@
     <Compile Include="Services\FacultyServies.cs" />
     <Compile Include="Services\Faculty_TrainingFormServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
+    <Compile Include="StudentManagementDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentManagementDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Utils\BooleanToVisibilityConverter.cs" />
     <Compile Include="Services\TrainingFormServices.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
@@ -377,6 +390,7 @@
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\AdminStudentListViewModel.cs" />
@@ -470,15 +484,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\ListStudents\AdminListStudentDataGrid.xaml">
+    <Page Include="Components\SubjectClassDetail\StudentListRightSideBarItemEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\ListStudents\StudentListRightSideBarItem.xaml">
+    <Page Include="Components\SubjectClassDetail\StudentListDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\ListStudents\StudentListsRightSideBar.xaml">
+    <Page Include="Components\SubjectClassDetail\StudentListRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SubjectClassDetail\StudentListRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -856,6 +874,17 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="masterDataSet.xsc">
+      <DependentUpon>masterDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="masterDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>masterDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="masterDataSet.xss">
+      <DependentUpon>masterDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </None>
@@ -863,6 +892,17 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="StudentManagementDataSet.xsc">
+      <DependentUpon>StudentManagementDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="StudentManagementDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StudentManagementDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="StudentManagementDataSet.xss">
+      <DependentUpon>StudentManagementDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
