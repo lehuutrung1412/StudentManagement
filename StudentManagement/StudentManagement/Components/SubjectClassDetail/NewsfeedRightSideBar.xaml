@@ -41,8 +41,10 @@
                     Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
                     Text="Lịch báo nghỉ và báo bù" />
                 <Calendar
+                    xml:lang="vi-VN"
                     Grid.Row="1"
                     Margin="8"
+                    DisplayDate="{Binding DisplayDate}"
                     SelectedDate="{Binding SelectedDate}"
                     Style="{StaticResource MaterialDesignCalendarNew}">
                     <Calendar.CalendarDayButtonStyle>
@@ -127,15 +129,14 @@
                             Command="{Binding AddMakeUpDay}"
                             Content="Báo bù"
                             FontSize="14"
-                            Style="{StaticResource rounded_btn}"/>
+                            Style="{StaticResource rounded_btn}" />
                         <Button
                             Grid.Column="1"
                             Background="{StaticResource DarkGray}"
                             Command="{Binding CancelAddMakeUpDay}"
                             Content="Hủy"
                             FontSize="14"
-                            Style="{StaticResource rounded_btn}"/>
-
+                            Style="{StaticResource rounded_btn}" />
                     </Grid>
 
                 </Grid>

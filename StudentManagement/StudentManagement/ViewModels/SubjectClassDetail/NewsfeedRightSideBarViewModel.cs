@@ -46,15 +46,17 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        
 
         public bool IsEvent { get => _isEvent; set { _isEvent = value; OnPropertyChanged(); } }
         public bool IsAbsentDay { get => _isAbsentDay; set { _isAbsentDay = value; OnPropertyChanged(); } }
         public bool IsMakeUpDay { get => _isMakeUpDay; set { _isMakeUpDay = value; OnPropertyChanged(); } }
         public string PeriodMakeUp { get => _periodMakeUp; set { _periodMakeUp = value; OnPropertyChanged(); } }
         public bool AddMakeUpMode { get => _addMakeUpMode; set { _addMakeUpMode = value; OnPropertyChanged(); } }
+        public DateTime DisplayDate { get => _displayDate; set { _displayDate = value; OnPropertyChanged(); } }
 
         private DateTime _selectedDate;
-
+        private DateTime _displayDate;
         private bool _isEvent;
         private bool _isAbsentDay;
         private bool _isMakeUpDay;
@@ -68,6 +70,7 @@ namespace StudentManagement.ViewModels
 
         public NewsfeedRightSideBarViewModel()
         {
+            DisplayDate = DateTime.Now;
             SelectedDate = DateTime.Now;
             IsMakeUpDay = true;
 
@@ -119,9 +122,24 @@ namespace StudentManagement.ViewModels
                     ScheduleTimes.Add(SelectedDate);
                 }
                 IsEvent = false;
+                RefreshCalendar();
                 MyMessageBox.Show("Xóa sự kiện thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception) { }
+        }
+
+        private void SwitchToAddMakeUpMode()
+        {
+            AddMakeUpMode = true;
+            IsEvent = false;
+            IsAbsentDay = false;
+            IsMakeUpDay = false;
+        }
+
+        private void RefreshCalendar()
+        {
+            DisplayDate = SelectedDate.AddMonths(1);
+            DisplayDate = SelectedDate;
         }
 
         private void AddMakeUpDayFunction()
@@ -138,6 +156,7 @@ namespace StudentManagement.ViewModels
                 }
                 AddMakeUpMode = false;
                 MakeUpTimes.Add(SelectedDate);
+                RefreshCalendar();
                 MyMessageBox.Show("Thêm lịch học bù thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception) { }
@@ -150,6 +169,7 @@ namespace StudentManagement.ViewModels
                 AbsentTimes.Add(SelectedDate);
                 ScheduleTimes.Remove(SelectedDate);
                 MakeUpTimes.Remove(SelectedDate);
+                RefreshCalendar();
                 MyMessageBox.Show("Thêm lịch nghỉ học thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception) { }
