@@ -1,0 +1,89 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.CenterColumnHeaderCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:StudentManagement.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
+    xmlns:views="clr-namespace:StudentManagement.Views"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.1'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
+    Background="{StaticResource CenterColumn}"
+    DataContext="{StaticResource AdminCourseRegistryVM}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Left"
+            Orientation="Horizontal">
+            <Image
+                Height="40"
+                Margin="8"
+                Source="{StaticResource Logo}" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="Bauhaus 93"
+                FontSize="24"
+                FontWeight="Bold"
+                Foreground="DimGray"
+                Text="STUMAN" />
+        </StackPanel>
+
+        <DockPanel Grid.Column="2" Grid.ColumnSpan="7">
+
+            <StackPanel DockPanel.Dock="Left">
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="0,0,0,8"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Text="Xin chào, Ngô Quang Vinh" />
+
+                <TextBlock
+                    Grid.Row="0"
+                    HorizontalAlignment="left"
+                    Text="Hôm nay bạn có 7 tiết học và 6 thông báo mới" />
+            </StackPanel>
+            <DatePicker
+                Width="180"
+                HorizontalAlignment="Right"
+                materialDesign:HintAssist.Hint="Lịch"
+                Background="Gray"
+                IsEnabled="False"
+                Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+        </DockPanel>
+
+
+        <Grid Grid.Column="9" Grid.ColumnSpan="3" />
+    </Grid>
+
+</UserControl>

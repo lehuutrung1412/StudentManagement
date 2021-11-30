@@ -18,7 +18,7 @@
             <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}" CommandParameter="{Binding ElementName=TitleBarUC}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Border Background="{StaticResource White}" CornerRadius="5">
+    <Border Background="{StaticResource Gray}" CornerRadius="5">
         <DockPanel>
             <Image
                 x:Name="imgLogo"
@@ -33,7 +33,7 @@
                 DockPanel.Dock="Left"
                 FontSize="18"
                 FontWeight="SemiBold"
-                Text="Stuman"/>
+                Text="Stuman" />
             <DockPanel HorizontalAlignment="Right" DockPanel.Dock="Right">
                 <Border DockPanel.Dock="Right" Style="{StaticResource BorderClosebuttonTitleBar}">
                     <Button
