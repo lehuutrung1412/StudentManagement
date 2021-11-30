@@ -83,6 +83,8 @@ namespace StudentManagement.ViewModels
             InitRightSideBarItemViewModel();
             InitRightSideBarCommand();
 
+            Instance = this;
+
             StudentScore = new ObservableCollection<DetailScore>();
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520123" });
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520124" });
