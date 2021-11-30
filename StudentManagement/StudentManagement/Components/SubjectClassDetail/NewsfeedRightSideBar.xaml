@@ -115,7 +115,7 @@
                         Grid.Row="0"
                         materialDesign:HintAssist.Hint="Nhập tiết học... Ví dụ: 123"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding PeriodMakeUp}" />
+                        Text="{Binding PeriodMakeUp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -127,6 +127,7 @@
                             Grid.Column="0"
                             Background="{DynamicResource Green}"
                             Command="{Binding AddMakeUpDay}"
+                            IsEnabled="{Binding CanAddMakeUpDay}"
                             Content="Báo bù"
                             FontSize="14"
                             Style="{StaticResource rounded_btn}" />

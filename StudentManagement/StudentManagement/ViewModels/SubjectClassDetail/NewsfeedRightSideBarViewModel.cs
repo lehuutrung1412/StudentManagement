@@ -52,9 +52,9 @@ namespace StudentManagement.ViewModels
                     _errorBaseViewModel.AddError(nameof(PeriodMakeUp), "Vui lòng nhập tiết học!");
                 }
 
-                if (string.IsNullOrWhiteSpace(PeriodMakeUp))
+                if (!IsValidPeriod(PeriodMakeUp))
                 {
-                    _errorBaseViewModel.AddError(nameof(PeriodMakeUp), "Vui lòng nhập tiết học!");
+                    _errorBaseViewModel.AddError(nameof(PeriodMakeUp), "Tiết học không hợp lệ!");
                 }
 
                 OnPropertyChanged();
@@ -132,7 +132,46 @@ namespace StudentManagement.ViewModels
             // Max period of subject class is 5
             if (period.Length <= 5)
             {
-                
+                try
+                {
+                    if (period.TrimStart('0') != period)
+                    {
+                        return false;
+                    }
+
+                    int intPeriod = Convert.ToInt32(period);
+
+                    int lastDigit = intPeriod % 10;
+                    intPeriod /= 10;
+
+                    if (lastDigit == 0)
+                    {
+                        lastDigit = 10;
+                    }
+ 
+                    while (intPeriod != 0)
+                    {
+                        int extractDigit = intPeriod % 10;
+
+                        if (extractDigit == 0)
+                        {
+                            extractDigit = 10;
+                        }
+
+                        if (extractDigit != lastDigit - 1)
+                        {
+                            return false;
+                        }
+
+                        lastDigit = extractDigit;
+                        intPeriod /= 10;
+                    }
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
             return false;
         }
