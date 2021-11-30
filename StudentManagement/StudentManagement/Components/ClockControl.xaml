@@ -63,7 +63,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="7" />
         </Grid.RowDefinitions>
         <Border
             Grid.Column="1"
@@ -85,7 +84,7 @@
                         x:Name="DayNumeric"
                         VerticalAlignment="Center"
                         Style="{DynamicResource TextBlockDefault}"
-                        Text="Day 01/01/0001" />
+                        Text="Ngày 01/01/0001" />
 
                     <TextBlock
                         x:Name="Day"
@@ -93,7 +92,7 @@
                         FontFamily="Crystal"
                         FontSize="15"
                         Style="{DynamicResource TextBlockDefault}"
-                        Text="Monday" />
+                        Text="Thứ hai" />
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>

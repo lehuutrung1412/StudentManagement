@@ -36,11 +36,33 @@ namespace StudentManagement.Components
             SetTimeNumber();
             ((Storyboard)FindResource("TickDots")).Begin();
         }
+
+        private string ConvertDayOfWeek(DayOfWeek dayOfWeek)
+        {
+            switch ((int)dayOfWeek)
+            {
+                case 1:
+                    return "Thứ hai";
+                case 2:
+                    return "Thứ ba";
+                case 3:
+                    return "Thứ tư";
+                case 4:
+                    return "Thứ năm";
+                case 5:
+                    return "Thứ sáu";
+                case 6:
+                    return "Thứ bảy";
+                default:
+                    return "Chủ nhật";
+            }
+        }
         public void SetTimeNumber()
         {
+
             DateTime mainDateTime = DateTime.Now;
-            Day.Text = mainDateTime.DayOfWeek.ToString();
-            DayNumeric.Text = "Day " + mainDateTime.Date.ToString().Split(' ')[0];
+            Day.Text = ConvertDayOfWeek(mainDateTime.DayOfWeek);
+            DayNumeric.Text = "Ngày " + mainDateTime.Date.ToString().Split(' ')[0];
             if ((mainDateTime.TimeOfDay.Hours.ToString().ToCharArray()).Length == 2)
             {
                 Hours1.Text = mainDateTime.TimeOfDay.Hours.ToString().ToCharArray()[0].ToString();
