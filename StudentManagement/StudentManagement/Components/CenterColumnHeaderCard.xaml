@@ -57,9 +57,11 @@
                 Text="STUMAN" />
         </StackPanel>
 
-        <DockPanel Grid.Column="2" Grid.ColumnSpan="7">
-
-            <StackPanel DockPanel.Dock="Left">
+        <DockPanel
+            Grid.Column="2"
+            Grid.ColumnSpan="7"
+            VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center" DockPanel.Dock="Left">
                 <TextBlock
                     Grid.Column="0"
                     Margin="0,0,0,8"
@@ -73,13 +75,7 @@
                     HorizontalAlignment="left"
                     Text="Hôm nay bạn có 7 tiết học và 6 thông báo mới" />
             </StackPanel>
-            <DatePicker
-                Width="180"
-                HorizontalAlignment="Right"
-                materialDesign:HintAssist.Hint="Lịch"
-                Background="Gray"
-                IsEnabled="False"
-                Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+            <component:ClockControl Width="350" HorizontalAlignment="Right" />
         </DockPanel>
 
 

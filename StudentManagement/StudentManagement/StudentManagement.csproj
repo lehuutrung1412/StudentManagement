@@ -117,6 +117,9 @@
     <Compile Include="Components\SubjectClassDetail\NewsfeedRightSideBar.xaml.cs">
       <DependentUpon>NewsfeedRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ClockControl.xaml.cs">
+      <DependentUpon>ClockControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\UserInfo\EditInfoItemInSetting.xaml.cs">
       <DependentUpon>EditInfoItemInSetting.xaml</DependentUpon>
     </Compile>
@@ -505,6 +508,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\SubjectClassDetail\NewsfeedRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ClockControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
