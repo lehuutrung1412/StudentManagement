@@ -8,70 +8,14 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using StudentManagement.Objects;
+using StudentManagement.Services;
+using StudentManagement.Models;
 
 namespace StudentManagement.ViewModels
 {
     public class UserInfoViewModel : BaseViewModel
     {
-        public class InfoItem : BaseViewModel
-        {
-            private Guid _id;
-            private string _labelName;
-            private int _type;
-            private ObservableCollection<string> _itemSource;
-            private object _value;
-            private int _sTT;
-            private bool _isEnable;
-
-            public Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-            public string LabelName { get => _labelName; set { _labelName = value; OnPropertyChanged(); } }
-            public int Type { get => _type; set { _type = value; OnPropertyChanged(); } }
-            public ObservableCollection<string> ItemSource { get => _itemSource; set { _itemSource = value; OnPropertyChanged(); } }
-            public object Value { get => _value; set { _value = value; OnPropertyChanged(); } }
-
-            public int STT { get => _sTT; set { _sTT = value; OnPropertyChanged(); } }
-
-            public bool IsEnable { get => _isEnable; set => _isEnable = value; }
-            
-
-            public InfoItem()
-            {
-                Id = Guid.NewGuid();
-                IsEnable = true;
-            }
-
-            public InfoItem(Guid id, string labelName, int type, ObservableCollection<string> itemSource, object value, int sTT, bool isEnable)
-            {
-                Id = id;
-                LabelName = labelName;
-                Type = type;
-                ItemSource = itemSource;
-                Value = value;
-                STT = sTT;
-                IsEnable = isEnable;
-            }
-            public void  CopyItem(InfoItem item)
-            {
-                Id = item.Id;
-                LabelName = item.LabelName;
-                Type = item.Type;
-                ItemSource = item.ItemSource;
-                Value = item.Value;
-                STT = item.STT;
-                IsEnable = item.IsEnable;
-            }
-            public InfoItem(InfoItem item)
-            {
-                Id = item.Id;
-                LabelName = item.LabelName;
-                Type = item.Type;
-                ItemSource = item.ItemSource;
-                Value = item.Value;
-                STT = item.STT;
-                IsEnable = item.IsEnable;
-            }
-        }
-
         private static UserInfoViewModel s_instance;
         public static UserInfoViewModel Instance
         {
@@ -153,31 +97,30 @@ namespace StudentManagement.ViewModels
         public UserInfoViewModel()
         {
             Instance = this;
-            ObservableCollection<string> Faculty = new ObservableCollection<string> { "KHMT", "KTPM" };
-            ObservableCollection<string> Sex = new ObservableCollection<string> { "Nam", "Nữ" };
-            ObservableCollection<string> Class = new ObservableCollection<string> { "KHMT2019", "KHTN2019" };
-            ObservableCollection<string> TrainingForm = new ObservableCollection<string> { "CNTN", "CQDT" };
             IsChangeAvatar = false;
             Avatar = "https://picsum.photos/200";
-            InfoSource = new ObservableCollection<InfoItem>()
-            {
-                new InfoItem(Guid.NewGuid(),"Giới tính",2,Sex,"Nam",5,false),
-                new InfoItem(Guid.NewGuid(),"Địa chỉ mail",0,null,"cuongnguyen14022001",6,true),
-                new InfoItem(Guid.NewGuid(),"Hệ",2,TrainingForm,"CNTN",7,false),
-                new InfoItem(Guid.NewGuid(),"Lớp sinh hoạt",2,Class,"KHTN2019",8,false),
 
-                new InfoItem(Guid.NewGuid(),"Họ và tên",0,null,"Nguyễn Đỗ Mạnh Cường",0,false),
-                new InfoItem(Guid.NewGuid(),"Ngày sinh",1,null,"14/02/2001",1,false),
-                new InfoItem(Guid.NewGuid(),"Địa chỉ",0,null,"02B1, chợ mới Ninh Hoà",2,true),
-                new InfoItem(Guid.NewGuid(),"Khoa",2,Faculty,"KHMT",3,false),
-                new InfoItem(Guid.NewGuid(),"Số điện thoại",0,null,"0937418670",4,true),
-
-            };
+            //ObservableCollection<string> Faculty = new ObservableCollection<string> { "KHMT", "KTPM" };
+            //ObservableCollection<string> Sex = new ObservableCollection<string> { "Nam", "Nữ" };
+            //ObservableCollection<string> Class = new ObservableCollection<string> { "KHMT2019", "KHTN2019" };
+            //ObservableCollection<string> TrainingForm = new ObservableCollection<string> { "CNTN", "CQDT" };
+            //InfoSource = new ObservableCollection<InfoItem>()
+            //{
+            //    new InfoItem(Guid.NewGuid(),"Họ và tên",0,null,"Nguyễn Đỗ Mạnh Cường",false),
+            //    new InfoItem(Guid.NewGuid(),"Ngày sinh",1,null,"14/02/2001",false),
+            //    new InfoItem(Guid.NewGuid(),"Địa chỉ",0,null,"02B1, chợ mới Ninh Hoà",true),
+            //    new InfoItem(Guid.NewGuid(),"Khoa",2,Faculty,"KHMT",false),
+            //    new InfoItem(Guid.NewGuid(),"Số điện thoại",0,null,"0937418670",true),
+            //    new InfoItem(Guid.NewGuid(),"Giới tính",2,Sex,"Nam",false),
+            //    new InfoItem(Guid.NewGuid(),"Địa chỉ mail",0,null,"cuongnguyen14022001",true),
+            //    new InfoItem(Guid.NewGuid(),"Hệ",2,TrainingForm,"CNTN",false),
+            //    new InfoItem(Guid.NewGuid(),"Lớp sinh hoạt",2,Class,"KHTN2019",false),
+            //};
+            InfoSource = InfoItemServices.Instance.GetInfoSourceByUserId(DataProvider.Instance.Database.Users.FirstOrDefault().Id);
 
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
             ListTypeUser = new ObservableCollection<string> { "Tất cả", "Admin", "Học sinh", "Sinh viên" };
 
-            InfoSource = new ObservableCollection<InfoItem>(InfoSource.OrderBy(x => x.STT));
             IsOpen = false;
             IsUpdate = false;
             ClickImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickImage());

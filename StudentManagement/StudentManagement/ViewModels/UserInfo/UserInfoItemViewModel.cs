@@ -1,4 +1,6 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,12 +28,15 @@ namespace StudentManagement.ViewModels
         public InfoItem CurrendInfo { get => _currendInfo; set => _currendInfo = value; }
 
         public string TypeControl { get => _typeControl; set { _typeControl = value; OnPropertyChanged(); } }
-        public string TypeUser { get => _typeUser; set { _typeUser = value; OnPropertyChanged(); } }
-
-        
-
         private string _typeControl;
-        private string _typeUser;
+
+        public bool TypeStudent { get => _typeStudent; set { _typeStudent = value; OnPropertyChanged(); } }       
+        private bool _typeStudent;
+        public bool TypeLecturer { get => _typeLecturer; set { _typeLecturer = value; OnPropertyChanged(); } }
+        private bool _typeLecturer;
+        public bool TypeAdmin { get => _typeAdmin; set { _typeAdmin = value; OnPropertyChanged(); } }
+        private bool _typeAdmin;
+
 
 
         public ICommand DeleteItemCommand { get => _deleteItemCommand; set => _deleteItemCommand = value; }
@@ -56,9 +61,25 @@ namespace StudentManagement.ViewModels
                 new ItemInCombobox { Id = Guid.NewGuid(), Value = "" }, 
                 new ItemInCombobox { Id = Guid.NewGuid(), Value = "" } 
             };
+            TypeStudent = false;
+            TypeAdmin = false;
+            TypeLecturer = false;
             AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
             DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
-            AddInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddInfoItem());
+            AddInfoItemCommand = new RelayCommand<object>((p) => 
+            {
+                if ((!TypeStudent && !TypeLecturer && !TypeAdmin)||string.IsNullOrEmpty(TypeControl)||string.IsNullOrEmpty(CurrendInfo.LabelName)||IsHollowComboboxItem())
+                    return false;
+                return true;                    
+            }, 
+            (p) => AddInfoItem());
+        }
+        public bool IsHollowComboboxItem()
+        {
+            if(TypeControl == "Combobox" && ListItemInCombobox.Where(item => !string.IsNullOrEmpty(item.Value)).Count() == 0)
+                return true;
+            else
+                return false;
         }
         public void AddInfoItem()
         {
@@ -73,9 +94,22 @@ namespace StudentManagement.ViewModels
             }
             else
                 CurrendInfo.Type = 0;
-            CurrendInfo.STT = UserInfoViewModel.Instance.InfoSource.LastOrDefault().STT + 1;
+            if (TypeStudent)
+            {
+                InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
+                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Học sinh");
+            }
+            if(TypeLecturer)
+            {
+                InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
+                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Giáo viên");
+            }
+            if(TypeAdmin)
+            {
+                InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
+                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin");
+            }    
             UserInfoViewModel.Instance.InfoSource.Add(CurrendInfo);
-            UserInfoViewModel.Instance.InfoSource.OrderBy(x => x.STT).ToList();
             SettingUserInfoViewModel.Instance.IsOpen = false;
             SettingUserInfoViewModel.Instance.ReloadInfoSource();
         }
