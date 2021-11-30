@@ -15,7 +15,7 @@ namespace StudentManagement.ViewModels
     {
         public ObservableCollection<DateTime> ScheduleTimes { get; set; }
         public ObservableCollection<DateTime> AbsentTimes { get; set; }
-        public ObservableCollection<DateTime> MakeUpTimes { get; set; }
+        public ObservableCollection<Tuple<DateTime, string>> MakeUpTimes { get; set; }
         public DateTime SelectedDate
         {
             get => _selectedDate;
@@ -57,6 +57,11 @@ namespace StudentManagement.ViewModels
                     _errorBaseViewModel.AddError(nameof(PeriodMakeUp), "Tiết học không hợp lệ!");
                 }
 
+                if (!CheckConflictPeriod())
+                {
+                    _errorBaseViewModel.AddError(nameof(PeriodMakeUp), "Tiết học đã bị trùng lịch học!");
+                }
+
                 OnPropertyChanged();
             }
         }
@@ -65,6 +70,7 @@ namespace StudentManagement.ViewModels
         public bool IsMakeUpDay { get => _isMakeUpDay; set { _isMakeUpDay = value; OnPropertyChanged(); } }
         public bool AddMakeUpMode { get => _addMakeUpMode; set { _addMakeUpMode = value; OnPropertyChanged(); } }
         public DateTime DisplayDate { get => _displayDate; set { _displayDate = value; OnPropertyChanged(); } }
+        public string SchedulePeriod { get; set; }
 
         private DateTime _selectedDate;
         private DateTime _displayDate;
@@ -103,15 +109,16 @@ namespace StudentManagement.ViewModels
 
             ScheduleTimes = new ObservableCollection<DateTime>();
             AbsentTimes = new ObservableCollection<DateTime>();
-            MakeUpTimes = new ObservableCollection<DateTime>();
+            MakeUpTimes = new ObservableCollection<Tuple<DateTime, string>>();
 
             DateTime dateStart = new DateTime(2021, 9, 6);
             DateTime dateEnd = new DateTime(2021, 12, 13);
             int weekDay = 1; // Tuesday
+            SchedulePeriod = "123";
 
             for (DateTime date = dateStart.AddDays(weekDay); date <= dateEnd; date = date.AddDays(7))
             {
-                if (AbsentTimes.Contains(date) || MakeUpTimes.Contains(date))
+                if (AbsentTimes.Contains(date) || MakeUpTimes.Contains(new Tuple<DateTime, string>(date, SchedulePeriod)))
                 {
                     continue;
                 }
@@ -125,6 +132,27 @@ namespace StudentManagement.ViewModels
             AddMakeUpDay = new RelayCommand<object>((p) => true, (p) => AddMakeUpDayFunction());
             DeleteEvent = new RelayCommand<object>((p) => true, (p) => DeleteEventFunction());
             CancelAddMakeUpDay = new RelayCommand<object>((p) => true, (p) => CancelAddMakeUpDayFunction());
+        }
+
+        private bool CheckConflictPeriod()
+        {
+            var listMakeUpInDay = MakeUpTimes.Where(item => item.Item1 == SelectedDate).ToList();
+
+            foreach (var number in PeriodMakeUp)
+            {
+                if (SchedulePeriod.Contains(number) && ScheduleTimes.Contains(SelectedDate))
+                {
+                    return false;
+                }
+                foreach (var item in listMakeUpInDay)
+                {
+                    if (item.Item2.Contains(number))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         private bool IsValidPeriod(string period)
@@ -180,7 +208,7 @@ namespace StudentManagement.ViewModels
         {
             AddMakeUpMode = false;
             IsMakeUpDay = true;
-            IsEvent = AbsentTimes.Contains(_selectedDate) || MakeUpTimes.Contains(_selectedDate);
+            IsEvent = AbsentTimes.Contains(_selectedDate) || MakeUpTimes.Any(item => item.Item1 == SelectedDate);
             IsAbsentDay = ScheduleTimes.Contains(_selectedDate);
 
             if (_selectedDate < DateTime.Now.AddDays(-1))
@@ -200,9 +228,13 @@ namespace StudentManagement.ViewModels
                     AbsentTimes.Remove(SelectedDate);
                     IsAbsentDay = true;
                 }
-                if (MakeUpTimes.Contains(SelectedDate))
+                if (MakeUpTimes.Any(item => item.Item1 == SelectedDate))
                 {
-                    MakeUpTimes.Remove(SelectedDate);
+                    var removeLists = MakeUpTimes.Where(item => item.Item1 == SelectedDate).ToList();
+                    foreach (var item in removeLists)
+                    {
+                        MakeUpTimes.Remove(item);
+                    }
                     IsMakeUpDay = true;
                 }
 
@@ -250,9 +282,17 @@ namespace StudentManagement.ViewModels
                     SwitchBetweenAddMakeUpModeAndNormal();
                     return;
                 }
-                
-                MakeUpTimes.Add(SelectedDate);
 
+                if (!CheckConflictPeriod() || string.IsNullOrWhiteSpace(PeriodMakeUp))
+                {
+                    MyMessageBox.Show("Tiết học không hợp lệ", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    return;
+                }
+
+                MakeUpTimes.Add(new Tuple<DateTime, string>(SelectedDate, PeriodMakeUp));
+
+                PeriodMakeUp = "";
+                _errorBaseViewModel.ClearErrors(nameof(PeriodMakeUp));
                 SwitchBetweenAddMakeUpModeAndNormal();
                 RefreshCalendar();
 
