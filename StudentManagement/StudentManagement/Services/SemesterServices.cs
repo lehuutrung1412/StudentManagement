@@ -40,6 +40,17 @@ namespace StudentManagement.Services
             return new ObservableCollection<Semester>(a);
         }
 
+        public ObservableCollection<Semester> LoadListSemestersByStudentId(Guid idStudent)
+        {
+            var listSemester = new List<Semester>();
+            var listCourseRegister = DataProvider.Instance.Database.CourseRegisters.Where(register => register.IdStudent == idStudent).ToList();
+            foreach(CourseRegister register in listCourseRegister)
+            {
+                listSemester.Add(register.Semester);
+            }
+            return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
+        }
+
         public bool SaveSemesterToDatabase(Semester semester)
         {
             try

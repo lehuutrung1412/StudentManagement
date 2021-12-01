@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="StudentManagement.Components.ScheduleItemCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto">
+    <Border
+        Background="LightGray"
+        BorderBrush="White"
+        BorderThickness="0. 0. 0.5 0.5"
+        Style="{DynamicResource BorderStyle}">
+        <Border.Resources>
+            <math:MathConverter
+                x:Key="math" />
+        </Border.Resources>
+        <StackPanel
+            VerticalAlignment="Center">
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontWeight="Bold"
+                Text="{Binding SubjectClassCode, FallbackValue='Mã lớp học'}"
+                TextWrapping="WrapWithOverflow" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="{Binding SubjectName, FallbackValue='Tên môn học'}"
+                TextAlignment="Center"
+                TextWrapping="WrapWithOverflow" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="{Binding Count, FallbackValue='Sĩ số: x', Converter={StaticResource math}, ConverterParameter='format(&quot;Sĩ số: {0}&quot;, x)'}"
+                TextAlignment="Center"
+                TextWrapping="WrapWithOverflow" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="{Binding TeacherName, FallbackValue='GV: xxx', Converter={StaticResource math}, ConverterParameter='format(&quot;GV: {0}&quot;, x)'}"
+                TextAlignment="Center"
+                TextWrapping="WrapWithOverflow" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="{Binding StartDate, FallbackValue='BĐ: xxx', Converter={StaticResource math} , ConverterParameter='format(&quot;BĐ: {0}&quot;, x)'}"
+                TextAlignment="Center"
+                TextWrapping="WrapWithOverflow" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="{Binding EndDate, FallbackValue='KT: xxx', Converter={StaticResource math}, ConverterParameter='format(&quot;KT: {0}&quot;, x)'}"
+                TextAlignment="Center"
+                TextWrapping="WrapWithOverflow" />
+        </StackPanel>
+    </Border>
+</UserControl>

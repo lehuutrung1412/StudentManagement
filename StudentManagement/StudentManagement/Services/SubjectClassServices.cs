@@ -29,7 +29,7 @@ namespace StudentManagement.Services
         {
             return new ObservableCollection<SubjectClass>(DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).ToList());
         }
-
+        
         /*public SubjectClass ConvertSubjectCardToSubjectClass(SubjectCard subjectCard)
         {
             SubjectClass subjectClass = new SubjectClass()
