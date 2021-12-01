@@ -67,8 +67,8 @@ namespace StudentManagement.Components
         {
             try
             {
-                ObservableCollection<DateTime> dateTimes = (ObservableCollection<DateTime>)d.GetValue(ListMakeUpProperty);
-                return dateTimes.Any(dateItem => dateItem == date);
+                ObservableCollection<Tuple<DateTime, string>> dateTimes = (ObservableCollection<Tuple<DateTime, string>>)d.GetValue(ListMakeUpProperty);
+                return dateTimes.Any(dateItem => dateItem.Item1 == date);
             }
             catch (Exception)
             {
@@ -155,14 +155,14 @@ namespace StudentManagement.Components
         }
 
         public static DependencyProperty ListMakeUpProperty = DependencyProperty.RegisterAttached(
-            "ListMakeUp", typeof(ObservableCollection<DateTime>), typeof(CalendarHelper));
+            "ListMakeUp", typeof(ObservableCollection<Tuple<DateTime, string>>), typeof(CalendarHelper));
 
-        public static ObservableCollection<DateTime> GetListMakeUp(DependencyObject obj)
+        public static ObservableCollection<Tuple<DateTime, string>> GetListMakeUp(DependencyObject obj)
         {
-            return (ObservableCollection<DateTime>)obj.GetValue(ListMakeUpProperty);
+            return (ObservableCollection<Tuple<DateTime, string>>)obj.GetValue(ListMakeUpProperty);
         }
 
-        public static void SetListMakeUp(DependencyObject obj, ObservableCollection<DateTime> value)
+        public static void SetListMakeUp(DependencyObject obj, ObservableCollection<Tuple<DateTime, string>> value)
         {
             obj.SetValue(ListMakeUpProperty, value);
         }
