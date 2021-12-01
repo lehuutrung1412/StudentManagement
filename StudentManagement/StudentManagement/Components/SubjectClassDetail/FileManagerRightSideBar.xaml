@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
+    xmlns:objects="clr-namespace:StudentManagement.Objects"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
@@ -26,7 +27,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:EmptyStateRightSideBarViewModel}">
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:FileInfo}">
+                <DataTemplate DataType="{x:Type objects:FileInfo}">
                     <components:FileManagerRightSideBarItem Tag="{Binding ElementName=FileManagerRightSideBarUC, Path=DataContext}"/>
                 </DataTemplate>
             </ContentControl.Resources>

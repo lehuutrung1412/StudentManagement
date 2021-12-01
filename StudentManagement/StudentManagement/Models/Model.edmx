@@ -79,6 +79,7 @@
           <Property Name="IdPoster" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IdFolder" Type="uniqueidentifier" />
           <Property Name="IdSubjectClass" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Size" Type="bigint" />
         </EntityType>
         <EntityType Name="Examination">
           <Key>
@@ -1076,6 +1077,7 @@
           <NavigationProperty Name="Folder" Relationship="StudentManagementModel.FK__Document__IdFold__03F0984C" FromRole="Document" ToRole="Folder" />
           <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Document__IdPost__02FC7413" FromRole="Document" ToRole="User" />
           <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Document__IdSubj__04E4BC85" FromRole="Document" ToRole="SubjectClass" />
+          <Property Name="Size" Type="Int64" />
         </EntityType>
         <EntityType Name="Examination">
           <Key>
@@ -1751,6 +1753,7 @@
           <EntitySetMapping Name="Documents">
             <EntityTypeMapping TypeName="StudentManagementModel.Document">
               <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="Size" ColumnName="Size" />
                 <ScalarProperty Name="IdSubjectClass" ColumnName="IdSubjectClass" />
                 <ScalarProperty Name="IdFolder" ColumnName="IdFolder" />
                 <ScalarProperty Name="IdPoster" ColumnName="IdPoster" />

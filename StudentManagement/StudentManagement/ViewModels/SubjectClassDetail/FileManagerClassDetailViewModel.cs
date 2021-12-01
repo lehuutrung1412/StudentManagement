@@ -13,6 +13,8 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
+using StudentManagement.Services;
+using FileInfo = StudentManagement.Objects.FileInfo;
 
 namespace StudentManagement.ViewModels
 {
@@ -191,7 +193,7 @@ namespace StudentManagement.ViewModels
                         {
                             if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
                             {
-                                FileData.Add(new FileInfo(null, "", item.Publisher, item.UploadTime, 0, item.FolderId, item.FolderName));
+                                FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, item.UploadTime, 0, item.FolderId, item.FolderName));
                             }
                             FileData.Remove(FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId));
                         }
@@ -225,7 +227,7 @@ namespace StudentManagement.ViewModels
                     return;
                 }
                 IsShowDialog = false;
-                FileInfo newFolder = new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
+                FileInfo newFolder = new FileInfo(null, "", Guid.NewGuid(), "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
                 FileData.Add(newFolder);
                 NewFolderName = null;
             }
@@ -267,6 +269,10 @@ namespace StudentManagement.ViewModels
                     int notValidFileSizeCount = 0;
                     foreach (string file in openFileDialog.FileNames)
                     {
+                        // 
+
+                        Guid publisherId = UserServices.Instance.GetUserInfo().Id;
+
                         string name = Path.GetFileName(file);
                         if (!string.IsNullOrEmpty(name))
                         {
@@ -295,11 +301,13 @@ namespace StudentManagement.ViewModels
                                     FileData.Remove(pseudoFileInfo);
                                 }
 
-                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, fileSize, folderId, folderName));
+                                FileData.Add(new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", DateTime.Now, fileSize, folderId, folderName));
                             }
                             else
                             {
-                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, fileSize, null, ""));
+                                FileInfo newFile = new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", DateTime.Now, fileSize, null, "");
+                                FileData.Add(newFile);
+                                FileServices.Instance.SaveFileOfSubjectClassToDatabase(newFile);
                             }
                         }
                     }
@@ -376,37 +384,5 @@ namespace StudentManagement.ViewModels
             return _errorBaseViewModel.GetErrors(propertyName);
         }
         #endregion
-    }
-
-    public class FileInfo : BaseViewModel
-    {
-        private Guid? _id;
-        private string _name;
-        private string _publisher;
-        private DateTime _uploadTime;
-        private Guid? _folderId;
-        private string _folderName;
-        private long _size;
-
-        public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
-        public string Publisher { get => _publisher; set { _publisher = value; OnPropertyChanged(); } }
-        public DateTime UploadTime { get => _uploadTime; set { _uploadTime = value; OnPropertyChanged(); } }
-        public Guid? FolderId { get => _folderId; set { _folderId = value; OnPropertyChanged(); } }
-        public string FolderName { get => _folderName; set { _folderName = value; OnPropertyChanged(); } }
-
-        public Guid? Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-
-        public long Size { get => _size; set { _size = value; OnPropertyChanged(); } }
-
-        public FileInfo(Guid? id, string name, string publisher, DateTime uploadTime, long size, Guid? folderId, string folderName)
-        {
-            Id = id;
-            Name = name;
-            Publisher = publisher;
-            UploadTime = uploadTime;
-            Size = size;
-            FolderId = folderId;
-            FolderName = folderName;
-        }
     }
 }

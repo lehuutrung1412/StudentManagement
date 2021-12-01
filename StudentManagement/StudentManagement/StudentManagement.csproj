@@ -358,6 +358,7 @@
     <Compile Include="Objects\CourseItem.cs" />
     <Compile Include="Objects\EmptyCard.cs" />
     <Compile Include="Objects\FacultyCard.cs" />
+    <Compile Include="Objects\FileInfo.cs" />
     <Compile Include="Objects\IBaseCard.cs" />
     <Compile Include="Objects\BaseObjectWithBaseViewModel.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
@@ -365,6 +366,7 @@
     <Compile Include="Objects\TrainingFormCard.cs" />
     <Compile Include="Services\FacultyServies.cs" />
     <Compile Include="Services\Faculty_TrainingFormServices.cs" />
+    <Compile Include="Services\FileServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />
     <Compile Include="Services\SubjectServices.cs" />
