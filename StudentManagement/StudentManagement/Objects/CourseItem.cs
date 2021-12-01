@@ -1,6 +1,7 @@
 ﻿using StudentManagement.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,16 +21,20 @@ namespace StudentManagement.Objects
             this.Id = a.Id;
             this.Teachers = a.Teachers;
             this.Semester = a.Semester;
+            this.IdSemester = a.IdSemester;
             this.Subject = a.Subject;
+            this.IdSubject = a.IdSubject;
             this.StartDate = a.StartDate;
             this.EndDate = a.EndDate;
             this.Period = a.Period;
             this.WeekDay = a.WeekDay;
-            /*thiếu
             this.Code = a.Code;
             this.TrainingForm = a.TrainingForm;
-            this.NumberStudent = a.NumberStudent;
-            this.MaxOfRegistry = a.MaxOfRegistry;*/
+            this.IdTrainingForm = a.IdTrainingForm;
+            this.NumberOfStudents = a.NumberOfStudents;
+            this.MaxNumberOfStudents = a.MaxNumberOfStudents;
+            this.IdThumbnail = a.IdThumbnail;
+            this.DatabaseImageTable = a.DatabaseImageTable;
             this.IsSelected = false;
         }
         public SubjectClass ConvertToSubjectClass()
@@ -39,19 +44,41 @@ namespace StudentManagement.Objects
                 Id = this.Id,
                 Teachers = this.Teachers,
                 Semester = this.Semester,
+                IdSemester = this.IdSemester,
                 Subject = this.Subject,
+                IdSubject = this.IdSubject,
                 StartDate = this.StartDate,
                 EndDate = this.EndDate,
                 Period = this.Period,
                 WeekDay = this.WeekDay,
-                /*thiếu
                 Code = this.Code,
-                TrainingForm = this.TrainingForm;
-                NumberStudent = this.NumberStudent;
-                MaxOfRegistry = this.MaxOfRegistry;*/
-
+                TrainingForm = this.TrainingForm,
+                IdTrainingForm = this.IdTrainingForm,
+                NumberOfStudents = this.NumberOfStudents,
+                MaxNumberOfStudents = this.MaxNumberOfStudents,
+                IdThumbnail = this.IdThumbnail,
+                DatabaseImageTable = this.DatabaseImageTable,
             };
             return temp;
+        }
+
+        public static ObservableCollection<CourseItem> ConvertToListCourseItem(ObservableCollection<SubjectClass> listSubjectClass)
+        {
+            ObservableCollection<CourseItem> result = new ObservableCollection<CourseItem>();
+            foreach(SubjectClass subjectClass in listSubjectClass)
+            {
+                result.Add(new CourseItem(subjectClass, false));
+            }
+            return result;
+        }
+        public static ObservableCollection<SubjectClass> ConvertToListSubjectClass(ObservableCollection<CourseItem> listCourseItem)
+        {
+            ObservableCollection<SubjectClass> result = new ObservableCollection<SubjectClass>();
+            foreach (CourseItem course in listCourseItem)
+            {
+                result.Add(course.ConvertToSubjectClass());
+            }
+            return result;
         }
     }
 }

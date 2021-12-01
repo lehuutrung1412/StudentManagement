@@ -23,11 +23,13 @@ CREATE TABLE Users
   IdAvatar UNIQUEIDENTIFIER NOT NULL,
 )
 GO
+
 CREATE TABLE UserRole
 (
-	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-	Role NVARCHAR(MAX),
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  Role NVARCHAR(MAX),
 )
+GO
 
 --CREATE TABLE UserInfo
 --(
@@ -39,28 +41,34 @@ CREATE TABLE UserRole
 
 CREATE TABLE UserRole_UserInfo
 (
-	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-	IdRole UNIQUEIDENTIFIER NOT NULL,
-	InfoName NVARCHAR(MAX) NOT NULL,
-	Type INT,
-	IsEnable BIT, -- 1: có thể chỉnh sửa 0: không thể
-	IsDeleted BIT --1: bị xoá --0: còn
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  IdRole UNIQUEIDENTIFIER NOT NULL,
+  InfoName NVARCHAR(MAX) NOT NULL,
+  Type INT,
+  IsEnable BIT,
+  -- 1: có thể chỉnh sửa 0: không thể
+  IsDeleted BIT
+  --1: bị xoá --0: còn
 )
+GO
+
 CREATE TABLE User_UserRole_UserInfo
 (
-	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-	IdUser UNIQUEIDENTIFIER NOT NULL,
-	IdUserRole_Info UNIQUEIDENTIFIER NOT NULL,
-	Content NVARCHAR(MAX),
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  IdUser UNIQUEIDENTIFIER NOT NULL,
+  IdUserRole_Info UNIQUEIDENTIFIER NOT NULL,
+  Content NVARCHAR(MAX),
 )
 GO
+
 CREATE TABLE UserRole_UserInfoItem --Cho UserInfo dạng combobox
 (
-	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-	IdUserRole_Info UNIQUEIDENTIFIER NOT NULL,
-	Content NVARCHAR(MAX),
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  IdUserRole_Info UNIQUEIDENTIFIER NOT NULL,
+  Content NVARCHAR(MAX),
 )
 GO
+
 --CREATE TABLE Parent
 --(
 --  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
@@ -421,54 +429,105 @@ GO
 
 
 --INSERT
-INSERT INTO dbo.Subject(Code, DisplayName, Credit, Describe)
-VALUES	(N'CS106', N'Trí tuệ Nhân tạo', 4, N''),
-		(N'CS116', N'Lập trình Python cho Máy học', 4, N''),
-		(N'IT008', N'Lập trình Trực quan', 4, N''),
-		(N'CS336', N'Truy vấn thông tin đa phương tiện', 4, N'')
+INSERT INTO dbo.Subject
+  (Code, DisplayName, Credit, Describe)
+VALUES
+  (N'CS106', N'Trí tuệ Nhân tạo', 4, N''),
+  (N'CS116', N'Lập trình Python cho Máy học', 4, N''),
+  (N'IT008', N'Lập trình Trực quan', 4, N''),
+  (N'CS336', N'Truy vấn thông tin đa phương tiện', 4, N'')
 GO
 
-INSERT INTO dbo.Semester(DisplayName, Batch, CourseRegisterStatus)
-VALUES	(N'Học kỳ 1', N'2019-2020', 0),
-		(N'Học kỳ 2', N'2019-2020', 0),
-		(N'Học kỳ 1', N'2020-2021', 0)
+INSERT INTO dbo.Semester
+  (DisplayName, Batch, CourseRegisterStatus)
+VALUES
+  (N'Học kỳ 1', N'2019-2020', 0),
+  (N'Học kỳ 2', N'2019-2020', 0),
+  (N'Học kỳ 1', N'2020-2021', 0)
 GO
 
 
-INSERT INTO dbo.UserRole(Role)
-VALUES	(N'Học sinh'),
-		(N'Giáo viên'),
-		(N'Admin')
+INSERT INTO dbo.UserRole
+  (Role)
+VALUES
+  (N'Học sinh'),
+  (N'Giáo viên'),
+  (N'Admin')
 GO
 
-INSERT INTO DatabaseImageTable(Image) values ( (SELECT * FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
-INSERT INTO Faculty(DisplayName) values(N'TestFaculty')
+INSERT INTO DatabaseImageTable
+  (Image)
+values
+  ( (SELECT *
+    FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
+INSERT INTO Faculty
+  (DisplayName)
+values(N'TestFaculty')
 GO
 
 CREATE PROC USP_InsertUserWithRole
-@Role NVARCHAR(100),
-@Faculty NVARCHAR(100)
+  @Role NVARCHAR(100),
+  @Faculty NVARCHAR(100)
 AS
 BEGIN
-	DECLARE @IdRole UNIQUEIDENTIFIER
-	SET @IdRole = (Select id from UserRole Where Role = @Role) 
+  DECLARE @IdRole UNIQUEIDENTIFIER
+  SET @IdRole = (Select id
+  from UserRole
+  Where Role = @Role)
 
-	DECLARE @IdFaculty UNIQUEIDENTIFIER
-	SET @IdFaculty = (Select id from Faculty Where DisplayName = @Faculty) 
+  DECLARE @IdFaculty UNIQUEIDENTIFIER
+  SET @IdFaculty = (Select id
+  from Faculty
+  Where DisplayName = @Faculty)
 
-	DECLARE @IdAvatar UNIQUEIDENTIFIER
-	SET @IdAvatar = (Select TOp 1(Id) From DatabaseImageTable)
+  DECLARE @IdAvatar UNIQUEIDENTIFIER
+  SET @IdAvatar = (Select TOp 1
+    (Id)
+  From DatabaseImageTable)
 
-	INSERT INTO Users(Username, Password, DisplayName,IdUserRole,IdFaculty,IdAvatar) values ('Admin','1','Admin',@IdRole,@IdFaculty,@IdAvatar)
+  INSERT INTO Users
+    (Username, Password, DisplayName,IdUserRole,IdFaculty,IdAvatar)
+  values
+    ('Admin', '1', 'Admin', @IdRole, @IdFaculty, @IdAvatar)
 END
 GO
 
 USP_InsertUserWithRole @Role = 'Admin' , @Faculty = 'TestFaculty'
 GO
-select * from Users
-select * from UserRole
-select * from UserRole_UserInfo
-select * from User_UserRole_UserInfo
-select * from Faculty
+select *
+from Users
+select *
+from UserRole
+select *
+from UserRole_UserInfo
+select *
+from User_UserRole_UserInfo
+select *
+from Faculty
 
 
+INSERT INTO dbo.DatabaseImageTable
+  (Id ,Image)
+-- SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C',* FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1002.jpg', SINGLE_BLOB) rs
+SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C', *
+FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
+
+INSERT INTO dbo.TrainingForm
+  (Id, DisplayName)
+VALUES
+  ('52DF1714-C81F-42C2-8C64-8D744D787E0C', N'Cử nhân Tài năng')
+
+INSERT INTO dbo.Faculty
+  (Id, DisplayName)
+VALUES
+  ('3BADC66B-382B-4F35-A96C-B9B546FF98AD', N'Khoa học Máy tính')
+
+-- INSERT INTO dbo.Users
+--   (Id, Username, Password, DisplayName, IdFaculty, IdAvatar)
+-- VALUES
+--   ('BD96AAF1-27D2-461E-A555-CABEB1B980D9', N'Anne', N'1', N'An', '3BADC66B-382B-4F35-A96C-B9B546FF98AD', '52FD8086-5BD4-4365-9260-ADA8B326873C')
+
+INSERT INTO dbo.Student
+  (IdTrainingForm)
+VALUES
+  ('52DF1714-C81F-42C2-8C64-8D744D787E0C')

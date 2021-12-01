@@ -34,7 +34,7 @@
             FontWeight="Bold"
             Text="Đăng ký học phần" />
         <Separator Grid.Row="1" />
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -75,6 +75,9 @@
                 <Run Text="Số tín chỉ đã đăng ký: " />
                 <Run Text="{Binding TotalCredit, FallbackValue=0}" />
             </TextBlock>
+        </Grid>
+        <Grid Grid.Row="2">
+            <component:ScheduleTable Margin="8" Tag="{Binding ScheduleItemsRegistered}"/>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>

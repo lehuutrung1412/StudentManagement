@@ -1,4 +1,7 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
+using StudentManagement.Objects;
+using StudentManagement.Services;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
@@ -13,38 +16,7 @@ namespace StudentManagement.ViewModels
 {
     public class StudentCourseRegistryViewModel : BaseViewModel
     {
-        #region Class
-        public class CourseRegistryItem : BaseViewModel
-        {
-            private bool _isSelected;
-            private string _idSubjectClass;
-            private string _subjectName;
-            private int _credit;
-            private int _limitStudentCount;
-            private int _registeredCount;
 
-            public CourseRegistryItem(bool isSelected, string idSubjectClass, string subjectName, int credit, int limitStudentCount, int registeredCount)
-            {
-                IsSelected = isSelected;
-                IdSubjectClass = idSubjectClass;
-                SubjectName = subjectName;
-                Credit = credit;
-                LimitStudentCount = limitStudentCount;
-                RegisteredCount = registeredCount;
-            }
-
-            public bool IsSelected
-            {
-                get => _isSelected;
-                set { _isSelected = value; OnPropertyChanged(); }
-            }
-            public string IdSubjectClass { get => _idSubjectClass; set => _idSubjectClass = value; }
-            public string SubjectName { get => _subjectName; set => _subjectName = value; }
-            public int Credit { get => _credit; set => _credit = value; }
-            public int LimitStudentCount { get => _limitStudentCount; set => _limitStudentCount = value; }
-            public int RegisteredCount { get => _registeredCount; set => _registeredCount = value; }
-        }
-        #endregion
         #region Properties
         private int _totalCredit;
         public int TotalCredit
@@ -55,6 +27,13 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private Semester _currentSemester;
+        public Semester CurrentSemester { get => _currentSemester; set => _currentSemester = value; }
+
+        private Student _currentStudent;
+        public Student CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
+
         private bool _isAllItemsSelected1 = false;
         public bool IsAllItemsSelected1
         {
@@ -77,12 +56,12 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems2.Select(c => { c.IsSelected = value; return c; }).ToList();
             }
         }
-        private ObservableCollection<CourseRegistryItem> courseRegistryItems1;
-        public ObservableCollection<CourseRegistryItem> CourseRegistryItems1 { get => courseRegistryItems1; set => courseRegistryItems1 = value; }
-        private ObservableCollection<CourseRegistryItem> courseRegistryItems2;
-        public ObservableCollection<CourseRegistryItem> CourseRegistryItems2 { get => courseRegistryItems2; set => courseRegistryItems2 = value; }
-        private ObservableCollection<CourseRegistryItem> courseRegistryItems2Display;
-        public ObservableCollection<CourseRegistryItem> CourseRegistryItems2Display { get => courseRegistryItems2Display; set { courseRegistryItems2Display = value; OnPropertyChanged(); } }
+        private ObservableCollection<CourseItem> courseRegistryItems1;
+        public ObservableCollection<CourseItem> CourseRegistryItems1 { get => courseRegistryItems1; set => courseRegistryItems1 = value; }
+        private ObservableCollection<CourseItem> courseRegistryItems2;
+        public ObservableCollection<CourseItem> CourseRegistryItems2 { get => courseRegistryItems2; set => courseRegistryItems2 = value; }
+        private ObservableCollection<CourseItem> courseRegistryItems2Display;
+        public ObservableCollection<CourseItem> CourseRegistryItems2Display { get => courseRegistryItems2Display; set { courseRegistryItems2Display = value; OnPropertyChanged(); } }
         private string _searchQuery = "";
         public string SearchQuery
         {
@@ -97,6 +76,9 @@ namespace StudentManagement.ViewModels
         private bool _isFirstSearchButtonEnabled;
         public bool IsFirstSearchButtonEnabled { get => _isFirstSearchButtonEnabled; set { _isFirstSearchButtonEnabled = value; OnPropertyChanged(); } }
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
+
+        private ObservableCollection<ScheduleItem> _scheduleItemsRegistered;
+        public ObservableCollection<ScheduleItem> ScheduleItemsRegistered { get => _scheduleItemsRegistered; set { _scheduleItemsRegistered = value; OnPropertyChanged(); } }
         #endregion
         #region Command
         public ICommand RegisterCommand { get => _registerCommand; set => _registerCommand = value; }
@@ -108,44 +90,56 @@ namespace StudentManagement.ViewModels
         public ICommand SearchCommand { get => _searchCommand; set => _searchCommand = value; }
         private ICommand _switchSearchButtonCommand;
         public ICommand SwitchSearchButtonCommand { get => _switchSearchButtonCommand; set => _switchSearchButtonCommand = value; }
+        
 
         #endregion
         public StudentCourseRegistryViewModel()
         {
-            CourseRegistryItems1 = new ObservableCollection<CourseRegistryItem>
+            CurrentSemester = SemesterServices.Instance.GetLastOpenningRegisterSemester();
+            CurrentStudent = StudentServices.Instance.GetFirstStudent();
+            if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
             {
-                new CourseRegistryItem(false, "IT008.L21.KHTN", "Lập trình trực quan", 4, 50, 30),
-                new CourseRegistryItem(false, "IT009.L21.KHCL", "Không biết", 2, 30, 30),
-                new CourseRegistryItem(false, "ENG02.L21", "Anh văn 2", 4, 30, 28)
-            };
-            CourseRegistryItems2 = new ObservableCollection<CourseRegistryItem>
+                CourseRegistryItems1 = new ObservableCollection<CourseItem>();
+                CourseRegistryItems2 = new ObservableCollection<CourseItem>();
+            }
+            else
             {
-                new CourseRegistryItem(false, "IT008.L21.KHTN", "Lập trình trực quan", 4, 50, 30),
-                new CourseRegistryItem(false, "IT009.L21.KHCL", "Không biết", 2, 30, 30),
-                new CourseRegistryItem(false, "ENG02.L21", "Anh văn 2", 4, 30, 28),
-                new CourseRegistryItem(false, "IT008.L21.KHTN", "Lập trình trực quan", 4, 50, 30),
-                new CourseRegistryItem(false, "IT009.L21.KHCL", "Không biết", 2, 30, 30),
-                new CourseRegistryItem(false, "ENG02.L21", "Anh văn 2", 4, 30, 28),
-                new CourseRegistryItem(false, "IT008.L21.KHTN", "Lập trình trực quan", 4, 50, 30),
-                new CourseRegistryItem(false, "IT009.L21.KHCL", "Không biết", 2, 30, 30),
-                new CourseRegistryItem(false, "ENG02.L21", "Anh văn 2", 4, 30, 28)
-            };
+                CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+                CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+            }
             CourseRegistryItems2Display = CourseRegistryItems2;
-
-            TotalCredit = CourseRegistryItems1.Sum(x => x.Credit);
+            TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
+            InitCommand();
+            InitScheduleItems();
+        }
+        #region Methods
+        public void InitCommand()
+        {
             RegisterCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => RegisterSelectedCourses());
             UnregisterCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => UnregisterSelectedCourses());
             SearchCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => Search());
             SwitchSearchButtonCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButton());
         }
-        #region Methods
+
+        public void InitScheduleItems()
+        {
+            ScheduleItemsRegistered = new ObservableCollection<ScheduleItem>();
+            if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
+                return;
+            foreach (SubjectClass item in CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id))
+            {
+                ScheduleItem temp = new ScheduleItem(item);
+                ScheduleItemsRegistered.Add(temp);
+            }
+        }
         public void RegisterSelectedCourses()
         {
             var SelectedItems = CourseRegistryItems2.Where(x => x.IsSelected == true).ToList();
-            foreach (CourseRegistryItem item in SelectedItems)
+            foreach (CourseItem item in SelectedItems)
             {
                 item.IsSelected = false;
                 CourseRegistryItems1.Add(item);
+                CourseRegisterServices.Instance.StudentRegisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
                 CourseRegistryItems2.Remove(item);
             }
             Search();
@@ -153,11 +147,12 @@ namespace StudentManagement.ViewModels
         public void UnregisterSelectedCourses()
         {
             var SelectedItems = CourseRegistryItems1.Where(x => x.IsSelected == true).ToList();
-            foreach (CourseRegistryItem item in SelectedItems)
+            foreach (CourseItem item in SelectedItems)
             {
                 item.IsSelected = false;
                 CourseRegistryItems2.Add(item);
                 CourseRegistryItems1.Remove(item);
+                CourseRegisterServices.Instance.StudentUnregisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
             }
         }
         public void Search()
@@ -169,13 +164,13 @@ namespace StudentManagement.ViewModels
             }
             if (!IsFirstSearchButtonEnabled)
             {
-                var tmp = CourseRegistryItems2.Where(x => x.IdSubjectClass.ToLower().Contains(SearchQuery.ToLower())).ToList();
-                CourseRegistryItems2Display = new ObservableCollection<CourseRegistryItem>(tmp);
+                var tmp = CourseRegistryItems2.Where(x => x.Code.ToLower().Contains(SearchQuery.ToLower())).ToList();
+                CourseRegistryItems2Display = new ObservableCollection<CourseItem>(tmp);
             }
             else
             {
-                var tmp = CourseRegistryItems2.Where(x => vietnameseStringNormalizer.Normalize(x.SubjectName).ToLower().Contains(vietnameseStringNormalizer.Normalize(SearchQuery.ToLower()))).ToList();
-                CourseRegistryItems2Display = new ObservableCollection<CourseRegistryItem>(tmp);
+                var tmp = CourseRegistryItems2.Where(x => vietnameseStringNormalizer.Normalize(x.Subject.DisplayName).ToLower().Contains(vietnameseStringNormalizer.Normalize(SearchQuery.ToLower()))).ToList();
+                CourseRegistryItems2Display = new ObservableCollection<CourseItem>(tmp);
             }
         }
         public void SwitchSearchButton()

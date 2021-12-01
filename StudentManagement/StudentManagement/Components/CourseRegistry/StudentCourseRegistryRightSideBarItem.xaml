@@ -26,7 +26,7 @@
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 TextWrapping="Wrap">
                 <Run
-                    Text="{Binding CurrentItem.IdSubjectClass, FallbackValue='Mã lớp học'}" />
+                    Text="{Binding CurrentItem.Code, FallbackValue='Mã lớp học'}" />
             </TextBlock>
             <Grid
                 Style="{StaticResource text_grid_item}">
@@ -49,7 +49,7 @@
                 <TextBlock
                     Grid.Column="2"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.SubjectName, FallbackValue='Ten Mon Hoc'}"
+                    Text="{Binding CurrentItem.Subject.DisplayName, FallbackValue='Ten Mon Hoc'}"
                     TextAlignment="Right"
                     Margin="4 0" />
             </Grid>
@@ -68,7 +68,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.TeacherName, FallbackValue='Nguyễn Tấn Toàn'}"
+                    Text="{Binding TeacherName, FallbackValue='Chưa có'}"
                     TextAlignment="Right" />
             </Grid>
             <Grid
@@ -122,8 +122,17 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.TKB, FallbackValue='Lịch học'}"
-                    TextAlignment="Right" />
+                    TextAlignment="Right">
+                    <TextBlock.Text>
+                        <MultiBinding
+                            StringFormat="{}{0}, Tiết {1}">
+                            <Binding
+                                Path="CurrentItem.WeekDay" />
+                            <Binding
+                                Path="CurrentItem.Period" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
             </Grid>
         </StackPanel>
     </Grid>

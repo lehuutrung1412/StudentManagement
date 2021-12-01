@@ -86,7 +86,7 @@
                             Header="Tiết" />
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding MaxOfRegister, Mode=OneWay}"
+                            Binding="{Binding MaxNumberOfStudents, Mode=OneWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Giới hạn">
                             <DataGridTextColumn.HeaderStyle>
@@ -113,7 +113,7 @@
                         <!--  use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo  -->
                         <materialDesign:DataGridTextColumn
                             Width="auto"
-                            Binding="{Binding NumberStudent, Mode=OneWay}"
+                            Binding="{Binding NumberOfStudents, Mode=OneWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                             Header="Đã đăng ký">
                             <DataGridTextColumn.HeaderStyle>

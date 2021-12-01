@@ -22,9 +22,15 @@ namespace StudentManagement.Services
             Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem=>semesterItem.Id == id).FirstOrDefault();
             return a;
         }
+
+        public Semester GetLastOpenningRegisterSemester()
+        {
+            Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem => semesterItem.CourseRegisterStatus == 0).FirstOrDefault();
+            return a;
+        }
         public ObservableCollection<Semester> LoadListSemester()
         {
-            var a = DataProvider.Instance.Database.Semesters;
+            var a = DataProvider.Instance.Database.Semesters.OrderBy(y => y.DisplayName).OrderBy(x => x.Batch).ToList();
             return new ObservableCollection<Semester>(a);
         }
 
@@ -32,6 +38,17 @@ namespace StudentManagement.Services
         {
             var a = DataProvider.Instance.Database.Semesters.Where(semesterItem=>semesterItem.Batch == batch).ToList();
             return new ObservableCollection<Semester>(a);
+        }
+
+        public ObservableCollection<Semester> LoadListSemestersByStudentId(Guid idStudent)
+        {
+            var listSemester = new List<Semester>();
+            var listCourseRegister = DataProvider.Instance.Database.CourseRegisters.Where(register => register.IdStudent == idStudent).ToList();
+            foreach(CourseRegister register in listCourseRegister)
+            {
+                listSemester.Add(register.Semester);
+            }
+            return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
         }
 
         public bool SaveSemesterToDatabase(Semester semester)

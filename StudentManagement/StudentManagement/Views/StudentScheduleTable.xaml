@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    xmlns:math="http://hexinnovation.com/math"
     xmlns:views="clr-namespace:StudentManagement.Views"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
@@ -35,7 +36,28 @@
                 Foreground="#01579b"
                 ItemsSource="{Binding Semesters}"
                 SelectedItem="{Binding SelectedSemester, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Style="{StaticResource MaterialDesignComboBox}" />
+                Style="{StaticResource MaterialDesignComboBox}">
+                <ComboBox.Resources>
+                    <math:MathConverter
+                        x:Key="math" />
+                </ComboBox.Resources>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding
+                                    Converter="{StaticResource math}"
+                                    ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
+                                    <Binding
+                                        Path="Batch" />
+                                    <Binding
+                                        Path="DisplayName" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <component:ScheduleTable
                 Margin="8"
                 DockPanel.Dock="Bottom"

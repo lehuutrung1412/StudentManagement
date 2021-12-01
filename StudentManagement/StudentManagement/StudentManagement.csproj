@@ -99,6 +99,9 @@
     <Compile Include="Components\CourseRegistry\CreateNewSemester.xaml.cs">
       <DependentUpon>CreateNewSemester.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ScheduleItemCard.xaml.cs">
+      <DependentUpon>ScheduleItemCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassDetail\StudentListRightSideBarItemEdit.xaml.cs">
       <DependentUpon>StudentListRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
@@ -372,14 +375,19 @@
     <Compile Include="Objects\InfoItem.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Objects\NotificationCard.cs" />
+    <Compile Include="Objects\ScheduleItem.cs" />
     <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
+    <Compile Include="Services\CourseRegisterServices.cs" />
+    <Compile Include="Services\DatabaseImageTableServices.cs" />
     <Compile Include="Services\FacultyServies.cs" />
     <Compile Include="Services\Faculty_TrainingFormServices.cs" />
     <Compile Include="Services\InfoItemServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
+    <Compile Include="Services\StudentServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />
     <Compile Include="Services\SubjectServices.cs" />
+    <Compile Include="Services\TeacherServices.cs" />
     <Compile Include="Utils\BooleanToVisibilityConverter.cs" />
     <Compile Include="Services\TrainingFormServices.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
@@ -490,6 +498,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\CourseRegistry\CreateNewSemester.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ScheduleItemCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

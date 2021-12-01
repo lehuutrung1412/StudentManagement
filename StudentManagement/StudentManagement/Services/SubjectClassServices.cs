@@ -4,6 +4,7 @@ using StudentManagement.Objects;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,11 @@ namespace StudentManagement.Services
             return DataProvider.Instance.Database.SubjectClasses;
         }
 
+        public ObservableCollection<SubjectClass> LoadSubjectClassListBySemesterId(Guid id)
+        {
+            return new ObservableCollection<SubjectClass>(DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).ToList());
+        }
+        
         /*public SubjectClass ConvertSubjectCardToSubjectClass(SubjectCard subjectCard)
         {
             SubjectClass subjectClass = new SubjectClass()
@@ -116,5 +122,6 @@ namespace StudentManagement.Services
 
             RemoveSubjectClassFromDatabase(subjectClass);
         }*/
+
     }
 }

@@ -399,24 +399,7 @@
                             
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border
-                                        Background="LightGray"
-                                        BorderBrush="White"
-                                        BorderThickness="0. 0. 0.5 0.5"
-                                        Style="{DynamicResource BorderStyle}">
-                                        <StackPanel x:Name="StackFun" VerticalAlignment="Center">
-                                            <TextBlock
-                                                HorizontalAlignment="Center"
-                                                FontWeight="Bold"
-                                                Text="{Binding IdSubjectClass, FallbackValue='Mã lớp học'}"
-                                                TextWrapping="WrapWithOverflow" />
-                                            <TextBlock
-                                                HorizontalAlignment="Center"
-                                                Text="{Binding SubjectName, FallbackValue='Tên môn học'}"
-                                                TextAlignment="Center"
-                                                TextWrapping="WrapWithOverflow" />
-                                        </StackPanel>
-                                    </Border>
+                                    <local:ScheduleItemCard></local:ScheduleItemCard>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
