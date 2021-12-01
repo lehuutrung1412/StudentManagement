@@ -73,6 +73,8 @@ namespace StudentManagement.ViewModels
             {
                 AdminFacultyTrainingFormViewModel.StoredFacultyCards.Insert(0, ActualCard);
                 AdminFacultyTrainingFormViewModel.FacultyCards.Insert(0, ActualCard);
+                AdminFacultyTrainingFormViewModel.CurrentFacultyCards.Insert(0, ActualCard);
+                AdminFacultyTrainingFormViewModel.Instance.LoadFacultyByPageView();
             }
 
             FacultyServices.Instance.SaveFacultyCardToDatabase(ActualCard);

@@ -17,15 +17,28 @@ namespace StudentManagement.ViewModels
     public class AdminFacultyTrainingFormViewModel : BaseViewModel
     {
         #region properties
+        private static AdminFacultyTrainingFormViewModel s_instance;
+        public static AdminFacultyTrainingFormViewModel Instance => s_instance ?? (s_instance = new AdminFacultyTrainingFormViewModel());
+
+        private int _currentFacultyPageView = 1;
+        private int _ItemsPerFacultyPageView = 5;
+
+        // store all faculty cards
         static private ObservableCollection<FacultyCard> _storedFacultyCards = new ObservableCollection<FacultyCard>();
         public static ObservableCollection<FacultyCard> StoredFacultyCards { get => _storedFacultyCards; set => _storedFacultyCards = value; }
 
         static private ObservableCollection<IBaseCard> _trainingFormCards;
         static public ObservableCollection<IBaseCard> TrainingFormCards { get => _trainingFormCards; set => _trainingFormCards = value; }
 
+        // store all searched faculty cards
         static private ObservableCollection<FacultyCard> _FacultyCards = new ObservableCollection<FacultyCard>();
 
         static public ObservableCollection<FacultyCard> FacultyCards { get => _FacultyCards; set => _FacultyCards = value; }
+
+        // store all faculty cards in current pageview
+        static private ObservableCollection<FacultyCard> _CurrentFacultyCards = new ObservableCollection<FacultyCard>();
+
+        public static ObservableCollection<FacultyCard> CurrentFacultyCards { get => _CurrentFacultyCards; set => _CurrentFacultyCards = value; }
 
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
         public bool IsFirstSearchButtonEnabled
@@ -63,6 +76,31 @@ namespace StudentManagement.ViewModels
         public ICommand SearchFacultyCards { get => _searchFacultyCards; set => _searchFacultyCards = value; }
 
         private ICommand _searchFacultyCards;
+
+        public int CurrentFacultyPageView
+        {
+            get => _currentFacultyPageView;
+            set
+            {
+                _currentFacultyPageView = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(NumberOfFacultyPageView));
+            }
+        }
+        public int NumberOfFacultyPageView
+        {
+            get
+            {
+                return (FacultyCards.Count - 1) / this._ItemsPerFacultyPageView + 1;
+            }
+        }
+
+        public ICommand NextFacultyPageView { get => _nextFacultyPageView; set => _nextFacultyPageView = value; }
+        public ICommand PreviousFacultyPageView { get => _previousFacultyPageView; set => _previousFacultyPageView = value; }
+
+
+        private ICommand _nextFacultyPageView;
+        private ICommand _previousFacultyPageView;
         #endregion
 
 
@@ -70,16 +108,31 @@ namespace StudentManagement.ViewModels
 
         public AdminFacultyTrainingFormViewModel()
         {
+            AdminFacultyTrainingFormViewModel.s_instance = this;
+
             LoadTrainingFormCard();
 
             LoadFacultyCard();
 
+            LoadFacultyByPageView();
 
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchFacultyCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchFacultyCardsFunction(p));
+            NextFacultyPageView = new RelayCommand<object>((p) => { return true; }, (p) => NextFacultyPageViewCommand());
+            PreviousFacultyPageView = new RelayCommand<object>((p) => { return true; }, (p) => PreviousFacultyPageViewCommand());
         }
 
         #region methods
+        public void LoadFacultyByPageView()
+        {
+            int minIndex = (CurrentFacultyPageView - 1) * _ItemsPerFacultyPageView;
+            int maxIndex = (CurrentFacultyPageView) * _ItemsPerFacultyPageView;
+            CurrentFacultyCards.Clear();
+            FacultyCards.Where((el, index) => index < maxIndex && index >= minIndex).ToList().ForEach(el => CurrentFacultyCards.Add(el));
+            OnPropertyChanged(nameof(CurrentFacultyPageView));
+            OnPropertyChanged(nameof(NumberOfFacultyPageView));
+        }
+
         public void LoadTrainingFormCard()
         {
             //TrainingFormCards = new ObservableCollection<IBaseCard>() {
@@ -131,14 +184,28 @@ namespace StudentManagement.ViewModels
         }
 
 
+        public void NextFacultyPageViewCommand()
+        {
+            this.CurrentFacultyPageView = Math.Min(this.CurrentFacultyPageView + 1, NumberOfFacultyPageView);
+            LoadFacultyByPageView();
+        }
+
+        public void PreviousFacultyPageViewCommand()
+        {
+            this.CurrentFacultyPageView = Math.Max(this.CurrentFacultyPageView - 1, 1);
+            LoadFacultyByPageView();
+        }
+
         public void SearchFacultyCardsFunction(object p)
         {
             var tmp = StoredFacultyCards.Where(x => !IsFirstSearchButtonEnabled ?
                                                     vietnameseStringNormalizer.Normalize(x.DisplayName).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
                                                     : vietnameseStringNormalizer.Normalize(x.CacHeDaoTao).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
             FacultyCards.Clear();
+
             foreach (FacultyCard card in tmp)
                 FacultyCards.Add(card);
+            LoadFacultyByPageView();
         }
         #endregion
     }

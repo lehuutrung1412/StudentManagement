@@ -142,7 +142,46 @@
                         Content="Thêm khoa"
                         FontSize="16" />
                 </Grid>
-                <component:FacultyDataGrid Margin="16,16,16,16" DataContext="{Binding FacultyCards}" />
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    DockPanel.Dock="Bottom"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="80"
+                        Height="30"
+                        Margin="2"
+                        Command="{Binding PreviousFacultyPageView}"
+                        Content="Trước"
+                        Style="{StaticResource rounded_btn}" />
+                    <TextBox
+                        Width="40"
+                        Height="30"
+                        Margin="16,0,0,0"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Style="{StaticResource textbox_item}"
+                        Text="{Binding CurrentFacultyPageView, FallbackValue=1}"
+                        TextAlignment="Center" />
+                    <Border Height="30" BorderBrush="{x:Null}">
+                        <TextBlock
+                            Height="Auto"
+                            Margin="4,0,16,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource textblock_item}">
+                            <Run BaselineAlignment="Center" Text="/" />
+                            <Run Text="{Binding NumberOfFacultyPageView, FallbackValue=1, Mode=OneWay}" />
+                        </TextBlock>
+                    </Border>
+                    <Button
+                        Width="80"
+                        Height="30"
+                        Margin="2"
+                        Command="{Binding NextFacultyPageView}"
+                        Content="Sau"
+                        Style="{StaticResource rounded_btn}" />
+                </StackPanel>
+                <component:FacultyDataGrid Margin="16,16,16,16" DataContext="{Binding CurrentFacultyCards}" />
             </DockPanel>
         </materialDesign:Card>
 
