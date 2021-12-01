@@ -110,41 +110,7 @@
 
                 </Grid>
             </Grid>
-            <Grid Margin="16,16,16,4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="1.2*" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <TextBlock
-                        HorizontalAlignment="Stretch"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        Text="Đối tượng áp dụng" />
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Border Background="Transparent" Style="{StaticResource BorderStyle}">
-                        <ComboBox
-                            Grid.ColumnSpan="2"
-                            materialDesign:HintAssist.Hint="Đối tượng áp dụng"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            ItemsSource="{Binding ListTypeUser, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
-                            SelectedItem="{Binding TypeUser, UpdateSourceTrigger=PropertyChanged}">
-                            <ComboBox.Style>
-                                <Style BasedOn="{StaticResource ComboboxInfo}" TargetType="ComboBox">
-                                    <Style.Triggers>
-                                        <Trigger Property="Validation.HasError" Value="True">
-                                            <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
-                        </ComboBox>
-                    </Border>
 
-                </Grid>
-
-            </Grid>
             <Grid Margin="16,16,16,4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

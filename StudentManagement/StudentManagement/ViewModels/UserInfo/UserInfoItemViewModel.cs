@@ -108,9 +108,9 @@ namespace StudentManagement.ViewModels
             {
                 InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin");
             }
-            UserInfoViewModel.Instance.InfoSource.Add(CurrendInfo);
+            UserInfoViewModel.Instance.LoadInfoSource();
             SettingUserInfoViewModel.Instance.IsOpen = false;
-            SettingUserInfoViewModel.Instance.ReloadInfoSource();
+            SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
         }
         public void DeleteItem(TextBox p)
         {

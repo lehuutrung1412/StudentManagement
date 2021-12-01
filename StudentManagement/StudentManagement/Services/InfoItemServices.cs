@@ -36,7 +36,7 @@ namespace StudentManagement.Services
                 if (info.Type == 2)
                 {
                     ObservableCollection<string> itemSources = new ObservableCollection<string>();
-                    List<UserRole_UserInfoItem> userInfoItems = DataProvider.Instance.Database.UserRole_UserInfoItem.Where(userInfoItem => userInfoItem.UserRole_UserInfo == infoItem.UserRole_UserInfo).ToList();
+                    List<UserRole_UserInfoItem> userInfoItems = DataProvider.Instance.Database.UserRole_UserInfoItem.Where(userInfoItem => userInfoItem.IdUserRole_Info == infoItem.IdUserRole_Info).ToList();
                     userInfoItems.ForEach(userInfoItem => itemSources.Add(userInfoItem.Content));
                     info.ItemSource = itemSources;
                 }
@@ -63,7 +63,7 @@ namespace StudentManagement.Services
                 if (info.Type == 2)
                 {
                     ObservableCollection<string> itemSources = new ObservableCollection<string>();
-                    List<UserRole_UserInfoItem> userInfoItems = DataProvider.Instance.Database.UserRole_UserInfoItem.Where(userInfoItem => userInfoItem.UserRole_UserInfo == item).ToList();
+                    List<UserRole_UserInfoItem> userInfoItems = DataProvider.Instance.Database.UserRole_UserInfoItem.Where(userInfoItem => userInfoItem.IdUserRole_Info == item.Id).ToList();
                     userInfoItems.ForEach(userInfoItem => itemSources.Add(userInfoItem.Content));
                     info.ItemSource = itemSources;
                 }
@@ -71,6 +71,37 @@ namespace StudentManagement.Services
                 InfoSourece.Add(info);
             }
             return InfoSourece;
+        }
+        public void UpdateUserRole_UserInfoByInfoItem(InfoItem infoItem)
+        {
+            UserRole_UserInfo userRole_UserInfo = DataProvider.Instance.Database.UserRole_UserInfo.Where(userRole_userInfo => userRole_userInfo.Id == infoItem.Id).FirstOrDefault();
+            userRole_UserInfo.InfoName = infoItem.LabelName;
+            userRole_UserInfo.Type = infoItem.Type;
+            userRole_UserInfo.IsEnable = infoItem.IsEnable;
+            DataProvider.Instance.Database.SaveChanges();
+            if (infoItem.Type == 2)
+                UpdateUserRole_UserInfoItemByInfoItem(infoItem);
+        }
+        public void UpdateUserRole_UserInfoItemByInfoItem(InfoItem infoItem)
+        {
+            var listUserInfoItem = DataProvider.Instance.Database.UserRole_UserInfoItem.Where(userRole_UserInfoItem => userRole_UserInfoItem.IdUserRole_Info == infoItem.Id);
+            // Xoá tất cả item của UserInfo
+            foreach(var item in listUserInfoItem)
+            {
+                DataProvider.Instance.Database.UserRole_UserInfoItem.Remove(item);
+            }
+            foreach(var item in infoItem.ItemSource)
+            {
+                UserRole_UserInfoItem userRole_UserInfoItem = new UserRole_UserInfoItem()
+                {
+                    Id = Guid.NewGuid(),
+                    IdUserRole_Info = infoItem.Id,
+                    Content = item,
+                };
+                DataProvider.Instance.Database.UserRole_UserInfoItem.Add(userRole_UserInfoItem);
+            }  
+            DataProvider.Instance.Database.SaveChanges();
+            
         }
         //public UserInfo ConverInfoItemToUserInfo(InfoItem infoItem)
         //{

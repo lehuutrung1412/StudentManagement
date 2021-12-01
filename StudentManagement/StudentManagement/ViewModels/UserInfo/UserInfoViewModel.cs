@@ -119,10 +119,8 @@ namespace StudentManagement.ViewModels
             //    new InfoItem(Guid.NewGuid(),"Địa chỉ mail",0,null,"cuongnguyen14022001",true),
             //    new InfoItem(Guid.NewGuid(),"Hệ",2,TrainingForm,"CNTN",false),
             //    new InfoItem(Guid.NewGuid(),"Lớp sinh hoạt",2,Class,"KHTN2019",false),
-            //};
-            var id = DataProvider.Instance.Database.Users.FirstOrDefault().Id;
-            InfoSource = InfoItemServices.Instance.GetInfoSourceByUserId(id);
-
+            //};           
+            LoadInfoSource();
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
             ListTypeUser = new ObservableCollection<string> { "Tất cả", "Admin", "Học sinh", "Sinh viên" };
 
@@ -135,6 +133,11 @@ namespace StudentManagement.ViewModels
             UpdateUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateUserInfo());
             ConfirmUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => ComfirmUserInfo());
 
+        }
+        public void LoadInfoSource()
+        {
+            var id = DataProvider.Instance.Database.Users.FirstOrDefault().Id;
+            InfoSource = InfoItemServices.Instance.GetInfoSourceByUserId(id);
         }
         public void ComfirmUserInfo()
         {

@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,11 +25,9 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<ItemInCombobox> ListItemInCombobox { get => _listItemInCombobox; set { _listItemInCombobox = value; OnPropertyChanged(); } }
 
         public string TypeControl { get => _typeControl; set { _typeControl = value; OnPropertyChanged(); } }
-        public string TypeUser { get => _typeUser; set { _typeUser = value; OnPropertyChanged(); } }
         public bool IsEnable { get => _isEnable; set { _isEnable = value; OnPropertyChanged(); } }
 
         private string _typeControl;
-        private string _typeUser;
         private bool _isEnable;
 
         public ICommand DeleteItemCommand { get => _deleteItemCommand; set => _deleteItemCommand = value; }
@@ -69,17 +68,19 @@ namespace StudentManagement.ViewModels
             }
             else
                 DisplayInfoItem.Type = 0;
+            InfoItemServices.Instance.UpdateUserRole_UserInfoByInfoItem(DisplayInfoItem);
+            UserInfoViewModel.Instance.LoadInfoSource();
 
-            for (int i =0; i<UserInfoViewModel.Instance.InfoSource.Count; i++)
-            {
-                if (UserInfoViewModel.Instance.InfoSource[i].LabelName == CurrendInfoItem.LabelName)
-                {
-                    UserInfoViewModel.Instance.InfoSource[i] = DisplayInfoItem;
-                    break;
-                }    
+            //for (int i =0; i<UserInfoViewModel.Instance.InfoSource.Count; i++)
+            //{
+            //    if (UserInfoViewModel.Instance.InfoSource[i].LabelName == CurrendInfoItem.LabelName)
+            //    {
+            //        UserInfoViewModel.Instance.InfoSource[i] = DisplayInfoItem;
+            //        break;
+            //    }    
                     
-            }    
-            UserInfoViewModel.Instance.IsOpen = false;
+            //}            
+            //UserInfoViewModel.Instance.IsOpen = false;
         }
 
         public void DeleteItem(TextBox p)
