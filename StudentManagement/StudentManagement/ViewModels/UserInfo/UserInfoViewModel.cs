@@ -143,7 +143,7 @@ namespace StudentManagement.ViewModels
                 InfoSource = new ObservableCollection<InfoItem>();
                 DisplaySource.ForEach(info => InfoSource.Add(new InfoItem(info)));
             }
-            else 
+            else
             {
                 InfoSource.ToList().ForEach(item => InfoItemServices.Instance.UpdateUser_UserRole_UserInfoByInfoItem(item));
             }

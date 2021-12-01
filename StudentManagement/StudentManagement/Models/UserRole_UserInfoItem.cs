@@ -13,22 +13,15 @@ namespace StudentManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserInfo : BaseViewModel
+    public partial class UserRole_UserInfoItem : BaseViewModel
     {
-        public UserInfo()
-        {
-            this.UserInfoItems = new HashSet<UserInfoItem>();
-            this.UserRole_UserInfo = new HashSet<UserRole_UserInfo>();
-        }
-    
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private string _infoName { get; set; }
-        public string InfoName { get => _infoName; set { _infoName = value; OnPropertyChanged(); } }
-        private Nullable<int> _type { get; set; }
-        public Nullable<int> Type { get => _type; set { _type = value; OnPropertyChanged(); } }
+        private System.Guid _idUserRole_Info { get; set; }
+        public System.Guid IdUserRole_Info { get => _idUserRole_Info; set { _idUserRole_Info = value; OnPropertyChanged(); } }
+        private string _content { get; set; }
+        public string Content { get => _content; set { _content = value; OnPropertyChanged(); } }
     
-        public virtual ICollection<UserInfoItem> UserInfoItems { get; set; }
-        public virtual ICollection<UserRole_UserInfo> UserRole_UserInfo { get; set; }
+        public virtual UserRole_UserInfo UserRole_UserInfo { get; set; }
     }
 }
