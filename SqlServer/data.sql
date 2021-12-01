@@ -384,4 +384,6 @@ VALUES	(N'Học kỳ 1', N'2019-2020', 0),
 		(N'Học kỳ 2', N'2019-2020', 0),
 		(N'Học kỳ 1', N'2020-2021', 0)
 
+--INSERT INTO dbo.DatabaseImageTable(Id ,Image)
+--SELECT NEWID(),* FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1002.jpg', SINGLE_BLOB) rs
 

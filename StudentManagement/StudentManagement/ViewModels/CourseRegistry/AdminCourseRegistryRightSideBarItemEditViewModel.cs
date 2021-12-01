@@ -1,8 +1,10 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +26,7 @@ namespace StudentManagement.ViewModels
             }
         }
         public string SubjectName { get => _subjectName; set { _subjectName = value; OnPropertyChanged(); } }
-        public string CourseItemsCode { get => _subjectClassCode; set { _subjectClassCode = value; OnPropertyChanged(); } }
+        public string SubjectClassCode { get => _subjectClassCode; set { _subjectClassCode = value; OnPropertyChanged(); } }
         public string MaxOfRegister { get => _maxOfRegister; set { _maxOfRegister = value; OnPropertyChanged(); }
 }
         public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
@@ -45,15 +47,15 @@ namespace StudentManagement.ViewModels
 
         public ICommand ConfirmCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+
+        public ObservableCollection<string> DayOfWeeks { get => _dayOfWeeks; set { _dayOfWeeks = value; OnPropertyChanged(); } }
+        private ObservableCollection<string> _dayOfWeeks;
         
-
-        string[] DayOfWeeks = { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
-
-    public AdminCourseRegistryRightSideBarItemEditViewModel()
+        public AdminCourseRegistryRightSideBarItemEditViewModel()
         {
             CurrentItem = null;
             SubjectName = "";
-            CourseItemsCode = "";
+            SubjectClassCode = "";
             StartDate = null;
             EndDate = null;
             Period = "";
@@ -72,12 +74,13 @@ namespace StudentManagement.ViewModels
         public void InitProperties()
         {
             SubjectName = CurrentItem.Subject.DisplayName;
-            /*CourseItemsCode = CurrentItem.Code;*/
+            SubjectClassCode = CurrentItem.Code;
             StartDate = CurrentItem.StartDate;
             EndDate = CurrentItem.EndDate;
             Period = CurrentItem.Period;
             WeekDay = CurrentItem.WeekDay;
-            /*MaxOfRegister = CurrentItem.MaxOfRegister;*/
+            DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
+            MaxOfRegister = Convert.ToString(CurrentItem.MaxNumberOfStudents);
         }
 
         public void InitCommand()
@@ -104,11 +107,13 @@ namespace StudentManagement.ViewModels
 
         public void Confirm()
         {
-            CurrentItem.Subject.DisplayName = SubjectName;
             CurrentItem.StartDate = StartDate;
             CurrentItem.EndDate = EndDate;
             CurrentItem.Period = Period;
             CurrentItem.WeekDay = WeekDay;
+            CurrentItem.MaxNumberOfStudents = Convert.ToInt32(MaxOfRegister);
+            SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
+            SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
             Cancel();
         }
 

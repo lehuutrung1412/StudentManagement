@@ -21,9 +21,6 @@ namespace StudentManagement.ViewModels
 {
     public class AdminCourseRegistryViewModel : BaseViewModel
     {
-        #region classes
-        
-        #endregion
         #region properties
         private bool _isAllItemsSelected = false;
         public bool IsAllItemsSelected
@@ -181,6 +178,8 @@ namespace StudentManagement.ViewModels
             DeleteSelectedItemsCommand = new RelayCommand<object>(
                 (p) =>
                 {
+                    if (SelectedSemester == null)
+                        return false;
                     return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0 && !(SelectedSemester.CourseRegisterStatus > 0);
                 },
                 (p) =>
@@ -188,6 +187,8 @@ namespace StudentManagement.ViewModels
                     DeleteSelectedItems();
                 });
             CreateNewCourseCommand = new RelayCommand<object>((p) => {
+                if (SelectedSemester == null)
+                    return false;
                 return !(SelectedSemester.CourseRegisterStatus > 0);
             }, (p) => CreateNewCourse());
             OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 1);
@@ -206,14 +207,20 @@ namespace StudentManagement.ViewModels
 
             AddFromExcelCommand = new RelayCommand<object>((p) =>
             {
+                if (SelectedSemester == null)
+                    return false;
                 return !(SelectedSemester.CourseRegisterStatus > 0);
             }, (p) => AddFromExcel());
             SaveChangesCommand = new RelayCommand<object>((p) =>
             {
+                if (SelectedSemester == null)
+                    return false;
                 return !(SelectedSemester.CourseRegisterStatus > 0);
             }, (p) => SaveChanges());
             ConvertChangesCommand = new RelayCommand<object>((p) =>
             {
+                if (SelectedSemester == null)
+                    return false;
                 return !(SelectedSemester.CourseRegisterStatus > 0);
             }, (p) => ConvertChanges());
         }
@@ -251,7 +258,7 @@ namespace StudentManagement.ViewModels
             var SelectedItems = CourseRegistryItems.Where(x => x.IsSelected == true).ToList();
             foreach (CourseItem item in SelectedItems)
             {
-                /*SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id);*/
+                SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id);
                 CourseRegistryItems.Remove(item);
             }
             SearchCourseRegistryItemsFunction();
@@ -286,6 +293,15 @@ namespace StudentManagement.ViewModels
         public void CreateNewBatch()
         {
             var temp = Semesters.Select(x => x.Batch).Distinct().ToList();
+            if (temp.Count == 0)
+            {
+                Batches = new ObservableCollection<string>()
+                {
+                    DateTime.Now.AddYears(-1).Year.ToString() + "-" + DateTime.Now.Year.ToString(),
+                    DateTime.Now.Year.ToString() + "-" + DateTime.Now.AddYears(1).Year.ToString(),
+                };
+                return;
+            }
             Batches = new ObservableCollection<string>(temp);
             string defaultNewBatch = "";
             foreach (string year in Batches.Last().Split('-'))
@@ -316,8 +332,11 @@ namespace StudentManagement.ViewModels
                     DataTable data = dataSheets[0];
 
                     ObservableCollection<CourseItem> excelList = CourseRegistryItems;
+                    
                     foreach (DataRow course in data.Rows)
                     {
+                        string TFName = course[7].ToString();
+                        Guid idTeacher = Guid.Parse(Convert.ToString(course[8]));
                         var tempSubjectClass = new SubjectClass()
                         {
                             Id = Guid.NewGuid(),
@@ -327,16 +346,16 @@ namespace StudentManagement.ViewModels
                             EndDate = Convert.ToDateTime(course[2]),                                                  //Column EndDate Date
                             Period = Convert.ToString(course[3]),                                                       //Column Period NVARCHAR
                             WeekDay = Convert.ToString(course[4]),                                                      //Column WeekDay NVARCHAR
-                            //Thiếu data
-                            /*SubjectClassCode,
-                            MaxOfRegister,
-                            TrainingForm, 
-                            Teachers,*/
+                            Code = Convert.ToString(course[5]),
+                            MaxNumberOfStudents = Convert.ToInt32(course[6]),
+                            TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(tf=>tf.DisplayName.Equals(TFName)).FirstOrDefault(),
+                            Teachers = new ObservableCollection<Teacher>() { TeacherServices.Instance.FindTeacherByTeacherId(idTeacher) },
+                            DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable()            //Thiếu image
                         };
                         var tempCourse = new CourseItem(tempSubjectClass, false);
-                        /*SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);*/
+                        SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
                         excelList.Add(tempCourse);
-
+                        
                     }
                 }
             }

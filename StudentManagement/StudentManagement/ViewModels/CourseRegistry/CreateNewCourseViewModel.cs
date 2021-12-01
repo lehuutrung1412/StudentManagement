@@ -120,14 +120,15 @@ namespace StudentManagement.ViewModels
                 EndDate = EndDate,
                 Semester = Semester,
                 Period = Period,
-                WeekDay = SelectedDay/*,
+                WeekDay = SelectedDay,
                 Code = SubjectClassCode,
-                MaxOfRegister = MaxNumber,
-                NumberStudent = 0,
-                TraningForm = SelectedTF*/
+                MaxNumberOfStudents = Convert.ToInt32(MaxNumber),
+                NumberOfStudents = 0,
+                TrainingForm = SelectedTF,
+                DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable()
             };
             CurrentCard = newCourse;
-            /*SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);*/
+            SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);
             Courses.Add(new CourseItem(newCourse, false));
         }
         public void UpdateSubjectClassCode()
@@ -143,7 +144,7 @@ namespace StudentManagement.ViewModels
             codeSemester += Convert.ToString(indexSemester);
             SubjectClassCode += codeSemester;
 
-            int indexCourse = Courses.Where(course => course.Subject.DisplayName == SelectedSubject.DisplayName).Count() + 1;
+            int indexCourse = (Courses == null)? 1 : Courses.Where(course => course.Subject.DisplayName == SelectedSubject.DisplayName).Count() + 1;
             SubjectClassCode += Convert.ToString(indexCourse);
         }
         private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)

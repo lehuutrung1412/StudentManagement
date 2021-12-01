@@ -46,10 +46,17 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tên môn học"
                         Style="{StaticResource textbox_item}"
+                        IsReadOnly="True"
                         Text="{Binding SubjectName}" />
                 </Grid>
                 <Grid
                     Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="67*" />
+                        <ColumnDefinition
+                            Width="263*" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -59,13 +66,18 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Mã lớp học" />
+                        Text="Mã lớp học"
+                        Grid.ColumnSpan="2"
+                        Margin="4,0,3.6,0.6" />
 
                     <TextBox
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập mã lớp học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding SubjectClassCode}" />
+                        IsReadOnly="True"
+                        Text="{Binding SubjectClassCode}"
+                        Grid.ColumnSpan="2"
+                        Margin="8,4.4,7.6,0" />
                 </Grid>
                 <Grid
                     Style="{StaticResource text_grid_item}">
@@ -100,7 +112,7 @@
                         Text="Thứ" />
                     <ComboBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập tiết"
+                        materialDesign:HintAssist.Hint="Chọn thứ"
                         Style="{StaticResource combobox_item}"
                         ItemsSource="{Binding DayOfWeeks}"
                         SelectedItem="{Binding WeekDay}" />

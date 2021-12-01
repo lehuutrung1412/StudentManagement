@@ -24,7 +24,7 @@ namespace StudentManagement.Services
         }
         public ObservableCollection<Semester> LoadListSemester()
         {
-            var a = DataProvider.Instance.Database.Semesters;
+            var a = DataProvider.Instance.Database.Semesters.OrderBy(y => y.DisplayName).OrderBy(x => x.Batch).ToList();
             return new ObservableCollection<Semester>(a);
         }
 
