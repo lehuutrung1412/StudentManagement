@@ -384,5 +384,45 @@ INSERT INTO dbo.Semester(DisplayName, Batch, CourseRegisterStatus)
 VALUES	(N'Học kỳ 1', N'2019-2020', 0),
 		(N'Học kỳ 2', N'2019-2020', 0),
 		(N'Học kỳ 1', N'2020-2021', 0)
+GO
 
+INSERT INTO DatabaseImageTable(Id, Image) values (NEWID(), (SELECT * FROM OPENROWSET(BULK N'C:\Users\Trung\Downloads\a.png', SINGLE_BLOB) as T1))
+GO
+
+INSERT INTO Faculty(DisplayName) values(N'TestFaculty')
+GO
+
+
+BEGIN
+	DECLARE @IdFaculty UNIQUEIDENTIFIER
+	SET @IdFaculty = (Select id from Faculty Where DisplayName = 'TestFaculty') 
+
+	DECLARE @IdAvatar UNIQUEIDENTIFIER
+	SET @IdAvatar = (Select TOp 1(Id) From DatabaseImageTable)
+
+	INSERT INTO Users(Username, Password, DisplayName, IdFaculty, IdAvatar) values ('Admin','1','Admin',@IdFaculty,@IdAvatar)
+END
+GO
+
+select * from Users
+select * from Document
+
+Insert into TrainingForm (Id, displayname) values (NEWID(), 'Oke')
+
+BEGIN
+	DECLARE @IdFaculty UNIQUEIDENTIFIER
+	SET @IdFaculty = (Select id from Faculty Where DisplayName = 'TestFaculty')
+
+	DECLARE @IdSubject UNIQUEIDENTIFIER
+	SET @IdSubject = (Select id from Subject Where Code = N'CS106') 
+
+	DECLARE @IdTrainingForm UNIQUEIDENTIFIER
+	SET @IdTrainingForm = (Select id from TrainingForm Where DisplayName = 'Oke')
+
+	DECLARE @IdAvatar UNIQUEIDENTIFIER
+	SET @IdAvatar = (Select TOp 1(Id) From DatabaseImageTable)
+
+	INSERT INTO SubjectClass(Id, IdSubject, Period, Weekday, IdThumbnail, IdTrainingForm, Code, NumberOfStudents, MaxNumberOfStudents) 
+	values ('00000000-0000-0000-0000-000000000000', @IdSubject, '123', '4', @IdAvatar, @IdTrainingForm, 'Hi', 100, 100)
+END
 

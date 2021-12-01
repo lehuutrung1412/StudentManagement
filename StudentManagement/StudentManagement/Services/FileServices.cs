@@ -24,6 +24,7 @@ namespace StudentManagement.Services
             {
                 Id = (Guid)file.Id,
                 DisplayName = file.Name,
+                Content = file.Content,
                 CreatedAt = file.UploadTime,
                 IdFolder = file.FolderId,
                 IdPoster = file.PublisherId,
@@ -34,7 +35,7 @@ namespace StudentManagement.Services
 
         public FileInfo ConvertDocumentToFileInfo(Document doc)
         {
-            return new FileInfo(doc.Id, doc.DisplayName, Guid.NewGuid(),doc.User.DisplayName, doc.CreatedAt, doc.Size, doc.IdFolder, doc.Folder.DisplayName);
+            return new FileInfo(doc.Id, doc.DisplayName, Guid.NewGuid(), doc.User.DisplayName, doc.Content, doc.CreatedAt, doc.Size, doc.IdFolder, doc.Folder.DisplayName);
         }
 
         #endregion Convert

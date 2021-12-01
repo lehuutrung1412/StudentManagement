@@ -193,7 +193,7 @@ namespace StudentManagement.ViewModels
                         {
                             if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
                             {
-                                FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, item.UploadTime, 0, item.FolderId, item.FolderName));
+                                FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName));
                             }
                             FileData.Remove(FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId));
                         }
@@ -227,7 +227,7 @@ namespace StudentManagement.ViewModels
                     return;
                 }
                 IsShowDialog = false;
-                FileInfo newFolder = new FileInfo(null, "", Guid.NewGuid(), "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
+                FileInfo newFolder = new FileInfo(null, "", Guid.NewGuid(), "Hữu Trung", "", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
                 FileData.Add(newFolder);
                 NewFolderName = null;
             }
@@ -292,6 +292,8 @@ namespace StudentManagement.ViewModels
                                 continue;
                             }
 
+                            string linkFile = FileUploader.Instance.Upload(file);
+
                             if (folder != null)
                             {
                                 // Delete pseudo file info used for display folder only
@@ -301,12 +303,13 @@ namespace StudentManagement.ViewModels
                                     FileData.Remove(pseudoFileInfo);
                                 }
 
-                                FileData.Add(new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", DateTime.Now, fileSize, folderId, folderName));
+                                FileData.Add(new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", linkFile, DateTime.Now, fileSize, folderId, folderName));
                             }
                             else
                             {
-                                FileInfo newFile = new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", DateTime.Now, fileSize, null, "");
+                                FileInfo newFile = new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", linkFile, DateTime.Now, fileSize, null, "");
                                 FileData.Add(newFile);
+                                
                                 FileServices.Instance.SaveFileOfSubjectClassToDatabase(newFile);
                             }
                         }

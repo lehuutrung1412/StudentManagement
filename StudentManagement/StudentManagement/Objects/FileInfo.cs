@@ -18,6 +18,7 @@ namespace StudentManagement.Objects
         private long? _size;
         private Guid _publisherId;
         private Guid _idSubjectClass;
+        private string _content;
 
         public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public string Publisher { get => _publisher; set { _publisher = value; OnPropertyChanged(); } }
@@ -32,13 +33,15 @@ namespace StudentManagement.Objects
         public Guid PublisherId { get => _publisherId; set { _publisherId = value; OnPropertyChanged(); } }
 
         public Guid IdSubjectClass { get => _idSubjectClass; set => _idSubjectClass = value; }
+        public string Content { get => _content; set => _content = value; }
 
-        public FileInfo(Guid? id, string name, Guid publisherId, string publisher, DateTime? uploadTime, long? size, Guid? folderId, string folderName)
+        public FileInfo(Guid? id, string name, Guid publisherId, string publisher, string content, DateTime? uploadTime, long? size, Guid? folderId, string folderName)
         {
             Id = id;
             Name = name;
             PublisherId = publisherId;
             Publisher = publisher;
+            Content = content;
             UploadTime = uploadTime;
             Size = size;
             FolderId = folderId;
