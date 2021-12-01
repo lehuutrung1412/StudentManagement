@@ -371,16 +371,4 @@ namespace StudentManagement.ViewModels
             Type = type;
         }
     }
-
-    //public class MakeUpItem
-    //{
-    //    public DateTime Date { get; set; }
-    //    public string Period { get; set; }
-
-    //    public MakeUpItem(DateTime date, string period)
-    //    {
-    //        Date = date;
-    //        Period = period;
-    //    }
-    //}
 }
