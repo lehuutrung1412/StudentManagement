@@ -41,9 +41,9 @@
                     Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
                     Text="Lịch báo nghỉ và báo bù" />
                 <Calendar
-                    xml:lang="vi-VN"
                     Grid.Row="1"
                     Margin="8"
+                    xml:lang="vi-VN"
                     DisplayDate="{Binding DisplayDate}"
                     SelectedDate="{Binding SelectedDate}"
                     Style="{StaticResource MaterialDesignCalendarNew}">
@@ -127,9 +127,9 @@
                             Grid.Column="0"
                             Background="{DynamicResource Green}"
                             Command="{Binding AddMakeUpDay}"
-                            IsEnabled="{Binding CanAddMakeUpDay}"
                             Content="Báo bù"
                             FontSize="14"
+                            IsEnabled="{Binding CanAddMakeUpDay}"
                             Style="{StaticResource rounded_btn}" />
                         <Button
                             Grid.Column="1"
@@ -153,9 +153,12 @@
                     Margin="8"
                     Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
                     Text="Sự kiện" />
-                <!--<ItemsControl Grid.IsSharedSizeScope="True">
+                <ItemsControl
+                    Grid.Row="1"
+                    Grid.IsSharedSizeScope="True"
+                    ItemsSource="{Binding AbsentAndMakeUpItems}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type domain:SelectableViewModel}">
+                        <DataTemplate DataType="{x:Type viewmodels:AbsentAndMakeUpItem}">
                             <Border
                                 x:Name="Border"
                                 Padding="8"
@@ -166,18 +169,36 @@
                                         <ColumnDefinition SharedSizeGroup="Checkerz" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <ToggleButton
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource MaterialDesignActionLightToggleButton}" />
+                                    <ToggleButton VerticalAlignment="Center" Style="{StaticResource MaterialDesignActionLightToggleButton}">
+                                        <materialDesign:PackIcon>
+                                            <materialDesign:PackIcon.Style>
+                                                <Style TargetType="materialDesign:PackIcon">
+                                                    <Setter Property="Kind" Value="ExitRun"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Type}" Value="Học bù">
+                                                            <Setter Property="Kind" Value="BackupRestore" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </materialDesign:PackIcon.Style>
+                                        </materialDesign:PackIcon>
+                                    </ToggleButton>
                                     <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                        <TextBlock FontWeight="Bold" Text="Hi" />
-                                        <TextBlock Text="123" />
+                                        <TextBlock FontWeight="Bold">
+                                            <Run Text="{Binding Type}" />
+                                            <Run Text="ngày" />
+                                            <Run Text="{Binding Date, StringFormat=dd/MM/yyyy}" />
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run Text="Tiết" />
+                                            <Run Text="{Binding Period}" />
+                                        </TextBlock>
                                     </StackPanel>
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                </ItemsControl>-->
+                </ItemsControl>
             </Grid>
         </Grid>
     </ScrollViewer>

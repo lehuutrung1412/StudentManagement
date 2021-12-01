@@ -16,6 +16,7 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<DateTime> ScheduleTimes { get; set; }
         public ObservableCollection<DateTime> AbsentTimes { get; set; }
         public ObservableCollection<Tuple<DateTime, string>> MakeUpTimes { get; set; }
+        public ObservableCollection<object> AbsentAndMakeUpItems { get; set; }
         public DateTime SelectedDate
         {
             get => _selectedDate;
@@ -26,6 +27,7 @@ namespace StudentManagement.ViewModels
                 try
                 {
                     CancelAddMakeUpDayFunction();
+                    LoadAbsentAndMakeUpItems();
                 }
                 catch (Exception)
                 {
@@ -110,6 +112,9 @@ namespace StudentManagement.ViewModels
             ScheduleTimes = new ObservableCollection<DateTime>();
             AbsentTimes = new ObservableCollection<DateTime>();
             MakeUpTimes = new ObservableCollection<Tuple<DateTime, string>>();
+            AbsentAndMakeUpItems = new ObservableCollection<object>();
+
+            LoadAbsentAndMakeUpItems();
 
             DateTime dateStart = new DateTime(2021, 9, 6);
             DateTime dateEnd = new DateTime(2021, 12, 13);
@@ -132,6 +137,27 @@ namespace StudentManagement.ViewModels
             AddMakeUpDay = new RelayCommand<object>((p) => true, (p) => AddMakeUpDayFunction());
             DeleteEvent = new RelayCommand<object>((p) => true, (p) => DeleteEventFunction());
             CancelAddMakeUpDay = new RelayCommand<object>((p) => true, (p) => CancelAddMakeUpDayFunction());
+        }
+
+        private void LoadAbsentAndMakeUpItems()
+        {
+            AbsentAndMakeUpItems.Clear();
+
+            foreach (var item in AbsentTimes)
+            {
+                if (item == SelectedDate)
+                {
+                    AbsentAndMakeUpItems.Add(new AbsentAndMakeUpItem(SelectedDate, SchedulePeriod, "Nghỉ học"));
+                }
+            }
+
+            foreach (var item in MakeUpTimes)
+            {
+                if (item.Item1 == SelectedDate)
+                {
+                    AbsentAndMakeUpItems.Add(new AbsentAndMakeUpItem(SelectedDate, item.Item2, "Học bù"));
+                }
+            }
         }
 
         private bool CheckConflictPeriod()
@@ -245,6 +271,7 @@ namespace StudentManagement.ViewModels
 
                 IsEvent = false;
                 RefreshCalendar();
+                LoadAbsentAndMakeUpItems();
 
                 MyMessageBox.Show("Xóa sự kiện thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
@@ -295,6 +322,7 @@ namespace StudentManagement.ViewModels
                 _errorBaseViewModel.ClearErrors(nameof(PeriodMakeUp));
                 SwitchBetweenAddMakeUpModeAndNormal();
                 RefreshCalendar();
+                LoadAbsentAndMakeUpItems();
 
                 MyMessageBox.Show("Thêm lịch học bù thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
@@ -319,6 +347,7 @@ namespace StudentManagement.ViewModels
 
                 RefreshCalendar();
                 CancelAddMakeUpDayFunction();
+                LoadAbsentAndMakeUpItems();
 
                 MyMessageBox.Show("Thêm lịch nghỉ học thành công!", "Lịch học", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
@@ -328,4 +357,30 @@ namespace StudentManagement.ViewModels
             }
         }
     }
+
+    public class AbsentAndMakeUpItem
+    {
+        public DateTime Date { get; set; }
+        public string Period { get; set; }
+        public string Type { get; set; }
+
+        public AbsentAndMakeUpItem(DateTime date, string period, string type)
+        {
+            Date = date;
+            Period = period;
+            Type = type;
+        }
+    }
+
+    //public class MakeUpItem
+    //{
+    //    public DateTime Date { get; set; }
+    //    public string Period { get; set; }
+
+    //    public MakeUpItem(DateTime date, string period)
+    //    {
+    //        Date = date;
+    //        Period = period;
+    //    }
+    //}
 }
