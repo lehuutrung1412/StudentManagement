@@ -9,7 +9,8 @@
     <SolidColorBrush x:Key="ErrorMain" Color="#d32f2f" />
     <SolidColorBrush x:Key="White" Color="#FFFFFF" />
     <!--<SolidColorBrush x:Key="SideBar" Color="#f0f2f5" />-->
-    <SolidColorBrush x:Key="CenterColumn" Color="#FFFFFF" />
+    <!--<SolidColorBrush x:Key="CenterColumn" Color="#FFFFFF" />-->
+    <SolidColorBrush x:Key="CenterColumn" Color="Transparent" />
     <!--<SolidColorBrush x:Key="SideBar" Color="#FFFFFF" />-->
     <SolidColorBrush x:Key="SideBar" Color="Transparent" />
     <SolidColorBrush x:Key="SelectedItemGray" Color="#e3e3e3" />

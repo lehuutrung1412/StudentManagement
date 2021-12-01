@@ -718,4 +718,10 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="CardContainer" TargetType="materialDesign:Card">
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
+        <Setter Property="UniformCornerRadius" Value="16" />
+    </Style>
+
 </ResourceDictionary>

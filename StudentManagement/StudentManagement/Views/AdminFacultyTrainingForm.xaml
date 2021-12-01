@@ -24,122 +24,128 @@
     <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">-->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1.05*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="0,0,0,16">
-            <TextBlock
-                Margin="16"
-                FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                Text="Danh sách hệ đào tạo" />
+        <materialDesign:Card
+            Grid.Row="0"
+            Margin="0,0,0,16"
+            Style="{StaticResource CardContainer}">
+            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                <StackPanel>
+                    <TextBlock
+                        Margin="16"
+                        FontWeight="Bold"
+                        Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                        Text="Danh sách hệ đào tạo" />
+                    <ItemsControl ItemsSource="{Binding TrainingFormCards}">
+                        <ItemsControl.Resources>
+                            <DataTemplate DataType="{x:Type objects:TrainingFormCard}">
+                                <component:TrainingFormCard Margin="8" />
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type objects:EmptyCard}">
+                                <Border
+                                    x:Name="MyBorderedButton"
+                                    Width="200"
+                                    Height="96"
+                                    Margin="12"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <Border.BorderBrush>
+                                        <VisualBrush>
+                                            <VisualBrush.Visual>
+                                                <Rectangle
+                                                    Width="{Binding ElementName=MyBorderedButton, Path=Width}"
+                                                    Height="{Binding ElementName=MyBorderedButton, Path=Height}"
+                                                    Stroke="Gray"
+                                                    StrokeDashArray="4 2"
+                                                    StrokeThickness="3" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Border.BorderBrush>
+                                    <Button
+                                        Width="192"
+                                        Height="88"
+                                        Margin="0"
+                                        Padding="0"
+                                        materialDesign:ButtonAssist.CornerRadius="8"
+                                        materialDesign:RippleAssist.Feedback="White"
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding CreateTrainingFormCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
+                                        FontWeight="Normal"
+                                        Foreground="Black">
+                                        <Button.Style>
+                                            <Style BasedOn="{StaticResource OverrideBackgroundButton}" TargetType="Button">
+                                                <Setter Property="Background" Value="{StaticResource DarkGray}" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Gray" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <StackPanel>
+                                            <materialDesign:PackIcon
+                                                Width="30"
+                                                Height="30"
+                                                Margin="8"
+                                                HorizontalAlignment="Center"
+                                                Kind="PlusCircle" />
+                                            <TextBlock Text="Thêm hệ đào tạo" />
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
 
-            <ItemsControl ItemsSource="{Binding TrainingFormCards}">
-                <ItemsControl.Resources>
-                    <DataTemplate DataType="{x:Type objects:TrainingFormCard}">
-                        <component:TrainingFormCard Margin="8" />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type objects:EmptyCard}">
-                        <Border
-                            x:Name="MyBorderedButton"
-                            Width="200"
-                            Height="96"
-                            Margin="12"
-                            BorderThickness="1"
-                            CornerRadius="8">
-                            <Border.BorderBrush>
-                                <VisualBrush>
-                                    <VisualBrush.Visual>
-                                        <Rectangle
-                                            Width="{Binding ElementName=MyBorderedButton, Path=Width}"
-                                            Height="{Binding ElementName=MyBorderedButton, Path=Height}"
-                                            Stroke="Gray"
-                                            StrokeDashArray="4 2"
-                                            StrokeThickness="3" />
-                                    </VisualBrush.Visual>
-                                </VisualBrush>
-                            </Border.BorderBrush>
-                            <Button
-                                Width="192"
-                                Height="88"
-                                Margin="0"
-                                Padding="0"
-                                materialDesign:ButtonAssist.CornerRadius="8"
-                                materialDesign:RippleAssist.Feedback="White"
-                                materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                                BorderBrush="Transparent"
-                                Command="{Binding CreateTrainingFormCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
-                                FontWeight="Normal"
-                                Foreground="Black">
-                                <Button.Style>
-                                    <Style BasedOn="{StaticResource OverrideBackgroundButton}" TargetType="Button">
-                                        <Setter Property="Background" Value="{StaticResource DarkGray}" />
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="Gray" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <StackPanel>
-                                    <materialDesign:PackIcon
-                                        Width="30"
-                                        Height="30"
-                                        Margin="8"
-                                        HorizontalAlignment="Center"
-                                        Kind="PlusCircle" />
-                                    <TextBlock Text="Thêm hệ đào tạo" />
-                                </StackPanel>
-                            </Button>
-                        </Border>
+                            </DataTemplate>
+                        </ItemsControl.Resources>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                    Margin="4,4,4,16"
+                                    HorizontalAlignment="Left"
+                                    Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </materialDesign:Card>
+        <materialDesign:Card Grid.Row="1" Style="{StaticResource CardContainer}">
+            <DockPanel>
+                <TextBlock
+                    Margin="16"
+                    DockPanel.Dock="Top"
+                    FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Text="Danh sách khoa" />
+                <Grid Margin="16" DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5.5*" />
+                        <ColumnDefinition Width="1.5*" />
+                    </Grid.ColumnDefinitions>
+                    <component:SearchBarOne
+                        Grid.Column="0"
+                        DataContext="{Binding}"
+                        DatePickerVisibility="False"
+                        FirstSearchButtonText="Khoa"
+                        SearchCommand="{Binding SearchFacultyCards}"
+                        SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SecondSearchButtonText="Hệ đào tạo" />
+                    <Button
+                        Grid.Column="1"
+                        Height="50"
+                        Margin="16,5,0,0"
+                        VerticalAlignment="Top"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        Command="{Binding CreateFacultyCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
+                        Content="Thêm khoa"
+                        FontSize="16" />
+                </Grid>
+                <component:FacultyDataGrid Margin="16,16,16,16" DataContext="{Binding FacultyCards}" />
+            </DockPanel>
+        </materialDesign:Card>
 
-                    </DataTemplate>
-                </ItemsControl.Resources>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Margin="16,16,16,16" HorizontalAlignment="Left" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1">
-            <TextBlock
-                Margin="16"
-                FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                Text="Danh sách khoa" />
-            <Grid Margin="16">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5.5*" />
-                    <ColumnDefinition Width="1.5*" />
-                </Grid.ColumnDefinitions>
-                <component:SearchBarOne
-                    Grid.Column="0"
-                    DataContext="{Binding}"
-                    FirstSearchButtonText="Khoa"
-                    DatePickerVisibility="False"
-                    SearchCommand="{Binding SearchFacultyCards}"
-                    SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SecondSearchButtonText="Hệ đào tạo" />
-                <Button
-                    Grid.Column="1"
-                    Height="50"
-                    Margin="16,5,0,0"
-                    VerticalAlignment="Top"
-                    materialDesign:ButtonAssist.CornerRadius="8"
-                    Command="{Binding CreateFacultyCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
-                    Content="Thêm khoa"
-                    FontSize="16" />
-            </Grid>
-
-        </StackPanel>
-
-        <component:FacultyDataGrid
-            Grid.Row="2"
-            Margin="16,16,16,16"
-            DataContext="{Binding FacultyCards}" />
     </Grid>
     <!--</ScrollViewer>-->
 </UserControl>

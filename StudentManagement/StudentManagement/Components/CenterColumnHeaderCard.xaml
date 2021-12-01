@@ -115,7 +115,7 @@
                         FontWeight="Bold"
                         Text="Ngô Quang Vinh" />
                     <LineBreak />
-                    <Run Text="học sinh" />
+                    <Run Foreground="Gray" Text="học sinh" />
                 </TextBlock>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
