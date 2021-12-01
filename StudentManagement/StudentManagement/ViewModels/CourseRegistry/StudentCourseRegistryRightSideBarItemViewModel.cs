@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StudentManagement.Models;
+using StudentManagement.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,17 +11,23 @@ namespace StudentManagement.ViewModels
 {
     public class StudentCourseRegistryRightSideBarItemViewModel : BaseViewModel
     {
-        public TempSubjectClass CurrentItem { get => _currentItem; set => _currentItem = value; }
-        private TempSubjectClass _currentItem;
+        public CourseItem CurrentItem { get => _currentItem; set => _currentItem = value; }
+        public string TeacherName { get => _teacherName; set { _teacherName = value; OnPropertyChanged(); } }
 
+        private CourseItem _currentItem;
+
+        private string _teacherName;
         public StudentCourseRegistryRightSideBarItemViewModel()
         {
             CurrentItem = null;
+            TeacherName = null;
         }
 
-        public StudentCourseRegistryRightSideBarItemViewModel(TempSubjectClass item)
+        public StudentCourseRegistryRightSideBarItemViewModel(CourseItem item)
         {
             CurrentItem = item;
+            Teacher teacher = CurrentItem.Teachers.FirstOrDefault();
+            TeacherName = (teacher == null) ? null : teacher.User.DisplayName;
         }
     }
 }

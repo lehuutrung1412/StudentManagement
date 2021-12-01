@@ -67,7 +67,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentItem.TeacherName, FallbackValue='Chưa có'}"
+                        Text="{Binding TeacherName, FallbackValue='Chưa có'}"
                         TextAlignment="Right" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">

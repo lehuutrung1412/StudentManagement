@@ -387,3 +387,8 @@ VALUES	(N'Học kỳ 1', N'2019-2020', 0),
 --INSERT INTO dbo.DatabaseImageTable(Id ,Image)
 --SELECT NEWID(),* FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1002.jpg', SINGLE_BLOB) rs
 
+--INSERT INTO dbo.Users(Username, Password, DisplayName, IdFaculty, IdAvatar)
+--VALUES (N'Anne', N'1', N'An', '3BADC66B-382B-4F35-A96C-B9B546FF98AD', '52FD8086-5BD4-4365-9260-ADA8B326873C')
+
+--INSERT INTO dbo.Student(IdTrainingForm, IdUsers)
+--VALUES ('52DF1714-C81F-42C2-8C64-8D744D787E0C', 'BD96AAF1-27D2-461E-A555-CABEB1B980D9')

@@ -22,6 +22,12 @@ namespace StudentManagement.Services
             Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem=>semesterItem.Id == id).FirstOrDefault();
             return a;
         }
+
+        public Semester GetLastOpenningRegisterSemester()
+        {
+            Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem => semesterItem.CourseRegisterStatus == 0).FirstOrDefault();
+            return a;
+        }
         public ObservableCollection<Semester> LoadListSemester()
         {
             var a = DataProvider.Instance.Database.Semesters.OrderBy(y => y.DisplayName).OrderBy(x => x.Batch).ToList();

@@ -363,10 +363,12 @@
     <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
+    <Compile Include="Services\CourseRegisterServices.cs" />
     <Compile Include="Services\DatabaseImageTableServices.cs" />
     <Compile Include="Services\FacultyServies.cs" />
     <Compile Include="Services\Faculty_TrainingFormServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
+    <Compile Include="Services\StudentServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />
     <Compile Include="Services\SubjectServices.cs" />
     <Compile Include="Services\TeacherServices.cs" />

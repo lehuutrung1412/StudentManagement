@@ -156,6 +156,7 @@ namespace StudentManagement.ViewModels
                 }
                 CourseRegistryItemsAll.Add(courseItems1Semester);
             }
+            SelectData();
             SelectedSemester = Semesters.LastOrDefault();
             InitCreateNewSemesterProperty();
             InitCommand();
@@ -243,9 +244,8 @@ namespace StudentManagement.ViewModels
             }
             if (!IsFirstSearchButtonEnabled)
             {
-                //Thiếu Code
-                /*var tmp = CourseRegistryItems.Where(x => x.SubjectClassCode.ToLower().Contains(SearchQuery.ToLower())).ToList();
-                CourseRegistryItemsDisplay = new ObservableCollection<CourseRegistryItem>(tmp);*/
+                var tmp = CourseRegistryItems.Where(x => x.Code.ToLower().Contains(SearchQuery.ToLower())).ToList();
+                CourseRegistryItemsDisplay = new ObservableCollection<CourseItem>(tmp);
             }
             else
             {

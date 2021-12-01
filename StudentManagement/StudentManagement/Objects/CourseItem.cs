@@ -1,6 +1,7 @@
 ﻿using StudentManagement.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,8 +58,27 @@ namespace StudentManagement.Objects
                 MaxNumberOfStudents = this.MaxNumberOfStudents,
                 IdThumbnail = this.IdThumbnail,
                 DatabaseImageTable = this.DatabaseImageTable,
-        };
+            };
             return temp;
+        }
+
+        public static ObservableCollection<CourseItem> ConvertToListCourseItem(ObservableCollection<SubjectClass> listSubjectClass)
+        {
+            ObservableCollection<CourseItem> result = new ObservableCollection<CourseItem>();
+            foreach(SubjectClass subjectClass in listSubjectClass)
+            {
+                result.Add(new CourseItem(subjectClass, false));
+            }
+            return result;
+        }
+        public static ObservableCollection<SubjectClass> ConvertToListSubjectClass(ObservableCollection<CourseItem> listCourseItem)
+        {
+            ObservableCollection<SubjectClass> result = new ObservableCollection<SubjectClass>();
+            foreach (CourseItem course in listCourseItem)
+            {
+                result.Add(course.ConvertToSubjectClass());
+            }
+            return result;
         }
     }
 }

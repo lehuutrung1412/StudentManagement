@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,15 +11,15 @@ namespace StudentManagement.ViewModels
 {
     public class StudentScheduleTableViewModel : BaseViewModel
     {
-        public class CourseClass : TempSubjectClass
+        public class CourseClass : SubjectClass
         {
             private string _day;
             private string _session;
             private string _semester;
 
-            public CourseClass(string idSubjectClass, string subjectName, int credit, string teacherName, DateTime startDate, DateTime endDate, string tKB, string semester) : base(idSubjectClass, subjectName, credit, teacherName, startDate, endDate, tKB)
+            public CourseClass(string idSubjectClass, string subjectName, int credit, string teacherName, DateTime startDate, DateTime endDate, string tKB, string semester)
             {
-                string[] temp = TKB.Split(' ');
+                string[] temp = tKB.Split(' ');
                 Day = temp[3];
                 Session = temp[1];
                 Semester = semester;
@@ -56,8 +57,8 @@ namespace StudentManagement.ViewModels
                     Start = 9;
                 else
                     Start = Convert.ToInt32(temp[0] - '0') - 1;
-                IdSubjectClass = a.IdSubjectClass;
-                SubjectName = a.SubjectName;
+                /*IdSubjectClass = a.IdSubjectClass;
+                SubjectName = a.SubjectName;*/
                 Count = 30;
                 Day = Convert.ToInt32(a.Day) - 2; //Sẽ sửa ngay thôi
             }
