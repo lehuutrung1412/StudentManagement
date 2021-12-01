@@ -38,6 +38,7 @@ namespace StudentManagement.Services
                     ObservableCollection<string> itemSources = new ObservableCollection<string>();
                     List<UserInfoItem> userInfoItems = DataProvider.Instance.Database.UserInfoItems.Where(userInfoItem => userInfoItem.IdUserInfo == infoItem.UserRole_UserInfo.IdUserInfo).ToList();
                     userInfoItems.ForEach(userInfoItem => itemSources.Add(userInfoItem.Content));
+                    info.ItemSource = itemSources;
                 }
                 info.Value = infoItem.Content;
                 info.IsEnable = Convert.ToBoolean(infoItem.UserRole_UserInfo.IsEnable);
@@ -45,7 +46,32 @@ namespace StudentManagement.Services
             }
             return InfoSource;
         }
-
+        public Guid FindUserRoleByRole(string role)
+        {
+            return DataProvider.Instance.Database.UserRoles.Where(userRoles=>userRoles.Role == role).FirstOrDefault().Id;
+        }
+        public ObservableCollection<InfoItem> GetInfoSourceInSettingByRole(string role)
+        {
+            ObservableCollection<InfoItem> InfoSourece = new ObservableCollection<InfoItem>();
+            List<UserRole_UserInfo> db = DataProvider.Instance.Database.UserRole_UserInfo.Where(userRole_UserInfo => userRole_UserInfo.UserRole.Role == role && userRole_UserInfo.IsDeleted==false).ToList();
+            foreach(UserRole_UserInfo item in db)
+            {
+                InfoItem info = new InfoItem();
+                info.Id = item.Id;
+                info.LabelName = item.UserInfo.InfoName;
+                info.Type = Convert.ToInt32(item.UserInfo.Type);
+                if (info.Type == 2)
+                {
+                    ObservableCollection<string> itemSources = new ObservableCollection<string>();
+                    List<UserInfoItem> userInfoItems = DataProvider.Instance.Database.UserInfoItems.Where(userInfoItem => userInfoItem.IdUserInfo == item.UserInfo.Id).ToList();
+                    userInfoItems.ForEach(userInfoItem => itemSources.Add(userInfoItem.Content));
+                    info.ItemSource = itemSources;
+                }
+                info.IsEnable = Convert.ToBoolean(item.IsEnable);
+                InfoSourece.Add(info);
+            }
+            return InfoSourece;
+        }
         public UserInfo ConverInfoItemToUserInfo(InfoItem infoItem)
         {
             UserInfo userInfo = new UserInfo()
@@ -84,7 +110,9 @@ namespace StudentManagement.Services
         }
         public void AddUser_UserRole_UserInfoBy(UserRole_UserInfo userRole_UserInfo)
         {
-            List<User> users = DataProvider.Instance.Database.Users.Where(user=>user.UserRole.Id == userRole_UserInfo.IdRole).ToList();
+            List<User> users = DataProvider.Instance.Database.Users.Where(user=>user.IdUserRole == userRole_UserInfo.IdRole).ToList();
+            if (users.Count == 0)
+                return;
             foreach (User user in users)
             {
                 User_UserRole_UserInfo user_UserRole_UserInfo = new User_UserRole_UserInfo()
@@ -95,8 +123,30 @@ namespace StudentManagement.Services
                     Content = "",
                 };
                 DataProvider.Instance.Database.User_UserRole_UserInfo.Add(user_UserRole_UserInfo);
-                DataProvider.Instance.Database.SaveChanges();
-            }      
+            }
+            DataProvider.Instance.Database.SaveChanges();
+        }
+        public void AddUserInfoItemByInfoItem(InfoItem infoItem)
+        {
+            foreach(var itemInCombobox in infoItem.ItemSource)
+            {
+                UserInfoItem userInfoItem = new UserInfoItem()
+                {
+                    Id = Guid.NewGuid(),
+                    IdUserInfo = FindUserInfoByInfoItemId(infoItem.Id).Id,
+                    Content = itemInCombobox,
+                };
+                DataProvider.Instance.Database.UserInfoItems.Add(userInfoItem);               
+            }
+            DataProvider.Instance.Database.SaveChanges();
+        }
+        public void UpdateUser_UserRole_UserInfoByInfoItem(InfoItem infoItem)
+        {
+            User_UserRole_UserInfo user_UserRole_UserInfo = DataProvider.Instance.Database.User_UserRole_UserInfo.Where(item => item.Id == infoItem.Id).FirstOrDefault();
+            if (user_UserRole_UserInfo == null)
+                return;
+            user_UserRole_UserInfo.Content = Convert.ToString(infoItem.Value);
+            DataProvider.Instance.Database.SaveChanges();
         }
     }
 }

@@ -111,11 +111,28 @@
                                     <DatePicker
                                         Grid.Column="4"
                                         Width="auto"
+                                        Background="Red"
                                         Margin="4"
                                         VerticalAlignment="Center"
                                         SelectedDate="{Binding SelectedDateInSearchBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=SubjectClassCardComponent}"
-                                        Style="{StaticResource DatePickerInfo}"
-                                        Visibility="{Binding DatePickerVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Visibility="{Binding DatePickerVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                                        <DatePicker.Style>
+                                            <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+                                                <Setter Property="Height" Value="32" />
+                                                <Setter Property="Padding" Value="0,4" />
+                                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                                <Setter Property="Padding" Value="16,4" />
+                                                <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
+                                                <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
+                                                <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource Transparent}"/>
+                                                <Setter Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False" />
+                                                <Setter Property="BorderThickness" Value="0" />
+                                            </Style>
+                                        </DatePicker.Style>
+                                    </DatePicker>
+                                    
                                     <Button
                                         Grid.Column="5"
                                         Width="auto"

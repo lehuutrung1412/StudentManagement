@@ -28,6 +28,10 @@ namespace StudentManagement.ViewModels
 
         public ObservableCollection<InfoItem> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
 
+        private List<InfoItem> _displaySource;
+
+        public List<InfoItem> DisplaySource { get => _displaySource; set { _displaySource = value; OnPropertyChanged(); } }
+
         public bool IsChangeAvatar { get => _isChangeAvatar; set { _isChangeAvatar = value; OnPropertyChanged(); } }
 
         private bool _isChangeAvatar;
@@ -116,7 +120,8 @@ namespace StudentManagement.ViewModels
             //    new InfoItem(Guid.NewGuid(),"Hệ",2,TrainingForm,"CNTN",false),
             //    new InfoItem(Guid.NewGuid(),"Lớp sinh hoạt",2,Class,"KHTN2019",false),
             //};
-            InfoSource = InfoItemServices.Instance.GetInfoSourceByUserId(DataProvider.Instance.Database.Users.FirstOrDefault().Id);
+            var id = DataProvider.Instance.Database.Users.FirstOrDefault().Id;
+            InfoSource = InfoItemServices.Instance.GetInfoSourceByUserId(id);
 
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
             ListTypeUser = new ObservableCollection<string> { "Tất cả", "Admin", "Học sinh", "Sinh viên" };
@@ -133,11 +138,26 @@ namespace StudentManagement.ViewModels
         }
         public void ComfirmUserInfo()
         {
+            if (MyMessageBox.Show("Bạn có muốn cập nhật thông tin", "Thông báo", System.Windows.MessageBoxButton.OKCancel, System.Windows.MessageBoxImage.Information) != System.Windows.MessageBoxResult.OK)
+            {
+                InfoSource = new ObservableCollection<InfoItem>();
+                DisplaySource.ForEach(info => InfoSource.Add(new InfoItem(info)));
+            }
+            else 
+            {
+                InfoSource.ToList().ForEach(item => InfoItemServices.Instance.UpdateUser_UserRole_UserInfoByInfoItem(item));
+            }
             IsUpdate = false;
         }
         public void UpdateUserInfo()
         {
             IsUpdate = true;
+            DisplaySource = new List<InfoItem>();
+            foreach(var info in InfoSource)
+            {
+                var item = new InfoItem(info);
+                DisplaySource.Add(item);
+            }    
         }
         public void EditInfoItem(System.Windows.Controls.UserControl p)
         {

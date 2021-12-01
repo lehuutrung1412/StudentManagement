@@ -17,7 +17,10 @@ namespace StudentManagement.Utils
         {
             if(value == null)
                 return null;
-            return DateTime.Parse(value.ToString());
+            DateTime tmp;
+            if (DateTime.TryParse(value.ToString(), out tmp))
+                return tmp;
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

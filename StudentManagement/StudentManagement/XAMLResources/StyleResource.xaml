@@ -436,9 +436,12 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Padding" Value="16,4" />
         <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
-        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
+        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource Transparent}"/>
         <Setter Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False" />
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="materialDesign:TextFieldAssist.RippleOnFocusEnabled" Value="False"/>
     </Style>
 
     <Style

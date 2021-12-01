@@ -94,19 +94,19 @@ namespace StudentManagement.ViewModels
             }
             else
                 CurrendInfo.Type = 0;
+            InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
+            if (CurrendInfo.Type == 2)
+                InfoItemServices.Instance.AddUserInfoItemByInfoItem(CurrendInfo);
             if (TypeStudent)
             {
-                InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
                 InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Học sinh");
             }
             if(TypeLecturer)
             {
-                InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
                 InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Giáo viên");
             }
             if(TypeAdmin)
             {
-                InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
                 InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin");
             }    
             UserInfoViewModel.Instance.InfoSource.Add(CurrendInfo);
