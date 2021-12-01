@@ -13,6 +13,12 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace StudentManagement.ViewModels
 {
@@ -20,7 +26,7 @@ namespace StudentManagement.ViewModels
     {
 
 
-        #region
+        #region object
         public class Student
         {
             private string _nameStudent;
@@ -30,6 +36,7 @@ namespace StudentManagement.ViewModels
             private string _faculty;
             private string _status;
             private int _stt;
+            private string _training;
             private bool _isSelected;
 
             public bool IsSelected
@@ -79,9 +86,39 @@ namespace StudentManagement.ViewModels
                 get => _stt;
                 set => _stt = value;
             }
+
+            public string Training
+            {
+                get => _training;
+                set => _training = value;
+            }
         }
 
-       
+        public class PieChartElement
+        {
+            private float _percent;
+            private string _title;
+            private Brush _colorBrush;
+
+            public float Percent
+            {
+                get => _percent;
+                set => _percent = value;
+            }
+
+            public string Title
+            {
+                get => _title;
+                set => _title = value;
+            }
+
+            public Brush Brush
+            {
+                get => _colorBrush;
+                set => _colorBrush = value;
+            }
+        }
+
 
         #endregion
 
@@ -114,8 +151,21 @@ namespace StudentManagement.ViewModels
         }
         public ICommand SearchName { get; set; }
 
+        private float _pieWidth, _pieHeight, _centerX, _centerY, _radius;
+
+        private void InitParemeter()
+        {
+            _pieWidth = 300; _pieHeight = 300;
+            _centerX = _pieWidth / 2; _centerY = _pieHeight / 2;
+            _radius = _pieWidth / 2;
+        }
+
+        
+
         public AdminStudentListViewModel()
         {
+            InitParemeter();
+
             StudentDatabase = new ObservableCollection<Student>();
             StudentDatabase.Add(new Student { NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123", STT = 1});
             StudentDatabase.Add(new Student { NameStudent = "Ngô Quang Vinh", EmailStudent = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520124", STT = 2});

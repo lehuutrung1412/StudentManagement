@@ -99,6 +99,12 @@
     <Compile Include="Components\CourseRegistry\CreateNewSemester.xaml.cs">
       <DependentUpon>CreateNewSemester.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\CampusStudentList\StudentInfoCard.xaml.cs">
+      <DependentUpon>StudentInfoCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SubjectClassDetail\StudentListPieChart.xaml.cs">
+      <DependentUpon>StudentListPieChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassDetail\StudentListRightSideBarItemEdit.xaml.cs">
       <DependentUpon>StudentListRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
@@ -383,6 +389,7 @@
     <Compile Include="Utils\Reflection.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
+    <Compile Include="ViewModels\CampusStudentList\CampusStudentListViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
@@ -456,6 +463,9 @@
     <Compile Include="Views\AdminSubjectClass.xaml.cs">
       <DependentUpon>AdminSubjectClass.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CampusStudentList.xaml.cs">
+      <DependentUpon>CampusStudentList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
@@ -478,6 +488,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\CourseRegistry\CreateNewSemester.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentList\StudentInfoCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SubjectClassDetail\StudentListPieChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -773,6 +791,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AdminSubjectClass.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CampusStudentList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
