@@ -57,11 +57,14 @@
                 Grid.ColumnSpan="2"
                 Padding="8" />
 
-            <components:RightSideBar
+            <materialDesign:Card
                 Grid.Column="9"
                 Grid.ColumnSpan="3"
-                Margin="8,0"
-                Padding="16" />
+                Margin="16,0,16,0"
+                Padding="16"
+                Style="{StaticResource CardContainer}">
+                <components:RightSideBar />
+            </materialDesign:Card>
 
             <ContentControl
                 Grid.Column="2"
