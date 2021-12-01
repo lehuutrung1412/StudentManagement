@@ -76,6 +76,9 @@ namespace StudentManagement.ViewModels
         private bool _isFirstSearchButtonEnabled;
         public bool IsFirstSearchButtonEnabled { get => _isFirstSearchButtonEnabled; set { _isFirstSearchButtonEnabled = value; OnPropertyChanged(); } }
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
+
+        private ObservableCollection<ScheduleItem> _scheduleItemsRegistered;
+        public ObservableCollection<ScheduleItem> ScheduleItemsRegistered { get => _scheduleItemsRegistered; set { _scheduleItemsRegistered = value; OnPropertyChanged(); } }
         #endregion
         #region Command
         public ICommand RegisterCommand { get => _registerCommand; set => _registerCommand = value; }
@@ -94,11 +97,20 @@ namespace StudentManagement.ViewModels
         {
             CurrentSemester = SemesterServices.Instance.GetLastOpenningRegisterSemester();
             CurrentStudent = StudentServices.Instance.GetFirstStudent();
-            CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
-            CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+            if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
+            {
+                CourseRegistryItems1 = new ObservableCollection<CourseItem>();
+                CourseRegistryItems2 = new ObservableCollection<CourseItem>();
+            }
+            else
+            {
+                CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+                CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+            }
             CourseRegistryItems2Display = CourseRegistryItems2;
             TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
             InitCommand();
+            InitScheduleItems();
         }
         #region Methods
         public void InitCommand()
@@ -107,6 +119,18 @@ namespace StudentManagement.ViewModels
             UnregisterCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => UnregisterSelectedCourses());
             SearchCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => Search());
             SwitchSearchButtonCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButton());
+        }
+
+        public void InitScheduleItems()
+        {
+            ScheduleItemsRegistered = new ObservableCollection<ScheduleItem>();
+            if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
+                return;
+            foreach (SubjectClass item in CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id))
+            {
+                ScheduleItem temp = new ScheduleItem(item);
+                ScheduleItemsRegistered.Add(temp);
+            }
         }
         public void RegisterSelectedCourses()
         {

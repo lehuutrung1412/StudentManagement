@@ -100,7 +100,7 @@
                                             <Setter Property="Visibility" Value="Hidden" />
                                         </DataTrigger>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Black" />
+                                            <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>

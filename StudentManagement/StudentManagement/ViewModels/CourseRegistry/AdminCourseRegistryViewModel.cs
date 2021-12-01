@@ -227,6 +227,12 @@ namespace StudentManagement.ViewModels
         }
         public void SelectData()
         {
+            if (Semesters.Count == 0)
+            {
+                CourseRegistryItems = new ObservableCollection<CourseItem>();
+                CourseRegistryItemsDisplay = CourseRegistryItems;
+                return;
+            }
             CourseRegistryItems = CourseRegistryItemsAll[SelectedSemesterIndex];
             CourseRegistryItemsDisplay = CourseRegistryItems;
         }

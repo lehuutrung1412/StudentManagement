@@ -46,6 +46,12 @@ namespace StudentManagement.ViewModels
         {
             CurrentStudent = StudentServices.Instance.GetFirstStudent();
             Semesters = SemesterServices.Instance.LoadListSemestersByStudentId(CurrentStudent.Id);
+            if (Semesters.Count == 0)
+            {
+                SelectedSemester = null;
+                ScheduleItems = new ObservableCollection<ScheduleItem>();
+                return;
+            }
             SelectedSemester = Semesters.Last();
             ScheduleItems = new ObservableCollection<ScheduleItem>();
             UpdateScheduleItems();
