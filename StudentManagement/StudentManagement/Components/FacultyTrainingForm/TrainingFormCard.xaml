@@ -34,13 +34,15 @@
                 UniformCornerRadius="8">
                 <materialDesign:Card.Style>
                     <Style TargetType="materialDesign:Card">
+                        <Setter Property="Background" Value="Purple" />
+                        <Setter Property="Foreground" Value="White" />
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Cursor" Value="Hand" />
-                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
+                                <Setter Property="Background" Value="Orange" />
                             </Trigger>
                             <DataTrigger Binding="{Binding ElementName=CardButton, Path=IsFocused}" Value="true">
-                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
+                                <Setter Property="Background" Value="Orange" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

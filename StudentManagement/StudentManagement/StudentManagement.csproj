@@ -86,6 +86,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\CenterColumnHeaderCard.xaml.cs">
+      <DependentUpon>CenterColumnHeaderCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\CourseRegistry\AdminCourseRegistryRightSideBarItem.xaml.cs">
       <DependentUpon>AdminCourseRegistryRightSideBarItem.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,9 @@
     </Compile>
     <Compile Include="Components\SubjectClassDetail\NewsfeedRightSideBar.xaml.cs">
       <DependentUpon>NewsfeedRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ClockControl.xaml.cs">
+      <DependentUpon>ClockControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\UserInfo\EditInfoItemInSetting.xaml.cs">
       <DependentUpon>EditInfoItemInSetting.xaml</DependentUpon>
@@ -494,6 +500,10 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\CenterColumnHeaderCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\CourseRegistry\AdminCourseRegistryRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -539,6 +549,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\SubjectClassDetail\NewsfeedRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ClockControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,65 +22,67 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-        <Grid>
-            <Grid.Resources>
-                <math:MathConverter x:Key="math" />
-            </Grid.Resources>
-            <StackPanel>
-                <TextBlock
-                    Margin="16"
-                    FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                    Text="Danh sách lớp môn học" />
-                <Grid Margin="16" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5.5*" />
-                        <ColumnDefinition Width="1.5*" />
-                    </Grid.ColumnDefinitions>
-                    <component:SearchBarOne
-                        Grid.Column="0"
-                        DataContext="{DynamicResource AdminSubjectClassVM}"
-                        DatePickerVisibility="False"
-                        FirstSearchButtonText="Mã lớp"
-                        SearchCommand="{Binding SearchSubjectCards}"
-                        SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SecondSearchButtonText="Giáo viên" />
-                    <Button
-                        Grid.Column="1"
-                        Height="50"
-                        Margin="16,0,0,0"
-                        materialDesign:ButtonAssist.CornerRadius="8"
-                        Command="{Binding CreateSubjectCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
-                        Content="Thêm lớp học"
-                        FontSize="16" />
-                </Grid>
-                <ItemsControl ItemsSource="{Binding SubjectCards}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel x:Name="Container" HorizontalAlignment="Center" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <component:SubjectClassCard>
-                                <component:SubjectClassCard.Style>
-                                    <Style TargetType="component:SubjectClassCard">
-                                        <Setter Property="Margin" Value="8,12" />
-                                        <Setter Property="Width">
-                                            <Setter.Value>
-                                                <MultiBinding Converter="{StaticResource math}" ConverterParameter="((x/3&gt;370?x/3:x/2) - 16 &gt; 0) ? ((x/3&gt;370?x/3:x/2) - 16) : 0">
-                                                    <Binding ElementName="AdminSubjectClassUC" Path="ActualWidth" />
-                                                </MultiBinding>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </component:SubjectClassCard.Style>
-                            </component:SubjectClassCard>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-        </Grid>
-    </ScrollViewer>
+    <materialDesign:Card Style="{StaticResource CardContainer}">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+            <Grid>
+                <Grid.Resources>
+                    <math:MathConverter x:Key="math" />
+                </Grid.Resources>
+                <StackPanel>
+                    <TextBlock
+                        Margin="16"
+                        FontWeight="Bold"
+                        Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                        Text="Danh sách lớp môn học" />
+                    <Grid Margin="16" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5.5*" />
+                            <ColumnDefinition Width="1.5*" />
+                        </Grid.ColumnDefinitions>
+                        <component:SearchBarOne
+                            Grid.Column="0"
+                            DataContext="{DynamicResource AdminSubjectClassVM}"
+                            DatePickerVisibility="False"
+                            FirstSearchButtonText="Mã lớp"
+                            SearchCommand="{Binding SearchSubjectCards}"
+                            SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SecondSearchButtonText="Giáo viên" />
+                        <Button
+                            Grid.Column="1"
+                            Height="50"
+                            Margin="16,0,0,0"
+                            materialDesign:ButtonAssist.CornerRadius="8"
+                            Command="{Binding CreateSubjectCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
+                            Content="Thêm lớp học"
+                            FontSize="16" />
+                    </Grid>
+                    <ItemsControl ItemsSource="{Binding SubjectCards}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel x:Name="Container" HorizontalAlignment="Center" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <component:SubjectClassCard>
+                                    <component:SubjectClassCard.Style>
+                                        <Style TargetType="component:SubjectClassCard">
+                                            <Setter Property="Margin" Value="8,12" />
+                                            <Setter Property="Width">
+                                                <Setter.Value>
+                                                    <MultiBinding Converter="{StaticResource math}" ConverterParameter="((x/3&gt;370?x/3:x/2) - 24 &gt; 0) ? ((x/3&gt;370?x/3:x/2) - 24) : 0">
+                                                        <Binding ElementName="AdminSubjectClassUC" Path="ActualWidth" />
+                                                    </MultiBinding>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </component:SubjectClassCard.Style>
+                                </component:SubjectClassCard>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </materialDesign:Card>
 </UserControl>

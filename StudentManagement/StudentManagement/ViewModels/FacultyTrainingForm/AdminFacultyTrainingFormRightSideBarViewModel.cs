@@ -180,6 +180,8 @@ namespace StudentManagement.ViewModels
 
             FacultyCards.Remove(card);
             StoredFacultyCards.Remove(card);
+            CurrentFacultyCards.Remove(card);
+            AdminFacultyTrainingFormViewModel.Instance.LoadFacultyByPageView();
 
             FacultyServices.Instance.RemoveFacultyCardFromDatabase(card);
 

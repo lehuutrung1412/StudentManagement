@@ -30,8 +30,8 @@
                             <Border
                                 x:Name="brdSearchTextBox"
                                 Padding="0"
-                                BorderBrush="{DynamicResource MaterialDesignTextBoxBorder}"
-                                BorderThickness="2"
+                                BorderBrush="{DynamicResource Black}"
+                                BorderThickness="1"
                                 CornerRadius="8">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
