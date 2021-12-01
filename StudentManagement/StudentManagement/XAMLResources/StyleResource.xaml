@@ -307,31 +307,34 @@
     </Style>
 
     <Style x:Key="MaterialDesignCalendarNew" TargetType="{x:Type Calendar}">
-        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
         <Setter Property="Background" Value="{DynamicResource Background}" />
-        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="CalendarDayButtonStyle" Value="{StaticResource MaterialDesignCalendarDayButton}" />
         <Setter Property="CalendarButtonStyle" Value="{StaticResource MaterialDesignCalendarButton}" />
-        <Setter Property="materialDesign:CalendarAssist.HeaderBackground" Value="{DynamicResource Background}"/>
-        <Setter Property="materialDesign:CalendarAssist.HeaderForeground" Value="DimGray"/>
-        <Setter Property="materialDesign:CalendarAssist.Orientation" Value="Vertical"/>
-        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
+        <Setter Property="materialDesign:CalendarAssist.HeaderBackground" Value="{DynamicResource Background}" />
+        <Setter Property="materialDesign:CalendarAssist.HeaderForeground" Value="DimGray" />
+        <Setter Property="materialDesign:CalendarAssist.Orientation" Value="Vertical" />
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Calendar}">
-                    <Border CornerRadius="8" Background="{DynamicResource Background}" Padding="4">
+                    <Border
+                        Padding="4"
+                        Background="{DynamicResource Background}"
+                        CornerRadius="8">
                         <CalendarItem
-                        x:Name="PART_CalendarItem"
-                        Style="{DynamicResource MaterialDesignCalendarItemPortrait}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Background="{TemplateBinding Background}"
-                        Foreground="{TemplateBinding Foreground}"
-                        materialDesign:CalendarAssist.IsHeaderVisible="{TemplateBinding materialDesign:CalendarAssist.IsHeaderVisible}"
-                        materialDesign:CalendarAssist.Orientation="{TemplateBinding materialDesign:CalendarAssist.Orientation}"
-                        materialDesign:ShadowAssist.ShadowDepth="{TemplateBinding materialDesign:ShadowAssist.ShadowDepth}"
-                        materialDesign:CalendarAssist.HeaderBackground="{TemplateBinding materialDesign:CalendarAssist.HeaderBackground}"
-                        materialDesign:CalendarAssist.HeaderForeground="{TemplateBinding materialDesign:CalendarAssist.HeaderForeground}"/>
+                            x:Name="PART_CalendarItem"
+                            materialDesign:CalendarAssist.HeaderBackground="{TemplateBinding materialDesign:CalendarAssist.HeaderBackground}"
+                            materialDesign:CalendarAssist.HeaderForeground="{TemplateBinding materialDesign:CalendarAssist.HeaderForeground}"
+                            materialDesign:CalendarAssist.IsHeaderVisible="{TemplateBinding materialDesign:CalendarAssist.IsHeaderVisible}"
+                            materialDesign:CalendarAssist.Orientation="{TemplateBinding materialDesign:CalendarAssist.Orientation}"
+                            materialDesign:ShadowAssist.ShadowDepth="{TemplateBinding materialDesign:ShadowAssist.ShadowDepth}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Style="{DynamicResource MaterialDesignCalendarItemPortrait}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -436,12 +439,9 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Padding" Value="16,4" />
         <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
-        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
-        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource Transparent}"/>
+        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden" />
         <Setter Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Background" Value="Red"/>
-        <Setter Property="materialDesign:TextFieldAssist.RippleOnFocusEnabled" Value="False"/>
     </Style>
 
     <Style
@@ -698,8 +698,7 @@
     <!--  iconAnimation  -->
     <Style x:Key="AutoDecreaseOpacityPackIcon" TargetType="materialDesign:PackIcon">
         <Style.Triggers>
-            <Trigger
-                Property="IsVisible" Value="True">
+            <Trigger Property="IsVisible" Value="True">
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
@@ -713,12 +712,8 @@
                     </BeginStoryboard>
                 </Trigger.EnterActions>
             </Trigger>
-            <Trigger
-                Property="Opacity"
-                Value="0.0">
-                <Setter
-                    Property="Visibility"
-                    Value="Hidden" />
+            <Trigger Property="Opacity" Value="0.0">
+                <Setter Property="Visibility" Value="Hidden" />
             </Trigger>
         </Style.Triggers>
     </Style>

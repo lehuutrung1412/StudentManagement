@@ -1,6 +1,6 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="StudentManagement.Components.StudentListDataGrid"
-     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
@@ -25,7 +25,7 @@
                     CanUserDeleteRows="False"
                     CanUserReorderColumns="False"
                     HeadersVisibility="Column"
-                    IsReadOnly="False"
+                    IsReadOnly="True"
                     ItemsSource="{Binding FindNameData}"
                     SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentListRightSideBarVM}}">
                     <DataGrid.Resources>
@@ -81,7 +81,8 @@
                         <DataGridCheckBoxColumn
                             Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                             EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}">
+                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                            IsReadOnly="False">
                             <DataGridCheckBoxColumn.Header>
                                 <Border Background="Transparent">
                                     <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=IsAllItemsSelected}" />

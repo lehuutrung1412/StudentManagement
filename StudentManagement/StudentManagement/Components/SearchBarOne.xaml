@@ -80,7 +80,7 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Text="{Binding TextInTextBlockSearchBaseOn, ElementName=SubjectClassCardComponent,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                        Text="{Binding TextInTextBlockSearchBaseOn, ElementName=SubjectClassCardComponent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         Visibility="{Binding TextblockSearchBaseOnVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     <Button
                                         Grid.Column="2"
