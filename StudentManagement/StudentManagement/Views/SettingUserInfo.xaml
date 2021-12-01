@@ -65,20 +65,36 @@
                     <StackPanel>
                         <TextBlock FontSize="20" Text="Đối tượng cài đặt" />
                         <RadioButton
+                            Command="{Binding GetInfoSourceInSettingByRoleCommand}"
                             Content="Sinh viên"
                             GroupName="Role"
-                            Style="{StaticResource RadioButtonStyle}" />
+                            IsChecked="{Binding ListCheck[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Style="{StaticResource MaterialDesignAccentRadioButton}" />
                         <RadioButton
+                            Command="{Binding GetInfoSourceInSettingByRoleCommand}"
                             Content="Giáo viên"
                             GroupName="Role"
-                            Style="{StaticResource RadioButtonStyle}" />
+                            IsChecked="{Binding ListCheck[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Style="{StaticResource MaterialDesignAccentRadioButton}" />
                         <RadioButton
+                            Command="{Binding GetInfoSourceInSettingByRoleCommand}"
                             Content="Admin"
                             GroupName="Role"
-                            Style="{StaticResource RadioButtonStyle}" />
+                            IsChecked="{Binding ListCheck[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Style="{StaticResource MaterialDesignAccentRadioButton}" />
                     </StackPanel>
                 </Grid>
                 <materialDesign:Card Grid.Row="2" Margin="0,8">
+                    <materialDesign:Card.Style>
+                        <Style TargetType="materialDesign:Card">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSetting}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:Card.Style>
                     <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -91,6 +107,7 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+
                 </materialDesign:Card>
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>

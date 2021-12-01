@@ -1,5 +1,5 @@
 -- USE TEMP
- --DROP DATABASE StudentManagement
+-- DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -441,7 +441,7 @@ VALUES	(N'Học sinh'),
 		(N'Admin')
 GO
 
-INSERT INTO DatabaseImageTable(Image) values ( (SELECT * FROM OPENROWSET(BULK N'C:\Users\DELL\Pictures\IMG_2959.JPG.jpg', SINGLE_BLOB) as T1))
+INSERT INTO DatabaseImageTable(Image) values ( (SELECT * FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
 INSERT INTO Faculty(DisplayName) values(N'TestFaculty')
 GO
 
@@ -469,7 +469,6 @@ select * from Users
 select * from UserRole
 select * from UserRole_UserInfo
 select * from User_UserRole_UserInfo
-select * from UserInfoItem
 select * from Faculty
 
 
