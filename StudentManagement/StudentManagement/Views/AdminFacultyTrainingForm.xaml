@@ -129,9 +129,11 @@
                         DataContext="{Binding}"
                         DatePickerVisibility="False"
                         FirstSearchButtonText="Khoa"
+                        IsFirstSearchButtonEnabled="{Binding IsFirstSearchButtonEnabled}"
                         SearchCommand="{Binding SearchFacultyCards}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SecondSearchButtonText="Hệ đào tạo" />
+                        SecondSearchButtonText="Hệ đào tạo"
+                        SwitchSearchButton="{Binding SwitchSearchButton}" />
                     <Button
                         Grid.Column="1"
                         Height="50"
@@ -160,9 +162,17 @@
                         Padding="0"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
+                        MaxLines="1"
                         Style="{StaticResource textbox_item}"
                         Text="{Binding CurrentFacultyPageView, FallbackValue=1}"
-                        TextAlignment="Center" />
+                        TextAlignment="Center">
+                        <TextBox.InputBindings>
+                            <KeyBinding
+                                Key="Enter"
+                                Command="{Binding JumpToFacultyPageView}"
+                                CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
                     <Border Height="30" BorderBrush="{x:Null}">
                         <TextBlock
                             Height="Auto"

@@ -90,7 +90,7 @@
                                         materialDesign:ButtonAssist.CornerRadius="8"
                                         Command="{Binding SwitchSearchButton, ElementName=SubjectClassCardComponent}"
                                         FontSize="12"
-                                        IsEnabled="{Binding IsFirstSearchButtonEnabled, ElementName=SubjectClassCardComponent, Converter={utils:SwitchBoolConverter}}"
+                                        IsEnabled="{Binding IsFirstSearchButtonEnabled, ElementName=SubjectClassCardComponent}"
                                         Style="{StaticResource MaterialDesignFlatMidBgButton}"
                                         Visibility="{Binding FirstSearchButtonVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <TextBlock Text="{Binding FirstSearchButtonText, FallbackValue='TextSearch type 1', ElementName=SubjectClassCardComponent}" />
@@ -111,13 +111,13 @@
                                     <DatePicker
                                         Grid.Column="4"
                                         Width="auto"
-                                        Background="Red"
                                         Margin="4"
                                         VerticalAlignment="Center"
+                                        Background="Red"
                                         SelectedDate="{Binding SelectedDateInSearchBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=SubjectClassCardComponent}"
-                                        Visibility="{Binding DatePickerVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                                        Visibility="{Binding DatePickerVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <DatePicker.Style>
-                                            <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+                                            <Style BasedOn="{StaticResource MaterialDesignDatePicker}" TargetType="DatePicker">
                                                 <Setter Property="Height" Value="32" />
                                                 <Setter Property="Padding" Value="0,4" />
                                                 <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -126,13 +126,13 @@
                                                 <Setter Property="Padding" Value="16,4" />
                                                 <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
                                                 <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
-                                                <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource Transparent}"/>
+                                                <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource Transparent}" />
                                                 <Setter Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False" />
                                                 <Setter Property="BorderThickness" Value="0" />
                                             </Style>
                                         </DatePicker.Style>
                                     </DatePicker>
-                                    
+
                                     <Button
                                         Grid.Column="5"
                                         Width="auto"

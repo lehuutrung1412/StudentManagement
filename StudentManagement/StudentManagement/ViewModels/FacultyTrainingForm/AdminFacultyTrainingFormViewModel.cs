@@ -97,10 +97,11 @@ namespace StudentManagement.ViewModels
 
         public ICommand NextFacultyPageView { get => _nextFacultyPageView; set => _nextFacultyPageView = value; }
         public ICommand PreviousFacultyPageView { get => _previousFacultyPageView; set => _previousFacultyPageView = value; }
-
+        public ICommand JumpToFacultyPageView { get => _jumpToFacultyPageView; set => _jumpToFacultyPageView = value; }
 
         private ICommand _nextFacultyPageView;
         private ICommand _previousFacultyPageView;
+        private ICommand _jumpToFacultyPageView;
         #endregion
 
 
@@ -118,17 +119,40 @@ namespace StudentManagement.ViewModels
 
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchFacultyCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchFacultyCardsFunction(p));
-            NextFacultyPageView = new RelayCommand<object>((p) => { return true; }, (p) => NextFacultyPageViewCommand());
-            PreviousFacultyPageView = new RelayCommand<object>((p) => { return true; }, (p) => PreviousFacultyPageViewCommand());
+            NextFacultyPageView = new RelayCommand<object>((p) =>
+            {
+                if (CurrentFacultyPageView < NumberOfFacultyPageView)
+                    return true;
+                else
+                    return false;
+            }, (p) => NextFacultyPageViewCommand());
+            PreviousFacultyPageView = new RelayCommand<object>((p) =>
+            {
+                if (CurrentFacultyPageView > 1)
+                    return true;
+                else
+                    return false;
+            }, (p) => PreviousFacultyPageViewCommand());
+            JumpToFacultyPageView = new RelayCommand<object>((p) => { return true; }, (p) => JumpToFacultyPageViewCommand(p));
         }
 
         #region methods
         public void LoadFacultyByPageView()
         {
+            if (CurrentFacultyPageView > NumberOfFacultyPageView)
+            {
+                CurrentFacultyPageView = NumberOfFacultyPageView;
+            }
+            else if (CurrentFacultyPageView < 1)
+            {
+                CurrentFacultyPageView = 1;
+            }
+
             int minIndex = (CurrentFacultyPageView - 1) * _ItemsPerFacultyPageView;
             int maxIndex = (CurrentFacultyPageView) * _ItemsPerFacultyPageView;
             CurrentFacultyCards.Clear();
             FacultyCards.Where((el, index) => index < maxIndex && index >= minIndex).ToList().ForEach(el => CurrentFacultyCards.Add(el));
+
             OnPropertyChanged(nameof(CurrentFacultyPageView));
             OnPropertyChanged(nameof(NumberOfFacultyPageView));
         }
@@ -193,6 +217,23 @@ namespace StudentManagement.ViewModels
         public void PreviousFacultyPageViewCommand()
         {
             this.CurrentFacultyPageView = Math.Max(this.CurrentFacultyPageView - 1, 1);
+            LoadFacultyByPageView();
+        }
+
+        public void JumpToFacultyPageViewCommand(object p)
+        {
+            string temp = (p as string) != "" ? (p as string) : "1";
+
+            int pageNumber;
+
+            bool success = int.TryParse(temp, out pageNumber);
+
+            if (success)
+            {
+                this.CurrentFacultyPageView = pageNumber;
+            }
+
+
             LoadFacultyByPageView();
         }
 
