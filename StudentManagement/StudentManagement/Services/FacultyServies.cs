@@ -33,7 +33,8 @@ namespace StudentManagement.Services
             Faculty faculty = new Faculty()
             {
                 Id = facultyCard.Id,
-                DisplayName = facultyCard.DisplayName
+                DisplayName = facultyCard.DisplayName,
+                Faculty_TrainingForm = new HashSet<Faculty_TrainingForm>()
             };
 
             return faculty;
@@ -67,20 +68,29 @@ namespace StudentManagement.Services
         /// Save Faculty To Database
         /// </summary>
         /// <param name="faculty"></param>
-        public void SaveFacultyToDatabase(Faculty faculty)
+        public bool SaveFacultyToDatabase(Faculty faculty)
         {
-            Faculty savedFaculty = FindFacultyByFacultyId(faculty.Id);
+            try
+            {
+                Faculty savedFaculty = FindFacultyByFacultyId(faculty.Id);
 
-            if (savedFaculty == null)
-            {
-                DataProvider.Instance.Database.Faculties.Add(faculty);
+                if (savedFaculty == null)
+                {
+                    DataProvider.Instance.Database.Faculties.Add(faculty);
+                }
+                else
+                {
+                    Reflection.CopyProperties(faculty, savedFaculty);
+                    //savedFaculty.FoundationDay = faculty.FoundationDay;
+                    //savedFaculty.DisplayName = faculty.DisplayName;
+                }
+                DataProvider.Instance.Database.SaveChanges();
+                return true;
             }
-            else
+            catch
             {
-                //savedFaculty = (faculty.ShallowCopy() as Faculty);
-                Reflection.CopyProperties(faculty, savedFaculty);
+                return false;
             }
-            DataProvider.Instance.Database.SaveChanges();
         }
 
         /// <summary>

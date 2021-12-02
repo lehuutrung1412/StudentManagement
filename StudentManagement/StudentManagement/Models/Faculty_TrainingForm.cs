@@ -15,6 +15,8 @@ namespace StudentManagement.Models
     
     public partial class Faculty_TrainingForm : BaseViewModel
     {
+        private System.Guid _id { get; set; }
+        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
         private System.Guid _idTrainingForm { get; set; }
         public System.Guid IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
         private System.Guid _idFaculty { get; set; }

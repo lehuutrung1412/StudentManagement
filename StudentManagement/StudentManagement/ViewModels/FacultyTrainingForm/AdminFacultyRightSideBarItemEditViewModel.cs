@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using System;
@@ -39,6 +40,7 @@ namespace StudentManagement.ViewModels
         {
             CurrentCard = new FacultyCard();
             ActualCard = card;
+            ActualCard.InitTrainingFormOfFacultyList();
             CurrentCard.CopyCardInfo(card);
             InitCommand();
         }
@@ -51,15 +53,35 @@ namespace StudentManagement.ViewModels
 
         private ICommand _cancelEditFacultyCardInfo;
 
+        public ICommand AddToTrainingFormsListOfFaculty { get => _addToTrainingFormsListOfFaculty; set => _addToTrainingFormsListOfFaculty = value; }
+
+        private ICommand _addToTrainingFormsListOfFaculty;
+
+        public ICommand RemoveFromTrainingFormsListOfFaculty { get => _removeFromTrainingFormsListOfFaculty; set => _removeFromTrainingFormsListOfFaculty = value; }
+
+        private ICommand _removeFromTrainingFormsListOfFaculty;
+
+
+
         public void InitCommand()
         {
             CancelEditFacultyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditFacultyCardInfoFunction());
             ConfirmEditFacultyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => ConfirmEditFacultyCardInfoFunction());
+            AddToTrainingFormsListOfFaculty = new RelayCommand<TrainingForm>((p) =>
+            {
+                if (p != null)
+                {
+                    return true;
+                }
+                return false;
+            }, (p) => AddToTrainingFormsListOfFacultyFunction(p));
+            RemoveFromTrainingFormsListOfFaculty = new RelayCommand<TrainingForm>((p) => { return true; }, (p) => RemoveFromTrainingFormsListOfFacultyFunction(p));
         }
 
         public void CancelEditFacultyCardInfoFunction()
         {
             CurrentCard.CopyCardInfo(ActualCard);
+            ActualCard.InitTrainingFormOfFacultyList();
             ReturnToShowFacultyCardInfo();
         }
 
@@ -78,6 +100,7 @@ namespace StudentManagement.ViewModels
             }
 
             FacultyServices.Instance.SaveFacultyCardToDatabase(ActualCard);
+            ActualCard.SaveTrainingFormOfFacultyListToDatabase();
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowFacultyCardInfo();
@@ -87,6 +110,15 @@ namespace StudentManagement.ViewModels
         {
             AdminFacultyTrainingFormRightSideBarViewModel adminFacultyTrainingFormRightSideBarViewModel = AdminFacultyTrainingFormRightSideBarViewModel.Instance;
             adminFacultyTrainingFormRightSideBarViewModel.RightSideBarItemViewModel = new AdminFacultyRightSideBarItemViewModel(ActualCard);
+        }
+
+        public void AddToTrainingFormsListOfFacultyFunction(TrainingForm trainingForm)
+        {
+            CurrentCard.AddToTrainingFormOfFacultyList(trainingForm);
+        }
+        public void RemoveFromTrainingFormsListOfFacultyFunction(TrainingForm trainingForm)
+        {
+            CurrentCard.RemoveFromTrainingFormOfFacultyList(trainingForm);
         }
     }
 }

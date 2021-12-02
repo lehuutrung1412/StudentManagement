@@ -17,13 +17,15 @@ namespace StudentManagement.Objects
         private string _cacHeDaoTao;
         private bool _isDeleted;
         private Guid _id;
-        public ObservableCollection<TrainingForm> TrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>();
-
+        private ObservableCollection<TrainingForm> _trainingFormsOfFacultyList = new ObservableCollection<TrainingForm>();
+        private ObservableCollection<TrainingForm> _remainingTrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>();
+        private List<Faculty_TrainingForm> _faculty_TrainingFormList = new List<Faculty_TrainingForm>();
         public FacultyCard()
         {
             Id = Guid.NewGuid();
+            InitTrainingFormOfFacultyList();
         }
-        public FacultyCard(Guid id, string displayName, DateTime foundationDay, int numberOfStudents, string cacHeDaoTao)
+        public FacultyCard(Guid id, string displayName, DateTime foundationDay, int numberOfStudents, string cacHeDaoTao) : base()
         {
             Id = id;
             DisplayName = displayName;
@@ -31,10 +33,104 @@ namespace StudentManagement.Objects
             NumberOfStudents = numberOfStudents;
             CacHeDaoTao = cacHeDaoTao;
 
-            var tempFaculty = FacultyServices.Instance.FindFacultyByFacultyId(Id);
-
-            TrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>(Faculty_TrainingFormServices.Instance.LoadTrainingFormByFaculty(tempFaculty));
+            InitTrainingFormOfFacultyList();
         }
+
+        public bool InitTrainingFormOfFacultyList()
+        {
+            try
+            {
+                var tempFaculty = Faculty_TrainingFormServices.Instance.LoadTrainingFormByFaculty(FacultyServices.Instance.FindFacultyByFacultyId(Id));
+
+                TrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>(tempFaculty);
+
+                var temp2 = DataProvider.Instance.Database.TrainingForms.ToList();
+
+                temp2.RemoveAll(el => tempFaculty.Contains(el));
+
+
+                RemainingTrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>(temp2);
+
+                Faculty faculty = FacultyServices.Instance.FindFacultyByFacultyId(Id);
+
+                Faculty_TrainingFormList = new List<Faculty_TrainingForm>();
+
+                foreach (var relation in faculty?.Faculty_TrainingForm)
+                {
+                    Faculty_TrainingFormList.Add(relation);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        public bool AddToTrainingFormOfFacultyList(TrainingForm trainingForm)
+        {
+            try
+            {
+                TrainingFormsOfFacultyList.Add(trainingForm);
+                RemainingTrainingFormsOfFacultyList.Remove(trainingForm);
+                Faculty faculty = FacultyServices.Instance.FindFacultyByFacultyId(Id);
+
+                Faculty_TrainingFormList.Add(new Faculty_TrainingForm()
+                {
+                    Id = Guid.NewGuid(),
+                    IdFaculty = Id,
+                    IdTrainingForm = trainingForm.Id,
+                });
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        public bool RemoveFromTrainingFormOfFacultyList(TrainingForm trainingForm)
+        {
+            try
+            {
+                RemainingTrainingFormsOfFacultyList.Add(trainingForm);
+                TrainingFormsOfFacultyList.Remove(trainingForm);
+                Faculty_TrainingForm removedRelation = Faculty_TrainingFormList.Where(el => el.IdTrainingForm == trainingForm.Id).FirstOrDefault();
+                Faculty_TrainingFormList.Remove(removedRelation);
+                DataProvider.Instance.Database.Faculty_TrainingForm.Remove(removedRelation);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool SaveTrainingFormOfFacultyListToDatabase()
+        {
+            try
+            {
+                Faculty faculty = FacultyServices.Instance.FindFacultyByFacultyId(Id);
+
+                faculty.Faculty_TrainingForm.Clear();
+
+                foreach (var relation in Faculty_TrainingFormList)
+                {
+                    faculty.Faculty_TrainingForm.Add(relation);
+                }
+
+                DataProvider.Instance.Database.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
 
         public string DisplayName { get => _displayName; set => _displayName = value; }
         public DateTime FoundationDay { get => _foundationDay; set => _foundationDay = value; }
@@ -42,5 +138,9 @@ namespace StudentManagement.Objects
         public string CacHeDaoTao { get => _cacHeDaoTao; set => _cacHeDaoTao = value; }
         public Guid Id { get => _id; set => _id = value; }
         public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
+        public ObservableCollection<TrainingForm> TrainingFormsOfFacultyList { get => _trainingFormsOfFacultyList; set { _trainingFormsOfFacultyList = value; OnPropertyChanged(); } }
+        public ObservableCollection<TrainingForm> RemainingTrainingFormsOfFacultyList { get => _remainingTrainingFormsOfFacultyList; set { _remainingTrainingFormsOfFacultyList = value; OnPropertyChanged(); } }
+
+        public List<Faculty_TrainingForm> Faculty_TrainingFormList { get => _faculty_TrainingFormList; set => _faculty_TrainingFormList = value; }
     }
 }

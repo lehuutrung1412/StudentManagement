@@ -10,7 +10,7 @@
     x:Name="FacultyRightSideBarItem"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
-    Background="{StaticResource SideBar}"
+    Background="{StaticResource MaterialDesignCardBackground}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -91,6 +91,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <TextBlock
@@ -98,12 +99,75 @@
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
                         Text="Các hệ đào tạo" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox
+                            x:Name="RemainingTraingFormsComboBox"
+                            ItemsSource="{Binding CurrentCard.RemainingTrainingFormsOfFacultyList, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource combobox_item}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding DisplayName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button
+                            Grid.Column="1"
+                            Height="50"
+                            Margin="0,4,8,16"
+                            Command="{Binding AddToTrainingFormsListOfFaculty}"
+                            CommandParameter="{Binding SelectedItem, ElementName=RemainingTraingFormsComboBox}"
+                            Content="Thêm"
+                            Style="{StaticResource rounded_btn}" />
+                    </Grid>
 
-                    <TextBox
-                        Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Các hệ đào tạo"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.CacHeDaoTao}" />
+                    <ItemsControl
+                        Grid.Row="2"
+                        ItemsSource="{Binding CurrentCard.TrainingFormsOfFacultyList, UpdateSourceTrigger=PropertyChanged}"
+                        Tag="{Binding DataContext, ElementName=FacultyRightSideBarItem}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Margin="0,4" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Grid.Row="2" Margin="0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox
+                                        IsEnabled="False"
+                                        Style="{StaticResource textbox_item}"
+                                        Text="{Binding DisplayName}" />
+
+                                    <Button
+                                        x:Name="RemoveTrainingFormButton"
+                                        Grid.Column="1"
+                                        Width="auto"
+                                        Height="auto"
+                                        HorizontalAlignment="Center"
+                                        materialDesign:RippleAssist.Feedback="Gray"
+                                        Background="Transparent"
+                                        Command="{Binding RemoveFromTrainingFormsListOfFaculty}"
+                                        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Grid}}"
+                                        DataContext="{Binding Tag, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        Foreground="Black"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon
+                                            Width="30"
+                                            Height="30"
+                                            Kind="CloseBoxOutline" />
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
                 </Grid>
             </StackPanel>
         </ScrollViewer>

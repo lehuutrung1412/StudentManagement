@@ -23,7 +23,15 @@ namespace StudentManagement.Services
 
         public List<TrainingForm> LoadTrainingFormByFaculty(Faculty faculty)
         {
-            return faculty.Faculty_TrainingForm.Select(faculty_TrainingFormItem => faculty_TrainingFormItem.TrainingForm).ToList();
+            try
+            {
+                return faculty.Faculty_TrainingForm.Select(faculty_TrainingFormItem => faculty_TrainingFormItem.TrainingForm).ToList();
+
+            }
+            catch
+            {
+                return new List<TrainingForm>();
+            }
         }
     }
 }
