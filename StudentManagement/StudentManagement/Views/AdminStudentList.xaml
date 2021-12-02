@@ -44,14 +44,13 @@
                             <KeyBinding Key="Enter" Command="{Binding SearchName}" />
                         </TextBox.InputBindings>
                     </TextBox>-->
-                    <component:SearchBarOne 
-                        FirstSearchButtonVisibility="False"
-                        SecondSearchButtonVisibility="False"
-                        TextblockSearchBaseOnVisibility="False"
+                    <component:SearchBarOne
                         DatePickerVisibility="False"
-                        SearchQuery="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                        FirstSearchButtonVisibility="False"
                         SearchCommand="{Binding SearchName}"
-                        ></component:SearchBarOne>
+                        SearchQuery="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                        SecondSearchButtonVisibility="False"
+                        TextblockSearchBaseOnVisibility="False" />
                 </Grid>
 
                 <Grid Grid.Column="1">
@@ -60,6 +59,7 @@
                         Margin="16,0,16,0"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Background="#4caf50"
+                        Command="{Binding AddStudent}"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                         <TextBlock Text="Thêm sinh viên" />
                     </Button>
@@ -71,16 +71,14 @@
                         Margin="16,0,16,0"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Background="#ff0000"
+                        Command="{Binding DeleteStudent}"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                         <TextBlock Text="Xóa sinh viên" />
                     </Button>
                 </Grid>
             </Grid>
 
-            <component:StudentListDataGrid 
-                Grid.Row="1" 
-                
-                Margin="16,0,16,0" />
+            <component:StudentListDataGrid Grid.Row="1" Margin="16,0,16,0" />
 
         </Grid>
     </ScrollViewer>

@@ -85,7 +85,7 @@
                             IsReadOnly="False">
                             <DataGridCheckBoxColumn.Header>
                                 <Border Background="Transparent">
-                                    <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=IsAllItemsSelected}" />
+                                    <CheckBox IsChecked="{Binding IsSelectedAll, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                                 </Border>
                             </DataGridCheckBoxColumn.Header>
                             <DataGridCheckBoxColumn.HeaderStyle>
