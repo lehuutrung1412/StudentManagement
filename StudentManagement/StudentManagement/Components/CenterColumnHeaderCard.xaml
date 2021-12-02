@@ -76,182 +76,188 @@
                     Text="Hôm nay bạn có 7 tiết học và 6 thông báo mới" />
             </StackPanel>
             <component:ClockControl
-                Margin="0 8"
                 Width="300"
+                Margin="0,8"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom" />
         </DockPanel>
 
-        <DockPanel
+        <Grid
             Grid.Column="9"
             Grid.ColumnSpan="3"
-            Margin="16,0,0,0">
-            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                <Button
-                    Width="40"
-                    Height="40"
-                    Margin="16 0 12 0"
-                    Command="{Binding ClickImageCommand}">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
+            Margin="16,0,16,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0"
+                Width="40"
+                Height="40"
+                Margin="8,0"
+                Command="{Binding ClickImageCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse
+                                Width="40"
+                                Height="40"
+                                StrokeThickness="0">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="https://picsum.photos/40/40" Stretch="UniformToFill" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <TextBlock
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextAlignment="Center">
+                <Run
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Text="Ngô Quang Vinh" />
+                <LineBreak />
+                <Run Foreground="Gray" Text="Học sinh" />
+            </TextBlock>
+            <Button
+                Grid.Column="2"
+                Width="40"
+                Height="40"
+                Margin="0,0,2,0"
+                HorizontalAlignment="Right"
+                materialDesign:RippleAssist.Feedback="Gray"
+                Background="Transparent"
+                BorderThickness="0"
+                ClipToBounds="True"
+                DataContext="{DynamicResource AdminNotificationVM}"
+                Style="{StaticResource MaterialDesignIconButton}"
+                Visibility="Visible">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding SeenNotificationCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <materialDesign:Badged Padding="-4" Badge="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}">
+                    <materialDesign:Badged.Style>
+                        <Style TargetType="materialDesign:Badged">
+                            <Setter Property="BadgeBackground" Value="{DynamicResource ErrorMain}" />
+                            <Setter Property="BadgeForeground" Value="{DynamicResource White}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                    <Setter Property="BadgeBackground" Value="Transparent" />
+                                    <Setter Property="BadgeForeground" Value="Transparent" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:Badged.Style>
+
+                    <materialDesign:PopupBox
+                        Name="PopupNotification"
+                        PlacementMode="BottomAndAlignRightEdges"
+                        StaysOpen="True">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Kind="BellOutline" />
+                        </materialDesign:PopupBox.ToggleContent>
+
+                        <Grid MaxHeight="300">
                             <Grid>
-                                <Ellipse
-                                    Width="40"
-                                    Height="40"
-                                    StrokeThickness="0">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="https://picsum.photos/40/40" Stretch="UniformToFill" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                            </Grid>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    TextAlignment="Center">
-                    <Run
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Text="Ngô Quang Vinh" />
-                    <LineBreak />
-                    <Run Foreground="Gray" Text="Học sinh" />
-                </TextBlock>
-            </StackPanel>
-            <StackPanel Margin="0 0 8 0" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button
-                    Margin="0 0 2 0"
-                    Width="40"
-                    Height="40"
-                    HorizontalAlignment="Right"
-                    materialDesign:RippleAssist.Feedback="Gray"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    ClipToBounds="True"
-                    DataContext="{DynamicResource AdminNotificationVM}"
-                    Style="{StaticResource MaterialDesignIconButton}"
-                    Visibility="Visible">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding SeenNotificationCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <materialDesign:Badged Padding="-4" Badge="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}">
-                        <materialDesign:Badged.Style>
-                            <Style TargetType="materialDesign:Badged">
-                                <Setter Property="BadgeBackground" Value="{DynamicResource ErrorMain}" />
-                                <Setter Property="BadgeForeground" Value="{DynamicResource White}" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                                        <Setter Property="BadgeBackground" Value="Transparent" />
-                                        <Setter Property="BadgeForeground" Value="Transparent" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </materialDesign:Badged.Style>
-
-                        <materialDesign:PopupBox
-                            Name="PopupNotification"
-                            PlacementMode="BottomAndAlignRightEdges"
-                            StaysOpen="True">
-                            <materialDesign:PopupBox.ToggleContent>
-                                <materialDesign:PackIcon
-                                    Width="20"
-                                    Height="20"
-                                    Kind="BellOutline" />
-                            </materialDesign:PopupBox.ToggleContent>
-
-                            <Grid MaxHeight="300">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="5*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock
-                                            Grid.Column="0"
-                                            Margin="8"
-                                            HorizontalAlignment="Left"
-                                            FontSize="24"
-                                            FontWeight="Bold"
-                                            Text="Thông báo" />
-                                        <Grid
-                                            Grid.Column="2"
-                                            Margin="0,0,18,0"
-                                            HorizontalAlignment="Right">
-                                            <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges">
-                                                <materialDesign:PopupBox.ToggleContent>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="5*" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="8"
+                                        HorizontalAlignment="Left"
+                                        FontSize="24"
+                                        FontWeight="Bold"
+                                        Text="Thông báo" />
+                                    <Grid
+                                        Grid.Column="2"
+                                        Margin="0,0,18,0"
+                                        HorizontalAlignment="Right">
+                                        <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges">
+                                            <materialDesign:PopupBox.ToggleContent>
+                                                <materialDesign:PackIcon
+                                                    Width="20"
+                                                    Height="20"
+                                                    Kind="DotsHorizontal" />
+                                            </materialDesign:PopupBox.ToggleContent>
+                                            <Button Width="372" Command="{Binding MarkAllAsReadCommand}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
                                                     <materialDesign:PackIcon
-                                                        Width="20"
-                                                        Height="20"
-                                                        Kind="DotsHorizontal" />
-                                                </materialDesign:PopupBox.ToggleContent>
-                                                <Button Width="372" Command="{Binding MarkAllAsReadCommand}">
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="auto" />
-                                                            <ColumnDefinition />
-                                                        </Grid.ColumnDefinitions>
-                                                        <materialDesign:PackIcon
-                                                            Grid.Column="0"
-                                                            Margin="0,0,4,0"
-                                                            Kind="Check" />
-                                                        <TextBlock
-                                                            Grid.Column="1"
-                                                            FontWeight="SemiBold"
-                                                            Text="Đánh dấu là tất cả đã đọc" />
-                                                    </Grid>
-                                                </Button>
-                                            </materialDesign:PopupBox>
-                                        </Grid>
-
+                                                        Grid.Column="0"
+                                                        Margin="0,0,4,0"
+                                                        Kind="Check" />
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        FontWeight="SemiBold"
+                                                        Text="Đánh dấu là tất cả đã đọc" />
+                                                </Grid>
+                                            </Button>
+                                        </materialDesign:PopupBox>
                                     </Grid>
 
-                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-                                        <ItemsControl ItemsSource="{Binding Cards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Margin="8,8,0,8" />
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <component:NotificationCardInBarge
-                                                        Width="360"
-                                                        Height="80"
-                                                        Margin="0"
-                                                        Padding="0" />
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </ScrollViewer>
                                 </Grid>
-                            </Grid>
-                        </materialDesign:PopupBox>
 
-                    </materialDesign:Badged>
-                </Button>
-                <Button
-                    Width="40"
-                    Height="40"
-                    HorizontalAlignment="Right"
-                    materialDesign:RippleAssist.Feedback="Gray"
-                    Background="Transparent"
-                    Style="{StaticResource MaterialDesignIconButton}"
-                    ToolTip="MaterialDesignIconForegroundButton">
-                    <materialDesign:PackIcon
-                        Foreground="Black"
-                        Width="24"
-                        Height="24"
-                        Kind="ChevronDown" />
-                </Button>
-            </StackPanel>
-        </DockPanel>
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                                    <ItemsControl ItemsSource="{Binding Cards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Margin="8,8,0,8" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <component:NotificationCardInBarge
+                                                    Width="360"
+                                                    Height="80"
+                                                    Margin="0"
+                                                    Padding="0" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:PopupBox>
+
+                </materialDesign:Badged>
+            </Button>
+            <Button
+                Grid.Column="3"
+                Width="40"
+                Height="40"
+                HorizontalAlignment="Right"
+                materialDesign:RippleAssist.Feedback="Gray"
+                Background="Transparent"
+                Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="MaterialDesignIconForegroundButton">
+                <materialDesign:PackIcon
+                    Width="24"
+                    Height="24"
+                    Foreground="Black"
+                    Kind="ChevronDown" />
+            </Button>
+        </Grid>
     </Grid>
 
 </UserControl>
