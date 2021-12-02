@@ -78,6 +78,7 @@
             Grid.Row="2"
             Height="auto"
             Margin="8"
+            Cursor="Hand"
             Command="{Binding GotoLoginViewCommand}"
             DataContext="{DynamicResource MainVM}"
             Visibility="{Binding ElementName=LeftSideBarUC, Path=DataContext.IsMainWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -90,6 +91,7 @@
                                     <Grid>
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon
+                                                Name="packicon"
                                                 Width="20"
                                                 Height="20"
                                                 Margin="12,12,8,12"
@@ -98,6 +100,7 @@
                                                 Foreground="Gray"
                                                 Kind="Logout" />
                                             <TextBlock
+                                                Name="navigationName"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
                                                 FontSize="14"
@@ -107,6 +110,13 @@
                                         </StackPanel>
                                     </Grid>
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="packicon" Property="Foreground" Value="{DynamicResource White}" />
+                                        <Setter TargetName="navigationName" Property="Foreground" Value="{DynamicResource White}" />
+                                        <Setter TargetName="brdNavigate" Property="Background" Value="{DynamicResource ErrorLight}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

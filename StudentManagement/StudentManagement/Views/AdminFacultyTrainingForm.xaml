@@ -34,9 +34,9 @@
             <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
                 <StackPanel>
                     <TextBlock
-                        Margin="16"
+                        Margin="16 16 16 0"
                         FontWeight="Bold"
-                        Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                         Text="Danh sách hệ đào tạo" />
                     <ItemsControl ItemsSource="{Binding TrainingFormCards}">
                         <ItemsControl.Resources>
@@ -114,10 +114,10 @@
         <materialDesign:Card Grid.Row="1" Style="{StaticResource CardContainer}">
             <DockPanel>
                 <TextBlock
-                    Margin="16"
+                    Margin="16 16 16 0"
                     DockPanel.Dock="Top"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                     Text="Danh sách khoa" />
                 <Grid Margin="16" DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>

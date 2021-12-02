@@ -31,8 +31,8 @@
         </Grid.RowDefinitions>
         <materialDesign:Card
             Grid.Row="0"
-            Margin="16,4,16,16"
-            Padding="12"
+            Margin="8,4,8,8"
+            Padding="4"
             Style="{StaticResource CardContainer}">
             <components:CenterColumnHeaderCard />
         </materialDesign:Card>
@@ -54,14 +54,12 @@
 
             <components:LeftSideBar
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Padding="8" />
+                Grid.ColumnSpan="2"/>
 
             <materialDesign:Card
                 Grid.Column="9"
                 Grid.ColumnSpan="3"
-                Margin="16,0,16,8"
-                Padding="16"
+                Margin="8,0,8,8"
                 Style="{StaticResource CardContainer}">
                 <components:RightSideBar />
             </materialDesign:Card>

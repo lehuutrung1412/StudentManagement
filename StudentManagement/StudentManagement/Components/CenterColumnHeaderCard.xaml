@@ -23,7 +23,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid Margin="8">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
@@ -45,7 +45,7 @@
             Orientation="Horizontal">
             <Image
                 Height="40"
-                Margin="8"
+                Margin="16"
                 Source="{StaticResource Logo}" />
             <TextBlock
                 HorizontalAlignment="Center"
@@ -65,7 +65,7 @@
                 <TextBlock
                     Grid.Column="0"
                     Margin="0,0,0,8"
-                    FontSize="24"
+                    FontSize="20"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                     Text="Xin chào, Ngô Quang Vinh" />
@@ -76,7 +76,8 @@
                     Text="Hôm nay bạn có 7 tiết học và 6 thông báo mới" />
             </StackPanel>
             <component:ClockControl
-                Width="350"
+                Margin="0 8"
+                Width="300"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom" />
         </DockPanel>
@@ -84,19 +85,19 @@
         <DockPanel
             Grid.Column="9"
             Grid.ColumnSpan="3"
-            Margin="32,0,0,0">
+            Margin="16,0,0,0">
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                 <Button
-                    Width="50"
-                    Height="50"
-                    Margin="16,0"
+                    Width="40"
+                    Height="40"
+                    Margin="16 0 12 0"
                     Command="{Binding ClickImageCommand}">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
                                 <Ellipse
-                                    Width="50"
-                                    Height="50"
+                                    Width="40"
+                                    Height="40"
                                     StrokeThickness="0">
                                     <Ellipse.Fill>
                                         <ImageBrush ImageSource="https://picsum.photos/40/40" Stretch="UniformToFill" />
@@ -111,31 +112,32 @@
                     VerticalAlignment="Center"
                     TextAlignment="Center">
                     <Run
-                        FontSize="20"
+                        FontSize="16"
                         FontWeight="Bold"
                         Text="Ngô Quang Vinh" />
                     <LineBreak />
-                    <Run Foreground="Gray" Text="học sinh" />
+                    <Run Foreground="Gray" Text="Học sinh" />
                 </TextBlock>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <StackPanel Margin="0 0 8 0" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button
-                    Width="50"
-                    Height="50"
+                    Margin="0 0 2 0"
+                    Width="40"
+                    Height="40"
                     HorizontalAlignment="Right"
                     materialDesign:RippleAssist.Feedback="Gray"
                     Background="Transparent"
                     BorderThickness="0"
-                    ClipToBounds="true"
+                    ClipToBounds="True"
                     DataContext="{DynamicResource AdminNotificationVM}"
-                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                    Style="{StaticResource MaterialDesignIconButton}"
                     Visibility="Visible">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding SeenNotificationCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <materialDesign:Badged Badge="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}">
+                    <materialDesign:Badged Padding="-4" Badge="{Binding NumCardInBadged, UpdateSourceTrigger=PropertyChanged}">
                         <materialDesign:Badged.Style>
                             <Style TargetType="materialDesign:Badged">
                                 <Setter Property="BadgeBackground" Value="{DynamicResource ErrorMain}" />
@@ -235,16 +237,17 @@
                     </materialDesign:Badged>
                 </Button>
                 <Button
-                    Width="50"
-                    Height="50"
+                    Width="40"
+                    Height="40"
                     HorizontalAlignment="Right"
                     materialDesign:RippleAssist.Feedback="Gray"
                     Background="Transparent"
-                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                    Style="{StaticResource MaterialDesignIconButton}"
                     ToolTip="MaterialDesignIconForegroundButton">
                     <materialDesign:PackIcon
-                        Width="25"
-                        Height="25"
+                        Foreground="Black"
+                        Width="24"
+                        Height="24"
                         Kind="ChevronDown" />
                 </Button>
             </StackPanel>
