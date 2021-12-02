@@ -99,9 +99,9 @@ public partial class SubjectClass : BaseViewModel
 
     public virtual Subject Subject { get; set; }
 
-    public virtual ICollection<Teacher> Teachers { get; set; }
-
     public virtual TrainingForm TrainingForm { get; set; }
+
+    public virtual ICollection<Teacher> Teachers { get; set; }
 
 }
 

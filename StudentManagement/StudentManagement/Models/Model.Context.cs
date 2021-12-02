@@ -56,8 +56,6 @@ public partial class StudentManagementEntities : DbContext
 
     public DbSet<Folder> Folders { get; set; }
 
-    public DbSet<Parent> Parents { get; set; }
-
     public DbSet<Semester> Semesters { get; set; }
 
     public DbSet<Student> Students { get; set; }
@@ -73,6 +71,14 @@ public partial class StudentManagementEntities : DbContext
     public DbSet<TrainingForm> TrainingForms { get; set; }
 
     public DbSet<TrainingScore> TrainingScores { get; set; }
+
+    public DbSet<User_UserRole_UserInfo> User_UserRole_UserInfo { get; set; }
+
+    public DbSet<UserRole> UserRoles { get; set; }
+
+    public DbSet<UserRole_UserInfo> UserRole_UserInfo { get; set; }
+
+    public DbSet<UserRole_UserInfoItem> UserRole_UserInfoItem { get; set; }
 
     public DbSet<User> Users { get; set; }
 

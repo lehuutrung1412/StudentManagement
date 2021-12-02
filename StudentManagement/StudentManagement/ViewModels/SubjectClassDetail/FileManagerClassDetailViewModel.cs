@@ -245,7 +245,7 @@ namespace StudentManagement.ViewModels
             SearchFileFunction();
         }
 
-        private void AddFileFunction(object folder)
+        private async void AddFileFunction(object folder)
         {
             try
             {
@@ -267,12 +267,15 @@ namespace StudentManagement.ViewModels
 
                     int existFileCount = 0;
                     int notValidFileSizeCount = 0;
+
+                    //
+                    Guid publisherId = UserServices.Instance.GetUserInfo().Id;
+
+                    var listOfLinks = await UploadFileToCloud(openFileDialog.FileNames, folderId);
+
+                    int index = 0;
                     foreach (string file in openFileDialog.FileNames)
                     {
-                        // 
-
-                        Guid publisherId = UserServices.Instance.GetUserInfo().Id;
-
                         string name = Path.GetFileName(file);
                         if (!string.IsNullOrEmpty(name))
                         {
@@ -292,7 +295,7 @@ namespace StudentManagement.ViewModels
                                 continue;
                             }
 
-                            string linkFile = FileUploader.Instance.Upload(file);
+                            FileInfo newFile = null;
 
                             if (folder != null)
                             {
@@ -302,16 +305,19 @@ namespace StudentManagement.ViewModels
                                 {
                                     FileData.Remove(pseudoFileInfo);
                                 }
-
-                                FileData.Add(new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", linkFile, DateTime.Now, fileSize, folderId, folderName));
+                                newFile = new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", listOfLinks[index], DateTime.Now, fileSize, folderId, folderName);
                             }
                             else
                             {
-                                FileInfo newFile = new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", linkFile, DateTime.Now, fileSize, null, "");
+                                newFile = new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", listOfLinks[index], DateTime.Now, fileSize, null, "");
+                            }
+
+                            if (newFile != null)
+                            {
                                 FileData.Add(newFile);
-                                
                                 FileServices.Instance.SaveFileOfSubjectClassToDatabase(newFile);
                             }
+
                         }
                     }
 
@@ -340,6 +346,62 @@ namespace StudentManagement.ViewModels
                                   MessageBoxImage.Error);
             }
 
+        }
+
+        private async Task<string[]> UploadFileToCloud(string[] filePaths, Guid? folderId)
+        {
+            List<string> listLinkFiles = new List<string>();
+
+            List<Task<string>> listOfTasks = new List<Task<string>>();
+
+            Parallel.ForEach(filePaths, file =>
+            {
+                string name = Path.GetFileName(file);
+                if (!string.IsNullOrEmpty(name))
+                {
+                    // File size limit: 10MB
+                    long fileSize = GetFileSize(file);
+                    if (!IsValidFileSize(fileSize))
+                    {
+                        return;
+                    }
+
+                    // Detect exist file
+                    var existFile = FileData.FirstOrDefault(fileInfo => fileInfo.Name == name && fileInfo.FolderId == folderId);
+                    if (existFile != null)
+                    {
+                        return;
+                    }
+
+                    listOfTasks.Add(FileUploader.Instance.UploadAsync(file));
+                }
+            });
+
+            return await Task.WhenAll(listOfTasks);
+
+            //foreach (string file in filePaths)
+            //{
+            //    string name = Path.GetFileName(file);
+            //    if (!string.IsNullOrEmpty(name))
+            //    {
+            //        // File size limit: 10MB
+            //        long fileSize = GetFileSize(file);
+            //        if (!IsValidFileSize(fileSize))
+            //        {
+            //            continue;
+            //        }
+
+            //        // Detect exist file
+            //        var existFile = FileData.FirstOrDefault(fileInfo => fileInfo.Name == name && fileInfo.FolderId == folderId);
+            //        if (existFile != null)
+            //        {
+            //            continue;
+            //        }
+
+            //        listLinkFiles.Add(await FileUploader.Instance.Upload(file));
+            //    }
+            //}
+            //return listLinkFiles;
         }
 
         private long GetFileSize(string filePath)

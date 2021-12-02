@@ -45,16 +45,11 @@ public partial class Student : BaseViewModel
     private Nullable<System.Guid> _idUsers { get; set; }
     public Nullable<System.Guid> IdUsers { get => _idUsers; set { _idUsers = value; OnPropertyChanged(); } }
 
-    private Nullable<System.Guid> _idParent { get; set; }
-    public Nullable<System.Guid> IdParent { get => _idParent; set { _idParent = value; OnPropertyChanged(); } }
-
 
 
     public virtual ICollection<CourseRegister> CourseRegisters { get; set; }
 
     public virtual ICollection<DetailScore> DetailScores { get; set; }
-
-    public virtual Parent Parent { get; set; }
 
     public virtual TrainingForm TrainingForm { get; set; }
 

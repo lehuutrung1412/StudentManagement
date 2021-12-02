@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using StudentManagement.Utils;
 
 namespace StudentManagement.Services
 {
@@ -19,25 +20,28 @@ namespace StudentManagement.Services
 
         private const string UrlGetServer = "https://api.gofile.io/getServer";
         private const string UrlUpload = ".gofile.io/uploadFile";
+        private const string Token = "mNLWYdMzHz6QIDEIaDKy4hQs5do0ee48";
+        private const string FolderId = "aff21df2-9b10-4be4-aaab-9075c6cadb2a";
 
         public FileUploader()
         {
             _client = new HttpClient();
         } 
 
-        public string Upload(string file)
+        public async Task<string> UploadAsync(string file)
         {
-            var server = GetServer();
+            var server = await GetServerAsync();
             if (server != null)
             {
                 var url = "https://" + server + UrlUpload;
-                //Dictionary<string, string> parameters = new Dictionary<string, string>();
                 MultipartFormDataContent form = new MultipartFormDataContent();
-                form.Add(new ByteArrayContent(File.ReadAllBytes(file)), "file", Path.GetFileName(file));
-                HttpResponseMessage response = _client.PostAsync(url, form).Result;
+                form.Add(new ByteArrayContent(File.ReadAllBytes(file)), "file", VietnameseStringNormalizer.Instance.Normalize(Path.GetFileName(file)));
+                form.Add(new StringContent(Token), "token");
+                form.Add(new StringContent(FolderId), "folderId");
+                var response = await _client.PostAsync(url, form);
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = response.Content.ReadAsStringAsync().Result;
+                    var content = await response.Content.ReadAsStringAsync();
                     JObject json = JObject.Parse(content);
                     return (string)json["data"]["directLink"];
                 }
@@ -45,12 +49,12 @@ namespace StudentManagement.Services
             return null;
         }
 
-        public string GetServer()
+        public async Task<string> GetServerAsync()
         {
-            HttpResponseMessage response = _client.GetAsync(UrlGetServer).Result;
+            var response = await _client.GetAsync(UrlGetServer);
             if (response.IsSuccessStatusCode)
             {
-                var content = response.Content.ReadAsStringAsync().Result;
+                var content = await response.Content.ReadAsStringAsync();
                 JObject json = JObject.Parse(content);
                 return (string)json["data"]["server"];
             }
