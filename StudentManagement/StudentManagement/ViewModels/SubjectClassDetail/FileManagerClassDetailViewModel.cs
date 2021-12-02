@@ -315,7 +315,7 @@ namespace StudentManagement.ViewModels
                             if (newFile != null)
                             {
                                 FileData.Add(newFile);
-                                FileServices.Instance.SaveFileOfSubjectClassToDatabase(newFile);
+                                await FileServices.Instance.SaveFileOfSubjectClassToDatabase(newFile);
                             }
 
                         }
@@ -350,8 +350,6 @@ namespace StudentManagement.ViewModels
 
         private async Task<string[]> UploadFileToCloud(string[] filePaths, Guid? folderId)
         {
-            List<string> listLinkFiles = new List<string>();
-
             List<Task<string>> listOfTasks = new List<Task<string>>();
 
             Parallel.ForEach(filePaths, file =>
@@ -378,30 +376,6 @@ namespace StudentManagement.ViewModels
             });
 
             return await Task.WhenAll(listOfTasks);
-
-            //foreach (string file in filePaths)
-            //{
-            //    string name = Path.GetFileName(file);
-            //    if (!string.IsNullOrEmpty(name))
-            //    {
-            //        // File size limit: 10MB
-            //        long fileSize = GetFileSize(file);
-            //        if (!IsValidFileSize(fileSize))
-            //        {
-            //            continue;
-            //        }
-
-            //        // Detect exist file
-            //        var existFile = FileData.FirstOrDefault(fileInfo => fileInfo.Name == name && fileInfo.FolderId == folderId);
-            //        if (existFile != null)
-            //        {
-            //            continue;
-            //        }
-
-            //        listLinkFiles.Add(await FileUploader.Instance.Upload(file));
-            //    }
-            //}
-            //return listLinkFiles;
         }
 
         private long GetFileSize(string filePath)

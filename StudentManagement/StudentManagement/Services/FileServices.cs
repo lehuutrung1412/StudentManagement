@@ -42,10 +42,10 @@ namespace StudentManagement.Services
 
         #region Create
 
-        public void SaveFileOfSubjectClassToDatabase(FileInfo file)
+        public async Task<int> SaveFileOfSubjectClassToDatabase(FileInfo file)
         {
             DataProvider.Instance.Database.Documents.Add(ConvertFileInfoToDocument(file));
-            DataProvider.Instance.Database.SaveChanges();
+            return await DataProvider.Instance.Database.SaveChangesAsync();
         }
 
         #endregion
