@@ -108,13 +108,22 @@ namespace StudentManagement.Services
         /// Remove Faculty From Database
         /// </summary>
         /// <param name="faculty"></param>
-        public void RemoveFacultyFromDatabase(Faculty faculty)
+        public bool RemoveFacultyFromDatabase(Faculty faculty)
         {
-            Faculty savedFaculty = FindFacultyByFacultyId(faculty.Id);
+            try
+            {
+                Faculty savedFaculty = FindFacultyByFacultyId(faculty.Id);
 
-            DataProvider.Instance.Database.Faculties.Remove(savedFaculty);
+                DataProvider.Instance.Database.Faculties.Remove(savedFaculty);
 
-            DataProvider.Instance.Database.SaveChanges();
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>

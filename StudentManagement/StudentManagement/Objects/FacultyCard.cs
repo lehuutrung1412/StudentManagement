@@ -19,7 +19,7 @@ namespace StudentManagement.Objects
         private Guid _id;
         private ObservableCollection<TrainingForm> _trainingFormsOfFacultyList = new ObservableCollection<TrainingForm>();
         private ObservableCollection<TrainingForm> _remainingTrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>();
-        private List<Faculty_TrainingForm> _faculty_TrainingFormList = new List<Faculty_TrainingForm>();
+        //private List<Faculty_TrainingForm> _faculty_TrainingFormList = new List<Faculty_TrainingForm>();
         public FacultyCard()
         {
             Id = Guid.NewGuid();
@@ -55,10 +55,14 @@ namespace StudentManagement.Objects
 
                 Faculty_TrainingFormList = new List<Faculty_TrainingForm>();
 
-                foreach (var relation in faculty?.Faculty_TrainingForm)
+                if (faculty != null)
                 {
-                    Faculty_TrainingFormList.Add(relation);
+                    foreach (var relation in faculty.Faculty_TrainingForm)
+                    {
+                        Faculty_TrainingFormList.Add(relation);
+                    }
                 }
+
                 return true;
             }
             catch
@@ -114,7 +118,7 @@ namespace StudentManagement.Objects
             {
                 Faculty faculty = FacultyServices.Instance.FindFacultyByFacultyId(Id);
 
-                faculty.Faculty_TrainingForm.Clear();
+                faculty?.Faculty_TrainingForm?.Clear();
 
                 foreach (var relation in Faculty_TrainingFormList)
                 {
@@ -141,6 +145,6 @@ namespace StudentManagement.Objects
         public ObservableCollection<TrainingForm> TrainingFormsOfFacultyList { get => _trainingFormsOfFacultyList; set { _trainingFormsOfFacultyList = value; OnPropertyChanged(); } }
         public ObservableCollection<TrainingForm> RemainingTrainingFormsOfFacultyList { get => _remainingTrainingFormsOfFacultyList; set { _remainingTrainingFormsOfFacultyList = value; OnPropertyChanged(); } }
 
-        public List<Faculty_TrainingForm> Faculty_TrainingFormList { get => _faculty_TrainingFormList; set => _faculty_TrainingFormList = value; }
+        public List<Faculty_TrainingForm> Faculty_TrainingFormList { get; set; }
     }
 }

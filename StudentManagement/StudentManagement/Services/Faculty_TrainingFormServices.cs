@@ -25,8 +25,14 @@ namespace StudentManagement.Services
         {
             try
             {
-                return faculty.Faculty_TrainingForm.Select(faculty_TrainingFormItem => faculty_TrainingFormItem.TrainingForm).ToList();
-
+                if (faculty != null)
+                {
+                    return faculty.Faculty_TrainingForm.Select(faculty_TrainingFormItem => faculty_TrainingFormItem.TrainingForm).ToList();
+                }
+                else
+                {
+                    return new List<TrainingForm>();
+                }
             }
             catch
             {
