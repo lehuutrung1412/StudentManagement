@@ -35,7 +35,7 @@
         <Setter Property="CornerRadius" Value="5" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Gray}" />
+                <Setter Property="Background" Value="{DynamicResource DarkGray}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -719,7 +719,7 @@
     </Style>
 
     <Style x:Key="CardContainer" TargetType="materialDesign:Card">
-        <Setter Property="Padding" Value="8" />
+        <Setter Property="Padding" Value="4" />
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
         <Setter Property="UniformCornerRadius" Value="16" />
     </Style>

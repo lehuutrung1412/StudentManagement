@@ -32,7 +32,7 @@
                     <TextBlock
                         Margin="16"
                         FontWeight="Bold"
-                        Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                         Text="Danh sách lớp môn học" />
                     <Grid Margin="16" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
@@ -56,7 +56,7 @@
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CreateSubjectCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
                             Content="Thêm lớp học"
-                            FontSize="16" />
+                            FontSize="14" />
                     </Grid>
                     <ItemsControl ItemsSource="{Binding SubjectCards}">
                         <ItemsControl.ItemsPanel>
