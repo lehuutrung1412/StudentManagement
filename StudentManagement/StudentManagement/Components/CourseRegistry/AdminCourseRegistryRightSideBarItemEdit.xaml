@@ -96,7 +96,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tiết"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding Period}" />
+                        Text="{Binding Period, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
                 <Grid
                     Style="{StaticResource text_grid_item}">

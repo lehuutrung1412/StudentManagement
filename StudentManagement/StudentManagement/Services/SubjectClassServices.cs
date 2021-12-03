@@ -95,22 +95,41 @@ namespace StudentManagement.Services
         /// Remove SubjectClass From Database
         /// </summary>
         /// <param name="subjectClass"></param>
-        public void RemoveSubjectClassFromDatabase(SubjectClass subjectClass)
+        public bool RemoveSubjectClassFromDatabase(SubjectClass subjectClass)
         {
-            SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
+            
+            try
+            {
+                SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
 
-            DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
+                DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
 
-            DataProvider.Instance.Database.SaveChanges();
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public void RemoveSubjectClassFromDatabaseBySubjectClassId(Guid id)
+        public bool RemoveSubjectClassFromDatabaseBySubjectClassId(Guid id)
         {
-            SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(id);
+            try
+            {
+                SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(id);
 
-            DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
+                DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
 
-            DataProvider.Instance.Database.SaveChanges();
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         /// <summary>
         /// Remove SubjectClassCard From Database
@@ -122,6 +141,53 @@ namespace StudentManagement.Services
 
             RemoveSubjectClassFromDatabase(subjectClass);
         }*/
+        public bool IsValidPeriod(string period)
+        {
+            // Max period of subject class is 5
+            if (period.Length <= 5)
+            {
+                try
+                {
+                    if (period.TrimStart('0') != period)
+                    {
+                        return false;
+                    }
 
+                    int intPeriod = Convert.ToInt32(period);
+
+                    int lastDigit = intPeriod % 10;
+                    intPeriod /= 10;
+
+                    if (lastDigit == 0)
+                    {
+                        lastDigit = 10;
+                    }
+
+                    while (intPeriod != 0)
+                    {
+                        int extractDigit = intPeriod % 10;
+
+                        if (extractDigit == 0)
+                        {
+                            extractDigit = 10;
+                        }
+
+                        if (extractDigit != lastDigit - 1)
+                        {
+                            return false;
+                        }
+
+                        lastDigit = extractDigit;
+                        intPeriod /= 10;
+                    }
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
     }
 }

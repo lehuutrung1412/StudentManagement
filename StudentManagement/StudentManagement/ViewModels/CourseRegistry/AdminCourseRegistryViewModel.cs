@@ -139,9 +139,16 @@ namespace StudentManagement.ViewModels
 
 
         #endregion
+        private static AdminCourseRegistryViewModel s_instance;
+        public static AdminCourseRegistryViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new AdminCourseRegistryViewModel());
 
+            private set => s_instance = value;
+        }
         public AdminCourseRegistryViewModel()
         {
+            Instance = this;
             Semesters = SemesterServices.Instance.LoadListSemester();
             SubjectClasses = new ObservableCollection<SubjectClass>(SubjectClassServices.Instance.LoadSubjectClassList());
             CourseRegistryItemsAll = new ObservableCollection<ObservableCollection<CourseItem>>();
@@ -268,6 +275,7 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems.Remove(item);
             }
             SearchCourseRegistryItemsFunction();
+            StudentCourseRegistryViewModel.Instance.UpdateData();
         }
         public void CreateNewCourse()
         {
@@ -366,6 +374,7 @@ namespace StudentManagement.ViewModels
                 }
             }
             /*DataTable data = dataSheets[dataSheets.Cast<DataTable>().Select(t=>t.TableName).Last().ToString()];*/
+            StudentCourseRegistryViewModel.Instance.UpdateData();
         }
 
         public void SaveChanges()

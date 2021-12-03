@@ -1,6 +1,7 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -87,25 +88,17 @@ namespace StudentManagement.ViewModels
 
         public void EditCourseInfo(object p)
         {
-            /*SubjectCard card = p as SubjectCard;
-
-            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
-
-            RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;*/
             CourseItem item = p as CourseItem;
             _adminCourseRegistryRightSideBarItemViewModel = new AdminCourseRegistryRightSideBarItemEditViewModel(item);
             RightSideBarItemViewModel = _adminCourseRegistryRightSideBarItemViewModel;
-            
         }
 
         public void DeleteCourse(object p)
         {
-            /*SubjectClass card = p as SubjectCard;
-
-            SubjectCards.Remove(card);
-            StoredSubjectCards.Remove(card);
-
-            RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;*/
+            CourseItem item = p as CourseItem;
+            AdminCourseRegistryViewModel.Instance.CourseRegistryItems.Remove(item);
+            SubjectClassServices.Instance.RemoveSubjectClassFromDatabase(item.ConvertToSubjectClass());
+            RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
     }
     

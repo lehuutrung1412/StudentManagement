@@ -23,7 +23,7 @@ namespace StudentManagement.Services
             return a;
         }
 
-        public Semester GetLastOpenningRegisterSemester()
+        public Semester GetFirstOpenningRegisterSemester()
         {
             Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem => semesterItem.CourseRegisterStatus == 0).FirstOrDefault();
             return a;
