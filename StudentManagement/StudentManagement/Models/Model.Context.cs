@@ -54,17 +54,5 @@ namespace StudentManagement.Models
         public DbSet<UserRole_UserInfoItem> UserRole_UserInfoItem { get; set; }
         public DbSet<User> Users { get; set; }
     
-        public virtual int USP_InsertUserWithRole(string role, string faculty)
-        {
-            var roleParameter = role != null ?
-                new ObjectParameter("Role", role) :
-                new ObjectParameter("Role", typeof(string));
-    
-            var facultyParameter = faculty != null ?
-                new ObjectParameter("Faculty", faculty) :
-                new ObjectParameter("Faculty", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_InsertUserWithRole", roleParameter, facultyParameter);
-        }
     }
 }

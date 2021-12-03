@@ -19,6 +19,7 @@ namespace StudentManagement.Models
         {
             this.Admins = new HashSet<Admin>();
             this.Documents = new HashSet<Document>();
+            this.Folders = new HashSet<Folder>();
             this.Students = new HashSet<Student>();
             this.Teachers = new HashSet<Teacher>();
             this.User_UserRole_UserInfo = new HashSet<User_UserRole_UserInfo>();
@@ -45,6 +46,7 @@ namespace StudentManagement.Models
         public virtual DatabaseImageTable DatabaseImageTable { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual Faculty Faculty { get; set; }
+        public virtual ICollection<Folder> Folders { get; set; }
         public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<Teacher> Teachers { get; set; }
         public virtual ICollection<User_UserRole_UserInfo> User_UserRole_UserInfo { get; set; }

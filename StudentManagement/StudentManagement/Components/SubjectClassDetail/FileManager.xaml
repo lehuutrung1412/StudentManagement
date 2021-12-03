@@ -33,6 +33,9 @@
                             <DataTrigger Binding="{Binding FileDataGroup.Count}" Value="0">
                                 <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding FileDataGroup}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </component:EmptyStateRightSideBar.Style>
@@ -40,6 +43,7 @@
 
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid
+                    MaxHeight="520"
                     Name="FileGrid"
                     VerticalContentAlignment="Center"
                     AutoGenerateColumns="False"
@@ -134,13 +138,13 @@
                                                             Height="24"
                                                             Source="{StaticResource Folder}" />
                                                         <TextBox
-                                                            FontWeight="SemiBold"
                                                             x:Name="SingleFolderName"
                                                             MaxWidth="500"
                                                             Margin="8"
                                                             HorizontalAlignment="Left"
                                                             VerticalAlignment="Center"
                                                             FontSize="14"
+                                                            FontWeight="SemiBold"
                                                             Text="{Binding Items[0].FolderName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                             ToolTip="{Binding Items[0].FolderName}">
                                                             <i:Interaction.Triggers>
@@ -217,11 +221,11 @@
                                                     <TextBox
                                                         x:Name="SingleFolderName"
                                                         MaxWidth="500"
-                                                        Margin="8 4"
-                                                        FontWeight="SemiBold"
+                                                        Margin="8,4"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
                                                         FontSize="14"
+                                                        FontWeight="SemiBold"
                                                         Text="{Binding Items[0].FolderName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                         ToolTip="{Binding Items[0].FolderName}">
                                                         <i:Interaction.Triggers>

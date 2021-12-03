@@ -151,6 +151,7 @@
                     <Button
                         Grid.Column="0"
                         Content="Tải về"
+                        Command="{Binding Tag.DownloadCurrentFile, ElementName=FileManagerRightSideBarItemUC}"
                         FontSize="14"
                         Foreground="White">
                         <Button.Style>

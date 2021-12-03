@@ -13,6 +13,9 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
+using StudentManagement.Services;
+using FileInfo = StudentManagement.Objects.FileInfo;
+using StudentManagement.Models;
 
 namespace StudentManagement.ViewModels
 {
@@ -31,7 +34,6 @@ namespace StudentManagement.ViewModels
         public ICommand DeleteFile { get; set; }
         public ICommand DeleteFolder { get; set; }
         public ICommand SearchFile { get; set; }
-        public ICommand ShowFolderInfo { get; set; }
         public ICommand RenameFolder { get; set; }
         public ICommand SubmitFolderName { get; set; }
 
@@ -74,15 +76,20 @@ namespace StudentManagement.ViewModels
         public object SelectedFile { get => _selectedFile; set { _selectedFile = value; OnPropertyChanged(); } }
         private object _selectedFile;
 
+        //
+        Guid idSubjectClass = new Guid();
+        User publisher = UserServices.Instance.GetUserInfo();
+
         public FileManagerClassDetailViewModel()
         {
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
 
-            FileData = new ObservableCollection<FileInfo>();
+            FirstLoadDataFromDatabase();
             FileData.CollectionChanged += FileData_CollectionChanged;
             BindingFileData = new ObservableCollection<FileInfo>(FileData);
             BindingFileData.CollectionChanged += BindingFileData_CollectionChanged;
+            BindingDataToView();
 
             AddFile = new RelayCommand<object>((p) => true, (p) => AddFileFunction(p));
             DeleteFile = new RelayCommand<object>((p) => true, (p) => DeleteFileFunction(p));
@@ -90,15 +97,56 @@ namespace StudentManagement.ViewModels
             CreateFolder = new RelayCommand<object>((p) => true, (p) => CreateFolderFunction());
             DeleteFolder = new RelayCommand<object>((p) => true, (p) => DeleteFolderFunction(p));
             SearchFile = new RelayCommand<object>((p) => true, (p) => SearchFileFunction());
-            ShowFolderInfo = new RelayCommand<object>((p) => { return true; }, (p) => ShowFolderInfoFunction(p));
             RenameFolder = new RelayCommand<object>((p) => true, (p) => RenameFolderFunction(p));
             SubmitFolderName = new RelayCommand<object>((p) => true, (p) => SubmitFolderNameFunction());
-
         }
 
-        private void SubmitFolderNameFunction()
+        private void FirstLoadDataFromDatabase()
         {
-            FolderEditingId = null;
+            try
+            {
+                FileData = new ObservableCollection<FileInfo>();
+
+                var docs = FileServices.Instance.GetListFilesOfSubjectClass(idSubjectClass);
+                Parallel.ForEach(docs, doc =>
+                {
+                    FileData.Add(FileServices.Instance.ConvertDocumentToFileInfo(doc));
+                });
+
+                var folders = FileServices.Instance.GetListSingleFoldersOfSubjectClass(idSubjectClass);
+                Parallel.ForEach(folders, folder =>
+                {
+                    FileData.Add(FileServices.Instance.ConvertFolderToFileInfo(folder));
+                });
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra!",
+                                  "Lỗi rồi",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
+            }  
+        }
+
+        private async void SubmitFolderNameFunction()
+        {
+            try
+            {
+                if (FolderEditingId != null)
+                {
+                    var folder = FileData.FirstOrDefault(file => file.FolderId == FolderEditingId);
+                    await FileServices.Instance.UpdateFolderAsync(folder);
+                    FolderEditingId = null;
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể đổi tên thư mục.",
+                                  "Lỗi rồi",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
+            }
+            
         }
 
         private void RenameFolderFunction(object p)
@@ -107,12 +155,12 @@ namespace StudentManagement.ViewModels
                 FolderEditingId = (Guid?)collectionViewGroup.Name;
         }
 
-        private void ShowFolderInfoFunction(object p)
+        private void BindingFileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            MyMessageBox.Show("Oke");
+            BindingDataToView();
         }
 
-        private void BindingFileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void BindingDataToView()
         {
             FileDataGroup = new ListCollectionView(BindingFileData);
             FileDataGroup.GroupDescriptions.Add(new PropertyGroupDescription("FolderId"));
@@ -133,14 +181,17 @@ namespace StudentManagement.ViewModels
                     VietnameseStringNormalizer.Instance.Normalize(file.FolderName)
                     .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery))
             );
-            BindingFileData.Clear();
-            foreach (var item in searchResult)
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                BindingFileData.Add(item);
-            }
+                BindingFileData.Clear();
+                foreach (var item in searchResult)
+                {
+                    BindingFileData.Add(item);
+                }
+            });
         }
 
-        private void DeleteFolderFunction(object parameter)
+        private async void DeleteFolderFunction(object parameter)
         {
             try
             {
@@ -149,14 +200,27 @@ namespace StudentManagement.ViewModels
                     if (MyMessageBox.Show($"Tất cả {collectionViewGroup.ItemCount} tài liệu sẽ bị xóa." +
                                           $" Bạn có chắc chắn muốn xóa thư mục này không?",
                                           "Xóa thư mục",
-                                          System.Windows.MessageBoxButton.OKCancel,
-                                          System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.OK)
+                                          MessageBoxButton.OKCancel,
+                                          MessageBoxImage.Question) == MessageBoxResult.OK)
                     {
-                        foreach (var item in collectionViewGroup.Items.ToList())
+                        var collection = collectionViewGroup.Items.ToList();
+                        FileInfo folderToDeleted = new FileInfo((FileInfo)collection[0]);
+                        var listOfTasks = new List<Task<int>>();
+
+                        Parallel.ForEach(collection, item =>
                         {
                             FileInfo fileInfo = item as FileInfo;
-                            FileData.Remove(FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId));
-                        }
+                            FileInfo fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId);
+                            FileData.Remove(fileToBeDeleted);
+                            if (fileInfo.Id == null)
+                            {
+                                return;
+                            }
+                            listOfTasks.Add(FileServices.Instance.DeleteFileAsync(fileToBeDeleted));
+                        });
+
+                        await Task.WhenAll(listOfTasks);
+                        await FileServices.Instance.DeleteFolderAsync(folderToDeleted);
                     }
                 }
             }
@@ -187,14 +251,26 @@ namespace StudentManagement.ViewModels
                                           MessageBoxImage.Question);
                     if (userResponse == MessageBoxResult.OK)
                     {
-                        foreach (var item in collection)
-                        {
+                        List<Task<int>> listOfTasks = new List<Task<int>>();
+                        Parallel.ForEach(collection, async item => {
                             if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
                             {
-                                FileData.Add(new FileInfo(null, "", item.Publisher, item.UploadTime, 0, item.FolderId, item.FolderName));
+                                FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, idSubjectClass));
                             }
-                            FileData.Remove(FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId));
-                        }
+                            var fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId);
+                            await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
+                            FileData.Remove(fileToBeDeleted);
+                        });
+                        //foreach (var item in collection)
+                        //{
+                        //    if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
+                        //    {
+                        //        FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, idSubjectClass));
+                        //    }
+                        //    var fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId);
+                        //    await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
+                        //    FileData.Remove(fileToBeDeleted);
+                        //}
                     }
                 }
             }
@@ -207,7 +283,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void CreateFolderFunction()
+        private async void CreateFolderFunction()
         {
             if (!IsValidString(NewFolderName))
             {
@@ -225,7 +301,18 @@ namespace StudentManagement.ViewModels
                     return;
                 }
                 IsShowDialog = false;
-                FileInfo newFolder = new FileInfo(null, "", "Hữu Trung", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
+                FileInfo newFolder = new FileInfo(
+                                         id: null,
+                                         name: "",
+                                         publisherId: publisher.Id,
+                                         publisher: publisher.DisplayName,
+                                         content: "",
+                                         uploadTime: DateTime.Now,
+                                         size: 0,
+                                         folderId: Guid.NewGuid(),
+                                         folderName: NewFolderName,
+                                         idSubjectClass: idSubjectClass); 
+                await FileServices.Instance.SaveFolderOfSubjectClassToDatabaseAsync(newFolder);
                 FileData.Add(newFolder);
                 NewFolderName = null;
             }
@@ -243,7 +330,7 @@ namespace StudentManagement.ViewModels
             SearchFileFunction();
         }
 
-        private void AddFileFunction(object folder)
+        private async void AddFileFunction(object folder)
         {
             try
             {
@@ -265,6 +352,10 @@ namespace StudentManagement.ViewModels
 
                     int existFileCount = 0;
                     int notValidFileSizeCount = 0;
+
+                    var listOfLinks = await UploadFileToCloud(openFileDialog.FileNames, folderId);
+
+                    int index = 0;
                     foreach (string file in openFileDialog.FileNames)
                     {
                         string name = Path.GetFileName(file);
@@ -286,6 +377,8 @@ namespace StudentManagement.ViewModels
                                 continue;
                             }
 
+                            FileInfo newFile = null;
+
                             if (folder != null)
                             {
                                 // Delete pseudo file info used for display folder only
@@ -294,13 +387,39 @@ namespace StudentManagement.ViewModels
                                 {
                                     FileData.Remove(pseudoFileInfo);
                                 }
-
-                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, fileSize, folderId, folderName));
+                                newFile = new FileInfo(
+                                              id: Guid.NewGuid(), 
+                                              name: name,
+                                              publisherId: publisher.Id,
+                                              publisher: publisher.DisplayName,
+                                              content: listOfLinks[index],
+                                              uploadTime: DateTime.Now,
+                                              size: fileSize,
+                                              folderId: folderId,
+                                              folderName: folderName,
+                                              idSubjectClass: idSubjectClass);
                             }
                             else
                             {
-                                FileData.Add(new FileInfo(Guid.NewGuid(), name, "Lê Hữu Trung", DateTime.Now, fileSize, null, ""));
+                                newFile = new FileInfo(
+                                              id: Guid.NewGuid(),
+                                              name: name,
+                                              publisherId: publisher.Id,
+                                              publisher: publisher.DisplayName,
+                                              content: listOfLinks[index],
+                                              uploadTime: DateTime.Now,
+                                              size: fileSize,
+                                              folderId: null,
+                                              folderName: "",
+                                              idSubjectClass: idSubjectClass);
                             }
+
+                            if (newFile != null)
+                            {
+                                FileData.Add(newFile);
+                                await FileServices.Instance.SaveFileOfSubjectClassToDatabaseAsync(newFile);
+                            }
+
                         }
                     }
 
@@ -329,6 +448,36 @@ namespace StudentManagement.ViewModels
                                   MessageBoxImage.Error);
             }
 
+        }
+
+        private async Task<string[]> UploadFileToCloud(string[] filePaths, Guid? folderId)
+        {
+            List<Task<string>> listOfTasks = new List<Task<string>>();
+
+            Parallel.ForEach(filePaths, file =>
+            {
+                string name = Path.GetFileName(file);
+                if (!string.IsNullOrEmpty(name))
+                {
+                    // File size limit: 10MB
+                    long fileSize = GetFileSize(file);
+                    if (!IsValidFileSize(fileSize))
+                    {
+                        return;
+                    }
+
+                    // Detect exist file
+                    var existFile = FileData.FirstOrDefault(fileInfo => fileInfo.Name == name && fileInfo.FolderId == folderId);
+                    if (existFile != null)
+                    {
+                        return;
+                    }
+
+                    listOfTasks.Add(FileUploader.Instance.UploadAsync(file));
+                }
+            });
+
+            return await Task.WhenAll(listOfTasks);
         }
 
         private long GetFileSize(string filePath)
@@ -376,37 +525,5 @@ namespace StudentManagement.ViewModels
             return _errorBaseViewModel.GetErrors(propertyName);
         }
         #endregion
-    }
-
-    public class FileInfo : BaseViewModel
-    {
-        private Guid? _id;
-        private string _name;
-        private string _publisher;
-        private DateTime _uploadTime;
-        private Guid? _folderId;
-        private string _folderName;
-        private long _size;
-
-        public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
-        public string Publisher { get => _publisher; set { _publisher = value; OnPropertyChanged(); } }
-        public DateTime UploadTime { get => _uploadTime; set { _uploadTime = value; OnPropertyChanged(); } }
-        public Guid? FolderId { get => _folderId; set { _folderId = value; OnPropertyChanged(); } }
-        public string FolderName { get => _folderName; set { _folderName = value; OnPropertyChanged(); } }
-
-        public Guid? Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-
-        public long Size { get => _size; set { _size = value; OnPropertyChanged(); } }
-
-        public FileInfo(Guid? id, string name, string publisher, DateTime uploadTime, long size, Guid? folderId, string folderName)
-        {
-            Id = id;
-            Name = name;
-            Publisher = publisher;
-            UploadTime = uploadTime;
-            Size = size;
-            FolderId = folderId;
-            FolderName = folderName;
-        }
     }
 }

@@ -29,6 +29,8 @@ namespace StudentManagement.Models
         public Nullable<System.Guid> IdFolder { get => _idFolder; set { _idFolder = value; OnPropertyChanged(); } }
         private System.Guid _idSubjectClass { get; set; }
         public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+        private Nullable<long> _size { get; set; }
+        public Nullable<long> Size { get => _size; set { _size = value; OnPropertyChanged(); } }
     
         public virtual Folder Folder { get; set; }
         public virtual User User { get; set; }
