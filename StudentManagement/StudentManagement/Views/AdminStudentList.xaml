@@ -9,7 +9,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="617"
-    d:DesignWidth="746"
+    d:DesignWidth="785"
     Background="{StaticResource CenterColumn}"
     DataContext="{DynamicResource AdminStudentListVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
@@ -19,14 +19,93 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
-        <Grid>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="67" />
+                <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Margin="12,8,8,0"
+                FontSize="28"
+                FontWeight="Bold"
+                Text="Tổng quan lớp học" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Margin="12,8,0,10">
+                <Canvas
+                    x:Name="mainCanvas"
+                    Grid.Column="0"
+                    Margin="100,10,0,0">
+                    <ContentPresenter Content="{Binding MainCanvas}" />
+                </Canvas>
+
+                <ScrollViewer
+                    Grid.Column="1"
+                    Margin="10,10,0,0"
+                    Padding="10"
+                    VerticalAlignment="Center"
+                    HorizontalScrollBarVisibility="Hidden"
+                    VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding DataPieChart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10" Orientation="Horizontal">
+                                    <Rectangle
+                                        Width="15"
+                                        Height="15"
+                                        Margin="0,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Fill="{Binding ColorBrush}" />
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Text="{Binding Title}" />
+
+                                    <TextBlock
+                                        Margin="20,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Foreground="{Binding ColorBrush}"
+                                        Text="{Binding Percentage}" />
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Foreground="{Binding ColorBrush}"
+                                        Text="%" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38" />
+                <RowDefinition Height="67" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Margin="12,8,8,0"
+                FontSize="28"
+                FontWeight="Bold"
+                Text="Danh sách sinh viên lớp môn học" />
+            <Grid Grid.Row="1" Margin="12,8,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.25*" />
                     <ColumnDefinition Width="0.5*" />
@@ -34,16 +113,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
-                    <!--<TextBox
-                        Margin="16,0,16,0"
-                        materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
-                        materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}">
-                        <TextBox.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding SearchName}" />
-                        </TextBox.InputBindings>
-                    </TextBox>-->
+
                     <component:SearchBarOne
                         DatePickerVisibility="False"
                         FirstSearchButtonVisibility="False"
@@ -78,9 +148,14 @@
                 </Grid>
             </Grid>
 
-            <component:StudentListDataGrid Grid.Row="1" Margin="16,0,16,0" />
+
+            <component:StudentListDataGrid Grid.Row="2" Margin="16,0,16,0" />
 
         </Grid>
-    </ScrollViewer>
+
+
+
+    </Grid>
+
 
 </UserControl>
