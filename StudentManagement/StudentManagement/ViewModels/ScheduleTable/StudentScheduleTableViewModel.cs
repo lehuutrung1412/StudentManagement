@@ -13,7 +13,7 @@ namespace StudentManagement.ViewModels
 {
     public class StudentScheduleTableViewModel : BaseViewModel
     {
-        
+        #region properties
         private ObservableCollection<SubjectClass> _subjectClasses;
         public ObservableCollection<SubjectClass> SubjectClasses { get => _subjectClasses; set => _subjectClasses = value; }
         private ObservableCollection<ScheduleItem> _scheduleItems;
@@ -42,19 +42,20 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion
+
+        private static StudentScheduleTableViewModel s_instance;
+        public static StudentScheduleTableViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new StudentScheduleTableViewModel());
+
+            private set => s_instance = value;
+        }
         public StudentScheduleTableViewModel()
         {
+            Instance = this;
             CurrentStudent = StudentServices.Instance.GetFirstStudent();
-            Semesters = SemesterServices.Instance.LoadListSemestersByStudentId(CurrentStudent.Id);
-            if (Semesters.Count == 0)
-            {
-                SelectedSemester = null;
-                ScheduleItems = new ObservableCollection<ScheduleItem>();
-                return;
-            }
-            SelectedSemester = Semesters.Last();
-            ScheduleItems = new ObservableCollection<ScheduleItem>();
-            UpdateScheduleItems();
+            UpdateData();
         }
         public void UpdateScheduleItems()
         {
@@ -67,6 +68,20 @@ namespace StudentManagement.ViewModels
                 ScheduleItem temp = new ScheduleItem(item);
                 ScheduleItems.Add(temp);
             }
+        }
+
+        public void UpdateData()
+        {
+            Semesters = SemesterServices.Instance.LoadListSemestersByStudentId(CurrentStudent.Id);
+            if (Semesters.Count == 0)
+            {
+                SelectedSemester = null;
+                ScheduleItems = new ObservableCollection<ScheduleItem>();
+                return;
+            }
+            SelectedSemester = Semesters.Last();
+            ScheduleItems = new ObservableCollection<ScheduleItem>();
+            UpdateScheduleItems();
         }
     }
 }

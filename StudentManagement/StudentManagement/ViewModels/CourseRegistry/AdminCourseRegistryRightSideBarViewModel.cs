@@ -1,6 +1,7 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -106,6 +107,10 @@ namespace StudentManagement.ViewModels
             StoredSubjectCards.Remove(card);
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;*/
+            CourseItem item = p as CourseItem;
+            AdminCourseRegistryViewModel.Instance.CourseRegistryItems.Remove(item);
+            SubjectClassServices.Instance.RemoveSubjectClassFromDatabase(item.ConvertToSubjectClass());
+            RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
     }
     

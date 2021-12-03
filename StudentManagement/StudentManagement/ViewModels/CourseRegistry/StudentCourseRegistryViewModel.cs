@@ -90,12 +90,29 @@ namespace StudentManagement.ViewModels
         public ICommand SearchCommand { get => _searchCommand; set => _searchCommand = value; }
         private ICommand _switchSearchButtonCommand;
         public ICommand SwitchSearchButtonCommand { get => _switchSearchButtonCommand; set => _switchSearchButtonCommand = value; }
-        
+
 
         #endregion
+
+        private static StudentCourseRegistryViewModel s_instance;
+        public static StudentCourseRegistryViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new StudentCourseRegistryViewModel());
+
+            private set => s_instance = value;
+        }
+
         public StudentCourseRegistryViewModel()
         {
-            CurrentSemester = SemesterServices.Instance.GetLastOpenningRegisterSemester();
+            Instance = this;
+            UpdateData();
+            InitCommand();
+        }
+        #region Methods
+
+        public void UpdateData()
+        {
+            CurrentSemester = SemesterServices.Instance.GetFirstOpenningRegisterSemester();
             CurrentStudent = StudentServices.Instance.GetFirstStudent();
             if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
             {
@@ -109,10 +126,8 @@ namespace StudentManagement.ViewModels
             }
             CourseRegistryItems2Display = CourseRegistryItems2;
             TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
-            InitCommand();
             InitScheduleItems();
         }
-        #region Methods
         public void InitCommand()
         {
             RegisterCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => RegisterSelectedCourses());
@@ -137,23 +152,32 @@ namespace StudentManagement.ViewModels
             var SelectedItems = CourseRegistryItems2.Where(x => x.IsSelected == true).ToList();
             foreach (CourseItem item in SelectedItems)
             {
+                item.NumberOfStudents += 1;
+                TotalCredit += Convert.ToInt32(item.Subject.Credit);
                 item.IsSelected = false;
                 CourseRegistryItems1.Add(item);
                 CourseRegisterServices.Instance.StudentRegisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
                 CourseRegistryItems2.Remove(item);
             }
             Search();
+            InitScheduleItems();
+            StudentScheduleTableViewModel.Instance.UpdateData();
+            
         }
         public void UnregisterSelectedCourses()
         {
             var SelectedItems = CourseRegistryItems1.Where(x => x.IsSelected == true).ToList();
             foreach (CourseItem item in SelectedItems)
             {
+                item.NumberOfStudents -= 1;
+                TotalCredit -= Convert.ToInt32(item.Subject.Credit);
                 item.IsSelected = false;
                 CourseRegistryItems2.Add(item);
                 CourseRegistryItems1.Remove(item);
                 CourseRegisterServices.Instance.StudentUnregisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
             }
+            StudentScheduleTableViewModel.Instance.UpdateData();
+            InitScheduleItems();
         }
         public void Search()
         {
