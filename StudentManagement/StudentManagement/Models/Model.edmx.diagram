@@ -68,6 +68,7 @@
         <AssociationConnector Association="StudentManagementModel.FK__Users__IdUserRol__72C60C4A" />
         <AssociationConnector Association="StudentManagementModel.FK__UserRole___IdUse__76969D2E" />
         <AssociationConnector Association="StudentManagementModel.Teacher_SubjectClass" />
+        <AssociationConnector Association="StudentManagementModel.FK__Folder__IdPoster__282DF8C2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

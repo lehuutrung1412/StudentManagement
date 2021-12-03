@@ -2,6 +2,7 @@
 using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,16 @@ namespace StudentManagement.Services
 
         public FileInfo ConvertDocumentToFileInfo(Document doc)
         {
-            return new FileInfo(doc.Id, doc.DisplayName, Guid.NewGuid(), doc.User.DisplayName, doc.Content, doc.CreatedAt, doc.Size, doc.IdFolder, doc.Folder.DisplayName, doc.IdSubjectClass);
+            string folderName;
+            if (doc.IdFolder == null)
+            {
+                folderName = "";
+            }
+            else
+            {
+                folderName = doc.Folder.DisplayName;
+            }
+            return new FileInfo(doc.Id, doc.DisplayName, doc.IdPoster, doc.User.DisplayName, doc.Content, doc.CreatedAt, doc.Size, doc.IdFolder, folderName, doc.IdSubjectClass);
         }
 
         public Folder ConvertFileInfoToFolder(FileInfo file)
@@ -46,8 +56,25 @@ namespace StudentManagement.Services
             {
                 Id = (Guid)file.FolderId,
                 DisplayName = file.FolderName,
-                IdSubjectClass = file.IdSubjectClass
+                IdSubjectClass = file.IdSubjectClass,
+                CreatedAt = file.UploadTime,
+                IdPoster = file.PublisherId
             };
+        }
+
+        public FileInfo ConvertFolderToFileInfo(Folder folder)
+        {
+            return new FileInfo(
+                        id: null,
+                        name: "",
+                        publisherId: (Guid)folder.IdPoster,
+                        publisher: folder.User.DisplayName,
+                        content: "",
+                        uploadTime: folder.CreatedAt,
+                        size: 0,
+                        folderId: folder.Id,
+                        folderName: folder.DisplayName,
+                        idSubjectClass: folder.IdSubjectClass);
         }
 
         #endregion Convert
@@ -92,6 +119,16 @@ namespace StudentManagement.Services
         }
 
         #endregion Read
+
+        #region Update
+
+        public async Task<int> UpdateFolderAsync(FileInfo file)
+        {
+            db().Folders.AddOrUpdate(ConvertFileInfoToFolder(file));
+            return await db().SaveChangesAsync();
+        }
+
+        #endregion
 
         #region Delete
 

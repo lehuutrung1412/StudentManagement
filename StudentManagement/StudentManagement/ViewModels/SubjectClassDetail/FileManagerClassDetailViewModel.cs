@@ -86,10 +86,11 @@ namespace StudentManagement.ViewModels
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
 
-            FileData = new ObservableCollection<FileInfo>();
+            FirstLoadDataFromDatabase();
             FileData.CollectionChanged += FileData_CollectionChanged;
             BindingFileData = new ObservableCollection<FileInfo>(FileData);
             BindingFileData.CollectionChanged += BindingFileData_CollectionChanged;
+            BindingDataToView();
 
             AddFile = new RelayCommand<object>((p) => true, (p) => AddFileFunction(p));
             DeleteFile = new RelayCommand<object>((p) => true, (p) => DeleteFileFunction(p));
@@ -103,9 +104,52 @@ namespace StudentManagement.ViewModels
 
         }
 
-        private void SubmitFolderNameFunction()
+        private void FirstLoadDataFromDatabase()
         {
-            FolderEditingId = null;
+            try
+            {
+                FileData = new ObservableCollection<FileInfo>();
+
+                var docs = FileServices.Instance.GetListFilesOfSubjectClass(idSubjectClass);
+                Parallel.ForEach(docs, doc =>
+                {
+                    FileData.Add(FileServices.Instance.ConvertDocumentToFileInfo(doc));
+                });
+
+                var folders = FileServices.Instance.GetListSingleFoldersOfSubjectClass(idSubjectClass);
+                Parallel.ForEach(folders, folder =>
+                {
+                    FileData.Add(FileServices.Instance.ConvertFolderToFileInfo(folder));
+                });
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra!",
+                                  "Lỗi rồi",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
+            }  
+        }
+
+        private async void SubmitFolderNameFunction()
+        {
+            try
+            {
+                if (FolderEditingId != null)
+                {
+                    var folder = FileData.FirstOrDefault(file => file.FolderId == FolderEditingId);
+                    await FileServices.Instance.UpdateFolderAsync(folder);
+                    FolderEditingId = null;
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể đổi tên thư mục.",
+                                  "Lỗi rồi",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
+            }
+            
         }
 
         private void RenameFolderFunction(object p)
@@ -120,6 +164,11 @@ namespace StudentManagement.ViewModels
         }
 
         private void BindingFileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            BindingDataToView();
+        }
+
+        private void BindingDataToView()
         {
             FileDataGroup = new ListCollectionView(BindingFileData);
             FileDataGroup.GroupDescriptions.Add(new PropertyGroupDescription("FolderId"));

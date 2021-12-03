@@ -116,6 +116,8 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar(max)" />
           <Property Name="IdSubjectClass" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="IdPoster" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Semester">
           <Key>
@@ -464,6 +466,18 @@
             </Principal>
             <Dependent Role="Faculty_TrainingForm">
               <PropertyRef Name="IdTrainingForm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Folder__IdPoster__282DF8C2">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="IdPoster" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -818,6 +832,10 @@
             <End Role="TrainingForm" EntitySet="TrainingForm" />
             <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
+          <AssociationSet Name="FK__Folder__IdPoster__282DF8C2" Association="Self.FK__Folder__IdPoster__282DF8C2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
           <AssociationSet Name="FK__Folder__IdSubjec__14270015" Association="Self.FK__Folder__IdSubjec__14270015">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="Folder" EntitySet="Folder" />
@@ -1085,6 +1103,10 @@
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
+          <AssociationSet Name="FK__Folder__IdPoster__282DF8C2" Association="StudentManagementModel.FK__Folder__IdPoster__282DF8C2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AbsentCalendar">
           <Key>
@@ -1224,6 +1246,9 @@
           <Property Name="IdSubjectClass" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Documents" Relationship="StudentManagementModel.FK__Document__IdFold__123EB7A3" FromRole="Folder" ToRole="Document" />
           <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Folder__IdSubjec__14270015" FromRole="Folder" ToRole="SubjectClass" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="IdPoster" Type="Guid" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Folder__IdPoster__282DF8C2" FromRole="Folder" ToRole="User" />
         </EntityType>
         <EntityType Name="Semester">
           <Key>
@@ -1399,6 +1424,7 @@
           <NavigationProperty Name="Teachers" Relationship="StudentManagementModel.FK__Teacher__IdUsers__797309D9" FromRole="User" ToRole="Teacher" />
           <NavigationProperty Name="User_UserRole_UserInfo" Relationship="StudentManagementModel.FK__User_User__IdUse__74AE54BC" FromRole="User" ToRole="User_UserRole_UserInfo" />
           <NavigationProperty Name="UserRole" Relationship="StudentManagementModel.FK__Users__IdUserRol__72C60C4A" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="Folders" Relationship="StudentManagementModel.FK__Folder__IdPoster__282DF8C2" FromRole="User" ToRole="Folder" />
         </EntityType>
         <Association Name="FK__AbsentCal__IdSub__151B244E">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="1" />
@@ -1848,6 +1874,18 @@
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="*" />
           <End Type="StudentManagementModel.Teacher" Role="Teacher" Multiplicity="*" />
         </Association>
+        <Association Name="FK__Folder__IdPoster__282DF8C2">
+          <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="StudentManagementModel.Folder" Role="Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="IdPoster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1971,6 +2009,8 @@
           <EntitySetMapping Name="Folders">
             <EntityTypeMapping TypeName="StudentManagementModel.Folder">
               <MappingFragment StoreEntitySet="Folder">
+                <ScalarProperty Name="IdPoster" ColumnName="IdPoster" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="IdSubjectClass" ColumnName="IdSubjectClass" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

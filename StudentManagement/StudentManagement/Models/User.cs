@@ -32,6 +32,8 @@ public partial class User : BaseViewModel
 
         this.User_UserRole_UserInfo = new HashSet<User_UserRole_UserInfo>();
 
+        this.Folders = new HashSet<Folder>();
+
     }
 
 
@@ -76,6 +78,8 @@ public partial class User : BaseViewModel
     public virtual ICollection<User_UserRole_UserInfo> User_UserRole_UserInfo { get; set; }
 
     public virtual UserRole UserRole { get; set; }
+
+    public virtual ICollection<Folder> Folders { get; set; }
 
 }
 

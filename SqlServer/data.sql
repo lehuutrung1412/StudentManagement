@@ -280,9 +280,9 @@ CREATE TABLE Folder
   DisplayName NVARCHAR(MAX),
   CreatedAt DateTime,
   IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
+  IdPoster UNIQUEIDENTIFIER DEFAULT NEWID()
 )
 GO
-
 
 CREATE TABLE AbsentCalendar
 (
@@ -420,6 +420,7 @@ GO
 
 ALTER TABLE Folder ADD
 FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id)
+FOREIGN KEY (IdPoster) REFERENCES Users(Id)
 GO
 
 ALTER TABLE AbsentCalendar ADD
@@ -537,6 +538,8 @@ VALUES
 select * from Users
 select * from Document
 select * from Folder
+
+delete from folder
 
 --Insert into TrainingForm (Id, displayname) values (NEWID(), 'Oke')
 

@@ -36,11 +36,19 @@ public partial class Folder : BaseViewModel
     private System.Guid _idSubjectClass { get; set; }
     public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
 
+    private Nullable<System.DateTime> _createdAt { get; set; }
+    public Nullable<System.DateTime> CreatedAt { get => _createdAt; set { _createdAt = value; OnPropertyChanged(); } }
+
+    private Nullable<System.Guid> _idPoster { get; set; }
+    public Nullable<System.Guid> IdPoster { get => _idPoster; set { _idPoster = value; OnPropertyChanged(); } }
+
 
 
     public virtual ICollection<Document> Documents { get; set; }
 
     public virtual SubjectClass SubjectClass { get; set; }
+
+    public virtual User User { get; set; }
 
 }
 

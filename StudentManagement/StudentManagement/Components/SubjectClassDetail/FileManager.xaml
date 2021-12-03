@@ -43,6 +43,7 @@
 
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid
+                    MaxHeight="520"
                     Name="FileGrid"
                     VerticalContentAlignment="Center"
                     AutoGenerateColumns="False"
