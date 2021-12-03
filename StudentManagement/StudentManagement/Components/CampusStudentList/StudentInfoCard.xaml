@@ -9,7 +9,6 @@
     xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
-    x:Name="NotificationComponent"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     HorizontalContentAlignment="Stretch"
@@ -49,11 +48,11 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
-                <i:Interaction.Triggers>
+                <!--<i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
                     </i:EventTrigger>
-                </i:Interaction.Triggers>
+                </i:Interaction.Triggers>-->
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.8*" />
@@ -120,7 +119,6 @@
                                 TextWrapping="Wrap" />
 
                         </StackPanel>
-
                     </Grid>
 
                 </Grid>

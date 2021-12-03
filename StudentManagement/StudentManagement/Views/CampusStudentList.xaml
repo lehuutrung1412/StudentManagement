@@ -70,8 +70,9 @@
                         Margin="16,0,16,0"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Background="#ff0000"
+                        Command="{Binding AddStudentList}"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners">
-                        <TextBlock Text="Xóa sinh viên" />
+                        <TextBlock Text="Thêm sinh viên từ file" />
                     </Button>
                 </Grid>
             </Grid>
