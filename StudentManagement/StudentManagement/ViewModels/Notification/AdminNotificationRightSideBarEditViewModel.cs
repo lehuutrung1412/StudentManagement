@@ -1,5 +1,7 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -96,7 +98,7 @@ namespace StudentManagement.ViewModels
         public void UpdateNotification()
         {
             var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
-            NotificationCard card = (AdminNotificationRightSideBarVM._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard;
+            NotificationCard card = CurrentCard;
             (AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard = card;
             AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel;
             CurrentCard.Topic = Topic;
@@ -114,6 +116,7 @@ namespace StudentManagement.ViewModels
                     AdminNotificationVM.RealCards[i] = card;
                     break;
                 }
+            NotificationServices.Instance.UpdateNotificationByNotificationCardAndIdUser(CurrentCard, DataProvider.Instance.Database.Users.FirstOrDefault().Id);
         }
         #endregion
     }

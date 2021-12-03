@@ -1,5 +1,7 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -117,7 +119,7 @@ namespace StudentManagement.ViewModels
         {
             if (!IsValid(Content) || !IsValid(Topic) || !IsValid(Type))
             {
-                MyMessageBox.Show("Noi dung nhập chưa đầy đủ","Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                MyMessageBox.Show("Nội dung nhập chưa đầy đủ","Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
             }
             var AdminNotificationVM = AdminNotificationViewModel.Instance;
@@ -129,6 +131,7 @@ namespace StudentManagement.ViewModels
                 if (AdminNotificationVM.RealCards.Where(x => x.Id == CurrentCard.Id).Count() == 0)
                     AdminNotificationVM.RealCards.Insert(0, CurrentCard);
             AdminNotificationVM.NumCardInBadged += 1;
+            NotificationServices.Instance.AddNotificationByNotificationCard(CurrentCard);
         }
         #endregion
     }

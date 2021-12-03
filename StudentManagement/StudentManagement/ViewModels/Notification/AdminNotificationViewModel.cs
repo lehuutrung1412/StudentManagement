@@ -1,5 +1,7 @@
 using StudentManagement.Commands;
+using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
@@ -141,26 +143,26 @@ namespace StudentManagement.ViewModels
             Thread.CurrentThread.CurrentCulture = ci;
 
             Instance = this;
-            Type = new ObservableCollection<string>() { "Thông báo chung", "Thông báo sinh viên", "Thông báo giáo viên" };
+            Type = NotificationTypeServices.Instance.GetListNotificationType();
             TypeInMain = new ObservableCollection<string>(Type);
             TypeInMain.Add("Tất cả");
             SearchInfo = "";
             SearchType = "Tất cả";
             SearchDate = null;
-            Cards = new ObservableCollection<NotificationCard>() {
-                new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-                new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
+            //Cards = new ObservableCollection<NotificationCard>() {
+            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
-            };
+            //};
+            Cards = NotificationServices.Instance.LoadNotificationCardByUserId(DataProvider.Instance.Database.Users.FirstOrDefault().Id);
             NumCardInBadged = Cards.Count;
             RealCards = new ObservableCollection<NotificationCard>(Cards.Select(card=>card));
             IsOpen = false;
             InitIcommand();
         }
-
         #region method
         public void InitIcommand()
         {
@@ -213,9 +215,9 @@ namespace StudentManagement.ViewModels
                 return;
             var card = p.DataContext as NotificationCard;
             IsOpen = true;
-            card.Status = true;
             this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
             this.DialogItemViewModel = this._showDetailNotificationViewModel;
+            card.Status = true;
         }
      
         public void Search()
@@ -261,11 +263,12 @@ namespace StudentManagement.ViewModels
             var tmp = Cards.Where(x => x.Id == AdminNotificationRightSideBarVM.CurrentCard.Id).FirstOrDefault();
             Cards.Remove(tmp);
             RealCards.Remove(tmp);
+            NotificationServices.Instance.DeleteNotificationByNotificationCard(tmp);
         }
 
         public void CreateNewNotification()
         {
-            var card = new NotificationCard(Guid.NewGuid(), "Cuong", "", "", "", DateTime.Now);
+            var card = new NotificationCard(Guid.NewGuid(), DataProvider.Instance.Database.Users.FirstOrDefault().Id, "", "", "", DateTime.Now);
             this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
             this.DialogItemViewModel = this._creatNewNotificationViewModel;
         }  

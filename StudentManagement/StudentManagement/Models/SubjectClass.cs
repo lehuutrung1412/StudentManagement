@@ -23,6 +23,8 @@ namespace StudentManagement.Models
             this.Documents = new HashSet<Document>();
             this.Examinations = new HashSet<Examination>();
             this.Folders = new HashSet<Folder>();
+            this.Notifications = new HashSet<Notification>();
+            this.Notifications1 = new HashSet<Notification>();
             this.StudyResults = new HashSet<StudyResult>();
             this.Teachers = new HashSet<Teacher>();
         }
@@ -59,6 +61,8 @@ namespace StudentManagement.Models
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Examination> Examinations { get; set; }
         public virtual ICollection<Folder> Folders { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
+        public virtual ICollection<Notification> Notifications1 { get; set; }
         public virtual Semester Semester { get; set; }
         public virtual ICollection<StudyResult> StudyResults { get; set; }
         public virtual Subject Subject { get; set; }

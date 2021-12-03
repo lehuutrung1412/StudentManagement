@@ -48,7 +48,7 @@
                     VerticalAlignment="Center"
                     FontSize="14"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.Poster, FallbackValue='Người đăng'}"
+                    Text="{Binding CurrentCard.IdPoster, FallbackValue='Người đăng', Converter={utils:ConverterDisplayNameFromIdUser}}"
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </Grid>

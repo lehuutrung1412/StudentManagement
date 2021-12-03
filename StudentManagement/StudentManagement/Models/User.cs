@@ -20,6 +20,10 @@ namespace StudentManagement.Models
             this.Admins = new HashSet<Admin>();
             this.Documents = new HashSet<Document>();
             this.Folders = new HashSet<Folder>();
+            this.Notifications = new HashSet<Notification>();
+            this.Notifications1 = new HashSet<Notification>();
+            this.NotificationComments = new HashSet<NotificationComment>();
+            this.NotificationInfoes = new HashSet<NotificationInfo>();
             this.Students = new HashSet<Student>();
             this.Teachers = new HashSet<Teacher>();
             this.User_UserRole_UserInfo = new HashSet<User_UserRole_UserInfo>();
@@ -47,6 +51,10 @@ namespace StudentManagement.Models
         public virtual ICollection<Document> Documents { get; set; }
         public virtual Faculty Faculty { get; set; }
         public virtual ICollection<Folder> Folders { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
+        public virtual ICollection<Notification> Notifications1 { get; set; }
+        public virtual ICollection<NotificationComment> NotificationComments { get; set; }
+        public virtual ICollection<NotificationInfo> NotificationInfoes { get; set; }
         public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<Teacher> Teachers { get; set; }
         public virtual ICollection<User_UserRole_UserInfo> User_UserRole_UserInfo { get; set; }
