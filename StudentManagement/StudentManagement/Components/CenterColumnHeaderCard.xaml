@@ -222,7 +222,7 @@
                                 </Grid>
 
                                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-                                    <ItemsControl ItemsSource="{Binding Cards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                    <ItemsControl ItemsSource="{Binding CardsInBadge, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel Margin="8,8,0,8" />

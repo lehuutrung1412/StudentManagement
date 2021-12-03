@@ -132,6 +132,7 @@ namespace StudentManagement.ViewModels
                     AdminNotificationVM.RealCards.Insert(0, CurrentCard);
             AdminNotificationVM.NumCardInBadged += 1;
             NotificationServices.Instance.AddNotificationByNotificationCard(CurrentCard);
+            AdminNotificationVM.ReLoadCardInBadge();
         }
         #endregion
     }
