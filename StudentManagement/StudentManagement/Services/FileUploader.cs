@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using StudentManagement.Utils;
+using System.Net;
 
 namespace StudentManagement.Services
 {
@@ -59,6 +60,12 @@ namespace StudentManagement.Services
                 return (string)json["data"]["server"];
             }
             return null;
+        }
+    
+        public void DownloadFileAsync(string link, string fileName)
+        {
+            WebClient webClient = new WebClient();
+            webClient.DownloadFileAsync(new Uri(link), fileName);
         }
     }
 }

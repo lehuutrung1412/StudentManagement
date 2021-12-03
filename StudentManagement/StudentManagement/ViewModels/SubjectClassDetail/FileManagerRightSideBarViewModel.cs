@@ -3,10 +3,13 @@ using StudentManagement.Objects;
 using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
+using FileInfo = StudentManagement.Objects.FileInfo;
 
 namespace StudentManagement.ViewModels
 {
@@ -40,6 +43,7 @@ namespace StudentManagement.ViewModels
         public ICommand DeleteCurrentFile { get; set; }
         public ICommand EditCurrentFile { get; set; }
         public ICommand CancelEditCurrentFile { get; set; }
+        public ICommand DownloadCurrentFile { get; set; }
         public bool IsEditing { get => _isEditing; set { _isEditing = value; OnPropertyChanged(); } }
 
         private bool _isEditing;
@@ -51,7 +55,19 @@ namespace StudentManagement.ViewModels
             DeleteCurrentFile = new RelayCommand<object>((p) => { return true; }, (p) => DeleteCurrentFileFunction());
             EditCurrentFile = new RelayCommand<object>((p) => { return true; }, (p) => EditCurrentFileFunction());
             CancelEditCurrentFile = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditCurrentFileFunction());
-            
+            DownloadCurrentFile = new RelayCommand<object>((p) => { return true; }, (p) => DownloadCurrentFileFunction());
+        }
+
+        private void DownloadCurrentFileFunction()
+        {
+            var dialog = new SaveFileDialog();
+            var ext = Path.GetExtension(CurrentFile.Name);
+            dialog.Filter = $"File (*{ext})|*{ext}";
+            dialog.FileName = CurrentFile.Name;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                FileUploader.Instance.DownloadFileAsync(CurrentFile.Content, dialog.FileName);
+            }
         }
 
         private void CancelEditCurrentFileFunction()
