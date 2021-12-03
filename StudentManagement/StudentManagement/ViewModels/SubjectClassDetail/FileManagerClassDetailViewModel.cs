@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using StudentManagement.Services;
 using FileInfo = StudentManagement.Objects.FileInfo;
+using StudentManagement.Models;
 
 namespace StudentManagement.ViewModels
 {
@@ -75,6 +76,10 @@ namespace StudentManagement.ViewModels
 
         public object SelectedFile { get => _selectedFile; set { _selectedFile = value; OnPropertyChanged(); } }
         private object _selectedFile;
+
+        //
+        Guid idSubjectClass = new Guid();
+        User publisher = UserServices.Instance.GetUserInfo();
 
         public FileManagerClassDetailViewModel()
         {
@@ -142,7 +147,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void DeleteFolderFunction(object parameter)
+        private async void DeleteFolderFunction(object parameter)
         {
             try
             {
@@ -157,7 +162,9 @@ namespace StudentManagement.ViewModels
                         foreach (var item in collectionViewGroup.Items.ToList())
                         {
                             FileInfo fileInfo = item as FileInfo;
-                            FileData.Remove(FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId));
+                            FileInfo fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId);
+                            FileData.Remove(fileToBeDeleted);
+                            
                         }
                     }
                 }
@@ -193,7 +200,7 @@ namespace StudentManagement.ViewModels
                         {
                             if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
                             {
-                                FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName));
+                                FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, idSubjectClass));
                             }
                             FileData.Remove(FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId));
                         }
@@ -209,7 +216,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void CreateFolderFunction()
+        private async void CreateFolderFunction()
         {
             if (!IsValidString(NewFolderName))
             {
@@ -227,9 +234,20 @@ namespace StudentManagement.ViewModels
                     return;
                 }
                 IsShowDialog = false;
-                FileInfo newFolder = new FileInfo(null, "", Guid.NewGuid(), "Hữu Trung", "", DateTime.Now, 0, Guid.NewGuid(), NewFolderName);
+                FileInfo newFolder = new FileInfo(
+                                         id: null,
+                                         name: "",
+                                         publisherId: publisher.Id,
+                                         publisher: publisher.DisplayName,
+                                         content: "",
+                                         uploadTime: DateTime.Now,
+                                         size: 0,
+                                         folderId: Guid.NewGuid(),
+                                         folderName: NewFolderName,
+                                         idSubjectClass: idSubjectClass);
                 FileData.Add(newFolder);
                 NewFolderName = null;
+                await FileServices.Instance.SaveFolderOfSubjectClassToDatabase(newFolder);
             }
             catch (Exception)
             {
@@ -268,9 +286,6 @@ namespace StudentManagement.ViewModels
                     int existFileCount = 0;
                     int notValidFileSizeCount = 0;
 
-                    //
-                    Guid publisherId = UserServices.Instance.GetUserInfo().Id;
-
                     var listOfLinks = await UploadFileToCloud(openFileDialog.FileNames, folderId);
 
                     int index = 0;
@@ -305,11 +320,31 @@ namespace StudentManagement.ViewModels
                                 {
                                     FileData.Remove(pseudoFileInfo);
                                 }
-                                newFile = new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", listOfLinks[index], DateTime.Now, fileSize, folderId, folderName);
+                                newFile = new FileInfo(
+                                              id: Guid.NewGuid(), 
+                                              name: name,
+                                              publisherId: publisher.Id,
+                                              publisher: publisher.DisplayName,
+                                              content: listOfLinks[index],
+                                              uploadTime: DateTime.Now,
+                                              size: fileSize,
+                                              folderId: folderId,
+                                              folderName: folderName,
+                                              idSubjectClass: idSubjectClass);
                             }
                             else
                             {
-                                newFile = new FileInfo(Guid.NewGuid(), name, publisherId, "Lê Hữu Trung", listOfLinks[index], DateTime.Now, fileSize, null, "");
+                                newFile = new FileInfo(
+                                              id: Guid.NewGuid(),
+                                              name: name,
+                                              publisherId: publisher.Id,
+                                              publisher: publisher.DisplayName,
+                                              content: listOfLinks[index],
+                                              uploadTime: DateTime.Now,
+                                              size: fileSize,
+                                              folderId: null,
+                                              folderName: "",
+                                              idSubjectClass: idSubjectClass);
                             }
 
                             if (newFile != null)

@@ -278,6 +278,7 @@ CREATE TABLE Folder
 (
   Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
   DisplayName NVARCHAR(MAX),
+  CreatedAt DateTime,
   IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
 )
 GO
@@ -535,6 +536,7 @@ VALUES
 
 select * from Users
 select * from Document
+select * from Folder
 
 --Insert into TrainingForm (Id, displayname) values (NEWID(), 'Oke')
 

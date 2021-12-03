@@ -35,7 +35,7 @@ namespace StudentManagement.Objects
         public Guid IdSubjectClass { get => _idSubjectClass; set => _idSubjectClass = value; }
         public string Content { get => _content; set => _content = value; }
 
-        public FileInfo(Guid? id, string name, Guid publisherId, string publisher, string content, DateTime? uploadTime, long? size, Guid? folderId, string folderName)
+        public FileInfo(Guid? id, string name, Guid publisherId, string publisher, string content, DateTime? uploadTime, long? size, Guid? folderId, string folderName, Guid idSubjectClass)
         {
             Id = id;
             Name = name;
@@ -46,6 +46,7 @@ namespace StudentManagement.Objects
             Size = size;
             FolderId = folderId;
             FolderName = folderName;
+            IdSubjectClass = idSubjectClass;
         }
     }
 }

@@ -35,7 +35,17 @@ namespace StudentManagement.Services
 
         public FileInfo ConvertDocumentToFileInfo(Document doc)
         {
-            return new FileInfo(doc.Id, doc.DisplayName, Guid.NewGuid(), doc.User.DisplayName, doc.Content, doc.CreatedAt, doc.Size, doc.IdFolder, doc.Folder.DisplayName);
+            return new FileInfo(doc.Id, doc.DisplayName, Guid.NewGuid(), doc.User.DisplayName, doc.Content, doc.CreatedAt, doc.Size, doc.IdFolder, doc.Folder.DisplayName, doc.IdSubjectClass);
+        }
+
+        public Folder ConvertFileInfoToFolder(FileInfo file)
+        {
+            return new Folder()
+            {
+                Id = (Guid)file.FolderId,
+                DisplayName = file.FolderName,
+                IdSubjectClass = file.IdSubjectClass
+            };
         }
 
         #endregion Convert
@@ -45,6 +55,13 @@ namespace StudentManagement.Services
         public async Task<int> SaveFileOfSubjectClassToDatabase(FileInfo file)
         {
             DataProvider.Instance.Database.Documents.Add(ConvertFileInfoToDocument(file));
+            return await DataProvider.Instance.Database.SaveChangesAsync();
+        }
+
+        public async Task<int> SaveFolderOfSubjectClassToDatabase(FileInfo file)
+        {
+
+            DataProvider.Instance.Database.Folders.Add(ConvertFileInfoToFolder(file));
             return await DataProvider.Instance.Database.SaveChangesAsync();
         }
 
@@ -73,5 +90,9 @@ namespace StudentManagement.Services
         }
 
         #endregion Read
+
+        #region Delete
+
+        #endregion
     }
 }
