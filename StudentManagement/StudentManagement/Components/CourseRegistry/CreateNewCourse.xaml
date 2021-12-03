@@ -173,17 +173,8 @@
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Nhập tiết (Vd: 8910)"
                                     AcceptsReturn="False"
-                                    Text="{Binding Period, UpdateSourceTrigger=PropertyChanged}">
-                                    <TextBox.Style>
-                                        <Style BasedOn="{StaticResource textbox_item}" TargetType="TextBox">
-                                            <Style.Triggers>
-                                                <Trigger Property="Validation.HasError" Value="True">
-                                                    <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBox.Style>
-                                </TextBox>
+                                    Style="{StaticResource textbox_item}"
+                                    Text="{Binding Period, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             </Grid>
                             <Grid Style="{StaticResource text_grid_item}">
                                 <Grid.RowDefinitions>
@@ -260,6 +251,7 @@
                                                                 <Condition Binding="{Binding Period, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNumericConverter}}" Value="True" />
                                                                 <Condition Binding="{Binding ElementName=dpStart, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
                                                                 <Condition Binding="{Binding ElementName=dpEnd, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={utils:IsNullConverter}}" Value="False" />
+                                                                <Condition Binding="{Binding CanConfirm, UpdateSourceTrigger=PropertyChanged}" Value="True" />
                                                             </MultiDataTrigger.Conditions>
                                                             <Setter Property="IsEnabled" Value="True" />
                                                         </MultiDataTrigger>
@@ -275,7 +267,6 @@
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
                                                     <i:InvokeCommandAction Command="{Binding ConfirmCommand}" />
-                                                    <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </Button>

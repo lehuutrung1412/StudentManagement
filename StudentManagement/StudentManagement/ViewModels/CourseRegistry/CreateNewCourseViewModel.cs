@@ -16,17 +16,25 @@ using static StudentManagement.ViewModels.StudentCourseRegistryViewModel;
 
 namespace StudentManagement.ViewModels
 {
-    public class CreateNewCourseViewModel : BaseViewModel
+    public class CreateNewCourseViewModel : BaseViewModel, INotifyDataErrorInfo
     {
-        #region error
+        #region Validation
         private readonly ErrorBaseViewModel _errorBaseViewModel;
-        public bool HasErrors => _errorBaseViewModel.HasErrors;
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        public bool CanConfirm => !HasErrors;
+        public bool HasErrors => _errorBaseViewModel.HasErrors;
+
         public IEnumerable GetErrors(string propertyName)
         {
             return _errorBaseViewModel.GetErrors(propertyName);
         }
-        #endregion
+
+        private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(this, e);
+            OnPropertyChanged(nameof(CanConfirm));
+        }
+        #endregion Validation
         #region properties
         private SubjectClass _currentCard;
         public SubjectClass CurrentCard { get => _currentCard; set => _currentCard = value; }
@@ -59,15 +67,28 @@ namespace StudentManagement.ViewModels
                 UpdateSubjectClassCode(); 
                 } }
         public TrainingForm SelectedTF { get => _selectedTF; set { _selectedTF = value; OnPropertyChanged(); /*UpdateSubjectClassCode();*/ } }
-        public string Period { get => _period; set{ 
-                _period = value; 
+        public string Period
+        {
+            get => _period;
+            set
+            {
+                _period = value;
+
+                // Validation
                 _errorBaseViewModel.ClearErrors();
-                if (!IsValid(Period))
+
+                if (string.IsNullOrWhiteSpace(Period))
                 {
-                    _errorBaseViewModel.AddError(nameof(Period), "Vui lòng nhập tiết!");
+                    _errorBaseViewModel.AddError(nameof(Period), "Vui lòng nhập tiết học!");
+                }
+
+                if (!SubjectClassServices.Instance.IsValidPeriod(Period))
+                {
+                    _errorBaseViewModel.AddError(nameof(Period), "Tiết học không hợp lệ!");
                 }
                 OnPropertyChanged();
-            } }
+            }
+        }
         public string SelectedDay { get => _selectedDay; set{ 
                 _selectedDay = value; 
                 _errorBaseViewModel.ClearErrors();
@@ -76,11 +97,74 @@ namespace StudentManagement.ViewModels
                     _errorBaseViewModel.AddError(nameof(Period), "Vui lòng chọn thứ!");
                 }
                 OnPropertyChanged();} }
-        public string MaxNumber { get => _maxNumber; set{ _maxNumber = value; OnPropertyChanged();} }
+        public string MaxNumber
+        {
+            get => _maxNumber;
+            set
+            {
+                _maxNumber = value;
+
+                // Validation
+                _errorBaseViewModel.ClearErrors();
+
+                if (string.IsNullOrWhiteSpace(MaxNumber))
+                {
+                    _errorBaseViewModel.AddError(nameof(MaxNumber), "Vui lòng nhập sĩ số tối đa!");
+                }
+                int tempTryParse;
+                if (!int.TryParse(MaxNumber, out tempTryParse) || tempTryParse<0)
+                {
+                    _errorBaseViewModel.AddError(nameof(MaxNumber), "Giá trị phải là số nguyên dương!");
+                }
+                OnPropertyChanged();
+            }
+        }
         public string SubjectClassCode { get => _subjectClassCode; set{ _subjectClassCode = value; OnPropertyChanged();} }
 
-        public DateTime? StartDate { get => _startDate; set { _startDate = value; OnPropertyChanged(); } }
-        public DateTime? EndDate { get => _endDate; set { _endDate = value; OnPropertyChanged(); } }
+        public DateTime? StartDate 
+        { 
+            get => _startDate; 
+            set 
+            { 
+                _startDate = value;
+
+                //Validation
+                _errorBaseViewModel.ClearErrors();
+                _errorBaseViewModel.ClearErrors(nameof(EndDate));
+
+                if (!StartDate.HasValue)
+                {
+                    _errorBaseViewModel.AddError(nameof(StartDate), "Vui lòng chọn ngày bắt đầu!");
+                }
+                if (StartDate > EndDate)
+                {
+                    _errorBaseViewModel.AddError(nameof(StartDate), "Ngày bắt đầu không được trễ hơn ngày kết thúc");
+                }
+                OnPropertyChanged(); 
+            } 
+        }
+        public DateTime? EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+
+                //Validation
+                _errorBaseViewModel.ClearErrors();
+                _errorBaseViewModel.ClearErrors(nameof(StartDate));
+
+                if (!EndDate.HasValue)
+                {
+                    _errorBaseViewModel.AddError(nameof(EndDate), "Vui lòng chọn ngày kết thúc!");
+                }
+                if (StartDate > EndDate)
+                {
+                    _errorBaseViewModel.AddError(nameof(EndDate), "Ngày kết thúc không được sớm hơn ngày bắt đầu");
+                }
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region command
@@ -88,14 +172,15 @@ namespace StudentManagement.ViewModels
         #endregion
         public CreateNewCourseViewModel(SubjectClass card, Semester semester, ObservableCollection<CourseItem> list)
         {
+            _errorBaseViewModel = new ErrorBaseViewModel();
+            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+
             CurrentCard = card;
             Semester = semester;
             Courses = list;
             SubjectClassCode = "x.x.x";
             InitCombobox();
             InitCommand();
-            _errorBaseViewModel = new ErrorBaseViewModel();
-            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
         }
         #region methods
         public void InitCombobox()
@@ -112,6 +197,22 @@ namespace StudentManagement.ViewModels
 
         public void Confirm()
         {
+            //Validation
+
+            /*_errorBaseViewModel.ClearErrors(nameof(Period));
+            _errorBaseViewModel.ClearErrors(nameof(StartDate));
+            _errorBaseViewModel.ClearErrors(nameof(EndDate));
+            if (!SubjectClassServices.Instance.IsValidPeriod(Period))
+            {
+                _errorBaseViewModel.AddError(nameof(Period), "Tiết học không hợp lệ!");
+            }
+            if (StartDate > EndDate)
+            {
+                _errorBaseViewModel.AddError(nameof(EndDate), "Ngày kết thúc không được sớm hơn ngày bắt đầu");
+            }
+            if (_errorBaseViewModel.HasErrors)
+                return;*/
+
             var newCourse = new SubjectClass()
             {
                 Id = Guid.NewGuid(),
@@ -146,10 +247,6 @@ namespace StudentManagement.ViewModels
 
             int indexCourse = (Courses == null)? 1 : Courses.Where(course => course.Subject.DisplayName == SelectedSubject.DisplayName).Count() + 1;
             SubjectClassCode += Convert.ToString(indexCourse);
-        }
-        private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
-        {
-            ErrorsChanged?.Invoke(this, e);
         }
         private bool IsValid(string propertyName)
         {
