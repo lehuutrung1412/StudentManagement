@@ -34,7 +34,6 @@ namespace StudentManagement.ViewModels
         public ICommand DeleteFile { get; set; }
         public ICommand DeleteFolder { get; set; }
         public ICommand SearchFile { get; set; }
-        public ICommand ShowFolderInfo { get; set; }
         public ICommand RenameFolder { get; set; }
         public ICommand SubmitFolderName { get; set; }
 
@@ -98,10 +97,8 @@ namespace StudentManagement.ViewModels
             CreateFolder = new RelayCommand<object>((p) => true, (p) => CreateFolderFunction());
             DeleteFolder = new RelayCommand<object>((p) => true, (p) => DeleteFolderFunction(p));
             SearchFile = new RelayCommand<object>((p) => true, (p) => SearchFileFunction());
-            ShowFolderInfo = new RelayCommand<object>((p) => { return true; }, (p) => ShowFolderInfoFunction(p));
             RenameFolder = new RelayCommand<object>((p) => true, (p) => RenameFolderFunction(p));
             SubmitFolderName = new RelayCommand<object>((p) => true, (p) => SubmitFolderNameFunction());
-
         }
 
         private void FirstLoadDataFromDatabase()
@@ -158,11 +155,6 @@ namespace StudentManagement.ViewModels
                 FolderEditingId = (Guid?)collectionViewGroup.Name;
         }
 
-        private void ShowFolderInfoFunction(object p)
-        {
-            MyMessageBox.Show("Oke");
-        }
-
         private void BindingFileData_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             BindingDataToView();
@@ -189,11 +181,14 @@ namespace StudentManagement.ViewModels
                     VietnameseStringNormalizer.Instance.Normalize(file.FolderName)
                     .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery))
             );
-            BindingFileData.Clear();
-            foreach (var item in searchResult)
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                BindingFileData.Add(item);
-            }
+                BindingFileData.Clear();
+                foreach (var item in searchResult)
+                {
+                    BindingFileData.Add(item);
+                }
+            });
         }
 
         private async void DeleteFolderFunction(object parameter)
@@ -217,18 +212,15 @@ namespace StudentManagement.ViewModels
                             FileInfo fileInfo = item as FileInfo;
                             FileInfo fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId);
                             FileData.Remove(fileToBeDeleted);
+                            if (fileInfo.Id == null)
+                            {
+                                return;
+                            }
                             listOfTasks.Add(FileServices.Instance.DeleteFileAsync(fileToBeDeleted));
                         });
 
                         await Task.WhenAll(listOfTasks);
                         await FileServices.Instance.DeleteFolderAsync(folderToDeleted);
-                        //foreach (var item in collection)
-                        //{
-                        //    FileInfo fileInfo = item as FileInfo;
-                        //    FileInfo fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId);
-                        //    FileData.Remove(fileToBeDeleted);
-                        //    await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
-                        //}
                     }
                 }
             }
@@ -241,7 +233,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public async void DeleteFileFunction(object parameter)
+        public void DeleteFileFunction(object parameter)
         {
             try
             {
@@ -259,8 +251,8 @@ namespace StudentManagement.ViewModels
                                           MessageBoxImage.Question);
                     if (userResponse == MessageBoxResult.OK)
                     {
-                        foreach (var item in collection)
-                        {
+                        List<Task<int>> listOfTasks = new List<Task<int>>();
+                        Parallel.ForEach(collection, async item => {
                             if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
                             {
                                 FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, idSubjectClass));
@@ -268,7 +260,17 @@ namespace StudentManagement.ViewModels
                             var fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId);
                             await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
                             FileData.Remove(fileToBeDeleted);
-                        }
+                        });
+                        //foreach (var item in collection)
+                        //{
+                        //    if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
+                        //    {
+                        //        FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, idSubjectClass));
+                        //    }
+                        //    var fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId);
+                        //    await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
+                        //    FileData.Remove(fileToBeDeleted);
+                        //}
                     }
                 }
             }
@@ -309,10 +311,10 @@ namespace StudentManagement.ViewModels
                                          size: 0,
                                          folderId: Guid.NewGuid(),
                                          folderName: NewFolderName,
-                                         idSubjectClass: idSubjectClass);
+                                         idSubjectClass: idSubjectClass); 
+                await FileServices.Instance.SaveFolderOfSubjectClassToDatabaseAsync(newFolder);
                 FileData.Add(newFolder);
                 NewFolderName = null;
-                await FileServices.Instance.SaveFolderOfSubjectClassToDatabaseAsync(newFolder);
             }
             catch (Exception)
             {

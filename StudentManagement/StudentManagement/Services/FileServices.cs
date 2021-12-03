@@ -128,6 +128,12 @@ namespace StudentManagement.Services
             return await db().SaveChangesAsync();
         }
 
+        public async Task<int> UpdateFileAsync(FileInfo file)
+        {
+            db().Documents.AddOrUpdate(ConvertFileInfoToDocument(file));
+            return await db().SaveChangesAsync();
+        }
+
         #endregion
 
         #region Delete
@@ -141,7 +147,8 @@ namespace StudentManagement.Services
 
         public async Task<int> DeleteFolderAsync(FileInfo file)
         {
-            db().Folders.Remove(ConvertFileInfoToFolder(file));
+            var folder = db().Folders.FirstOrDefault(fd => fd.Id == file.FolderId);
+            db().Folders.Remove(folder);
             return await db().SaveChangesAsync();
         }
 

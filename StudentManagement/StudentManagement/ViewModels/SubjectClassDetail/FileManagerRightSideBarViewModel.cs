@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,10 +60,21 @@ namespace StudentManagement.ViewModels
             IsEditing = false;
         }
 
-        private void EditCurrentFileFunction()
+        private async void EditCurrentFileFunction()
         {
-            CurrentName = CurrentFile.Name;
-            IsEditing = !IsEditing;
+            try
+            {
+                CurrentName = CurrentFile.Name;
+                if (IsEditing)
+                {
+                    await FileServices.Instance.UpdateFileAsync(CurrentFile);
+                }
+                IsEditing = !IsEditing;
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Vui lòng thử lại sau!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
 
         private void DeleteCurrentFileFunction()
