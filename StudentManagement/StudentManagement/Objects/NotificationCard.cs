@@ -15,7 +15,8 @@ namespace StudentManagement.Objects
         private DateTime _time;
         private string _type;
         private bool _status;
-
+        
+        public NotificationCard() { }
         public NotificationCard(Guid id, string poster, string type, string content, string topic, DateTime time)
         {
             Id = id;

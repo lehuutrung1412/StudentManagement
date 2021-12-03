@@ -37,6 +37,11 @@ namespace StudentManagement.Models
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Faculty_TrainingForm> Faculty_TrainingForm { get; set; }
         public DbSet<Folder> Folders { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationComment> NotificationComments { get; set; }
+        public DbSet<NotificationImage> NotificationImages { get; set; }
+        public DbSet<NotificationInfo> NotificationInfoes { get; set; }
+        public DbSet<NotificationType> NotificationTypes { get; set; }
         public DbSet<Semester> Semesters { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudyResult> StudyResults { get; set; }

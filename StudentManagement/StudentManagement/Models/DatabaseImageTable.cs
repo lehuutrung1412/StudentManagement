@@ -18,6 +18,7 @@ namespace StudentManagement.Models
         public DatabaseImageTable()
         {
             this.Classes = new HashSet<Class>();
+            this.NotificationImages = new HashSet<NotificationImage>();
             this.SubjectClasses = new HashSet<SubjectClass>();
             this.Users = new HashSet<User>();
         }
@@ -28,6 +29,7 @@ namespace StudentManagement.Models
         public byte[] Image { get => _image; set { _image = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Class> Classes { get; set; }
+        public virtual ICollection<NotificationImage> NotificationImages { get; set; }
         public virtual ICollection<SubjectClass> SubjectClasses { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }

@@ -14,7 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -338,6 +339,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Notification.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationComment.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationImage.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationInfo.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationType.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Semester.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -394,6 +410,7 @@
     <Compile Include="Services\FacultyServies.cs" />
     <Compile Include="Services\Faculty_TrainingFormServices.cs" />
     <Compile Include="Services\InfoItemServices.cs" />
+    <Compile Include="Services\NotificationServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Services\StudentServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />
