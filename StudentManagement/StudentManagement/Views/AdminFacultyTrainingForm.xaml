@@ -24,7 +24,7 @@
     <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">-->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.05*" />
+            <RowDefinition Height="1.05*" MinHeight="200" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <materialDesign:Card
@@ -34,7 +34,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
                 <StackPanel>
                     <TextBlock
-                        Margin="16 16 16 0"
+                        Margin="16,16,16,0"
                         FontWeight="Bold"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                         Text="Danh sách hệ đào tạo" />
@@ -114,7 +114,7 @@
         <materialDesign:Card Grid.Row="1" Style="{StaticResource CardContainer}">
             <DockPanel>
                 <TextBlock
-                    Margin="16 16 16 0"
+                    Margin="16,16,16,0"
                     DockPanel.Dock="Top"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
