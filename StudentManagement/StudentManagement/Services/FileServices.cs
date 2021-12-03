@@ -14,6 +14,8 @@ namespace StudentManagement.Services
 
         public static FileServices Instance => s_instance ?? (s_instance = new FileServices());
 
+        public Func<StudentManagementEntities> db = () => DataProvider.Instance.Database;
+
         public FileServices() { }
 
         #region Convert
@@ -52,17 +54,17 @@ namespace StudentManagement.Services
 
         #region Create
 
-        public async Task<int> SaveFileOfSubjectClassToDatabase(FileInfo file)
+        public async Task<int> SaveFileOfSubjectClassToDatabaseAsync(FileInfo file)
         {
-            DataProvider.Instance.Database.Documents.Add(ConvertFileInfoToDocument(file));
-            return await DataProvider.Instance.Database.SaveChangesAsync();
+            db().Documents.Add(ConvertFileInfoToDocument(file));
+            return await db().SaveChangesAsync();
         }
 
-        public async Task<int> SaveFolderOfSubjectClassToDatabase(FileInfo file)
+        public async Task<int> SaveFolderOfSubjectClassToDatabaseAsync(FileInfo file)
         {
 
-            DataProvider.Instance.Database.Folders.Add(ConvertFileInfoToFolder(file));
-            return await DataProvider.Instance.Database.SaveChangesAsync();
+            db().Folders.Add(ConvertFileInfoToFolder(file));
+            return await db().SaveChangesAsync();
         }
 
         #endregion
@@ -71,12 +73,12 @@ namespace StudentManagement.Services
 
         public List<Document> GetListFilesOfSubjectClass(Guid? idSubjectClass)
         {
-            return DataProvider.Instance.Database.Documents.Where(file => file.IdSubjectClass == idSubjectClass).ToList();
+            return db().Documents.Where(file => file.IdSubjectClass == idSubjectClass).ToList();
         }
 
         public List<Folder> GetListFoldersOfSubjectClass(Guid? idSubjectClass)
         {
-            return DataProvider.Instance.Database.Folders.Where(folder => folder.IdSubjectClass == idSubjectClass).ToList();
+            return db().Folders.Where(folder => folder.IdSubjectClass == idSubjectClass).ToList();
         }
 
         public List<Folder> GetListFoldersHasFilesOfSubjectClass(Guid? idSubjectClass)
@@ -92,6 +94,19 @@ namespace StudentManagement.Services
         #endregion Read
 
         #region Delete
+
+        public async Task<int> DeleteFileAsync(FileInfo file)
+        {
+            var doc = db().Documents.FirstOrDefault(document => document.Id == file.Id);
+            db().Documents.Remove(doc);
+            return await db().SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteFolderAsync(FileInfo file)
+        {
+            db().Folders.Remove(ConvertFileInfoToFolder(file));
+            return await db().SaveChangesAsync();
+        }
 
         #endregion
     }

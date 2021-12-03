@@ -156,16 +156,30 @@ namespace StudentManagement.ViewModels
                     if (MyMessageBox.Show($"Tất cả {collectionViewGroup.ItemCount} tài liệu sẽ bị xóa." +
                                           $" Bạn có chắc chắn muốn xóa thư mục này không?",
                                           "Xóa thư mục",
-                                          System.Windows.MessageBoxButton.OKCancel,
-                                          System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.OK)
+                                          MessageBoxButton.OKCancel,
+                                          MessageBoxImage.Question) == MessageBoxResult.OK)
                     {
-                        foreach (var item in collectionViewGroup.Items.ToList())
+                        var collection = collectionViewGroup.Items.ToList();
+                        FileInfo folderToDeleted = new FileInfo((FileInfo)collection[0]);
+                        var listOfTasks = new List<Task<int>>();
+
+                        Parallel.ForEach(collection, item =>
                         {
                             FileInfo fileInfo = item as FileInfo;
                             FileInfo fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId);
                             FileData.Remove(fileToBeDeleted);
-                            
-                        }
+                            listOfTasks.Add(FileServices.Instance.DeleteFileAsync(fileToBeDeleted));
+                        });
+
+                        await Task.WhenAll(listOfTasks);
+                        await FileServices.Instance.DeleteFolderAsync(folderToDeleted);
+                        //foreach (var item in collection)
+                        //{
+                        //    FileInfo fileInfo = item as FileInfo;
+                        //    FileInfo fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == fileInfo.Id && file.FolderId == fileInfo.FolderId);
+                        //    FileData.Remove(fileToBeDeleted);
+                        //    await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
+                        //}
                     }
                 }
             }
@@ -178,7 +192,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public void DeleteFileFunction(object parameter)
+        public async void DeleteFileFunction(object parameter)
         {
             try
             {
@@ -202,7 +216,9 @@ namespace StudentManagement.ViewModels
                             {
                                 FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, idSubjectClass));
                             }
-                            FileData.Remove(FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId));
+                            var fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId);
+                            await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
+                            FileData.Remove(fileToBeDeleted);
                         }
                     }
                 }
@@ -247,7 +263,7 @@ namespace StudentManagement.ViewModels
                                          idSubjectClass: idSubjectClass);
                 FileData.Add(newFolder);
                 NewFolderName = null;
-                await FileServices.Instance.SaveFolderOfSubjectClassToDatabase(newFolder);
+                await FileServices.Instance.SaveFolderOfSubjectClassToDatabaseAsync(newFolder);
             }
             catch (Exception)
             {
@@ -350,7 +366,7 @@ namespace StudentManagement.ViewModels
                             if (newFile != null)
                             {
                                 FileData.Add(newFile);
-                                await FileServices.Instance.SaveFileOfSubjectClassToDatabase(newFile);
+                                await FileServices.Instance.SaveFileOfSubjectClassToDatabaseAsync(newFile);
                             }
 
                         }

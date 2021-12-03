@@ -48,5 +48,19 @@ namespace StudentManagement.Objects
             FolderName = folderName;
             IdSubjectClass = idSubjectClass;
         }
+
+        public FileInfo(FileInfo file)
+        {
+            Id = file.Id;
+            Name = file.Name;
+            PublisherId = file.PublisherId;
+            Publisher = file.Publisher;
+            Content = file.Content;
+            UploadTime = file.UploadTime;
+            Size = file.Size;
+            FolderId = file.FolderId;
+            FolderName = file.FolderName;
+            IdSubjectClass = file.IdSubjectClass;
+        }
     }
 }
