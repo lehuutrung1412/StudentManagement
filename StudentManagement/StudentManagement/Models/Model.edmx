@@ -153,6 +153,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IdNotification" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IdUserReceiver" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsRead" Type="bit" />
         </EntityType>
         <EntityType Name="NotificationType">
           <Key>
@@ -1550,6 +1551,7 @@
           <Property Name="IdUserReceiver" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Notification" Relationship="StudentManagementModel.FK__Notificat__IdNot__29221CFB" FromRole="NotificationInfo" ToRole="Notification" />
           <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Notificat__IdUse__2A164134" FromRole="NotificationInfo" ToRole="User" />
+          <Property Name="IsRead" Type="Boolean" />
         </EntityType>
         <EntityType Name="NotificationType">
           <Key>
@@ -2484,6 +2486,7 @@
           <EntitySetMapping Name="NotificationInfoes">
             <EntityTypeMapping TypeName="StudentManagementModel.NotificationInfo">
               <MappingFragment StoreEntitySet="NotificationInfo">
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
                 <ScalarProperty Name="IdUserReceiver" ColumnName="IdUserReceiver" />
                 <ScalarProperty Name="IdNotification" ColumnName="IdNotification" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

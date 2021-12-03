@@ -74,7 +74,7 @@
                         materialDesign:HintAssist.Hint="Nhập mã môn học"
                         IsEnabled="False"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.Poster, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding CurrentCard.IdPoster, Converter={utils:ConverterDisplayNameFromIdUser}}" />
                 </Grid>
 
 

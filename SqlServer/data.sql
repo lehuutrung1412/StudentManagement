@@ -1,5 +1,5 @@
 -- USE TEMP
--- DROP DATABASE StudentManagement
+ --DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -300,6 +300,43 @@ CREATE TABLE DatabaseImageTable
 )
 GO
 
+CREATE TABLE Notification
+(
+	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+	Topic NVARCHAR(MAX),
+	Content NVARCHAR(MAX),
+	Time DateTime,
+	IdNotificationType UNIQUEIDENTIFIER,
+	IdPoster UNIQUEIDENTIFIER NOT NULL,
+	IdSubjectClass UNIQUEIDENTIFIER,	
+)
+CREATE TABLE NotificationType
+(
+	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+	Content NVARCHAR(MAX),
+)
+CREATE TABLE NotificationInfo
+(
+	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+	IdNotification UNIQUEIDENTIFIER NOT NULL,
+	IdUserReceiver UNIQUEIDENTIFIER NOT NULL,
+	IsRead BIT DEFAULT 0, 
+)
+CREATE TABLE NotificationComment
+(
+	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+	IdUserComment UNIQUEIDENTIFIER NOT NULL,
+	IdNotification UNIQUEIDENTIFIER NOT NULL,
+	Content NVARCHAR(MAX),
+	Time DateTime,
+)
+CREATE TABLE NotificationImages
+(
+	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+	IdNotification UNIQUEIDENTIFIER NOT NULL,
+	IdDatabaseImageTable UNIQUEIDENTIFIER NOT NULL,
+)
+
 
 
 -- foreign key
@@ -426,6 +463,32 @@ ALTER TABLE AbsentCalendar ADD
 FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id)
 GO
 
+ALTER TABLE Notification ADD
+FOREIGN KEY (IdPoster) REFERENCES Users(Id),
+FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id)
+GO
+
+ALTER TABLE Notification ADD
+FOREIGN KEY (IdPoster) REFERENCES Users(Id),
+FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id),
+FOREIGN KEY (IdNotificationType) REFERENCES NotificationType(Id)
+GO
+
+ALTER TABLE NotificationInfo ADD
+FOREIGN KEY (IdNotification) REFERENCES Notification(Id),
+FOREIGN KEY (IdUserReceiver) REFERENCES Users(Id)
+GO
+
+ALTER TABLE NotificationComment ADD
+FOREIGN KEY (IdUserComment) REFERENCES Users(Id),
+FOREIGN KEY (IdNotification) REFERENCES Notification(Id)
+GO
+
+
+ALTER TABLE NotificationImages ADD
+FOREIGN KEY (IdNotification) REFERENCES Notification(Id),
+FOREIGN KEY (IdDatabaseImageTable) REFERENCES DatabaseImageTable(Id)
+GO
 
 
 --INSERT
@@ -455,11 +518,25 @@ VALUES
   (N'Admin')
 GO
 
+INSERT INTO dbo.NotificationType
+  (Content)
+VALUES
+  (N'Thông báo chung'),
+  (N'Thông báo sinh viên'),
+  (N'Thông báo giáo viên'),
+  (N'Thông báo Admin')
+GO
+
+--INSERT INTO DatabaseImageTable
+--  (Image)
+--values
+--  ( (SELECT *
+--    FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
 INSERT INTO DatabaseImageTable
   (Image)
 values
   ( (SELECT *
-    FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
+    FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
 INSERT INTO Faculty
   (DisplayName)
 values(N'TestFaculty')
@@ -509,9 +586,8 @@ from Faculty
 INSERT INTO dbo.DatabaseImageTable
   (Id ,Image)
 -- SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C',* FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1002.jpg', SINGLE_BLOB) rs
-SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C', *
-FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
-
+--SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C', *FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
+SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C', *FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) rs
 INSERT INTO dbo.TrainingForm
   (Id, DisplayName)
 VALUES

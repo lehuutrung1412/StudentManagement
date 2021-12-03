@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0f6e297b41a24231a98ff12ac1ffbeb4" Name="Diagram1" ZoomLevel="51">
+      <Diagram DiagramId="0f6e297b41a24231a98ff12ac1ffbeb4" Name="Diagram1" ZoomLevel="98">
         <EntityTypeShape EntityType="StudentManagementModel.AbsentCalendar" Width="1.5" PointX="5.25" PointY="31.5" />
         <EntityTypeShape EntityType="StudentManagementModel.Admin" Width="1.5" PointX="5.25" PointY="10.375" />
         <EntityTypeShape EntityType="StudentManagementModel.Class" Width="1.5" PointX="3" PointY="27.5" />

@@ -25,5 +25,10 @@ namespace StudentManagement.Services
             User a = DataProvider.Instance.Database.Users.Where(user=>user.Id==id).FirstOrDefault();
             return a;
         }
+        public string GetDisplayNameById(Guid id)
+        {
+            var user = GetUserById(id);
+            return user.DisplayName;
+        }
     }
 }

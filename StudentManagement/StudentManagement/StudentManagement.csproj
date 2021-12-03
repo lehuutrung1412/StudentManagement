@@ -411,6 +411,7 @@
     <Compile Include="Services\Faculty_TrainingFormServices.cs" />
     <Compile Include="Services\InfoItemServices.cs" />
     <Compile Include="Services\NotificationServices.cs" />
+    <Compile Include="Services\NotificationTypeServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Services\StudentServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />
@@ -420,6 +421,7 @@
     <Compile Include="Services\TrainingFormServices.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
     <Compile Include="Utils\BindingProxy.cs" />
+    <Compile Include="Utils\ConverterDisplayNameFromIdUser.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\FileSizeConverter.cs" />

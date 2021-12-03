@@ -131,7 +131,7 @@ namespace StudentManagement.ViewModels
                 if (AdminNotificationVM.RealCards.Where(x => x.Id == CurrentCard.Id).Count() == 0)
                     AdminNotificationVM.RealCards.Insert(0, CurrentCard);
             AdminNotificationVM.NumCardInBadged += 1;
-            NotificationServices.Instance.AddNotificationByNotificationCardAndUser(CurrentCard, DataProvider.Instance.Database.Users.FirstOrDefault().Id);
+            NotificationServices.Instance.AddNotificationByNotificationCard(CurrentCard);
         }
         #endregion
     }

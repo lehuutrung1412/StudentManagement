@@ -83,7 +83,7 @@
                                     FontSize="14"
                                     FontWeight="SemiBold"
                                     Foreground="Gray"
-                                    Text="{Binding Poster, FallbackValue='Chủ đề'}" />
+                                    Text="{Binding IdPoster, FallbackValue='Người đăng',Converter={utils:ConverterDisplayNameFromIdUser}}" />
                                 <Run
                                     FontSize="12"
                                     Foreground="Gray"

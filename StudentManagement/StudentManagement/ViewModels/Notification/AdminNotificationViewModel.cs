@@ -143,7 +143,7 @@ namespace StudentManagement.ViewModels
             Thread.CurrentThread.CurrentCulture = ci;
 
             Instance = this;
-            Type = new ObservableCollection<string>() { "Thông báo chung", "Thông báo sinh viên", "Thông báo giáo viên" };
+            Type = NotificationTypeServices.Instance.GetListNotificationType();
             TypeInMain = new ObservableCollection<string>(Type);
             TypeInMain.Add("Tất cả");
             SearchInfo = "";
@@ -215,9 +215,9 @@ namespace StudentManagement.ViewModels
                 return;
             var card = p.DataContext as NotificationCard;
             IsOpen = true;
-            card.Status = true;
             this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
             this.DialogItemViewModel = this._showDetailNotificationViewModel;
+            card.Status = true;
         }
      
         public void Search()
@@ -263,11 +263,12 @@ namespace StudentManagement.ViewModels
             var tmp = Cards.Where(x => x.Id == AdminNotificationRightSideBarVM.CurrentCard.Id).FirstOrDefault();
             Cards.Remove(tmp);
             RealCards.Remove(tmp);
+            NotificationServices.Instance.DeleteNotificationByNotificationCard(tmp);
         }
 
         public void CreateNewNotification()
         {
-            var card = new NotificationCard(Guid.NewGuid(), DataProvider.Instance.Database.Users.FirstOrDefault().Username, "", "", "", DateTime.Now);
+            var card = new NotificationCard(Guid.NewGuid(), DataProvider.Instance.Database.Users.FirstOrDefault().Id, "", "", "", DateTime.Now);
             this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
             this.DialogItemViewModel = this._creatNewNotificationViewModel;
         }  
