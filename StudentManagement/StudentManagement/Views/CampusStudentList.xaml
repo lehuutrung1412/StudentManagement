@@ -11,7 +11,7 @@
     d:DesignHeight="617"
     d:DesignWidth="746"
     Background="{StaticResource CenterColumn}"
-    DataContext="{DynamicResource AdminStudentListVM}"
+    DataContext="{DynamicResource CampusStudentListVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -70,14 +70,15 @@
                         Margin="16,0,16,0"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Background="#ff0000"
+                        Command="{Binding AddStudentList}"
                         ToolTip="MaterialDesignRaisedLightButton with Round Corners">
-                        <TextBlock Text="Xóa sinh viên" />
+                        <TextBlock Text="Thêm sinh viên từ file" />
                     </Button>
                 </Grid>
             </Grid>
 
             <Grid Grid.Row="1">
-                <ItemsControl ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ItemsControl ItemsSource="{Binding FindNameData, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel HorizontalAlignment="Center" />
@@ -85,7 +86,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <component:NotificationCard Margin="16,5,16,5" HorizontalAlignment="Stretch" />
+                            <component:StudentInfoCard Margin="16,5,16,5" HorizontalAlignment="Stretch" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

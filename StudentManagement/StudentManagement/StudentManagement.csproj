@@ -115,9 +115,6 @@
     <Compile Include="Components\CampusStudentList\StudentInfoCard.xaml.cs">
       <DependentUpon>StudentInfoCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\SubjectClassDetail\StudentListPieChart.xaml.cs">
-      <DependentUpon>StudentListPieChart.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Components\SubjectClassDetail\StudentListRightSideBarItemEdit.xaml.cs">
       <DependentUpon>StudentListRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
@@ -554,10 +551,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\CampusStudentList\StudentInfoCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\SubjectClassDetail\StudentListPieChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

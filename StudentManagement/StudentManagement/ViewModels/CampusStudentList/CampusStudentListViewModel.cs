@@ -1,16 +1,19 @@
-﻿using StudentManagement.Commands;
+﻿using ExcelDataReader;
+using StudentManagement.Commands;
 using StudentManagement.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Student = StudentManagement.ViewModels.AdminStudentListViewModel.Student;
 
@@ -40,6 +43,8 @@ namespace StudentManagement.ViewModels
         }
 
         public ICommand SearchName { get; set; }
+        public ICommand AddStudent { get; set; }
+        public ICommand AddStudentList { get; set; }
 
         private ObservableCollection<Score> _studentScore;
         public ObservableCollection<Score> StudentScore
@@ -62,6 +67,8 @@ namespace StudentManagement.ViewModels
             FindNameData = new ObservableCollection<Student>(StudentDatabase);
 
             SearchName = new RelayCommand<object>((p) => true, (p) => SearchNameFunction());
+            AddStudent = new RelayCommand<object>((p) => true, (p) => AddStudentFunction());
+            AddStudentList = new RelayCommand<object>((p) => true, (p) => AddStudentListFunction());
         }
 
         void SearchNameFunction()
@@ -87,5 +94,46 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        void AddStudentFunction()
+        {
+
+        }
+
+        DataTableCollection dataSheets;
+        void AddStudentListFunction()
+        {
+            using (OpenFileDialog op = new OpenFileDialog() { Filter = "Excel|*.xls;*.xlsx;" })
+            {
+                if (op.ShowDialog() == DialogResult.OK)
+                {
+                    using (var stream = File.Open(op.FileName, FileMode.Open, FileAccess.Read))
+                    {
+                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                        {
+                            DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                            {
+                                ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                            });
+                            dataSheets = result.Tables;
+                        }
+                    }
+                    DataTable data = dataSheets[0];
+
+                    foreach (DataRow student in data.Rows)
+                    {
+                        var item = new Student
+                        {
+                            IDStudent = Convert.ToString(student[0]),
+                            NameStudent = Convert.ToString(student[1]),
+                            Faculty = Convert.ToString(student[2]),
+                            Training = Convert.ToString(student[3])
+                        };
+
+                        StudentDatabase.Add(item);
+
+                    }
+                }
+            }
+        }
     }
 }

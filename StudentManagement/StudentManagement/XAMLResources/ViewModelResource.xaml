@@ -27,4 +27,5 @@
     <viewmodel:StudentListRightSideBarViewModel x:Key="StudentListRightSideBarVM" />
     <viewmodel:SettingUserInfoViewModel x:Key="SettingUserInfoVM" />
     <viewmodel:AdminCourseRegistryRightSideBarViewModel x:Key="AdminCourseRegistryRightSideBarVM" />
+    <viewmodel:CampusStudentListViewModel x:Key="CampusStudentListVM" />
 </ResourceDictionary>

@@ -38,7 +38,7 @@
                 HorizontalAlignment="Stretch"
                 Panel.ZIndex="2"
                 materialDesign:ShadowAssist.ShadowDepth="Depth4"
-                Foreground="Black">
+                Foreground="Black" Click="btnNotification_Click">
                 <Button.Style>
                     <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
                         <Style.Triggers>
