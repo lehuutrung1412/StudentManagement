@@ -3,6 +3,7 @@ using StudentManagement.Objects;
 using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -66,7 +67,23 @@ namespace StudentManagement.ViewModels
             dialog.FileName = CurrentFile.Name;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                FileUploader.Instance.DownloadFileAsync(CurrentFile.Content, dialog.FileName);
+                try
+                {
+                    FileUploader.Instance.DownloadFileAsync(CurrentFile.Content, dialog.FileName);
+                }
+                catch (Exception)
+                {
+                    MyMessageBox.Show("Server hiện đang bận! Vui lòng thử lại sau!", "Không thể tải tài liệu", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
+                try
+                {
+                    Process.Start("explorer.exe", Path.GetDirectoryName(dialog.FileName));
+                }
+                catch (Exception)
+                {
+                    MyMessageBox.Show("Đường dẫn không tồn tại!", "Không thể mở tài liệu", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
+                
             }
         }
 
