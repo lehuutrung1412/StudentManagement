@@ -186,5 +186,11 @@ namespace StudentManagement.Services
             user_UserRole_UserInfo.Content = Convert.ToString(infoItem.Value);
             DataProvider.Instance.Database.SaveChanges();
         }
+        public void DeleteUserRole_UserInfo(InfoItem infoItem, string Roles)
+        {
+            var userRole_UserInfo = FindUserRole_UserInfoByInfoItemAndRole(infoItem, Roles);
+            userRole_UserInfo.IsDeleted = true;
+            DataProvider.Instance.Database.SaveChanges();
+        }
     }
 }

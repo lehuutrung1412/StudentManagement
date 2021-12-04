@@ -30,6 +30,10 @@ namespace StudentManagement.ViewModels
         private string _typeControl;
         private bool _isEnable;
 
+        public ICommand DeleteInfoItemCommand { get => _deleteInfoItemCommand; set => _deleteInfoItemCommand = value; }
+
+        private ICommand _deleteInfoItemCommand;
+
         public ICommand DeleteItemCommand { get => _deleteItemCommand; set => _deleteItemCommand = value; }
 
         private ICommand _deleteItemCommand;
@@ -53,6 +57,15 @@ namespace StudentManagement.ViewModels
             AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
             DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
             UpdateInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateInfoItem());
+            DeleteInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteInfoItem());
+        }
+        public void DeleteInfoItem()
+        {
+            if (MyMessageBox.Show("Bạn có chắc xoá trường thông tin này: ", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.Yes)
+                return;
+            InfoItemServices.Instance.DeleteUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
+            UserInfoViewModel.Instance.LoadInfoSource();
+            SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
         }
         public void UpdateInfoItem()
         {

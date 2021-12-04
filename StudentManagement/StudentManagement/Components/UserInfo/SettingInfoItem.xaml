@@ -30,7 +30,7 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
             Header="{Binding InfoItem.LabelName}">
-            <Grid >
+            <Grid>
                 <ContentControl>
 
                     <!--<ContentControl.Resources>
@@ -39,12 +39,22 @@
                         </DataTemplate>
                     </ContentControl.Resources>-->
                     <component:EditInfoItemInSetting MinWidth="600" DataContext="{Binding EditInfoItemViewModel}" />
-                    
+
                 </ContentControl>
-                <Border Style="{StaticResource HorizontalDividerBorder}" VerticalAlignment="Bottom"/>
+                <Border VerticalAlignment="Bottom" Style="{StaticResource HorizontalDividerBorder}" />
             </Grid>
+            <Expander.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Command="{Binding DeleteInfoItemCommand}"
+                        DataContext="{Binding EditInfoItemViewModel}"
+                        Foreground="{StaticResource ErrorMain}"
+                        Header="Xóa thư mục"
+                        Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
+                </ContextMenu>
+            </Expander.ContextMenu>
         </Expander>
     </Grid>
-        
-       
+
+
 </UserControl>
