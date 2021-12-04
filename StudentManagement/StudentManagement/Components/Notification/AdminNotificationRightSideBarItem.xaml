@@ -109,8 +109,7 @@
                 BorderThickness="0"
                 Command="{Binding Editnotification}"
                 DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
+                Foreground="#DD000000">
 
                 <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
@@ -125,6 +124,16 @@
                         HorizontalAlignment="Right"
                         Kind="Pencil" />
                 </Grid>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatLightButton}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IdUser, Converter={utils:CheckAdminConverter}, Source={StaticResource AdminNotificationVM}}" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button
                 x:Name="btnDelete"
@@ -132,8 +141,7 @@
                 BorderThickness="0"
                 Command="{Binding DeleteNotificationCommand}"
                 DataContext="{DynamicResource AdminNotificationVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
+                Foreground="#DD000000">
 
                 <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
                     <TextBlock
@@ -148,6 +156,16 @@
                         HorizontalAlignment="Right"
                         Kind="Eraser" />
                 </Grid>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatLightButton}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IdUser, Converter={utils:CheckAdminConverter}, Source={StaticResource AdminNotificationVM}}" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
         </StackPanel>
     </Grid>

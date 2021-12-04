@@ -63,8 +63,7 @@
                         <Button
                             Grid.Column="2"
                             Margin="16,0,0,0"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource PrimaryButton}">
+                            HorizontalAlignment="Right">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
@@ -76,6 +75,16 @@
                                 Text="Thêm thông báo"
                                 TextAlignment="Center"
                                 TextWrapping="Wrap" />
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IdUser, Converter={utils:CheckAdminConverter}}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
                     </Grid>
                     <DockPanel Margin="16,4,0,0">

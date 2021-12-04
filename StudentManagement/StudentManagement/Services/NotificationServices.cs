@@ -39,6 +39,19 @@ namespace StudentManagement.Services
             var notificationInfo = DataProvider.Instance.Database.NotificationInfoes.Where(notificationDetail => notificationDetail.IdUserReceiver == id && notificationDetail.IdNotification == idNotification).ToList();
             return notificationInfo;
         }
+
+        public ObservableCollection<NotificationCard> LoadNotificationInBadgeByIdUser(Guid idUser)
+        {
+            ObservableCollection<NotificationCard> cardInBadge = new ObservableCollection<NotificationCard>();
+            var notificationList = DataProvider.Instance.Database.NotificationInfoes.Where(notificationInfo => notificationInfo.IdUserReceiver == idUser).Select(notificationInfo => notificationInfo.Notification).ToList();
+            foreach (Notification notification in notificationList)
+            {
+                NotificationCard notificationCard = new NotificationCard(ConvertNotificationAndIdUserToNotificationCard(notification, idUser));
+                cardInBadge.Add(notificationCard);
+            }
+            return cardInBadge;
+        }
+
         public ObservableCollection<NotificationCard> LoadNotificationCardByUserId(Guid id)
         {
             ObservableCollection<NotificationCard> notificationCards = new ObservableCollection<NotificationCard>();

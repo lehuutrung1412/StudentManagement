@@ -167,12 +167,12 @@ namespace StudentManagement.ViewModels
             //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
             //};
-            IdUser = DataProvider.Instance.Database.Users.FirstOrDefault().Id;
+            IdUser = DataProvider.Instance.Database.Users.FirstOrDefault(user=>user.UserRole.Role.Contains("Giáo viên")).Id;
             Cards = NotificationServices.Instance.LoadNotificationCardByUserId(IdUser);
-            Cards.OrderBy(card => card.Time);
-            ReLoadCardInBadge();
-            NumCardInBadged = CardsInBadge.Where(notificationInfo=>notificationInfo.Status==false).ToList().Count;
+            Cards = new ObservableCollection<NotificationCard>(Cards.OrderByDescending(card => card.Time).ThenBy(card => card.Time.TimeOfDay));
             RealCards = new ObservableCollection<NotificationCard>(Cards.Select(card=>card));
+            CardsInBadge = NotificationServices.Instance.LoadNotificationInBadgeByIdUser(IdUser);
+            NumCardInBadged = CardsInBadge.Where(notificationInfo => notificationInfo.Status == false).ToList().Count;
             IsOpen = false;
             InitIcommand();
         }
@@ -190,21 +190,27 @@ namespace StudentManagement.ViewModels
             MarkAsReadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAsRead(p));
             DeleteNotificationInBadgeCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => DeleteNotificationCardInBadge(p));
         }
-        public void ReLoadCardInBadge()
-        {
-            CardsInBadge = new ObservableCollection<NotificationCard>();
-            if (UserServices.Instance.GetUserById(IdUser).UserRole.Role.Contains("Admin"))
-                Cards.Where(card => card.Type.Contains("Thông báo Admin") || card.Type.Contains("Thông báo chung")).ToList().ForEach(card => CardsInBadge.Add(card));
-            else
-                CardsInBadge = Cards;
-        }
+        //public void ReLoadCardInBadge()
+        //{
+        //    CardsInBadge = new ObservableCollection<NotificationCard>();
+        //    if (UserServices.Instance.GetUserById(IdUser).UserRole.Role.Contains("Admin"))
+        //        Cards.Where(card => card.Type.Contains("Thông báo Admin") || card.Type.Contains("Thông báo chung")).ToList().ForEach(card => CardsInBadge.Add(card));
+        //    else
+        //        CardsInBadge = Cards;
+        //}
         public void DeleteNotificationCardInBadge(UserControl p)
         {
             if (p.DataContext == null)
                 return;
             var card = p.DataContext as NotificationCard;
-            Cards.Remove(card);
-            ReLoadCardInBadge();
+            if(!UserServices.Instance.GetUserById(IdUser).UserRole.Role.Contains("Admin"))
+            {
+                var tmp = Cards.FirstOrDefault(tmpCard => tmpCard.Id == card.Id);
+                Cards.Remove(tmp);
+                RealCards.Remove(tmp);
+            }
+            NotificationServices.Instance.DeleteNotificationInfoByNotificationCardAndIdUser(card, IdUser); 
+            CardsInBadge.Remove(card);
         }
         public void MarkAsRead(UserControl p)
         {
@@ -242,6 +248,14 @@ namespace StudentManagement.ViewModels
             this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
             this.DialogItemViewModel = this._showDetailNotificationViewModel;
             card.Status = true;
+            for(int i=0;i<CardsInBadge.Count;i++)
+            {
+                if(CardsInBadge[i].Id == card.Id)
+                {
+                    CardsInBadge[i].Status = true;
+                    break;
+                }
+            }    
             NotificationServices.Instance.MarkAsReadNotificationInfoByNotificationCardAndIdUser(card, IdUser);
         }
      
@@ -288,6 +302,7 @@ namespace StudentManagement.ViewModels
             var tmp = Cards.Where(x => x.Id == AdminNotificationRightSideBarVM.CurrentCard.Id).FirstOrDefault();
             Cards.Remove(tmp);
             RealCards.Remove(tmp);
+            CardsInBadge.Remove(tmp);
             if (UserServices.Instance.GetUserById(IdUser).UserRole.Role.Contains("Admin"))
                 NotificationServices.Instance.DeleteNotificationByNotificationCard(tmp);
             else

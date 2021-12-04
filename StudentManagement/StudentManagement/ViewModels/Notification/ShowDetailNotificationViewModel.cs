@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -170,6 +171,14 @@ namespace StudentManagement.ViewModels
                     break;
                 }
             }
+            for (int i = 0; i < AdminNotificationVM.CardsInBadge.Count; i++)
+                if (AdminNotificationVM.CardsInBadge[i].Id == CurrentCard.Id)
+                {
+                    AdminNotificationVM.CardsInBadge.Remove(AdminNotificationVM.CardsInBadge[i]);
+                    AdminNotificationVM.CardsInBadge.Insert(i, CurrentCard);
+                    break;
+                }
+            NotificationServices.Instance.UpdateNotificationByNotificationCard(CurrentCard);
             IsEnable = false;
         }
         #endregion

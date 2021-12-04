@@ -426,6 +426,7 @@
     <Compile Include="Services\TeacherServices.cs" />
     <Compile Include="Utils\BooleanToVisibilityConverter.cs" />
     <Compile Include="Services\TrainingFormServices.cs" />
+    <Compile Include="Utils\CheckAdminConverter.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
     <Compile Include="Utils\BindingProxy.cs" />
     <Compile Include="Utils\ConverterDisplayNameFromIdUser.cs" />
