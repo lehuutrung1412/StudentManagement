@@ -23,7 +23,7 @@ namespace StudentManagement.Services
         private const string UrlUpload = ".gofile.io/uploadFile";
         private const string Token = "mNLWYdMzHz6QIDEIaDKy4hQs5do0ee48";
         private const string FolderId = "aff21df2-9b10-4be4-aaab-9075c6cadb2a";
-        private const string CookieDownloadFile = "accountToken=keyhTN397JMSoyPeUnyomezfl7vbPfbL";
+        private const string CookieDownloadFile = "accountToken=" + Token;
 
         public FileUploader()
         {
@@ -62,12 +62,19 @@ namespace StudentManagement.Services
             }
             return null;
         }
-    
+
         public void DownloadFileAsync(string link, string fileName)
         {
             WebClient webClient = new WebClient();
             webClient.Headers.Add(HttpRequestHeader.Cookie, CookieDownloadFile);
             webClient.DownloadFileAsync(new Uri(link), fileName);
+        }
+
+        public async Task<byte[]> DownloadFileAsByteAsync(string link)
+        {
+            WebClient webClient = new WebClient();
+            webClient.Headers.Add(HttpRequestHeader.Cookie, CookieDownloadFile);
+            return await webClient.DownloadDataTaskAsync(new Uri(link));
         }
     }
 }

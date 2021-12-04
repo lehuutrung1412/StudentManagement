@@ -80,7 +80,7 @@
                         Height="50"
                         Margin="4,16,16,16"
                         materialDesign:ButtonAssist.CornerRadius="8"
-                        Command="{Binding AddFolder}"
+                        Command="{Binding DownloadMultipleFiles}"
                         Style="{StaticResource PrimaryButton}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Margin="0 0 4 0"  Kind="CloudDownloadOutline"/>

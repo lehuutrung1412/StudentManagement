@@ -16,6 +16,8 @@ using System.Windows.Input;
 using StudentManagement.Services;
 using FileInfo = StudentManagement.Objects.FileInfo;
 using StudentManagement.Models;
+using System.Diagnostics;
+using System.IO.Compression;
 
 namespace StudentManagement.ViewModels
 {
@@ -36,6 +38,7 @@ namespace StudentManagement.ViewModels
         public ICommand SearchFile { get; set; }
         public ICommand RenameFolder { get; set; }
         public ICommand SubmitFolderName { get; set; }
+        public ICommand DownloadMultipleFiles { get; set; }
 
         public Guid? FolderEditingId { get => _folderEditingId; set { _folderEditingId = value; OnPropertyChanged(); } }
         private Guid? _folderEditingId;
@@ -78,6 +81,7 @@ namespace StudentManagement.ViewModels
 
         //
         Guid idSubjectClass = new Guid();
+        string SubjectClassCode = "CS106.M11.KHTN";
         User publisher = UserServices.Instance.GetUserInfo();
 
         public FileManagerClassDetailViewModel()
@@ -99,6 +103,7 @@ namespace StudentManagement.ViewModels
             SearchFile = new RelayCommand<object>((p) => true, (p) => SearchFileFunction());
             RenameFolder = new RelayCommand<object>((p) => true, (p) => RenameFolderFunction(p));
             SubmitFolderName = new RelayCommand<object>((p) => true, (p) => SubmitFolderNameFunction());
+            DownloadMultipleFiles = new RelayCommand<object>((p) => true, (p) => DownloadMultipleFilesFunction());
         }
 
         private void FirstLoadDataFromDatabase()
@@ -499,6 +504,71 @@ namespace StudentManagement.ViewModels
         private void AddFolderFunction()
         {
             IsShowDialog = true;
+        }
+
+        private async void DownloadMultipleFilesFunction()
+        {
+            string fileName = $"Documents_{SubjectClassCode}.zip";
+            var dialog = new SaveFileDialog
+            {
+                Filter = "Zip file (*.zip)|*.zip",
+                FileName = fileName
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (var fileStream = new FileStream(dialog.FileName, FileMode.Create))
+                    {
+                        using (var archive = new ZipArchive(fileStream, ZipArchiveMode.Create, true))
+                        {
+                            // Folder cover entire files
+                            var mainFolderName = $"Documents_{SubjectClassCode}/";
+                            archive.CreateEntry(mainFolderName);
+                            foreach (var file in FileData)
+                            {
+                                // Real file
+                                if (file.Id != null)
+                                {
+                                    var fileData = await FileUploader.Instance.DownloadFileAsByteAsync(file.Content);
+                                    ZipArchiveEntry zipEntry;
+                                    if (file.FolderId == null)
+                                    {
+                                        zipEntry = archive.CreateEntry(mainFolderName + file.Name);
+                                    }
+                                    else
+                                    {
+                                        zipEntry = archive.CreateEntry(mainFolderName + file.FolderName + "/" + file.Name);
+                                    }
+                                    using (var originalFileStream = new MemoryStream(fileData))
+                                    using (var zipEntryStream = zipEntry.Open())
+                                    {
+                                        //Copy the attachment stream to the zip entry stream
+                                        await originalFileStream.CopyToAsync(zipEntryStream);
+                                    }
+                                }
+                                else
+                                {
+                                    archive.CreateEntry(mainFolderName + file.FolderName + "/");
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    MyMessageBox.Show("Server hiện đang bận! Vui lòng thử lại sau!", "Không thể tải tài liệu", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                try
+                {
+                    Process.Start("explorer.exe", Path.GetDirectoryName(dialog.FileName));
+                }
+                catch (Exception)
+                {
+                    MyMessageBox.Show("Đường dẫn không tồn tại!", "Không thể mở tài liệu", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
         }
 
         #region Validation
