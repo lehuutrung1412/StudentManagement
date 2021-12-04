@@ -22,110 +22,158 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <ScrollViewer>
-        <materialDesign:DialogHost
-            Name="DialogHostUserInfo"
-            VerticalContentAlignment="Center"
-            CloseOnClickAway="True"
-            IsOpen="{Binding IsOpen}">
-            <materialDesign:DialogHost.DialogContent>
-                <component:NewInfoItem MinWidth="600" DataContext="{Binding AddNewInfoItem}" />
-            </materialDesign:DialogHost.DialogContent>
-            <Grid Margin="16,8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1.5*" />
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="10*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="0,8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock
-                            FontWeight="Bold"
-                            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                            Text="Cài đặt thông tin" />
-                    </Grid>
-                    <Grid Grid.Column="1">
+    <materialDesign:Card Style="{StaticResource CardContainer}">
+        <ScrollViewer>
+            <materialDesign:DialogHost
+                Name="DialogHostUserInfo"
+                VerticalContentAlignment="Center"
+                CloseOnClickAway="True"
+                IsOpen="{Binding IsOpen}">
+                <materialDesign:DialogHost.DialogContent>
+                    <component:NewInfoItem MinWidth="600" DataContext="{Binding AddNewInfoItem}" />
+                </materialDesign:DialogHost.DialogContent>
+                <Grid Margin="16,8,0,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                Text="Cài đặt thông tin" />
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Grid.Column="1"
+                                Command="{Binding AddNewInfoItemCommand}"
+                                Content="Thêm thông tin"
+                                Style="{StaticResource PrimaryButton}" />
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="0,8,0,8">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Đối tượng cài đặt" />
+                            <RadioButton
+                                Height="20"
+                                Margin="0,16,0,4"
+                                Command="{Binding GetInfoSourceInSettingByRoleCommand}"
+                                Content="Sinh viên"
+                                FontSize="16"
+                                GroupName="Role"
+                                IsChecked="{Binding ListCheck[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <RadioButton.Style>
+                                    <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </RadioButton.Style>
+                            </RadioButton>
+                            <RadioButton
+                                Height="20"
+                                Margin="0,4"
+                                Command="{Binding GetInfoSourceInSettingByRoleCommand}"
+                                Content="Giáo viên"
+                                FontSize="16"
+                                GroupName="Role"
+                                IsChecked="{Binding ListCheck[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+                                <RadioButton.Style>
+                                    <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </RadioButton.Style>
+                            </RadioButton>
+                            <RadioButton
+                                Height="20"
+                                Margin="0,4"
+                                Command="{Binding GetInfoSourceInSettingByRoleCommand}"
+                                Content="Admin"
+                                FontSize="16"
+                                GroupName="Role"
+                                IsChecked="{Binding ListCheck[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <RadioButton.Style>
+                                    <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </RadioButton.Style>
+                            </RadioButton>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSetting}" Value="true">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+
+                        </Grid.Style>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Các trường thông tin" Margin="0 8"/>
+                            <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <component:SettingInfoItem MinWidth="600" Background="Transparent" />
+                                            <Border VerticalAlignment="Bottom" Style="{StaticResource HorizontalDividerBorder}" Margin="0 8"/>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="3" Margin="0 8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
                         <Button
                             Grid.Column="1"
-                            Command="{Binding AddNewInfoItemCommand}"
-                            Content="Thêm thông tin"
+                            Command="{Binding ConfirmSettingCommand}"
+                            Content="Xác nhận"
                             Style="{StaticResource PrimaryButton}" />
                     </Grid>
+
                 </Grid>
-                <Grid Grid.Row="1">
-                    <StackPanel>
-                        <TextBlock FontSize="20" Text="Đối tượng cài đặt" />
-                        <RadioButton
-                            Command="{Binding GetInfoSourceInSettingByRoleCommand}"
-                            Content="Sinh viên"
-                            GroupName="Role"
-                            IsChecked="{Binding ListCheck[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            Style="{StaticResource MaterialDesignAccentRadioButton}" />
-                        <RadioButton
-                            Command="{Binding GetInfoSourceInSettingByRoleCommand}"
-                            Content="Giáo viên"
-                            GroupName="Role"
-                            IsChecked="{Binding ListCheck[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            Style="{StaticResource MaterialDesignAccentRadioButton}" />
-                        <RadioButton
-                            Command="{Binding GetInfoSourceInSettingByRoleCommand}"
-                            Content="Admin"
-                            GroupName="Role"
-                            IsChecked="{Binding ListCheck[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            Style="{StaticResource MaterialDesignAccentRadioButton}" />
-                    </StackPanel>
-                </Grid>
-                <materialDesign:Card Grid.Row="2" Margin="0,8">
-                    <materialDesign:Card.Style>
-                        <Style TargetType="materialDesign:Card">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSetting}" Value="true">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </materialDesign:Card.Style>
-                    <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <component:SettingInfoItem MinWidth="600" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
-                </materialDesign:Card>
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Button
-                        Grid.Column="1"
-                        Command="{Binding ConfirmSettingCommand}"
-                        Content="Xác nhận"
-                        Style="{StaticResource PrimaryButton}" />
-                </Grid>
-
-            </Grid>
-        </materialDesign:DialogHost>
+            </materialDesign:DialogHost>
 
 
-    </ScrollViewer>
+        </ScrollViewer>
+
+    </materialDesign:Card>
 </UserControl>
 
 

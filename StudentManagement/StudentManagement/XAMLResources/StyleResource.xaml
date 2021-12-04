@@ -395,9 +395,8 @@
         x:Key="TextBox"
         BasedOn="{StaticResource MaterialDesignTextBox}"
         TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="Foreground" Value="{DynamicResource BlackDefault}" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="MaxLines" Value="1" />
         <Setter Property="Height" Value="32" />
@@ -452,7 +451,6 @@
         <Setter Property="Height" Value="32" />
         <Setter Property="Padding" Value="12,4" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryDark}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -491,7 +489,7 @@
     <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Background" Value="#FFE0E0E0" />
-        <Setter Property="BorderBrush" Value="Gray" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BlackDefault}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="5" />
     </Style>

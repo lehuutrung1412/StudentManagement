@@ -1,5 +1,5 @@
 -- USE TEMP
---  DROP DATABASE StudentManagement
+  --DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -599,8 +599,10 @@ GO
 
 USP_InsertUserWithRole @Role = 'Admin' , @Faculty = N'Khoa học Máy tính'
 GO
--- select *
--- from Users
+USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
+GO
+ --select *
+ --from Users
 -- select *
 -- from UserRole
 -- select *

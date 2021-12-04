@@ -11,7 +11,7 @@
     x:Name="UpdateInfoItem"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
 
     <Grid>
@@ -21,27 +21,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <!--<DockPanel>
-                <TextBox
-                        VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="Tên thông tin"
-                        materialDesign:ValidationAssist.Background="Transparent"
-                        FontSize="24"
-                        FontWeight="Bold"
-                        Text="{Binding DisplayInfoItem.LabelName, UpdateSourceTrigger=PropertyChanged}"
-                        TextWrapping="Wrap">
-                    <TextBox.Style>
-                        <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
-                            <Style.Triggers>
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-            </DockPanel>-->
-            <Grid Margin="16,16,16,4">
+            <Grid Margin="16,8,0,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="1.2*" />
@@ -57,7 +37,8 @@
                 <Grid Grid.Column="1">
                     <Border Background="Transparent" Style="{StaticResource BorderStyle}">
                         <TextBox
-                            materialDesign:HintAssist.Hint="Tên thông tin"                            
+                            materialDesign:HintAssist.Hint="Tên thông tin"
+                            Foreground="{DynamicResource BlackDefault}"
                             Text="{Binding DisplayInfoItem.LabelName, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="Wrap">
                             <TextBox.Style>
@@ -75,7 +56,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Margin="16,16,16,4">
+            <Grid Margin="16,8,0,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="1.2*" />
@@ -93,6 +74,7 @@
                         <ComboBox
                             materialDesign:HintAssist.Hint="Loại thông tin"
                             materialDesign:TextFieldAssist.HasClearButton="True"
+                            Foreground="{DynamicResource BlackDefault}"
                             IsEnabled="False"
                             ItemsSource="{Binding ListTypeControl, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
                             SelectedItem="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}">
@@ -111,7 +93,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Margin="16,16,16,4">
+            <Grid Margin="16,8,0,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="1.2*" />
@@ -129,25 +111,37 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <RadioButton
-                        x:Name="rbtnCheck"
                         Grid.Column="0"
                         Content="Có"
                         FontSize="16"
-                        Foreground="{DynamicResource PrimaryDark}"
-                        IsChecked="{Binding DisplayInfoItem.IsEnable}"
-                        Style="{StaticResource MaterialDesignAccentRadioButton}" />
+                        Foreground="{DynamicResource BlackDefault}"
+                        IsChecked="{Binding DisplayInfoItem.IsEnable}">
+                        <RadioButton.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignAccentRadioButton}" TargetType="RadioButton">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
                     <RadioButton
                         Grid.Column="1"
                         Content="Không"
                         FontSize="16"
-                        Foreground="{DynamicResource PrimaryDark}">
+                        Foreground="{DynamicResource BlackDefault}">
                         <RadioButton.Style>
                             <Style BasedOn="{StaticResource MaterialDesignAccentRadioButton}" TargetType="RadioButton">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding DisplayInfoItem.IsEnable}" Value="false">
                                         <Setter Property="IsChecked" Value="True" />
                                     </DataTrigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand" />
+                                    </Trigger>
                                 </Style.Triggers>
+
                             </Style>
                         </RadioButton.Style>
                     </RadioButton>
@@ -210,6 +204,7 @@
                                                 Command="{Binding DeleteItemCommand}"
                                                 CommandParameter="{Binding ElementName=txbItem}"
                                                 DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Foreground="{DynamicResource BlackDefault}"
                                                 Style="{StaticResource MaterialDesignFlatButton}">
                                                 <materialDesign:PackIcon
                                                     Width="20"
@@ -228,6 +223,7 @@
                         HorizontalContentAlignment="Left"
                         Command="{Binding AddItemCommand}"
                         FontSize="16"
+                        Foreground="{DynamicResource BlackDefault}"
                         Style="{StaticResource MaterialDesignFlatButton}">
                         <Grid>
                             <Grid.ColumnDefinitions>

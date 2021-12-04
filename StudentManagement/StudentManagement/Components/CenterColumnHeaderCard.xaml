@@ -164,13 +164,21 @@
                         Name="PopupNotification"
                         PlacementMode="BottomAndAlignRightEdges"
                         StaysOpen="True">
+                        <materialDesign:PopupBox.Style>
+                            <Style TargetType="materialDesign:PopupBox">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsFocused, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="true">
+                                        <Setter Property="IsPopupOpen" Value="True"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PopupBox.Style>
                         <materialDesign:PopupBox.ToggleContent>
                             <materialDesign:PackIcon
                                 Width="20"
                                 Height="20"
                                 Kind="BellOutline" />
                         </materialDesign:PopupBox.ToggleContent>
-
                         <Grid MaxHeight="300">
                             <Grid>
                                 <Grid.RowDefinitions>

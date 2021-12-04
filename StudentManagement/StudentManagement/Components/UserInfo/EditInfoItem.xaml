@@ -13,7 +13,7 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource Background}" CornerRadius="15">
+    <Border Background="{DynamicResource Transparent}" CornerRadius="15">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="15"
@@ -49,7 +49,7 @@
                     </TextBox>
                 </DockPanel>
 
-                <Grid Margin="16,16,16,4">
+                <Grid Margin="0,16,16,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="1.2*" />
