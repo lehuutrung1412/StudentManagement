@@ -417,6 +417,7 @@
     <Compile Include="Services\InfoItemServices.cs" />
     <Compile Include="Services\FileServices.cs" />
     <Compile Include="Services\FileUploader.cs" />
+    <Compile Include="Services\NewsfeedServices.cs" />
     <Compile Include="Services\NotificationServices.cs" />
     <Compile Include="Services\NotificationTypeServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />

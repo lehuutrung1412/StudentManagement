@@ -16,14 +16,11 @@ namespace StudentManagement.ViewModels
         public ICommand ChangeImage { get; set; }
         public ICommand DeleteComment { get; set; }
         public ICommand EditComment { get; set; }
-        public ObservableCollection<PostComment> PostComments { get; set; }
+        
         public bool IsShowComments { get => _isShowComments; set { _isShowComments = value; OnPropertyChanged(); } }
         private bool _isShowComments;
 
         private string _postText;
-        public string PostText { get => _postText; set { _postText = value; OnPropertyChanged(); } }
-
-        public DateTime PostTime { get; set; }
 
         private ObservableCollection<string> _stackPostImage;
         public string ImageSelectedShow { get => _imageSelectedShow; set { _imageSelectedShow = value; OnPropertyChanged(); } }
@@ -31,8 +28,7 @@ namespace StudentManagement.ViewModels
         private bool _isShowButtonChangeImage;
 
         private int _imageIndex;
-
-        public Guid PostId { get; set; }
+        
         public bool IsShowButtonChangeImage { get => _isShowButtonChangeImage; set { _isShowButtonChangeImage = value; OnPropertyChanged(); } }
         private string _imageSelectedShow;
         public ObservableCollection<string> StackPostImage
@@ -48,11 +44,20 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public PostNewsfeedViewModel(string postText, DateTime postTime, ObservableCollection<string> stackImage)
+        public Guid PostId { get; set; }
+        public Guid? IdSubjectClass { get; set; }
+        public Guid? IdPoster { get; set; }
+        public DateTime? PostTime { get; set; }
+        public string PostText { get => _postText; set { _postText = value; OnPropertyChanged(); } }
+        public ObservableCollection<PostComment> PostComments { get; set; }
+
+        public PostNewsfeedViewModel(Guid? idSubjectClass, Guid? idPoster, string postText, DateTime? postTime, ObservableCollection<string> stackImage)
         {
+            IdSubjectClass = idSubjectClass;
+            IdPoster = idPoster;
             PostId = Guid.NewGuid();
             PostText = postText;
-            PostTime = postTime; //new DateTime(2021, 11, 1, 20, 25, 30);
+            PostTime = postTime;
             IsShowComments = true;
             StackPostImage = new ObservableCollection<string>(stackImage);
             PostComments = new ObservableCollection<PostComment>();

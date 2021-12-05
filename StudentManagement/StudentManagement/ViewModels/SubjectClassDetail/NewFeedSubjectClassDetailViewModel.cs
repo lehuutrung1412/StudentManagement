@@ -1,4 +1,5 @@
 using StudentManagement.Commands;
+using StudentManagement.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -24,8 +25,15 @@ namespace StudentManagement.ViewModels
 
         public PostNewsfeedViewModel PostEditingViewModel { get; set; }
 
+        //
+        public Guid? IdSubjectClass { get; set; }
+        public Guid? IdPoster { get; set; }
+
         public NewFeedSubjectClassDetailViewModel()
         {
+            IdSubjectClass = new Guid();
+            IdPoster = UserServices.Instance.GetUserInfo().Id;
+
             CreatePostNewFeedViewModel = new CreatePostNewFeedViewModel();
             CreatePostNewFeedViewModel.PropertyChanged += CreatePostNewFeedViewModel_PropertyChanged;
             EditPostNewFeedViewModel = new CreatePostNewFeedViewModel();
@@ -60,9 +68,21 @@ namespace StudentManagement.ViewModels
         {
             if (e.PropertyName == "IsPost")
             {
-                PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(CreatePostNewFeedViewModel.DraftPostText, DateTime.Parse(DateTime.Now.ToString(), _culture), CreatePostNewFeedViewModel.StackImageDraft));
-                CreatePostNewFeedViewModel.DraftPostText = "";
-                CreatePostNewFeedViewModel.StackImageDraft.Clear();
+                try
+                {
+                    PostNewsfeedViewModel post = new PostNewsfeedViewModel(IdSubjectClass, IdPoster, CreatePostNewFeedViewModel.DraftPostText, DateTime.Parse(DateTime.Now.ToString(), _culture), CreatePostNewFeedViewModel.StackImageDraft);
+                    
+                    NewsfeedServices.Instance.SavePostToDatabaseAsync(post);
+                    
+                    PostNewsfeedViewModels.Add(post);
+                    CreatePostNewFeedViewModel.DraftPostText = "";
+                    CreatePostNewFeedViewModel.StackImageDraft.Clear();
+                }
+                catch (Exception)
+                {
+                    MyMessageBox.Show("Đã có lỗi xảy ra! Vui lòng thử lại sau!", "Đăng tin không thành công", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
+                
             }
         }
 
