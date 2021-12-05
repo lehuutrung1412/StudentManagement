@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Win32;
 using static StudentManagement.ViewModels.AdminSubjectClassViewModel;
+using StudentManagement.Services;
 
 namespace StudentManagement.ViewModels
 {
@@ -78,7 +79,7 @@ namespace StudentManagement.ViewModels
 
         public bool CanConfirmEdit()
         {
-            if (!string.IsNullOrEmpty(CurrentCard.MaMon))
+            if (!string.IsNullOrEmpty(CurrentCard.Code))
 
                 return true;
             return false;
@@ -101,6 +102,9 @@ namespace StudentManagement.ViewModels
                 AdminSubjectClassViewModel.StoredSubjectClassCards.Insert(0, ActualCard);
                 AdminSubjectClassViewModel.SubjectClassCards.Insert(0, ActualCard);
             }
+
+            SubjectClassServices.Instance.SaveSubjectClassCardToDatabase(ActualCard);
+
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowSubjectClassCardInfo();

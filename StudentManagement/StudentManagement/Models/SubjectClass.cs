@@ -49,10 +49,10 @@ namespace StudentManagement.Models
         public Nullable<System.Guid> IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
         private string _code { get; set; }
         public string Code { get => _code; set { _code = value; OnPropertyChanged(); } }
-        private int _numberOfStudents { get; set; }
-        public int NumberOfStudents { get => _numberOfStudents; set { _numberOfStudents = value; OnPropertyChanged(); } }
-        private int _maxNumberOfStudents { get; set; }
-        public int MaxNumberOfStudents { get => _maxNumberOfStudents; set { _maxNumberOfStudents = value; OnPropertyChanged(); } }
+        private Nullable<int> _numberOfStudents { get; set; }
+        public Nullable<int> NumberOfStudents { get => _numberOfStudents; set { _numberOfStudents = value; OnPropertyChanged(); } }
+        private Nullable<int> _maxNumberOfStudents { get; set; }
+        public Nullable<int> MaxNumberOfStudents { get => _maxNumberOfStudents; set { _maxNumberOfStudents = value; OnPropertyChanged(); } }
     
         public virtual ICollection<AbsentCalendar> AbsentCalendars { get; set; }
         public virtual ICollection<ComponentScore> ComponentScores { get; set; }

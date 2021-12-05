@@ -206,16 +206,16 @@ CREATE TABLE SubjectClass
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   IdSubject UNIQUEIDENTIFIER NULL,
-  StartDate DateTime,
-  EndDate DateTime,
-  IdSemester UNIQUEIDENTIFIER,
-  Period NVARCHAR(MAX) NOT NULL,
-  WeekDay NVARCHAR(MAX) NOT NULL,
+  StartDate DateTime NULL,
+  EndDate DateTime NULL,
+  IdSemester UNIQUEIDENTIFIER NULL,
+  Period NVARCHAR(MAX) NULL,
+  WeekDay NVARCHAR(MAX) NULL,
   IdThumbnail UNIQUEIDENTIFIER NULL,
   IdTrainingForm UNIQUEIDENTIFIER NULL,
   Code NVARCHAR(MAX) NOT NULL,
-  NumberOfStudents INT NOT NULL,
-  MaxNumberOfStudents INT NOT NULL,
+  NumberOfStudents INT NULL,
+  MaxNumberOfStudents INT NULL,
 )
 GO
 

@@ -80,7 +80,7 @@
                             FontWeight="Bold"
                             TextTrimming="WordEllipsis"
                             TextWrapping="WrapWithOverflow">
-                            <Run Text="{Binding MaMon, FallbackValue='MaMon'}" />
+                            <Run Text="{Binding Code, FallbackValue='Code'}" />
                             <Run Text="-" />
                             <Run Text="{Binding TenMon, FallbackValue='Ten Mon Hoc'}" />
                         </TextBlock>

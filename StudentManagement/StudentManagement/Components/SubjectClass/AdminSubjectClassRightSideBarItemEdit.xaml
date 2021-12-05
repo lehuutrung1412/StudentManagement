@@ -93,13 +93,13 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Mã môn học" />
+                        Text="Mã lớp học" />
 
                     <TextBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập mã môn học"
+                        materialDesign:HintAssist.Hint="Nhập mã lớp học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.MaMon}" />
+                        Text="{Binding CurrentCard.Code}" />
                 </Grid>
 
 

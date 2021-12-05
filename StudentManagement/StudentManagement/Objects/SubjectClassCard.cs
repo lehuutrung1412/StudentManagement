@@ -44,19 +44,21 @@ namespace StudentManagement.Objects
         private User _teacher;
         private Subject _subjectOfClass;
         private SubjectClass subjectClass;
+        private string _code;
         private string _giaoVien;
         private string _maMon;
         private string _tenMon;
 
         public SubjectClassCard()
         {
-
+            Id = Guid.NewGuid();
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
         }
-        public SubjectClassCard(Guid id, int siSo, string giaoVien, string maMon, string tenMon) : this()
+        public SubjectClassCard(Guid id, string code, int siSo, string giaoVien, string maMon, string tenMon) : this()
         {
             Id = id;
+            Code = code;
             SiSo = siSo;
             GiaoVien = giaoVien;
             MaMon = maMon;
@@ -126,5 +128,6 @@ namespace StudentManagement.Objects
         }
 
         public Guid Id { get => _id; set => _id = value; }
+        public string Code { get => _code; set => _code = value; }
     }
 }

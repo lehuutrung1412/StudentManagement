@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,20 +64,38 @@ namespace StudentManagement.Services
         /// Save SubjectClass To Database
         /// </summary>
         /// <param name="subjectClass"></param>
-        public void SaveSubjectClassToDatabase(SubjectClass subjectClass)
+        public bool SaveSubjectClassToDatabase(SubjectClass subjectClass)
         {
-            SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
+            try
+            {
 
-            if (savedSubjectClass == null)
-            {
-                DataProvider.Instance.Database.SubjectClasses.Add(subjectClass);
+                SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
+
+                if (savedSubjectClass == null)
+                {
+                    DataProvider.Instance.Database.SubjectClasses.Add(subjectClass);
+                }
+                else
+                {
+                    //savedSubjectClass = (subjectClass.ShallowCopy() as SubjectClass);
+                    Reflection.CopyProperties(subjectClass, savedSubjectClass);
+                }
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
             }
-            else
+            catch (DbEntityValidationException e)
             {
-                //savedSubjectClass = (subjectClass.ShallowCopy() as SubjectClass);
-                Reflection.CopyProperties(subjectClass, savedSubjectClass);
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    MyMessageBox.Show($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        MyMessageBox.Show($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                    }
+                }
+                return false;
             }
-            DataProvider.Instance.Database.SaveChanges();
         }
 
         /// <summary>
@@ -191,7 +210,7 @@ namespace StudentManagement.Services
 
         public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
         {
-            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, "IT008.M11.KHTN", 10, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan");
+            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, subjectClass.Code, 10, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan");
 
             return subjectClassCard;
         }
@@ -205,6 +224,22 @@ namespace StudentManagement.Services
             };
 
             return subjectClass;
+        }
+
+        public bool SaveSubjectClassCardToDatabase(SubjectClassCard subjectClassCard)
+        {
+            //try
+            //{
+            SubjectClass subjectClass = ConvertSubjectClassCardToSubjectClass(subjectClassCard);
+
+            bool success = SaveSubjectClassToDatabase(subjectClass);
+
+            return success;
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
     }
 }
