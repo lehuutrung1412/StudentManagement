@@ -155,14 +155,14 @@
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="3"
-                Command="{Binding ConfirmEditSubjectCardInfo}"
+                Command="{Binding ConfirmEditSubjectClassCardInfo}"
                 Content="Lưu"
                 FontSize="16"
                 Style="{StaticResource rounded_btn}" />
             <Button
                 Grid.Column="2"
                 Background="{StaticResource DarkGray}"
-                Command="{Binding CancelEditSubjectCardInfo}"
+                Command="{Binding CancelEditSubjectClassCardInfo}"
                 Content="Hủy"
                 FontSize="16"
                 Foreground="White"

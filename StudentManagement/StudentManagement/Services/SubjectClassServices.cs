@@ -1,5 +1,4 @@
-﻿    using StudentManagement.Components;
-using StudentManagement.Models;
+﻿using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Utils;
 using System;
@@ -30,20 +29,20 @@ namespace StudentManagement.Services
             return new ObservableCollection<SubjectClass>(DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).ToList());
         }
         
-        /*public SubjectClass ConvertSubjectCardToSubjectClass(SubjectCard subjectCard)
+        /*public SubjectClass ConvertSubjectClassCardToSubjectClass(SubjectClassCard subjectClassCard)
         {
             SubjectClass subjectClass = new SubjectClass()
             {
-                Id = subjectCard.
-                DisplayName = subjectCard.DisplayName
+                Id = subjectClassCard.
+                DisplayName = subjectClassCard.DisplayName
             };
 
             return faculty;
         }*/
 
-        /*public SubjectCard ConvertSubjectClassToSubjectCard(SubjectClass subjectClass)
+        /*public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
         {
-            SubjectCard subjectCard = new SubjectCard(subjectClass.NumberStudent);
+            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.NumberStudent);
 
             return facultyCard;
         }*/
@@ -188,6 +187,13 @@ namespace StudentManagement.Services
                 }
             }
             return false;
+        }
+
+        public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
+        {
+            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, 10, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan");
+
+            return subjectClassCard;
         }
     }
 }

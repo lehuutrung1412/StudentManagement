@@ -408,7 +408,7 @@
     <Compile Include="Objects\NavigationItem.cs" />
     <Compile Include="Objects\NotificationCard.cs" />
     <Compile Include="Objects\ScheduleItem.cs" />
-    <Compile Include="Objects\SubjectCard.cs" />
+    <Compile Include="Objects\SubjectClassCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
     <Compile Include="Services\CourseRegisterServices.cs" />
     <Compile Include="Services\DatabaseImageTableServices.cs" />

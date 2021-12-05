@@ -128,7 +128,7 @@
             </Grid>
             <Button
                 x:Name="btnEdit"
-                Command="{Binding EditSubjectCardInfo}"
+                Command="{Binding EditSubjectClassCardInfo}"
                 CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentCard}"
                 DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
                 Style="{StaticResource grid_button_item}">
@@ -149,7 +149,7 @@
             </Button>
             <Button
                 x:Name="btnDelete"
-                Command="{Binding DeleteSubjectCardInfo}"
+                Command="{Binding DeleteSubjectClassCardInfo}"
                 CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentCard}"
                 DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
                 Style="{StaticResource grid_button_item}">

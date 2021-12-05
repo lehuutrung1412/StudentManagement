@@ -30,16 +30,16 @@ namespace StudentManagement.Services
             return subject;
         }
         /// <summary>
-        /// Convert SubjectCard To Subject
+        /// Convert SubjectClassCard To Subject
         /// </summary>
-        /// <param name="subjectCard"></param>
+        /// <param name="subjectClassCard"></param>
         /// <returns>Subject</returns>
-        /*public Subject ConvertSubjectCardToSubject(SubjectCard subjectCard)
+        /*public Subject ConvertSubjectClassCardToSubject(SubjectClassCard subjectClassCard)
         {
             Subject subject = new Subject()
             {
-                Id = subjectCard.Id,
-                DisplayName = subjectCard.DisplayName
+                Id = subjectClassCard.Id,
+                DisplayName = subjectClassCard.DisplayName
             };
 
             return subject;
@@ -49,12 +49,12 @@ namespace StudentManagement.Services
         /// Convert Subject To Subject Card
         /// </summary>
         /// <param name="subject"></param>
-        /// <returns>SubjectCard</returns>
-        /*public SubjectCard ConvertSubjectToSubjectCard(Subject subject)
+        /// <returns>SubjectClassCard</returns>
+        /*public SubjectClassCard ConvertSubjectToSubjectClassCard(Subject subject)
         {
-            SubjectCard subjectCard = new SubjectCard(subject.Id, subject.DisplayName, new DateTime(2015, 12, 31), 100, "test");
+            SubjectClassCard subjectClassCard = new SubjectClassCard(subject.Id, subject.DisplayName, new DateTime(2015, 12, 31), 100, "test");
 
-            return subjectCard;
+            return subjectClassCard;
         }*/
 
         /// <summary>
@@ -92,10 +92,10 @@ namespace StudentManagement.Services
         /// <summary>
         /// Save Subject Card To Database
         /// </summary>
-        /// <param name="subjectCard"></param>
-        /*public void SaveSubjectCardToDatabase(SubjectCard subjectCard)
+        /// <param name="subjectClassCard"></param>
+        /*public void SaveSubjectClassCardToDatabase(SubjectClassCard subjectClassCard)
         {
-            Subject subject = ConvertSubjectCardToSubject(subjectCard);
+            Subject subject = ConvertSubjectClassCardToSubject(subjectClassCard);
 
             SaveSubjectToDatabase(subject);
         }*/
@@ -114,12 +114,12 @@ namespace StudentManagement.Services
         }
 
         /// <summary>
-        /// Remove SubjectCard From Database
+        /// Remove SubjectClassCard From Database
         /// </summary>
-        /// <param name="subjectCard"></param>
-        /*public void RemoveSubjectCardFromDatabase(SubjectCard subjectCard)
+        /// <param name="subjectClassCard"></param>
+        /*public void RemoveSubjectClassCardFromDatabase(SubjectClassCard subjectClassCard)
         {
-            Subject subject = ConvertSubjectCardToSubject(subjectCard);
+            Subject subject = ConvertSubjectClassCardToSubject(subjectClassCard);
 
             RemoveSubjectFromDatabase(subject);
         }*/

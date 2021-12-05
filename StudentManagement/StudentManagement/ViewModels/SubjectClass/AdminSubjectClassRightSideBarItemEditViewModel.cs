@@ -15,7 +15,7 @@ namespace StudentManagement.ViewModels
     {
         // currentCard just for binding to view, actualcard is real card
 
-        public SubjectCard CurrentCard
+        public SubjectClassCard CurrentCard
         {
             get { return _currentCard; }
             set
@@ -25,11 +25,11 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private SubjectCard _currentCard;
+        private SubjectClassCard _currentCard;
 
         //store card info before edit
-        private SubjectCard _actualCard;
-        public SubjectCard ActualCard { get => _actualCard; set => _actualCard = value; }
+        private SubjectClassCard _actualCard;
+        public SubjectClassCard ActualCard { get => _actualCard; set => _actualCard = value; }
 
 
         public AdminSubjectClassRightSideBarItemEditViewModel()
@@ -37,9 +37,9 @@ namespace StudentManagement.ViewModels
             CurrentCard = null;
         }
 
-        public AdminSubjectClassRightSideBarItemEditViewModel(SubjectCard card, bool isCreatedNew = false)
+        public AdminSubjectClassRightSideBarItemEditViewModel(SubjectClassCard card, bool isCreatedNew = false)
         {
-            CurrentCard = new SubjectCard();
+            CurrentCard = new SubjectClassCard();
             ActualCard = card;
             if (!isCreatedNew)
             {
@@ -48,20 +48,20 @@ namespace StudentManagement.ViewModels
             InitCommand();
         }
 
-        public ICommand ConfirmEditSubjectCardInfo { get => _confirmEditSubjectCardInfo; set => _confirmEditSubjectCardInfo = value; }
+        public ICommand ConfirmEditSubjectClassCardInfo { get => _confirmEditSubjectClassCardInfo; set => _confirmEditSubjectClassCardInfo = value; }
 
-        private ICommand _confirmEditSubjectCardInfo;
+        private ICommand _confirmEditSubjectClassCardInfo;
 
-        public ICommand CancelEditSubjectCardInfo { get => _cancelEditSubjectCardInfo; set => _cancelEditSubjectCardInfo = value; }
+        public ICommand CancelEditSubjectClassCardInfo { get => _cancelEditSubjectClassCardInfo; set => _cancelEditSubjectClassCardInfo = value; }
 
-        private ICommand _cancelEditSubjectCardInfo;
+        private ICommand _cancelEditSubjectClassCardInfo;
 
         public ICommand ClickChangeImageCommand { get; set; }
 
         public void InitCommand()
         {
-            CancelEditSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditSubjectCardInfoFunction());
-            ConfirmEditSubjectCardInfo = new RelayCommand<object>((p) =>
+            CancelEditSubjectClassCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditSubjectClassCardInfoFunction());
+            ConfirmEditSubjectClassCardInfo = new RelayCommand<object>((p) =>
             {
                 if (!CurrentCard.HasErrors && CanConfirmEdit())
                 {
@@ -72,7 +72,7 @@ namespace StudentManagement.ViewModels
                     return false;
                 }
 
-            }, (p) => ConfirmEditSubjectCardInfoFunction());
+            }, (p) => ConfirmEditSubjectClassCardInfoFunction());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
         }
 
@@ -84,29 +84,29 @@ namespace StudentManagement.ViewModels
             return false;
         }
 
-        public void CancelEditSubjectCardInfoFunction()
+        public void CancelEditSubjectClassCardInfoFunction()
         {
             CurrentCard.CopyCardInfo(ActualCard);
-            ReturnToShowSubjectCardInfo();
+            ReturnToShowSubjectClassCardInfo();
         }
 
-        public void ConfirmEditSubjectCardInfoFunction()
+        public void ConfirmEditSubjectClassCardInfoFunction()
         {
-            bool isCardExist = AdminSubjectClassViewModel.StoredSubjectCards.Contains(ActualCard);
+            bool isCardExist = AdminSubjectClassViewModel.StoredSubjectClassCards.Contains(ActualCard);
             ActualCard.CopyCardInfo(CurrentCard);
 
             // check if card exist -> Not exist insert new
             if (!isCardExist)
             {
-                AdminSubjectClassViewModel.StoredSubjectCards.Insert(0, ActualCard);
-                AdminSubjectClassViewModel.SubjectCards.Insert(0, ActualCard);
+                AdminSubjectClassViewModel.StoredSubjectClassCards.Insert(0, ActualCard);
+                AdminSubjectClassViewModel.SubjectClassCards.Insert(0, ActualCard);
             }
 
             ActualCard.RunOnPropertyChanged();
-            ReturnToShowSubjectCardInfo();
+            ReturnToShowSubjectClassCardInfo();
         }
 
-        public void ReturnToShowSubjectCardInfo()
+        public void ReturnToShowSubjectClassCardInfo()
         {
             AdminSubjectClassRightSideBarViewModel adminSubjectClassRightSideBarViewModel = AdminSubjectClassRightSideBarViewModel.Instance;
             adminSubjectClassRightSideBarViewModel.RightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(ActualCard);

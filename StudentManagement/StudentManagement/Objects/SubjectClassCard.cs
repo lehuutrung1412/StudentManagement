@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StudentManagement.Objects
 {
-    public class SubjectCard : BaseObjectWithBaseViewModel, IBaseCard, INotifyDataErrorInfo
+    public class SubjectClassCard : BaseObjectWithBaseViewModel, IBaseCard, INotifyDataErrorInfo
     {
         // define validation rule
         private readonly ErrorBaseViewModel _errorBaseViewModel;
@@ -40,6 +40,7 @@ namespace StudentManagement.Objects
         }
 
         private int _numberOfStudents;
+        private Guid _id;
         private User _teacher;
         private Subject _subjectOfClass;
         private SubjectClass subjectClass;
@@ -47,13 +48,15 @@ namespace StudentManagement.Objects
         private string _maMon;
         private string _tenMon;
 
-        public SubjectCard()
+        public SubjectClassCard()
         {
+
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
         }
-        public SubjectCard(int siSo, string giaoVien, string maMon, string tenMon) : this()
+        public SubjectClassCard(Guid id, int siSo, string giaoVien, string maMon, string tenMon) : this()
         {
+            Id = id;
             SiSo = siSo;
             GiaoVien = giaoVien;
             MaMon = maMon;
@@ -121,5 +124,7 @@ namespace StudentManagement.Objects
 
             }
         }
+
+        public Guid Id { get => _id; set => _id = value; }
     }
 }
