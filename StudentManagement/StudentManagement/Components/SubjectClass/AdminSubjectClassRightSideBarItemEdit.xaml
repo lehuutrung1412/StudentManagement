@@ -26,9 +26,9 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="8">
                 <TextBlock
-                    FontSize="28"
+                    FontSize="24"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                     Text="Cập nhật thông tin"
                     TextWrapping="Wrap" />
 
@@ -93,13 +93,13 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Mã môn học" />
+                        Text="Mã lớp học" />
 
                     <TextBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập mã môn học"
+                        materialDesign:HintAssist.Hint="Nhập mã lớp học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.MaMon}" />
+                        Text="{Binding CurrentCard.Code}" />
                 </Grid>
 
 
@@ -155,14 +155,14 @@
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="3"
-                Command="{Binding ConfirmEditSubjectCardInfo}"
+                Command="{Binding ConfirmEditSubjectClassCardInfo}"
                 Content="Lưu"
                 FontSize="16"
                 Style="{StaticResource rounded_btn}" />
             <Button
                 Grid.Column="2"
                 Background="{StaticResource DarkGray}"
-                Command="{Binding CancelEditSubjectCardInfo}"
+                Command="{Binding CancelEditSubjectClassCardInfo}"
                 Content="Hủy"
                 FontSize="16"
                 Foreground="White"

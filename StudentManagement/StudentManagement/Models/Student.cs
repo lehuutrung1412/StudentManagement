@@ -25,8 +25,8 @@ namespace StudentManagement.Models
     
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private System.Guid _idTrainingForm { get; set; }
-        public System.Guid IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idTrainingForm { get; set; }
+        public Nullable<System.Guid> IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
         private Nullable<int> _status { get; set; }
         public Nullable<int> Status { get => _status; set { _status = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idUsers { get; set; }

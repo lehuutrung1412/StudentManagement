@@ -43,7 +43,7 @@ namespace StudentManagement.ViewModels
 
         public SubjectClassDetailViewModel(UserControl cardComponent)
         {
-            SubjectCard card = cardComponent.DataContext as SubjectCard;
+            SubjectClassCard card = cardComponent.DataContext as SubjectClassCard;
             _layoutViewModel = new LayoutViewModel();
 
             InitContentView();

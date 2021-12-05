@@ -9,7 +9,7 @@ namespace StudentManagement.Objects
     public class NotificationCard : BaseObjectWithBaseViewModel, IBaseCard
     {
         private Guid _id;
-        private Guid _idPoster;
+        private Nullable<Guid> _idPoster;
         private string _content;
         private string _topic;
         private DateTime _time;
@@ -39,7 +39,7 @@ namespace StudentManagement.Objects
             Status = a.Status;
         }
 
-        public Guid IdPoster { get => _idPoster; set => _idPoster = value; }
+        public Nullable<Guid> IdPoster { get => _idPoster; set => _idPoster = value; }
         public string Content { get => _content; set => _content = value; }
         public string Topic { get => _topic; set => _topic = value; }
         public DateTime Time { get => _time; set => _time = value; }

@@ -1,15 +1,16 @@
-﻿<UserControl x:Class="StudentManagement.Components.StudentListRightSideBarItem"
-              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl
+    x:Class="StudentManagement.Components.StudentListRightSideBarItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    x:Name="StudentListRightSideBar"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
-    x:Name="StudentListRightSideBar"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -18,9 +19,9 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel Margin="10" Grid.Row="0">
+        <StackPanel Grid.Row="0" Margin="10">
             <TextBlock
-                FontSize="28"
+                FontSize="24"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 TextWrapping="Wrap">
@@ -112,15 +113,15 @@
                     Text="{Binding CurrentScore.DiemTB, FallbackValue='10'}"
                     TextAlignment="Right" />
             </Grid>
-            <Button 
-                    Command="{Binding EditDetailScore}"
-                    CommandParameter="{Binding ElementName=StudentListRightSideBar, Path=DataContext.CurrentScore}"
-                    DataContext="{DynamicResource StudentListRightSideBarVM}"
-                    Width="140"
-                    Margin="16,0,16,0"
-                    materialDesign:ButtonAssist.CornerRadius="5"
-                    Background="#4caf50"
-                    ToolTip="MaterialDesignRaisedLightButton with Round Corners">
+            <Button
+                Width="140"
+                Margin="16,0,16,0"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                Background="#4caf50"
+                Command="{Binding EditDetailScore}"
+                CommandParameter="{Binding ElementName=StudentListRightSideBar, Path=DataContext.CurrentScore}"
+                DataContext="{DynamicResource StudentListRightSideBarVM}"
+                ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                 <TextBlock Text="Cập nhật" />
             </Button>
         </StackPanel>

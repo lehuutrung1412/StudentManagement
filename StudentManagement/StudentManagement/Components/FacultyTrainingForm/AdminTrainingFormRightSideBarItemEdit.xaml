@@ -26,7 +26,7 @@
             <StackPanel Margin="8">
                 <TextBlock
                     Margin="0,0,0,16"
-                    FontSize="28"
+                    FontSize="24"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                     Text="Cập nhật thông tin"

@@ -34,11 +34,14 @@ namespace StudentManagement.ViewModels
             CurrentCard = null;
         }
 
-        public AdminTrainingFormRightSideBarItemEditViewModel(TrainingFormCard card)
+        public AdminTrainingFormRightSideBarItemEditViewModel(TrainingFormCard card, bool isCreatedNew = false)
         {
             CurrentCard = new TrainingFormCard();
             ActualCard = card;
-            CurrentCard.CopyCardInfo(card);
+            if (!isCreatedNew)
+            {
+                CurrentCard.CopyCardInfo(card);
+            }
             InitCommand();
         }
 
@@ -54,7 +57,25 @@ namespace StudentManagement.ViewModels
         public void InitCommand()
         {
             CancelEditTrainingFormCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditTrainingFormCardInfoFunction());
-            ConfirmEditTrainingFormCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => ConfirmEditTrainingFormCardInfoFunction());
+            ConfirmEditTrainingFormCardInfo = new RelayCommand<object>((p) =>
+            {
+                if (!CurrentCard.HasErrors && CanConfirmEdit())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }, (p) => ConfirmEditTrainingFormCardInfoFunction());
+        }
+
+        public bool CanConfirmEdit()
+        {
+            if (!string.IsNullOrEmpty(CurrentCard.DisplayName))
+
+                return true;
+            return false;
         }
 
         public void CancelEditTrainingFormCardInfoFunction()

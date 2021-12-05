@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using StudentManagement.Utils;
 using StudentManagement.Views;
 using System;
@@ -17,12 +18,12 @@ namespace StudentManagement.ViewModels
     public class AdminSubjectClassViewModel : BaseViewModel
     {
         #region properties
-        static private ObservableCollection<SubjectCard> _storedSubjectCards;
-        public static ObservableCollection<SubjectCard> StoredSubjectCards { get => _storedSubjectCards; set => _storedSubjectCards = value; }
+        static private ObservableCollection<SubjectClassCard> _storedSubjectClassCards;
+        public static ObservableCollection<SubjectClassCard> StoredSubjectClassCards { get => _storedSubjectClassCards; set => _storedSubjectClassCards = value; }
 
-        private static ObservableCollection<SubjectCard> _subjectCards;
+        private static ObservableCollection<SubjectClassCard> _subjectClassCards;
 
-        public static ObservableCollection<SubjectCard> SubjectCards { get => _subjectCards; set => _subjectCards = value; }
+        public static ObservableCollection<SubjectClassCard> SubjectClassCards { get => _subjectClassCards; set => _subjectClassCards = value; }
 
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
 
@@ -45,6 +46,7 @@ namespace StudentManagement.ViewModels
             set
             {
                 _searchQuery = value;
+                SearchSubjectClassCardsFunction();
                 OnPropertyChanged();
             }
         }
@@ -55,9 +57,9 @@ namespace StudentManagement.ViewModels
 
         private ICommand _switchSearchButton;
 
-        public ICommand SearchSubjectCards { get => _searchSubjectCards; set => _searchSubjectCards = value; }
+        public ICommand SearchSubjectClassCards { get => _searchSubjectClassCards; set => _searchSubjectClassCards = value; }
 
-        private ICommand _searchSubjectCards;
+        private ICommand _searchSubjectClassCards;
 
         public ICommand ShowSubjectClassDetail { get; set; }
 
@@ -65,58 +67,82 @@ namespace StudentManagement.ViewModels
 
         public AdminSubjectClassViewModel()
         {
-            StoredSubjectCards = new ObservableCollection<SubjectCard>() {
-                new SubjectCard(50, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan"),
-                new SubjectCard(150, "Nguyễn Thị Quý", "SE104", "Nhập môn CNPM"),
-                new SubjectCard(20, "Nguyễn Thị Quý", "IT009", "Mạng máy tính"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 1"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT010", "Cơ sở dữ liệu 2"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT011", "Cơ sở dữ liệu test tên siêu dài test tên siêu dài 3"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT012", "Cơ sở dữ liệu 4"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT013", "Cơ sở dữ liệu 5"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT014", "Cơ sở dữ liệu test tên siêu dài 6"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 7"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài 8"),
-                new SubjectCard(40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
-            };
-
-            //SubjectCards = new ObservableCollection<SubjectCard>(StoredSubjectCards.Select(el => el));
-            // Use this for displaying in design
-            SubjectCards = new ObservableCollection<SubjectCard>() {
-                new SubjectCard(50, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan"),
-                new SubjectCard(150, "Nguyễn Thị Quý", "SE104", "Nhập môn CNPM"),
-                new SubjectCard(20, "Nguyễn Thị Quý", "IT009", "Mạng máy tính"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 1"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT010", "Cơ sở dữ liệu 2"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT011", "Cơ sở dữ liệu test tên siêu dài test tên siêu dài 3"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT012", "Cơ sở dữ liệu 4"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT013", "Cơ sở dữ liệu 5"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT014", "Cơ sở dữ liệu test tên siêu dài 6"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 7"),
-                new SubjectCard(30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài 8"),
-                new SubjectCard(40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
-            };
+            LoadSubjectClassCards();
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
-            SearchSubjectCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectCardsFunction(p));
+            SearchSubjectClassCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectClassCardsFunction());
             ShowSubjectClassDetail = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowSubjectClassDetailFunction(p));
         }
 
         #region methods
+
+        public void LoadSubjectClassCards()
+        {
+            var subjectClasses = SubjectClassServices.Instance.LoadSubjectClassList();
+
+            StoredSubjectClassCards = new ObservableCollection<SubjectClassCard>();
+            SubjectClassCards = new ObservableCollection<SubjectClassCard>();
+
+            subjectClasses.ToList().ForEach(subjectClass => StoredSubjectClassCards.Add(SubjectClassServices.Instance.ConvertSubjectClassToSubjectClassCard(subjectClass)));
+
+            foreach (var subjectClass in StoredSubjectClassCards)
+            {
+                SubjectClassCards.Add(subjectClass);
+            }
+
+            #region temporary code
+            /*
+            StoredSubjectClassCards = new ObservableCollection<SubjectClassCard>()
+            {
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 50, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 150, "Nguyễn Thị Quý", "SE104", "Nhập môn CNPM"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 20, "Nguyễn Thị Quý", "IT009", "Mạng máy tính"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 1"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT010", "Cơ sở dữ liệu 2"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT011", "Cơ sở dữ liệu test tên siêu dài test tên siêu dài 3"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT012", "Cơ sở dữ liệu 4"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT013", "Cơ sở dữ liệu 5"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT014", "Cơ sở dữ liệu test tên siêu dài 6"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 7"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài 8"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
+            };
+
+            //SubjectClassCards = new ObservableCollection<SubjectClassCard>(StoredSubjectClassCards.Select(el => el));
+            // Use this for displaying in design
+            SubjectClassCards = new ObservableCollection<SubjectClassCard>()
+            {
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 50, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 150, "Nguyễn Thị Quý", "SE104", "Nhập môn CNPM"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 20, "Nguyễn Thị Quý", "IT009", "Mạng máy tính"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 1"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT010", "Cơ sở dữ liệu 2"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT011", "Cơ sở dữ liệu test tên siêu dài test tên siêu dài 3"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT012", "Cơ sở dữ liệu 4"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT013", "Cơ sở dữ liệu 5"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT014", "Cơ sở dữ liệu test tên siêu dài 6"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu 7"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 30, "Nguyễn Tấn Toàn", "IT007", "Cơ sở dữ liệu test tên siêu dài 8"),
+                new SubjectClassCard(Guid.NewGuid(), "IT008.M11.KHTN", 40, "Nguyễn Tấn Toàn", "CS231", "Xử lý ngôn ngữ tự nhiên")
+            };
+            */
+            #endregion
+        }
+
         public void SwitchSearchButtonFunction(UserControl p)
         {
             IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
 
-        public void SearchSubjectCardsFunction(object p)
+        public void SearchSubjectClassCardsFunction()
         {
-            var tmp = StoredSubjectCards.Where(x => !IsFirstSearchButtonEnabled ?
-                                                    vietnameseStringNormalizer.Normalize(x.TenMon + " " + x.MaMon).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
+            var tmp = StoredSubjectClassCards.Where(x => !IsFirstSearchButtonEnabled ?
+                                                    vietnameseStringNormalizer.Normalize(x.TenMon + " " + x.Code).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
                                                     : vietnameseStringNormalizer.Normalize(x.GiaoVien).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
-            SubjectCards.Clear();
-            foreach (SubjectCard card in tmp)
-                SubjectCards.Add(card);
+            SubjectClassCards.Clear();
+            foreach (SubjectClassCard card in tmp)
+                SubjectClassCards.Add(card);
         }
 
         public void ShowSubjectClassDetailFunction(UserControl cardComponent)

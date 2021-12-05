@@ -19,10 +19,10 @@ namespace StudentManagement.Models
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
         private Nullable<double> _score { get; set; }
         public Nullable<double> Score { get => _score; set { _score = value; OnPropertyChanged(); } }
-        private System.Guid _idSemester { get; set; }
-        public System.Guid IdSemester { get => _idSemester; set { _idSemester = value; OnPropertyChanged(); } }
-        private System.Guid _idStudent { get; set; }
-        public System.Guid IdStudent { get => _idStudent; set { _idStudent = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idSemester { get; set; }
+        public Nullable<System.Guid> IdSemester { get => _idSemester; set { _idSemester = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idStudent { get; set; }
+        public Nullable<System.Guid> IdStudent { get => _idStudent; set { _idStudent = value; OnPropertyChanged(); } }
     
         public virtual Semester Semester { get; set; }
         public virtual Student Student { get; set; }

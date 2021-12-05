@@ -45,7 +45,7 @@
                             DatePickerVisibility="False"
                             FirstSearchButtonText="Mã lớp"
                             IsFirstSearchButtonEnabled="{Binding IsFirstSearchButtonEnabled}"
-                            SearchCommand="{Binding SearchSubjectCards}"
+                            SearchCommand="{Binding SearchSubjectClassCards}"
                             SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SecondSearchButtonText="Giáo viên"
                             SwitchSearchButton="{Binding SwitchSearchButton}" />
@@ -54,11 +54,11 @@
                             Height="50"
                             Margin="16,0,0,0"
                             materialDesign:ButtonAssist.CornerRadius="8"
-                            Command="{Binding CreateSubjectCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
+                            Command="{Binding CreateSubjectClassCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
                             Content="Thêm lớp học"
                             FontSize="14" />
                     </Grid>
-                    <ItemsControl ItemsSource="{Binding SubjectCards}">
+                    <ItemsControl ItemsSource="{Binding SubjectClassCards}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel x:Name="Container" HorizontalAlignment="Center" />

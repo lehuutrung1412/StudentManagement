@@ -44,16 +44,16 @@ namespace StudentManagement.ViewModels
         public ICommand ShowCardInfo { get => _showCardInfo; set => _showCardInfo = value; }
 
         private ICommand _showCardInfo;
-        public ICommand EditSubjectCardInfo { get => _editSubjectCardInfo; set => _editSubjectCardInfo = value; }
+        public ICommand EditSubjectClassCardInfo { get => _editSubjectClassCardInfo; set => _editSubjectClassCardInfo = value; }
 
-        private ICommand _editSubjectCardInfo;
-        public ICommand DeleteSubjectCardInfo { get => _deleteSubjectCardInfo; set => _deleteSubjectCardInfo = value; }
+        private ICommand _editSubjectClassCardInfo;
+        public ICommand DeleteSubjectClassCardInfo { get => _deleteSubjectClassCardInfo; set => _deleteSubjectClassCardInfo = value; }
 
-        private ICommand _deleteSubjectCardInfo;
+        private ICommand _deleteSubjectClassCardInfo;
 
-        public ICommand CreateSubjectCardInfo { get => _createSubjectCardInfo; set => _createSubjectCardInfo = value; }
+        public ICommand CreateSubjectClassCardInfo { get => _createSubjectClassCardInfo; set => _createSubjectClassCardInfo = value; }
 
-        private ICommand _createSubjectCardInfo;
+        private ICommand _createSubjectClassCardInfo;
         #endregion
 
         public AdminSubjectClassRightSideBarViewModel()
@@ -62,9 +62,9 @@ namespace StudentManagement.ViewModels
             InitRightSideBarItemViewModel();
 
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
-            EditSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditSubjectCardByCardFunction(p));
-            DeleteSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => DeleteSubjectCardByCardFunction(p));
-            CreateSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CreateSubjectCardByCardFunction());
+            EditSubjectClassCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditSubjectClassCardByCardFunction(p));
+            DeleteSubjectClassCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => DeleteSubjectClassCardByCardFunction(p));
+            CreateSubjectClassCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CreateSubjectClassCardByCardFunction());
         }
 
         #region methods
@@ -77,37 +77,37 @@ namespace StudentManagement.ViewModels
         }
         public void ShowCardInfoByCardDataContext(UserControl p)
         {
-            SubjectCard card = p.DataContext as SubjectCard;
+            SubjectClassCard card = p.DataContext as SubjectClassCard;
 
             _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemViewModel(card);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
         }
 
-        public void EditSubjectCardByCardFunction(object p)
+        public void EditSubjectClassCardByCardFunction(object p)
         {
-            SubjectCard card = p as SubjectCard;
+            SubjectClassCard card = p as SubjectClassCard;
 
             _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
         }
 
-        public void CreateSubjectCardByCardFunction()
+        public void CreateSubjectClassCardByCardFunction()
         {
-            SubjectCard card = new SubjectCard();
+            SubjectClassCard card = new SubjectClassCard();
 
-            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
+            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card, isCreatedNew:true);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
         }
         
-        public void DeleteSubjectCardByCardFunction(object p)
+        public void DeleteSubjectClassCardByCardFunction(object p)
         {
-            SubjectCard card = p as SubjectCard;
+            SubjectClassCard card = p as SubjectClassCard;
 
-            SubjectCards.Remove(card);
-            StoredSubjectCards.Remove(card);
+            SubjectClassCards.Remove(card);
+            StoredSubjectClassCards.Remove(card);
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }

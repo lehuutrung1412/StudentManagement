@@ -18,8 +18,8 @@ namespace StudentManagement.Models
         public Semester()
         {
             this.CourseRegisters = new HashSet<CourseRegister>();
-            this.SubjectClasses = new HashSet<SubjectClass>();
             this.TrainingScores = new HashSet<TrainingScore>();
+            this.SubjectClasses = new HashSet<SubjectClass>();
         }
     
         private System.Guid _id { get; set; }
@@ -32,7 +32,7 @@ namespace StudentManagement.Models
         public Nullable<int> CourseRegisterStatus { get => _courseRegisterStatus; set { _courseRegisterStatus = value; OnPropertyChanged(); } }
     
         public virtual ICollection<CourseRegister> CourseRegisters { get; set; }
-        public virtual ICollection<SubjectClass> SubjectClasses { get; set; }
         public virtual ICollection<TrainingScore> TrainingScores { get; set; }
+        public virtual ICollection<SubjectClass> SubjectClasses { get; set; }
     }
 }

@@ -19,155 +19,148 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel Margin="8">
-            <TextBlock
-                FontSize="28"
-                FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                Text="Thông tin chi tiết"
-                TextWrapping="Wrap" />
-            <Grid>
-                <Border
-                    x:Name="ImageBorder"
-                    Height="250"
-                    Margin="0,16"
-                    CornerRadius="8">
-                    <Border.Background>
-                        <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
-                    </Border.Background>
-                </Border>
-                <Button
-                    x:Name="btnUpdate"
-                    Width="500"
-                    Height="{Binding Height, ElementName=ImageBorder}"
-                    Padding="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding ClickChangeImageCommand}"
-                    Content="{materialDesign:PackIcon Camera,
-                                                      Size=50}"
-                    Visibility="Visible">
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Foreground" Value="Transparent" />
-                            <Setter Property="materialDesign:RippleAssist.Feedback" Value="White" />
-                            <Setter Property="Foreground" Value="{DynamicResource White}" />
-                            <Setter Property="Cursor" Value="Hand" />
-                        </Style>
-                    </Button.Style>
-                </Button>
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="8">
                 <TextBlock
-                    Grid.Column="0"
+                    FontSize="24"
                     FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Tên môn học:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.TenMon, FallbackValue='Ten Mon Hoc'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="Thông tin chi tiết"
+                    TextWrapping="Wrap" />
+                <Grid>
+                    <Border
+                        x:Name="ImageBorder"
+                        Height="250"
+                        Margin="0,16"
+                        CornerRadius="8">
+                        <Border.Background>
+                            <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
+                    <Button
+                        x:Name="btnUpdate"
+                        Width="500"
+                        Height="{Binding Height, ElementName=ImageBorder}"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding ClickChangeImageCommand}"
+                        Content="{materialDesign:PackIcon Camera,
+                                                          Size=50}"
+                        Visibility="Visible">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Transparent" />
+                                <Setter Property="materialDesign:RippleAssist.Feedback" Value="White" />
+                                <Setter Property="Foreground" Value="{DynamicResource White}" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Mã môn:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.MaMon, FallbackValue='MaMon'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Giáo viên:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.GiaoVien, FallbackValue='Ten Giao Vien'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Sĩ số:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.SiSo, FallbackValue='Si so'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Button
-                x:Name="btnEdit"
-                Command="{Binding EditSubjectCardInfo}"
-                CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentCard}"
-                DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
-                Style="{StaticResource grid_button_item}">
-
-                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
                     <TextBlock
-                        FontSize="16"
+                        Grid.Column="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Chỉnh sửa:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Pencil" />
-                </Grid>
-            </Button>
-            <Button
-                x:Name="btnDelete"
-                Command="{Binding DeleteSubjectCardInfo}"
-                CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentCard}"
-                DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
-                Style="{StaticResource grid_button_item}">
-
-                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
+                        Text="Tên môn học:" />
                     <TextBlock
-                        FontSize="16"
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.TenMon, FallbackValue='Ten Mon Hoc'}"
+                        TextAlignment="Right" />
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Xoá:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Eraser" />
+                        Text="Mã lớp học:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.Code, FallbackValue='Code'}"
+                        TextAlignment="Right" />
                 </Grid>
-            </Button>
-        </StackPanel>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Giáo viên:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.GiaoVien, FallbackValue='Ten Giao Vien'}"
+                        TextAlignment="Right" />
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Sĩ số:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.SiSo, FallbackValue='Si so'}"
+                        TextAlignment="Right" />
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid
+            Grid.Row="1"
+            Margin="8"
+            Style="{StaticResource text_grid_item}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="3"
+                Command="{Binding EditSubjectClassCardInfo}"
+                CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentCard}"
+                Content="Sửa"
+                DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
+                FontSize="16"
+                Style="{StaticResource rounded_btn}" />
+            <Button
+                Grid.Column="2"
+                Background="{StaticResource DarkGray}"
+                Command="{Binding DeleteSubjectClassCardInfo}"
+                CommandParameter="{Binding ElementName=SubjectClassRightSideBar, Path=DataContext.CurrentCard}"
+                Content="Xóa"
+                DataContext="{DynamicResource AdminSubjectClassRightSideBarVM}"
+                FontSize="16"
+                Foreground="White"
+                Style="{StaticResource rounded_btn}" />
+        </Grid>
     </Grid>
 </UserControl>

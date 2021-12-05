@@ -1,4 +1,5 @@
-﻿using StudentManagement.ViewModels;
+﻿using StudentManagement.Models;
+using StudentManagement.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace StudentManagement.Objects
 {
-    public class SubjectCard : BaseObjectWithBaseViewModel, IBaseCard, INotifyDataErrorInfo
+    public class SubjectClassCard : BaseObjectWithBaseViewModel, IBaseCard, INotifyDataErrorInfo
     {
         // define validation rule
-        private readonly ErrorBaseViewModel _errorBaseViewModel;
+        private readonly ErrorBaseViewModel _errorBaseViewModel = new ErrorBaseViewModel();
 
         public bool HasErrors
         {
@@ -38,18 +39,25 @@ namespace StudentManagement.Objects
             return _errorBaseViewModel.GetErrors(propertyName);
         }
 
-        private int _siSo;
+        private int _numberOfStudents;
+        private Guid _id;
+        private User _teacher;
+        private Subject _subjectOfClass;
+        private SubjectClass subjectClass;
+        private string _code;
         private string _giaoVien;
         private string _maMon;
         private string _tenMon;
 
-        public SubjectCard()
+        public SubjectClassCard()
         {
-            _errorBaseViewModel = new ErrorBaseViewModel();
+            Id = Guid.NewGuid();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
         }
-        public SubjectCard(int siSo, string giaoVien, string maMon, string tenMon) : this()
+        public SubjectClassCard(Guid id, string code, int siSo, string giaoVien, string maMon, string tenMon) : this()
         {
+            Id = id;
+            Code = code;
             SiSo = siSo;
             GiaoVien = giaoVien;
             MaMon = maMon;
@@ -58,10 +66,11 @@ namespace StudentManagement.Objects
 
         public int SiSo
         {
-            get => _siSo;
+            get => _numberOfStudents;
             set
             {
-                _siSo = value;
+                _numberOfStudents = value;
+
                 // Validation
                 _errorBaseViewModel.ClearErrors();
                 if (!IsValid(SiSo.ToString()))
@@ -117,5 +126,8 @@ namespace StudentManagement.Objects
 
             }
         }
+
+        public Guid Id { get => _id; set => _id = value; }
+        public string Code { get => _code; set => _code = value; }
     }
 }

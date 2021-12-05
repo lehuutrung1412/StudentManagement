@@ -22,14 +22,14 @@ namespace StudentManagement.Models
     
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private System.Guid _idSubjectClass { get; set; }
-        public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idSubjectClass { get; set; }
+        public Nullable<System.Guid> IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
         private string _displayName { get; set; }
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
         private Nullable<double> _contributePercent { get; set; }
         public Nullable<double> ContributePercent { get => _contributePercent; set { _contributePercent = value; OnPropertyChanged(); } }
     
-        public virtual SubjectClass SubjectClass { get; set; }
         public virtual ICollection<DetailScore> DetailScores { get; set; }
+        public virtual SubjectClass SubjectClass { get; set; }
     }
 }

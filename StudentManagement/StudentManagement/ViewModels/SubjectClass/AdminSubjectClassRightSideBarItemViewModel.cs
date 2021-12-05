@@ -13,8 +13,8 @@ namespace StudentManagement.ViewModels
 {
     public class AdminSubjectClassRightSideBarItemViewModel : BaseViewModel
     {
-        public SubjectCard CurrentCard { get => _currentCard; set => _currentCard = value; }
-        private SubjectCard _currentCard;
+        public SubjectClassCard CurrentCard { get => _currentCard; set => _currentCard = value; }
+        private SubjectClassCard _currentCard;
 
         public ICommand ClickChangeImageCommand { get; set; }
 
@@ -23,7 +23,7 @@ namespace StudentManagement.ViewModels
             CurrentCard = null;
         }
 
-        public AdminSubjectClassRightSideBarItemViewModel(SubjectCard card)
+        public AdminSubjectClassRightSideBarItemViewModel(SubjectClassCard card)
         {
             CurrentCard = card;
 

@@ -36,12 +36,15 @@ namespace StudentManagement.ViewModels
             CurrentCard = null;
         }
 
-        public AdminFacultyRightSideBarItemEditViewModel(FacultyCard card)
+        public AdminFacultyRightSideBarItemEditViewModel(FacultyCard card, bool isCreatedNew = false)
         {
             CurrentCard = new FacultyCard();
             ActualCard = card;
             ActualCard.InitTrainingFormOfFacultyList();
-            CurrentCard.CopyCardInfo(card);
+            if (!isCreatedNew)
+            {
+                CurrentCard.CopyCardInfo(card);
+            }
             InitCommand();
         }
 
@@ -66,7 +69,17 @@ namespace StudentManagement.ViewModels
         public void InitCommand()
         {
             CancelEditFacultyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditFacultyCardInfoFunction());
-            ConfirmEditFacultyCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => ConfirmEditFacultyCardInfoFunction());
+            ConfirmEditFacultyCardInfo = new RelayCommand<object>((p) =>
+            {
+                if (!CurrentCard.HasErrors && CanConfirmEdit())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }, (p) => ConfirmEditFacultyCardInfoFunction());
             AddToTrainingFormsListOfFaculty = new RelayCommand<TrainingForm>((p) =>
             {
                 if (p != null)
@@ -76,6 +89,14 @@ namespace StudentManagement.ViewModels
                 return false;
             }, (p) => AddToTrainingFormsListOfFacultyFunction(p));
             RemoveFromTrainingFormsListOfFaculty = new RelayCommand<TrainingForm>((p) => { return true; }, (p) => RemoveFromTrainingFormsListOfFacultyFunction(p));
+        }
+
+        public bool CanConfirmEdit()
+        {
+            if (!string.IsNullOrEmpty(CurrentCard.DisplayName))
+
+                return true;
+            return false;
         }
 
         public void CancelEditFacultyCardInfoFunction()

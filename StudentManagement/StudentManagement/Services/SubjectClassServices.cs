@@ -1,11 +1,11 @@
-﻿    using StudentManagement.Components;
-using StudentManagement.Models;
+﻿using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,21 +29,21 @@ namespace StudentManagement.Services
         {
             return new ObservableCollection<SubjectClass>(DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).ToList());
         }
-        
-        /*public SubjectClass ConvertSubjectCardToSubjectClass(SubjectCard subjectCard)
+
+        /*public SubjectClass ConvertSubjectClassCardToSubjectClass(SubjectClassCard subjectClassCard)
         {
             SubjectClass subjectClass = new SubjectClass()
             {
-                Id = subjectCard.
-                DisplayName = subjectCard.DisplayName
+                Id = subjectClassCard.
+                DisplayName = subjectClassCard.DisplayName
             };
 
             return faculty;
         }*/
 
-        /*public SubjectCard ConvertSubjectClassToSubjectCard(SubjectClass subjectClass)
+        /*public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
         {
-            SubjectCard subjectCard = new SubjectCard(subjectClass.NumberStudent);
+            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.NumberStudent);
 
             return facultyCard;
         }*/
@@ -64,20 +64,38 @@ namespace StudentManagement.Services
         /// Save SubjectClass To Database
         /// </summary>
         /// <param name="subjectClass"></param>
-        public void SaveSubjectClassToDatabase(SubjectClass subjectClass)
+        public bool SaveSubjectClassToDatabase(SubjectClass subjectClass)
         {
-            SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
+            try
+            {
 
-            if (savedSubjectClass == null)
-            {
-                DataProvider.Instance.Database.SubjectClasses.Add(subjectClass);
+                SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
+
+                if (savedSubjectClass == null)
+                {
+                    DataProvider.Instance.Database.SubjectClasses.Add(subjectClass);
+                }
+                else
+                {
+                    //savedSubjectClass = (subjectClass.ShallowCopy() as SubjectClass);
+                    Reflection.CopyProperties(subjectClass, savedSubjectClass);
+                }
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
             }
-            else
+            catch (DbEntityValidationException e)
             {
-                //savedSubjectClass = (subjectClass.ShallowCopy() as SubjectClass);
-                Reflection.CopyProperties(subjectClass, savedSubjectClass);
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    MyMessageBox.Show($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        MyMessageBox.Show($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                    }
+                }
+                return false;
             }
-            DataProvider.Instance.Database.SaveChanges();
         }
 
         /// <summary>
@@ -97,7 +115,7 @@ namespace StudentManagement.Services
         /// <param name="subjectClass"></param>
         public bool RemoveSubjectClassFromDatabase(SubjectClass subjectClass)
         {
-            
+
             try
             {
                 SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
@@ -188,6 +206,40 @@ namespace StudentManagement.Services
                 }
             }
             return false;
+        }
+
+        public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
+        {
+            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, subjectClass.Code, 10, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan");
+
+            return subjectClassCard;
+        }
+
+        public SubjectClass ConvertSubjectClassCardToSubjectClass(SubjectClassCard subjectClassCard)
+        {
+            SubjectClass subjectClass = new SubjectClass()
+            {
+                Id = subjectClassCard.Id,
+                Code = subjectClassCard.Code
+            };
+
+            return subjectClass;
+        }
+
+        public bool SaveSubjectClassCardToDatabase(SubjectClassCard subjectClassCard)
+        {
+            try
+            {
+                SubjectClass subjectClass = ConvertSubjectClassCardToSubjectClass(subjectClassCard);
+
+                bool success = SaveSubjectClassToDatabase(subjectClass);
+
+                return success;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
