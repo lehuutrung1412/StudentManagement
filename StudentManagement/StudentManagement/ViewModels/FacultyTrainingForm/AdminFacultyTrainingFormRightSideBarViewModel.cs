@@ -160,7 +160,7 @@ namespace StudentManagement.ViewModels
         {
             FacultyCard card = new FacultyCard();
 
-            _adminFacultyRightSideBarItemViewModel = new AdminFacultyRightSideBarItemEditViewModel(card);
+            _adminFacultyRightSideBarItemViewModel = new AdminFacultyRightSideBarItemEditViewModel(card, isCreatedNew: true);
 
             RightSideBarItemViewModel = _adminFacultyRightSideBarItemViewModel;
         }
@@ -169,7 +169,7 @@ namespace StudentManagement.ViewModels
         {
             TrainingFormCard card = new TrainingFormCard();
 
-            _adminFacultyRightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemEditViewModel(card);
+            _adminFacultyRightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemEditViewModel(card, isCreatedNew: true);
 
             RightSideBarItemViewModel = _adminFacultyRightSideBarItemViewModel;
         }

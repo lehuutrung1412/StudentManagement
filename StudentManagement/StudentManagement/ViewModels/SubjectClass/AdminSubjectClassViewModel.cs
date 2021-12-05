@@ -46,6 +46,7 @@ namespace StudentManagement.ViewModels
             set
             {
                 _searchQuery = value;
+                SearchSubjectClassCardsFunction();
                 OnPropertyChanged();
             }
         }
@@ -68,7 +69,7 @@ namespace StudentManagement.ViewModels
         {
             LoadSubjectClassCards();
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
-            SearchSubjectClassCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectClassCardsFunction(p));
+            SearchSubjectClassCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectClassCardsFunction());
             ShowSubjectClassDetail = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowSubjectClassDetailFunction(p));
         }
 
@@ -134,7 +135,7 @@ namespace StudentManagement.ViewModels
             IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
         }
 
-        public void SearchSubjectClassCardsFunction(object p)
+        public void SearchSubjectClassCardsFunction()
         {
             var tmp = StoredSubjectClassCards.Where(x => !IsFirstSearchButtonEnabled ?
                                                     vietnameseStringNormalizer.Normalize(x.TenMon + " " + x.Code).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))

@@ -228,18 +228,18 @@ namespace StudentManagement.Services
 
         public bool SaveSubjectClassCardToDatabase(SubjectClassCard subjectClassCard)
         {
-            //try
-            //{
-            SubjectClass subjectClass = ConvertSubjectClassCardToSubjectClass(subjectClassCard);
+            try
+            {
+                SubjectClass subjectClass = ConvertSubjectClassCardToSubjectClass(subjectClassCard);
 
-            bool success = SaveSubjectClassToDatabase(subjectClass);
+                bool success = SaveSubjectClassToDatabase(subjectClass);
 
-            return success;
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
+                return success;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace StudentManagement.Objects
     public class SubjectClassCard : BaseObjectWithBaseViewModel, IBaseCard, INotifyDataErrorInfo
     {
         // define validation rule
-        private readonly ErrorBaseViewModel _errorBaseViewModel;
+        private readonly ErrorBaseViewModel _errorBaseViewModel = new ErrorBaseViewModel();
 
         public bool HasErrors
         {
@@ -52,7 +52,6 @@ namespace StudentManagement.Objects
         public SubjectClassCard()
         {
             Id = Guid.NewGuid();
-            _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
         }
         public SubjectClassCard(Guid id, string code, int siSo, string giaoVien, string maMon, string tenMon) : this()
@@ -71,6 +70,7 @@ namespace StudentManagement.Objects
             set
             {
                 _numberOfStudents = value;
+
                 // Validation
                 _errorBaseViewModel.ClearErrors();
                 if (!IsValid(SiSo.ToString()))

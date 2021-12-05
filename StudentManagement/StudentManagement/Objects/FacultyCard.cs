@@ -1,16 +1,49 @@
 ﻿using StudentManagement.Models;
 using StudentManagement.Services;
+using StudentManagement.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StudentManagement.Objects
 {
-    public class FacultyCard : BaseObjectWithBaseViewModel, IBaseCard
+    public class FacultyCard : BaseObjectWithBaseViewModel, IBaseCard, INotifyDataErrorInfo
     {
+        #region validation
+        // define validation rule
+        private readonly ErrorBaseViewModel _errorBaseViewModel = new ErrorBaseViewModel();
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public bool HasErrors
+        {
+            get => _errorBaseViewModel.HasErrors;
+            set { }
+        }
+
+        private bool IsValid(string propertyName)
+        {
+            return !string.IsNullOrEmpty(propertyName) && !string.IsNullOrWhiteSpace(propertyName);
+        }
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _errorBaseViewModel.GetErrors(propertyName);
+        }
+
+        private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(this, e);
+        }
+        #endregion
+
+
+        #region property
         private string _displayName;
         private DateTime _foundationDay;
         private int _numberOfStudents;
@@ -19,11 +52,38 @@ namespace StudentManagement.Objects
         private Guid _id;
         private ObservableCollection<TrainingForm> _trainingFormsOfFacultyList = new ObservableCollection<TrainingForm>();
         private ObservableCollection<TrainingForm> _remainingTrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>();
-        //private List<Faculty_TrainingForm> _faculty_TrainingFormList = new List<Faculty_TrainingForm>();
+
+        public string DisplayName
+        {
+            get => _displayName; set
+            {
+                _displayName = value;
+
+                // Validation
+                _errorBaseViewModel.ClearErrors();
+
+                if (!IsValid(DisplayName))
+                {
+                    _errorBaseViewModel.AddError(nameof(DisplayName), "Vui lòng nhập tên khoa!");
+                }
+            }
+        }
+        public DateTime FoundationDay { get => _foundationDay; set => _foundationDay = value; }
+        public int NumberOfStudents { get => _numberOfStudents; set => _numberOfStudents = value; }
+        public string CacHeDaoTao { get => _cacHeDaoTao; set => _cacHeDaoTao = value; }
+        public Guid Id { get => _id; set => _id = value; }
+        public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
+        public ObservableCollection<TrainingForm> TrainingFormsOfFacultyList { get => _trainingFormsOfFacultyList; set { _trainingFormsOfFacultyList = value; OnPropertyChanged(); } }
+        public ObservableCollection<TrainingForm> RemainingTrainingFormsOfFacultyList { get => _remainingTrainingFormsOfFacultyList; set { _remainingTrainingFormsOfFacultyList = value; OnPropertyChanged(); } }
+
+        public List<Faculty_TrainingForm> Faculty_TrainingFormList { get; set; }
+        #endregion
+
         public FacultyCard()
         {
             Id = Guid.NewGuid();
             InitTrainingFormOfFacultyList();
+            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
         }
         public FacultyCard(Guid id, string displayName, DateTime foundationDay, int numberOfStudents, string cacHeDaoTao) : base()
         {
@@ -36,6 +96,8 @@ namespace StudentManagement.Objects
             InitTrainingFormOfFacultyList();
         }
 
+
+        #region methods
         public bool InitTrainingFormOfFacultyList()
         {
             try
@@ -133,18 +195,6 @@ namespace StudentManagement.Objects
                 return false;
             }
         }
-
-
-
-        public string DisplayName { get => _displayName; set => _displayName = value; }
-        public DateTime FoundationDay { get => _foundationDay; set => _foundationDay = value; }
-        public int NumberOfStudents { get => _numberOfStudents; set => _numberOfStudents = value; }
-        public string CacHeDaoTao { get => _cacHeDaoTao; set => _cacHeDaoTao = value; }
-        public Guid Id { get => _id; set => _id = value; }
-        public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
-        public ObservableCollection<TrainingForm> TrainingFormsOfFacultyList { get => _trainingFormsOfFacultyList; set { _trainingFormsOfFacultyList = value; OnPropertyChanged(); } }
-        public ObservableCollection<TrainingForm> RemainingTrainingFormsOfFacultyList { get => _remainingTrainingFormsOfFacultyList; set { _remainingTrainingFormsOfFacultyList = value; OnPropertyChanged(); } }
-
-        public List<Faculty_TrainingForm> Faculty_TrainingFormList { get; set; }
+        #endregion
     }
 }
