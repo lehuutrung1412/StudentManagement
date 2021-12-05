@@ -37,11 +37,14 @@ namespace StudentManagement.ViewModels
             CurrentCard = null;
         }
 
-        public AdminSubjectClassRightSideBarItemEditViewModel(SubjectCard card)
+        public AdminSubjectClassRightSideBarItemEditViewModel(SubjectCard card, bool isCreatedNew = false)
         {
             CurrentCard = new SubjectCard();
             ActualCard = card;
-            CurrentCard.CopyCardInfo(card);
+            if (!isCreatedNew)
+            {
+                CurrentCard.CopyCardInfo(card);
+            }
             InitCommand();
         }
 
@@ -58,8 +61,27 @@ namespace StudentManagement.ViewModels
         public void InitCommand()
         {
             CancelEditSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditSubjectCardInfoFunction());
-            ConfirmEditSubjectCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => ConfirmEditSubjectCardInfoFunction());
+            ConfirmEditSubjectCardInfo = new RelayCommand<object>((p) =>
+            {
+                if (!CurrentCard.HasErrors && CanConfirmEdit())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }, (p) => ConfirmEditSubjectCardInfoFunction());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
+        }
+
+        public bool CanConfirmEdit()
+        {
+            if (!string.IsNullOrEmpty(CurrentCard.MaMon))
+
+                return true;
+            return false;
         }
 
         public void CancelEditSubjectCardInfoFunction()

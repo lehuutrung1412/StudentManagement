@@ -97,7 +97,7 @@ namespace StudentManagement.ViewModels
         {
             SubjectCard card = new SubjectCard();
 
-            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card);
+            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card, isCreatedNew:true);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
         }
