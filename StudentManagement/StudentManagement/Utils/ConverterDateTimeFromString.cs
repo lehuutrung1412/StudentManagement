@@ -25,8 +25,12 @@ namespace StudentManagement.Utils
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+                return null;
+            DateTime tmp;
+            if(!DateTime.TryParse(value.ToString(), out tmp))
+                return "";
             return ((DateTime)value).ToString("dd / MM / yyyy");
-
         }
         public override object ProvideValue(IServiceProvider serviceProvider)
         {

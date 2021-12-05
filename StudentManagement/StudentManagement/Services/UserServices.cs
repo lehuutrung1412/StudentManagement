@@ -30,5 +30,9 @@ namespace StudentManagement.Services
             var user = GetUserById(id);
             return user.DisplayName;
         }
+        public bool CheckAdminByIdUser(Guid id)
+        {
+            return DataProvider.Instance.Database.Users.FirstOrDefault(user => user.Id == id).UserRole.Role.Contains("Admin");
+        }
     }
 }

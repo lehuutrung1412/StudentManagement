@@ -129,9 +129,13 @@ namespace StudentManagement.ViewModels
             AdminNotificationVM.Cards.Insert(0, CurrentCard);
             if (string.IsNullOrEmpty(AdminNotificationVM.SearchInfo))
                 if (AdminNotificationVM.RealCards.Where(x => x.Id == CurrentCard.Id).Count() == 0)
-                    AdminNotificationVM.RealCards.Insert(0, CurrentCard);
-            AdminNotificationVM.NumCardInBadged += 1;
+                    AdminNotificationVM.RealCards.Insert(0, CurrentCard);            
             NotificationServices.Instance.AddNotificationByNotificationCard(CurrentCard);
+            if (CurrentCard.Type.Contains("Thông báo chung") || CurrentCard.Type.Contains("Thông báo Admin"))
+            {
+                AdminNotificationVM.NumCardInBadged += 1;
+                AdminNotificationVM.CardsInBadge.Insert(0, CurrentCard);
+            }
         }
         #endregion
     }

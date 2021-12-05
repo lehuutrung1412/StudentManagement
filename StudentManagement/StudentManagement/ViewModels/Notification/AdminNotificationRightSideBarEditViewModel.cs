@@ -116,7 +116,13 @@ namespace StudentManagement.ViewModels
                     AdminNotificationVM.RealCards[i] = card;
                     break;
                 }
-            NotificationServices.Instance.UpdateNotificationByNotificationCardAndIdUser(CurrentCard, DataProvider.Instance.Database.Users.FirstOrDefault().Id);
+            for (int i = 0; i < AdminNotificationVM.CardsInBadge.Count; i++)
+                if (AdminNotificationVM.CardsInBadge[i].Id == card.Id)
+                {
+                    AdminNotificationVM.CardsInBadge[i] = card;
+                    break;
+                }
+            NotificationServices.Instance.UpdateNotificationByNotificationCard(CurrentCard);
         }
         #endregion
     }

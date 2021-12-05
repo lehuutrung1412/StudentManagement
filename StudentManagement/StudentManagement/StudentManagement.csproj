@@ -109,6 +109,9 @@
     <Compile Include="Components\CourseRegistry\CreateNewSemester.xaml.cs">
       <DependentUpon>CreateNewSemester.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\DeleteInfoItem.xaml.cs">
+      <DependentUpon>DeleteInfoItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\ScheduleItemCard.xaml.cs">
       <DependentUpon>ScheduleItemCard.xaml</DependentUpon>
     </Compile>
@@ -426,6 +429,7 @@
     <Compile Include="Services\TeacherServices.cs" />
     <Compile Include="Utils\BooleanToVisibilityConverter.cs" />
     <Compile Include="Services\TrainingFormServices.cs" />
+    <Compile Include="Utils\CheckAdminConverter.cs" />
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
     <Compile Include="Utils\BindingProxy.cs" />
     <Compile Include="Utils\ConverterDisplayNameFromIdUser.cs" />
@@ -444,6 +448,7 @@
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\DeleteInfoItemViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\NewsfeedRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemViewModel.cs" />
@@ -543,6 +548,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\CourseRegistry\CreateNewSemester.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\DeleteInfoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

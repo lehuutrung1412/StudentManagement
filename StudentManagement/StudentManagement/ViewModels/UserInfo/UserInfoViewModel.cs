@@ -136,8 +136,8 @@ namespace StudentManagement.ViewModels
         }
         public void LoadInfoSource()
         {
-            //var id = DataProvider.Instance.Database.Users.FirstOrDefault().Id;
-            //InfoSource = InfoItemServices.Instance.GetInfoSourceByUserId(id);
+            var id = DataProvider.Instance.Database.Users.FirstOrDefault().Id;
+            InfoSource = InfoItemServices.Instance.GetInfoSourceByUserId(id);
         }
         public void ComfirmUserInfo()
         {

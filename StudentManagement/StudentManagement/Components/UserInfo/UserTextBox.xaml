@@ -26,42 +26,22 @@
     <Grid>
         <StackPanel>
             <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBox
-                    
-                    materialDesign:HintAssist.Hint="{Binding LabelName}"
-                    Text="{Binding Value}">
-                    <TextBox.Style>
-                        <Style BasedOn="{StaticResource textbox_item}" TargetType="TextBox">
-                            <Setter Property="IsEnabled" Value="False" />
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsEnable}" Value="true" />
-                                        <Condition Binding="{Binding IsUpdate, Source={StaticResource UserInfoVM}}" Value="true" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="IsEnabled" Value="True" />
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <!--<Border Style="{StaticResource BorderStyle}">
-
-                </Border>-->
-                <!--<Button
-                    Grid.Column="1"
-                    Command="{Binding EditInfoItemCommand}"
-                    CommandParameter="{Binding ElementName=NotificationComponent}"
-                    DataContext="{DynamicResource UserInfoVM}"
-                    Style="{StaticResource MaterialDesignFlatButton}">
-                    <materialDesign:PackIcon Kind="PencilOutline" />
-                </Button>-->
-            </Grid>
-
+            <TextBox materialDesign:HintAssist.Hint="{Binding LabelName}" Text="{Binding Value}">
+                <TextBox.Style>
+                    <Style BasedOn="{StaticResource textbox_item}" TargetType="TextBox">
+                        <Setter Property="IsEnabled" Value="False" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnable}" Value="true" />
+                                    <Condition Binding="{Binding IsUpdate, Source={StaticResource UserInfoVM}}" Value="true" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

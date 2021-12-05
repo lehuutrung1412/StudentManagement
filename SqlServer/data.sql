@@ -527,16 +527,17 @@ VALUES
   (N'Thông báo Admin')
 GO
 
-INSERT INTO DatabaseImageTable
- (Image)
-values
- ( (SELECT *
-   FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
--- INSERT INTO DatabaseImageTable
---   (Image)
--- values
---   ( (SELECT *
---     FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
+--INSERT INTO DatabaseImageTable
+-- (Image)
+--values
+-- ( (SELECT *
+--   FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
+ INSERT INTO DatabaseImageTable
+   (Image)
+ values
+   ( (SELECT *
+    --  FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
+    FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
 -- INSERT INTO Faculty
 --   (DisplayName)
 -- values(N'TestFaculty')
@@ -557,6 +558,7 @@ INSERT INTO dbo.DatabaseImageTable
 SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C', *
 FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
 -- FROM OPENROWSET( Bulk 'C:\Users\Trung\Downloads\a.png', SINGLE_BLOB) rs
+-- FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as rs
 
 INSERT INTO dbo.TrainingForm
   (Id, DisplayName)
@@ -598,8 +600,10 @@ GO
 
 USP_InsertUserWithRole @Role = 'Admin' , @Faculty = N'Khoa học Máy tính'
 GO
--- select *
--- from Users
+USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
+GO
+ --select *
+ --from Users
 -- select *
 -- from UserRole
 -- select *
