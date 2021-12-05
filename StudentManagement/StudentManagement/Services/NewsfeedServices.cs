@@ -42,7 +42,7 @@ namespace StudentManagement.Services
         {
             return new NotificationComment()
             {
-                Id = comment.Id,
+                Id = (Guid)comment.Id,
                 Time = comment.Time,
                 Content = comment.Comment,
                 IdUserComment = (Guid)comment.UserId,
