@@ -21,47 +21,52 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <ScrollViewer>
-        <DockPanel>
-            <ComboBox
-                Width="300"
-                Height="36"
-                Margin="8,8"
-                Padding="4"
-                HorizontalAlignment="Left"
-                materialDesign:HintAssist.Hint="Chọn học kỳ"
-                materialDesign:ComboBoxAssist.ShowSelectedItem="True"
-                BorderBrush="Gray"
-                DockPanel.Dock="Top"
-                FontSize="16"
-                Foreground="#01579b"
-                ItemsSource="{Binding Semesters}"
-                SelectedItem="{Binding SelectedSemester, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Style="{StaticResource MaterialDesignComboBox}">
-                <ComboBox.Resources>
-                    <math:MathConverter
-                        x:Key="math" />
-                </ComboBox.Resources>
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding
-                                    Converter="{StaticResource math}"
-                                    ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
-                                    <Binding
-                                        Path="Batch" />
-                                    <Binding
-                                        Path="DisplayName" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <component:ScheduleTable
-                Margin="8"
-                DockPanel.Dock="Bottom"
-                Tag="{Binding Path=ScheduleItems}" />
-        </DockPanel>
+        <materialDesign:Card
+            Margin="8"
+            Style="{StaticResource CardContainer}">
+            <DockPanel>
+                <ComboBox
+                    Width="300"
+                    Height="36"
+                    Margin="8,8"
+                    Padding="4"
+                    HorizontalAlignment="Left"
+                    materialDesign:HintAssist.Hint="Chọn học kỳ"
+                    materialDesign:ComboBoxAssist.ShowSelectedItem="True"
+                    BorderBrush="Gray"
+                    DockPanel.Dock="Top"
+                    FontSize="16"
+                    Foreground="#01579b"
+                    ItemsSource="{Binding Semesters}"
+                    SelectedItem="{Binding SelectedSemester, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource MaterialDesignComboBox}">
+                    <ComboBox.Resources>
+                        <math:MathConverter
+                            x:Key="math" />
+                    </ComboBox.Resources>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding
+                                        Converter="{StaticResource math}"
+                                        ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
+                                        <Binding
+                                            Path="Batch" />
+                                        <Binding
+                                            Path="DisplayName" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <component:ScheduleTable
+                    Margin="8"
+                    DockPanel.Dock="Bottom"
+                    Tag="{Binding Path=ScheduleItems}" />
+            </DockPanel>
+        </materialDesign:Card>
+        
     </ScrollViewer>
 </UserControl>

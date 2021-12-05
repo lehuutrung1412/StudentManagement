@@ -53,7 +53,7 @@ namespace StudentManagement.ViewModels
             {
                 _isAllItemsSelected2 = value;
                 OnPropertyChanged();
-                CourseRegistryItems2.Select(c => { c.IsSelected = value; return c; }).ToList();
+                CourseRegistryItems2.Where(a=>a.IsConflict == false).Select(c => { c.IsSelected = value; return c; }).ToList();
             }
         }
         private ObservableCollection<CourseItem> courseRegistryItems1;
@@ -125,6 +125,7 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
             }
             CourseRegistryItems2Display = CourseRegistryItems2;
+            UploadConflictCourseRegistry();
             TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
             InitScheduleItems();
         }
@@ -147,11 +148,23 @@ namespace StudentManagement.ViewModels
                 ScheduleItemsRegistered.Add(temp);
             }
         }
+        public void UploadConflictCourseRegistry()
+        {
+            foreach (CourseItem item in CourseRegistryItems2)
+            {
+                if (CourseItem.IsConflictCourseRegistry(CourseRegistryItems1, item))
+                    item.IsConflict = true;
+                else
+                    item.IsConflict = false;
+            }
+        }
         public void RegisterSelectedCourses()
         {
             var SelectedItems = CourseRegistryItems2.Where(x => x.IsSelected == true).ToList();
             foreach (CourseItem item in SelectedItems)
             {
+                if (item.IsConflict)
+                    continue;
                 item.NumberOfStudents += 1;
                 TotalCredit += Convert.ToInt32(item.Subject.Credit);
                 item.IsSelected = false;
@@ -159,6 +172,7 @@ namespace StudentManagement.ViewModels
                 CourseRegisterServices.Instance.StudentRegisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
                 CourseRegistryItems2.Remove(item);
             }
+            UploadConflictCourseRegistry();
             Search();
             InitScheduleItems();
             StudentScheduleTableViewModel.Instance.UpdateData();
@@ -176,6 +190,8 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems1.Remove(item);
                 CourseRegisterServices.Instance.StudentUnregisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
             }
+            UploadConflictCourseRegistry();
+            Search();
             StudentScheduleTableViewModel.Instance.UpdateData();
             InitScheduleItems();
         }
@@ -205,6 +221,8 @@ namespace StudentManagement.ViewModels
         {
             return src.GetType().GetProperty(propName).GetValue(src, null);
         }*/
+
+        
         #endregion
     }
 }
