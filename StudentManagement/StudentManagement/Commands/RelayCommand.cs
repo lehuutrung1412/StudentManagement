@@ -21,10 +21,10 @@ namespace StudentManagement.Commands
         {
             try
             {
-                if (parameter == null)
-                {
-                    return true;
-                }
+                //if (parameter == null)
+                //{
+                //    return true;
+                //}
                 return _canExecute == null ? true : _canExecute((T)parameter);
             }
             catch

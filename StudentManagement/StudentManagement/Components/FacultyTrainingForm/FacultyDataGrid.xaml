@@ -27,7 +27,7 @@
                     HeadersVisibility="Column"
                     IsReadOnly="True"
                     ItemsSource="{Binding .}"
-                    SelectedItem="{Binding SelectedFaculty, Mode=OneWayToSource, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}">
+                    SelectedItem="{Binding SelectedFaculty, Mode=TwoWay, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}">
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />

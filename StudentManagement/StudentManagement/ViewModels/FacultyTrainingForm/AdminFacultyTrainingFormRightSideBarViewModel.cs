@@ -120,6 +120,12 @@ namespace StudentManagement.ViewModels
             CreateTrainingFormCardInfo = new RelayCommand<object>((p) => { return true; }, (p) => CreateTrainingFormCardByCardFunction());
         }
 
+        public void LostFocusFaculty()
+        {
+            // auto lost focus faculty when click trainingform
+            SelectedFaculty = null;
+        }
+
         public void ShowFacultyCardByCardDataContext(UserControl p)
         {
             FacultyCard card = p.DataContext as FacultyCard;
@@ -131,6 +137,8 @@ namespace StudentManagement.ViewModels
 
         public void ShowTrainingFormCardByCardDataContext(UserControl p)
         {
+            LostFocusFaculty();
+
             TrainingFormCard card = p.DataContext as TrainingFormCard;
 
             _adminTrainingFormRightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemViewModel(card);
@@ -140,6 +148,8 @@ namespace StudentManagement.ViewModels
 
         public void EditTrainingFormCardByCardFunction(object p)
         {
+            LostFocusFaculty();
+
             TrainingFormCard card = p as TrainingFormCard;
 
             _adminTrainingFormRightSideBarItemViewModel = new AdminTrainingFormRightSideBarItemEditViewModel(card);
@@ -189,6 +199,8 @@ namespace StudentManagement.ViewModels
         }
         public void DeleteTrainingFormCardByCardFunction(object p)
         {
+            LostFocusFaculty();
+
             TrainingFormCard card = p as TrainingFormCard;
 
             TrainingFormCards.Remove(card);

@@ -126,6 +126,7 @@
                     </Grid.ColumnDefinitions>
                     <component:SearchBarOne
                         Grid.Column="0"
+                        Height="50"
                         DataContext="{Binding}"
                         DatePickerVisibility="False"
                         FirstSearchButtonText="Khoa"
@@ -137,7 +138,7 @@
                     <Button
                         Grid.Column="1"
                         Height="50"
-                        Margin="16,5,0,0"
+                        Margin="16,0,0,0"
                         VerticalAlignment="Top"
                         materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding CreateFacultyCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
