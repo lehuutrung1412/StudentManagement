@@ -46,7 +46,7 @@ namespace StudentManagement.Services
                 Time = comment.Time,
                 Content = comment.Comment,
                 IdUserComment = (Guid)comment.UserId,
-                IdNotification = comment.PostId
+                IdNotification = (Guid)comment.PostId
             };
         }
 
