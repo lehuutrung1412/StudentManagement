@@ -39,12 +39,12 @@ namespace StudentManagement.Models
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
         private Nullable<bool> _online { get; set; }
         public Nullable<bool> Online { get => _online; set { _online = value; OnPropertyChanged(); } }
-        private System.Guid _idUserRole { get; set; }
-        public System.Guid IdUserRole { get => _idUserRole; set { _idUserRole = value; OnPropertyChanged(); } }
-        private System.Guid _idFaculty { get; set; }
-        public System.Guid IdFaculty { get => _idFaculty; set { _idFaculty = value; OnPropertyChanged(); } }
-        private System.Guid _idAvatar { get; set; }
-        public System.Guid IdAvatar { get => _idAvatar; set { _idAvatar = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idUserRole { get; set; }
+        public Nullable<System.Guid> IdUserRole { get => _idUserRole; set { _idUserRole = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idFaculty { get; set; }
+        public Nullable<System.Guid> IdFaculty { get => _idFaculty; set { _idFaculty = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idAvatar { get; set; }
+        public Nullable<System.Guid> IdAvatar { get => _idAvatar; set { _idAvatar = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Admin> Admins { get; set; }
         public virtual DatabaseImageTable DatabaseImageTable { get; set; }

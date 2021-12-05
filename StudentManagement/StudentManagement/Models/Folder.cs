@@ -26,8 +26,8 @@ namespace StudentManagement.Models
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
         private Nullable<System.DateTime> _createdAt { get; set; }
         public Nullable<System.DateTime> CreatedAt { get => _createdAt; set { _createdAt = value; OnPropertyChanged(); } }
-        private System.Guid _idSubjectClass { get; set; }
-        public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idSubjectClass { get; set; }
+        public Nullable<System.Guid> IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idPoster { get; set; }
         public Nullable<System.Guid> IdPoster { get => _idPoster; set { _idPoster = value; OnPropertyChanged(); } }
     

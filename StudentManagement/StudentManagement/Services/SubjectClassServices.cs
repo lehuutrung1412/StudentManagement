@@ -28,7 +28,7 @@ namespace StudentManagement.Services
         {
             return new ObservableCollection<SubjectClass>(DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).ToList());
         }
-        
+
         /*public SubjectClass ConvertSubjectClassCardToSubjectClass(SubjectClassCard subjectClassCard)
         {
             SubjectClass subjectClass = new SubjectClass()
@@ -96,7 +96,7 @@ namespace StudentManagement.Services
         /// <param name="subjectClass"></param>
         public bool RemoveSubjectClassFromDatabase(SubjectClass subjectClass)
         {
-            
+
             try
             {
                 SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
@@ -191,9 +191,20 @@ namespace StudentManagement.Services
 
         public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
         {
-            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, 10, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan");
+            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, "IT008.M11.KHTN", 10, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan");
 
             return subjectClassCard;
+        }
+
+        public SubjectClass ConvertSubjectClassCardToSubjectClass(SubjectClassCard subjectClassCard)
+        {
+            SubjectClass subjectClass = new SubjectClass()
+            {
+                Id = subjectClassCard.Id,
+                Code = subjectClassCard.Code
+            };
+
+            return subjectClass;
         }
     }
 }

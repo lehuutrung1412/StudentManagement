@@ -17,10 +17,10 @@ namespace StudentManagement.Models
     {
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private System.Guid _idNotification { get; set; }
-        public System.Guid IdNotification { get => _idNotification; set { _idNotification = value; OnPropertyChanged(); } }
-        private System.Guid _idUserReceiver { get; set; }
-        public System.Guid IdUserReceiver { get => _idUserReceiver; set { _idUserReceiver = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idNotification { get; set; }
+        public Nullable<System.Guid> IdNotification { get => _idNotification; set { _idNotification = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idUserReceiver { get; set; }
+        public Nullable<System.Guid> IdUserReceiver { get => _idUserReceiver; set { _idUserReceiver = value; OnPropertyChanged(); } }
         private Nullable<bool> _isRead { get; set; }
         public Nullable<bool> IsRead { get => _isRead; set { _isRead = value; OnPropertyChanged(); } }
     

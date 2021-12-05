@@ -17,10 +17,10 @@ namespace StudentManagement.Models
     {
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private System.Guid _idStudent { get; set; }
-        public System.Guid IdStudent { get => _idStudent; set { _idStudent = value; OnPropertyChanged(); } }
-        private System.Guid _idSubjectClass { get; set; }
-        public System.Guid IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idStudent { get; set; }
+        public Nullable<System.Guid> IdStudent { get => _idStudent; set { _idStudent = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idSubjectClass { get; set; }
+        public Nullable<System.Guid> IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
     
         public virtual Student Student { get; set; }
         public virtual SubjectClass SubjectClass { get; set; }

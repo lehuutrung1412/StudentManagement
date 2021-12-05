@@ -31,8 +31,8 @@ namespace StudentManagement.Models
     
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private System.Guid _idSubject { get; set; }
-        public System.Guid IdSubject { get => _idSubject; set { _idSubject = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idSubject { get; set; }
+        public Nullable<System.Guid> IdSubject { get => _idSubject; set { _idSubject = value; OnPropertyChanged(); } }
         private Nullable<System.DateTime> _startDate { get; set; }
         public Nullable<System.DateTime> StartDate { get => _startDate; set { _startDate = value; OnPropertyChanged(); } }
         private Nullable<System.DateTime> _endDate { get; set; }
@@ -43,10 +43,10 @@ namespace StudentManagement.Models
         public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
         private string _weekDay { get; set; }
         public string WeekDay { get => _weekDay; set { _weekDay = value; OnPropertyChanged(); } }
-        private System.Guid _idThumbnail { get; set; }
-        public System.Guid IdThumbnail { get => _idThumbnail; set { _idThumbnail = value; OnPropertyChanged(); } }
-        private System.Guid _idTrainingForm { get; set; }
-        public System.Guid IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idThumbnail { get; set; }
+        public Nullable<System.Guid> IdThumbnail { get => _idThumbnail; set { _idThumbnail = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idTrainingForm { get; set; }
+        public Nullable<System.Guid> IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
         private string _code { get; set; }
         public string Code { get => _code; set { _code = value; OnPropertyChanged(); } }
         private int _numberOfStudents { get; set; }

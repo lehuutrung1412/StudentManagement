@@ -23,8 +23,8 @@ namespace StudentManagement.Models
     
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private System.Guid _idRole { get; set; }
-        public System.Guid IdRole { get => _idRole; set { _idRole = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idRole { get; set; }
+        public Nullable<System.Guid> IdRole { get => _idRole; set { _idRole = value; OnPropertyChanged(); } }
         private string _infoName { get; set; }
         public string InfoName { get => _infoName; set { _infoName = value; OnPropertyChanged(); } }
         private Nullable<int> _type { get; set; }

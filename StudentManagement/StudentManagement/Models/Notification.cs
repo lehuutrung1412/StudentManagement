@@ -32,8 +32,8 @@ namespace StudentManagement.Models
         public Nullable<System.DateTime> Time { get => _time; set { _time = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idNotificationType { get; set; }
         public Nullable<System.Guid> IdNotificationType { get => _idNotificationType; set { _idNotificationType = value; OnPropertyChanged(); } }
-        private System.Guid _idPoster { get; set; }
-        public System.Guid IdPoster { get => _idPoster; set { _idPoster = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idPoster { get; set; }
+        public Nullable<System.Guid> IdPoster { get => _idPoster; set { _idPoster = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idSubjectClass { get; set; }
         public Nullable<System.Guid> IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
     
