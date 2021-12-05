@@ -63,7 +63,7 @@ namespace StudentManagement.ViewModels
         {
             if (MyMessageBox.Show("Bạn có chắc xoá trường thông tin này: ", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.Yes)
                 return;
-            InfoItemServices.Instance.DeleteUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
+            InfoItemServices.Instance.HiddenUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
             UserInfoViewModel.Instance.LoadInfoSource();
             SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
         }

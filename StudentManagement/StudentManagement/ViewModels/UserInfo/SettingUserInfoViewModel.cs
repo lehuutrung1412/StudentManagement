@@ -28,6 +28,20 @@ namespace StudentManagement.ViewModels
                 EditInfoItemViewModel = new EditInfoItemViewModel(infoItem);
             }
         }
+        public class DeleteInfoItemWithViewMode
+        {
+            private InfoItem _infoItem;
+            private DeleteInfoItemViewModel _deleteInfoItemWithViewModel;
+
+            public InfoItem InfoItem { get => _infoItem; set => _infoItem = value; }
+            public DeleteInfoItemViewModel DeleteInfoItemWithViewModel { get => _deleteInfoItemWithViewModel; set => _deleteInfoItemWithViewModel = value; }
+
+            public DeleteInfoItemWithViewMode(InfoItem infoItem)
+            {
+                InfoItem = infoItem;
+                DeleteInfoItemWithViewModel = new DeleteInfoItemViewModel(infoItem);
+            }
+        }
 
         private static SettingUserInfoViewModel s_instance;
         public static SettingUserInfoViewModel Instance
@@ -39,6 +53,9 @@ namespace StudentManagement.ViewModels
 
         private ObservableCollection<InfoItemWithViewMode> _infoSource;
         public ObservableCollection<InfoItemWithViewMode> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<DeleteInfoItemWithViewMode> _deleteSource;
+        public ObservableCollection<DeleteInfoItemWithViewMode> DeleteSource { get => _deleteSource; set { _deleteSource = value; OnPropertyChanged(); } }
 
 
         private List<bool> _listCheck;
@@ -92,7 +109,7 @@ namespace StudentManagement.ViewModels
         }
         public void ResetListCheck()
         {
-            ListCheck = new List<bool> { false,false,false };
+            ListCheck = new List<bool> { false, false, false };
         }
         public void InitCommand()
         {
@@ -107,7 +124,7 @@ namespace StudentManagement.ViewModels
             {
                 Role = "Học sinh";
                 InfoItemServices.Instance.GetInfoSourceInSettingByRole("Học sinh").ToList().ForEach(infoSource => InfoSource.Add(new InfoItemWithViewMode(infoSource)));
-            }     
+            }
             else if (ListCheck[1])
             {
                 Role = "Giáo viên";
@@ -118,7 +135,18 @@ namespace StudentManagement.ViewModels
                 Role = "Admin";
                 InfoItemServices.Instance.GetInfoSourceInSettingByRole("Admin").ToList().ForEach(infoSource => InfoSource.Add(new InfoItemWithViewMode(infoSource)));
             }
+            GetDeleteSourceInSettingByRole();
             IsSetting = true;
+        }
+        public void GetDeleteSourceInSettingByRole()
+        {
+            DeleteSource = new ObservableCollection<DeleteInfoItemWithViewMode>();
+            if (ListCheck[0])
+                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Học sinh").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemWithViewMode(infoSource)));
+            else if (ListCheck[1])
+                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Giáo viên").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemWithViewMode(infoSource)));
+            else
+                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Admin").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemWithViewMode(infoSource)));
         }
         public void AddNewInfoItemInSetting()
         {
@@ -130,7 +158,7 @@ namespace StudentManagement.ViewModels
             //InfoSource = new ObservableCollection<InfoItemWithViewMode>();
             //UserInfoViewModel.Instance.InfoSource.ToList().ForEach(infoSource => InfoSource.Add(new InfoItemWithViewMode(infoSource)));
             IsSetting = false;
-            ListCheck = new List<bool> { false, false, false};
+            ListCheck = new List<bool> { false, false, false };
         }
 
         public void ConfirmSetting()
@@ -138,9 +166,9 @@ namespace StudentManagement.ViewModels
             if (MyMessageBox.Show("Bạn muốn lưu cài đặt này", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) == System.Windows.MessageBoxResult.Yes)
             {
                 MyMessageBox.Show("Cài đặt thành công", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                InfoSource.ToList().ForEach(infoSource => infoSource.EditInfoItemViewModel.UpdateInfoItem());  
+                InfoSource.ToList().ForEach(infoSource => infoSource.EditInfoItemViewModel.UpdateInfoItem());
             }
-            ReloadSettingViewModel();
+            GetInfoSourceInSettingByRole();
             return;
         }
     }

@@ -75,10 +75,10 @@
                                 GroupName="Role"
                                 IsChecked="{Binding ListCheck[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                 <RadioButton.Style>
-                                    <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                                    <Style BasedOn="{StaticResource MaterialDesignAccentRadioButton}" TargetType="RadioButton">
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Cursor" Value="Hand"/>
+                                                <Setter Property="Cursor" Value="Hand" />
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -91,12 +91,12 @@
                                 Content="Giáo viên"
                                 FontSize="16"
                                 GroupName="Role"
-                                IsChecked="{Binding ListCheck[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+                                IsChecked="{Binding ListCheck[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                 <RadioButton.Style>
-                                    <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                                    <Style BasedOn="{StaticResource MaterialDesignAccentRadioButton}" TargetType="RadioButton">
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Cursor" Value="Hand"/>
+                                                <Setter Property="Cursor" Value="Hand" />
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -111,10 +111,10 @@
                                 GroupName="Role"
                                 IsChecked="{Binding ListCheck[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                 <RadioButton.Style>
-                                    <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignAccentRadioButton}">
+                                    <Style BasedOn="{StaticResource MaterialDesignAccentRadioButton}" TargetType="RadioButton">
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Cursor" Value="Hand"/>
+                                                <Setter Property="Cursor" Value="Hand" />
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -135,7 +135,30 @@
 
                         </Grid.Style>
                         <StackPanel>
-                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Các trường thông tin" Margin="0 8"/>
+                            <TextBlock
+                                Margin="0,8"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="Các trường thông tin đã bị xoá" />
+                            <ItemsControl ItemsSource="{Binding DeleteSource, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <component:DeleteInfoItem MaxWidth="240" DataContext="{Binding DeleteInfoItemWithViewModel}" />
+                                            
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <TextBlock
+                                Margin="0,8"
+                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                Text="Các trường thông tin hiện tại" />
                             <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -146,16 +169,18 @@
                                     <DataTemplate>
                                         <StackPanel>
                                             <component:SettingInfoItem MinWidth="600" Background="Transparent" />
-                                            <Border VerticalAlignment="Bottom" Style="{StaticResource HorizontalDividerBorder}" Margin="0 8"/>
+                                            <Border
+                                                Margin="0,8"
+                                                VerticalAlignment="Bottom"
+                                                Style="{StaticResource HorizontalDividerBorder}" />
                                         </StackPanel>
 
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-
                         </StackPanel>
                     </Grid>
-                    <Grid Grid.Row="3" Margin="0 8">
+                    <Grid Grid.Row="3" Margin="0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
                             <ColumnDefinition Width="1*" />

@@ -72,6 +72,28 @@ namespace StudentManagement.Services
             }
             return InfoSourece;
         }
+        public ObservableCollection<InfoItem> GetDeleteInfoSourceByRole(string role)
+        {
+            ObservableCollection<InfoItem> InfoSourece = new ObservableCollection<InfoItem>();
+            List<UserRole_UserInfo> db = DataProvider.Instance.Database.UserRole_UserInfo.Where(userRole_UserInfo => userRole_UserInfo.UserRole.Role == role && userRole_UserInfo.IsDeleted == true).ToList();
+            foreach (UserRole_UserInfo item in db)
+            {
+                InfoItem info = new InfoItem();
+                info.Id = item.Id;
+                info.LabelName = item.InfoName;
+                info.Type = Convert.ToInt32(item.Type);
+                if (info.Type == 2)
+                {
+                    ObservableCollection<string> itemSources = new ObservableCollection<string>();
+                    List<UserRole_UserInfoItem> userInfoItems = DataProvider.Instance.Database.UserRole_UserInfoItem.Where(userInfoItem => userInfoItem.IdUserRole_Info == item.Id).ToList();
+                    userInfoItems.ForEach(userInfoItem => itemSources.Add(userInfoItem.Content));
+                    info.ItemSource = itemSources;
+                }
+                info.IsEnable = Convert.ToBoolean(item.IsEnable);
+                InfoSourece.Add(info);
+            }
+            return InfoSourece;
+        }
         public void UpdateUserRole_UserInfoByInfoItem(InfoItem infoItem)
         {
             UserRole_UserInfo userRole_UserInfo = DataProvider.Instance.Database.UserRole_UserInfo.Where(userRole_userInfo => userRole_userInfo.Id == infoItem.Id).FirstOrDefault();
@@ -186,10 +208,24 @@ namespace StudentManagement.Services
             user_UserRole_UserInfo.Content = Convert.ToString(infoItem.Value);
             DataProvider.Instance.Database.SaveChanges();
         }
-        public void DeleteUserRole_UserInfo(InfoItem infoItem, string Roles)
+        public void HiddenUserRole_UserInfo(InfoItem infoItem, string Roles)
         {
             var userRole_UserInfo = FindUserRole_UserInfoByInfoItemAndRole(infoItem, Roles);
             userRole_UserInfo.IsDeleted = true;
+            DataProvider.Instance.Database.SaveChanges();
+        }
+        public void RestoreUserRole_UserInfo(InfoItem infoItem, string Roles)
+        {
+            var userRole_UserInfo = FindUserRole_UserInfoByInfoItemAndRole(infoItem, Roles);
+            userRole_UserInfo.IsDeleted = false;
+            DataProvider.Instance.Database.SaveChanges();
+        }
+        public void DeleteUserRole_UserInfo(InfoItem infoItem, string Roles)
+        {
+            var userRole_UserInfo = FindUserRole_UserInfoByInfoItemAndRole(infoItem, Roles);
+            userRole_UserInfo.User_UserRole_UserInfo.ToList().ForEach(user_UserRole_UserInfo => DataProvider.Instance.Database.User_UserRole_UserInfo.Remove(user_UserRole_UserInfo));
+            userRole_UserInfo.UserRole_UserInfoItem.ToList().ForEach(userRole_UserInfoItem => DataProvider.Instance.Database.UserRole_UserInfoItem.Remove(userRole_UserInfoItem));;
+            DataProvider.Instance.Database.UserRole_UserInfo.Remove(userRole_UserInfo);
             DataProvider.Instance.Database.SaveChanges();
         }
     }
