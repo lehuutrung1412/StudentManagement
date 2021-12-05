@@ -525,6 +525,7 @@ namespace StudentManagement.ViewModels
                             // Folder cover entire files
                             var mainFolderName = $"Documents_{SubjectClassCode}/";
                             archive.CreateEntry(mainFolderName);
+
                             foreach (var file in FileData)
                             {
                                 // Real file

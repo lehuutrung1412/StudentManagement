@@ -59,7 +59,7 @@ namespace StudentManagement.ViewModels
             DownloadCurrentFile = new RelayCommand<object>((p) => { return true; }, (p) => DownloadCurrentFileFunction());
         }
 
-        private void DownloadCurrentFileFunction()
+        private async void DownloadCurrentFileFunction()
         {
             var dialog = new SaveFileDialog();
             var ext = Path.GetExtension(CurrentFile.Name);
@@ -69,7 +69,7 @@ namespace StudentManagement.ViewModels
             {
                 try
                 {
-                    FileUploader.Instance.DownloadFileAsync(CurrentFile.Content, dialog.FileName);
+                    await FileUploader.Instance.DownloadFileAsync(CurrentFile.Content, dialog.FileName);
                 }
                 catch (Exception)
                 {

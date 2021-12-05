@@ -617,9 +617,9 @@ VALUES
 
 
 
--- select * from Users
--- select * from Document
--- select * from Folder
+ select * from Users
+ select * from Document
+ select * from Folder
 
 -- delete from folder
 
