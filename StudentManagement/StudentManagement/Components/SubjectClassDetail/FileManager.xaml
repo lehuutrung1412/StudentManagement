@@ -41,13 +41,14 @@
                 </component:EmptyStateRightSideBar.Style>
             </component:EmptyStateRightSideBar>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="scrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                 <DataGrid
-                    MaxHeight="520"
+                    PreviewMouseWheel="FileGrid_PreviewMouseWheel"
+                    ScrollViewer.CanContentScroll="True"
                     Name="FileGrid"
                     VerticalContentAlignment="Center"
                     AutoGenerateColumns="False"
-                    Background="{StaticResource Background}"
+                    Background="{StaticResource Gray}"
                     CanUserAddRows="False"
                     CanUserDeleteRows="False"
                     CanUserReorderColumns="False"

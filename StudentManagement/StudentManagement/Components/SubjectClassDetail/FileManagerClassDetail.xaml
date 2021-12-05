@@ -21,7 +21,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <materialDesign:Card Padding="0" Style="{StaticResource CardContainer}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -36,54 +36,69 @@
                     </Grid.ColumnDefinitions>
                     <components:SearchBarOne
                         Grid.Column="0"
-                        Margin="16 16 4 16"
-                        FirstSearchButtonVisibility="False"
-                        TextblockSearchBaseOnVisibility="False"
+                        Margin="16,16,4,16"
                         DatePickerVisibility="False"
+                        FirstSearchButtonVisibility="False"
                         SearchCommand="{Binding SearchFile}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SecondSearchButtonVisibility="False" />
+                        SecondSearchButtonVisibility="False"
+                        TextblockSearchBaseOnVisibility="False" />
                     <Button
-                        Padding="8"
-                        FontSize="14"
                         Grid.Column="1"
                         Width="auto"
                         Height="50"
-                        Margin="4 16"
+                        Margin="4,16"
+                        Padding="8"
                         Command="{Binding AddFile}"
+                        FontSize="14"
                         Style="{StaticResource PrimaryButton}">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Margin="0 0 4 0"  Kind="FilePlusOutline"/>
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Margin="0,0,4,0"
+                                VerticalAlignment="Center"
+                                Kind="FilePlusOutline" />
                             <TextBlock VerticalAlignment="Center" Text="Thêm tài liệu" />
                         </StackPanel>
                     </Button>
                     <Button
-                        Padding="8"
-                        FontSize="14"
                         Grid.Column="2"
                         Width="auto"
                         Height="50"
                         Margin="4,16,4,16"
+                        Padding="8"
                         materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding AddFolder}"
+                        FontSize="14"
                         Style="{StaticResource PrimaryButton}">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Margin="0 0 4 0"  Kind="FolderPlusOutline"/>
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Margin="0,0,4,0"
+                                VerticalAlignment="Center"
+                                Kind="FolderPlusOutline" />
                             <TextBlock VerticalAlignment="Center" Text="Thêm thư mục" />
                         </StackPanel>
                     </Button>
                     <Button
-                        Padding="8"
-                        FontSize="14"
                         Grid.Column="3"
                         Width="auto"
                         Height="50"
                         Margin="4,16,16,16"
+                        Padding="8"
                         materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding DownloadMultipleFiles}"
+                        FontSize="14"
                         Style="{StaticResource PrimaryButton}">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Margin="0 0 4 0"  Kind="CloudDownloadOutline"/>
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Margin="0,0,4,0"
+                                VerticalAlignment="Center"
+                                Kind="CloudDownloadOutline" />
                             <TextBlock VerticalAlignment="Center" Text="Tải toàn bộ" />
                         </StackPanel>
                     </Button>
@@ -94,6 +109,6 @@
                     Margin="16"
                     VerticalAlignment="Top" />
             </Grid>
-        </ScrollViewer>
+        </materialDesign:Card>
     </Grid>
 </UserControl>
