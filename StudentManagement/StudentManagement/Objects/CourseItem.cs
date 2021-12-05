@@ -14,9 +14,23 @@ namespace StudentManagement.Objects
         public bool IsSelected
         {
             get => _isSelected;
-            set { _isSelected = value; OnPropertyChanged(); }
+            set 
+            { 
+                _isSelected = value; 
+                OnPropertyChanged(); 
+                if (value)
+                {
+                    _isSelected = !IsConflict;
+                }
+            }
         }
-        public CourseItem(Models.SubjectClass a, bool isSelected)
+        private bool _isConflict;
+        public bool IsConflict
+        {
+            get => _isConflict;
+            set { _isConflict = value; OnPropertyChanged(); }
+        }
+        public CourseItem(Models.SubjectClass a, bool isSelected, bool isConflict = false)
         {
             this.Id = a.Id;
             this.Teachers = a.Teachers;
@@ -36,6 +50,7 @@ namespace StudentManagement.Objects
             this.IdThumbnail = a.IdThumbnail;
             this.DatabaseImageTable = a.DatabaseImageTable;
             this.IsSelected = false;
+            this.IsConflict = isConflict;
         }
         public SubjectClass ConvertToSubjectClass()
         {
@@ -79,6 +94,21 @@ namespace StudentManagement.Objects
                 result.Add(course.ConvertToSubjectClass());
             }
             return result;
+        }
+        public static bool IsConflictCourseRegistry(ObservableCollection<CourseItem> listCourse, CourseItem course)
+        {
+            foreach (CourseItem listElement in listCourse)
+            {
+                if (course.WeekDay == listElement.WeekDay)
+                {
+                    foreach (char period in listElement.Period)
+                    {
+                        if (course.Period.Contains(period))
+                            return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

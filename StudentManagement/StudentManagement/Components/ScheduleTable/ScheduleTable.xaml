@@ -17,7 +17,7 @@
     TextOptions.TextRenderingMode="Auto"
     x:Name="ScheduleUserControl"
     mc:Ignorable="d">
-    <materialDesign:Card>
+    <Border BorderBrush="Black" BorderThickness="1">
         <Grid>
             <Grid.Resources>
                 <Style x:Key="BorderLabelStyle" TargetType="{x:Type Border}">
@@ -407,6 +407,6 @@
                 </Grid>
             </ScrollViewer>
         </Grid>
-    </materialDesign:Card>
+    </Border>
 
 </UserControl>
