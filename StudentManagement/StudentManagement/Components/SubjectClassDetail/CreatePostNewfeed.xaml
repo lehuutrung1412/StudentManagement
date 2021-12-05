@@ -12,10 +12,10 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource Background}" CornerRadius="8">
+    <Border Background="{DynamicResource White}" CornerRadius="8">
         <Border.Effect>
             <DropShadowEffect
-                BlurRadius="15"
+                BlurRadius="8"
                 Opacity="0.3"
                 ShadowDepth="0"
                 Color="DarkGray" />
@@ -59,10 +59,11 @@
                     Padding="16"
                     materialDesign:HintAssist.Hint="Bạn đang nghĩ gì, Trung?"
                     materialDesign:HintAssist.IsFloating="False"
-                    materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
+                    TextWrapping="Wrap"
                     AcceptsReturn="True"
                     AcceptsTab="True"
-                    Background="White"
+                    Background="{DynamicResource Gray}"
                     DockPanel.Dock="Right"
                     FontSize="16"
                     HorizontalScrollBarVisibility="Disabled"

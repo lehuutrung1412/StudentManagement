@@ -13,7 +13,7 @@
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{DynamicResource Transparent}"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource Background}" CornerRadius="8">
+    <Border Background="{DynamicResource White}" CornerRadius="8">
         <Border.Effect>
             <DropShadowEffect
                 BlurRadius="8"
@@ -206,7 +206,7 @@
                     HorizontalAlignment="Right"
                     DockPanel.Dock="Right"
                     Orientation="Horizontal">
-                    <TextBlock DockPanel.Dock="Right" FontWeight="SemiBold">
+                    <TextBlock DockPanel.Dock="Right" FontWeight="SemiBold" Cursor="Hand">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
@@ -226,7 +226,7 @@
                                 MouseAction="LeftClick" />
                         </TextBlock.InputBindings>
                     </TextBlock>
-                    <materialDesign:PackIcon>
+                    <materialDesign:PackIcon Cursor="Hand">
                         <materialDesign:PackIcon.Style>
                             <Style TargetType="materialDesign:PackIcon">
                                 <Style.Triggers>
@@ -278,7 +278,7 @@
                                         Padding="12"
                                         HorizontalAlignment="Left"
                                         Background="#e9ebee"
-                                        CornerRadius="16"
+                                        CornerRadius="24"
                                         DockPanel.Dock="Left">
                                         <Border.ToolTip>
                                             <TextBlock Text="{Binding Time, Converter={utils:DateTimeConverter}, ConverterParameter=full}" />
@@ -309,6 +309,7 @@
 
                                     <materialDesign:PopupBox
                                         x:Name="MoreDetailComment"
+                                        Opacity="0"
                                         Grid.Column="1"
                                         Margin="4,0,0,0"
                                         DockPanel.Dock="Right"
@@ -391,7 +392,7 @@
                 </Ellipse>
                 <TextBox
                     x:Name="txbMainComment"
-                    Background="White"
+                    Background="{DynamicResource Gray}"
                     Style="{StaticResource CommentTextBox}"
                     Tag="{Binding SendComment}">
                 </TextBox>

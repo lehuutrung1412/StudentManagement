@@ -31,7 +31,7 @@
                 </StackPanel.Resources>
                 <components:CreatePostNewfeed
                     MaxHeight="350"
-                    Margin="16"
+                    Margin="4"
                     DataContext="{Binding CreatePostNewFeedViewModel}" />
                 <ItemsControl ItemsSource="{Binding Source={StaticResource PostNewsFeedView}}">
                     <ItemsControl.ItemsPanel>
@@ -41,7 +41,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:PostNewsfeed Height="auto" Margin="16" />
+                            <components:PostNewsfeed Height="auto" Margin="4 16 4 4" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

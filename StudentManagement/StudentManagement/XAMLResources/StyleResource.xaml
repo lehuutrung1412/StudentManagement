@@ -209,8 +209,8 @@
                         x:Name="brdCreatePost"
                         Background="{TemplateBinding Background}"
                         BorderBrush="Gray"
-                        BorderThickness="2"
-                        CornerRadius="8">
+                        BorderThickness="1"
+                        CornerRadius="24">
                         <Border.Effect>
                             <DropShadowEffect
                                 BlurRadius="8"
@@ -248,8 +248,8 @@
                                 <Button.Template>
                                     <ControlTemplate TargetType="{x:Type Button}">
                                         <Image
-                                            Width="28"
-                                            Height="28"
+                                            Width="24"
+                                            Height="24"
                                             Source="{StaticResource Send}" />
                                     </ControlTemplate>
                                 </Button.Template>
@@ -721,7 +721,7 @@
     <Style x:Key="CardContainer" TargetType="materialDesign:Card">
         <Setter Property="Padding" Value="4" />
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
-        <Setter Property="UniformCornerRadius" Value="16" />
+        <Setter Property="UniformCornerRadius" Value="8" />
     </Style>
 
 </ResourceDictionary>
