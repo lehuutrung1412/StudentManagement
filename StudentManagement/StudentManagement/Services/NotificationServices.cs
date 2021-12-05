@@ -54,25 +54,18 @@ namespace StudentManagement.Services
 
         public ObservableCollection<NotificationCard> LoadNotificationCardByUserId(Guid id)
         {
-            try
+            ObservableCollection<NotificationCard> notificationCards = new ObservableCollection<NotificationCard>();
+            List<Notification> notificationList = new List<Notification>();
+            if (UserServices.Instance.GetUserById(id).UserRole.Role.Contains("Admin"))
+                notificationList = DataProvider.Instance.Database.Notifications.Where(notification => notification.IdSubjectClass == null).ToList();
+            else
+                notificationList = DataProvider.Instance.Database.NotificationInfoes.Where(notificationInfo => notificationInfo.IdUserReceiver == id).Select(notificationInfo => notificationInfo.Notification).ToList();
+            foreach (Notification notification in notificationList)
             {
-                ObservableCollection<NotificationCard> notificationCards = new ObservableCollection<NotificationCard>();
-                List<Notification> notificationList = new List<Notification>();
-                if (UserServices.Instance.GetUserById(id).UserRole.Role.Contains("Admin"))
-                    notificationList = DataProvider.Instance.Database.Notifications.Where(notification => notification.IdSubjectClass == null).ToList();
-                else
-                    notificationList = DataProvider.Instance.Database.Notifications.Where(notification => notification.Id == id).ToList();
-                foreach (Notification notification in notificationList)
-                {
-                    NotificationCard notificationCard = new NotificationCard(ConvertNotificationAndIdUserToNotificationCard(notification, id));
-                    notificationCards.Add(notificationCard);
-                }
-                return notificationCards;
+                NotificationCard notificationCard = new NotificationCard(ConvertNotificationAndIdUserToNotificationCard(notification, id));
+                notificationCards.Add(notificationCard);
             }
-            catch
-            {
-                return new ObservableCollection<NotificationCard>();
-            }
+            return notificationCards;
         }
         public Notification ConvertNotificationCardToNotification(NotificationCard notificationCard)
         {
@@ -193,7 +186,7 @@ namespace StudentManagement.Services
         }
         public List<NotificationInfo> FindNotificationInfoByIdUser(Guid idUser)
         {
-            return DataProvider.Instance.Database.NotificationInfoes.Where(notificationInfo=>notificationInfo.IdUserReceiver == idUser).ToList();
+            return DataProvider.Instance.Database.NotificationInfoes.Where(notificationInfo => notificationInfo.IdUserReceiver == idUser).ToList();
         }
         public void MarkAllAsReadNotificationInfoByIdUser(Guid idUser)
         {
