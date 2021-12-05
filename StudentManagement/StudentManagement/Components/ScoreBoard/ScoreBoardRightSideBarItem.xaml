@@ -20,7 +20,7 @@
     <Grid>
         <StackPanel Margin="8">
             <TextBlock
-                FontSize="28"
+                FontSize="24"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 TextWrapping="Wrap">

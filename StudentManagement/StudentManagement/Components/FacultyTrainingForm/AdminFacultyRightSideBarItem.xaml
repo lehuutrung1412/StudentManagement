@@ -19,131 +19,131 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel Margin="8">
-            <TextBlock
-                Margin="0,0,0,16"
-                FontSize="28"
-                FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                Text="Thông tin chi tiết"
-                TextWrapping="Wrap" />
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="8">
                 <TextBlock
-                    Grid.Column="0"
+                    Margin="0,0,0,16"
+                    FontSize="28"
                     FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Tên khoa:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.DisplayName, FallbackValue='Tên khoa'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Text="Thông tin chi tiết"
+                    TextWrapping="Wrap" />
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Ngày thành lập:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.FoundationDay, FallbackValue='Ngày thành lập', StringFormat='dd/MM/yyyy'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Tên khoa:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.DisplayName, FallbackValue='Tên khoa'}"
+                        TextAlignment="Right" />
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Số lượng sinh viên:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.NumberOfStudents, FallbackValue='Số lượng sinh viên'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Ngày thành lập:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.FoundationDay, FallbackValue='Ngày thành lập', StringFormat='dd/MM/yyyy'}"
+                        TextAlignment="Right" />
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Các hệ đào tạo:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentCard.CacHeDaoTao, FallbackValue='Các hệ đào tạo'}"
-                    TextAlignment="Right" />
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Số lượng sinh viên:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.NumberOfStudents, FallbackValue='Số lượng sinh viên'}"
+                        TextAlignment="Right" />
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-            </Grid>
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Các hệ đào tạo:" />
+                    <ItemsControl
+                        Grid.Row="1"
+                        ItemsSource="{Binding CurrentCard.TrainingFormsOfFacultyList, UpdateSourceTrigger=PropertyChanged}"
+                        Tag="{Binding DataContext, ElementName=FacultyRightSideBarItem}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Margin="0,4" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBox
+                                    IsEnabled="False"
+                                    Style="{StaticResource textbox_item}"
+                                    Text="{Binding DisplayName}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid
+            Grid.Row="1"
+            Margin="8"
+            Style="{StaticResource text_grid_item}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
             <Button
-                x:Name="btnEdit"
-                Padding="0"
-                BorderThickness="0"
+                Grid.Column="3"
                 Command="{Binding EditFacultyCardInfo}"
                 CommandParameter="{Binding ElementName=FacultyRightSideBar, Path=DataContext.CurrentCard}"
+                Content="Sửa"
                 DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
-
-                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
-                    <TextBlock
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Chỉnh sửa:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Pencil" />
-                </Grid>
-            </Button>
+                FontSize="16"
+                Style="{StaticResource rounded_btn}" />
             <Button
-                x:Name="btnDelete"
-                Padding="0"
-                BorderThickness="0"
+                Grid.Column="2"
+                Background="{StaticResource DarkGray}"
                 Command="{Binding DeleteFacultyCardInfo}"
                 CommandParameter="{Binding ElementName=FacultyRightSideBar, Path=DataContext.CurrentCard}"
+                Content="Xóa"
                 DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}"
-                Foreground="#DD000000"
-                Style="{StaticResource MaterialDesignFlatLightButton}">
-
-                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
-                    <TextBlock
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Xoá:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Eraser" />
-                </Grid>
-            </Button>
-        </StackPanel>
+                FontSize="16"
+                Foreground="White"
+                Style="{StaticResource rounded_btn}" />
+        </Grid>
     </Grid>
 </UserControl>

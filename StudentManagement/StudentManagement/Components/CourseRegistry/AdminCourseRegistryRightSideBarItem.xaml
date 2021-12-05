@@ -26,9 +26,9 @@
         <Grid>
             <StackPanel Margin="8">
                 <TextBlock
-                    FontSize="28"
+                    FontSize="24"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                     TextWrapping="Wrap">
                     <Run Text="{Binding CurrentItem.Code, FallbackValue='Mã lớp học'}" />
                 </TextBlock>
