@@ -42,11 +42,11 @@ namespace StudentManagement.Services
         {
             return new NotificationComment()
             {
-                Id = (Guid)comment.Id,
+                Id = comment.Id,
                 Time = comment.Time,
                 Content = comment.Comment,
                 IdUserComment = (Guid)comment.UserId,
-                IdNotification = (Guid)comment.PostId
+                IdNotification = comment.PostId
             };
         }
 
