@@ -53,9 +53,9 @@ namespace StudentManagement.ViewModels
         }
         public StudentScheduleTableViewModel()
         {
-            Instance = this;
-            CurrentStudent = StudentServices.Instance.GetFirstStudent();
-            UpdateData();
+            //Instance = this;
+            //CurrentStudent = StudentServices.Instance.GetFirstStudent();
+            //UpdateData();
         }
         public void UpdateScheduleItems()
         {
@@ -72,16 +72,16 @@ namespace StudentManagement.ViewModels
 
         public void UpdateData()
         {
-            Semesters = SemesterServices.Instance.LoadListSemestersByStudentId(CurrentStudent.Id);
-            if (Semesters.Count == 0)
-            {
-                SelectedSemester = null;
-                ScheduleItems = new ObservableCollection<ScheduleItem>();
-                return;
-            }
-            SelectedSemester = Semesters.Last();
-            ScheduleItems = new ObservableCollection<ScheduleItem>();
-            UpdateScheduleItems();
+            //Semesters = SemesterServices.Instance.LoadListSemestersByStudentId(CurrentStudent.Id);
+            //if (Semesters.Count == 0)
+            //{
+            //    SelectedSemester = null;
+            //    ScheduleItems = new ObservableCollection<ScheduleItem>();
+            //    return;
+            //}
+            //SelectedSemester = Semesters.Last();
+            //ScheduleItems = new ObservableCollection<ScheduleItem>();
+            //UpdateScheduleItems();
         }
     }
 }

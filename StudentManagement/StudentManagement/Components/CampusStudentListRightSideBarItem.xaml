@@ -1,0 +1,129 @@
+﻿<UserControl
+    x:Class="StudentManagement.Components.CampusStudentListRightSideBarItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StudentManagement.Components"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    x:Name="StudentListRightSideBar"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
+    Background="{StaticResource SideBar}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Grid.Row="0" Margin="10">
+            <TextBlock
+                FontSize="24"
+                FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                TextWrapping="Wrap">
+                <Run Text="Thông tin sinh viên" />
+            </TextBlock>
+
+            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Họ và tên:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentStudent.NameStudent, FallbackValue='Ngô Quang Vinh'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Mã số sinh viên:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentStudent.IDStudent, FallbackValue='19520000'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Khoa đào tạo: " />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentStudent.Faculty, FallbackValue='KHMT'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Hệ đào tạo:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentStudent.Training, FallbackValue='Tài năng'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Email:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentStudent.Email, FallbackValue='example@gmail.com'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Button
+                Width="140"
+                Margin="16,4,16,0"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                Background="#4caf50"
+                Command="{Binding EditStudentInfo}"
+                CommandParameter="{Binding ElementName=StudentListRightSideBar, Path=DataContext.CurrentScore}"
+                DataContext="{DynamicResource StudentListRightSideBarVM}"
+                ToolTip="MaterialDesignRaisedLightButton with Round Corners">
+                <TextBlock Text="Cập nhật" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

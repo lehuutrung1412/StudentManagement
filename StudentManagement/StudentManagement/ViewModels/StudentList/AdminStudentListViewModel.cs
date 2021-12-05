@@ -422,7 +422,7 @@ namespace StudentManagement.ViewModels
         {
             if (!checkStudentExistInClass())
             {
-                System.Windows.MessageBox.Show("Sinh viên " + SearchQuery + " đã tồn tại ở lớp học!!!");
+                MyMessageBox.Show("Sinh viên " + SearchQuery + " đã tồn tại ở lớp học!!!");
                 return;
             }
             
@@ -430,13 +430,13 @@ namespace StudentManagement.ViewModels
 
             if (findStudent == null)
             {
-                System.Windows.MessageBox.Show("Mã số sinh viên " + SearchQuery + " không hợp lệ !!!");
+                MyMessageBox.Show("Mã số sinh viên " + SearchQuery + " không hợp lệ !!!");
                 return;
             }
 
             StudentClass.Add(findStudent);
             StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", DiemTB = "0", QuaTrinh = "0", ThucHanh = "0", IDStudent = findStudent.IDStudent });
-            System.Windows.MessageBox.Show("Sinh viên " + SearchQuery + " đã được thêm vào lớp học!!!");
+            MyMessageBox.Show("Sinh viên " + SearchQuery + " đã được thêm vào lớp học!!!");
 
             SearchQuery = "";
 
@@ -460,19 +460,19 @@ namespace StudentManagement.ViewModels
 
             if (DeleteStudentList.Count() == 0)
             {
-                System.Windows.MessageBox.Show("Sinh viên " + SearchQuery + " không tồn tại trong lớp học!!!");
+               MyMessageBox.Show("Sinh viên " + SearchQuery + " không tồn tại trong lớp học!!!");
                 return;
             }
 
             if (DeleteStudentList.Count() > 1)
             {
-                System.Windows.MessageBox.Show("Có quá nhiều sinh viên " + SearchQuery + " trong lớp học!!!");
+                MyMessageBox.Show("Có quá nhiều sinh viên " + SearchQuery + " trong lớp học!!!");
                 return;
             }
 
             foreach (var item in DeleteStudentList)
             {
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Bạn có chắc chắn xóa sinh viên " + SearchQuery + " ?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+                MessageBoxResult messageBoxResult = MyMessageBox.Show("Bạn có chắc chắn xóa sinh viên " + SearchQuery + " ?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                     StudentClass.Remove(item);
                 else
@@ -494,7 +494,7 @@ namespace StudentManagement.ViewModels
 
             if (DeleteStudentList.Count() == 0 && SearchQuery == "")
             {
-                System.Windows.MessageBox.Show("Vui lòng chọn sinh viên hợp lệ!!!");
+                MyMessageBox.Show("Vui lòng chọn sinh viên hợp lệ!!!");
                 return;
             }
 
@@ -504,7 +504,7 @@ namespace StudentManagement.ViewModels
                 return;
             }
 
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Bạn có chắc chắn xóa sinh viên?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MyMessageBox.Show("Bạn có chắc chắn xóa sinh viên?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 foreach (var item in DeleteStudentList)

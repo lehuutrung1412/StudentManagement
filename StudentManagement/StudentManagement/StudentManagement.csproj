@@ -94,6 +94,18 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Components\AddStudentRightSideBarItem.xaml.cs">
+      <DependentUpon>AddStudentRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CampusStudentListRightSideBar.xaml.cs">
+      <DependentUpon>CampusStudentListRightSideBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CampusStudentListRightSideBarItem.xaml.cs">
+      <DependentUpon>CampusStudentListRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CampusStudentListRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>CampusStudentListRightSideBarItemEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\CenterColumnHeaderCard.xaml.cs">
       <DependentUpon>CenterColumnHeaderCard.xaml</DependentUpon>
     </Compile>
@@ -444,6 +456,10 @@
     <Compile Include="Utils\Reflection.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
+    <Compile Include="ViewModels\AddStudentListViewModel.cs" />
+    <Compile Include="ViewModels\CampusStudentListRightSideBarItemEditViewModel.cs" />
+    <Compile Include="ViewModels\CampusStudentListRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\CampusStudentListRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\CampusStudentList\CampusStudentListViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
@@ -531,6 +547,22 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\AddStudentRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentListRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentListRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentListRightSideBarItemEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\CenterColumnHeaderCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

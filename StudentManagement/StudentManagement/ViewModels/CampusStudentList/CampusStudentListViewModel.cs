@@ -21,6 +21,14 @@ namespace StudentManagement.ViewModels
 {
     public class CampusStudentListViewModel : BaseViewModel
     {
+        private static CampusStudentListViewModel s_instance;
+        public static CampusStudentListViewModel Instance
+        {
+            get => s_instance ?? (s_instance = new CampusStudentListViewModel());
+
+            private set => s_instance = value;
+        }
+
         private ObservableCollection<Student> _studentDatabase;
         public ObservableCollection<Student> StudentDatabase
         {
@@ -56,8 +64,9 @@ namespace StudentManagement.ViewModels
         public CampusStudentListViewModel()
         {
             StudentDatabase = new ObservableCollection<Student>();
+            Instance = this;
 
-            StudentDatabase.Add(new Student { Training = "Đại trà", NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123", STT = 1});
+            //StudentDatabase.Add(new Student { Training = "Đại trà", NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123", STT = 1});
             StudentDatabase.Add(new Student { Training = "Tài năng", NameStudent = "Ngô Quang Vinh", EmailStudent = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520124", STT = 2 });
             StudentDatabase.Add(new Student { Training = "Tài năng", NameStudent = "Lê Hữu Trung", EmailStudent = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520125", STT = 3 });
             StudentDatabase.Add(new Student { Training = "Tài năng", NameStudent = "Hứa Thanh Tân", EmailStudent = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520126", STT = 4 });
@@ -71,7 +80,7 @@ namespace StudentManagement.ViewModels
             AddStudentList = new RelayCommand<object>((p) => true, (p) => AddStudentListFunction());
         }
 
-        void SearchNameFunction()
+        public void SearchNameFunction()
         {
             if (SearchQuery == null)
             {
@@ -96,7 +105,11 @@ namespace StudentManagement.ViewModels
 
         void AddStudentFunction()
         {
+            Student CurrentStudent = new Student();
+            CampusStudentListRightSideBarViewModel studentListRightSideBarViewModel = CampusStudentListRightSideBarViewModel.Instance;
+            studentListRightSideBarViewModel.RightSideBarItemViewModel = new AddStudentListViewModel(CurrentStudent);
 
+            SearchNameFunction();
         }
 
         DataTableCollection dataSheets;
@@ -134,6 +147,8 @@ namespace StudentManagement.ViewModels
                     }
                 }
             }
+            MyMessageBox.Show("Thêm thành công");
+            SearchNameFunction();
         }
     }
 }

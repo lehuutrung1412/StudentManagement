@@ -112,22 +112,22 @@ namespace StudentManagement.ViewModels
 
         public void UpdateData()
         {
-            CurrentSemester = SemesterServices.Instance.GetFirstOpenningRegisterSemester();
-            CurrentStudent = StudentServices.Instance.GetFirstStudent();
-            if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
-            {
-                CourseRegistryItems1 = new ObservableCollection<CourseItem>();
-                CourseRegistryItems2 = new ObservableCollection<CourseItem>();
-            }
-            else
-            {
-                CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
-                CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
-            }
-            CourseRegistryItems2Display = CourseRegistryItems2;
-            UploadConflictCourseRegistry();
-            TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
-            InitScheduleItems();
+            //CurrentSemester = SemesterServices.Instance.GetFirstOpenningRegisterSemester();
+            //CurrentStudent = StudentServices.Instance.GetFirstStudent();
+            //if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
+            //{
+            //    CourseRegistryItems1 = new ObservableCollection<CourseItem>();
+            //    CourseRegistryItems2 = new ObservableCollection<CourseItem>();
+            //}
+            //else
+            //{
+            //    CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+            //    CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+            //}
+            //CourseRegistryItems2Display = CourseRegistryItems2;
+            //UploadConflictCourseRegistry();
+            //TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
+            //InitScheduleItems();
         }
         public void InitCommand()
         {

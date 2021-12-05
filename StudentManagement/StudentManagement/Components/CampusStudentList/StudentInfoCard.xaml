@@ -9,6 +9,7 @@
     xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
+    Height="400"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     HorizontalContentAlignment="Stretch"
@@ -23,108 +24,46 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Border x:Name="bdNotification">
 
-        <Grid HorizontalAlignment="Stretch">
-            <Grid.Resources>
-                <math:MathConverter x:Key="math" />
-            </Grid.Resources>
-            <Button
-                x:Name="btnNotification"
-                Height="{Binding Path=ActualWidth, ElementName=grdImg, Converter={StaticResource math}, ConverterParameter='x+16'}"
-                Margin="0"
-                Padding="4,0,0,0"
-                HorizontalAlignment="Stretch"
-                Panel.ZIndex="2"
-                materialDesign:ShadowAssist.ShadowDepth="Depth4"
-                Foreground="Black">
-                <Button.Style>
-                    <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="Hand" />
-                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
-                <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.8*" />
-                        <ColumnDefinition Width="5" />
-                        <ColumnDefinition Width="7*" />
-
-                    </Grid.ColumnDefinitions>
-                    <Grid Name="grdImg" Grid.Column="0">
-                        <Ellipse
-                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                            HorizontalAlignment="Stretch"
-                            Stroke="{StaticResource DarkGray}"
-                            StrokeThickness="2">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="https://picsum.photos/200" Stretch="UniformToFill" />
-                            </Ellipse.Fill>
-                        </Ellipse>
-                    </Grid>
-                    <GridSplitter
-                        Grid.Column="1"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Stretch"
-                        Background="Gray" />
-                    <Grid Grid.Column="2" Margin="8,0,8,0">
-                        <StackPanel>
-
-                            <TextBlock
-                                MaxHeight="28"
-                                VerticalAlignment="Top"
-                                FontSize="14"
-                                FontWeight="Bold"
-                                LineHeight="14"
-                                LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding NameStudent, FallbackValue='Lễ Hữu Trung'}"
-                                TextTrimming="WordEllipsis"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                MaxHeight="36"
-                                Margin="0,5,0,0"
-                                FontSize="12"
-                                Foreground="Gray"
-                                LineHeight="12"
-                                LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding IDStudent, FallbackValue='MSSV: 19522424'}"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                MaxHeight="36"
-                                Margin="0,5,0,0"
-                                FontSize="12"
-                                Foreground="Gray"
-                                LineHeight="12"
-                                LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding Faculty, FallbackValue='Khoa: Khoa học máy tính'}"
-                                TextWrapping="Wrap" />
-
-                            <TextBlock
-                                MaxHeight="36"
-                                Margin="0,5,0,0"
-                                FontSize="12"
-                                Foreground="Gray"
-                                LineHeight="12"
-                                LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding Training, FallbackValue='Hệ đào tạo: Tài năng'}"
-                                TextWrapping="Wrap" />
-
-                        </StackPanel>
-                    </Grid>
-
-                </Grid>
-
-            </Button>
+    <materialDesign:Card Width="200" Height="256">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="160" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <materialDesign:ColorZone VerticalAlignment="Stretch" Mode="PrimaryLight">
+                <Ellipse
+                    Width="128"
+                    Height="128"
+                    HorizontalAlignment="Stretch"
+                    Stroke="{StaticResource DarkGray}"
+                    StrokeThickness="2">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="https://picsum.photos/200" Stretch="UniformToFill" />
+                    </Ellipse.Fill>
+                </Ellipse>
+            </materialDesign:ColorZone>
+            <StackPanel
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Text="{Binding NameStudent, FallbackValue='Lê Hữu Trung'}" />
+                <TextBlock
+                    Margin="0,2,0,0"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    Text="{Binding IDStudent, FallbackValue='19520000'}" />
+                <Button
+                    Margin="0,4,0,0"
+                    Content="Xem chi tiết"
+                    Style="{StaticResource MaterialDesignFlatButton}" />
+            </StackPanel>
         </Grid>
-    </Border>
+    </materialDesign:Card>
+
 
 </UserControl>

@@ -52,6 +52,7 @@ namespace StudentManagement.ViewModels
         private object _scoreboardRightSideBar;
         private object _adminCourseRegistryRightSideBar;
         private object _studentListRightSideBar;
+        private object _campusStudentListRightSideBar;
 
         public MainViewModel()
         {
@@ -83,7 +84,7 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "CalendarMonthOutline"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, _layoutViewModel, "AccountCircleOutline"),
                 new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, _studentListRightSideBar, _layoutViewModel, "SchoolOutline"),
-                new NavigationItem("Danh sách sinh viên", false, null, _campusStudentListViewModel, null, _layoutViewModel, "SchoolOutline"),
+                new NavigationItem("Danh sách sinh viên", false, null, _campusStudentListViewModel, _campusStudentListRightSideBar, _layoutViewModel, "SchoolOutline"),
                 new NavigationItem("Admin - ĐKHP", false, null, _adminCourseRegistryViewModel, _adminCourseRegistryRightSideBar, _layoutViewModel, "CreditCardPlusOutline"),
                 new NavigationItem("Cài đặt", true, tempInfo, null, null, _layoutViewModel, "CogOutline"),
             };
@@ -162,6 +163,8 @@ namespace StudentManagement.ViewModels
             _scoreboardRightSideBar = new ScoreBoardRightSideBarViewModel(); //ViewModel
 
             _studentListRightSideBar = new StudentListRightSideBarViewModel();
+
+            _campusStudentListRightSideBar = new CampusStudentListRightSideBarViewModel();
 
             _layoutViewModel.RightSideBar = _adminHomeRightSideBar;
         }
