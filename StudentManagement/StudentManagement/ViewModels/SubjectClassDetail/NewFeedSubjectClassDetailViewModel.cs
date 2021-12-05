@@ -39,10 +39,20 @@ namespace StudentManagement.ViewModels
             EditPostNewFeedViewModel = new CreatePostNewFeedViewModel();
             EditPostNewFeedViewModel.PropertyChanged += EditPostNewFeedViewModel_PropertyChanged;
 
-            PostNewsfeedViewModels = new ObservableCollection<PostNewsfeedViewModel>();
+            LoadNewsfeed();
 
             DeletePost = new RelayCommand<Guid>(_ => true, (p) => DeleteOnPost(p));
             EditPost = new RelayCommand<UserControl>(_ => true, (p) => EditOnPost(p));
+        }
+
+        private void LoadNewsfeed()
+        {
+            PostNewsfeedViewModels = new ObservableCollection<PostNewsfeedViewModel>();
+            var posts = NewsfeedServices.Instance.GetListNotificationOfSubjectClass(IdSubjectClass);
+            foreach (var post in posts)
+            {
+                PostNewsfeedViewModels.Add(NewsfeedServices.Instance.ConvertNotificationToPostNewsfeed(post));
+            }
         }
 
         private void EditPostNewFeedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -70,7 +80,7 @@ namespace StudentManagement.ViewModels
             {
                 try
                 {
-                    PostNewsfeedViewModel post = new PostNewsfeedViewModel(IdSubjectClass, IdPoster, CreatePostNewFeedViewModel.DraftPostText, DateTime.Parse(DateTime.Now.ToString(), _culture), CreatePostNewFeedViewModel.StackImageDraft);
+                    PostNewsfeedViewModel post = new PostNewsfeedViewModel(IdSubjectClass, IdPoster, Guid.NewGuid(), CreatePostNewFeedViewModel.DraftPostText, DateTime.Parse(DateTime.Now.ToString(), _culture), CreatePostNewFeedViewModel.StackImageDraft);
                     
                     NewsfeedServices.Instance.SavePostToDatabaseAsync(post);
                     

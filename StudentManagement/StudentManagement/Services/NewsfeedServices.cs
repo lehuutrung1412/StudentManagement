@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
+using StudentManagement.Objects;
 
 namespace StudentManagement.Services
 {
@@ -34,7 +35,25 @@ namespace StudentManagement.Services
 
         public PostNewsfeedViewModel ConvertNotificationToPostNewsfeed(Notification notif)
         {
-            return new PostNewsfeedViewModel(notif.IdSubjectClass, notif.IdPoster, notif.Content, notif.Time, new System.Collections.ObjectModel.ObservableCollection<string>());
+            return new PostNewsfeedViewModel(notif.IdSubjectClass, notif.IdPoster, notif.Id, notif.Content, notif.Time, new System.Collections.ObjectModel.ObservableCollection<string>());
+        }
+
+        public NotificationComment ConvertPostCommentToNotificationComment(PostComment comment)
+        {
+            return new NotificationComment()
+            {
+                Id = comment.Id,
+                Time = comment.Time,
+                Content = comment.Comment,
+                IdUserComment = (Guid)comment.UserId,
+                IdNotification = comment.PostId
+            };
+        }
+
+        public PostComment ConvertNotificationCommentToPostComment(NotificationComment comment)
+        {
+            User user = UserServices.Instance.GetUserById(comment.IdUserComment);
+            return new PostComment(comment.Id, comment.IdNotification, comment.IdUserComment, user.DisplayName, comment.Content, comment.Time);
         }
 
         #endregion Convert
@@ -47,6 +66,12 @@ namespace StudentManagement.Services
             await db().SaveChangesAsync();
         }
 
+        public async void SaveCommentToDatabaseAsync(PostComment comment)
+        {
+            db().NotificationComments.AddOrUpdate(ConvertPostCommentToNotificationComment(comment));
+            await db().SaveChangesAsync();
+        }
+
         #endregion Create
 
         #region Read
@@ -54,6 +79,11 @@ namespace StudentManagement.Services
         public List<Notification> GetListNotificationOfSubjectClass(Guid? idSubjectClass)
         {
             return db().Notifications.Where(notif => notif.IdSubjectClass == idSubjectClass).ToList();
+        }
+
+        public List<NotificationComment> GetListCommentInPost(Guid? postId)
+        {
+            return db().NotificationComments.Where(cmt => cmt.IdNotification == postId).ToList();
         }
 
         #endregion

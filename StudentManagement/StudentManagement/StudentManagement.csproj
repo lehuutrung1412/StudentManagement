@@ -406,6 +406,7 @@
     <Compile Include="Objects\BaseObjectWithBaseViewModel.cs" />
     <Compile Include="Objects\InfoItem.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
+    <Compile Include="Objects\NewsfeedPost.cs" />
     <Compile Include="Objects\NotificationCard.cs" />
     <Compile Include="Objects\ScheduleItem.cs" />
     <Compile Include="Objects\SubjectCard.cs" />
