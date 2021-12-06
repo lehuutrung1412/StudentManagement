@@ -35,7 +35,7 @@ namespace StudentManagement.Services
 
         public NewsfeedPost ConvertNotificationToPostNewsfeed(Notification notif)
         {
-            var poster = UserServices.Instance.GetUserById(notif.IdPoster);
+            var poster = UserServices.Instance.GetUserById((Guid)notif.IdPoster);
 
             return new NewsfeedPost()
             {
@@ -63,8 +63,8 @@ namespace StudentManagement.Services
 
         public PostComment ConvertNotificationCommentToPostComment(NotificationComment comment)
         {
-            User user = UserServices.Instance.GetUserById(comment.IdUserComment);
-            return new PostComment(comment.Id, comment.IdNotification, comment.IdUserComment, user.DisplayName, comment.Content, comment.Time);
+            User user = UserServices.Instance.GetUserById((Guid)comment.IdUserComment);
+            return new PostComment((Guid)comment.Id, (Guid)comment.IdNotification, (Guid)comment.IdUserComment, user.DisplayName, comment.Content, comment.Time);
         }
 
         #endregion Convert
@@ -92,7 +92,7 @@ namespace StudentManagement.Services
             return db().Notifications.Where(notif => notif.IdSubjectClass == idSubjectClass).ToList();
         }
 
-        public List<NotificationComment> GetListCommentInPost(Guid? postId)
+        public List<NotificationComment> GetListCommentInPost(Guid postId)
         {
             return db().NotificationComments.Where(cmt => cmt.IdNotification == postId).ToList();
         }
