@@ -645,4 +645,3 @@ BEGIN
 	INSERT INTO SubjectClass(Id, IdSubject, Period, Weekday, IdThumbnail, IdTrainingForm, Code, NumberOfStudents, MaxNumberOfStudents) 
 	values ('00000000-0000-0000-0000-000000000000', @IdSubject, '123', '4', @IdAvatar, '52DF1714-C81F-42C2-8C64-8D744D787E0C', 'Hi', 100, 100)
 END
-

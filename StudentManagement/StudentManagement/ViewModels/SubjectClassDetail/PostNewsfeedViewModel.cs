@@ -1,4 +1,6 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -16,14 +18,9 @@ namespace StudentManagement.ViewModels
         public ICommand ChangeImage { get; set; }
         public ICommand DeleteComment { get; set; }
         public ICommand EditComment { get; set; }
-        public ObservableCollection<PostComment> PostComments { get; set; }
+        
         public bool IsShowComments { get => _isShowComments; set { _isShowComments = value; OnPropertyChanged(); } }
         private bool _isShowComments;
-
-        private string _postText;
-        public string PostText { get => _postText; set { _postText = value; OnPropertyChanged(); } }
-
-        public DateTime PostTime { get; set; }
 
         private ObservableCollection<string> _stackPostImage;
         public string ImageSelectedShow { get => _imageSelectedShow; set { _imageSelectedShow = value; OnPropertyChanged(); } }
@@ -31,8 +28,7 @@ namespace StudentManagement.ViewModels
         private bool _isShowButtonChangeImage;
 
         private int _imageIndex;
-
-        public Guid PostId { get; set; }
+        
         public bool IsShowButtonChangeImage { get => _isShowButtonChangeImage; set { _isShowButtonChangeImage = value; OnPropertyChanged(); } }
         private string _imageSelectedShow;
         public ObservableCollection<string> StackPostImage
@@ -48,14 +44,25 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public PostNewsfeedViewModel(string postText, DateTime postTime, ObservableCollection<string> stackImage)
+        //public Guid PostId { get; set; }
+        //public Guid? IdSubjectClass { get; set; }
+        //public Guid IdPoster { get; set; }
+        //public DateTime? PostTime { get; set; }
+        //public string PostText { get => _postText; set { _postText = value; OnPropertyChanged(); } }
+        //private string _postText;
+
+        public NewsfeedPost Post { get; set; }
+
+        public ObservableCollection<PostComment> PostComments { get; set; }
+
+        public PostNewsfeedViewModel(NewsfeedPost post, ObservableCollection<string> stackImage)
         {
-            PostId = Guid.NewGuid();
-            PostText = postText;
-            PostTime = postTime; //new DateTime(2021, 11, 1, 20, 25, 30);
+            Post = post;
             IsShowComments = true;
             StackPostImage = new ObservableCollection<string>(stackImage);
-            PostComments = new ObservableCollection<PostComment>();
+
+            FirstLoadComment();
+
             SendComment = new RelayCommand<object>((p) => true, (p) => SendDraftComment(p));
             ShowHideComments = new RelayCommand<object>((p) => true, (p) => ShowHideAllComments(p));
             ChangeImage = new RelayCommand<object>((p) => true, (p) => ChangeImageToShow(p));
@@ -63,12 +70,29 @@ namespace StudentManagement.ViewModels
             EditComment = new RelayCommand<object>((p) => true, (p) => EditOnComment(p));
         }
 
+        private void FirstLoadComment()
+        {
+            PostComments = new ObservableCollection<PostComment>();
+            var comments = NewsfeedServices.Instance.GetListCommentInPost(Post.PostId);
+            foreach (var comment in comments)
+            {
+                PostComments.Add(NewsfeedServices.Instance.ConvertNotificationCommentToPostComment(comment));
+            }
+        }
+
         private void SendDraftComment(object comment)
         {
             TextBox txbComment = comment as TextBox;
             if (txbComment.Text != "")
             {
-                PostComments.Add(new PostComment(Guid.NewGuid(), "Lê Hữu Trung", txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture)));
+                // Get current user
+                var user = UserServices.Instance.GetUserInfo();
+
+                var newComment = new PostComment(Guid.NewGuid(), Post.PostId, user.Id, user.DisplayName, txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
+
+                NewsfeedServices.Instance.SaveCommentToDatabaseAsync(newComment);
+
+                PostComments.Add(newComment);
                 txbComment.Text = "";
             }
         }
@@ -92,7 +116,7 @@ namespace StudentManagement.ViewModels
         {
             try
             {
-                PostComment commentToDelete = PostComments.Single(cmt => cmt.CommentId == commentId);
+                PostComment commentToDelete = PostComments.Single(cmt => cmt.Id == commentId);
                 if (MyMessageBox.Show("Bạn có chắc chắn muốn xóa bình luận này không?", "Xóa bình luận", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.Yes)
                 {
                     _ = PostComments.Remove(commentToDelete);
@@ -111,7 +135,7 @@ namespace StudentManagement.ViewModels
                 object[] values = (object[])txbAndComment;
                 TextBox textBox = values[0] as TextBox;
                 Guid commentId = (Guid)values[1];
-                PostComment commentToEdit = PostComments.Single(cmt => cmt.CommentId == commentId);
+                PostComment commentToEdit = PostComments.Single(cmt => cmt.Id == commentId);
                 ControlTemplate template = textBox.Template;
                 TextBox childTextBox = (TextBox)template.FindName("txbComment", textBox);
                 childTextBox.Text = commentToEdit.Comment;
@@ -123,22 +147,6 @@ namespace StudentManagement.ViewModels
             {
                 _ = MyMessageBox.Show("Đã có lỗi xảy ra, không thể chỉnh sửa bình luận. Xin vui lòng thử lại", "Sửa bình luận", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-        }
-    }
-
-    public class PostComment
-    {
-        public Guid CommentId { get; set; }
-        public string Username { get; set; }
-        public string Comment { get; set; }
-        public DateTime Time { get; set; }
-
-        public PostComment(Guid commentId, string username, string comment, DateTime time)
-        {
-            CommentId = commentId;
-            Username = username;
-            Comment = comment;
-            Time = time;
         }
     }
 }

@@ -421,6 +421,7 @@
     <Compile Include="Objects\BaseObjectWithBaseViewModel.cs" />
     <Compile Include="Objects\InfoItem.cs" />
     <Compile Include="Objects\NavigationItem.cs" />
+    <Compile Include="Objects\NewsfeedPost.cs" />
     <Compile Include="Objects\NotificationCard.cs" />
     <Compile Include="Objects\ScheduleItem.cs" />
     <Compile Include="Objects\SubjectClassCard.cs" />
@@ -432,6 +433,7 @@
     <Compile Include="Services\InfoItemServices.cs" />
     <Compile Include="Services\FileServices.cs" />
     <Compile Include="Services\FileUploader.cs" />
+    <Compile Include="Services\NewsfeedServices.cs" />
     <Compile Include="Services\NotificationServices.cs" />
     <Compile Include="Services\NotificationTypeServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
