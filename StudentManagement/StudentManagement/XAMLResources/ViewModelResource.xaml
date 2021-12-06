@@ -18,6 +18,7 @@
     <viewmodel:ScoreBoardViewModel x:Key="ScoreBoardVM" />
     <viewmodel:ScoreBoardRightSideBarViewModel x:Key="ScoreBoardRightSideBarVM" />
     <viewmodel:AdminSubjectClassViewModel x:Key="AdminSubjectClassVM" />
+    <viewmodel:AdminSubjectViewModel x:Key="AdminSubjectVM" />
     <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
     <viewmodel:AdminHomeRightSideBarViewModel x:Key="AdminHomeRightSideBarVM" />
     <viewmodel:StudentScheduleTableViewModel x:Key="StudentScheduleTableVM" />

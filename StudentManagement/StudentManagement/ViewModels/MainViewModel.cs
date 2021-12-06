@@ -32,6 +32,7 @@ namespace StudentManagement.ViewModels
         // ViewModels -> To display view in layout
         private object _adminHomeViewModel;
         private object _adminSubjectClassViewModel;
+        private object _adminSubjectViewModel;
         private object _adminNotificationViewModel;
         private object _studentCourseRegistryViewModel;
         private object _adminFacultyTrainingFormViewModel;
@@ -46,6 +47,7 @@ namespace StudentManagement.ViewModels
         // Rightsidebar corresponding to _contentViewModel
         private object _adminHomeRightSideBar;
         private object _adminSubjectClassRightSideBar;
+        private object _adminSubjectRightSideBar;
         private object _adminNotificationRightSideBar;
         private object _studentCourseRegistryRightSideBar;
         private object _adminFacultyTrainingFormRightSideBar;
@@ -69,7 +71,8 @@ namespace StudentManagement.ViewModels
 
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, _layoutViewModel, "School"),
-                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, _layoutViewModel, "School")
+                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, _layoutViewModel, "School"),
+                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, _layoutViewModel, "School"),
             };
             ObservableCollection<NavigationItem> tempInfo = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Thông tin cá nhân", false, null, _settingUserInfoViewModel, null, _layoutViewModel, "AccountOutline"),
@@ -122,6 +125,8 @@ namespace StudentManagement.ViewModels
 
             _adminSubjectClassViewModel = new AdminSubjectClassViewModel();
 
+            _adminSubjectViewModel = new AdminSubjectViewModel();
+
             _adminNotificationViewModel = new AdminNotificationViewModel();
 
             _studentCourseRegistryViewModel = new StudentCourseRegistryViewModel();
@@ -151,6 +156,8 @@ namespace StudentManagement.ViewModels
             _adminHomeRightSideBar = new AdminHomeRightSideBarViewModel();
 
             _adminSubjectClassRightSideBar = new AdminSubjectClassRightSideBarViewModel();
+
+            _adminSubjectRightSideBar = new AdminSubjectRightSideBarViewModel();
 
             _adminNotificationRightSideBar = new AdminNotificationRightSideBarViewModel();
 
