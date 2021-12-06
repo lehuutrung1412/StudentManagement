@@ -527,6 +527,12 @@ VALUES
   (N'Thông báo Admin')
 GO
 
+select * from Notification
+select * from NotificationType
+select * from NotificationImages
+select * from NotificationComment
+select * from NotificationInfo
+
 INSERT INTO DatabaseImageTable
  (Image)
 values
