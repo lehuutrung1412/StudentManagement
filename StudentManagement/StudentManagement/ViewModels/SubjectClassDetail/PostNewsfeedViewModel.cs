@@ -44,21 +44,20 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public Guid PostId { get; set; }
-        public Guid? IdSubjectClass { get; set; }
-        public Guid? IdPoster { get; set; }
-        public DateTime? PostTime { get; set; }
-        public string PostText { get => _postText; set { _postText = value; OnPropertyChanged(); } }
-        private string _postText;
+        //public Guid PostId { get; set; }
+        //public Guid? IdSubjectClass { get; set; }
+        //public Guid IdPoster { get; set; }
+        //public DateTime? PostTime { get; set; }
+        //public string PostText { get => _postText; set { _postText = value; OnPropertyChanged(); } }
+        //private string _postText;
+
+        public NewsfeedPost Post { get; set; }
+
         public ObservableCollection<PostComment> PostComments { get; set; }
 
-        public PostNewsfeedViewModel(Guid? idSubjectClass, Guid? idPoster, Guid id, string postText, DateTime? postTime, ObservableCollection<string> stackImage)
+        public PostNewsfeedViewModel(NewsfeedPost post, ObservableCollection<string> stackImage)
         {
-            IdSubjectClass = idSubjectClass;
-            IdPoster = idPoster;
-            PostId = id;
-            PostText = postText;
-            PostTime = postTime;
+            Post = post;
             IsShowComments = true;
             StackPostImage = new ObservableCollection<string>(stackImage);
 
@@ -74,7 +73,7 @@ namespace StudentManagement.ViewModels
         private void FirstLoadComment()
         {
             PostComments = new ObservableCollection<PostComment>();
-            var comments = NewsfeedServices.Instance.GetListCommentInPost(PostId);
+            var comments = NewsfeedServices.Instance.GetListCommentInPost(Post.PostId);
             foreach (var comment in comments)
             {
                 PostComments.Add(NewsfeedServices.Instance.ConvertNotificationCommentToPostComment(comment));
@@ -86,7 +85,10 @@ namespace StudentManagement.ViewModels
             TextBox txbComment = comment as TextBox;
             if (txbComment.Text != "")
             {
-                var newComment = new PostComment(Guid.NewGuid(), PostId, IdPoster, "Lê Hữu Trung", txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
+                // Get current user
+                var user = UserServices.Instance.GetUserInfo();
+
+                var newComment = new PostComment(Guid.NewGuid(), Post.PostId, user.Id, user.DisplayName, txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
 
                 NewsfeedServices.Instance.SaveCommentToDatabaseAsync(newComment);
 

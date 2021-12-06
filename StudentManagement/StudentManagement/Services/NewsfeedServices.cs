@@ -20,22 +20,33 @@ namespace StudentManagement.Services
 
         #region Convert
 
-        public Notification ConvertPostNewsfeedToNotification(PostNewsfeedViewModel post)
+        public Notification ConvertPostNewsfeedToNotification(NewsfeedPost post)
         {
             return new Notification()
             {
                 Id = post.PostId,
-                Topic = post.IdSubjectClass.ToString(),
+                Topic = post.Topic,
                 Content = post.PostText,
                 Time = post.PostTime,
-                IdPoster = (Guid)post.IdPoster,
+                IdPoster = post.IdPoster,
                 IdSubjectClass = post.IdSubjectClass
             };
         }
 
-        public PostNewsfeedViewModel ConvertNotificationToPostNewsfeed(Notification notif)
+        public NewsfeedPost ConvertNotificationToPostNewsfeed(Notification notif)
         {
-            return new PostNewsfeedViewModel(notif.IdSubjectClass, notif.IdPoster, notif.Id, notif.Content, notif.Time, new System.Collections.ObjectModel.ObservableCollection<string>());
+            var poster = UserServices.Instance.GetUserById(notif.IdPoster);
+
+            return new NewsfeedPost()
+            {
+                PostId = notif.Id,
+                PostText = notif.Content,
+                PostTime = notif.Time,
+                IdSubjectClass = notif.IdSubjectClass,
+                IdPoster = poster.Id,
+                PosterName = poster.DisplayName,
+                Topic = notif.Topic
+            };
         }
 
         public NotificationComment ConvertPostCommentToNotificationComment(PostComment comment)
@@ -45,7 +56,7 @@ namespace StudentManagement.Services
                 Id = comment.Id,
                 Time = comment.Time,
                 Content = comment.Comment,
-                IdUserComment = (Guid)comment.UserId,
+                IdUserComment = comment.UserId,
                 IdNotification = comment.PostId
             };
         }
@@ -60,7 +71,7 @@ namespace StudentManagement.Services
 
         #region Create
 
-        public async void SavePostToDatabaseAsync(PostNewsfeedViewModel post)
+        public async void SavePostToDatabaseAsync(NewsfeedPost post)
         {
             db().Notifications.AddOrUpdate(ConvertPostNewsfeedToNotification(post));
             await db().SaveChangesAsync();
