@@ -79,7 +79,7 @@ namespace StudentManagement.ViewModels
             CurrentStudent = new UserCard();
             NewUser = new User();
 
-            NewUser.Id = new Guid();
+            NewUser.Id = Guid.NewGuid();
 
             var trainingForms = TrainingFormServices.Instance.LoadTrainingFormList();
             var faculties = FacultyServices.Instance.LoadFacultyList();

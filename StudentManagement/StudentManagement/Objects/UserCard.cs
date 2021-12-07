@@ -14,7 +14,7 @@ namespace StudentManagement.Objects
     public class UserCard : BaseObjectWithBaseViewModel, IBaseCard
     {
         private string _name;
-        private Guid _id;
+        private Guid? _id;
         private string _email;
         private string _gender;
         private string _faculty;
@@ -25,7 +25,7 @@ namespace StudentManagement.Objects
 
         public UserCard() { }
 
-        public UserCard(string role, string name, Guid id, string email, string gender, string faculty, string training)
+        public UserCard(string role, string name, Guid? id, string email, string gender, string faculty, string training)
         {
             ID = id;
             DisplayName = name;
@@ -38,30 +38,30 @@ namespace StudentManagement.Objects
 
         public UserCard(Student x)
         {
-            ID = (Guid)x.IdUsers;
-            DisplayName = UserServices.Instance.GetDisplayNameById(ID);
+            ID = x.IdUsers;
+            DisplayName = UserServices.Instance.GetDisplayNameById((Guid)ID);
             Role = "Sinh viên";
-            Faculty = UserServices.Instance.GetFacultyById(ID);
+            //Faculty = UserServices.Instance.GetFacultyById((Guid)ID);
             Training = x.TrainingForm.DisplayName;
             Email = "chưa biết";
         }
 
         public UserCard(Teacher x)
         {
-            ID = (Guid)x.IdUsers;
-            DisplayName = UserServices.Instance.GetDisplayNameById(ID);
+            ID = x.IdUsers;
+            DisplayName = UserServices.Instance.GetDisplayNameById((Guid)ID);
             Role = "Giáo viên";
-            Faculty = UserServices.Instance.GetFacultyById(ID);
+            //Faculty = UserServices.Instance.GetFacultyById((Guid)ID);
             Training = null;
             Email = "chưa biết";
         }
 
         public UserCard(Admin x)
         {
-            ID = (Guid) x.IdUsers;
-            DisplayName = UserServices.Instance.GetDisplayNameById(ID);
+            ID =  x.IdUsers;
+            DisplayName = UserServices.Instance.GetDisplayNameById((Guid)ID);
             Role = "Sinh viên";
-            Faculty = UserServices.Instance.GetFacultyById(ID);
+            //Faculty = UserServices.Instance.GetFacultyById((Guid)ID);
             Training = null;
             Email = "chưa biết";
         }
@@ -79,7 +79,7 @@ namespace StudentManagement.Objects
             set => _name = value;
         }
 
-        public Guid ID
+        public Guid? ID
         {
             get => _id;
             set => _id = value;

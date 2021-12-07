@@ -1,6 +1,7 @@
 ﻿using StudentManagement.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,11 +32,11 @@ namespace StudentManagement.Services
             return user.DisplayName;
         }
 
-        public string GetFacultyById(Guid id)
-        {
-            var user = GetUserById(id);
-            return user.Faculty.DisplayName;
-        }
+        //public string GetFacultyById(Guid id)
+        //{
+        //    var user = GetUserById(id);
+        //    return user.Faculty.DisplayName;
+        //}
 
         public bool CheckAdminByIdUser(Guid id)
         {
@@ -56,7 +57,7 @@ namespace StudentManagement.Services
 
                 if (savedUser == null)
                 {
-                    DataProvider.Instance.Database.Users.Add(user);
+                    DataProvider.Instance.Database.Users.AddOrUpdate(user);
                 }
                 else
                 {

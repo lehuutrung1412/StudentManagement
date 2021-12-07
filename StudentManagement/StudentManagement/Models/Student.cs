@@ -27,6 +27,8 @@ namespace StudentManagement.Models
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idTrainingForm { get; set; }
         public Nullable<System.Guid> IdTrainingForm { get => _idTrainingForm; set { _idTrainingForm = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idFaculty { get; set; }
+        public Nullable<System.Guid> IdFaculty { get => _idFaculty; set { _idFaculty = value; OnPropertyChanged(); } }
         private Nullable<int> _status { get; set; }
         public Nullable<int> Status { get => _status; set { _status = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idUsers { get; set; }
@@ -34,6 +36,7 @@ namespace StudentManagement.Models
     
         public virtual ICollection<CourseRegister> CourseRegisters { get; set; }
         public virtual ICollection<DetailScore> DetailScores { get; set; }
+        public virtual Faculty Faculty { get; set; }
         public virtual TrainingForm TrainingForm { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<StudyResult> StudyResults { get; set; }

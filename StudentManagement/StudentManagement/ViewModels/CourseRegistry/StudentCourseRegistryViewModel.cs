@@ -53,7 +53,7 @@ namespace StudentManagement.ViewModels
             {
                 _isAllItemsSelected2 = value;
                 OnPropertyChanged();
-                CourseRegistryItems2.Where(a=>a.IsConflict == false).Select(c => { c.IsSelected = value; return c; }).ToList();
+                CourseRegistryItems2.Where(a => a.IsConflict == false).Select(c => { c.IsSelected = value; return c; }).ToList();
             }
         }
         private ObservableCollection<CourseItem> courseRegistryItems1;
@@ -118,22 +118,29 @@ namespace StudentManagement.ViewModels
 
         public void UpdateData()
         {
-            UpdateSemester();
-            CurrentStudent = StudentServices.Instance.GetFirstStudent();
-            if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
+            try
             {
-                CourseRegistryItems1 = new ObservableCollection<CourseItem>();
-                CourseRegistryItems2 = new ObservableCollection<CourseItem>();
+                UpdateSemester();
+                CurrentStudent = StudentServices.Instance.GetFirstStudent();
+                if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
+                {
+                    CourseRegistryItems1 = new ObservableCollection<CourseItem>();
+                    CourseRegistryItems2 = new ObservableCollection<CourseItem>();
+                }
+                else
+                {
+                    CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+                    CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+                }
+                CourseRegistryItems2Display = CourseRegistryItems2;
+                UploadConflictCourseRegistry();
+                TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
+                UpdateScheduleItems();
             }
-            else
+            catch
             {
-                CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
-                CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+
             }
-            CourseRegistryItems2Display = CourseRegistryItems2;
-            UploadConflictCourseRegistry();
-            TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
-            UpdateScheduleItems();
         }
         public void InitCommand()
         {
@@ -279,7 +286,7 @@ namespace StudentManagement.ViewModels
         }
         public void CourseUnchecked(DataGridRowEditEndingEventArgs e)
         {
-            
+
         }
         #endregion
     }

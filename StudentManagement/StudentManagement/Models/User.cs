@@ -37,19 +37,18 @@ namespace StudentManagement.Models
         public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
         private string _displayName { get; set; }
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private string _email { get; set; }
+        public string Email { get => _email; set { _email = value; OnPropertyChanged(); } }
         private Nullable<bool> _online { get; set; }
         public Nullable<bool> Online { get => _online; set { _online = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idUserRole { get; set; }
         public Nullable<System.Guid> IdUserRole { get => _idUserRole; set { _idUserRole = value; OnPropertyChanged(); } }
-        private Nullable<System.Guid> _idFaculty { get; set; }
-        public Nullable<System.Guid> IdFaculty { get => _idFaculty; set { _idFaculty = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idAvatar { get; set; }
         public Nullable<System.Guid> IdAvatar { get => _idAvatar; set { _idAvatar = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Admin> Admins { get; set; }
         public virtual DatabaseImageTable DatabaseImageTable { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
-        public virtual Faculty Faculty { get; set; }
         public virtual ICollection<Folder> Folders { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Notification> Notifications1 { get; set; }
