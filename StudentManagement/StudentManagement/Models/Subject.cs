@@ -22,8 +22,8 @@ namespace StudentManagement.Models
     
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private string _credit { get; set; }
-        public string Credit { get => _credit; set { _credit = value; OnPropertyChanged(); } }
+        private Nullable<int> _credit { get; set; }
+        public Nullable<int> Credit { get => _credit; set { _credit = value; OnPropertyChanged(); } }
         private string _displayName { get; set; }
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
         private string _code { get; set; }

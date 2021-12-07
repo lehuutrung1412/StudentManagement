@@ -29,7 +29,7 @@ namespace StudentManagement.Models
         private Nullable<double> _contributePercent { get; set; }
         public Nullable<double> ContributePercent { get => _contributePercent; set { _contributePercent = value; OnPropertyChanged(); } }
     
-        public virtual ICollection<DetailScore> DetailScores { get; set; }
         public virtual SubjectClass SubjectClass { get; set; }
+        public virtual ICollection<DetailScore> DetailScores { get; set; }
     }
 }

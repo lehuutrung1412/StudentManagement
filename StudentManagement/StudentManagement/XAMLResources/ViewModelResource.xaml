@@ -20,6 +20,7 @@
     <viewmodel:AdminSubjectClassViewModel x:Key="AdminSubjectClassVM" />
     <viewmodel:AdminSubjectViewModel x:Key="AdminSubjectVM" />
     <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
+    <viewmodel:AdminSubjectRightSideBarViewModel x:Key="AdminSubjectRightSideBarVM" />
     <viewmodel:AdminHomeRightSideBarViewModel x:Key="AdminHomeRightSideBarVM" />
     <viewmodel:StudentScheduleTableViewModel x:Key="StudentScheduleTableVM" />
     <viewmodel:FileManagerClassDetailViewModel x:Key="FileManagerClassDetailVM" />

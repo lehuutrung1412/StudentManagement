@@ -22,91 +22,42 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-            <materialDesign:Card Style="{StaticResource CardContainer}">
-                <DockPanel>
-                    <TextBlock
-                        Margin="16,16,16,0"
-                        DockPanel.Dock="Top"
-                        FontWeight="Bold"
-                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="Danh sách môn học" />
-                    <Grid Margin="16" DockPanel.Dock="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5.5*" />
-                            <ColumnDefinition Width="1.5*" />
-                        </Grid.ColumnDefinitions>
-                        <component:SearchBarOne
-                            Grid.Column="0"
-                            Height="50"
-                            DataContext="{Binding}"
-                            DatePickerVisibility="False"
-                            FirstSearchButtonText="Mã môn"
-                            IsFirstSearchButtonEnabled="{Binding IsFirstSearchButtonEnabled}"
-                            SearchCommand="{Binding SearchFacultyCards}"
-                            SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            SecondSearchButtonText="Tên môn"
-                            SwitchSearchButton="{Binding SwitchSearchButton}" />
-                        <Button
-                            Grid.Column="1"
-                            Height="50"
-                            Margin="16,0,0,0"
-                            VerticalAlignment="Top"
-                            materialDesign:ButtonAssist.CornerRadius="8"
-                            Command="{Binding CreateFacultyCardInfo, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}"
-                            Content="Thêm môn học"
-                            FontSize="16" />
-                    </Grid>
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        DockPanel.Dock="Bottom"
-                        Orientation="Horizontal">
-                        <Button
-                            Width="80"
-                            Height="30"
-                            Margin="2"
-                            Command="{Binding PreviousFacultyPageView}"
-                            Content="Trước"
-                            Style="{StaticResource rounded_btn}" />
-                        <TextBox
-                            Width="40"
-                            Height="30"
-                            Margin="16,0,0,0"
-                            Padding="0"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            MaxLines="1"
-                            Style="{StaticResource textbox_item}"
-                            Text="{Binding CurrentFacultyPageView, FallbackValue=1}"
-                            TextAlignment="Center">
-                            <TextBox.InputBindings>
-                                <KeyBinding
-                                    Key="Enter"
-                                    Command="{Binding JumpToFacultyPageView}"
-                                    CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" />
-                            </TextBox.InputBindings>
-                        </TextBox>
-                        <Border Height="30" BorderBrush="{x:Null}">
-                            <TextBlock
-                                Height="Auto"
-                                Margin="4,0,16,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource textblock_item}">
-                                <Run BaselineAlignment="Center" Text="/" />
-                                <Run Text="{Binding NumberOfFacultyPageView, FallbackValue=1, Mode=OneWay}" />
-                            </TextBlock>
-                        </Border>
-                        <Button
-                            Width="80"
-                            Height="30"
-                            Margin="2"
-                            Command="{Binding NextFacultyPageView}"
-                            Content="Sau"
-                            Style="{StaticResource rounded_btn}" />
-                    </StackPanel>
-                    <component:FacultyDataGrid Margin="16,16,16,16" DataContext="{Binding CurrentFacultyCards}" />
-                </DockPanel>
-            </materialDesign:Card>
-        </ScrollViewer>
+        <materialDesign:Card Style="{StaticResource CardContainer}">
+            <DockPanel>
+                <TextBlock
+                    Margin="16,16,16,0"
+                    DockPanel.Dock="Top"
+                    FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="Danh sách môn học" />
+                <Grid Margin="16" DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5.5*" />
+                        <ColumnDefinition Width="1.5*" />
+                    </Grid.ColumnDefinitions>
+                    <component:SearchBarOne
+                        Grid.Column="0"
+                        Height="50"
+                        DataContext="{Binding}"
+                        DatePickerVisibility="False"
+                        FirstSearchButtonText="Mã môn"
+                        IsFirstSearchButtonEnabled="{Binding IsFirstSearchButtonEnabled}"
+                        SearchCommand="{Binding SubjectCards}"
+                        SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SecondSearchButtonText="Tên môn"
+                        SwitchSearchButton="{Binding SwitchSearchButton}" />
+                    <Button
+                        Grid.Column="1"
+                        Height="50"
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Top"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        Command="{Binding CreateSubjectCardInfo, Source={StaticResource AdminSubjectRightSideBarVM}}"
+                        Content="Thêm môn học"
+                        FontSize="16" />
+                </Grid>
+                <component:SubjectDataGrid Margin="16,16,16,16" DataContext="{Binding CurrentSubjectCards}" />
+            </DockPanel>
+        </materialDesign:Card>
     </Grid>
 </UserControl>

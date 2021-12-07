@@ -151,6 +151,9 @@
     <Compile Include="Components\ClockControl.xaml.cs">
       <DependentUpon>ClockControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\Subject\SubjectDataGrid.xaml.cs">
+      <DependentUpon>SubjectDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\UserInfo\EditInfoItemInSetting.xaml.cs">
       <DependentUpon>EditInfoItemInSetting.xaml</DependentUpon>
     </Compile>
@@ -427,6 +430,7 @@
     <Compile Include="Objects\NewsfeedPost.cs" />
     <Compile Include="Objects\NotificationCard.cs" />
     <Compile Include="Objects\ScheduleItem.cs" />
+    <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\SubjectClassCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
     <Compile Include="Services\CourseRegisterServices.cs" />
@@ -632,6 +636,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\ClockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Subject\SubjectDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

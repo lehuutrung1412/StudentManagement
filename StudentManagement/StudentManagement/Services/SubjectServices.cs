@@ -123,5 +123,12 @@ namespace StudentManagement.Services
 
             RemoveSubjectFromDatabase(subject);
         }*/
+
+        public SubjectCard ConvertSubjectToSubjectCard(Subject subject)
+        {
+            SubjectCard subjectCard = new SubjectCard();
+
+            return subjectCard;
+        }
     }
 }

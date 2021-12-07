@@ -19,8 +19,8 @@ namespace StudentManagement.Models
         {
             this.Classes = new HashSet<Class>();
             this.NotificationImages = new HashSet<NotificationImage>();
-            this.Users = new HashSet<User>();
             this.SubjectClasses = new HashSet<SubjectClass>();
+            this.Users = new HashSet<User>();
         }
     
         private System.Guid _id { get; set; }
@@ -30,7 +30,7 @@ namespace StudentManagement.Models
     
         public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<NotificationImage> NotificationImages { get; set; }
-        public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<SubjectClass> SubjectClasses { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }
