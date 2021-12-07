@@ -40,6 +40,7 @@ namespace StudentManagement.ViewModels
 
         public AdminSubjectClassRightSideBarItemEditViewModel(SubjectClassCard card, bool isCreatedNew = false)
         {
+            card.InitModelNavigationItem();
             CurrentCard = new SubjectClassCard();
             ActualCard = card;
             if (!isCreatedNew)

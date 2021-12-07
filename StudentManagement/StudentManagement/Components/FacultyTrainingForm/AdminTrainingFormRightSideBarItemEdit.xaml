@@ -48,7 +48,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Chọn hệ đào tạo"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.DisplayName}" />
+                        Text="{Binding CurrentCard.DisplayName, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
