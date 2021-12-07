@@ -167,7 +167,7 @@ namespace StudentManagement.ViewModels
             //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
             //};
-            IdUser = DataProvider.Instance.Database.Users.FirstOrDefault(user=>user.UserRole.Role.Contains("Giáo viên")).Id;
+            IdUser = DataProvider.Instance.Database.Users.Where(user => user.UserRole.Role.Contains("Giáo viên")).FirstOrDefault().Id;
             Cards = NotificationServices.Instance.LoadNotificationCardByUserId(IdUser);
             Cards = new ObservableCollection<NotificationCard>(Cards.OrderByDescending(card => card.Time).ThenBy(card => card.Time.TimeOfDay));
             RealCards = new ObservableCollection<NotificationCard>(Cards.Select(card=>card));

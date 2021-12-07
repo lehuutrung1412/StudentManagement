@@ -35,6 +35,9 @@
                                 <Setter
                                     Property="Opacity"
                                     Value="0.5" />
+                                <Setter
+                                    Property="ToolTip"
+                                    Value="Trùng giờ học" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

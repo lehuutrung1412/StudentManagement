@@ -79,6 +79,8 @@ namespace StudentManagement.ViewModels
 
         private ObservableCollection<ScheduleItem> _scheduleItemsRegistered;
         public ObservableCollection<ScheduleItem> ScheduleItemsRegistered { get => _scheduleItemsRegistered; set { _scheduleItemsRegistered = value; OnPropertyChanged(); } }
+        private ScheduleItem _selectedScheduleItem2;
+        public ScheduleItem SelectedScheduleItem2 { get => _selectedScheduleItem2; set { _selectedScheduleItem2 = value; UpdateScheduleItem2(); OnPropertyChanged(); } }
         #endregion
         #region Command
         public ICommand RegisterCommand { get => _registerCommand; set => _registerCommand = value; }
@@ -222,6 +224,11 @@ namespace StudentManagement.ViewModels
             return src.GetType().GetProperty(propName).GetValue(src, null);
         }*/
 
+        public void UpdateScheduleItem2()
+        {
+            if (CourseRegistryItems2.Where(course => course.Id == SelectedScheduleItem2.Id).Count() != 0)
+                ScheduleItemsRegistered.Add(SelectedScheduleItem2);
+        }
         
         #endregion
     }

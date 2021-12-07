@@ -1,5 +1,5 @@
 -- USE TEMP
--- DROP DATABASE StudentManagement
+--  DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -18,9 +18,9 @@ CREATE TABLE Users
   --PhoneNumber NVARCHAR(MAX),
   Online BIT DEFAULT 0,
   -- 1: online, 0: offline
-  IdUserRole UNIQUEIDENTIFIER NULL,
-  IdFaculty UNIQUEIDENTIFIER NULL,
-  IdAvatar UNIQUEIDENTIFIER NULL,
+  IdUserRole UNIQUEIDENTIFIER NOT NULL,
+  IdFaculty UNIQUEIDENTIFIER NOT NULL,
+  IdAvatar UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -42,7 +42,7 @@ GO
 CREATE TABLE UserRole_UserInfo
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdRole UNIQUEIDENTIFIER NULL,
+  IdRole UNIQUEIDENTIFIER NOT NULL,
   InfoName NVARCHAR(MAX) NOT NULL,
   Type INT,
   IsEnable BIT,
@@ -55,8 +55,8 @@ GO
 CREATE TABLE User_UserRole_UserInfo
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdUser UNIQUEIDENTIFIER NULL,
-  IdUserRole_Info UNIQUEIDENTIFIER NULL,
+  IdUser UNIQUEIDENTIFIER NOT NULL,
+  IdUserRole_Info UNIQUEIDENTIFIER NOT NULL,
   Content NVARCHAR(MAX),
 )
 GO
@@ -64,7 +64,7 @@ GO
 CREATE TABLE UserRole_UserInfoItem --Cho UserInfo dạng combobox
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdUserRole_Info UNIQUEIDENTIFIER NULL,
+  IdUserRole_Info UNIQUEIDENTIFIER NOT NULL,
   Content NVARCHAR(MAX),
 )
 GO
@@ -87,7 +87,7 @@ GO
 CREATE TABLE Student
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdTrainingForm UNIQUEIDENTIFIER NULL,
+  IdTrainingForm UNIQUEIDENTIFIER NOT NULL,
   Status INT DEFAULT 1,
   -- 1: còn học, 0: đã tốt nghiệp
   IdUsers UNIQUEIDENTIFIER
@@ -129,8 +129,8 @@ GO
 CREATE TABLE Faculty_TrainingForm
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdTrainingForm UNIQUEIDENTIFIER NULL,
-  IdFaculty UNIQUEIDENTIFIER NULL,
+  IdTrainingForm UNIQUEIDENTIFIER NOT NULL,
+  IdFaculty UNIQUEIDENTIFIER NOT NULL,
   IsDeleted BIT DEFAULT 0,
 )
 GO
@@ -138,8 +138,8 @@ GO
 CREATE TABLE StudyResult
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdStudent UNIQUEIDENTIFIER NULL,
-  IdSubjectClass UNIQUEIDENTIFIER NULL,
+  IdStudent UNIQUEIDENTIFIER NOT NULL,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
   -- ProcessScore FLOAT,
   -- MidTermScore FLOAT,
   -- FinalTermScore FLOAT,
@@ -155,7 +155,7 @@ GO
 CREATE TABLE ComponentScore
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdSubjectClass UNIQUEIDENTIFIER NULL,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
   DisplayName NVARCHAR(MAX),
   ContributePercent FLOAT,
 )
@@ -164,8 +164,8 @@ GO
 CREATE TABLE DetailScore
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdStudent UNIQUEIDENTIFIER NULL,
-  IdComponentScore UNIQUEIDENTIFIER NULL,
+  IdStudent UNIQUEIDENTIFIER NOT NULL,
+  IdComponentScore UNIQUEIDENTIFIER NOT NULL,
   Score FLOAT,
 )
 GO
@@ -182,12 +182,12 @@ GO
 CREATE TABLE Class
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdTrainingForm UNIQUEIDENTIFIER NULL,
-  IdFaculty UNIQUEIDENTIFIER NULL,
+  IdTrainingForm UNIQUEIDENTIFIER NOT NULL,
+  IdFaculty UNIQUEIDENTIFIER NOT NULL,
   DisplayName NVARCHAR(MAX),
-  IdTeacher UNIQUEIDENTIFIER NULL,
+  IdTeacher UNIQUEIDENTIFIER NOT NULL,
   IsDeleted BIT DEFAULT 0,
-  IdThumbnail UNIQUEIDENTIFIER NULL,
+  IdThumbnail UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -205,17 +205,17 @@ GO
 CREATE TABLE SubjectClass
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdSubject UNIQUEIDENTIFIER NULL,
-  StartDate DateTime NULL,
-  EndDate DateTime NULL,
-  IdSemester UNIQUEIDENTIFIER NULL,
-  Period NVARCHAR(MAX) NULL,
-  WeekDay NVARCHAR(MAX) NULL,
-  IdThumbnail UNIQUEIDENTIFIER NULL,
-  IdTrainingForm UNIQUEIDENTIFIER NULL,
+  IdSubject UNIQUEIDENTIFIER NOT NULL,
+  StartDate DateTime,
+  EndDate DateTime,
+  IdSemester UNIQUEIDENTIFIER,
+  Period NVARCHAR(MAX) NOT NULL,
+  WeekDay NVARCHAR(MAX) NOT NULL,
+  IdThumbnail UNIQUEIDENTIFIER NOT NULL,
+  IdTrainingForm UNIQUEIDENTIFIER NOT NULL,
   Code NVARCHAR(MAX) NOT NULL,
-  NumberOfStudents INT NULL,
-  MaxNumberOfStudents INT NULL,
+  NumberOfStudents INT NOT NULL,
+  MaxNumberOfStudents INT NOT NULL,
 )
 GO
 
@@ -245,9 +245,9 @@ CREATE TABLE CourseRegister
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   Status INT DEFAULT 0,
   -- 0:Chưa đăng ký || 1:Đã đăng ký || 2:Đang chờ duyệt
-  IdStudent UNIQUEIDENTIFIER NULL,
-  IdSubjectClass UNIQUEIDENTIFIER NULL,
-  IdSemester UNIQUEIDENTIFIER NULL,
+  IdStudent UNIQUEIDENTIFIER NOT NULL,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
+  IdSemester UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -255,8 +255,8 @@ CREATE TABLE TrainingScore
 (
   Id UNIQUEIDENTIFIER PRIMARY KEY,
   Score FLOAT DEFAULT 0,
-  IdSemester UNIQUEIDENTIFIER NULL,
-  IdStudent UNIQUEIDENTIFIER NULL,
+  IdSemester UNIQUEIDENTIFIER NOT NULL,
+  IdStudent UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -266,9 +266,9 @@ CREATE TABLE Document
   DisplayName NVARCHAR(MAX),
   Content NVARCHAR(MAX),
   CreatedAt DateTime,
-  IdPoster UNIQUEIDENTIFIER NULL,
+  IdPoster UNIQUEIDENTIFIER NOT NULL,
   IdFolder UNIQUEIDENTIFIER,
-  IdSubjectClass UNIQUEIDENTIFIER NULL,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
   Size BIGINT
 )
 GO
@@ -278,7 +278,7 @@ CREATE TABLE Folder
   Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
   DisplayName NVARCHAR(MAX),
   CreatedAt DateTime,
-  IdSubjectClass UNIQUEIDENTIFIER NULL,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
   IdPoster UNIQUEIDENTIFIER DEFAULT NEWID()
 )
 GO
@@ -286,7 +286,7 @@ GO
 CREATE TABLE AbsentCalendar
 (
   Id UNIQUEIDENTIFIER PRIMARY KEY,
-  IdSubjectClass UNIQUEIDENTIFIER NULL,
+  IdSubjectClass UNIQUEIDENTIFIER NOT NULL,
   Date DateTime,
   Type INT,
 )
@@ -306,7 +306,7 @@ CREATE TABLE Notification
 	Content NVARCHAR(MAX),
 	Time DateTime,
 	IdNotificationType UNIQUEIDENTIFIER,
-	IdPoster UNIQUEIDENTIFIER NULL,
+	IdPoster UNIQUEIDENTIFIER NOT NULL,
 	IdSubjectClass UNIQUEIDENTIFIER,	
 )
 CREATE TABLE NotificationType
@@ -317,23 +317,23 @@ CREATE TABLE NotificationType
 CREATE TABLE NotificationInfo
 (
 	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-	IdNotification UNIQUEIDENTIFIER NULL,
-	IdUserReceiver UNIQUEIDENTIFIER NULL,
+	IdNotification UNIQUEIDENTIFIER NOT NULL,
+	IdUserReceiver UNIQUEIDENTIFIER NOT NULL,
 	IsRead BIT DEFAULT 0, 
 )
 CREATE TABLE NotificationComment
 (
 	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-	IdUserComment UNIQUEIDENTIFIER NULL,
-	IdNotification UNIQUEIDENTIFIER NULL,
+	IdUserComment UNIQUEIDENTIFIER NOT NULL,
+	IdNotification UNIQUEIDENTIFIER NOT NULL,
 	Content NVARCHAR(MAX),
 	Time DateTime,
 )
 CREATE TABLE NotificationImages
 (
 	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-	IdNotification UNIQUEIDENTIFIER NULL,
-	IdDatabaseImageTable UNIQUEIDENTIFIER NULL,
+	IdNotification UNIQUEIDENTIFIER NOT NULL,
+	IdDatabaseImageTable UNIQUEIDENTIFIER NOT NULL,
 )
 
 
@@ -504,8 +504,6 @@ GO
 INSERT INTO dbo.Semester
   (DisplayName, Batch, CourseRegisterStatus)
 VALUES
-  (N'Học kỳ 1', N'2019-2020', 0),
-  (N'Học kỳ 2', N'2019-2020', 0),
   (N'Học kỳ 1', N'2020-2021', 0)
 GO
 
@@ -527,17 +525,12 @@ VALUES
   (N'Thông báo Admin')
 GO
 
---INSERT INTO DatabaseImageTable
--- (Image)
---values
--- ( (SELECT *
---   FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
- INSERT INTO DatabaseImageTable
-   (Image)
- values
-   ( (SELECT *
-    --  FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
-    FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
+
+-- INSERT INTO DatabaseImageTable
+--   (Image)
+-- values
+--   ( (SELECT *
+--     FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
 -- INSERT INTO Faculty
 --   (DisplayName)
 -- values(N'TestFaculty')
@@ -556,9 +549,9 @@ INSERT INTO dbo.DatabaseImageTable
   (Id ,Image)
 -- SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C',* FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1002.jpg', SINGLE_BLOB) rs
 SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C', *
-FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
+--FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
+FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1014.jpg', SINGLE_BLOB) rs
 -- FROM OPENROWSET( Bulk 'C:\Users\Trung\Downloads\a.png', SINGLE_BLOB) rs
--- FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as rs
 
 INSERT INTO dbo.TrainingForm
   (Id, DisplayName)
@@ -600,10 +593,8 @@ GO
 
 USP_InsertUserWithRole @Role = 'Admin' , @Faculty = N'Khoa học Máy tính'
 GO
-USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
-GO
- --select *
- --from Users
+-- select *
+-- from Users
 -- select *
 -- from UserRole
 -- select *
@@ -621,9 +612,9 @@ VALUES
 
 
 
- select * from Users
- select * from Document
- select * from Folder
+-- select * from Users
+-- select * from Document
+-- select * from Folder
 
 -- delete from folder
 

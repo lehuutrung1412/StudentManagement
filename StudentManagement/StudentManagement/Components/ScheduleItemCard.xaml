@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="StudentManagement.Components.ScheduleItemCard"
+﻿<UserControl
+    x:Class="StudentManagement.Components.ScheduleItemCard"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,17 +14,14 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto">
+    <UserControl.Resources>
+        <math:MathConverter x:Key="math" />
+    </UserControl.Resources>
     <Border
-        Background="LightGray"
+        Background="{Binding Path=Type, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;LightGray&quot; : (x == 1 ? &quot;LightGreen&quot; : &quot;Red&quot;)), x)'}"
         BorderBrush="White"
-        BorderThickness="0. 0. 0.5 0.5"
-        Style="{DynamicResource BorderStyle}">
-        <Border.Resources>
-            <math:MathConverter
-                x:Key="math" />
-        </Border.Resources>
-        <StackPanel
-            VerticalAlignment="Center">
+        BorderThickness="0. 0. 0.5 0.5">
+        <StackPanel VerticalAlignment="Center">
             <TextBlock
                 HorizontalAlignment="Center"
                 FontWeight="Bold"
@@ -46,7 +44,7 @@
                 TextWrapping="WrapWithOverflow" />
             <TextBlock
                 HorizontalAlignment="Center"
-                Text="{Binding StartDate, FallbackValue='BĐ: xxx', Converter={StaticResource math} , ConverterParameter='format(&quot;BĐ: {0}&quot;, x)'}"
+                Text="{Binding StartDate, FallbackValue='BĐ: xxx', Converter={StaticResource math}, ConverterParameter='format(&quot;BĐ: {0}&quot;, x)'}"
                 TextAlignment="Center"
                 TextWrapping="WrapWithOverflow" />
             <TextBlock

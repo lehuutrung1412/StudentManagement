@@ -21,27 +21,24 @@
     mc:Ignorable="d">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90" />
-            <RowDefinition Height="auto" />
+            <RowDefinition
+                Height="*" />
         </Grid.RowDefinitions>
-        <materialDesign:Card
-            Grid.Row="0"
-            Style="{StaticResource CardContainer}"
-            Margin="8 8 8 16">
-            <TextBlock
-                Margin="8"
-                VerticalAlignment="Center"
-                FontSize="36"
-                FontWeight="Bold"
-                Text="Đăng ký học phần" />
-        </materialDesign:Card>
         <ScrollViewer
             Grid.Row="1"
             HorizontalScrollBarVisibility="Hidden"
             VerticalScrollBarVisibility="Hidden">
-            <DockPanel LastChildFill="False">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
                 <materialDesign:Card
-                    DockPanel.Dock="Top"
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
                     Style="{StaticResource CardContainer}"
                     Margin="8,8,8,16">
                     <StackPanel>
@@ -51,6 +48,7 @@
                             Background="Transparent"
                             Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
                             TabStripPlacement="Top">
+                            
                             <TabItem Margin="4">
                                 <TabItem.Header>
                                     <StackPanel Width="auto" Height="auto">
@@ -98,7 +96,6 @@
                                         Data="{Binding CourseRegistryItems1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         IsAllItemsSelected="{Binding IsAllItemsSelected1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
-
                                 </Grid>
                             </TabItem>
                             <TabItem>
@@ -128,8 +125,9 @@
                     </StackPanel>
                 </materialDesign:Card>
                 <materialDesign:Card
+                    Grid.Row="3"
+                    Grid.RowSpan="2"
                     Margin="8 8 8 16"
-                    DockPanel.Dock="Top"
                     Style="{StaticResource CardContainer}">
                     <Grid
                         Grid.Row="3">
@@ -216,7 +214,7 @@
                         </Grid>
                     </Grid>
                 </materialDesign:Card>
-            </DockPanel>
+            </Grid>
         </ScrollViewer>
 
     </Grid>
