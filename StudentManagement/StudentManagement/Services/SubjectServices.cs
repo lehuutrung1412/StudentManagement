@@ -126,7 +126,7 @@ namespace StudentManagement.Services
 
         public SubjectCard ConvertSubjectToSubjectCard(Subject subject)
         {
-            SubjectCard subjectCard = new SubjectCard(subject.Id, subject.DisplayName, subject.Credit, subject.Code);
+            SubjectCard subjectCard = new SubjectCard(subject.Id, subject.DisplayName, subject.Credit, subject.Code, subject.Describe);
 
             return subjectCard;
         }
@@ -139,6 +139,8 @@ namespace StudentManagement.Services
                 DisplayName = subjectCard.DisplayName,
                 Credit = subjectCard.Credit,
                 Code = subjectCard.Code,
+                Describe = subjectCard.Describe,
+                IsDeleted = subjectCard.IsDeleted
             };
 
             return subject;

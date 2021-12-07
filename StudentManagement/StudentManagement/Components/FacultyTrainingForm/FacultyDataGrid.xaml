@@ -29,11 +29,15 @@
                     ItemsSource="{Binding .}"
                     SelectedItem="{Binding SelectedFaculty, Mode=TwoWay, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}">
                     <DataGrid.Resources>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
+                        <Style
+                            x:Key="test"
+                            BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
                         </Style>
+
                         <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
@@ -78,10 +82,22 @@
                         </Style>
                     </DataGrid.CellStyle>
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Binding="{Binding DisplayName}" Header="Tên khoa" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding FoundationDay, StringFormat='dd/MM/yyyy'}" Header="Ngày thành lập" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding NumberOfStudents}" Header="Số lượng sinh viên" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding CacHeDaoTao}" Header="Các hệ đào tạo" />
+                        <materialDesign:DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding DisplayName}"
+                            Header="Tên khoa" />
+                        <materialDesign:DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding FoundationDay, StringFormat='dd/MM/yyyy'}"
+                            Header="Ngày thành lập" />
+                        <materialDesign:DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding NumberOfStudents}"
+                            Header="Số lượng sinh viên" />
+                        <materialDesign:DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding CacHeDaoTao}"
+                            Header="Các hệ đào tạo" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

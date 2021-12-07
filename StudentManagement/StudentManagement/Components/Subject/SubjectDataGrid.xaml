@@ -33,7 +33,7 @@
                             <Setter Property="HorizontalAlignment" Value="Center" />
                         </Style>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
                             <Setter Property="ContentTemplate">
                                 <Setter.Value>
                                     <DataTemplate>
@@ -68,10 +68,22 @@
                         </Style>
                     </DataGrid.CellStyle>
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Binding="{Binding DisplayName}" Header="Tên môn học" />
+                        <materialDesign:DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding DisplayName}"
+                            Header="Tên môn học" />
                         <materialDesign:DataGridTextColumn Binding="{Binding Code}" Header="Mã môn học" />
                         <materialDesign:DataGridTextColumn Binding="{Binding Credit}" Header="Số tín chỉ" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding Describe}" Header="Mô tả môn học" />
+                        <materialDesign:DataGridTextColumn
+                            Width="2*"
+                            Binding="{Binding Describe}"
+                            Header="Mô tả môn học">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </materialDesign:DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

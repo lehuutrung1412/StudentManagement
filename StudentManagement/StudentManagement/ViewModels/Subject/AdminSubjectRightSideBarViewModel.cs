@@ -106,6 +106,7 @@ namespace StudentManagement.ViewModels
             RightSideBarItemViewModel = _adminSubjectRightSideBarItemViewModel;
         }
 
+
         public void EditSubjectCardByCardFunction(object p)
         {
             SubjectCard card = p as SubjectCard;
