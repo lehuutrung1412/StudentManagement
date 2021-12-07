@@ -373,6 +373,9 @@
     <Compile Include="Models\NotificationType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OTP.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Semester.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -434,6 +437,7 @@
     <Compile Include="Services\FileUploader.cs" />
     <Compile Include="Services\NotificationServices.cs" />
     <Compile Include="Services\NotificationTypeServices.cs" />
+    <Compile Include="Services\OTPServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Services\StudentServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />

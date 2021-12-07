@@ -13,24 +13,21 @@ namespace StudentManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DatabaseImageTable : BaseViewModel
+    public partial class OTP : BaseViewModel
     {
-        public DatabaseImageTable()
+        public OTP()
         {
-            this.Classes = new HashSet<Class>();
-            this.NotificationImages = new HashSet<NotificationImage>();
-            this.SubjectClasses = new HashSet<SubjectClass>();
             this.Users = new HashSet<User>();
         }
     
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private byte[] _image { get; set; }
-        public byte[] Image { get => _image; set { _image = value; OnPropertyChanged(); } }
+        private string _cODE { get; set; }
+        public string CODE { get => _cODE; set { _cODE = value; OnPropertyChanged(); } }
+        private Nullable<System.DateTime> _time { get; set; }
+        public Nullable<System.DateTime> Time { get => _time; set { _time = value; OnPropertyChanged(); } }
     
-        public virtual ICollection<Class> Classes { get; set; }
-        public virtual ICollection<NotificationImage> NotificationImages { get; set; }
-        public virtual ICollection<SubjectClass> SubjectClasses { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public object AddOrUpdate { get; internal set; }
     }
 }

@@ -44,10 +44,12 @@ namespace StudentManagement.Models
         public virtual DbSet<NotificationImage> NotificationImages { get; set; }
         public virtual DbSet<NotificationInfo> NotificationInfoes { get; set; }
         public virtual DbSet<NotificationType> NotificationTypes { get; set; }
+        public virtual DbSet<OTP> OTPs { get; set; }
         public virtual DbSet<Semester> Semesters { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudyResult> StudyResults { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<SubjectClass> SubjectClasses { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<TrainingForm> TrainingForms { get; set; }
         public virtual DbSet<TrainingScore> TrainingScores { get; set; }
@@ -56,7 +58,6 @@ namespace StudentManagement.Models
         public virtual DbSet<UserRole_UserInfo> UserRole_UserInfo { get; set; }
         public virtual DbSet<UserRole_UserInfoItem> UserRole_UserInfoItem { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<SubjectClass> SubjectClasses { get; set; }
     
         public virtual int USP_InsertUserWithRole(string role, string faculty)
         {

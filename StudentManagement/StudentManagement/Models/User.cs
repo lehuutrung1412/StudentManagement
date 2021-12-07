@@ -37,6 +37,10 @@ namespace StudentManagement.Models
         public string Password { get => _password; set { _password = value; OnPropertyChanged(); } }
         private string _displayName { get; set; }
         public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private string _email { get; set; }
+        public string Email { get => _email; set { _email = value; OnPropertyChanged(); } }
+        private Nullable<System.Guid> _idOTP { get; set; }
+        public Nullable<System.Guid> IdOTP { get => _idOTP; set { _idOTP = value; OnPropertyChanged(); } }
         private Nullable<bool> _online { get; set; }
         public Nullable<bool> Online { get => _online; set { _online = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idUserRole { get; set; }
@@ -55,6 +59,7 @@ namespace StudentManagement.Models
         public virtual ICollection<Notification> Notifications1 { get; set; }
         public virtual ICollection<NotificationComment> NotificationComments { get; set; }
         public virtual ICollection<NotificationInfo> NotificationInfoes { get; set; }
+        public virtual OTP OTP { get; set; }
         public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<Teacher> Teachers { get; set; }
         public virtual ICollection<User_UserRole_UserInfo> User_UserRole_UserInfo { get; set; }
