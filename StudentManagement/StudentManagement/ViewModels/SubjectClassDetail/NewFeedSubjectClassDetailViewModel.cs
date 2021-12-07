@@ -39,8 +39,8 @@ namespace StudentManagement.ViewModels
 
             LoadNewsfeed();
 
-            DeletePost = new RelayCommand<Guid>(_ => true, (p) => DeleteOnPost(p));
-            EditPost = new RelayCommand<UserControl>(_ => true, (p) => EditOnPost(p));
+            DeletePost = new RelayCommand<Guid?>((p) => true, (p) => DeleteOnPost(p));
+            EditPost = new RelayCommand<UserControl>((p) => true, (p) => EditOnPost(p));
         }
 
         private void LoadNewsfeed()
@@ -72,7 +72,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void CreatePostNewFeedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async void CreatePostNewFeedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsPost")
             {
@@ -89,11 +89,11 @@ namespace StudentManagement.ViewModels
                         PosterName = user.DisplayName,
                         PostText = CreatePostNewFeedViewModel.DraftPostText,
                         PostTime = DateTime.Parse(DateTime.Now.ToString(), _culture),
-                        Topic = SubjectClassDetail.Code + " - " + SubjectClassDetail.Subject.DisplayName
+                        Topic = SubjectClassDetail.Code //+ " - " + SubjectClassDetail.Subject.DisplayName
                     };
-                    
-                    NewsfeedServices.Instance.SavePostToDatabaseAsync(post);
-                    
+
+                    await NewsfeedServices.Instance.SavePostToDatabaseAsync(post);
+
                     PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(post, CreatePostNewFeedViewModel.StackImageDraft));
                     CreatePostNewFeedViewModel.DraftPostText = "";
                     CreatePostNewFeedViewModel.StackImageDraft.Clear();
@@ -106,7 +106,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void DeleteOnPost(Guid postId)
+        private void DeleteOnPost(Guid? postId)
         {
             try
             {

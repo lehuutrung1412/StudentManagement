@@ -66,7 +66,7 @@ namespace StudentManagement.ViewModels
             SendComment = new RelayCommand<object>((p) => true, (p) => SendDraftComment(p));
             ShowHideComments = new RelayCommand<object>((p) => true, (p) => ShowHideAllComments(p));
             ChangeImage = new RelayCommand<object>((p) => true, (p) => ChangeImageToShow(p));
-            DeleteComment = new RelayCommand<Guid>((p) => true, (p) => DeleteOnComment(p));
+            DeleteComment = new RelayCommand<Guid?>((p) => true, (p) => DeleteOnComment(p));
             EditComment = new RelayCommand<object>((p) => true, (p) => EditOnComment(p));
         }
 
@@ -112,7 +112,7 @@ namespace StudentManagement.ViewModels
             ImageSelectedShow = StackPostImage[_imageIndex];
         }
 
-        private void DeleteOnComment(Guid commentId)
+        private void DeleteOnComment(Guid? commentId)
         {
             try
             {

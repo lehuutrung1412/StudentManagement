@@ -64,14 +64,14 @@ namespace StudentManagement.Services
         public PostComment ConvertNotificationCommentToPostComment(NotificationComment comment)
         {
             User user = UserServices.Instance.GetUserById((Guid)comment.IdUserComment);
-            return new PostComment((Guid)comment.Id, (Guid)comment.IdNotification, (Guid)comment.IdUserComment, user.DisplayName, comment.Content, comment.Time);
+            return new PostComment(comment.Id, (Guid)comment.IdNotification, (Guid)comment.IdUserComment, user.DisplayName, comment.Content, comment.Time);
         }
 
         #endregion Convert
 
         #region Create
 
-        public async void SavePostToDatabaseAsync(NewsfeedPost post)
+        public async Task SavePostToDatabaseAsync(NewsfeedPost post)
         {
             db().Notifications.AddOrUpdate(ConvertPostNewsfeedToNotification(post));
             await db().SaveChangesAsync();

@@ -30,7 +30,7 @@ namespace StudentManagement.ViewModels
 
             DeleteImage = new RelayCommand<object>((p) => true, (p) => DeleteImageInDraftPost(p));
             AddImage = new RelayCommand<object>((p) => true, (p) => AddImageDraftPost());
-            SendPost = new RelayCommand<object>(_ => true, _ => SendDraftPost());
+            SendPost = new RelayCommand<object>((p) => true, (p) => SendDraftPost());
 
         }
 

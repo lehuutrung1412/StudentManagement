@@ -82,7 +82,7 @@
                                 </Button>
                                 <Button
                                     Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.DeletePost}"
-                                    CommandParameter="{Binding Path=Post.PostId}"
+                                    CommandParameter="{Binding Path=DataContext.Post.PostId, ElementName=PostNewsFeedUC}"
                                     Foreground="{DynamicResource ErrorMain}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Margin="0,0,8,0" Kind="DeleteOutline" />
@@ -335,7 +335,7 @@
                                             </Button>
                                             <Button
                                                 Command="{Binding ElementName=icComments, Path=DataContext.DeleteComment}"
-                                                CommandParameter="{Binding Id}"
+                                                CommandParameter="{Binding Path=DataContext.Id, ElementName=Comment}"
                                                 Foreground="{DynamicResource ErrorMain}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <materialDesign:PackIcon Margin="0,0,8,0" Kind="DeleteOutline" />
