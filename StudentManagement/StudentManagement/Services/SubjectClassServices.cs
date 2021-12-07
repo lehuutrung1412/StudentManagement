@@ -210,8 +210,7 @@ namespace StudentManagement.Services
 
         public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
         {
-            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, subjectClass.Code, 10, "Nguyễn Tấn Toàn", "IT008", "Lập trình trực quan");
-
+            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, subjectClass.Subject, subjectClass, subjectClass.Code, "Nguyễn Tấn Toàn", 100);
             return subjectClassCard;
         }
 
@@ -220,7 +219,9 @@ namespace StudentManagement.Services
             SubjectClass subjectClass = new SubjectClass()
             {
                 Id = subjectClassCard.Id,
-                Code = subjectClassCard.Code
+                Code = subjectClassCard.Code,
+                Subject = subjectClassCard.SubjectOfClass,
+                IdSubject = subjectClassCard.SubjectOfClass.Id,
             };
 
             return subjectClass;

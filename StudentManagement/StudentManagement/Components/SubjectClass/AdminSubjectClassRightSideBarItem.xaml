@@ -77,7 +77,24 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.TenMon, FallbackValue='Ten Mon Hoc'}"
+                        Text="{Binding CurrentCard.SubjectOfClass.DisplayName, FallbackValue='Ten Mon Hoc'}"
+                        TextAlignment="Right" />
+                </Grid>
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Mã môn học:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.SubjectOfClass.Code, FallbackValue='Mã Mon Hoc'}"
                         TextAlignment="Right" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">

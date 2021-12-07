@@ -1,8 +1,10 @@
 ﻿using StudentManagement.Models;
+using StudentManagement.Services;
 using StudentManagement.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -41,27 +43,36 @@ namespace StudentManagement.Objects
 
         private int _numberOfStudents;
         private Guid _id;
-        private User _teacher;
-        private Subject _subjectOfClass;
-        private SubjectClass subjectClass;
+        private User _teacher = null;
+        private Subject _subjectOfClass = null;
+        private SubjectClass _subjectClass = null;
         private string _code;
         private string _giaoVien;
-        private string _maMon;
-        private string _tenMon;
+
+        private ObservableCollection<Subject> _subjectList = new ObservableCollection<Subject>();
 
         public SubjectClassCard()
         {
             Id = Guid.NewGuid();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+            InitModelNavigationItem();
         }
-        public SubjectClassCard(Guid id, string code, int siSo, string giaoVien, string maMon, string tenMon) : this()
+
+        public SubjectClassCard(Guid id, Subject subjectOfClass, SubjectClass subjectClass, string code, string giaoVien, int numberOfStudents) : this()
         {
-            Id = id;
-            Code = code;
-            SiSo = siSo;
-            GiaoVien = giaoVien;
-            MaMon = maMon;
-            TenMon = tenMon;
+            _id = id;
+            _numberOfStudents = numberOfStudents;
+            _subjectOfClass = subjectOfClass;
+            _subjectClass = subjectClass;
+            _code = code;
+            _giaoVien = giaoVien;
+            InitModelNavigationItem();
+        }
+
+        public void InitModelNavigationItem()
+        {
+            var subjectList = SubjectServices.Instance.LoadSubjectList().ToList();
+            SubjectList = new ObservableCollection<Subject>(subjectList);
         }
 
         public int SiSo
@@ -95,39 +106,39 @@ namespace StudentManagement.Objects
             }
         }
 
-        public string MaMon
+        public string Code
         {
-            get => _maMon;
-            set
+            get => _code; set
             {
-                _maMon = value;
+                _code = value;
+
                 // Validation
                 _errorBaseViewModel.ClearErrors();
-                if (!IsValid(_maMon))
+                if (!IsValid(Code))
                 {
-                    _errorBaseViewModel.AddError(nameof(MaMon), "Vui lòng nhập mã môn!");
+                    _errorBaseViewModel.AddError(nameof(Code), "Vui lòng nhập mã môn học!");
                 }
-
-            }
-        }
-
-        public string TenMon
-        {
-            get => _tenMon;
-            set
-            {
-                _tenMon = value;
-                // Validation
-                _errorBaseViewModel.ClearErrors();
-                if (!IsValid(_tenMon))
-                {
-                    _errorBaseViewModel.AddError(nameof(TenMon), "Vui lòng nhập tên môn học!");
-                }
-
             }
         }
 
         public Guid Id { get => _id; set => _id = value; }
-        public string Code { get => _code; set => _code = value; }
+        public User Teacher { get => _teacher; set => _teacher = value; }
+        public Subject SubjectOfClass
+        {
+            get => _subjectOfClass; set
+            {
+                _subjectOfClass = value;
+                OnPropertyChanged();
+            }
+        }
+        public SubjectClass SubjectClass
+        {
+            get => _subjectClass; set
+            {
+                _subjectClass = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Subject> SubjectList { get => _subjectList; set => _subjectList = value; }
     }
 }

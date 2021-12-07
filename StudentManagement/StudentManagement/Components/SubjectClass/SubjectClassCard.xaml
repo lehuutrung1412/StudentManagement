@@ -82,7 +82,7 @@
                             TextWrapping="WrapWithOverflow">
                             <Run Text="{Binding Code, FallbackValue='Code'}" />
                             <Run Text="-" />
-                            <Run Text="{Binding TenMon, FallbackValue='Ten Mon Hoc'}" />
+                            <Run Text="{Binding SubjectOfClass.DisplayName, FallbackValue='Ten Mon Hoc'}" />
                         </TextBlock>
                         <TextBlock
                             VerticalAlignment="Center"

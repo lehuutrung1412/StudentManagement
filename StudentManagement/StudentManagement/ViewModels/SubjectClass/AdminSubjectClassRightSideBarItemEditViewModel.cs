@@ -79,7 +79,7 @@ namespace StudentManagement.ViewModels
 
         public bool CanConfirmEdit()
         {
-            if (!string.IsNullOrEmpty(CurrentCard.Code))
+            if (!string.IsNullOrEmpty(CurrentCard.Code) && !(CurrentCard.SubjectOfClass == null))
 
                 return true;
             return false;
