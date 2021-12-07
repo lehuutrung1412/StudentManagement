@@ -151,6 +151,12 @@
     <Compile Include="Components\ClockControl.xaml.cs">
       <DependentUpon>ClockControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\Subject\AdminSubjectRightSideBarItem.xaml.cs">
+      <DependentUpon>AdminSubjectRightSideBarItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Subject\AdminSubjectRightSideBarItemEdit.xaml.cs">
+      <DependentUpon>AdminSubjectRightSideBarItemEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\Subject\SubjectDataGrid.xaml.cs">
       <DependentUpon>SubjectDataGrid.xaml</DependentUpon>
     </Compile>
@@ -636,6 +642,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\ClockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Subject\AdminSubjectRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Subject\AdminSubjectRightSideBarItemEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

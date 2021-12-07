@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
 {
-    class AdminSubjectViewModel : BaseViewModel
+    public class AdminSubjectViewModel : BaseViewModel
     {
         #region properties
         static private ObservableCollection<SubjectCard> _storedSubjectCards;

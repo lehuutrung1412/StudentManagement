@@ -36,11 +36,11 @@ namespace StudentManagement.ViewModels
             CreatePostNewFeedViewModel.PropertyChanged += CreatePostNewFeedViewModel_PropertyChanged;
             EditPostNewFeedViewModel = new CreatePostNewFeedViewModel();
             EditPostNewFeedViewModel.PropertyChanged += EditPostNewFeedViewModel_PropertyChanged;
+            DeletePost = new RelayCommand<object>(_ => true, (p) => DeleteOnPost(p));
+            EditPost = new RelayCommand<UserControl>(_ => true, (p) => EditOnPost(p));
 
             LoadNewsfeed();
 
-            DeletePost = new RelayCommand<Guid>(_ => true, (p) => DeleteOnPost(p));
-            EditPost = new RelayCommand<UserControl>(_ => true, (p) => EditOnPost(p));
         }
 
         private void LoadNewsfeed()
@@ -72,7 +72,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void CreatePostNewFeedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private  void CreatePostNewFeedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsPost")
             {
@@ -89,27 +89,30 @@ namespace StudentManagement.ViewModels
                         PosterName = user.DisplayName,
                         PostText = CreatePostNewFeedViewModel.DraftPostText,
                         PostTime = DateTime.Parse(DateTime.Now.ToString(), _culture),
-                        Topic = SubjectClassDetail.Code + " - " + SubjectClassDetail.Subject.DisplayName
+                        Topic = SubjectClassDetail.Code 
+                        //+ " - " + SubjectClassDetail.Subject.DisplayName
                     };
-                    
-                    NewsfeedServices.Instance.SavePostToDatabaseAsync(post);
-                    
                     PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(post, CreatePostNewFeedViewModel.StackImageDraft));
+
+                    NewsfeedServices.Instance.SavePostToDatabaseAsync(post);
+
                     CreatePostNewFeedViewModel.DraftPostText = "";
+
                     CreatePostNewFeedViewModel.StackImageDraft.Clear();
                 }
                 catch (Exception)
                 {
                     MyMessageBox.Show("Đã có lỗi xảy ra! Vui lòng thử lại sau!", "Đăng tin không thành công", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 }
-                
+
             }
         }
 
-        private void DeleteOnPost(Guid postId)
+        private void DeleteOnPost(object p)
         {
             try
             {
+                Guid? postId = p as Guid?;
                 PostNewsfeedViewModel postToDelete = PostNewsfeedViewModels.Single(vm => vm.Post.PostId == postId);
                 if (MyMessageBox.Show("Bạn có chắc chắn muốn xóa bài đăng này không?", "Xóa bài đăng", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.Yes)
                 {

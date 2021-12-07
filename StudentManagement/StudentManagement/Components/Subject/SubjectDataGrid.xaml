@@ -27,7 +27,7 @@
                     HeadersVisibility="Column"
                     IsReadOnly="True"
                     ItemsSource="{Binding .}"
-                    SelectedItem="{Binding SelectedFaculty, Mode=TwoWay, Source={StaticResource AdminFacultyTrainingFormRightSideBarVM}}">
+                    SelectedItem="{Binding SelectedSubject, Mode=TwoWay, Source={StaticResource AdminSubjectRightSideBarVM}}">
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -60,16 +60,6 @@
                                             <Grid.ToolTip>
                                                 <ToolTip Content="{Binding DisplayName}" />
                                             </Grid.ToolTip>
-                                            <Grid.ContextMenu>
-                                                <ContextMenu>
-                                                    <!--<MenuItem
-                                                        Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DataContext.DeleteFile}"
-                                                        CommandParameter="{Binding Source={StaticResource BindingProxy}, Path=Data.SelectedItems}"
-                                                        Foreground="{StaticResource ErrorMain}"
-                                                        Header="Xóa tài liệu"
-                                                        Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />-->
-                                                </ContextMenu>
-                                            </Grid.ContextMenu>
                                             <ContentPresenter VerticalAlignment="Center" />
                                         </Grid>
                                     </ControlTemplate>
@@ -78,10 +68,10 @@
                         </Style>
                     </DataGrid.CellStyle>
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn Binding="{Binding DisplayName}" Header="Tên khoa" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding FoundationDay, StringFormat='dd/MM/yyyy'}" Header="Ngày thành lập" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding NumberOfStudents}" Header="Số lượng sinh viên" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding CacHeDaoTao}" Header="Các hệ đào tạo" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding DisplayName}" Header="Tên môn học" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding Code}" Header="Mã môn học" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding Credit}" Header="Số tín chỉ" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding Describe}" Header="Mô tả môn học" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

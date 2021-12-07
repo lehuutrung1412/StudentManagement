@@ -61,13 +61,14 @@ namespace StudentManagement.ViewModels
             IsShowComments = true;
             StackPostImage = new ObservableCollection<string>(stackImage);
 
-            FirstLoadComment();
 
             SendComment = new RelayCommand<object>((p) => true, (p) => SendDraftComment(p));
             ShowHideComments = new RelayCommand<object>((p) => true, (p) => ShowHideAllComments(p));
             ChangeImage = new RelayCommand<object>((p) => true, (p) => ChangeImageToShow(p));
-            DeleteComment = new RelayCommand<Guid>((p) => true, (p) => DeleteOnComment(p));
+            DeleteComment = new RelayCommand<object>((p) => true, (p) => DeleteOnComment(p));
             EditComment = new RelayCommand<object>((p) => true, (p) => EditOnComment(p));
+
+            FirstLoadComment();
         }
 
         private void FirstLoadComment()
@@ -112,10 +113,11 @@ namespace StudentManagement.ViewModels
             ImageSelectedShow = StackPostImage[_imageIndex];
         }
 
-        private void DeleteOnComment(Guid commentId)
+        private void DeleteOnComment(object p)
         {
             try
             {
+                Guid? commentId = p as Guid?;
                 PostComment commentToDelete = PostComments.Single(cmt => cmt.Id == commentId);
                 if (MyMessageBox.Show("Bạn có chắc chắn muốn xóa bình luận này không?", "Xóa bình luận", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.Yes)
                 {

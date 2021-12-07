@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="StudentManagement.Components.AdminFacultyRightSideBarItem"
+    x:Class="StudentManagement.Components.AdminSubjectRightSideBarItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,10 +7,10 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
-    x:Name="FacultyRightSideBar"
+    x:Name="SubjectRightSideBar"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
-    Background="{StaticResource SideBar}"
+    Background="{StaticResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -27,11 +27,12 @@
             <StackPanel Margin="8">
                 <TextBlock
                     Margin="0,0,0,16"
-                    FontSize="28"
+                    FontSize="24"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                     Text="Thông tin chi tiết"
                     TextWrapping="Wrap" />
+
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -42,11 +43,11 @@
                         Grid.Column="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Tên khoa:" />
+                        Text="Tên môn học:" />
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.DisplayName, FallbackValue='Tên khoa'}"
+                        Text="{Binding CurrentCard.DisplayName, FallbackValue='Tên môn học'}"
                         TextAlignment="Right" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
@@ -59,11 +60,11 @@
                         Grid.Column="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Ngày thành lập:" />
+                        Text="Mã môn học:" />
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.FoundationDay, FallbackValue='Ngày thành lập', StringFormat='dd/MM/yyyy'}"
+                        Text="{Binding CurrentCard.Code, FallbackValue='Mã môn học'}"
                         TextAlignment="Right" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
@@ -76,44 +77,29 @@
                         Grid.Column="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Số lượng sinh viên:" />
+                        Text="Số tín chỉ:" />
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.NumberOfStudents, FallbackValue='Số lượng sinh viên'}"
+                        Text="{Binding CurrentCard.Credit, FallbackValue='Số tín chỉ'}"
                         TextAlignment="Right" />
                 </Grid>
+
                 <Grid Style="{StaticResource text_grid_item}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock
-                        Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Các hệ đào tạo:" />
-                    <ItemsControl
-                        Grid.Row="1"
-                        ItemsSource="{Binding CurrentCard.TrainingFormsOfFacultyList, UpdateSourceTrigger=PropertyChanged}"
-                        Tag="{Binding DataContext, ElementName=FacultyRightSideBarItem}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Margin="0,4" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBox
-                                    Margin="0,4,0,16"
-                                    IsEnabled="False"
-                                    Style="{StaticResource textbox_item}"
-                                    Text="{Binding DisplayName}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
+                    <StackPanel>
+                        <TextBlock
+                            FontWeight="Bold"
+                            Style="{StaticResource textblock_item}"
+                            Text="Mô tả:" />
+                        <TextBox
+                            Height="Auto"
+                            MinHeight="50"
+                            AcceptsReturn="True"
+                            IsEnabled="False"
+                            Style="{StaticResource textbox_item}"
+                            Text="{Binding CurrentCard.Describe, FallbackValue='Mô tả môn học'}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
@@ -129,19 +115,19 @@
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="3"
-                Command="{Binding EditFacultyCardInfo}"
-                CommandParameter="{Binding ElementName=FacultyRightSideBar, Path=DataContext.CurrentCard}"
+                Command="{Binding EditSubjectCardInfo}"
+                CommandParameter="{Binding ElementName=SubjectRightSideBar, Path=DataContext.CurrentCard}"
                 Content="Sửa"
-                DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}"
+                DataContext="{DynamicResource AdminSubjectRightSideBarVM}"
                 FontSize="16"
                 Style="{StaticResource rounded_btn}" />
             <Button
                 Grid.Column="2"
                 Background="{StaticResource DarkGray}"
-                Command="{Binding DeleteFacultyCardInfo}"
-                CommandParameter="{Binding ElementName=FacultyRightSideBar, Path=DataContext.CurrentCard}"
+                Command="{Binding DeleteSubjectCardInfo}"
+                CommandParameter="{Binding ElementName=SubjectRightSideBar, Path=DataContext.CurrentCard}"
                 Content="Xóa"
-                DataContext="{DynamicResource AdminFacultyTrainingFormRightSideBarVM}"
+                DataContext="{DynamicResource AdminSubjectRightSideBarVM}"
                 FontSize="16"
                 Foreground="White"
                 Style="{StaticResource rounded_btn}" />

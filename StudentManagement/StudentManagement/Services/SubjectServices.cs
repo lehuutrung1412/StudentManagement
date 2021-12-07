@@ -126,9 +126,53 @@ namespace StudentManagement.Services
 
         public SubjectCard ConvertSubjectToSubjectCard(Subject subject)
         {
-            SubjectCard subjectCard = new SubjectCard();
+            SubjectCard subjectCard = new SubjectCard(subject.Id, subject.DisplayName, subject.Credit, subject.Code);
 
             return subjectCard;
+        }
+
+        public Subject ConvertSubjectCardToSubject(SubjectCard subjectCard)
+        {
+            Subject subject = new Subject()
+            {
+                Id = subjectCard.Id,
+                DisplayName = subjectCard.DisplayName,
+                Credit = subjectCard.Credit,
+                Code = subjectCard.Code,
+            };
+
+            return subject;
+        }
+
+        public bool RemoveSubjectCardFromDatabase(SubjectCard subjectCard)
+        {
+            try
+            {
+                Subject subject = ConvertSubjectCardToSubject(subjectCard);
+
+                RemoveSubjectFromDatabase(subject);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool SaveSubjectCardToDatabase(SubjectCard subjectCard)
+        {
+            try
+            {
+                Subject subject = ConvertSubjectCardToSubject(subjectCard);
+
+                SaveSubjectToDatabase(subject);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

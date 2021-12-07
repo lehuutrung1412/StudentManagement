@@ -42,7 +42,7 @@ namespace StudentManagement.Objects
         #region property
         private Guid _id;
         private string _displayName;
-        private int _credit;
+        private int? _credit;
         private string _code;
         private string _describe;
         private bool _isDeleted;
@@ -62,7 +62,7 @@ namespace StudentManagement.Objects
                 }
             }
         }
-        public int Credit
+        public int? Credit
         {
             get => _credit; set
             {
@@ -102,7 +102,7 @@ namespace StudentManagement.Objects
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
         }
 
-        public SubjectCard(Guid id, string displayName, int credit, string code, string describe = "Chưa có mô tả", bool isDeleted = false)
+        public SubjectCard(Guid id, string displayName, int? credit, string code, string describe = "Chưa có mô tả", bool isDeleted = false)
         {
             Id = id;
             DisplayName = displayName;

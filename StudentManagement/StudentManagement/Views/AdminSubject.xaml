@@ -56,7 +56,7 @@
                         Content="Thêm môn học"
                         FontSize="16" />
                 </Grid>
-                <component:SubjectDataGrid Margin="16,16,16,16" DataContext="{Binding CurrentSubjectCards}" />
+                <component:SubjectDataGrid Margin="16,16,16,16" DataContext="{Binding SubjectCards}" />
             </DockPanel>
         </materialDesign:Card>
     </Grid>

@@ -47,7 +47,7 @@ namespace StudentManagement.ViewModels
             SubjectClassCard card = cardComponent.DataContext as SubjectClassCard;
             _layoutViewModel = new LayoutViewModel();
 
-            InitContentView();
+            InitContentView(card);
             InitRightSideBar();
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
@@ -71,9 +71,9 @@ namespace StudentManagement.ViewModels
 
         #region Methods
 
-        public void InitContentView()
+        public void InitContentView(SubjectClassCard card)
         {
-            var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId(new Guid());
+            var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId(card.Id);
             _newFeedSubjectClassDetailViewModel = new NewFeedSubjectClassDetailViewModel(subjectClass);
             (_newFeedSubjectClassDetailViewModel as NewFeedSubjectClassDetailViewModel).PropertyChanged += NewFeedSubjectClassDetailViewModel_PropertyChanged;
 
