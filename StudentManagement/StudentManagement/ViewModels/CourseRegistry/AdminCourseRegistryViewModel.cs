@@ -367,6 +367,7 @@ namespace StudentManagement.ViewModels
                             DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable(),           //Thiếu image
                             NumberOfStudents = 0
                         };
+                        UpdateSubjectClassCode(tempSubjectClass);
                         var tempCourse = new CourseItem(tempSubjectClass, false);
                         SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
                         excelList.Add(tempCourse);
@@ -377,7 +378,22 @@ namespace StudentManagement.ViewModels
             /*DataTable data = dataSheets[dataSheets.Cast<DataTable>().Select(t=>t.TableName).Last().ToString()];*/
             StudentCourseRegistryViewModel.Instance.UpdateData();
         }
+        public void UpdateSubjectClassCode(SubjectClass subjectClass)
+        {
+            string subjectClassCode = "";
+            subjectClassCode += subjectClass.Subject.Code;
 
+            string codeSemester = ".";
+            codeSemester += (char)(Convert.ToInt32(SelectedSemester.Batch.Split('-')[0]) - 2010 + 65);
+            var listSemester = SemesterServices.Instance.LoadListSemestersByBatch(SelectedSemester.Batch);
+            int indexSemester = listSemester.IndexOf(SelectedSemester) + 1;
+            codeSemester += Convert.ToString(indexSemester);
+            subjectClassCode += codeSemester;
+
+            int indexCourse = (CourseRegistryItems == null) ? 1 : CourseRegistryItems.Where(course => course.Subject.DisplayName == subjectClass.Subject.DisplayName).Count() + 1;
+            subjectClassCode += Convert.ToString(indexCourse);
+            subjectClass.Code = subjectClassCode;
+        }
         public void SaveChanges()
         {
 
