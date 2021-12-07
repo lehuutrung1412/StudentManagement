@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="PostNewsFeedUC"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.7'}"
@@ -244,10 +245,17 @@
             </DockPanel>
 
             <Grid Grid.Row="5">
+                <Grid.Resources>
+                    <CollectionViewSource x:Key="PostCommentsView" Source="{Binding PostComments}">
+                        <CollectionViewSource.SortDescriptions>
+                            <scm:SortDescription Direction="Ascending" PropertyName="Time" />
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </Grid.Resources>
                 <ItemsControl
                     Name="icComments"
                     Grid.Row="1"
-                    ItemsSource="{Binding PostComments}">
+                    ItemsSource="{Binding Source={StaticResource PostCommentsView}}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" />

@@ -53,7 +53,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void EditPostNewFeedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async void EditPostNewFeedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsPost")
             {
@@ -62,6 +62,9 @@ namespace StudentManagement.ViewModels
                 {
                     PostEditingViewModel.Post.PostText = EditPostNewFeedViewModel.DraftPostText;
                     PostEditingViewModel.StackPostImage = new ObservableCollection<string>(EditPostNewFeedViewModel.StackImageDraft);
+
+                    await NewsfeedServices.Instance.SavePostToDatabaseAsync(PostEditingViewModel.Post);
+
                     _ = MyMessageBox.Show("Chỉnh sửa bài đăng thành công!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 }
                 else
@@ -106,13 +109,14 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void DeleteOnPost(Guid? postId)
+        private async void DeleteOnPost(Guid? postId)
         {
             try
             {
                 PostNewsfeedViewModel postToDelete = PostNewsfeedViewModels.Single(vm => vm.Post.PostId == postId);
                 if (MyMessageBox.Show("Bạn có chắc chắn muốn xóa bài đăng này không?", "Xóa bài đăng", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.Yes)
                 {
+                    await NewsfeedServices.Instance.DeletePostAsync(postId);
                     _ = PostNewsfeedViewModels.Remove(postToDelete);
                 }
             }

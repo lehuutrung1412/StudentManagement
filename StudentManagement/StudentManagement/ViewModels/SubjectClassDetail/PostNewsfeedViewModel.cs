@@ -80,7 +80,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void SendDraftComment(object comment)
+        private async void SendDraftComment(object comment)
         {
             TextBox txbComment = comment as TextBox;
             if (txbComment.Text != "")
@@ -90,7 +90,7 @@ namespace StudentManagement.ViewModels
 
                 var newComment = new PostComment(Guid.NewGuid(), Post.PostId, user.Id, user.DisplayName, txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
 
-                NewsfeedServices.Instance.SaveCommentToDatabaseAsync(newComment);
+                await NewsfeedServices.Instance.SaveCommentToDatabaseAsync(newComment);
 
                 PostComments.Add(newComment);
                 txbComment.Text = "";
@@ -112,13 +112,14 @@ namespace StudentManagement.ViewModels
             ImageSelectedShow = StackPostImage[_imageIndex];
         }
 
-        private void DeleteOnComment(Guid? commentId)
+        private async void DeleteOnComment(Guid? commentId)
         {
             try
             {
                 PostComment commentToDelete = PostComments.Single(cmt => cmt.Id == commentId);
                 if (MyMessageBox.Show("Bạn có chắc chắn muốn xóa bình luận này không?", "Xóa bình luận", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.Yes)
                 {
+                    await NewsfeedServices.Instance.DeleteCommentAsync(commentId);
                     _ = PostComments.Remove(commentToDelete);
                 }
             }
@@ -128,7 +129,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void EditOnComment(object txbAndComment)
+        private async void EditOnComment(object txbAndComment)
         {
             try
             {
@@ -141,6 +142,8 @@ namespace StudentManagement.ViewModels
                 childTextBox.Text = commentToEdit.Comment;
                 childTextBox.CaretIndex = childTextBox.Text.Length;
                 _ = childTextBox.Focus();
+
+                await NewsfeedServices.Instance.DeleteCommentAsync(commentId);
                 _ = PostComments.Remove(commentToEdit);
             }
             catch (Exception)

@@ -77,7 +77,7 @@ namespace StudentManagement.Services
             await db().SaveChangesAsync();
         }
 
-        public async void SaveCommentToDatabaseAsync(PostComment comment)
+        public async Task SaveCommentToDatabaseAsync(PostComment comment)
         {
             db().NotificationComments.AddOrUpdate(ConvertPostCommentToNotificationComment(comment));
             await db().SaveChangesAsync();
@@ -95,6 +95,30 @@ namespace StudentManagement.Services
         public List<NotificationComment> GetListCommentInPost(Guid postId)
         {
             return db().NotificationComments.Where(cmt => cmt.IdNotification == postId).ToList();
+        }
+
+        #endregion
+
+        #region Delete
+
+        public async Task<int> DeletePostAsync(Guid? id)
+        {
+            var notification = db().Notifications.FirstOrDefault(notif => notif.Id == id);
+            db().Notifications.Remove(notification);
+
+            // Remove comment with post
+            var comments = db().NotificationComments.Where(cmt => cmt.IdNotification == id);
+            db().NotificationComments.RemoveRange(comments);
+
+            return await db().SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteCommentAsync(Guid? id)
+        {
+            var comment = db().NotificationComments.FirstOrDefault(cmt => cmt.Id == id);
+            db().NotificationComments.Remove(comment);
+
+            return await db().SaveChangesAsync();
         }
 
         #endregion
