@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using System;
@@ -43,13 +44,6 @@ namespace StudentManagement.ViewModels
                 IsShowButtonChangeImage = StackPostImage?.Count > 1;
             }
         }
-
-        //public Guid PostId { get; set; }
-        //public Guid? IdSubjectClass { get; set; }
-        //public Guid IdPoster { get; set; }
-        //public DateTime? PostTime { get; set; }
-        //public string PostText { get => _postText; set { _postText = value; OnPropertyChanged(); } }
-        //private string _postText;
 
         public NewsfeedPost Post { get; set; }
 

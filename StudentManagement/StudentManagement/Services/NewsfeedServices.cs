@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using StudentManagement.Objects;
+using System.Data.Entity;
+using System.Collections.ObjectModel;
 
 namespace StudentManagement.Services
 {
@@ -83,6 +85,20 @@ namespace StudentManagement.Services
             await db().SaveChangesAsync();
         }
 
+        public async Task SaveImageToDatabaseAsync(Guid postId, string image)
+        {
+            var imgId = await DatabaseImageTableServices.Instance.SaveImageToDatabaseAsync(image);
+            var postImage = new NotificationImage()
+            {
+                Id = Guid.NewGuid(),
+                IdNotification = postId,
+                IdDatabaseImageTable = imgId
+            };
+
+            db().NotificationImages.AddOrUpdate(postImage);
+            await db().SaveChangesAsync();
+        }
+
         #endregion Create
 
         #region Read
@@ -95,6 +111,11 @@ namespace StudentManagement.Services
         public List<NotificationComment> GetListCommentInPost(Guid postId)
         {
             return db().NotificationComments.Where(cmt => cmt.IdNotification == postId).ToList();
+        }
+
+        public List<string> GetListImagesInPost(Guid postId)
+        {
+            return db().NotificationImages.Where(notifImg => notifImg.IdNotification == postId).Select(img => img.DatabaseImageTable.Image).ToList();
         }
 
         #endregion
@@ -117,6 +138,14 @@ namespace StudentManagement.Services
         {
             var comment = db().NotificationComments.FirstOrDefault(cmt => cmt.Id == id);
             db().NotificationComments.Remove(comment);
+
+            return await db().SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteImagesInPostAsync(Guid? id, List<string> listImages)
+        {
+            var images = db().NotificationImages.Where(img => img.IdNotification == id && listImages.Contains(img.DatabaseImageTable.Image));
+            db().NotificationImages.RemoveRange(images);
 
             return await db().SaveChangesAsync();
         }

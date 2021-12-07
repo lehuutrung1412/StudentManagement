@@ -430,6 +430,7 @@
     <Compile Include="Services\DatabaseImageTableServices.cs" />
     <Compile Include="Services\FacultyServies.cs" />
     <Compile Include="Services\Faculty_TrainingFormServices.cs" />
+    <Compile Include="Services\ImageUploader.cs" />
     <Compile Include="Services\InfoItemServices.cs" />
     <Compile Include="Services\FileServices.cs" />
     <Compile Include="Services\FileUploader.cs" />
