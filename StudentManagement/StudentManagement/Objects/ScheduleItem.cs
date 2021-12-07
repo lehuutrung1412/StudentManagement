@@ -23,7 +23,8 @@ namespace StudentManagement.Objects
         private bool _isTemp;
         private bool _isConflict;
         private int _type;
-        public ScheduleItem(SubjectClass a, bool isTemp = false, bool isConflict = false, int type = 0)
+        private bool _isDetail;
+        public ScheduleItem(SubjectClass a, bool isTemp = false, bool isConflict = false, int type = 0, bool isDetail = true)
         {
             this.Id = a.Id;
             string temp = a.Period.Replace("10", "A");
@@ -46,6 +47,7 @@ namespace StudentManagement.Objects
             IsTemp = isTemp;
             IsConflict = isConflict;
             Type = type;
+            IsDetail = isDetail;
         }
 
         public int Start { get => _start; set { _start = value; OnPropertyChanged(); } }
@@ -64,5 +66,6 @@ namespace StudentManagement.Objects
         public bool IsConflict { get => _isConflict; set { _isConflict = value; OnPropertyChanged(); } }
 
         public int Type { get => _type; set => _type = value; }
+        public bool IsDetail { get => _isDetail; set => _isDetail = value; }
     }
 }

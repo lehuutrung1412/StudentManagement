@@ -43,7 +43,7 @@ namespace StudentManagement.ViewModels
                     }
                     catch { }
                     int tempType = SelectedItem.IsConflict ? 1 : 0;
-                    StudentCourseRegistryViewModel.Instance.SelectedScheduleItem2 = new ScheduleItem(SelectedItem.ConvertToSubjectClass(), true, SelectedItem.IsConflict, 1+tempType);
+                    StudentCourseRegistryViewModel.Instance.SelectedScheduleItem2 = new ScheduleItem(SelectedItem.ConvertToSubjectClass(), true, SelectedItem.IsConflict, 1+tempType, false);
                 }
 
             }

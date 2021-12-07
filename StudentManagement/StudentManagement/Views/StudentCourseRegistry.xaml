@@ -95,6 +95,7 @@
                                         Width="{Binding ElementName=MainGrid, Path=Width}"
                                         Data="{Binding CourseRegistryItems1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         IsAllItemsSelected="{Binding IsAllItemsSelected1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        DataContext="{Binding ElementName=MainGrid, Path=DataContext}"
                                         Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
                                 </Grid>
                             </TabItem>
@@ -178,6 +179,8 @@
                             Grid.Row="2"
                             Data="{Binding CourseRegistryItems2Display, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             IsAllItemsSelected="{Binding IsAllItemsSelected2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            IsCatchEditEvent="True"
+                            DataContext="{Binding ElementName=MainGrid, Path=DataContext}"
                             Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
                         <Grid
                             Grid.Row="2"

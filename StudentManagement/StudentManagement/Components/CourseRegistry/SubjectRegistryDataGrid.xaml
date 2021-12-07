@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,52 +17,59 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <ScrollViewer
-            VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <DataGrid
                 HorizontalAlignment="Stretch"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 HeadersVisibility="All"
                 ItemsSource="{Binding Path=Data, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=CourseDataGrid}"
-                SelectedItem="{Binding Tag, Mode=OneWayToSource, ElementName=CourseDataGrid}"
-                PreviewMouseWheel="DataGrid_PreviewMouseWheel">
+                PreviewMouseWheel="DataGrid_PreviewMouseWheel"
+                SelectedItem="{Binding Tag, Mode=OneWayToSource, ElementName=CourseDataGrid}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="BeginningEdit">
+                        <i:InvokeCommandAction
+                            Command="{Binding Path=DataContext.CourseCheckedCommand, ElementName=CourseDataGrid}"
+                            IsEnabled="{Binding ElementName=CourseDataGrid, Path=IsCatchEditEvent}"
+                            PassEventArgsToCommand="True" />
+                        <i:ChangePropertyAction
+                            IsEnabled="{Binding ElementName=CourseDataGrid, Path=IsCatchEditEvent}"
+                            PropertyName="SelectedValue"
+                            Value="False" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <DataGrid.RowStyle>
-                    <Style TargetType="{x:Type DataGridRow}">
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridRow}" TargetType="{x:Type DataGridRow}">
                         <Style.Triggers>
-                            <DataTrigger
-                                Binding="{Binding IsConflict}"
-                                Value="True">
-                                <Setter
-                                    Property="Opacity"
-                                    Value="0.5" />
-                                <Setter
-                                    Property="ToolTip"
-                                    Value="Trùng giờ học" />
+                            <DataTrigger Binding="{Binding IsConflict}" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                                <Setter Property="Foreground" Value="Red" />
+                                <Setter Property="ToolTip" Value="Trùng giờ học" />
                             </DataTrigger>
                         </Style.Triggers>
+
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn
                         Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        IsReadOnly="{Binding IsConflict, Mode=OneWay}"
                         EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
                         ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}">
+                        <!--<i:Interaction.Triggers>
+                            <i:DataTrigger
+                                Binding="IsSelected" Value="True">
+                                <i:InvokeCommandAction
+                                    Command="{Binding Source={StaticResource StudentCourseRegistryVM}, Path=CourseUncheckedCommand}" CommandParameter="{ItemContainerTemplateKey}" />
+                            </i:DataTrigger>
+                        </i:Interaction.Triggers>-->
                         <DataGridCheckBoxColumn.Header>
-                            <Border
-                                Background="Transparent">
-                                <CheckBox
-                                    IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=IsAllItemsSelected}" />
+                            <Border Background="Transparent">
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=IsAllItemsSelected}" />
                             </Border>
                         </DataGridCheckBoxColumn.Header>
                         <DataGridCheckBoxColumn.HeaderStyle>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
-                                TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter
-                                    Property="HorizontalContentAlignment"
-                                    Value="Center" />
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
                             </Style>
                         </DataGridCheckBoxColumn.HeaderStyle>
                     </DataGridCheckBoxColumn>
@@ -69,13 +77,9 @@
                         Binding="{Binding Code, Mode=OneWay}"
                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                         Header="Mã lớp học" />
-                    <materialDesign:DataGridTextColumn
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="Tên môn học">
+                    <materialDesign:DataGridTextColumn ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" Header="Tên môn học">
                         <materialDesign:DataGridTextColumn.Binding>
-                            <Binding
-                                Mode="OneWay"
-                                Path="Subject.DisplayName" />
+                            <Binding Mode="OneWay" Path="Subject.DisplayName" />
                         </materialDesign:DataGridTextColumn.Binding>
                     </materialDesign:DataGridTextColumn>
                     <materialDesign:DataGridTextColumn
@@ -84,14 +88,9 @@
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                         Header="Số tín chỉ">
                         <DataGridTextColumn.HeaderStyle>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
-                                TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter
-                                    Property="HorizontalContentAlignment"
-                                    Value="Center" />
-                                <Setter
-                                    Property="ContentTemplate">
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
                                     <Setter.Value>
                                         <DataTemplate>
                                             <TextBlock
@@ -104,12 +103,8 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                         <DataGridTextColumn.ElementStyle>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                TargetType="{x:Type TextBlock}">
-                                <Setter
-                                    Property="HorizontalAlignment"
-                                    Value="Center" />
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </materialDesign:DataGridTextColumn>
@@ -127,14 +122,9 @@
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                         Header="Giới hạn">
                         <DataGridTextColumn.HeaderStyle>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
-                                TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter
-                                    Property="HorizontalContentAlignment"
-                                    Value="Center" />
-                                <Setter
-                                    Property="ContentTemplate">
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
                                     <Setter.Value>
                                         <DataTemplate>
                                             <TextBlock
@@ -147,12 +137,8 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                         <DataGridTextColumn.ElementStyle>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                TargetType="{x:Type TextBlock}">
-                                <Setter
-                                    Property="HorizontalAlignment"
-                                    Value="Center" />
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </materialDesign:DataGridTextColumn>
@@ -163,14 +149,9 @@
                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
                         Header="Đã đăng ký">
                         <DataGridTextColumn.HeaderStyle>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
-                                TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter
-                                    Property="HorizontalContentAlignment"
-                                    Value="Center" />
-                                <Setter
-                                    Property="ContentTemplate">
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="ContentTemplate">
                                     <Setter.Value>
                                         <DataTemplate>
                                             <TextBlock
@@ -183,12 +164,8 @@
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
                         <DataGridTextColumn.ElementStyle>
-                            <Style
-                                BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                TargetType="{x:Type TextBlock}">
-                                <Setter
-                                    Property="HorizontalAlignment"
-                                    Value="Center" />
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </materialDesign:DataGridTextColumn>

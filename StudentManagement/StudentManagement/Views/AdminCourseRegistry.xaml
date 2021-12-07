@@ -22,6 +22,7 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
+    x:Name="AdminCourseRegister"
     mc:Ignorable="d">
     <UserControl.Resources>
         <math:MathConverter
@@ -58,7 +59,8 @@
                     <RowDefinition
                         Height="auto" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid
+                    Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
                             Width="auto" />
@@ -97,7 +99,7 @@
                                             <Binding
                                                 Path="Batch" />
                                             <Binding
-                                                Path="DisplayName" />
+                                                Path="DisplayName"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
@@ -125,7 +127,8 @@
                             DockPanel.Dock="Left">
                             <Button.Style>
                                 <Style
-                                    TargetType="Button" BasedOn="{StaticResource MaterialDesignIconButton}">
+                                    TargetType="Button"
+                                    BasedOn="{StaticResource MaterialDesignIconButton}">
                                     <Style.Triggers>
                                         <DataTrigger
                                             Binding="{Binding ElementName=cbSemester, Path=SelectedIndex}"
@@ -134,7 +137,7 @@
                                                 Property="IsEnabled"
                                                 Value="False" />
                                         </DataTrigger>
-                                        
+
                                         <Trigger
                                             Property="IsMouseOver"
                                             Value="True">
@@ -150,7 +153,7 @@
                                 StaysOpen="False">
                                 <materialDesign:PopupBox.ToggleContent>
                                     <materialDesign:PackIcon
-                                        Kind="Hammer"/>
+                                        Kind="Hammer" />
                                 </materialDesign:PopupBox.ToggleContent>
                                 <StackPanel>
                                     <Button
@@ -193,10 +196,13 @@
                         </Button>
                     </DockPanel>
                 </Grid>
-                <Grid Grid.Row="1">
+                <Grid
+                    Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
-                            Width="*" />
+                            Width="173*" />
+                        <ColumnDefinition
+                            Width="1323*" />
                         <ColumnDefinition
                             Width="auto" />
                     </Grid.ColumnDefinitions>
@@ -208,11 +214,14 @@
                         IsFirstSearchButtonEnabled="{Binding IsFirstSearchButtonEnabled}"
                         SearchCommand="{Binding SearchCourseRegistryItems}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SecondSearchButtonText="Tên lớp học" 
-                        SwitchSearchButton="{Binding SwitchSearchButton}"/>
+                        SecondSearchButtonText="Tên lớp học"
+                        SwitchSearchButton="{Binding SwitchSearchButton}"
+                        Grid.ColumnSpan="2"
+                        Margin="0,0,0,0.2" />
                 </Grid>
-                <DockPanel Grid.Row="2"
-                           Margin="8"
+                <DockPanel
+                    Grid.Row="2"
+                    Margin="8"
                     LastChildFill="False">
                     <Button
                         Width="150"
@@ -260,6 +269,7 @@
                     Margin="0,8,0,8"
                     Data="{Binding CourseRegistryItemsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    DataContext="{Binding ElementName=AdminCourseRegister, Path=DataContext}"
                     Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource AdminCourseRegistryRightSideBarVM}}" />
             </Grid>
         </materialDesign:DialogHost>

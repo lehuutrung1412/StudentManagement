@@ -18,10 +18,35 @@
         <math:MathConverter x:Key="math" />
     </UserControl.Resources>
     <Border
-        Background="{Binding Path=Type, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;LightGray&quot; : (x == 1 ? &quot;LightGreen&quot; : &quot;Red&quot;)), x)'}"
+        Background="{Binding Path=Type, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;LightGray&quot; : (x == 1 ? &quot;LightGreen&quot; : (x == 2 ? &quot;Red&quot; : &quot;Yellow&quot;))), x)'}"
         BorderBrush="White"
         BorderThickness="0. 0. 0.5 0.5">
         <StackPanel VerticalAlignment="Center">
+            <StackPanel.Style>
+                <Style
+                    TargetType="{x:Type StackPanel}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsDetail}"
+                            Value="False">
+                            <Setter
+                                Property="ToolTip">
+                                <Setter.Value>
+                                    <MultiBinding
+                                        Converter="{StaticResource math}"
+                                        ConverterParameter="format(&quot;{0}\n {1}&quot;, x, y)">
+                                        <Binding
+                                            Path="SubjectName" />
+                                        <Binding
+                                            Path="TeacherName"
+                                            ConverterParameter='format(&quot;GV: {0}&quot;, x)' Converter="{StaticResource math}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
             <TextBlock
                 HorizontalAlignment="Center"
                 FontWeight="Bold"
@@ -31,27 +56,32 @@
                 HorizontalAlignment="Center"
                 Text="{Binding SubjectName, FallbackValue='Tên môn học'}"
                 TextAlignment="Center"
-                TextWrapping="WrapWithOverflow" />
+                TextWrapping="WrapWithOverflow"
+                Visibility="{Binding Path=IsDetail, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             <TextBlock
                 HorizontalAlignment="Center"
                 Text="{Binding Count, FallbackValue='Sĩ số: x', Converter={StaticResource math}, ConverterParameter='format(&quot;Sĩ số: {0}&quot;, x)'}"
                 TextAlignment="Center"
-                TextWrapping="WrapWithOverflow" />
+                TextWrapping="WrapWithOverflow"
+                Visibility="{Binding Path=IsDetail, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <TextBlock
                 HorizontalAlignment="Center"
                 Text="{Binding TeacherName, FallbackValue='GV: xxx', Converter={StaticResource math}, ConverterParameter='format(&quot;GV: {0}&quot;, x)'}"
                 TextAlignment="Center"
-                TextWrapping="WrapWithOverflow" />
+                TextWrapping="WrapWithOverflow"
+                Visibility="{Binding Path=IsDetail, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <TextBlock
                 HorizontalAlignment="Center"
                 Text="{Binding StartDate, FallbackValue='BĐ: xxx', Converter={StaticResource math}, ConverterParameter='format(&quot;BĐ: {0}&quot;, x)'}"
                 TextAlignment="Center"
-                TextWrapping="WrapWithOverflow" />
+                TextWrapping="WrapWithOverflow"
+                Visibility="{Binding Path=IsDetail, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <TextBlock
                 HorizontalAlignment="Center"
                 Text="{Binding EndDate, FallbackValue='KT: xxx', Converter={StaticResource math}, ConverterParameter='format(&quot;KT: {0}&quot;, x)'}"
                 TextAlignment="Center"
-                TextWrapping="WrapWithOverflow" />
+                TextWrapping="WrapWithOverflow"
+                Visibility="{Binding Path=IsDetail, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </StackPanel>
     </Border>
 </UserControl>

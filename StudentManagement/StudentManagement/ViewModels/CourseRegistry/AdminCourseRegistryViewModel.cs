@@ -199,9 +199,9 @@ namespace StudentManagement.ViewModels
                     return false;
                 return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => CreateNewCourse());
-            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 1; StudentCourseRegistryViewModel.Instance.UpdateData(); });
-            PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 0);
-            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 2);
+            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 1; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
+            PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 0; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
+            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 2; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
 
             CreateNewSemesterCommand = new RelayCommand<object>((p) =>
             {
