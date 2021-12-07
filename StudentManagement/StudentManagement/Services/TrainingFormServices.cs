@@ -23,6 +23,12 @@ namespace StudentManagement.Services
             return DataProvider.Instance.Database.TrainingForms;
         }
 
+        public TrainingForm FindTrainingFormByDisplayName(string name)
+        {
+            TrainingForm trainingForm = DataProvider.Instance.Database.TrainingForms.Where(trainingFormItem => trainingFormItem.DisplayName == name).FirstOrDefault();
+            return trainingForm;
+        }
+
         /// <summary>
         /// Convert TrainingFormCard To TrainingForm
         /// </summary>

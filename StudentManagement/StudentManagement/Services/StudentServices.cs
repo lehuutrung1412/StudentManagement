@@ -23,7 +23,42 @@ namespace StudentManagement.Services
         {
             return DataProvider.Instance.Database.Students.FirstOrDefault();
         }
-        
+
+        public DbSet<Student> LoadStudentList()
+        {
+            return DataProvider.Instance.Database.Students;
+        }
+
+        public Student FindStudentByStudentId(Guid id)
+        {
+            Student a = DataProvider.Instance.Database.Students.Where(studentItem => studentItem.Id == id).FirstOrDefault();
+            return a;
+        }
+
+        public bool SaveStudentToDatabase(Student student)
+        {
+            try
+            {
+                Student savedStudent = FindStudentByStudentId(student.Id);
+
+                if (savedStudent == null)
+                {
+                    DataProvider.Instance.Database.Students.Add(student);
+                }
+                else
+                {
+                    //savedFaculty = (faculty.ShallowCopy() as Faculty);
+                    Reflection.CopyProperties(student, savedStudent);
+                }
+                DataProvider.Instance.Database.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
 
     }
 }

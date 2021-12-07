@@ -3,21 +3,37 @@ using StudentManagement.Objects;
 using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.AdminStudentListViewModel;
 
 namespace StudentManagement.ViewModels
 {
     public class CampusStudentListRightSideBarItemEditViewModel : BaseViewModel
     {
-        private Student _currentStudent;
-        public Student CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
+        private UserCard _currentStudent;
+        public UserCard CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
 
-        private Student _actualStudent;
-        public Student ActualStudent { get => _actualStudent; set => _actualStudent = value; }
+        private UserCard _actualStudent;
+        public UserCard ActualStudent { get => _actualStudent; set => _actualStudent = value; }
+
+        private ObservableCollection<string> _trainings;
+        public ObservableCollection<string> Trainings { get => _trainings; set => _trainings = value; }
+
+        private ObservableCollection<string> _faculties;
+        public ObservableCollection<string> Faculties
+        {
+            get => _faculties;
+            set => _faculties = value;
+        }
+
+        private string _selectedFaculty;
+        public string SelectedFaculty { get => _selectedFaculty; set => _selectedFaculty = value; }
+
+        private string _selectedTraining;
+        public string SelectedTraining { get => _selectedTraining; set => _selectedTraining = value; }
 
         public CampusStudentListRightSideBarItemEditViewModel()
         {
@@ -25,10 +41,25 @@ namespace StudentManagement.ViewModels
             ActualStudent = null;
         }
 
-        public CampusStudentListRightSideBarItemEditViewModel(Student x)
+        public CampusStudentListRightSideBarItemEditViewModel(UserCard x)
         {
-            CurrentStudent = new Student() { IDStudent = x.IDStudent, Faculty = x.Faculty, EmailStudent = x.EmailStudent, Gender = x.Gender, NameStudent = x.NameStudent, Training = x.Training, Status = x.Status };
+            CurrentStudent = new UserCard() { ID = x.ID, DisplayName = x.DisplayName, Faculty = x.Faculty, Email = x.Email, Gender = x.Gender, Training = x.Training};
             ActualStudent = x;
+
+            var trainingForms = TrainingFormServices.Instance.LoadTrainingFormList();
+            var faculties = FacultyServices.Instance.LoadFacultyList();
+
+            Faculties = new ObservableCollection<string>();
+            Trainings = new ObservableCollection<string>();
+
+            foreach (var item in trainingForms)
+                Trainings.Add(item.DisplayName);
+
+            foreach (var item in faculties)
+                Faculties.Add(item.DisplayName);
+
+            SelectedFaculty = null;
+            SelectedTraining = null;
 
             InitCommand();
         }
@@ -54,17 +85,17 @@ namespace StudentManagement.ViewModels
 
         int checkExitCode()
         {
-            if (CurrentStudent.IDStudent == null || CurrentStudent.Faculty == null || CurrentStudent.NameStudent == null || CurrentStudent.Training == null)
+            if (CurrentStudent.DisplayName == null || CurrentStudent.Faculty == null || CurrentStudent.Training == null)
                 return -1;
             return 0;
         }
 
-        void SetValue(Student a, Student b)
+        void SetValue(UserCard a, UserCard b)
         {
-            a.IDStudent = b.IDStudent;
-            a.NameStudent = b.NameStudent;
-            a.Training = b.Training;
-            a.Faculty = b.Faculty;
+            a.DisplayName = b.DisplayName;
+           
+            a.Training = SelectedTraining;
+            a.Faculty = SelectedFaculty;
         }
 
         void ConfirmEditStudentInfoFunction()

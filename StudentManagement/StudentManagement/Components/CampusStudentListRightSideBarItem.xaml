@@ -42,7 +42,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentStudent.NameStudent, FallbackValue='Ngô Quang Vinh'}"
+                    Text="{Binding CurrentStudent.DisplayName, FallbackValue='Ngô Quang Vinh'}"
                     TextAlignment="Right" />
             </Grid>
             <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
@@ -117,10 +117,9 @@
                 Width="140"
                 Margin="16,4,16,0"
                 materialDesign:ButtonAssist.CornerRadius="5"
-                Background="#4caf50"
                 Command="{Binding EditStudentInfo}"
-                CommandParameter="{Binding ElementName=StudentListRightSideBar, Path=DataContext.CurrentScore}"
-                DataContext="{DynamicResource StudentListRightSideBarVM}"
+                CommandParameter="{Binding ElementName=StudentListRightSideBar, Path=DataContext.CurrentStudent}"
+                DataContext="{DynamicResource CampusStudentListRightSideBarVM}"
                 ToolTip="MaterialDesignRaisedLightButton with Round Corners">
                 <TextBlock Text="Cập nhật" />
             </Button>

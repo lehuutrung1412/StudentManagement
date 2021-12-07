@@ -117,7 +117,6 @@
                 Width="140"
                 Margin="16,0,16,0"
                 materialDesign:ButtonAssist.CornerRadius="5"
-                Background="#4caf50"
                 Command="{Binding EditDetailScore}"
                 CommandParameter="{Binding ElementName=StudentListRightSideBar, Path=DataContext.CurrentScore}"
                 DataContext="{DynamicResource StudentListRightSideBarVM}"

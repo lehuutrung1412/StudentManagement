@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentManagement.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,15 @@ namespace StudentManagement.ViewModels
 {
     public class CampusStudentListRightSideBarItemViewModel : BaseViewModel
     {
-        private Student _currentStudent;
-        public Student CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
+        private UserCard _currentStudent;
+        public UserCard CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
 
         public CampusStudentListRightSideBarItemViewModel()
         {
             CurrentStudent = null;
         }
 
-        public CampusStudentListRightSideBarItemViewModel(Student x)
+        public CampusStudentListRightSideBarItemViewModel(UserCard x)
         {
             CurrentStudent = x;
         }

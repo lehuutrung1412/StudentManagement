@@ -30,9 +30,47 @@ namespace StudentManagement.Services
             var user = GetUserById(id);
             return user.DisplayName;
         }
+
+        public string GetFacultyById(Guid id)
+        {
+            var user = GetUserById(id);
+            return user.Faculty.DisplayName;
+        }
+
         public bool CheckAdminByIdUser(Guid id)
         {
             return DataProvider.Instance.Database.Users.FirstOrDefault(user => user.Id == id).UserRole.Role.Contains("Admin");
+        }
+
+        public User FindUserbyUserId(Guid id)
+        {
+            User a = DataProvider.Instance.Database.Users.Where(userItem => userItem.Id == id).FirstOrDefault();
+            return a;
+        }
+
+        public bool SaveUserToDatabase(User user)
+        {
+            try
+            {
+                User savedUser = FindUserbyUserId(user.Id);
+
+                if (savedUser == null)
+                {
+                    DataProvider.Instance.Database.Users.Add(user);
+                }
+                else
+                {
+                    //savedFaculty = (faculty.ShallowCopy() as Faculty);
+                    //Reflection.CopyProperties(user, savedUser);
+                }
+                DataProvider.Instance.Database.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }
