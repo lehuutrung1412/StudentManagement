@@ -19,6 +19,8 @@ namespace StudentManagement.Models
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idSubjectClass { get; set; }
         public Nullable<System.Guid> IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+        private string _period { get; set; }
+        public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
         private Nullable<System.DateTime> _date { get; set; }
         public Nullable<System.DateTime> Date { get => _date; set { _date = value; OnPropertyChanged(); } }
         private Nullable<int> _type { get; set; }

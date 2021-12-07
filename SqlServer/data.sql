@@ -287,6 +287,7 @@ CREATE TABLE AbsentCalendar
 (
   Id UNIQUEIDENTIFIER PRIMARY KEY,
   IdSubjectClass UNIQUEIDENTIFIER NULL,
+  Period NVARCHAR(MAX) NULL,
   Date DateTime,
   Type INT,
 )
@@ -295,7 +296,7 @@ GO
 CREATE TABLE DatabaseImageTable
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  Image VARBINARY(max),
+  Image NVARCHAR(max),
 )
 GO
 
@@ -527,38 +528,10 @@ VALUES
   (N'Thông báo Admin')
 GO
 
---INSERT INTO DatabaseImageTable
--- (Image)
---values
--- ( (SELECT *
---   FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
  INSERT INTO DatabaseImageTable
    (Image)
  values
-   ( (SELECT *
-    --  FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
-    FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
--- INSERT INTO Faculty
---   (DisplayName)
--- values(N'TestFaculty')
--- GO
---INSERT INTO DatabaseImageTable
---  (Image)
---values
---  ( (SELECT *
---    FROM OPENROWSET(BULK N'C:\Users\Trung\Downloads\a.png', SINGLE_BLOB) as T1))
---INSERT INTO Faculty
---  (DisplayName)
---values(N'TestFaculty')
---GO
-
-INSERT INTO dbo.DatabaseImageTable
-  (Id ,Image)
--- SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C',* FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1002.jpg', SINGLE_BLOB) rs
-SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C', *
-FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
--- FROM OPENROWSET( Bulk 'C:\Users\Trung\Downloads\a.png', SINGLE_BLOB) rs
--- FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as rs
+   ( N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg' )
 
 INSERT INTO dbo.TrainingForm
   (Id, DisplayName)
@@ -602,46 +575,9 @@ USP_InsertUserWithRole @Role = 'Admin' , @Faculty = N'Khoa học Máy tính'
 GO
 USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
 GO
- --select *
- --from Users
--- select *
--- from UserRole
--- select *
--- from UserRole_UserInfo
--- select *
--- from User_UserRole_UserInfo
--- select *
--- from Faculty
 
 
 INSERT INTO dbo.Student
   (IdTrainingForm)
 VALUES
   ('52DF1714-C81F-42C2-8C64-8D744D787E0C')
-
-
-
- select * from Users
- select * from Document
- select * from Folder
-
--- delete from folder
-
---Insert into TrainingForm (Id, displayname) values (NEWID(), 'Oke')
-
-BEGIN
-	--DECLARE @IdFaculty UNIQUEIDENTIFIER
-	--SET @IdFaculty = (Select id from Faculty Where DisplayName = 'TestFaculty')
-
-	DECLARE @IdSubject UNIQUEIDENTIFIER
-	SET @IdSubject = (Select id from Subject Where Code = N'CS106') 
-
-	--DECLARE @IdTrainingForm UNIQUEIDENTIFIER
-	--SET @IdTrainingForm = (Select id from TrainingForm Where DisplayName = 'Oke')
-
-	DECLARE @IdAvatar UNIQUEIDENTIFIER
-	SET @IdAvatar = (Select TOp 1(Id) From DatabaseImageTable)
-
-	INSERT INTO SubjectClass(Id, IdSubject, Period, Weekday, IdThumbnail, IdTrainingForm, Code, NumberOfStudents, MaxNumberOfStudents) 
-	values ('00000000-0000-0000-0000-000000000000', @IdSubject, '123', '4', @IdAvatar, '52DF1714-C81F-42C2-8C64-8D744D787E0C', 'Hi', 100, 100)
-END

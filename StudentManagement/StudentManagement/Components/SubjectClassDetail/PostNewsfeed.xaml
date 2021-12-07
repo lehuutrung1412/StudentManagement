@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     x:Name="PostNewsFeedUC"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.7'}"
@@ -82,7 +83,7 @@
                                 </Button>
                                 <Button
                                     Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.DeletePost}"
-                                    CommandParameter="{Binding Path=Post.PostId}"
+                                    CommandParameter="{Binding Path=DataContext.Post.PostId, ElementName=PostNewsFeedUC}"
                                     Foreground="{DynamicResource ErrorMain}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Margin="0,0,8,0" Kind="DeleteOutline" />
@@ -244,10 +245,17 @@
             </DockPanel>
 
             <Grid Grid.Row="5">
+                <Grid.Resources>
+                    <CollectionViewSource x:Key="PostCommentsView" Source="{Binding PostComments}">
+                        <CollectionViewSource.SortDescriptions>
+                            <scm:SortDescription Direction="Ascending" PropertyName="Time" />
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </Grid.Resources>
                 <ItemsControl
                     Name="icComments"
                     Grid.Row="1"
-                    ItemsSource="{Binding PostComments}">
+                    ItemsSource="{Binding Source={StaticResource PostCommentsView}}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" />
@@ -335,7 +343,7 @@
                                             </Button>
                                             <Button
                                                 Command="{Binding ElementName=icComments, Path=DataContext.DeleteComment}"
-                                                CommandParameter="{Binding Id}"
+                                                CommandParameter="{Binding Path=DataContext.Id, ElementName=Comment}"
                                                 Foreground="{DynamicResource ErrorMain}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <materialDesign:PackIcon Margin="0,0,8,0" Kind="DeleteOutline" />

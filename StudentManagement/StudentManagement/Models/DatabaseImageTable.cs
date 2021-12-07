@@ -25,8 +25,8 @@ namespace StudentManagement.Models
     
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private byte[] _image { get; set; }
-        public byte[] Image { get => _image; set { _image = value; OnPropertyChanged(); } }
+        private string _image { get; set; }
+        public string Image { get => _image; set { _image = value; OnPropertyChanged(); } }
     
         public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<NotificationImage> NotificationImages { get; set; }

@@ -70,7 +70,7 @@ namespace StudentManagement.ViewModels
             LoadSubjectClassCards();
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchSubjectClassCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectClassCardsFunction());
-            ShowSubjectClassDetail = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowSubjectClassDetailFunction(p));
+            ShowSubjectClassDetail = new RelayCommand<UserControl>((p) => { return p != null; }, (p) => ShowSubjectClassDetailFunction(p));
         }
 
         #region methods

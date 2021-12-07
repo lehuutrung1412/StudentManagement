@@ -11,6 +11,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IdSubjectClass" Type="uniqueidentifier" />
+          <Property Name="Period" Type="nvarchar(max)" />
           <Property Name="Date" Type="datetime" />
           <Property Name="Type" Type="int" />
         </EntityType>
@@ -57,7 +58,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="DetailScore">
           <Key>
@@ -1398,6 +1399,7 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IdSubjectClass" Type="Guid" />
+          <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Type" Type="Int32" />
           <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__AbsentCal__IdSub__2739D489" FromRole="AbsentCalendar" ToRole="SubjectClass" />
@@ -1455,7 +1457,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdThumbna__1332DBDC" FromRole="DatabaseImageTable" ToRole="Class" />
           <NavigationProperty Name="NotificationImages" Relationship="StudentManagementModel.FK__Notificat__IdDat__31B762FC" FromRole="DatabaseImageTable" ToRole="NotificationImage" />
           <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdThu__160F4887" FromRole="DatabaseImageTable" ToRole="SubjectClass" />
@@ -2382,6 +2384,7 @@
               <MappingFragment StoreEntitySet="AbsentCalendar">
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
                 <ScalarProperty Name="IdSubjectClass" ColumnName="IdSubjectClass" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
