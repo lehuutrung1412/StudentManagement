@@ -21,176 +21,168 @@
     mc:Ignorable="d">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <materialDesign:Card
-            Grid.Row="0"
-            Style="{StaticResource CardContainer}"
-            Margin="8 8 8 16">
-            <TextBlock
-                Margin="8"
-                VerticalAlignment="Center"
-                FontSize="36"
-                FontWeight="Bold"
-                Text="Đăng ký học phần" />
-        </materialDesign:Card>
-        <ScrollViewer
-            Grid.Row="1"
-            HorizontalScrollBarVisibility="Hidden"
-            VerticalScrollBarVisibility="Hidden">
-            <DockPanel LastChildFill="False">
-                <materialDesign:Card
-                    DockPanel.Dock="Top"
-                    Style="{StaticResource CardContainer}"
-                    Margin="8,8,8,16">
-                    <StackPanel>
-                        <TabControl
-                            Margin="0"
-                            HorizontalContentAlignment="Left"
-                            Background="Transparent"
-                            Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
-                            TabStripPlacement="Top">
-                            <TabItem Margin="4">
-                                <TabItem.Header>
-                                    <StackPanel Width="auto" Height="auto">
-                                        <materialDesign:PackIcon
-                                            Width="24"
-                                            Height="24"
-                                            HorizontalAlignment="Center"
-                                            Kind="ViewListOutline" />
-                                        <TextBlock HorizontalAlignment="Center" Text="Danh sách" />
-                                    </StackPanel>
-                                </TabItem.Header>
 
-                                <Grid x:Name="RegisteredGrid" Grid.Row="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock
-                                            Grid.Column="0"
-                                            Margin="15,20,10,20"
-                                            VerticalAlignment="Center"
-                                            FontSize="20"
-                                            Text="Danh sách đã đăng ký" />
-                                        <Button
-                                            Grid.Column="1"
-                                            Width="120"
-                                            Margin="15,15,10,15"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
-                                            materialDesign:ButtonAssist.CornerRadius="5"
-                                            Background="#FFF24726"
-                                            Command="{Binding UnregisterCommand}"
-                                            Content="Hủy đăng ký" />
-                                    </Grid>
-                                    <component:SubjectRegistryDataGrid
-                                        Grid.Row="1"
-                                        MaxHeight="160"
-                                        Width="{Binding ElementName=MainGrid, Path=Width}"
-                                        Data="{Binding CourseRegistryItems1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        IsAllItemsSelected="{Binding IsAllItemsSelected1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <materialDesign:Card
+                Grid.Row="0"
+                Margin="8,8,8,16"
+                Style="{StaticResource CardContainer}">
+                <StackPanel>
+                    <TabControl
+                        Margin="0"
+                        HorizontalContentAlignment="Left"
+                        Background="Transparent"
+                        Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+                        TabStripPlacement="Top">
 
+                        <TabItem Margin="4">
+                            <TabItem.Header>
+                                <StackPanel Width="auto" Height="auto">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        HorizontalAlignment="Center"
+                                        Kind="ViewListOutline" />
+                                    <TextBlock HorizontalAlignment="Center" Text="Danh sách" />
+                                </StackPanel>
+                            </TabItem.Header>
+
+                            <Grid x:Name="RegisteredGrid" Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="16,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="24"
+                                        FontWeight="Bold"
+                                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                        Text="Danh sách đã đăng ký" />
+                                    <Button
+                                        Grid.Column="1"
+                                        Width="120"
+                                        Height="40"
+                                        Margin="16,16,16,16"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        materialDesign:ButtonAssist.CornerRadius="8"
+                                        Background="#FFF24726"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding UnregisterCommand}"
+                                        Content="Hủy đăng ký"
+                                        Style="{StaticResource PrimaryButton}" />
                                 </Grid>
-                            </TabItem>
-                            <TabItem>
-                                <TabItem.Header>
-                                    <StackPanel Width="auto" Height="auto">
-                                        <materialDesign:PackIcon
-                                            Width="24"
-                                            Height="24"
-                                            HorizontalAlignment="Center"
-                                            Kind="TableLarge" />
-                                        <TextBlock HorizontalAlignment="Center" Text="TKB" />
-                                    </StackPanel>
-                                </TabItem.Header>
-                                <Grid>
-                                    <component:ScheduleTable Margin="8" Tag="{Binding ScheduleItemsRegistered}" />
-                                </Grid>
-                            </TabItem>
-                        </TabControl>
+                                <component:SubjectRegistryDataGrid
+                                    Grid.Row="1"
+                                    Width="{Binding ElementName=MainGrid, Path=Width}"
+                                    MaxHeight="160"
+                                    Data="{Binding CourseRegistryItems1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    DataContext="{Binding ElementName=MainGrid, Path=DataContext}"
+                                    IsAllItemsSelected="{Binding IsAllItemsSelected1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Width="auto" Height="auto">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        HorizontalAlignment="Center"
+                                        Kind="TableLarge" />
+                                    <TextBlock HorizontalAlignment="Center" Text="TKB" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <Grid>
+                                <component:ScheduleTable Margin="8" Tag="{Binding ScheduleItemsRegistered}" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom">
+                        <Run Text="Số tín chỉ đã đăng ký: " />
+                        <Run Text="{Binding TotalCredit, FallbackValue=0}" />
+                    </TextBlock>
+                </StackPanel>
+            </materialDesign:Card>
+            <materialDesign:Card
+                Grid.Row="1"
+                Margin="8,8,8,16"
+                Style="{StaticResource CardContainer}">
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <TextBlock
-                            Grid.Row="2"
-                            Margin="10"
+                            Grid.Column="0"
+                            Margin="16,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Text="Danh sách chưa đăng ký" />
+                        <Button
+                            Grid.Column="1"
+                            Width="120"
+                            Height="40"
+                            Margin="16,16,16,16"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom">
-                            <Run Text="Số tín chỉ đã đăng ký: " />
-                            <Run Text="{Binding TotalCredit, FallbackValue=0}" />
-                        </TextBlock>
-                    </StackPanel>
-                </materialDesign:Card>
-                <materialDesign:Card
-                    Margin="8 8 8 16"
-                    DockPanel.Dock="Top"
-                    Style="{StaticResource CardContainer}">
-                    <Grid
-                        Grid.Row="3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition
-                                Height="auto" />
-                            <RowDefinition
-                                Height="auto" />
-                            <RowDefinition
-                                Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <Grid
-                            Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition
-                                    Width="auto" />
-                                <ColumnDefinition
-                                    Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Grid.Column="0"
-                                Margin="15,20,10,15"
-                                VerticalAlignment="Center"
-                                FontSize="20"
-                                Text="Danh sách chưa đăng ký" />
-                            <Button
-                                Grid.Column="1"
-                                Width="120"
-                                Margin="15,15,10,15"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                materialDesign:ButtonAssist.CornerRadius="5"
-                                Background="#8FD14F"
-                                Command="{Binding RegisterCommand}"
-                                Content="Đăng ký" />
-                        </Grid>
-                        <Grid
-                            Grid.Row="1">
-                            <component:SearchBarOne
-                                DatePickerVisibility="False"
-                                FirstSearchButtonText="Mã lớp"
-                                SearchCommand="{Binding SearchCommand}"
-                                SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                SecondSearchButtonText="Tên lớp học" />
-                        </Grid>
-                        <component:SubjectRegistryDataGrid
-                            Grid.Row="2"
-                            Data="{Binding CourseRegistryItems2Display, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            IsAllItemsSelected="{Binding IsAllItemsSelected2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
-                        <Grid
-                            Grid.Row="2"
-                            VerticalAlignment="Bottom">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition
-                                    Width="auto" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <!--<Button
+                            VerticalAlignment="Center"
+                            materialDesign:ButtonAssist.CornerRadius="8"
+                            Background="#8FD14F"
+                            BorderBrush="Transparent"
+                            Command="{Binding RegisterCommand}"
+                            Content="Đăng ký"
+                            Style="{StaticResource PrimaryButton}" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <component:SearchBarOne
+                            Margin="16,0"
+                            DatePickerVisibility="False"
+                            FirstSearchButtonText="Mã lớp"
+                            SearchCommand="{Binding SearchCommand}"
+                            SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SecondSearchButtonText="Tên lớp học" />
+                    </Grid>
+                    <component:SubjectRegistryDataGrid
+                        Grid.Row="2"
+                        Data="{Binding CourseRegistryItems2Display, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        DataContext="{Binding ElementName=MainGrid, Path=DataContext}"
+                        IsAllItemsSelected="{Binding IsAllItemsSelected2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        IsCatchEditEvent="True"
+                        Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
+                    <Grid Grid.Row="2" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <!--<Button
                     Grid.Column="0"
                     Width="80"
                     Margin="20,15,20,15"
@@ -199,12 +191,12 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Background="#E6E6E6"
                     Content="Trước" />-->
-                            <!--<TextBlock
+                        <!--<TextBlock
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     FontWeight="ExtraBold"
                     Text="{Binding PageNumber, FallbackValue='1'}" />-->
-                            <!--<Button
+                        <!--<Button
                     Grid.Column="2"
                     Width="80"
                     Margin="20,15,20,15"
@@ -213,11 +205,10 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Background="#8FD14F"
                     Content="Tiếp" />-->
-                        </Grid>
                     </Grid>
-                </materialDesign:Card>
-            </DockPanel>
-        </ScrollViewer>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
 
     </Grid>
 </UserControl>

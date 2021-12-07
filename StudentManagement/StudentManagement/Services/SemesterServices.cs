@@ -25,7 +25,7 @@ namespace StudentManagement.Services
 
         public Semester GetFirstOpenningRegisterSemester()
         {
-            Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem => semesterItem.CourseRegisterStatus == 0).FirstOrDefault();
+            Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem => semesterItem.CourseRegisterStatus <= 1).FirstOrDefault();
             return a;
         }
         public ObservableCollection<Semester> LoadListSemester()

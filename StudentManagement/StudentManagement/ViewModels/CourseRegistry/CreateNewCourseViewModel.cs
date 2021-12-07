@@ -165,6 +165,8 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        private bool _isDoneVisible;
+        public bool IsDoneVisible { get => _isDoneVisible; set { _isDoneVisible = value; OnPropertyChanged(); } }
         #endregion
 
         #region command
@@ -197,22 +199,6 @@ namespace StudentManagement.ViewModels
 
         public void Confirm()
         {
-            //Validation
-
-            /*_errorBaseViewModel.ClearErrors(nameof(Period));
-            _errorBaseViewModel.ClearErrors(nameof(StartDate));
-            _errorBaseViewModel.ClearErrors(nameof(EndDate));
-            if (!SubjectClassServices.Instance.IsValidPeriod(Period))
-            {
-                _errorBaseViewModel.AddError(nameof(Period), "Tiết học không hợp lệ!");
-            }
-            if (StartDate > EndDate)
-            {
-                _errorBaseViewModel.AddError(nameof(EndDate), "Ngày kết thúc không được sớm hơn ngày bắt đầu");
-            }
-            if (_errorBaseViewModel.HasErrors)
-                return;*/
-
             var newCourse = new SubjectClass()
             {
                 Id = Guid.NewGuid(),
@@ -229,8 +215,10 @@ namespace StudentManagement.ViewModels
                 DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable()
             };
             CurrentCard = newCourse;
-            SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);
+            IsDoneVisible = SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);
+            
             Courses.Add(new CourseItem(newCourse, false));
+            UpdateSubjectClassCode();
         }
         public void UpdateSubjectClassCode()
         {

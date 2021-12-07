@@ -59,6 +59,16 @@ namespace StudentManagement.Components
         public static readonly DependencyProperty IsAllItemsSelectedProperty =
             DependencyProperty.Register("IsAllItemsSelected", typeof(bool), typeof(SubjectRegistryDataGrid), new PropertyMetadata(false));
 
+        public bool IsCatchEditEvent
+        {
+            get { return (bool)GetValue(IsCatchEditEventProperty); }
+            set { SetValue(IsCatchEditEventProperty, value); OnPropertyChanged();/* Data.Select(c => { c.IsSelected = value; return c; }).ToList();*/ }
+        }
+
+        // Using a DependencyProperty as the backing store for IsAllItemsSelected.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsCatchEditEventProperty =
+            DependencyProperty.Register("IsCatchEditEvent", typeof(bool), typeof(SubjectRegistryDataGrid), new PropertyMetadata(false));
+
         private void DataGrid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             ScrollViewer scv = (sender as DataGrid).Parent as ScrollViewer;
