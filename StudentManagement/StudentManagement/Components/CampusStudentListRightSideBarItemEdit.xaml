@@ -81,10 +81,12 @@
                         Style="{StaticResource textblock_item}"
                         Text="Khoa đào tạo" />
 
-                    <TextBox
+                    <ComboBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập khoa đào tạo"
-                        Style="{StaticResource textbox_item}"
+                        materialDesign:HintAssist.Hint="Chọn khoa đào tạo"
+                        ItemsSource="{Binding Faculties}"
+                        SelectedItem="{Binding SelectedFaculty, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource combobox_item}"
                         Text="{Binding CurrentStudent.Faculty}" />
                 </Grid>
 
@@ -100,10 +102,12 @@
                         Style="{StaticResource textblock_item}"
                         Text="Hệ đào tạo" />
 
-                    <TextBox
+                    <ComboBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập hệ đào tạo"
-                        Style="{StaticResource textbox_item}"
+                        materialDesign:HintAssist.Hint="Chọn hệ đào tạo"
+                        ItemsSource="{Binding Trainings}"
+                        SelectedItem="{Binding SelectedTraining, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource combobox_item}"
                         Text="{Binding CurrentStudent.Training}" />
                 </Grid>
             </StackPanel>
@@ -120,14 +124,14 @@
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="3"
-                Command="{Binding ConfirmEditDetailScore}"
+                Command="{Binding ConfirmEditStudentInfo}"
                 Content="Lưu"
                 FontSize="16"
                 Style="{StaticResource rounded_btn}" />
             <Button
                 Grid.Column="2"
                 Background="{StaticResource DarkGray}"
-                Command="{Binding CancelEditDetailScore}"
+                Command="{Binding CancelEditStudentInfo}"
                 Content="Hủy"
                 FontSize="16"
                 Foreground="White"
