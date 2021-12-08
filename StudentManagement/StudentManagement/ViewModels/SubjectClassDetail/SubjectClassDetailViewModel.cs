@@ -80,7 +80,7 @@ namespace StudentManagement.ViewModels
             (_newFeedSubjectClassDetailViewModel as NewFeedSubjectClassDetailViewModel).PropertyChanged += NewFeedSubjectClassDetailViewModel_PropertyChanged;
 
 
-            _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel();
+            _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel(subjectClass);
             (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).PropertyChanged += FileManagerClassDetailViewModel_PropertyChanged;
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;
         }
