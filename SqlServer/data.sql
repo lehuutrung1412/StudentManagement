@@ -496,6 +496,7 @@ GO
 
 
 --INSERT
+-- Insert subject
 INSERT INTO dbo.Subject
   (Code, DisplayName, Credit, Describe)
 VALUES
@@ -505,6 +506,7 @@ VALUES
   (N'CS336', N'Truy vấn thông tin đa phương tiện', 4, N'')
 GO
 
+-- Insert semester
 INSERT INTO dbo.Semester
   (DisplayName, Batch, CourseRegisterStatus)
 VALUES
@@ -513,7 +515,7 @@ VALUES
   (N'Học kỳ 1', N'2020-2021', 0)
 GO
 
-
+-- Insert Userrole
 INSERT INTO dbo.UserRole
   (Role)
 VALUES
@@ -522,6 +524,7 @@ VALUES
   (N'Admin')
 GO
 
+-- Insert notification type
 INSERT INTO dbo.NotificationType
   (Content)
 VALUES
@@ -531,68 +534,90 @@ VALUES
   (N'Thông báo Admin')
 GO
 
+-- Insert Database image
 INSERT INTO DatabaseImageTable
   (Image)
 values
   ( N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg' )
 
+-- Insert Faculty 
 INSERT INTO dbo.TrainingForm
   (Id, DisplayName)
 VALUES
   ('52DF1714-C81F-42C2-8C64-8D744D787E0C', N'Cử nhân Tài năng')
 
+-- Insert Faculty
 INSERT INTO dbo.Faculty
   (Id, DisplayName)
 VALUES
   ('3BADC66B-382B-4F35-A96C-B9B546FF98AD', N'Khoa học Máy tính')
 GO
 
--- CREATE PROC USP_InsertUserWithRole
---   @Role NVARCHAR(100),
---   @Faculty NVARCHAR(100)
--- AS
--- BEGIN
---   DECLARE @IdRole UNIQUEIDENTIFIER
---   SET @IdRole = (Select id
---   from UserRole
---   Where Role = @Role)
-
---   DECLARE @IdFaculty UNIQUEIDENTIFIER
---   SET @IdFaculty = (Select id
---   from Faculty
---   Where DisplayName = @Faculty)
-
---   DECLARE @IdAvatar UNIQUEIDENTIFIER
---   SET @IdAvatar = (Select TOp 1
---     (Id)
---   From DatabaseImageTable)
-
---   INSERT INTO Users
---     (Username, Password, DisplayName,IdUserRole,IdFaculty,IdAvatar)
---   values
---     ('Admin', '1', 'Admin', @IdRole, @IdFaculty, @IdAvatar)
--- END
--- GO
-
--- USP_InsertUserWithRole @Role = 'Admin' , @Faculty = N'Khoa học Máy tính'
--- GO
--- USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
--- GO
-
+-- Insert admin: admin/admin
 BEGIN
   DECLARE @IdRole UNIQUEIDENTIFIER
   SET @IdRole = (Select id
   from UserRole
   Where Role = 'Admin')
 
+  DECLARE @IdAvatar UNIQUEIDENTIFIER
+  SET @IdAvatar = (SELECT TOP 1
+    (Id)
+  From DatabaseImageTable)
+
   INSERT INTO dbo.Users
-    (username, DisplayName, Email, Password, IdUserRole)
-  VALUES('admin', 'admin', 'admin@gmail.com', '1', @IdRole)
+    (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
+  VALUES('29DF1714-C81F-42C2-8C64-6D744D787E0C', 'admin', 'admin', 'admin@gmail.com', 'admin', @IdRole, @IdAvatar)
+
+  INSERT INTO dbo.Admin
+    (IdUsers)
+  VALUES
+    ('29DF1714-C81F-42C2-8C64-6D744D787E0C')
 END
 GO
 
+-- Insert Teacher: gv/gv
+BEGIN
+  DECLARE @IdRole UNIQUEIDENTIFIER
+  SET @IdRole = (Select id
+  from UserRole
+  Where Role = 'Giáo viên')
 
--- INSERT INTO dbo.Student
---   (IdTrainingForm, IdUser)
--- VALUES
---   ('52DF1714-C81F-42C2-8C64-8D744D787E0C', '')
+  DECLARE @IdAvatar UNIQUEIDENTIFIER
+  SET @IdAvatar = (SELECT TOP 1
+    (Id)
+  From DatabaseImageTable)
+
+  INSERT INTO dbo.Users
+    (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
+  VALUES('14DF1714-C81F-42C2-8C64-6D744D787E0D', 'gv', 'Nguyễn Tấn Toàn', 'gv@gmail.com', 'gv', @IdRole, @IdAvatar)
+
+  INSERT INTO dbo.Teacher
+    (IdUsers, IdFaculty)
+  VALUES
+    ('14DF1714-C81F-42C2-8C64-6D744D787E0D', '3BADC66B-382B-4F35-A96C-B9B546FF98AD')
+END
+GO
+
+-- Insert Student: hs/hs
+BEGIN
+  DECLARE @IdRole UNIQUEIDENTIFIER
+  SET @IdRole = (Select id
+  from UserRole
+  Where Role = 'Học sinh')
+
+  DECLARE @IdAvatar UNIQUEIDENTIFIER
+  SET @IdAvatar = (SELECT TOP 1
+    (Id)
+  From DatabaseImageTable)
+
+  INSERT INTO dbo.Users
+    (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
+  VALUES('924F1714-D81F-12C2-8C64-6D744D787E0D', 'hs', 'Ngô Quang Vinh', 'vinhqngo5@gmail.com', 'hs', @IdRole, @IdAvatar)
+
+  INSERT INTO dbo.Student
+    (IdUsers, IdFaculty, IdTrainingForm)
+  VALUES
+    ('924F1714-D81F-12C2-8C64-6D744D787E0D', '3BADC66B-382B-4F35-A96C-B9B546FF98AD', '52DF1714-C81F-42C2-8C64-8D744D787E0C')
+END
+GO
