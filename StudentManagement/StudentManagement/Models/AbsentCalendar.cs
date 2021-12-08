@@ -31,6 +31,9 @@ public partial class AbsentCalendar : BaseViewModel
     private Nullable<int> _type { get; set; }
     public Nullable<int> Type { get => _type; set { _type = value; OnPropertyChanged(); } }
 
+    private string _period { get; set; }
+    public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
+
 
 
     public virtual SubjectClass SubjectClass { get; set; }

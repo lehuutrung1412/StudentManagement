@@ -11,6 +11,7 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IdSubjectClass" Type="uniqueidentifier" />
+          <Property Name="Period" Type="nvarchar(max)" />
           <Property Name="Date" Type="datetime" />
           <Property Name="Type" Type="int" />
         </EntityType>
@@ -1401,6 +1402,7 @@
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Type" Type="Int32" />
           <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__AbsentCal__IdSub__2739D489" FromRole="AbsentCalendar" ToRole="SubjectClass" />
+          <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Admin">
           <Key>
@@ -2380,6 +2382,7 @@
           <EntitySetMapping Name="AbsentCalendars">
             <EntityTypeMapping TypeName="StudentManagementModel.AbsentCalendar">
               <MappingFragment StoreEntitySet="AbsentCalendar">
+                <ScalarProperty Name="Period" ColumnName="Period" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="IdSubjectClass" ColumnName="IdSubjectClass" />
