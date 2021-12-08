@@ -19,10 +19,12 @@ namespace StudentManagement.ViewModels
         private LayoutViewModel _layoutViewModel;
         private object _newFeedSubjectClassDetailViewModel;
         private object _fileManagerClassDetailViewModel;
+        private object _adminStudentListViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
-        private object _fileManagerRightSideBarViewModel;
         private object _newsFeedRightSideBarViewModel;
+        private object _fileManagerRightSideBarViewModel;
+        private object _studentListRightSideBar;
 
         // Properties
         private bool _isShowDialog;
@@ -55,7 +57,8 @@ namespace StudentManagement.ViewModels
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Bảng tin", false, null, _newFeedSubjectClassDetailViewModel, _newsFeedRightSideBarViewModel, _layoutViewModel, "NewspaperVariantOutline"),
-                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "FileDocumentMultipleOutline")
+                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "FileDocumentMultipleOutline"),
+                new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, _studentListRightSideBar, _layoutViewModel, "SchoolOutline"),
             };
 
             // Set corresponding active button to default view
@@ -82,6 +85,9 @@ namespace StudentManagement.ViewModels
 
             _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel(subjectClass);
             (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).PropertyChanged += FileManagerClassDetailViewModel_PropertyChanged;
+            
+            _adminStudentListViewModel = new AdminStudentListViewModel();
+
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;
         }
 
@@ -91,6 +97,8 @@ namespace StudentManagement.ViewModels
             (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).PropertyChanged += FileManagerRightSideBarViewModel_PropertyChanged;
             
             _newsFeedRightSideBarViewModel = new NewsfeedRightSideBarViewModel(subjectClass);
+
+            _studentListRightSideBar = new StudentListRightSideBarViewModel();
 
             _layoutViewModel.RightSideBar = _newsFeedRightSideBarViewModel;
         }

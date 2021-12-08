@@ -39,7 +39,6 @@ namespace StudentManagement.ViewModels
         private object _studentScheduleTableViewModel;
         private object _adminUserInfoViewModel;
         private object _adminCourseRegistryViewModel;
-        private object _adminStudentListViewModel;
         private object _settingUserInfoViewModel;
         private object _campusStudentListViewModel;
 
@@ -51,7 +50,6 @@ namespace StudentManagement.ViewModels
         private object _adminFacultyTrainingFormRightSideBar;
         private object _scoreboardRightSideBar;
         private object _adminCourseRegistryRightSideBar;
-        private object _studentListRightSideBar;
         private object _campusStudentListRightSideBar;
 
         public MainViewModel()
@@ -83,7 +81,6 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, _layoutViewModel, "BellOutline"),
                 new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "CalendarMonthOutline"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, _layoutViewModel, "AccountCircleOutline"),
-                new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, _studentListRightSideBar, _layoutViewModel, "SchoolOutline"),
                 new NavigationItem("Danh sách sinh viên", false, null, _campusStudentListViewModel, _campusStudentListRightSideBar, _layoutViewModel, "SchoolOutline"),
                 new NavigationItem("Admin - ĐKHP", false, null, _adminCourseRegistryViewModel, _adminCourseRegistryRightSideBar, _layoutViewModel, "CreditCardPlusOutline"),
                 new NavigationItem("Cài đặt", true, tempInfo, null, null, _layoutViewModel, "CogOutline"),
@@ -136,8 +133,6 @@ namespace StudentManagement.ViewModels
 
             _adminCourseRegistryViewModel = new AdminCourseRegistryViewModel();
 
-            _adminStudentListViewModel = new AdminStudentListViewModel();
-
             _campusStudentListViewModel = new CampusStudentListViewModel();
 
             _settingUserInfoViewModel = new SettingUserInfoViewModel();
@@ -160,9 +155,7 @@ namespace StudentManagement.ViewModels
 
             _adminCourseRegistryRightSideBar = new AdminCourseRegistryRightSideBarViewModel();
 
-            _scoreboardRightSideBar = new ScoreBoardRightSideBarViewModel(); //ViewModel
-
-            _studentListRightSideBar = new StudentListRightSideBarViewModel();
+            _scoreboardRightSideBar = new ScoreBoardRightSideBarViewModel();
 
             _campusStudentListRightSideBar = new CampusStudentListRightSideBarViewModel();
 
