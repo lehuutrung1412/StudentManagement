@@ -103,7 +103,8 @@ namespace StudentManagement.ViewModels
                 }
             }
 
-            CurrentViewModel = _layoutViewModel;
+            //CurrentViewModel = _layoutViewModel;
+            CurrentViewModel = _loginViewModel;
         }
 
         private void GotoLayoutView()
