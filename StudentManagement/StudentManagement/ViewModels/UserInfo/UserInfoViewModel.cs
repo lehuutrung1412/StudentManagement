@@ -143,7 +143,7 @@ namespace StudentManagement.ViewModels
             };
             switch (user.UserRole.Role)
             {
-                case "Học sinh":
+                case "Sinh viên":
                     {
                         var student = StudentServices.Instance.GetStudentbyUser(user);
                         InfoSource.Add(new InfoItem(Guid.NewGuid(),"Khoa",2,FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName,true));
@@ -204,7 +204,7 @@ namespace StudentManagement.ViewModels
                             {
                                 switch (user.UserRole.Role)
                                 {
-                                    case "Học sinh":
+                                    case "Sinh viên":
                                         {
                                             var student = StudentServices.Instance.GetStudentbyUser(user);
                                             student.IdFaculty = DataProvider.Instance.Database.Faculties.FirstOrDefault(faculty=> faculty.DisplayName== infoItem.Value.ToString()).Id;

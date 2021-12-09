@@ -98,7 +98,7 @@ namespace StudentManagement.ViewModels
           
             if (TypeStudent)
             {
-                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Học sinh");
+                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Sinh viên");
             }
             if (TypeLecturer)
             {
