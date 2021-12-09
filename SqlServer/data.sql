@@ -1,5 +1,5 @@
 -- USE TEMP
- DROP DATABASE StudentManagement
+ --DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -14,14 +14,9 @@ CREATE TABLE Users
   DisplayName NVARCHAR(MAX),
   Email NVARCHAR(MAX),
   IdOTP UNIQUEIDENTIFIER,
-  --DayOfBirth DATETIME,
-  --Gender INT,
-  --Email NVARCHAR(MAX),
-  --PhoneNumber NVARCHAR(MAX),
   Online BIT DEFAULT 0,
   -- 1: online, 0: offline
   IdUserRole UNIQUEIDENTIFIER NULL,
-  IdFaculty UNIQUEIDENTIFIER NULL,
   IdAvatar UNIQUEIDENTIFIER NULL,
 )
 GO
@@ -90,6 +85,7 @@ CREATE TABLE Student
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   IdTrainingForm UNIQUEIDENTIFIER NULL,
+  IdFaculty UNIQUEIDENTIFIER NULL,
   Status INT DEFAULT 1,
   -- 1: còn học, 0: đã tốt nghiệp
   IdUsers UNIQUEIDENTIFIER
@@ -100,6 +96,7 @@ GO
 CREATE TABLE Teacher
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+  IdFaculty UNIQUEIDENTIFIER NULL,
   IdUsers UNIQUEIDENTIFIER
 )
 GO
@@ -341,7 +338,7 @@ CREATE TABLE NotificationImages
 CREATE TABLE OTP
 (
 	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-	CODE NVARCHAR(MAX),
+	Code NVARCHAR(MAX),
 	Time DATETIME DEFAULT GETDATE(),
 )
 
@@ -349,8 +346,7 @@ CREATE TABLE OTP
 
 -- foreign key
 ALTER TABLE  Users
-ADD FOREIGN KEY (IdFaculty) REFERENCES Faculty(Id),
-FOREIGN KEY (IdAvatar) REFERENCES DatabaseImageTable(Id),
+ADD FOREIGN KEY (IdAvatar) REFERENCES DatabaseImageTable(Id),
 FOREIGN KEY (IdUserRole) REFERENCES UserRole(Id),
 FOREIGN KEY (IdOTP) REFERENCES OTP(Id)
 GO
@@ -370,14 +366,16 @@ GO
 
 ALTER TABLE  Student
 ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
-FOREIGN KEY(IdUsers) REFERENCES Users(Id)
+FOREIGN KEY(IdUsers) REFERENCES Users(Id),
+FOREIGN KEY (IdFaculty) REFERENCES Faculty(Id)
 --FOREIGN KEY(IdParent) REFERENCES Parent(Id)
 GO
 
 
 
 ALTER TABLE  Teacher
-ADD FOREIGN KEY(IdUsers) REFERENCES Users(Id)
+ADD FOREIGN KEY(IdUsers) REFERENCES Users(Id),
+FOREIGN KEY (IdFaculty) REFERENCES Faculty(Id)
 GO
 
 
@@ -499,7 +497,6 @@ ALTER TABLE NotificationImages ADD
 FOREIGN KEY (IdNotification) REFERENCES Notification(Id),
 FOREIGN KEY (IdDatabaseImageTable) REFERENCES DatabaseImageTable(Id)
 GO
-
 --INSERT
 INSERT INTO dbo.Subject
   (Code, DisplayName, Credit, Describe)
@@ -536,31 +533,6 @@ VALUES
   (N'Thông báo Admin')
 GO
 
---INSERT INTO DatabaseImageTable
--- (Image)
---values
--- ( (SELECT *
---   FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
- INSERT INTO DatabaseImageTable
-   (Image)
- values
-   ( (SELECT *
-      FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
-    --FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
--- INSERT INTO Faculty
---   (DisplayName)
--- values(N'TestFaculty')
--- GO
---INSERT INTO DatabaseImageTable
---  (Image)
---values
---  ( (SELECT *
---    FROM OPENROWSET(BULK N'C:\Users\Trung\Downloads\a.png', SINGLE_BLOB) as T1))
---INSERT INTO Faculty
---  (DisplayName)
---values(N'TestFaculty')
---GO
-
 INSERT INTO dbo.DatabaseImageTable
   (Id ,Image)
 -- SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C',* FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1002.jpg', SINGLE_BLOB) rs
@@ -579,78 +551,52 @@ INSERT INTO dbo.Faculty
 VALUES
   ('3BADC66B-382B-4F35-A96C-B9B546FF98AD', N'Khoa học Máy tính')
 GO
+-- CREATE PROC USP_InsertUserWithRole
+--   @Role NVARCHAR(100),
+--   @Faculty NVARCHAR(100)
+-- AS
+-- BEGIN
+--   DECLARE @IdRole UNIQUEIDENTIFIER
+--   SET @IdRole = (Select id
+--   from UserRole
+--   Where Role = @Role)
 
-CREATE PROC USP_InsertUserWithRole
-  @Role NVARCHAR(100),
-  @Faculty NVARCHAR(100)
-AS
+--   DECLARE @IdFaculty UNIQUEIDENTIFIER
+--   SET @IdFaculty = (Select id
+--   from Faculty
+--   Where DisplayName = @Faculty)
+
+--   DECLARE @IdAvatar UNIQUEIDENTIFIER
+--   SET @IdAvatar = (Select TOp 1
+--     (Id)
+--   From DatabaseImageTable)
+
+--   INSERT INTO Users
+--     (Username, Password, DisplayName,IdUserRole,IdFaculty,IdAvatar)
+--   values
+--     ('Admin', '1', 'Admin', @IdRole, @IdFaculty, @IdAvatar)
+-- END
+-- GO
+
+-- USP_InsertUserWithRole @Role = 'Admin' , @Faculty = N'Khoa học Máy tính'
+-- GO
+-- USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
+-- GO
+
 BEGIN
   DECLARE @IdRole UNIQUEIDENTIFIER
   SET @IdRole = (Select id
   from UserRole
-  Where Role = @Role)
+  Where Role = 'Admin')
 
-  DECLARE @IdFaculty UNIQUEIDENTIFIER
-  SET @IdFaculty = (Select id
-  from Faculty
-  Where DisplayName = @Faculty)
-
-  DECLARE @IdAvatar UNIQUEIDENTIFIER
-  SET @IdAvatar = (Select TOp 1
-    (Id)
-  From DatabaseImageTable)
-
-  INSERT INTO Users
-    (Username, Password, DisplayName, Email,IdUserRole,IdFaculty,IdAvatar)
-  values
-    ('Admin', '1', 'Admin','cuongnguyen14022001@gmail.com', @IdRole, @IdFaculty, @IdAvatar)
+  INSERT INTO dbo.Users
+    (username, DisplayName, Email, Password, IdUserRole)
+  VALUES('admin', 'admin', 'cuongnguyen14022001@gmail.com', '1', @IdRole)
 END
 GO
 
-USP_InsertUserWithRole @Role = 'Admin' , @Faculty = N'Khoa học Máy tính'
-GO
---USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
---GO
- --select *
- --from Users
--- select *
--- from UserRole
--- select *
--- from UserRole_UserInfo
--- select *
--- from User_UserRole_UserInfo
--- select *
--- from Faculty
 
-
-INSERT INTO dbo.Student
-  (IdTrainingForm)
-VALUES
-  ('52DF1714-C81F-42C2-8C64-8D744D787E0C')
-
-
-
- select * from Users
- select * from Document
- select * from Folder
-
--- delete from folder
-
---Insert into TrainingForm (Id, displayname) values (NEWID(), 'Oke')
-
-BEGIN
-	--DECLARE @IdFaculty UNIQUEIDENTIFIER
-	--SET @IdFaculty = (Select id from Faculty Where DisplayName = 'TestFaculty')
-
-	DECLARE @IdSubject UNIQUEIDENTIFIER
-	SET @IdSubject = (Select id from Subject Where Code = N'CS106') 
-
-	--DECLARE @IdTrainingForm UNIQUEIDENTIFIER
-	--SET @IdTrainingForm = (Select id from TrainingForm Where DisplayName = 'Oke')
-
-	DECLARE @IdAvatar UNIQUEIDENTIFIER
-	SET @IdAvatar = (Select TOp 1(Id) From DatabaseImageTable)
-
-	INSERT INTO SubjectClass(Id, IdSubject, Period, Weekday, IdThumbnail, IdTrainingForm, Code, NumberOfStudents, MaxNumberOfStudents) 
-	values ('00000000-0000-0000-0000-000000000000', @IdSubject, '123', '4', @IdAvatar, '52DF1714-C81F-42C2-8C64-8D744D787E0C', 'Hi', 100, 100)
-END
+-- INSERT INTO dbo.Student
+--   (IdTrainingForm, IdUser)
+-- VALUES
+--   ('52DF1714-C81F-42C2-8C64-8D744D787E0C', '')

@@ -22,7 +22,9 @@ namespace StudentManagement.Services
             var user = UserServices.Instance.GetUserByGmail(email);
             if (user.Count == 0)
                 return false;
-            if(user.FirstOrDefault().OTP.CODE.Equals(OTP))
+            if (user.FirstOrDefault().IdOTP==null)
+                return false;
+            if(user.FirstOrDefault().OTP.Code.Equals(OTP))
                 return true;
             return false;
         }
@@ -34,7 +36,7 @@ namespace StudentManagement.Services
             var otp = new OTP()
             {
                 Id = Guid.NewGuid(),
-                CODE = OTP,
+                Code = OTP,
                 Time = DateTime.Now,
             };        
             DataProvider.Instance.Database.OTPs.AddOrUpdate(otp);
@@ -45,14 +47,18 @@ namespace StudentManagement.Services
         {
             if (DataProvider.Instance.Database.OTPs.ToList().Count == 0)
                 return;
-            var listOTP = DataProvider.Instance.Database.OTPs.Where(otp => DbFunctions.DiffMinutes(DateTime.Now,otp.Time)>5).ToList();
+            var listOTP = DataProvider.Instance.Database.OTPs.Where(otp => DbFunctions.DiffSeconds(otp.Time,DateTime.Now)>30).ToList();
             if (listOTP.Count < 0)
                 return;
             foreach(var otp in listOTP)
             {
-                var tmpUser = DataProvider.Instance.Database.Users.FirstOrDefault(user => user.IdOTP == otp.Id);
-                DataProvider.Instance.Database.Users.Remove(tmpUser);
                 DataProvider.Instance.Database.OTPs.Remove(otp);
+                var user = UserServices.Instance.GetUserByOTP(otp);
+                try
+                {
+                    user.IdOTP = null;
+                }
+                catch { }
             }                    
             DataProvider.Instance.Database.SaveChanges();
         }

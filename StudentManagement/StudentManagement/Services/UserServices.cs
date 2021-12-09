@@ -34,6 +34,11 @@ namespace StudentManagement.Services
         {
             return DataProvider.Instance.Database.Users.Where(user => user.Email.Equals(email)).ToList();
         }
+        public User GetUserByOTP(OTP otp)
+        {
+            return DataProvider.Instance.Database.Users.FirstOrDefault(tmpUser => tmpUser.IdOTP == otp.Id);
+        }
+
         public bool CheckAdminByIdUser(Guid id)
         {
             return DataProvider.Instance.Database.Users.FirstOrDefault(user => user.Id == id).UserRole.Role.Contains("Admin");

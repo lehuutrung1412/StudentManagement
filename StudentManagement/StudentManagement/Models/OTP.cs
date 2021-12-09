@@ -22,12 +22,11 @@ namespace StudentManagement.Models
     
         private System.Guid _id { get; set; }
         public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private string _cODE { get; set; }
-        public string CODE { get => _cODE; set { _cODE = value; OnPropertyChanged(); } }
+        private string _code { get; set; }
+        public string Code { get => _code; set { _code = value; OnPropertyChanged(); } }
         private Nullable<System.DateTime> _time { get; set; }
         public Nullable<System.DateTime> Time { get => _time; set { _time = value; OnPropertyChanged(); } }
     
         public virtual ICollection<User> Users { get; set; }
-        public object AddOrUpdate { get; internal set; }
     }
 }

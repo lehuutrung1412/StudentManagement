@@ -19,7 +19,8 @@ namespace StudentManagement.Models
         {
             this.Classes = new HashSet<Class>();
             this.Faculty_TrainingForm = new HashSet<Faculty_TrainingForm>();
-            this.Users = new HashSet<User>();
+            this.Students = new HashSet<Student>();
+            this.Teachers = new HashSet<Teacher>();
         }
     
         private System.Guid _id { get; set; }
@@ -33,6 +34,7 @@ namespace StudentManagement.Models
     
         public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<Faculty_TrainingForm> Faculty_TrainingForm { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Teacher> Teachers { get; set; }
     }
 }

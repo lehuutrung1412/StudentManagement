@@ -1,12 +1,15 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Components;
 using StudentManagement.Services;
+using StudentManagement.Utils;
 using System;
 using System.Collections;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -199,7 +202,7 @@ namespace StudentManagement.ViewModels
         }
         public void  ConFirm()
         {
-            if(!OTPServices.Instance.CheckGetOTPFromEmail(Gmail,OTPInView))
+            if(!OTPServices.Instance.CheckGetOTPFromEmail(Gmail,SHA256Cryptography.Instance.EncryptString(OTPInView)))
             {
                 MyMessageBox.Show("Mã xác nhận không chính xác", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
@@ -218,7 +221,7 @@ namespace StudentManagement.ViewModels
         public string RandomOTP()
         {
             Random generator = new Random();
-            return generator.Next(0, 1000000).ToString("D6");
+            return  generator.Next(0, 1000000).ToString("D6");
         }
         public void StartCountdown()
         {
@@ -230,10 +233,7 @@ namespace StudentManagement.ViewModels
             dispatcherTimer.Start();
         }
         public void SetupAndSendOTPForEmail()
-        {
-            OTPServices.Instance.DeleteOTPOverTime();
-            OTPServices.Instance.SaveOTP(Gmail, OTP);
-
+        {       
             MailMessage mm = new MailMessage("stumanit008@gmail.com", Gmail.Trim());
             mm.Subject = OTP + " là mã khôi phục tài khoản Stuman của bạn";
             StringWriter myWriter = new StringWriter();
@@ -262,6 +262,10 @@ namespace StudentManagement.ViewModels
             StartCountdown();
 
             OTP = RandomOTP();
+
+            OTPServices.Instance.DeleteOTPOverTime();
+
+            OTPServices.Instance.SaveOTP(Gmail, SHA256Cryptography.Instance.EncryptString(OTP));
 
             SetupAndSendOTPForEmail();
             
