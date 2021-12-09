@@ -452,6 +452,7 @@
     <Compile Include="Services\InfoItemServices.cs" />
     <Compile Include="Services\FileServices.cs" />
     <Compile Include="Services\FileUploader.cs" />
+    <Compile Include="Services\LoginServices.cs" />
     <Compile Include="Services\NewsfeedServices.cs" />
     <Compile Include="Services\NotificationServices.cs" />
     <Compile Include="Services\NotificationTypeServices.cs" />
@@ -474,6 +475,7 @@
     <Compile Include="Utils\IsNumericConverter.cs" />
     <Compile Include="Utils\MultiBindingValueCompareConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
+    <Compile Include="Utils\PropertyByRoleConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\Reflection.cs" />
     <Compile Include="Utils\SHA256Cryptography.cs" />

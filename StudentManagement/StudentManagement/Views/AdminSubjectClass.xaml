@@ -37,7 +37,7 @@
                     <Grid Margin="16" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5.5*" />
-                            <ColumnDefinition Width="1.5*" />
+                            <ColumnDefinition Width="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='SearchBarOneButton'}" />
                         </Grid.ColumnDefinitions>
                         <component:SearchBarOne
                             Grid.Column="0"
@@ -56,7 +56,8 @@
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CreateSubjectClassCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
                             Content="Thêm lớp học"
-                            FontSize="14" />
+                            FontSize="14"
+                            Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}" />
                     </Grid>
                     <ItemsControl ItemsSource="{Binding SubjectClassCards}">
                         <ItemsControl.ItemsPanel>

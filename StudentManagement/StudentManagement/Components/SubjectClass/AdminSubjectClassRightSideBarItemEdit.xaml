@@ -133,7 +133,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập mã lớp học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.Code}" />
+                        Text="{Binding CurrentCard.Code, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
 
@@ -153,7 +153,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tên giáo viên"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.GiaoVien}" />
+                        Text="{Binding CurrentCard.GiaoVien, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
                 <Grid Style="{StaticResource text_grid_item}">

@@ -2,6 +2,7 @@
 using StudentManagement.Components;
 using StudentManagement.Services;
 using StudentManagement.Utils;
+using StudentManagement.Models;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -308,12 +309,22 @@ namespace StudentManagement.ViewModels
 
         public bool IsExistAccount()
         {
-            if (UserServices.Instance.CheckLogin(Username,Password))
+            try
             {
-                return true;
+                if (LoginServices.Instance.IsUserAuthentic(Username, Password))
+                {
+                    LoginServices.Instance.Login(Username);
+                    return true;
+                }
+
+                _ = MyMessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!\nVui lòng thử lại!", "Đăng nhập thất bại", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return false;
             }
-            _ = MyMessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!\nVui lòng thử lại!", "Đăng nhập thất bại", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-            return false;
+            catch
+            {
+                _ = MyMessageBox.Show("Xảy ra lỗi kết nối đến cơ sở dữ liệu!\nVui lòng thử lại!", "Đăng nhập thất bại", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return false;
+            }
         }
 
         private bool IsValid(string propertyName)

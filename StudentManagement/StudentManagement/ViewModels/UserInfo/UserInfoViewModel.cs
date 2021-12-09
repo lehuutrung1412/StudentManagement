@@ -119,7 +119,7 @@ namespace StudentManagement.ViewModels
             //    new InfoItem(Guid.NewGuid(),"Hệ",2,TrainingForm,"CNTN",false),
             //    new InfoItem(Guid.NewGuid(),"Lớp sinh hoạt",2,Class,"KHTN2019",false),
             //};
-            IdUser = DataProvider.Instance.Database.Users.FirstOrDefault(user => user.UserRole.Role.Contains("Học sinh")).Id;
+            IdUser = DataProvider.Instance.Database.Users.FirstOrDefault(user => user.UserRole.Role.Contains("Sinh viên")).Id;
             LoadInfoSource();
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
 

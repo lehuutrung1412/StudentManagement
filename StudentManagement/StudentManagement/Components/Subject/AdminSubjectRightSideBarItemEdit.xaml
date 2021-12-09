@@ -48,7 +48,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tên môn học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.DisplayName}" />
+                        Text="{Binding CurrentCard.DisplayName, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
@@ -66,7 +66,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập mã môn học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.Code}" />
+                        Text="{Binding CurrentCard.Code, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
                 <Grid Style="{StaticResource text_grid_item}">
@@ -85,7 +85,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập số tín chỉ"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.Credit}" />
+                        Text="{Binding CurrentCard.Credit, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
                 <Grid Style="{StaticResource text_grid_item}">
@@ -99,7 +99,7 @@
                             MinHeight="50"
                             AcceptsReturn="True"
                             Style="{StaticResource textbox_item}"
-                            Text="{Binding CurrentCard.Describe, FallbackValue='Mô tả môn học'}"
+                            Text="{Binding CurrentCard.Describe, UpdateSourceTrigger=PropertyChanged, FallbackValue='Mô tả môn học'}"
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </Grid>
