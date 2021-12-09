@@ -1,5 +1,5 @@
 -- USE TEMP
--- DROP DATABASE StudentManagement
+ DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -12,6 +12,8 @@ CREATE TABLE Users
   Username NVARCHAR(MAX),
   Password NVARCHAR(MAX),
   DisplayName NVARCHAR(MAX),
+  Email NVARCHAR(MAX),
+  IdOTP UNIQUEIDENTIFIER,
   --DayOfBirth DATETIME,
   --Gender INT,
   --Email NVARCHAR(MAX),
@@ -336,13 +338,21 @@ CREATE TABLE NotificationImages
 	IdDatabaseImageTable UNIQUEIDENTIFIER NULL,
 )
 
+CREATE TABLE OTP
+(
+	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+	CODE NVARCHAR(MAX),
+	Time DATETIME DEFAULT GETDATE(),
+)
+
 
 
 -- foreign key
 ALTER TABLE  Users
 ADD FOREIGN KEY (IdFaculty) REFERENCES Faculty(Id),
 FOREIGN KEY (IdAvatar) REFERENCES DatabaseImageTable(Id),
-FOREIGN KEY (IdUserRole) REFERENCES UserRole(Id)
+FOREIGN KEY (IdUserRole) REFERENCES UserRole(Id),
+FOREIGN KEY (IdOTP) REFERENCES OTP(Id)
 GO
 
 ALTER TABLE UserRole_UserInfo
@@ -490,7 +500,6 @@ FOREIGN KEY (IdNotification) REFERENCES Notification(Id),
 FOREIGN KEY (IdDatabaseImageTable) REFERENCES DatabaseImageTable(Id)
 GO
 
-
 --INSERT
 INSERT INTO dbo.Subject
   (Code, DisplayName, Credit, Describe)
@@ -536,8 +545,8 @@ GO
    (Image)
  values
    ( (SELECT *
-    --  FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
-    FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
+      FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as T1))
+    --FROM OPENROWSET(BULK N'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) as T1))
 -- INSERT INTO Faculty
 --   (DisplayName)
 -- values(N'TestFaculty')
@@ -556,9 +565,9 @@ INSERT INTO dbo.DatabaseImageTable
   (Id ,Image)
 -- SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C',* FROM OPENROWSET( Bulk 'C:\Users\DELL\Downloads\Picture\cat.1002.jpg', SINGLE_BLOB) rs
 SELECT '52FD8086-5BD4-4365-9260-ADA8B326873C', *
-FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
+--FROM OPENROWSET( Bulk 'C:\Users\vinhq\Downloads\257208768_2117614618377866_2246121709195565683_n.jpg', SINGLE_BLOB) rs
 -- FROM OPENROWSET( Bulk 'C:\Users\Trung\Downloads\a.png', SINGLE_BLOB) rs
--- FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as rs
+ FROM OPENROWSET(BULK N'C:\Users\DELL\Downloads\france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', SINGLE_BLOB) as rs
 
 INSERT INTO dbo.TrainingForm
   (Id, DisplayName)
@@ -592,16 +601,16 @@ BEGIN
   From DatabaseImageTable)
 
   INSERT INTO Users
-    (Username, Password, DisplayName,IdUserRole,IdFaculty,IdAvatar)
+    (Username, Password, DisplayName, Email,IdUserRole,IdFaculty,IdAvatar)
   values
-    ('Admin', '1', 'Admin', @IdRole, @IdFaculty, @IdAvatar)
+    ('Admin', '1', 'Admin','cuongnguyen14022001@gmail.com', @IdRole, @IdFaculty, @IdAvatar)
 END
 GO
 
 USP_InsertUserWithRole @Role = 'Admin' , @Faculty = N'Khoa học Máy tính'
 GO
-USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
-GO
+--USP_InsertUserWithRole @Role = 'Giáo viên' , @Faculty = N'Khoa học Máy tính'
+--GO
  --select *
  --from Users
 -- select *

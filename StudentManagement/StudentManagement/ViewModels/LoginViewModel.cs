@@ -94,7 +94,7 @@ namespace StudentManagement.ViewModels
                 }
                 if(!IsValidEmail(Gmail))
                 {
-                    _errorBaseViewModel.AddError(nameof(Gmail), "Địa chỉ mail không tồn tại!");
+                    _errorBaseViewModel.AddError(nameof(Gmail), "Địa chỉ mail không đúng định dạng!");
                 }    
                 OnPropertyChanged();
             }
@@ -211,7 +211,37 @@ namespace StudentManagement.ViewModels
                 MyMessageBox.Show("Cập nhật mật khẩu thất bại", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
 
-        }    
+        }
+        public string RandomOTP()
+        {
+            Random generator = new Random();
+            return generator.Next(0, 1000000).ToString("D6");
+        }
+        public void StartCountdown()
+        {
+            IsGetCode = true;
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            TimeCountDown = "60 Giây";
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Start();
+        }
+        public void SetupAndSendOTPForEmail()
+        {
+            OTPServices.Instance.DeleteOTPOverTime();
+            OTPServices.Instance.SaveOTP(Gmail, OTP);
+
+            MailMessage mm = new MailMessage("stumanit008@gmail.com", Gmail.Trim());
+            mm.Subject = OTP + " là mã khôi phục tài khoản Stuman của bạn";
+            StringWriter myWriter = new StringWriter();
+            mm.Body = string.Format("Xin chào,\nChúng tôi đã nhận được yêu cầu đặt lại mật khẩu Stuman của bạn. Nhập mã sau đây để đặt lại mật khẩu:\n\n{0}\n\nThank You.", OTP);
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.Credentials = new NetworkCredential("stumanit008@gmail.com", "Dragonball123");
+            smtp.EnableSsl = true;
+            smtp.Send(mm);
+        }
 
         public void GetOPT()
         {
@@ -224,33 +254,14 @@ namespace StudentManagement.ViewModels
             {
                 MyMessageBox.Show("Địa chỉ mail không hợp lệ", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
-            }    
+            }
 
-            IsGetCode = true;
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            TimeCountDown = "60 Giây";
-            dispatcherTimer.Interval = new TimeSpan(0,0,1);
-            dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Start();
+            StartCountdown();
 
-            Random generator = new Random();
-            OTP= generator.Next(0, 1000000).ToString("D6");
+            OTP = RandomOTP();
 
-            OTPServices.Instance.DeleteOTPOverTime();
-            OTPServices.Instance.SaveOTP(Gmail,OTP);
-
-            MailMessage mm = new MailMessage("stumanit008@gmail.com", Gmail.Trim());
-            mm.Subject = OTP + " là mã khôi phục tài khoản Stuman của bạn";
-            StringWriter myWriter = new StringWriter();
-            mm.Body = string.Format("Xin chào,\nChúng tôi đã nhận được yêu cầu đặt lại mật khẩu Stuman của bạn. Nhập mã sau đây để đặt lại mật khẩu:\n\n{0}\n\nThank You.",OTP);
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            //smtp.UseDefaultCredentials = true;
-            smtp.Credentials = new NetworkCredential("stumanit008@gmail.com", "Dragonball123");
-            //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtp.EnableSsl = true;
-            smtp.Send(mm);
+            SetupAndSendOTPForEmail();
+            
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
