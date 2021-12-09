@@ -32,7 +32,8 @@
                     Text="Danh sách môn học" />
                 <Grid Margin="16" DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5.5*" />
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="1.5*" />
                         <ColumnDefinition Width="1.5*" />
                     </Grid.ColumnDefinitions>
                     <component:SearchBarOne
@@ -49,7 +50,16 @@
                     <Button
                         Grid.Column="1"
                         Height="50"
-                        Margin="16,0,0,0"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Top"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        Command="{Binding AddFromExcelCommand}"
+                        Content="Thêm từ Excel"
+                        FontSize="16" />
+                    <Button
+                        Grid.Column="2"
+                        Height="50"
+                        Margin="8,0,0,0"
                         VerticalAlignment="Top"
                         materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding CreateSubjectCardInfo, Source={StaticResource AdminSubjectRightSideBarVM}}"

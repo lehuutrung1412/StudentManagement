@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Models;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -109,6 +110,23 @@ namespace StudentManagement.Objects
                 }
             }
             return false;
+        }
+
+        public bool IsEqualProperty(SubjectClass a)
+        {
+            return
+            this.Teachers.FirstOrDefault() == a.Teachers.FirstOrDefault() &&
+            this.Semester == a.Semester &&
+            this.Subject == a.Subject &&
+            this.StartDate == a.StartDate &&
+            this.EndDate == a.EndDate &&
+            this.Period == a.Period &&
+            this.WeekDay == a.WeekDay &&
+            this.Code == a.Code &&
+            this.TrainingForm == a.TrainingForm &&
+            this.MaxNumberOfStudents == a.MaxNumberOfStudents &&
+            this.IdThumbnail == a.IdThumbnail &&
+            this.DatabaseImageTable == a.DatabaseImageTable;
         }
     }
 }

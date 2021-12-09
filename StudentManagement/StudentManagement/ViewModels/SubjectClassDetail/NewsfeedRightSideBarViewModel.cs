@@ -144,7 +144,7 @@ namespace StudentManagement.ViewModels
             {
                 DateTime dateStart = (DateTime)SubjectClassDetail.StartDate;
                 DateTime dateEnd = (DateTime)SubjectClassDetail.EndDate;
-                int weekDay = 1;//SubjectClassDetail.WeekDay;
+                int weekDay = (int)SubjectClassDetail.WeekDay;
                 SchedulePeriod = SubjectClassDetail.Period;
 
                 for (DateTime date = dateStart.AddDays(weekDay); date <= dateEnd.AddDays(7); date = date.AddDays(7))

@@ -53,16 +53,14 @@ namespace StudentManagement.ViewModels
         }
         public StudentScheduleTableViewModel()
         {
-            //Instance = this;
-            //CurrentStudent = StudentServices.Instance.GetFirstStudent();
-            //UpdateData();
+            Instance = this;
+            CurrentStudent = StudentServices.Instance.GetFirstStudent();
+            UpdateData();
         }
         public void UpdateScheduleItems()
         {
             if (SelectedSemester == null)
                 return;
-
-            ScheduleItems = new ObservableCollection<ScheduleItem>();
             foreach (SubjectClass item in CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(SelectedSemester.Id, CurrentStudent.Id))
             {
                 ScheduleItem temp = new ScheduleItem(item);
@@ -72,16 +70,17 @@ namespace StudentManagement.ViewModels
 
         public void UpdateData()
         {
-            //Semesters = SemesterServices.Instance.LoadListSemestersByStudentId(CurrentStudent.Id);
-            //if (Semesters.Count == 0)
-            //{
-            //    SelectedSemester = null;
-            //    ScheduleItems = new ObservableCollection<ScheduleItem>();
-            //    return;
-            //}
-            //SelectedSemester = Semesters.Last();
-            //ScheduleItems = new ObservableCollection<ScheduleItem>();
-            //UpdateScheduleItems();
+            Semesters = SemesterServices.Instance.LoadListSemestersByStudentIdAndSemesterStatuses(CurrentStudent.Id, new bool[]{false, false, true });
+            if (Semesters.Count == 0)
+            {
+                ScheduleItems = new ObservableCollection<ScheduleItem>();
+                SelectedSemester = null;
+                return;
+            }
+            ScheduleItems = new ObservableCollection<ScheduleItem>();
+
+            SelectedSemester = Semesters.LastOrDefault();
+            UpdateScheduleItems();
         }
     }
 }

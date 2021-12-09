@@ -34,7 +34,7 @@ namespace StudentManagement.Objects
             else
                 this.Start = Convert.ToInt32(temp[0] - '0') - 1;
             List<string> DaysofWeek = new List<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
-            Day = DaysofWeek.IndexOf(a.WeekDay);
+            Day = (int)a.WeekDay;
             this.SubjectClassCode = a.Code;
             this.SubjectName = a.Subject.DisplayName;
             this.Count = a.NumberOfStudents.ToString();

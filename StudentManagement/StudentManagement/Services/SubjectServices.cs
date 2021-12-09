@@ -4,6 +4,7 @@ using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,20 +74,18 @@ namespace StudentManagement.Services
         /// Save Subject To Database
         /// </summary>
         /// <param name="subject"></param>
-        public void SaveSubjectToDatabase(Subject subject)
+        public bool SaveSubjectToDatabase(Subject subject)
         {
-            Subject savedSubject = FindSubjectBySubjectId(subject.Id);
-
-            if (savedSubject == null)
+            try
             {
-                DataProvider.Instance.Database.Subjects.Add(subject);
+                DataProvider.Instance.Database.Subjects.AddOrUpdate(subject);
+                DataProvider.Instance.Database.SaveChanges();
+                return true;
             }
-            else
+            catch
             {
-                //savedSubject = (subject.ShallowCopy() as Subject);
-                Reflection.CopyProperties(subject, savedSubject);
+                return false;
             }
-            DataProvider.Instance.Database.SaveChanges();
         }
 
         /// <summary>

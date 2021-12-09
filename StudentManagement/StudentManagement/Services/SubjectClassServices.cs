@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -68,20 +69,8 @@ namespace StudentManagement.Services
         {
             try
             {
-
-                SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
-
-                if (savedSubjectClass == null)
-                {
-                    DataProvider.Instance.Database.SubjectClasses.Add(subjectClass);
-                }
-                else
-                {
-                    //savedSubjectClass = (subjectClass.ShallowCopy() as SubjectClass);
-                    Reflection.CopyProperties(subjectClass, savedSubjectClass);
-                }
+                DataProvider.Instance.Database.SubjectClasses.AddOrUpdate(subjectClass);
                 DataProvider.Instance.Database.SaveChanges();
-
                 return true;
             }
             catch (DbEntityValidationException e)
@@ -119,6 +108,10 @@ namespace StudentManagement.Services
             try
             {
                 SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
+
+                if (savedSubjectClass.CourseRegisters.Count() > 0)
+
+                    return false;
 
                 DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
 
@@ -242,5 +235,19 @@ namespace StudentManagement.Services
                 return false;
             }
         }
+
+        public void UpdateIds(SubjectClass a)
+        {
+            if (a.Semester != null)
+                a.IdSemester = a.Semester.Id;
+            if (a.Subject != null)
+                a.IdSubject = a.Subject.Id;
+            if (a.TrainingForm != null)
+                a.IdTrainingForm = a.TrainingForm.Id;
+            if (a.DatabaseImageTable != null)
+                a.IdThumbnail = a.DatabaseImageTable.Id;
+        }
+
+        public List<string> DayOfWeeks = new List<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
     }
 }

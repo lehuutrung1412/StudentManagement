@@ -209,7 +209,7 @@ CREATE TABLE SubjectClass
   EndDate DateTime NULL,
   IdSemester UNIQUEIDENTIFIER NULL,
   Period NVARCHAR(MAX) NULL,
-  WeekDay NVARCHAR(MAX) NULL,
+  WeekDay INT NULL,
   IdThumbnail UNIQUEIDENTIFIER NULL,
   IdTrainingForm UNIQUEIDENTIFIER NULL,
   Code NVARCHAR(MAX) NOT NULL,
@@ -514,8 +514,6 @@ GO
 INSERT INTO dbo.Semester
   (DisplayName, Batch, CourseRegisterStatus)
 VALUES
-  (N'Học kỳ 1', N'2019-2020', 0),
-  (N'Học kỳ 2', N'2019-2020', 0),
   (N'Học kỳ 1', N'2020-2021', 0)
 GO
 

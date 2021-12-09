@@ -222,7 +222,7 @@
           <Property Name="EndDate" Type="datetime" />
           <Property Name="IdSemester" Type="uniqueidentifier" />
           <Property Name="Period" Type="nvarchar(max)" />
-          <Property Name="WeekDay" Type="nvarchar(max)" />
+          <Property Name="WeekDay" Type="int" />
           <Property Name="IdThumbnail" Type="uniqueidentifier" />
           <Property Name="IdTrainingForm" Type="uniqueidentifier" />
           <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
@@ -1718,7 +1718,7 @@
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="IdSemester" Type="Guid" />
           <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="WeekDay" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WeekDay" Type="Int32" />
           <Property Name="IdThumbnail" Type="Guid" />
           <Property Name="IdTrainingForm" Type="Guid" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />

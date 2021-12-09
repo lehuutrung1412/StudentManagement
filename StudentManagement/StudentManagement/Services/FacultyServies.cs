@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,18 +74,7 @@ namespace StudentManagement.Services
         {
             try
             {
-                Faculty savedFaculty = FindFacultyByFacultyId(faculty.Id);
-
-                if (savedFaculty == null)
-                {
-                    DataProvider.Instance.Database.Faculties.Add(faculty);
-                }
-                else
-                {
-                    Reflection.CopyProperties(faculty, savedFaculty);
-                    //savedFaculty.FoundationDay = faculty.FoundationDay;
-                    //savedFaculty.DisplayName = faculty.DisplayName;
-                }
+                DataProvider.Instance.Database.Faculties.AddOrUpdate(faculty);
                 DataProvider.Instance.Database.SaveChanges();
                 return true;
             }

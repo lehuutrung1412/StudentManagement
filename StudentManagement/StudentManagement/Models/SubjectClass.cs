@@ -41,8 +41,8 @@ namespace StudentManagement.Models
         public Nullable<System.Guid> IdSemester { get => _idSemester; set { _idSemester = value; OnPropertyChanged(); } }
         private string _period { get; set; }
         public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
-        private string _weekDay { get; set; }
-        public string WeekDay { get => _weekDay; set { _weekDay = value; OnPropertyChanged(); } }
+        private Nullable<int> _weekDay { get; set; }
+        public Nullable<int> WeekDay { get => _weekDay; set { _weekDay = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idThumbnail { get; set; }
         public Nullable<System.Guid> IdThumbnail { get => _idThumbnail; set { _idThumbnail = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idTrainingForm { get; set; }

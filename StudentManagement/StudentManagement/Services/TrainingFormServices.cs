@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,19 +75,18 @@ namespace StudentManagement.Services
         /// Save TrainingForm To Database
         /// </summary>
         /// <param name="trainingForm"></param>
-        public void SaveTrainingFormToDatabase(TrainingForm trainingForm)
+        public bool SaveTrainingFormToDatabase(TrainingForm trainingForm)
         {
-            TrainingForm savedTrainingForm = FindTrainingFormByTrainingFormId(trainingForm.Id);
-
-            if (savedTrainingForm == null)
+            try
             {
-                DataProvider.Instance.Database.TrainingForms.Add(trainingForm);
+                DataProvider.Instance.Database.TrainingForms.AddOrUpdate(trainingForm);
+                DataProvider.Instance.Database.SaveChanges();
+                return true;
             }
-            else
+            catch
             {
-                Reflection.CopyProperties(trainingForm, savedTrainingForm);
+                return false;
             }
-            DataProvider.Instance.Database.SaveChanges();
         }
 
         /// <summary>

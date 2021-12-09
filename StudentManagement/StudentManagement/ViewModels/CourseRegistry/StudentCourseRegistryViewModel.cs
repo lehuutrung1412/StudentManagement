@@ -95,8 +95,7 @@ namespace StudentManagement.ViewModels
         private ICommand _switchSearchButtonCommand;
         public ICommand SwitchSearchButtonCommand { get => _switchSearchButtonCommand; set => _switchSearchButtonCommand = value; }
 
-        public ICommand CourseCheckedCommand { get; set; }
-        public ICommand CourseUncheckedCommand { get; set; }
+        public ICommand CourseCheckChangedCommand { get; set; }
         #endregion
 
         private static StudentCourseRegistryViewModel s_instance;
@@ -118,38 +117,45 @@ namespace StudentManagement.ViewModels
 
         public void UpdateData()
         {
-            try
-            {
-                UpdateSemester();
-                CurrentStudent = StudentServices.Instance.GetFirstStudent();
-                if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
-                {
-                    CourseRegistryItems1 = new ObservableCollection<CourseItem>();
-                    CourseRegistryItems2 = new ObservableCollection<CourseItem>();
-                }
-                else
-                {
-                    CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
-                    CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
-                }
-                CourseRegistryItems2Display = CourseRegistryItems2;
-                UploadConflictCourseRegistry();
-                TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
-                UpdateScheduleItems();
-            }
-            catch
-            {
+            UpdateSemester();
+            CurrentStudent = StudentServices.Instance.GetFirstStudent();
 
+            if (CurrentSemester == null || CurrentStudent == null)
+            {
+                CourseRegistryItems1 = new ObservableCollection<CourseItem>();
+                CourseRegistryItems2 = new ObservableCollection<CourseItem>();
             }
+            else
+            {
+                CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+                CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+                UpdateScheduleItems();
+                UploadConflictCourseRegistry();
+            }
+            CourseRegistryItems2Display = CourseRegistryItems2;
+            TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
+            StudentScheduleTableViewModel.Instance.UpdateData();
+
         }
         public void InitCommand()
         {
-            RegisterCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => RegisterSelectedCourses());
-            UnregisterCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => UnregisterSelectedCourses());
+            RegisterCommand = new RelayCommand<UserControl>((p) =>
+            {
+                foreach (CourseItem course in CourseRegistryItems2)
+                    if (course.IsSelected)
+                        return true;
+                return false;
+            }, (p) => RegisterSelectedCourses());
+            UnregisterCommand = new RelayCommand<UserControl>((p) => 
+            {
+                foreach (CourseItem course in CourseRegistryItems1)
+                    if (course.IsSelected)
+                        return true;
+                return false;
+            }, (p) => UnregisterSelectedCourses());
             SearchCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => Search());
             SwitchSearchButtonCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButton());
-            CourseCheckedCommand = new RelayCommand<DataGridBeginningEditEventArgs>((p) => { return true; }, (p) => CourseChecked(p));
-            CourseUncheckedCommand = new RelayCommand<DataGridRowEditEndingEventArgs>((p) => { return true; }, (p) => CourseUnchecked(p));
+            CourseCheckChangedCommand = new RelayCommand<DataGridBeginningEditEventArgs>((p) => { return true; }, (p) => CourseCheckChanged(p));
         }
 
         public void UpdateSemester()
@@ -246,7 +252,7 @@ namespace StudentManagement.ViewModels
             if (CourseRegistryItems2.Where(course => course.Id == SelectedScheduleItem2.Id).Count() != 0)
                 ScheduleItemsRegistered.Add(SelectedScheduleItem2);
         }
-        public void CourseChecked(DataGridBeginningEditEventArgs e)
+        public void CourseCheckChanged(DataGridBeginningEditEventArgs e)
         {
             CourseItem editCourseItem = e.Row.Item as CourseItem;
             if (editCourseItem.IsConflict)
@@ -277,17 +283,15 @@ namespace StudentManagement.ViewModels
                         continue;
                     if (course == editCourseItem)
                         continue;
-                    course.IsConflict = CourseItem.IsConflictCourseRegistry(CourseRegistryItemsChecked, course);
+                    course.IsConflict = CourseItem.IsConflictCourseRegistry(CourseRegistryItemsChecked, course) || CourseItem.IsConflictCourseRegistry(CourseRegistryItems1, course);
                 }
                 ScheduleItem thisSchedule = ScheduleItemsRegistered.Where(schedule => schedule.Id == editCourseItem.Id).FirstOrDefault();
                 ScheduleItemsRegistered.Remove(thisSchedule);
             }
+            editCourseItem.IsSelected = !editCourseItem.IsSelected;
             e.Cancel = true;
         }
-        public void CourseUnchecked(DataGridRowEditEndingEventArgs e)
-        {
 
-        }
         #endregion
     }
 }

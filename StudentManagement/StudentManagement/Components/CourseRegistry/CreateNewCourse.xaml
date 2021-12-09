@@ -61,6 +61,7 @@
                                     Name="cbSubject"
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Chọn tên môn học"
+                                    materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                                     ItemsSource="{Binding Subjects}"
                                     SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource combobox_item}">
@@ -86,6 +87,7 @@
                                     Name="cbTF"
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Chọn tên hệ đào tạo"
+                                    materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                                     ItemsSource="{Binding TrainingForms}"
                                     SelectedItem="{Binding SelectedTF, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource combobox_item}">
@@ -154,6 +156,7 @@
                                 <ComboBox
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Chọn thứ"
+                                    materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                                     ItemsSource="{Binding DayOfWeeks}"
                                     SelectedItem="{Binding SelectedDay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource combobox_item}" />
