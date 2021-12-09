@@ -23,23 +23,21 @@
         BorderThickness="0. 0. 0.5 0.5">
         <StackPanel VerticalAlignment="Center">
             <StackPanel.Style>
-                <Style
-                    TargetType="{x:Type StackPanel}">
+                <Style TargetType="{x:Type StackPanel}">
                     <Style.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsDetail}"
-                            Value="False">
-                            <Setter
-                                Property="ToolTip">
+                        <DataTrigger Binding="{Binding IsDetail}" Value="False">
+                            <Setter Property="ToolTip">
                                 <Setter.Value>
-                                    <MultiBinding
-                                        Converter="{StaticResource math}"
-                                        ConverterParameter="format(&quot;{0}\n {1}&quot;, x, y)">
+                                    <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}\n{1}\n{2}&quot;, x, y, z)">
+                                        <Binding Path="SubjectName" />
                                         <Binding
-                                            Path="SubjectName" />
+                                            Converter="{StaticResource math}"
+                                            ConverterParameter="format(&quot;GV: {0}&quot;, x)"
+                                            Path="TeacherName" />
                                         <Binding
-                                            Path="TeacherName"
-                                            ConverterParameter='format(&quot;GV: {0}&quot;, x)' Converter="{StaticResource math}" />
+                                            Converter="{StaticResource math}"
+                                            ConverterParameter="format((x == 0 ? &quot;Đã đăng ký&quot; : (x == 1 ? &quot;Đang chọn&quot; : (x == 2 ? &quot;Red&quot; : &quot;Đã chọn (checked)&quot;))), x)"
+                                            Path="Type" />
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>
@@ -57,7 +55,7 @@
                 Text="{Binding SubjectName, FallbackValue='Tên môn học'}"
                 TextAlignment="Center"
                 TextWrapping="WrapWithOverflow"
-                Visibility="{Binding Path=IsDetail, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                Visibility="{Binding Path=IsDetail, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <TextBlock
                 HorizontalAlignment="Center"
                 Text="{Binding Count, FallbackValue='Sĩ số: x', Converter={StaticResource math}, ConverterParameter='format(&quot;Sĩ số: {0}&quot;, x)'}"

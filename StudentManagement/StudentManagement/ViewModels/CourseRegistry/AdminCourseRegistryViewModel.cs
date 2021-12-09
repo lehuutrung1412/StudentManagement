@@ -361,7 +361,7 @@ namespace StudentManagement.ViewModels
                                 StartDate = Convert.ToDateTime(course[1]),                                                  //Column StartDate Date
                                 EndDate = Convert.ToDateTime(course[2]),                                                  //Column EndDate Date
                                 Period = Convert.ToString(course[3]),                                                       //Column Period NVARCHAR
-                                WeekDay = Convert.ToString(course[4]),                                                      //Column WeekDay NVARCHAR
+                                WeekDay = Convert.ToInt32(course[4]),                                                      //Column WeekDay NVARCHAR
                                 Code = Convert.ToString(course[5]),
                                 MaxNumberOfStudents = Convert.ToInt32(course[6]),
                                 TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(tf => tf.DisplayName.Equals(TFName)).FirstOrDefault(),

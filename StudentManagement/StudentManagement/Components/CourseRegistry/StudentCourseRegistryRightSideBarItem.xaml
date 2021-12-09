@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
@@ -17,44 +18,40 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <math:MathConverter x:Key="math" />
+    </UserControl.Resources>
     <Grid>
-        <StackPanel
-            Margin="8">
+        <StackPanel Margin="8">
             <TextBlock
                 FontSize="28"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 TextWrapping="Wrap">
-                <Run
-                    Text="{Binding CurrentItem.Code, FallbackValue='Mã lớp học'}" />
+                <Run Text="{Binding CurrentItem.Code, FallbackValue='Mã lớp học'}" />
             </TextBlock>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="43*" />
-                    <ColumnDefinition
-                        Width="147*" />
-                    <ColumnDefinition
-                        Width="190*" />
+                    <ColumnDefinition Width="43*" />
+                    <ColumnDefinition Width="147*" />
+                    <ColumnDefinition Width="190*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
                     Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="4,0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
-                    Text="Môn học:"
-                    Grid.ColumnSpan="2"
-                    Margin="4 0" />
+                    Text="Môn học:" />
                 <TextBlock
                     Grid.Column="2"
+                    Margin="4,0"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding CurrentItem.Subject.DisplayName, FallbackValue='Ten Mon Hoc'}"
-                    TextAlignment="Right"
-                    Margin="4 0" />
+                    TextAlignment="Right" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -71,8 +68,7 @@
                     Text="{Binding TeacherName, FallbackValue='Chưa có'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -89,8 +85,7 @@
                     Text="{Binding CurrentItem.StartDate, StringFormat='dd/MM/yyyy', FallbackValue='01/01/2001'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -107,8 +102,7 @@
                     Text="{Binding CurrentItem.EndDate, StringFormat='dd/MM/yyyy', FallbackValue='30/01/2001'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid
-                Style="{StaticResource text_grid_item}">
+            <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -124,12 +118,12 @@
                     Style="{StaticResource textblock_item}"
                     TextAlignment="Right">
                     <TextBlock.Text>
-                        <MultiBinding
-                            StringFormat="{}{0}, Tiết {1}">
+                        <MultiBinding StringFormat="Thứ {0}, Tiết {1}">
                             <Binding
+                                Converter="{StaticResource math}"
+                                ConverterParameter="x+2"
                                 Path="CurrentItem.WeekDay" />
-                            <Binding
-                                Path="CurrentItem.Period" />
+                            <Binding Path="CurrentItem.Period" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>

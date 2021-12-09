@@ -466,6 +466,7 @@
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\FileSizeConverter.cs" />
+    <Compile Include="Utils\IntToDateOfWeekConverter.cs" />
     <Compile Include="Utils\IsNullConverter.cs" />
     <Compile Include="Utils\IsNumericConverter.cs" />
     <Compile Include="Utils\MultiBindingValueCompareConverter.cs" />

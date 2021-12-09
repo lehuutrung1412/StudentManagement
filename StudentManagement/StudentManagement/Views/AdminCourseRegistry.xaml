@@ -12,6 +12,7 @@
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
     xmlns:views="clr-namespace:StudentManagement.Views"
+    x:Name="AdminCourseRegister"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{StaticResource CenterColumn}"
@@ -22,54 +23,34 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    x:Name="AdminCourseRegister"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <math:MathConverter
-            x:Key="math" />
+        <math:MathConverter x:Key="math" />
     </UserControl.Resources>
-    <materialDesign:Card
-        Margin="8"
-        Style="{StaticResource CardContainer}">
-        <materialDesign:DialogHost
-            CloseOnClickAway="True">
+    <materialDesign:Card Margin="8" Style="{StaticResource CardContainer}">
+        <materialDesign:DialogHost CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
-                <ContentControl
-                    Content="{Binding DialogItemViewModel}"
-                    DataContext="{Binding ElementName=AdminCourseRegister, Path=DataContext}">
+                <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{Binding ElementName=AdminCourseRegister, Path=DataContext}">
                     <ContentControl.Resources>
-                        <DataTemplate
-                            DataType="{x:Type viewmodels:CreateNewCourseViewModel}">
-                            <component:CreateNewCourse
-                                Width="600"
-                                Height="600" />
+                        <DataTemplate DataType="{x:Type viewmodels:CreateNewCourseViewModel}">
+                            <component:CreateNewCourse Width="600" Height="600" />
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
             </materialDesign:DialogHost.DialogContent>
-            <Grid
-                Margin="8">
+            <Grid Margin="8">
                 <Grid.RowDefinitions>
-                    <RowDefinition
-                        Height="auto" />
-                    <RowDefinition
-                        Height="auto" />
-                    <RowDefinition
-                        Height="auto" />
-                    <RowDefinition
-                        Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <Grid
-                    Grid.Row="0">
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            Width="auto" />
-                        <ColumnDefinition
-                            Width="auto" />
-                        <ColumnDefinition
-                            Width="auto" />
-                        <ColumnDefinition
-                            Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <ComboBox
                         x:Name="cbSemester"
@@ -93,13 +74,9 @@
                             <DataTemplate>
                                 <TextBlock>
                                     <TextBlock.Text>
-                                        <MultiBinding
-                                            Converter="{StaticResource math}"
-                                            ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
-                                            <Binding
-                                                Path="Batch" />
-                                            <Binding
-                                                Path="DisplayName"/>
+                                        <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
+                                            <Binding Path="Batch" />
+                                            <Binding Path="DisplayName" />
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
@@ -118,42 +95,27 @@
                         FontWeight="Bold"
                         Foreground="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Green&quot; : (x == 1 ? &quot;Red&quot; : &quot;Gray&quot;)), x)'}"
                         Text="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Tạm đóng&quot; : (x == 1 ? &quot;Đang mở&quot; : &quot;Kết thúc&quot;)), x)'}" />
-                    <DockPanel
-                        Grid.Column="3"
-                        LastChildFill="False">
+                    <DockPanel Grid.Column="3" LastChildFill="False">
                         <Button
                             Background="Transparent"
                             BorderThickness="0"
                             DockPanel.Dock="Left">
                             <Button.Style>
-                                <Style
-                                    TargetType="Button"
-                                    BasedOn="{StaticResource MaterialDesignIconButton}">
+                                <Style BasedOn="{StaticResource MaterialDesignIconButton}" TargetType="Button">
                                     <Style.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding ElementName=cbSemester, Path=SelectedIndex}"
-                                            Value="-1">
-                                            <Setter
-                                                Property="IsEnabled"
-                                                Value="False" />
+                                        <DataTrigger Binding="{Binding ElementName=cbSemester, Path=SelectedIndex}" Value="-1">
+                                            <Setter Property="IsEnabled" Value="False" />
                                         </DataTrigger>
 
-                                        <Trigger
-                                            Property="IsMouseOver"
-                                            Value="True">
-                                            <Setter
-                                                Property="Background"
-                                                Value="Transparent" />
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
-                            <materialDesign:PopupBox
-                                PlacementMode="BottomAndAlignRightEdges"
-                                StaysOpen="False">
+                            <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                                 <materialDesign:PopupBox.ToggleContent>
-                                    <materialDesign:PackIcon
-                                        Kind="Hammer" />
+                                    <materialDesign:PackIcon Kind="Hammer" />
                                 </materialDesign:PopupBox.ToggleContent>
                                 <StackPanel>
                                     <Button
@@ -178,8 +140,8 @@
                             </materialDesign:PopupBox>
                         </Button>
                         <Button
+                            Margin="0,0,24,0"
                             DockPanel.Dock="Right"
-                            Margin="0 0 24 0"
                             Style="{StaticResource rounded_btn}">
                             <materialDesign:PopupBox
                                 PlacementMode="BottomAndAlignRightEdges"
@@ -196,28 +158,24 @@
                         </Button>
                     </DockPanel>
                 </Grid>
-                <Grid
-                    Grid.Row="1">
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            Width="173*" />
-                        <ColumnDefinition
-                            Width="1323*" />
-                        <ColumnDefinition
-                            Width="auto" />
+                        <ColumnDefinition Width="173*" />
+                        <ColumnDefinition Width="1323*" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <component:SearchBarOne
-                        DataContext="{DynamicResource AdminCourseRegistryVM }"
                         Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,0,0,0.2"
+                        DataContext="{DynamicResource AdminCourseRegistryVM}"
                         DatePickerVisibility="False"
                         FirstSearchButtonText="Mã lớp"
                         IsFirstSearchButtonEnabled="{Binding IsFirstSearchButtonEnabled}"
                         SearchCommand="{Binding SearchCourseRegistryItems}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SecondSearchButtonText="Tên lớp học"
-                        SwitchSearchButton="{Binding SwitchSearchButton}"
-                        Grid.ColumnSpan="2"
-                        Margin="0,0,0,0.2" />
+                        SwitchSearchButton="{Binding SwitchSearchButton}" />
                 </Grid>
                 <DockPanel
                     Grid.Row="2"
@@ -248,10 +206,8 @@
                         FontSize="14"
                         Style="{StaticResource rounded_btn}">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger
-                                EventName="Click">
-                                <i:InvokeCommandAction
-                                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
@@ -268,8 +224,8 @@
                     Grid.Row="3"
                     Margin="0,8,0,8"
                     Data="{Binding CourseRegistryItemsDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     DataContext="{Binding ElementName=AdminCourseRegister, Path=DataContext}"
+                    IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource AdminCourseRegistryRightSideBarVM}}" />
             </Grid>
         </materialDesign:DialogHost>

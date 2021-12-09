@@ -6,6 +6,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="CourseDataGrid"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -16,6 +17,10 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <math:MathConverter
+            x:Key="math" />
+    </UserControl.Resources>
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <DataGrid
@@ -109,9 +114,10 @@
                         </DataGridTextColumn.ElementStyle>
                     </materialDesign:DataGridTextColumn>
                     <DataGridTextColumn
-                        Binding="{Binding WeekDay, Mode=OneWay}"
+                        Binding="{Binding WeekDay, Mode=OneWay, Converter={StaticResource math}, ConverterParameter='x+2'}"
                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="Thứ" />
+                        Header="Thứ">
+                    </DataGridTextColumn>
                     <materialDesign:DataGridTextColumn
                         Binding="{Binding Period, Mode=OneWay}"
                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"

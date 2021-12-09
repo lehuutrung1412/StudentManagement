@@ -257,5 +257,7 @@ namespace StudentManagement.Services
             if (a.DatabaseImageTable != null)
                 a.IdThumbnail = a.DatabaseImageTable.Id;
         }
+
+        public List<string> DayOfWeeks = new List<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
     }
 }

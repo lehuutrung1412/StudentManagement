@@ -4,37 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5dafb0093ee24387b2518b14491b26b9" Name="Diagram1" ZoomLevel="39">
-        <EntityTypeShape EntityType="StudentManagementModel.AbsentCalendar" Width="1.5" PointX="8.25" PointY="54.125" />
-        <EntityTypeShape EntityType="StudentManagementModel.Admin" Width="1.5" PointX="5.25" PointY="35.5" />
-        <EntityTypeShape EntityType="StudentManagementModel.Class" Width="1.5" PointX="6" PointY="20.75" />
-        <EntityTypeShape EntityType="StudentManagementModel.ComponentScore" Width="1.5" PointX="8.25" PointY="48.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.CourseRegister" Width="1.5" PointX="13.5" PointY="24.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.DatabaseImageTable" Width="1.5" PointX="0.75" PointY="25.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.DetailScore" Width="1.5" PointX="10.5" PointY="35.5" />
-        <EntityTypeShape EntityType="StudentManagementModel.Document" Width="1.5" PointX="13.5" PointY="27.5" />
-        <EntityTypeShape EntityType="StudentManagementModel.Examination" Width="1.5" PointX="8.25" PointY="51.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.Faculty" Width="1.5" PointX="3.75" PointY="15.125" />
-        <EntityTypeShape EntityType="StudentManagementModel.Faculty_TrainingForm" Width="1.5" PointX="13" PointY="20.75" />
-        <EntityTypeShape EntityType="StudentManagementModel.Folder" Width="1.5" PointX="8.25" PointY="28.875" />
-        <EntityTypeShape EntityType="StudentManagementModel.Notification" Width="1.5" PointX="11.25" PointY="27.125" />
-        <EntityTypeShape EntityType="StudentManagementModel.NotificationComment" Width="1.5" PointX="16.5" PointY="29.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.NotificationImage" Width="1.5" PointX="6" PointY="25.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.NotificationInfo" Width="1.5" PointX="16.5" PointY="26.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.NotificationType" Width="1.5" PointX="9" PointY="32.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.Semester" Width="1.5" PointX="3.75" PointY="30" />
-        <EntityTypeShape EntityType="StudentManagementModel.Student" Width="1.5" PointX="8.25" PointY="20.625" />
-        <EntityTypeShape EntityType="StudentManagementModel.StudyResult" Width="1.5" PointX="10.5" PointY="23.5" />
-        <EntityTypeShape EntityType="StudentManagementModel.Subject" Width="1.5" PointX="3.75" PointY="41.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.SubjectClass" Width="1.5" PointX="6" PointY="28.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.Teacher" Width="1.5" PointX="11.25" PointY="31.875" />
-        <EntityTypeShape EntityType="StudentManagementModel.TrainingForm" Width="1.5" PointX="3.75" PointY="38.125" />
-        <EntityTypeShape EntityType="StudentManagementModel.TrainingScore" Width="1.5" PointX="10.5" PointY="20.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.User_UserRole_UserInfo" Width="1.5" PointX="8.25" PointY="25.25" />
-        <EntityTypeShape EntityType="StudentManagementModel.UserRole" Width="1.5" PointX="0.75" PointY="22.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.UserRole_UserInfo" Width="1.5" PointX="6" PointY="17" />
-        <EntityTypeShape EntityType="StudentManagementModel.UserRole_UserInfoItem" Width="1.5" PointX="8.25" PointY="17.375" />
-        <EntityTypeShape EntityType="StudentManagementModel.User" Width="1.5" PointX="3" PointY="23.875" />
+      <Diagram DiagramId="5dafb0093ee24387b2518b14491b26b9" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="StudentManagementModel.AbsentCalendar" Width="1.5" PointX="5.25" PointY="32" />
+        <EntityTypeShape EntityType="StudentManagementModel.Admin" Width="1.5" PointX="5.25" PointY="12.375" />
+        <EntityTypeShape EntityType="StudentManagementModel.Class" Width="1.5" PointX="3" PointY="28.5" />
+        <EntityTypeShape EntityType="StudentManagementModel.ComponentScore" Width="1.5" PointX="5.25" PointY="34.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.CourseRegister" Width="1.5" PointX="10.25" PointY="21.5" />
+        <EntityTypeShape EntityType="StudentManagementModel.DatabaseImageTable" Width="1.5" PointX="0.75" PointY="19.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.DetailScore" Width="1.5" PointX="8.25" PointY="29.625" />
+        <EntityTypeShape EntityType="StudentManagementModel.Document" Width="1.5" PointX="7.5" PointY="19.5" />
+        <EntityTypeShape EntityType="StudentManagementModel.Examination" Width="1.5" PointX="5.25" PointY="37.75" />
+        <EntityTypeShape EntityType="StudentManagementModel.Faculty" Width="1.5" PointX="6" PointY="8.75" />
+        <EntityTypeShape EntityType="StudentManagementModel.Faculty_TrainingForm" Width="1.5" PointX="3" PointY="24.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.Folder" Width="1.5" PointX="5.25" PointY="19.75" />
+        <EntityTypeShape EntityType="StudentManagementModel.Notification" Width="1.5" PointX="5.25" PointY="15" />
+        <EntityTypeShape EntityType="StudentManagementModel.NotificationComment" Width="1.5" PointX="10.5" PointY="15.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.NotificationImage" Width="1.5" PointX="10.5" PointY="13" />
+        <EntityTypeShape EntityType="StudentManagementModel.NotificationInfo" Width="1.5" PointX="7.5" PointY="12.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.NotificationType" Width="1.5" PointX="3" PointY="13.375" />
+        <EntityTypeShape EntityType="StudentManagementModel.Semester" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="StudentManagementModel.Student" Width="1.5" PointX="6" PointY="24.375" />
+        <EntityTypeShape EntityType="StudentManagementModel.StudyResult" Width="1.5" PointX="11.25" PointY="24.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.Subject" Width="1.5" PointX="0.75" PointY="28.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.SubjectClass" Width="1.5" PointX="3" PointY="18" />
+        <EntityTypeShape EntityType="StudentManagementModel.Teacher" Width="1.5" PointX="8.25" PointY="15.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.TrainingForm" Width="1.5" PointX="0.75" PointY="24.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.TrainingScore" Width="1.5" PointX="8.25" PointY="24.875" />
+        <EntityTypeShape EntityType="StudentManagementModel.User_UserRole_UserInfo" Width="1.5" PointX="8.25" PointY="7.125" />
+        <EntityTypeShape EntityType="StudentManagementModel.UserRole" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="StudentManagementModel.UserRole_UserInfo" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="StudentManagementModel.UserRole_UserInfoItem" Width="1.5" PointX="5.25" PointY="4.25" />
+        <EntityTypeShape EntityType="StudentManagementModel.User" Width="1.5" PointX="3" PointY="7.75" />
         <AssociationConnector Association="StudentManagementModel.FK__AbsentCal__IdSub__282DF8C2" />
         <AssociationConnector Association="StudentManagementModel.FK__Admin__IdUsers__0C85DE4D" />
         <AssociationConnector Association="StudentManagementModel.FK__Class__IdFaculty__123EB7A3" />

@@ -207,7 +207,7 @@ namespace StudentManagement.ViewModels
                 EndDate = EndDate,
                 Semester = Semester,
                 Period = Period,
-                WeekDay = SelectedDay,
+                WeekDay = DayOfWeeks.IndexOf(SelectedDay),
                 Code = SubjectClassCode,
                 MaxNumberOfStudents = Convert.ToInt32(MaxNumber),
                 NumberOfStudents = 0,

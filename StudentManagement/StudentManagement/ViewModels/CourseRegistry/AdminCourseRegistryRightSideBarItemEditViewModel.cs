@@ -195,13 +195,13 @@ namespace StudentManagement.ViewModels
 
         public void InitProperties()
         {
+            DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
             SubjectName = CurrentItem.Subject.DisplayName;
             SubjectClassCode = CurrentItem.Code;
             StartDate = CurrentItem.StartDate;
             EndDate = CurrentItem.EndDate;
             Period = CurrentItem.Period;
-            WeekDay = CurrentItem.WeekDay;
-            DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
+            WeekDay = DayOfWeeks[(int)CurrentItem.WeekDay];
             MaxOfRegister = Convert.ToString(CurrentItem.MaxNumberOfStudents);
         }
 
@@ -234,7 +234,7 @@ namespace StudentManagement.ViewModels
             CurrentItem.StartDate = StartDate;
             CurrentItem.EndDate = EndDate;
             CurrentItem.Period = Period;
-            CurrentItem.WeekDay = WeekDay;
+            CurrentItem.WeekDay = DayOfWeeks.IndexOf(WeekDay);
             CurrentItem.MaxNumberOfStudents = Convert.ToInt32(MaxOfRegister);
             SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
             SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
