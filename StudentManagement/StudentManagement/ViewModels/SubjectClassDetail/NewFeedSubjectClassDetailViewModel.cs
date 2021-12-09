@@ -1,4 +1,7 @@
 using StudentManagement.Commands;
+using StudentManagement.Models;
+using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -24,17 +27,30 @@ namespace StudentManagement.ViewModels
 
         public PostNewsfeedViewModel PostEditingViewModel { get; set; }
 
-        public NewFeedSubjectClassDetailViewModel()
+        public SubjectClass SubjectClassDetail { get; set; }
+
+        public NewFeedSubjectClassDetailViewModel(SubjectClass subjectClass)
         {
+            SubjectClassDetail = subjectClass;
             CreatePostNewFeedViewModel = new CreatePostNewFeedViewModel();
             CreatePostNewFeedViewModel.PropertyChanged += CreatePostNewFeedViewModel_PropertyChanged;
             EditPostNewFeedViewModel = new CreatePostNewFeedViewModel();
             EditPostNewFeedViewModel.PropertyChanged += EditPostNewFeedViewModel_PropertyChanged;
 
-            PostNewsfeedViewModels = new ObservableCollection<PostNewsfeedViewModel>();
+            LoadNewsfeed();
 
             DeletePost = new RelayCommand<Guid>(_ => true, (p) => DeleteOnPost(p));
             EditPost = new RelayCommand<UserControl>(_ => true, (p) => EditOnPost(p));
+        }
+
+        private void LoadNewsfeed()
+        {
+            PostNewsfeedViewModels = new ObservableCollection<PostNewsfeedViewModel>();
+            var posts = NewsfeedServices.Instance.GetListNotificationOfSubjectClass(SubjectClassDetail.Id);
+            foreach (var post in posts)
+            {
+                PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(NewsfeedServices.Instance.ConvertNotificationToPostNewsfeed(post), new ObservableCollection<string>()));
+            }
         }
 
         private void EditPostNewFeedViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -44,7 +60,7 @@ namespace StudentManagement.ViewModels
                 int index = PostNewsfeedViewModels.IndexOf(PostEditingViewModel);
                 if (index > -1)
                 {
-                    PostEditingViewModel.PostText = EditPostNewFeedViewModel.DraftPostText;
+                    PostEditingViewModel.Post.PostText = EditPostNewFeedViewModel.DraftPostText;
                     PostEditingViewModel.StackPostImage = new ObservableCollection<string>(EditPostNewFeedViewModel.StackImageDraft);
                     _ = MyMessageBox.Show("Chỉnh sửa bài đăng thành công!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 }
@@ -60,9 +76,33 @@ namespace StudentManagement.ViewModels
         {
             if (e.PropertyName == "IsPost")
             {
-                PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(CreatePostNewFeedViewModel.DraftPostText, DateTime.Parse(DateTime.Now.ToString(), _culture), CreatePostNewFeedViewModel.StackImageDraft));
-                CreatePostNewFeedViewModel.DraftPostText = "";
-                CreatePostNewFeedViewModel.StackImageDraft.Clear();
+                try
+                {
+                    // Get current user
+                    var user = UserServices.Instance.GetUserInfo();
+
+                    NewsfeedPost post = new NewsfeedPost()
+                    {
+                        PostId = Guid.NewGuid(),
+                        IdPoster = user.Id,
+                        IdSubjectClass = SubjectClassDetail.Id,
+                        PosterName = user.DisplayName,
+                        PostText = CreatePostNewFeedViewModel.DraftPostText,
+                        PostTime = DateTime.Parse(DateTime.Now.ToString(), _culture),
+                        Topic = SubjectClassDetail.Code + " - " + SubjectClassDetail.Subject.DisplayName
+                    };
+                    
+                    NewsfeedServices.Instance.SavePostToDatabaseAsync(post);
+                    
+                    PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(post, CreatePostNewFeedViewModel.StackImageDraft));
+                    CreatePostNewFeedViewModel.DraftPostText = "";
+                    CreatePostNewFeedViewModel.StackImageDraft.Clear();
+                }
+                catch (Exception)
+                {
+                    MyMessageBox.Show("Đã có lỗi xảy ra! Vui lòng thử lại sau!", "Đăng tin không thành công", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
+                
             }
         }
 
@@ -70,7 +110,7 @@ namespace StudentManagement.ViewModels
         {
             try
             {
-                PostNewsfeedViewModel postToDelete = PostNewsfeedViewModels.Single(vm => vm.PostId == postId);
+                PostNewsfeedViewModel postToDelete = PostNewsfeedViewModels.Single(vm => vm.Post.PostId == postId);
                 if (MyMessageBox.Show("Bạn có chắc chắn muốn xóa bài đăng này không?", "Xóa bài đăng", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question) == System.Windows.MessageBoxResult.Yes)
                 {
                     _ = PostNewsfeedViewModels.Remove(postToDelete);
@@ -86,7 +126,7 @@ namespace StudentManagement.ViewModels
         {
             PostNewsfeedViewModel editPostVM = post.DataContext as PostNewsfeedViewModel;
             PostEditingViewModel = editPostVM;
-            EditPostNewFeedViewModel.DraftPostText = editPostVM.PostText;
+            EditPostNewFeedViewModel.DraftPostText = editPostVM.Post.PostText;
             EditPostNewFeedViewModel.StackImageDraft = new ObservableCollection<string>(editPostVM.StackPostImage);
             IsEditing = true;
         }

@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -72,8 +73,11 @@ namespace StudentManagement.ViewModels
 
         public void InitContentView()
         {
-            _newFeedSubjectClassDetailViewModel = new NewFeedSubjectClassDetailViewModel();
+            var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId(new Guid());
+            _newFeedSubjectClassDetailViewModel = new NewFeedSubjectClassDetailViewModel(subjectClass);
             (_newFeedSubjectClassDetailViewModel as NewFeedSubjectClassDetailViewModel).PropertyChanged += NewFeedSubjectClassDetailViewModel_PropertyChanged;
+
+
             _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel();
             (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).PropertyChanged += FileManagerClassDetailViewModel_PropertyChanged;
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;

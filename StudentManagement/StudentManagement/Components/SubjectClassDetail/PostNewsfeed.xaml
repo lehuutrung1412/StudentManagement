@@ -59,7 +59,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="18"
                                 FontWeight="SemiBold"
-                                Text="Lê Hữu Trung" />
+                                Text="{Binding Post.PosterName}" />
                             <Image
                                 Height="18"
                                 Margin="4,0,0,0"
@@ -82,7 +82,7 @@
                                 </Button>
                                 <Button
                                     Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.DeletePost}"
-                                    CommandParameter="{Binding Path=PostId}"
+                                    CommandParameter="{Binding Path=Post.PostId}"
                                     Foreground="{DynamicResource ErrorMain}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Margin="0,0,8,0" Kind="DeleteOutline" />
@@ -100,9 +100,9 @@
                         Grid.Row="1"
                         Margin="0,8,8,8"
                         Orientation="Horizontal">
-                        <TextBlock Text="{Binding PostTime, Converter={utils:DateTimeConverter}}">
+                        <TextBlock Text="{Binding Post.PostTime, Converter={utils:DateTimeConverter}}">
                             <TextBlock.ToolTip>
-                                <TextBlock Text="{Binding PostTime, Converter={utils:DateTimeConverter}, ConverterParameter=full}" />
+                                <TextBlock Text="{Binding Post.PostTime, Converter={utils:DateTimeConverter}, ConverterParameter=full}" />
                             </TextBlock.ToolTip>
                         </TextBlock>
                         <TextBlock FontWeight="Bold" Text=" · " />
@@ -118,7 +118,7 @@
                 Grid.Row="1"
                 Margin="16,0,16,8"
                 Style="{StaticResource TextBoxAsTextBlock}"
-                Text="{Binding PostText}" />
+                Text="{Binding Post.PostText}" />
 
             <DockPanel Grid.Row="2">
                 <Grid>
@@ -322,7 +322,7 @@
                                                 <Button.CommandParameter>
                                                     <MultiBinding Converter="{utils:MultiCommandParameterConverter}">
                                                         <Binding ElementName="txbMainComment" />
-                                                        <Binding Path="CommentId" />
+                                                        <Binding Path="Id" />
                                                     </MultiBinding>
                                                 </Button.CommandParameter>
                                                 <StackPanel Orientation="Horizontal">
@@ -335,7 +335,7 @@
                                             </Button>
                                             <Button
                                                 Command="{Binding ElementName=icComments, Path=DataContext.DeleteComment}"
-                                                CommandParameter="{Binding CommentId}"
+                                                CommandParameter="{Binding Id}"
                                                 Foreground="{DynamicResource ErrorMain}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <materialDesign:PackIcon Margin="0,0,8,0" Kind="DeleteOutline" />
