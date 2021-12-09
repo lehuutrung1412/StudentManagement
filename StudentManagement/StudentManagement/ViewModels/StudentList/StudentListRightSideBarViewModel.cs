@@ -51,11 +51,11 @@ namespace StudentManagement.ViewModels
                 
                 if (_selectedItem != null)
                 {
-                    SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.IDStudent).ToList().FirstOrDefault();
+                    SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
                     if (SelectedScore == null)
                     {
-                        StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", QuaTrinh = "0", ThucHanh = "0", DiemTB = "0", IDStudent = SelectedItem.IDStudent });
-                        SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.IDStudent).ToList().FirstOrDefault();
+                        StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", QuaTrinh = "0", ThucHanh = "0", DiemTB = "0", IDStudent = SelectedItem.Username });
+                        SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
                     }
                     _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SelectedScore);
                     RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;

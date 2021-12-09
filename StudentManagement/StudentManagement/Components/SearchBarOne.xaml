@@ -117,7 +117,7 @@
                                         SelectedDate="{Binding SelectedDateInSearchBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=SubjectClassCardComponent}"
                                         Visibility="{Binding DatePickerVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <DatePicker.Style>
-                                            <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+                                            <Style BasedOn="{StaticResource MaterialDesignDatePicker}" TargetType="DatePicker">
                                                 <Setter Property="Height" Value="32" />
                                                 <Setter Property="Padding" Value="0,4" />
                                                 <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -126,7 +126,7 @@
                                                 <Setter Property="Padding" Value="16,4" />
                                                 <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
                                                 <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Collapsed" />
-                                                <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource Transparent}"/>
+                                                <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource Transparent}" />
                                                 <Setter Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False" />
                                                 <Setter Property="BorderThickness" Value="0" />
                                             </Style>

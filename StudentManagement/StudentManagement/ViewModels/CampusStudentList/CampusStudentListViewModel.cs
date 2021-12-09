@@ -67,11 +67,11 @@ namespace StudentManagement.ViewModels
             Instance = this;
 
             //StudentDatabase.Add(new Student { Training = "Đại trà", NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123", STT = 1});
-            StudentDatabase.Add(new Student { Training = "Tài năng", NameStudent = "Ngô Quang Vinh", EmailStudent = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520124", STT = 2 });
-            StudentDatabase.Add(new Student { Training = "Tài năng", NameStudent = "Lê Hữu Trung", EmailStudent = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520125", STT = 3 });
-            StudentDatabase.Add(new Student { Training = "Tài năng", NameStudent = "Hứa Thanh Tân", EmailStudent = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520126", STT = 4 });
-            StudentDatabase.Add(new Student { Training = "Tài năng", NameStudent = "Nguyễn Đỗ Mạnh Cường", EmailStudent = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520127", STT = 5 });
-            StudentDatabase.Add(new Student { Training = "Tài năng", NameStudent = "Nguyễn Đình Bình An", EmailStudent = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520128", STT = 6 });
+            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
+            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
+            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
+            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
+            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
 
             FindNameData = new ObservableCollection<Student>(StudentDatabase);
 
@@ -91,12 +91,12 @@ namespace StudentManagement.ViewModels
             FindNameData.Clear();
             foreach (var item in StudentDatabase)
             {
-                if (VietnameseStringNormalizer.Instance.Normalize(item.NameStudent)
+                if (VietnameseStringNormalizer.Instance.Normalize(item.DisplayName)
                     .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery))
-                    || item.IDStudent.Contains(SearchQuery)
+                    || item.Username.Contains(SearchQuery)
                 )
                 {
-                    item.STT = stt + 1;
+                    item.Number = stt + 1;
                     stt += 1;
                     FindNameData.Add(item);
                 }
@@ -136,10 +136,10 @@ namespace StudentManagement.ViewModels
                     {
                         var item = new Student
                         {
-                            IDStudent = Convert.ToString(student[0]),
-                            NameStudent = Convert.ToString(student[1]),
+                            Username = Convert.ToString(student[0]),
+                            DisplayName = Convert.ToString(student[1]),
                             Faculty = Convert.ToString(student[2]),
-                            Training = Convert.ToString(student[3])
+                            TrainingForm = Convert.ToString(student[3])
                         };
 
                         StudentDatabase.Add(item);

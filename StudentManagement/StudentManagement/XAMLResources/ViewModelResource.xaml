@@ -12,7 +12,6 @@
     <viewmodel:CreatePostNewFeedViewModel x:Key="CreatePostNewFeedVM" />
     <viewmodel:StudentCourseRegistryViewModel x:Key="StudentCourseRegistryVM" />
     <viewmodel:StudentCourseRegistryRightSideBarViewModel x:Key="StudentCourseRegistryRightSideBarVM" />
-    <viewmodel:NewFeedSubjectClassDetailViewModel x:Key="NewFeedSubjectClassDetailVM" />
     <viewmodel:AdminFacultyTrainingFormViewModel x:Key="AdminFacultyTrainingFormVM" />
     <viewmodel:AdminFacultyTrainingFormRightSideBarViewModel x:Key="AdminFacultyTrainingFormRightSideBarVM" />
     <viewmodel:ScoreBoardViewModel x:Key="ScoreBoardVM" />
@@ -21,7 +20,6 @@
     <viewmodel:AdminSubjectClassRightSideBarViewModel x:Key="AdminSubjectClassRightSideBarVM" />
     <viewmodel:AdminHomeRightSideBarViewModel x:Key="AdminHomeRightSideBarVM" />
     <viewmodel:StudentScheduleTableViewModel x:Key="StudentScheduleTableVM" />
-    <viewmodel:FileManagerClassDetailViewModel x:Key="FileManagerClassDetailVM" />
     <viewmodel:AdminCourseRegistryViewModel x:Key="AdminCourseRegistryVM" />
     <viewmodel:AdminStudentListViewModel x:Key="AdminStudentListVM" />
     <viewmodel:StudentListRightSideBarViewModel x:Key="StudentListRightSideBarVM" />

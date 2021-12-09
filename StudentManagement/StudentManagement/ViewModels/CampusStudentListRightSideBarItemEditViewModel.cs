@@ -27,7 +27,7 @@ namespace StudentManagement.ViewModels
 
         public CampusStudentListRightSideBarItemEditViewModel(Student x)
         {
-            CurrentStudent = new Student() { IDStudent = x.IDStudent, Faculty = x.Faculty, EmailStudent = x.EmailStudent, Gender = x.Gender, NameStudent = x.NameStudent, Training = x.Training, Status = x.Status };
+            CurrentStudent = new Student() { Username = x.Username, Faculty = x.Faculty, Email = x.Email, Gender = x.Gender, DisplayName = x.DisplayName, TrainingForm = x.TrainingForm, Status = x.Status };
             ActualStudent = x;
 
             InitCommand();
@@ -54,16 +54,16 @@ namespace StudentManagement.ViewModels
 
         int checkExitCode()
         {
-            if (CurrentStudent.IDStudent == null || CurrentStudent.Faculty == null || CurrentStudent.NameStudent == null || CurrentStudent.Training == null)
+            if (CurrentStudent.Username == null || CurrentStudent.Faculty == null || CurrentStudent.DisplayName == null || CurrentStudent.TrainingForm == null)
                 return -1;
             return 0;
         }
 
         void SetValue(Student a, Student b)
         {
-            a.IDStudent = b.IDStudent;
-            a.NameStudent = b.NameStudent;
-            a.Training = b.Training;
+            a.Username = b.Username;
+            a.DisplayName = b.DisplayName;
+            a.TrainingForm = b.TrainingForm;
             a.Faculty = b.Faculty;
         }
 

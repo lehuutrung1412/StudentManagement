@@ -51,16 +51,16 @@ namespace StudentManagement.ViewModels
 
         int checkExitCode()
         {
-            if (CurrentStudent.IDStudent == null || CurrentStudent.Faculty == null || CurrentStudent.NameStudent == null || CurrentStudent.Training == null)
+            if (CurrentStudent.Username == null || CurrentStudent.Faculty == null || CurrentStudent.DisplayName == null || CurrentStudent.TrainingForm == null)
                 return -1;
             return 0;
         }
 
         void SetValue(Student a, Student b)
         {
-            a.IDStudent = b.IDStudent;
-            a.NameStudent = b.NameStudent;
-            a.Training = b.Training;
+            a.Username = b.Username;
+            a.DisplayName = b.DisplayName;
+            a.TrainingForm = b.TrainingForm;
             a.Faculty = b.Faculty;
         }
 

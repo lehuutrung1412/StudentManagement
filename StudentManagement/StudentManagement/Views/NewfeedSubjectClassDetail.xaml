@@ -31,8 +31,28 @@
                 </StackPanel.Resources>
                 <components:CreatePostNewfeed
                     MaxHeight="350"
-                    Margin="4"
+                    Margin="2"
                     DataContext="{Binding CreatePostNewFeedViewModel}" />
+
+                <components:EmptyStateRightSideBar
+                    Width="600"
+                    Height="300"
+                    Guideline="Không có bài đăng nào trong lớp học.">
+                    <components:EmptyStateRightSideBar.Style>
+                        <Style TargetType="components:EmptyStateRightSideBar">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding PostNewsfeedViewModels.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PostNewsfeedViewModels}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </components:EmptyStateRightSideBar.Style>
+                </components:EmptyStateRightSideBar>
+
                 <ItemsControl ItemsSource="{Binding Source={StaticResource PostNewsFeedView}}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -41,7 +61,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <components:PostNewsfeed Height="auto" Margin="4 16 4 4" />
+                            <components:PostNewsfeed Height="auto" Margin="2,16,2,2" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
