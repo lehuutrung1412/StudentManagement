@@ -519,7 +519,7 @@ GO
 INSERT INTO dbo.UserRole
   (Role)
 VALUES
-  (N'Học sinh'),
+  (N'Sinh viên'),
   (N'Giáo viên'),
   (N'Admin')
 GO
@@ -604,7 +604,7 @@ BEGIN
   DECLARE @IdRole UNIQUEIDENTIFIER
   SET @IdRole = (Select id
   from UserRole
-  Where Role = 'Học sinh')
+  Where Role = 'Sinh viên')
 
   DECLARE @IdAvatar UNIQUEIDENTIFIER
   SET @IdAvatar = (SELECT TOP 1
@@ -613,7 +613,7 @@ BEGIN
 
   INSERT INTO dbo.Users
     (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
-  VALUES('924F1714-D81F-12C2-8C64-6D744D787E0D', 'hs', 'Ngô Quang Vinh', 'vinhqngo5@gmail.com', 'hs', @IdRole, @IdAvatar)
+  VALUES('924F1714-D81F-12C2-8C64-6D744D787E0D', 'sv', 'Ngô Quang Vinh', 'vinhqngo5@gmail.com', 'sv', @IdRole, @IdAvatar)
 
   INSERT INTO dbo.Student
     (IdUsers, IdFaculty, IdTrainingForm)
