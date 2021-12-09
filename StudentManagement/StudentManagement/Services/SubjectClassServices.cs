@@ -68,7 +68,6 @@ namespace StudentManagement.Services
         {
             try
             {
-
                 SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
 
                 if (savedSubjectClass == null)
@@ -119,6 +118,10 @@ namespace StudentManagement.Services
             try
             {
                 SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
+
+                if (savedSubjectClass.CourseRegisters.Count() > 0)
+
+                    return false;
 
                 DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
 
@@ -241,6 +244,18 @@ namespace StudentManagement.Services
             {
                 return false;
             }
+        }
+
+        public void UpdateIds(SubjectClass a)
+        {
+            if (a.Semester != null)
+                a.IdSemester = a.Semester.Id;
+            if (a.Subject != null)
+                a.IdSubject = a.Subject.Id;
+            if (a.TrainingForm != null)
+                a.IdTrainingForm = a.TrainingForm.Id;
+            if (a.DatabaseImageTable != null)
+                a.IdThumbnail = a.DatabaseImageTable.Id;
         }
     }
 }

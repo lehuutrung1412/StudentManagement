@@ -131,7 +131,6 @@
         </Grid>
         <StackPanel
             Margin="8"
-            DataContext="{DynamicResource AdminCourseRegistryRightSideBarVM}"
             Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=CanEdit, Mode=OneWay}">
             <Button
                 x:Name="btnEdit"

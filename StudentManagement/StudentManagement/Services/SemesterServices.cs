@@ -17,6 +17,10 @@ namespace StudentManagement.Services
 
         public SemesterServices() { }
 
+        //CourseRegistryStatus:
+        //0-Tạm đóng đăng ký
+        //1-Đang mở đăng ký,
+        //2-Kết thúc đợt đăng ký học phần, đưa sinh viên vào lớp học và update TKB SV
         public Semester FindSemesterBySemesterId(Guid id)
         {
             Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem=>semesterItem.Id == id).FirstOrDefault();
@@ -25,7 +29,8 @@ namespace StudentManagement.Services
 
         public Semester GetFirstOpenningRegisterSemester()
         {
-            Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem => semesterItem.CourseRegisterStatus <= 1).FirstOrDefault();
+            var listSemesterDesc = DataProvider.Instance.Database.Semesters.OrderByDescending(y => y.DisplayName).OrderByDescending(x => x.Batch);
+            Semester a = listSemesterDesc.Where(semesterItem => semesterItem.CourseRegisterStatus == 1).FirstOrDefault();
             return a;
         }
         public ObservableCollection<Semester> LoadListSemester()
@@ -40,10 +45,15 @@ namespace StudentManagement.Services
             return new ObservableCollection<Semester>(a);
         }
 
-        public ObservableCollection<Semester> LoadListSemestersByStudentId(Guid idStudent)
+        public ObservableCollection<Semester> LoadListSemestersByStudentIdAndSemesterStatuses(Guid idStudent, bool[] semesterStatus)
         {
             var listSemester = new List<Semester>();
             var listCourseRegister = DataProvider.Instance.Database.CourseRegisters.Where(register => register.IdStudent == idStudent).ToList();
+            for(int i = 0; i<semesterStatus.Length; i++)
+            {
+                if (!semesterStatus[i])
+                    listCourseRegister = listCourseRegister.Where(register => register.Semester.CourseRegisterStatus != i).ToList();
+            }
             foreach(CourseRegister register in listCourseRegister)
             {
                 listSemester.Add(register.Semester);

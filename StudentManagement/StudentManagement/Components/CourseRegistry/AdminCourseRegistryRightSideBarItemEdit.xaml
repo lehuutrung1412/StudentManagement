@@ -46,7 +46,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tên môn học"
                         Style="{StaticResource textbox_item}"
-                        IsReadOnly="True"
+                        IsEnabled="False"
                         Text="{Binding SubjectName}" />
                 </Grid>
                 <Grid
@@ -74,7 +74,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập mã lớp học"
                         Style="{StaticResource textbox_item}"
-                        IsReadOnly="True"
+                        IsEnabled="False"
                         Text="{Binding SubjectClassCode}"
                         Grid.ColumnSpan="2"
                         Margin="8,4.4,7.6,0" />
@@ -113,6 +113,7 @@
                     <ComboBox
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Chọn thứ"
+                        materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                         Style="{StaticResource combobox_item}"
                         ItemsSource="{Binding DayOfWeeks}"
                         SelectedItem="{Binding WeekDay}" />

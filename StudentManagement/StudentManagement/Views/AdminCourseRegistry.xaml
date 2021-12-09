@@ -36,7 +36,7 @@
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl
                     Content="{Binding DialogItemViewModel}"
-                    DataContext="{StaticResource AdminCourseRegistryVM}">
+                    DataContext="{Binding ElementName=AdminCourseRegister, Path=DataContext}">
                     <ContentControl.Resources>
                         <DataTemplate
                             DataType="{x:Type viewmodels:CreateNewCourseViewModel}">

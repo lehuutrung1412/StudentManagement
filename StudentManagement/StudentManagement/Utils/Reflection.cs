@@ -60,5 +60,51 @@ namespace StudentManagement.Utils
                 targetProperty.SetValue(destination, srcProp.GetValue(source, null), null);
             }
         }
+
+        public static bool IsEqualProperties(this object source, object destination)
+        {
+            // If any this null throw an exception
+            if (source == null || destination == null)
+                throw new Exception("Source or/and Destination Objects are null");
+            // Getting the Types of the objects
+            Type typeDest = destination.GetType();
+            Type typeSrc = source.GetType();
+
+            // Iterate the Properties of the source instance and  
+            // populate them from their desination counterparts  
+            PropertyInfo[] srcProps = typeSrc.GetProperties();
+            foreach (PropertyInfo srcProp in srcProps)
+            {
+                if (!srcProp.CanRead)
+                {
+                    continue;
+                }
+                PropertyInfo targetProp = typeDest.GetProperty(srcProp.Name);
+                if (targetProp == null)
+                {
+                    continue;
+                }
+                if (!targetProp.CanRead)
+                {
+                    continue;
+                }
+                if (targetProp.GetGetMethod(true) != null && targetProp.GetGetMethod(true).IsPrivate)
+                {
+                    continue;
+                }
+                if ((targetProp.GetGetMethod().Attributes & MethodAttributes.Static) != 0)
+                {
+                    continue;
+                }
+                if (!targetProp.PropertyType.IsAssignableFrom(srcProp.PropertyType))
+                {
+                    continue;
+                }
+                // Passed all tests, lets set the value
+                if (srcProp.GetValue(source, null) != targetProp.GetValue(destination, null))
+                    return false;
+            }
+            return true;
+        }
     }
 }

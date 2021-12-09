@@ -29,7 +29,7 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="BeginningEdit">
                         <i:InvokeCommandAction
-                            Command="{Binding Path=DataContext.CourseCheckedCommand, ElementName=CourseDataGrid}"
+                            Command="{Binding Path=DataContext.CourseCheckChangedCommand, ElementName=CourseDataGrid}"
                             IsEnabled="{Binding ElementName=CourseDataGrid, Path=IsCatchEditEvent}"
                             PassEventArgsToCommand="True" />
                         <i:ChangePropertyAction

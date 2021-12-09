@@ -330,53 +330,80 @@ namespace StudentManagement.ViewModels
         {
             using (OpenFileDialog op = new OpenFileDialog() { Filter = "Excel|*.xls;*.xlsx;" })
             {
-                if (op.ShowDialog() == DialogResult.OK)
+                try
                 {
-                    using (var stream = File.Open(op.FileName, FileMode.Open, FileAccess.Read))
+                    if (op.ShowDialog() == DialogResult.OK)
                     {
-                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                        using (var stream = File.Open(op.FileName, FileMode.Open, FileAccess.Read))
                         {
-                            DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                            using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
                             {
-                                ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
-                            });
-                            dataSheets = result.Tables;
+                                DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                                {
+                                    ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                                });
+                                dataSheets = result.Tables;
+                            }
                         }
-                    }
-                    DataTable data = dataSheets[0];
+                        DataTable data = dataSheets[0];
 
-                    ObservableCollection<CourseItem> excelList = CourseRegistryItems;
-                    
-                    foreach (DataRow course in data.Rows)
-                    {
-                        string TFName = course[7].ToString();
-                        Guid idTeacher = Guid.Parse(Convert.ToString(course[8]));
-                        var tempSubjectClass = new SubjectClass()
+                        ObservableCollection<CourseItem> excelList = CourseRegistryItems;
+
+                        foreach (DataRow course in data.Rows)
                         {
-                            Id = Guid.NewGuid(),
-                            Semester = SelectedSemester,
-                            Subject = SubjectServices.Instance.FindSubjectBySubjectName(Convert.ToString(course[0])),   //Column SubjectName NVARCHAR
-                            StartDate = Convert.ToDateTime(course[1]),                                                  //Column StartDate Date
-                            EndDate = Convert.ToDateTime(course[2]),                                                  //Column EndDate Date
-                            Period = Convert.ToString(course[3]),                                                       //Column Period NVARCHAR
-                            WeekDay = Convert.ToString(course[4]),                                                      //Column WeekDay NVARCHAR
-                            Code = Convert.ToString(course[5]),
-                            MaxNumberOfStudents = Convert.ToInt32(course[6]),
-                            TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(tf => tf.DisplayName.Equals(TFName)).FirstOrDefault(),
-                            Teachers = new ObservableCollection<Teacher>() { TeacherServices.Instance.FindTeacherByTeacherId(idTeacher) },
-                            DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable(),           //Thiếu image
-                            NumberOfStudents = 0
-                        };
-                        UpdateSubjectClassCode(tempSubjectClass);
-                        var tempCourse = new CourseItem(tempSubjectClass, false);
-                        SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
-                        excelList.Add(tempCourse);
-                        
+                            string TFName = course[7].ToString();
+                            Guid idTeacher = Guid.Parse(Convert.ToString(course[8]));
+                            var tempSubjectClass = new SubjectClass()
+                            {
+                                Id = Guid.NewGuid(),
+                                Semester = SelectedSemester,
+                                Subject = SubjectServices.Instance.FindSubjectBySubjectName(Convert.ToString(course[0])),   //Column SubjectName NVARCHAR
+                                StartDate = Convert.ToDateTime(course[1]),                                                  //Column StartDate Date
+                                EndDate = Convert.ToDateTime(course[2]),                                                  //Column EndDate Date
+                                Period = Convert.ToString(course[3]),                                                       //Column Period NVARCHAR
+                                WeekDay = Convert.ToString(course[4]),                                                      //Column WeekDay NVARCHAR
+                                Code = Convert.ToString(course[5]),
+                                MaxNumberOfStudents = Convert.ToInt32(course[6]),
+                                TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(tf => tf.DisplayName.Equals(TFName)).FirstOrDefault(),
+                                Teachers = new ObservableCollection<Teacher>() { TeacherServices.Instance.FindTeacherByTeacherId(idTeacher) },
+                                DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable(),           //Thiếu image
+                                NumberOfStudents = 0
+                            };
+                            SubjectClassServices.Instance.UpdateIds(tempSubjectClass);
+                            var conflictAvailableCourse = CourseRegistryItems.Where(x => x.Code == tempSubjectClass.Code).FirstOrDefault();
+                            if (conflictAvailableCourse != null)
+                            {
+                                tempSubjectClass.Id = conflictAvailableCourse.Id;
+                                if (conflictAvailableCourse.IsEqualProperty(tempSubjectClass))
+                                    continue;
+                                else
+                                {
+                                    if (MyMessageBox.Show(String.Format("Có sự thay đổi trong thông tin lớp {0}. Bạn có muốn thay đổi", tempSubjectClass.Code), "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+                                    {
+                                        var tempCourse = new CourseItem(tempSubjectClass, false);
+                                        conflictAvailableCourse = tempCourse;
+                                        SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                var tempCourse = new CourseItem(tempSubjectClass, false);
+                                SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
+                                excelList.Add(tempCourse);
+                            }
+                            SelectData();
+                            /*UpdateSubjectClassCode(tempSubjectClass);*/
+                        }
+                        StudentCourseRegistryViewModel.Instance.UpdateData();
                     }
+                }
+                catch
+                {
+                    MyMessageBox.Show("File này đang được sử dụng", "Lỗi");
                 }
             }
             /*DataTable data = dataSheets[dataSheets.Cast<DataTable>().Select(t=>t.TableName).Last().ToString()];*/
-            StudentCourseRegistryViewModel.Instance.UpdateData();
         }
         public void UpdateSubjectClassCode(SubjectClass subjectClass)
         {

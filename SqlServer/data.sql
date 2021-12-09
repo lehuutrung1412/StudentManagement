@@ -508,8 +508,6 @@ GO
 INSERT INTO dbo.Semester
   (DisplayName, Batch, CourseRegisterStatus)
 VALUES
-  (N'Học kỳ 1', N'2019-2020', 0),
-  (N'Học kỳ 2', N'2019-2020', 0),
   (N'Học kỳ 1', N'2020-2021', 0)
 GO
 
@@ -517,6 +515,7 @@ GO
 INSERT INTO dbo.UserRole
   (Role)
 VALUES
+  (N'Sinh viên'),
   (N'Học sinh'),
   (N'Giáo viên'),
   (N'Admin')
@@ -591,8 +590,21 @@ BEGIN
 END
 GO
 
+BEGIN
+  DECLARE @IdRole UNIQUEIDENTIFIER
+  SET @IdRole = (Select id
+  from UserRole
+  Where Role = 'Sinh viên')
 
--- INSERT INTO dbo.Student
---   (IdTrainingForm, IdUser)
--- VALUES
---   ('52DF1714-C81F-42C2-8C64-8D744D787E0C', '')
+  DECLARE @IdUser UNIQUEIDENTIFIER
+  SET @IdUser = NEWID()
+
+  INSERT INTO dbo.Users
+    (Id, username, DisplayName, Email, Password, IdUserRole)
+  VALUES(@IdUser, 'admin', 'admin', 'admin@gmail.com', '1', @IdRole)
+
+  INSERT INTO dbo.Student
+				(IdUsers, IdFaculty, IdTrainingForm)
+	VALUES(@IdUser, '3BADC66B-382B-4F35-A96C-B9B546FF98AD', '52DF1714-C81F-42C2-8C64-8D744D787E0C')
+END
+GO
