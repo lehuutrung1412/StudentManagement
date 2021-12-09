@@ -79,13 +79,15 @@ namespace StudentManagement.ViewModels
         public object SelectedFile { get => _selectedFile; set { _selectedFile = value; OnPropertyChanged(); } }
         private object _selectedFile;
 
-        //
-        Guid idSubjectClass = new Guid();
-        string SubjectClassCode = "CS106.M11.KHTN";
+        SubjectClass SubjectClassDetail { get; set; }
+
+        // Current user
         User publisher = UserServices.Instance.GetUserInfo();
 
-        public FileManagerClassDetailViewModel()
+        public FileManagerClassDetailViewModel(SubjectClass subjectClass)
         {
+            SubjectClassDetail = subjectClass;
+
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
 
@@ -112,13 +114,13 @@ namespace StudentManagement.ViewModels
             {
                 FileData = new ObservableCollection<FileInfo>();
 
-                var docs = FileServices.Instance.GetListFilesOfSubjectClass(idSubjectClass);
+                var docs = FileServices.Instance.GetListFilesOfSubjectClass(SubjectClassDetail.Id);
                 Parallel.ForEach(docs, doc =>
                 {
                     FileData.Add(FileServices.Instance.ConvertDocumentToFileInfo(doc));
                 });
 
-                var folders = FileServices.Instance.GetListSingleFoldersOfSubjectClass(idSubjectClass);
+                var folders = FileServices.Instance.GetListSingleFoldersOfSubjectClass(SubjectClassDetail.Id);
                 Parallel.ForEach(folders, folder =>
                 {
                     FileData.Add(FileServices.Instance.ConvertFolderToFileInfo(folder));
@@ -260,22 +262,12 @@ namespace StudentManagement.ViewModels
                         Parallel.ForEach(collection, async item => {
                             if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
                             {
-                                FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, idSubjectClass));
+                                FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, SubjectClassDetail.Id));
                             }
                             var fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId);
                             await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
                             FileData.Remove(fileToBeDeleted);
                         });
-                        //foreach (var item in collection)
-                        //{
-                        //    if (item.FolderId != null && (FileData.Where(file => file.FolderId == item.FolderId).Count() == 1))
-                        //    {
-                        //        FileData.Add(new FileInfo(null, "", item.PublisherId, item.Publisher, "", item.UploadTime, 0, item.FolderId, item.FolderName, idSubjectClass));
-                        //    }
-                        //    var fileToBeDeleted = FileData.FirstOrDefault(file => file.Id == item.Id && file.FolderId == item.FolderId);
-                        //    await FileServices.Instance.DeleteFileAsync(fileToBeDeleted);
-                        //    FileData.Remove(fileToBeDeleted);
-                        //}
                     }
                 }
             }
@@ -316,7 +308,7 @@ namespace StudentManagement.ViewModels
                                          size: 0,
                                          folderId: Guid.NewGuid(),
                                          folderName: NewFolderName,
-                                         idSubjectClass: idSubjectClass); 
+                                         idSubjectClass: SubjectClassDetail.Id); 
                 await FileServices.Instance.SaveFolderOfSubjectClassToDatabaseAsync(newFolder);
                 FileData.Add(newFolder);
                 NewFolderName = null;
@@ -402,7 +394,7 @@ namespace StudentManagement.ViewModels
                                               size: fileSize,
                                               folderId: folderId,
                                               folderName: folderName,
-                                              idSubjectClass: idSubjectClass);
+                                              idSubjectClass: SubjectClassDetail.Id);
                             }
                             else
                             {
@@ -416,7 +408,7 @@ namespace StudentManagement.ViewModels
                                               size: fileSize,
                                               folderId: null,
                                               folderName: "",
-                                              idSubjectClass: idSubjectClass);
+                                              idSubjectClass: SubjectClassDetail.Id);
                             }
 
                             if (newFile != null)
@@ -508,7 +500,7 @@ namespace StudentManagement.ViewModels
 
         private async void DownloadMultipleFilesFunction()
         {
-            string fileName = $"Documents_{SubjectClassCode}.zip";
+            string fileName = $"Documents_{SubjectClassDetail.Code}.zip";
             var dialog = new SaveFileDialog
             {
                 Filter = "Zip file (*.zip)|*.zip",
@@ -523,7 +515,7 @@ namespace StudentManagement.ViewModels
                         using (var archive = new ZipArchive(fileStream, ZipArchiveMode.Create, true))
                         {
                             // Folder cover entire files
-                            var mainFolderName = $"Documents_{SubjectClassCode}/";
+                            var mainFolderName = $"Documents_{SubjectClassDetail.Code}/";
                             archive.CreateEntry(mainFolderName);
 
                             foreach (var file in FileData)

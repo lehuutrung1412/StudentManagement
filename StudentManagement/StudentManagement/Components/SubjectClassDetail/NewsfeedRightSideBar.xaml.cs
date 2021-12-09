@@ -54,8 +54,8 @@ namespace StudentManagement.Components
         {
             try
             {
-                ObservableCollection<DateTime> dateTimes = (ObservableCollection<DateTime>)d.GetValue(ListAbsentProperty);
-                return dateTimes.Any(dateItem => dateItem == date);
+                ObservableCollection<AbsentAndMakeUpItem> dateTimes = (ObservableCollection<AbsentAndMakeUpItem>)d.GetValue(ListAbsentProperty);
+                return dateTimes.Any(dateItem => dateItem.Date == date && dateItem.Type == "Nghỉ học");
             }
             catch (Exception)
             {
@@ -67,8 +67,8 @@ namespace StudentManagement.Components
         {
             try
             {
-                ObservableCollection<Tuple<DateTime, string>> dateTimes = (ObservableCollection<Tuple<DateTime, string>>)d.GetValue(ListMakeUpProperty);
-                return dateTimes.Any(dateItem => dateItem.Item1 == date);
+                ObservableCollection<AbsentAndMakeUpItem> dateTimes = (ObservableCollection<AbsentAndMakeUpItem>)d.GetValue(ListMakeUpProperty);
+                return dateTimes.Any(dateItem => dateItem.Date == date && dateItem.Type == "Học bù");
             }
             catch (Exception)
             {
@@ -142,27 +142,27 @@ namespace StudentManagement.Components
         }
 
         public static DependencyProperty ListAbsentProperty = DependencyProperty.RegisterAttached(
-            "ListAbsent", typeof(ObservableCollection<DateTime>), typeof(CalendarHelper));
+            "ListAbsent", typeof(ObservableCollection<AbsentAndMakeUpItem>), typeof(CalendarHelper));
 
-        public static ObservableCollection<DateTime> GetListAbsent(DependencyObject obj)
+        public static ObservableCollection<AbsentAndMakeUpItem> GetListAbsent(DependencyObject obj)
         {
-            return (ObservableCollection<DateTime>)obj.GetValue(ListAbsentProperty);
+            return (ObservableCollection<AbsentAndMakeUpItem>)obj.GetValue(ListAbsentProperty);
         }
 
-        public static void SetListAbsent(DependencyObject obj, ObservableCollection<DateTime> value)
+        public static void SetListAbsent(DependencyObject obj, ObservableCollection<AbsentAndMakeUpItem> value)
         {
             obj.SetValue(ListAbsentProperty, value);
         }
 
         public static DependencyProperty ListMakeUpProperty = DependencyProperty.RegisterAttached(
-            "ListMakeUp", typeof(ObservableCollection<Tuple<DateTime, string>>), typeof(CalendarHelper));
+            "ListMakeUp", typeof(ObservableCollection<AbsentAndMakeUpItem>), typeof(CalendarHelper));
 
-        public static ObservableCollection<Tuple<DateTime, string>> GetListMakeUp(DependencyObject obj)
+        public static ObservableCollection<AbsentAndMakeUpItem> GetListMakeUp(DependencyObject obj)
         {
-            return (ObservableCollection<Tuple<DateTime, string>>)obj.GetValue(ListMakeUpProperty);
+            return (ObservableCollection<AbsentAndMakeUpItem>)obj.GetValue(ListMakeUpProperty);
         }
 
-        public static void SetListMakeUp(DependencyObject obj, ObservableCollection<Tuple<DateTime, string>> value)
+        public static void SetListMakeUp(DependencyObject obj, ObservableCollection<AbsentAndMakeUpItem> value)
         {
             obj.SetValue(ListMakeUpProperty, value);
         }

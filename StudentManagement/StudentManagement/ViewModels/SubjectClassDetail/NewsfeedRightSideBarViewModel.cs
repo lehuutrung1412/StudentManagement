@@ -1,4 +1,6 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
+using StudentManagement.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,8 +16,7 @@ namespace StudentManagement.ViewModels
     public class NewsfeedRightSideBarViewModel : BaseViewModel, INotifyDataErrorInfo
     {
         public ObservableCollection<DateTime> ScheduleTimes { get; set; }
-        public ObservableCollection<DateTime> AbsentTimes { get; set; }
-        public ObservableCollection<Tuple<DateTime, string>> MakeUpTimes { get; set; }
+        public ObservableCollection<AbsentAndMakeUpItem> AbsentAndMakeUpItemsData { get; set; }
         public ObservableCollection<object> AbsentAndMakeUpItems { get; set; }
         public DateTime SelectedDate
         {
@@ -73,6 +74,7 @@ namespace StudentManagement.ViewModels
         public bool AddMakeUpMode { get => _addMakeUpMode; set { _addMakeUpMode = value; OnPropertyChanged(); } }
         public DateTime DisplayDate { get => _displayDate; set { _displayDate = value; OnPropertyChanged(); } }
         public string SchedulePeriod { get; set; }
+        public SubjectClass SubjectClassDetail { get; set; }
 
         private DateTime _selectedDate;
         private DateTime _displayDate;
@@ -104,31 +106,18 @@ namespace StudentManagement.ViewModels
             OnPropertyChanged(nameof(CanAddMakeUpDay));
         }
         #endregion Validation
-        public NewsfeedRightSideBarViewModel()
+        public NewsfeedRightSideBarViewModel(SubjectClass subjectClass)
         {
+            SubjectClassDetail = subjectClass;
+
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
 
             ScheduleTimes = new ObservableCollection<DateTime>();
-            AbsentTimes = new ObservableCollection<DateTime>();
-            MakeUpTimes = new ObservableCollection<Tuple<DateTime, string>>();
             AbsentAndMakeUpItems = new ObservableCollection<object>();
+            FirstLoadData();
 
             LoadAbsentAndMakeUpItems();
-
-            DateTime dateStart = new DateTime(2021, 9, 6);
-            DateTime dateEnd = new DateTime(2021, 12, 13);
-            int weekDay = 1; // Tuesday
-            SchedulePeriod = "123";
-
-            for (DateTime date = dateStart.AddDays(weekDay); date <= dateEnd; date = date.AddDays(7))
-            {
-                if (AbsentTimes.Contains(date) || MakeUpTimes.Contains(new Tuple<DateTime, string>(date, SchedulePeriod)))
-                {
-                    continue;
-                }
-                ScheduleTimes.Add(date);
-            }
 
             DisplayDate = DateTime.Now;
             SelectedDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
@@ -139,30 +128,56 @@ namespace StudentManagement.ViewModels
             CancelAddMakeUpDay = new RelayCommand<object>((p) => true, (p) => CancelAddMakeUpDayFunction());
         }
 
+        private void FirstLoadData()
+        {
+            try
+            {
+                var data = AbsentCalendarServices.Instance.GetListAbsentCalendars(SubjectClassDetail.Id);
+                AbsentAndMakeUpItemsData = new ObservableCollection<AbsentAndMakeUpItem>();
+                data.ForEach(item => AbsentAndMakeUpItemsData.Add(AbsentCalendarServices.Instance.ConvertAbsentCalendarToAbsentItem(item)));
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải lịch báo nghỉ và báo bù!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+            try
+            {
+                DateTime dateStart = (DateTime)SubjectClassDetail.StartDate;
+                DateTime dateEnd = (DateTime)SubjectClassDetail.EndDate;
+                int weekDay = 1;//SubjectClassDetail.WeekDay;
+                SchedulePeriod = SubjectClassDetail.Period;
+
+                for (DateTime date = dateStart.AddDays(weekDay); date <= dateEnd.AddDays(7); date = date.AddDays(7))
+                {
+                    if (AbsentAndMakeUpItemsData.Any(item => item.Date == date))
+                    {
+                        continue;
+                    }
+                    ScheduleTimes.Add(date);
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải lịch học!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+        }
+
         private void LoadAbsentAndMakeUpItems()
         {
             AbsentAndMakeUpItems.Clear();
 
-            foreach (var item in AbsentTimes)
+            foreach (var item in AbsentAndMakeUpItemsData)
             {
-                if (item == SelectedDate)
+                if (item.Date == SelectedDate)
                 {
-                    AbsentAndMakeUpItems.Add(new AbsentAndMakeUpItem(SelectedDate, SchedulePeriod, "Nghỉ học"));
-                }
-            }
-
-            foreach (var item in MakeUpTimes)
-            {
-                if (item.Item1 == SelectedDate)
-                {
-                    AbsentAndMakeUpItems.Add(new AbsentAndMakeUpItem(SelectedDate, item.Item2, "Học bù"));
+                    AbsentAndMakeUpItems.Add(new AbsentAndMakeUpItem(item.Id, item.IdSubjectClass, item.Date, item.Period, item.Type));
                 }
             }
         }
 
         private bool CheckConflictPeriod()
         {
-            var listMakeUpInDay = MakeUpTimes.Where(item => item.Item1 == SelectedDate).ToList();
+            var listMakeUpInDay = AbsentAndMakeUpItemsData.Where(item => item.Date == SelectedDate && item.Type == "Học bù").ToList();
 
             foreach (var number in PeriodMakeUp)
             {
@@ -172,7 +187,7 @@ namespace StudentManagement.ViewModels
                 }
                 foreach (var item in listMakeUpInDay)
                 {
-                    if (item.Item2.Contains(number))
+                    if (item.Period.Contains(number))
                     {
                         return false;
                     }
@@ -234,7 +249,7 @@ namespace StudentManagement.ViewModels
         {
             AddMakeUpMode = false;
             IsMakeUpDay = true;
-            IsEvent = AbsentTimes.Contains(_selectedDate) || MakeUpTimes.Any(item => item.Item1 == SelectedDate);
+            IsEvent = AbsentAndMakeUpItemsData.Any(item => item.Date == SelectedDate);
             IsAbsentDay = ScheduleTimes.Contains(_selectedDate);
 
             if (_selectedDate < DateTime.Now.AddDays(-1))
@@ -245,26 +260,30 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void DeleteEventFunction()
+        private async void DeleteEventFunction()
         {
             try
             {
-                if (AbsentTimes.Contains(SelectedDate))
+                if (AbsentAndMakeUpItemsData.Any(item => item.Date == SelectedDate))
                 {
-                    AbsentTimes.Remove(SelectedDate);
-                    IsAbsentDay = true;
-                }
-                if (MakeUpTimes.Any(item => item.Item1 == SelectedDate))
-                {
-                    var removeLists = MakeUpTimes.Where(item => item.Item1 == SelectedDate).ToList();
+                    var removeLists = AbsentAndMakeUpItemsData.Where(item => item.Date == SelectedDate).ToList();
                     foreach (var item in removeLists)
                     {
-                        MakeUpTimes.Remove(item);
+                        if (item.Type == "Nghỉ học")
+                        {
+                            IsAbsentDay = true;
+                        }
+                        if (item.Type == "Học bù")
+                        {
+                            IsMakeUpDay = true;
+                        }
+                        AbsentAndMakeUpItemsData.Remove(item);
                     }
-                    IsMakeUpDay = true;
+
+                    await AbsentCalendarServices.Instance.DeleteAbsentCalendarAsync(SubjectClassDetail.Id, SelectedDate);
                 }
 
-                if (Math.Abs((SelectedDate - ScheduleTimes[0]).Days) % 7 == 0)
+                if (ScheduleTimes.Count != 0 && Math.Abs((SelectedDate - ScheduleTimes[0]).Days) % 7 == 0)
                 {
                     ScheduleTimes.Add(SelectedDate);
                 }
@@ -300,7 +319,7 @@ namespace StudentManagement.ViewModels
             DisplayDate = SelectedDate;
         }
 
-        private void AddMakeUpDayFunction()
+        private async void AddMakeUpDayFunction()
         {
             try
             {
@@ -316,7 +335,9 @@ namespace StudentManagement.ViewModels
                     return;
                 }
 
-                MakeUpTimes.Add(new Tuple<DateTime, string>(SelectedDate, PeriodMakeUp));
+                var newAbsent = new AbsentAndMakeUpItem(Guid.NewGuid(), SubjectClassDetail.Id, SelectedDate, PeriodMakeUp, "Học bù");
+                AbsentAndMakeUpItemsData.Add(newAbsent);
+                await AbsentCalendarServices.Instance.SaveCalendarToDatabaseAsync(newAbsent);
 
                 PeriodMakeUp = "";
                 _errorBaseViewModel.ClearErrors(nameof(PeriodMakeUp));
@@ -332,7 +353,7 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private void AddAbsentDayFunction()
+        private async void AddAbsentDayFunction()
         {
             try
             {
@@ -342,8 +363,11 @@ namespace StudentManagement.ViewModels
                     return;
                 }
 
-                AbsentTimes.Add(SelectedDate);
                 ScheduleTimes.Remove(SelectedDate);
+
+                var newAbsent = new AbsentAndMakeUpItem(Guid.NewGuid(), SubjectClassDetail.Id, SelectedDate, SubjectClassDetail.Period, "Nghỉ học");
+                AbsentAndMakeUpItemsData.Add(newAbsent);
+                await AbsentCalendarServices.Instance.SaveCalendarToDatabaseAsync(newAbsent);
 
                 RefreshCalendar();
                 CancelAddMakeUpDayFunction();
@@ -360,12 +384,16 @@ namespace StudentManagement.ViewModels
 
     public class AbsentAndMakeUpItem
     {
+        public Guid Id { get; set; }
+        public Guid IdSubjectClass { get; set; }
         public DateTime Date { get; set; }
         public string Period { get; set; }
         public string Type { get; set; }
 
-        public AbsentAndMakeUpItem(DateTime date, string period, string type)
+        public AbsentAndMakeUpItem(Guid id, Guid idSubjectClass, DateTime date, string period, string type)
         {
+            IdSubjectClass = idSubjectClass;
+            Id = id;
             Date = date;
             Period = period;
             Type = type;

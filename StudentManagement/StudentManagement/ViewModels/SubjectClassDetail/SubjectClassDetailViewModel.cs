@@ -1,4 +1,5 @@
-﻿using StudentManagement.Objects;
+﻿using StudentManagement.Models;
+using StudentManagement.Objects;
 using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,12 @@ namespace StudentManagement.ViewModels
         private LayoutViewModel _layoutViewModel;
         private object _newFeedSubjectClassDetailViewModel;
         private object _fileManagerClassDetailViewModel;
+        private object _adminStudentListViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
-        private object _fileManagerRightSideBarViewModel;
         private object _newsFeedRightSideBarViewModel;
+        private object _fileManagerRightSideBarViewModel;
+        private object _studentListRightSideBar;
 
         // Properties
         private bool _isShowDialog;
@@ -45,14 +48,17 @@ namespace StudentManagement.ViewModels
         public SubjectClassDetailViewModel(UserControl cardComponent)
         {
             SubjectClassCard card = cardComponent.DataContext as SubjectClassCard;
+            var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId(card.Id);
+
             _layoutViewModel = new LayoutViewModel();
 
-            InitContentView(card);
-            InitRightSideBar();
+            InitContentView(subjectClass);
+            InitRightSideBar(subjectClass);
 
             _layoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Bảng tin", false, null, _newFeedSubjectClassDetailViewModel, _newsFeedRightSideBarViewModel, _layoutViewModel, "NewspaperVariantOutline"),
-                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "FileDocumentMultipleOutline")
+                new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "FileDocumentMultipleOutline"),
+                new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, _studentListRightSideBar, _layoutViewModel, "SchoolOutline"),
             };
 
             // Set corresponding active button to default view
@@ -71,16 +77,44 @@ namespace StudentManagement.ViewModels
 
         #region Methods
 
-        public void InitContentView(SubjectClassCard card)
+        public void InitContentView(SubjectClass subjectClass)
         {
-            var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId(card.Id);
             _newFeedSubjectClassDetailViewModel = new NewFeedSubjectClassDetailViewModel(subjectClass);
             (_newFeedSubjectClassDetailViewModel as NewFeedSubjectClassDetailViewModel).PropertyChanged += NewFeedSubjectClassDetailViewModel_PropertyChanged;
 
 
-            _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel();
+            _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel(subjectClass);
             (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).PropertyChanged += FileManagerClassDetailViewModel_PropertyChanged;
+            
+            _adminStudentListViewModel = new AdminStudentListViewModel();
+
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;
+        }
+
+        public void InitRightSideBar(SubjectClass subjectClass)
+        {
+            _fileManagerRightSideBarViewModel = new FileManagerRightSideBarViewModel();
+            (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).PropertyChanged += FileManagerRightSideBarViewModel_PropertyChanged;
+            
+            _newsFeedRightSideBarViewModel = new NewsfeedRightSideBarViewModel(subjectClass);
+
+            _studentListRightSideBar = new StudentListRightSideBarViewModel();
+
+            _layoutViewModel.RightSideBar = _newsFeedRightSideBarViewModel;
+        }
+
+        #endregion Methods
+
+        #region Events
+
+        private void FileManagerRightSideBarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsDeleteFile")
+            {
+                object selectedItems = new ObservableCollection<FileInfo>
+                    { (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).CurrentFile };
+                (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).DeleteFileFunction(selectedItems);
+            }
         }
 
         private void NewFeedSubjectClassDetailViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -95,27 +129,6 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        public void InitRightSideBar()
-        {
-            _fileManagerRightSideBarViewModel = new FileManagerRightSideBarViewModel();
-            _newsFeedRightSideBarViewModel = new NewsfeedRightSideBarViewModel();
-            (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).PropertyChanged += FileManagerRightSideBarViewModel_PropertyChanged;
-            _layoutViewModel.RightSideBar = _newsFeedRightSideBarViewModel;
-        }
-
-        private void FileManagerRightSideBarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "IsDeleteFile")
-            {
-                object selectedItems = new ObservableCollection<FileInfo>
-                    { (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).CurrentFile };
-                (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).DeleteFileFunction(selectedItems);
-            }
-        }
-
-        #endregion Methods
-
-        #region Events
         private void FileManagerClassDetailViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsShowDialog")

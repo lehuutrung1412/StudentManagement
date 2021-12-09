@@ -19,143 +19,127 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock
-                Grid.Row="0"
-                Margin="12,8,8,0"
-                FontSize="28"
-                FontWeight="Bold"
-                Text="Tổng quan lớp học" />
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.5*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-
-                <Canvas
-                    x:Name="mainCanvas"
-                    Grid.Column="0"
-                    Margin="100,10,0,0">
-                    <ContentPresenter Content="{Binding MainCanvas}" />
-                </Canvas>
-
-                <ScrollViewer
-                    Grid.Column="1"
-                    Margin="10,10,0,0"
-                    Padding="10"
-                    VerticalAlignment="Center"
-                    HorizontalScrollBarVisibility="Hidden"
-                    VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding DataPieChart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="10" Orientation="Horizontal">
-                                    <Rectangle
-                                        Width="15"
-                                        Height="15"
-                                        Margin="0,0,5,0"
-                                        VerticalAlignment="Center"
-                                        Fill="{Binding ColorBrush}" />
-
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Text="{Binding Title}" />
-
-                                    <TextBlock
-                                        Margin="20,0,0,0"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="{Binding ColorBrush}"
-                                        Text="{Binding Percentage}" />
-
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="{Binding ColorBrush}"
-                                        Text="%" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-
-            </Grid>
-        </Grid>
-
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="38" />
-                <RowDefinition Height="67" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <TextBlock
+            <materialDesign:Card
                 Grid.Row="0"
-                Margin="12,8,8,0"
-                FontSize="28"
-                FontWeight="Bold"
-                Text="Danh sách sinh viên lớp môn học" />
-            <Grid Grid.Row="1" Margin="12,8,0,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.25*" />
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition Width="0.5*" />
-                </Grid.ColumnDefinitions>
+                Margin="4"
+                Style="{StaticResource CardContainer}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="8"
+                        FontWeight="Bold"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="Tổng quan lớp học" />
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
 
-                <Grid Grid.Column="0">
+                        <Border>
+                            <Canvas
+                                x:Name="mainCanvas"
+                                Margin="16"
+                                HorizontalAlignment="Center">
+                                <ContentPresenter Content="{Binding MainCanvas}" />
+                            </Canvas>
+                        </Border>
 
-                    <component:SearchBarOne
-                        DatePickerVisibility="False"
-                        FirstSearchButtonVisibility="False"
-                        SearchCommand="{Binding SearchName}"
-                        SearchQuery="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
-                        SecondSearchButtonVisibility="False"
-                        TextblockSearchBaseOnVisibility="False" />
+                        <ItemsControl Margin="200,16,16,16" ItemsSource="{Binding DataPieChart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="10" Orientation="Horizontal">
+                                        <Rectangle
+                                            Width="14"
+                                            Height="14"
+                                            Margin="0,0,5,0"
+                                            VerticalAlignment="Center"
+                                            Fill="{Binding ColorBrush}" />
+
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{Binding Title}" />
+
+                                        <TextBlock
+                                            Margin="20,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Foreground="{Binding ColorBrush}"
+                                            Text="{Binding Percentage}" />
+
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Foreground="{Binding ColorBrush}"
+                                            Text="%" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </Grid>
+            </materialDesign:Card>
 
-                <Grid Grid.Column="1">
-                    <Button
-                        Width="140"
-                        Margin="16,0,16,0"
-                        materialDesign:ButtonAssist.CornerRadius="5"
-                        Background="#4caf50"
-                        Command="{Binding AddStudent}"
-                        ToolTip="MaterialDesignRaisedLightButton with Round Corners">
-                        <TextBlock Text="Thêm sinh viên" />
-                    </Button>
+            <materialDesign:Card
+                Grid.Row="1"
+                Margin="4,12,4,0"
+                Style="{StaticResource CardContainer}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="8"
+                        FontWeight="Bold"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="Danh sách sinh viên lớp môn học" />
+                    <Grid Grid.Row="1" Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <component:SearchBarOne
+                            Grid.Column="0"
+                            DatePickerVisibility="False"
+                            FirstSearchButtonVisibility="False"
+                            SearchCommand="{Binding SearchName}"
+                            SearchQuery="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                            SecondSearchButtonVisibility="False"
+                            TextblockSearchBaseOnVisibility="False" />
+
+                        <Button
+                            Grid.Column="1"
+                            Height="50"
+                            Margin="16,0,16,0"
+                            Command="{Binding AddStudent}"
+                            Content="Thêm sinh viên"
+                            Style="{StaticResource PrimaryButton}"
+                            ToolTip="Thêm sinh viên" />
+
+                        <Button
+                            Grid.Column="2"
+                            Height="50"
+                            Command="{Binding DeleteStudent}"
+                            Content="Xóa sinh viên"
+                            Style="{StaticResource PrimaryButton}"
+                            ToolTip="Xóa sinh viên" />
+                    </Grid>
+
+                    <component:StudentListDataGrid Grid.Row="2" Margin="8" />
                 </Grid>
-
-                <Grid Grid.Column="2">
-                    <Button
-                        Width="140"
-                        Margin="16,0,16,0"
-                        materialDesign:ButtonAssist.CornerRadius="5"
-                        Background="#ff0000"
-                        Command="{Binding DeleteStudent}"
-                        ToolTip="MaterialDesignRaisedLightButton with Round Corners">
-                        <TextBlock Text="Xóa sinh viên" />
-                    </Button>
-                </Grid>
-            </Grid>
-
-
-            <component:StudentListDataGrid Grid.Row="2" Margin="16,0,16,0" />
-
+            </materialDesign:Card>
         </Grid>
-
-
-
-    </Grid>
-
-
+    </ScrollViewer>
 </UserControl>

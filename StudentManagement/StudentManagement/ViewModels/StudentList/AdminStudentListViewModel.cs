@@ -210,7 +210,7 @@ namespace StudentManagement.ViewModels
 
         private void InitParemeter()
         {
-            _pieWidth = 250; _pieHeight = 250;
+            _pieWidth = 180; _pieHeight = 180;
             _centerX = _pieWidth / 2; _centerY = _pieHeight / 2;
             _radius = _pieWidth / 2;
         }

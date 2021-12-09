@@ -13,19 +13,28 @@ namespace StudentManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AbsentCalendar : BaseViewModel
-    {
-        private System.Guid _id { get; set; }
-        public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
-        private Nullable<System.Guid> _idSubjectClass { get; set; }
-        public Nullable<System.Guid> IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
-        private string _period { get; set; }
-        public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _date { get; set; }
-        public Nullable<System.DateTime> Date { get => _date; set { _date = value; OnPropertyChanged(); } }
-        private Nullable<int> _type { get; set; }
-        public Nullable<int> Type { get => _type; set { _type = value; OnPropertyChanged(); } }
-    
-        public virtual SubjectClass SubjectClass { get; set; }
-    }
+public partial class AbsentCalendar : BaseViewModel
+{
+
+    private System.Guid _id { get; set; }
+    public System.Guid Id { get => _id; set { _id = value; OnPropertyChanged(); } }
+
+    private Nullable<System.Guid> _idSubjectClass { get; set; }
+    public Nullable<System.Guid> IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
+
+    private Nullable<System.DateTime> _date { get; set; }
+    public Nullable<System.DateTime> Date { get => _date; set { _date = value; OnPropertyChanged(); } }
+
+    private Nullable<int> _type { get; set; }
+    public Nullable<int> Type { get => _type; set { _type = value; OnPropertyChanged(); } }
+
+    private string _period { get; set; }
+    public string Period { get => _period; set { _period = value; OnPropertyChanged(); } }
+
+
+
+    public virtual SubjectClass SubjectClass { get; set; }
+
+}
+
 }
