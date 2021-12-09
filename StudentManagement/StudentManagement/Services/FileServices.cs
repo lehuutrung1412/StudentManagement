@@ -30,8 +30,8 @@ namespace StudentManagement.Services
                 Content = file.Content,
                 CreatedAt = file.UploadTime,
                 IdFolder = file.FolderId,
-                IdPoster = file.PublisherId,
-                IdSubjectClass = file.IdSubjectClass,
+                IdPoster = (Guid)file.PublisherId,
+                IdSubjectClass = (Guid)file.IdSubjectClass,
                 Size = file.Size
             };
         }
@@ -56,7 +56,7 @@ namespace StudentManagement.Services
             {
                 Id = (Guid)file.FolderId,
                 DisplayName = file.FolderName,
-                IdSubjectClass = file.IdSubjectClass,
+                IdSubjectClass = (Guid)file.IdSubjectClass,
                 CreatedAt = file.UploadTime,
                 IdPoster = file.PublisherId
             };

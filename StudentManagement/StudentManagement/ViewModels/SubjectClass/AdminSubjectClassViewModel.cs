@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using StudentManagement.Utils;
@@ -6,12 +7,14 @@ using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static StudentManagement.Services.LoginServices;
 
 namespace StudentManagement.ViewModels
 {
@@ -67,22 +70,22 @@ namespace StudentManagement.ViewModels
 
         public AdminSubjectClassViewModel()
         {
-            LoadSubjectClassCards();
+            LoginServices.UpdateCurrentUser += UpdateCurrentUser;
+
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchSubjectClassCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectClassCardsFunction());
             ShowSubjectClassDetail = new RelayCommand<UserControl>((p) => { return p != null; }, (p) => ShowSubjectClassDetailFunction(p));
         }
 
         #region methods
-
         public void LoadSubjectClassCards()
         {
-            var subjectClasses = SubjectClassServices.Instance.LoadSubjectClassList();
+            var subjectClasses = LoadSubjectClassListByRole();
 
             StoredSubjectClassCards = new ObservableCollection<SubjectClassCard>();
             SubjectClassCards = new ObservableCollection<SubjectClassCard>();
 
-            subjectClasses.ToList().ForEach(subjectClass => StoredSubjectClassCards.Add(SubjectClassServices.Instance.ConvertSubjectClassToSubjectClassCard(subjectClass)));
+            subjectClasses.ForEach(subjectClass => StoredSubjectClassCards.Add(SubjectClassServices.Instance.ConvertSubjectClassToSubjectClassCard(subjectClass)));
 
             foreach (var subjectClass in StoredSubjectClassCards)
             {
@@ -130,6 +133,21 @@ namespace StudentManagement.ViewModels
             #endregion
         }
 
+        public List<SubjectClass> LoadSubjectClassListByRole()
+        {
+            var subjectClasses = SubjectClassServices.Instance.LoadSubjectClassList();
+
+            switch (LoginServices.CurrentUser.UserRole.Role)
+            {
+                case "Admin":
+                    return subjectClasses.Where(el => true).ToList();
+                case "Giáo viên":
+                    return subjectClasses.Where(el => true).ToList();
+                default:
+                    return subjectClasses.Where(el => false).ToList();
+            }
+        }
+
         public void SwitchSearchButtonFunction(UserControl p)
         {
             IsFirstSearchButtonEnabled = !IsFirstSearchButtonEnabled;
@@ -138,7 +156,7 @@ namespace StudentManagement.ViewModels
         public void SearchSubjectClassCardsFunction()
         {
             var tmp = StoredSubjectClassCards.Where(x => !IsFirstSearchButtonEnabled ?
-                                                    vietnameseStringNormalizer.Normalize(x.TenMon + " " + x.Code).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
+                                                    vietnameseStringNormalizer.Normalize(x.SubjectOfClass.DisplayName + " " + x.Code).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
                                                     : vietnameseStringNormalizer.Normalize(x.GiaoVien).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
             SubjectClassCards.Clear();
             foreach (SubjectClassCard card in tmp)
@@ -154,5 +172,12 @@ namespace StudentManagement.ViewModels
             subjectClassDetail.Show();
         }
         #endregion methods
+
+        #region eventhandler
+        private void UpdateCurrentUser(object sender, LoginEvent e)
+        {
+            LoadSubjectClassCards();
+        }
+        #endregion
     }
 }

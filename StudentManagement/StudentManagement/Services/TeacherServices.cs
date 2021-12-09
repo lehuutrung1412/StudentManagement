@@ -123,6 +123,11 @@ namespace StudentManagement.Services
             DataProvider.Instance.Database.SaveChanges();
         }
 
+        public Teacher GetTeacherbyUser(User user)
+        {
+            return DataProvider.Instance.Database.Teachers.FirstOrDefault(teacher => teacher.IdUsers == user.Id);
+        }
+
         /// <summary>
         /// Remove TeacherCard From Database
         /// </summary>

@@ -10,7 +10,7 @@
     x:Name="SubjectClassRightSideBarItemEdit"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
-    Background="{StaticResource SideBar}"
+    Background="{StaticResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -76,11 +76,45 @@
                         Style="{StaticResource textblock_item}"
                         Text="Tên môn học" />
 
-                    <TextBox
+                    <ComboBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập tên môn học"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.TenMon}" />
+                        ItemsSource="{Binding CurrentCard.SubjectList}"
+                        SelectedItem="{Binding CurrentCard.SubjectOfClass}"
+                        Style="{StaticResource combobox_item}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                </Grid>
+
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Mã môn học" />
+
+                    <ComboBox
+                        Grid.Row="1"
+                        IsEnabled="False"
+                        ItemsSource="{Binding CurrentCard.SubjectList, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding CurrentCard.SubjectOfClass}"
+                        Style="{StaticResource combobox_item}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Code}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
                 </Grid>
 
                 <Grid Style="{StaticResource text_grid_item}">
@@ -99,7 +133,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập mã lớp học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.Code}" />
+                        Text="{Binding CurrentCard.Code, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
 
@@ -119,7 +153,7 @@
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Nhập tên giáo viên"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.GiaoVien}" />
+                        Text="{Binding CurrentCard.GiaoVien, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
                 <Grid Style="{StaticResource text_grid_item}">

@@ -188,7 +188,7 @@ namespace StudentManagement.ViewModels
                 {
                     if (SelectedSemester == null)
                         return false;
-                    return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0 && !(SelectedSemester.CourseRegisterStatus > 0);
+                    return CourseRegistryItemsDisplay.Where(x => x.IsSelected == true).Count() > 0 && !(SelectedSemester.CourseRegisterStatus > 1);
                 },
                 (p) =>
                 {
@@ -197,11 +197,11 @@ namespace StudentManagement.ViewModels
             CreateNewCourseCommand = new RelayCommand<object>((p) => {
                 if (SelectedSemester == null)
                     return false;
-                return !(SelectedSemester.CourseRegisterStatus > 0);
+                return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => CreateNewCourse());
-            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 1);
-            PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 0);
-            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => SelectedSemester.CourseRegisterStatus = 2);
+            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 1; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
+            PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 0; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
+            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 2; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
 
             CreateNewSemesterCommand = new RelayCommand<object>((p) =>
             {
@@ -217,19 +217,19 @@ namespace StudentManagement.ViewModels
             {
                 if (SelectedSemester == null)
                     return false;
-                return !(SelectedSemester.CourseRegisterStatus > 0);
+                return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => AddFromExcel());
             SaveChangesCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedSemester == null)
                     return false;
-                return !(SelectedSemester.CourseRegisterStatus > 0);
+                return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => SaveChanges());
             ConvertChangesCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedSemester == null)
                     return false;
-                return !(SelectedSemester.CourseRegisterStatus > 0);
+                return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => ConvertChanges());
         }
         public void SelectData()
@@ -362,10 +362,12 @@ namespace StudentManagement.ViewModels
                             WeekDay = Convert.ToString(course[4]),                                                      //Column WeekDay NVARCHAR
                             Code = Convert.ToString(course[5]),
                             MaxNumberOfStudents = Convert.ToInt32(course[6]),
-                            TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(tf=>tf.DisplayName.Equals(TFName)).FirstOrDefault(),
+                            TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(tf => tf.DisplayName.Equals(TFName)).FirstOrDefault(),
                             Teachers = new ObservableCollection<Teacher>() { TeacherServices.Instance.FindTeacherByTeacherId(idTeacher) },
-                            DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable()            //Thiếu image
+                            DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable(),           //Thiếu image
+                            NumberOfStudents = 0
                         };
+                        UpdateSubjectClassCode(tempSubjectClass);
                         var tempCourse = new CourseItem(tempSubjectClass, false);
                         SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
                         excelList.Add(tempCourse);
@@ -376,7 +378,22 @@ namespace StudentManagement.ViewModels
             /*DataTable data = dataSheets[dataSheets.Cast<DataTable>().Select(t=>t.TableName).Last().ToString()];*/
             StudentCourseRegistryViewModel.Instance.UpdateData();
         }
+        public void UpdateSubjectClassCode(SubjectClass subjectClass)
+        {
+            string subjectClassCode = "";
+            subjectClassCode += subjectClass.Subject.Code;
 
+            string codeSemester = ".";
+            codeSemester += (char)(Convert.ToInt32(SelectedSemester.Batch.Split('-')[0]) - 2010 + 65);
+            var listSemester = SemesterServices.Instance.LoadListSemestersByBatch(SelectedSemester.Batch);
+            int indexSemester = listSemester.IndexOf(SelectedSemester) + 1;
+            codeSemester += Convert.ToString(indexSemester);
+            subjectClassCode += codeSemester;
+
+            int indexCourse = (CourseRegistryItems == null) ? 1 : CourseRegistryItems.Where(course => course.Subject.DisplayName == subjectClass.Subject.DisplayName).Count() + 1;
+            subjectClassCode += Convert.ToString(indexCourse);
+            subjectClass.Code = subjectClassCode;
+        }
         public void SaveChanges()
         {
 

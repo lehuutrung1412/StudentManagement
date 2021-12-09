@@ -98,8 +98,7 @@
                 <Button
                     Width="40"
                     Height="40"
-                    Margin="8,0,12,0"
-                    Command="{Binding ClickImageCommand}">
+                    Margin="8,0,12,0">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -168,7 +167,7 @@
                             <Style TargetType="materialDesign:PopupBox">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsFocused, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="true">
-                                        <Setter Property="IsPopupOpen" Value="True"/>
+                                        <Setter Property="IsPopupOpen" Value="True" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

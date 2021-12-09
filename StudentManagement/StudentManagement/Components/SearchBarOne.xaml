@@ -113,6 +113,7 @@
                                         Width="auto"
                                         Margin="4"
                                         VerticalAlignment="Center"
+                                        xml:lang="vi-VN"
                                         Background="Red"
                                         SelectedDate="{Binding SelectedDateInSearchBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=SubjectClassCardComponent}"
                                         Visibility="{Binding DatePickerVisibility, ElementName=SubjectClassCardComponent, Converter={StaticResource BooleanToVisibilityConverter}}">

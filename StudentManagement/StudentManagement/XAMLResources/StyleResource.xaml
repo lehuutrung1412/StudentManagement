@@ -522,7 +522,7 @@
         x:Key="textbox_item"
         BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"
         TargetType="TextBox">
-        <Setter Property="Margin" Value="4,4,8,16" />
+        <Setter Property="Margin" Value="4,4,4,16" />
         <Setter Property="Height" Value="50" />
         <Setter Property="AcceptsReturn" Value="True" />
         <Setter Property="VerticalAlignment" Value="Top" />
@@ -541,7 +541,7 @@
         x:Key="combobox_item"
         BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
         TargetType="ComboBox">
-        <Setter Property="Margin" Value="8,4,8,16" />
+        <Setter Property="Margin" Value="4,4,4,16" />
         <Setter Property="Height" Value="50" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />

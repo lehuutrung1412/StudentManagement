@@ -65,7 +65,7 @@
                 materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
                 materialDesign:ValidationAssist.Background="White"
                 FontSize="16"
-                Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <TextBox.Style>
                     <Style BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" TargetType="TextBox">
                         <Style.Triggers>
@@ -81,7 +81,7 @@
                 Grid.Row="2"
                 Margin="28,16"
                 VerticalContentAlignment="Center"
-                local:PasswordBoxHelper.Password="{Binding Password}"
+                local:PasswordBoxHelper.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 materialDesign:HintAssist.Hint="Mật khẩu"
                 materialDesign:HintAssist.HintOpacity="0.5"
                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
@@ -143,7 +143,6 @@
                 Command="{Binding GotoLayoutViewCommand, Source={StaticResource MainVM}}"
                 Content="Đăng nhập"
                 FontSize="16"
-                IsEnabled="{Binding CanLogin}"
                 Style="{StaticResource PrimaryButton}" />
         </Grid>
     </Border>

@@ -8,8 +8,9 @@
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="617"
-    d:DesignWidth="746"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
+    d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
+    d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{StaticResource CenterColumn}"
     DataContext="{DynamicResource CampusStudentListVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
@@ -19,90 +20,83 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
+    <materialDesign:Card
+        Grid.Column="9"
+        Grid.ColumnSpan="3"
+        Margin="12,0,4,0"
+        Style="{StaticResource CardContainer}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="67" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Margin="12,8,8,0"
+                FontSize="30"
+                FontWeight="Bold"
+                Text="Danh sách sinh viên" />
+            <Grid Grid.Row="1" Margin="12,8,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="67" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <TextBlock
-            Grid.Row="0"
-            Margin="12,8,8,0"
-            FontSize="30"
-            FontWeight="Bold"
-            Text="Danh sách sinh viên" />
-        <Grid Grid.Row="1" Margin="12,8,0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.25*" />
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="0.5*" />
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0">
-                <!--<TextBox
-                        Margin="16,0,16,0"
-                        materialDesign:HintAssist.Hint="Nhập để tìm kiếm"
-                        materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}">
-                        <TextBox.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding SearchName}" />
-                        </TextBox.InputBindings>
-                    </TextBox>-->
                 <component:SearchBarOne
+                    Grid.Column="0"
                     DatePickerVisibility="False"
                     FirstSearchButtonVisibility="False"
                     SearchCommand="{Binding SearchName}"
                     SearchQuery="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
                     SecondSearchButtonVisibility="False"
                     TextblockSearchBaseOnVisibility="False" />
+
+                <Grid Grid.Column="1">
+                    <Button
+                        Height="50"
+                        Margin="16,0,0,0"
+                        Command="{Binding AddStudent}"
+                        Style="{StaticResource PrimaryButton}"
+                        ToolTip="Thêm người dùng">
+                        <TextBlock Text="Thêm người dùng" />
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Button
+                        Height="50"
+                        Margin="16,0,8,0"
+                        Command="{Binding AddStudentList}"
+                        Style="{StaticResource PrimaryButton}"
+                        ToolTip="Thêm danh sách sinh viên từ file">
+                        <TextBlock Text="Thêm từ file" />
+                    </Button>
+                </Grid>
             </Grid>
 
-            <Grid Grid.Column="1">
-                <Button
-                    Width="140"
-                    Margin="16,0,16,0"
-                    materialDesign:ButtonAssist.CornerRadius="5"
-                    Background="#4caf50"
-                    Command="{Binding AddStudent}"
-                    ToolTip="MaterialDesignRaisedLightButton with Round Corners">
-                    <TextBlock Text="Thêm sinh viên" />
-                </Button>
-            </Grid>
-
-            <Grid Grid.Column="2">
-                <Button
-                    Width="140"
-                    Margin="16,0,16,0"
-                    materialDesign:ButtonAssist.CornerRadius="5"
-                    Background="#ff0000"
-                    Command="{Binding AddStudentList}"
-                    ToolTip="MaterialDesignRaisedLightButton with Round Corners">
-                    <TextBlock Text="Thêm từ file" />
-                </Button>
-            </Grid>
+            <ScrollViewer
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                VerticalScrollBarVisibility="Visible">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding FindNameData, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <component:StudentInfoCard Margin="16,4,0,4" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
-        <ScrollViewer
-            Grid.Row="2"
-            HorizontalScrollBarVisibility="Auto"
-            VerticalScrollBarVisibility="Visible">
-            <Grid>
-                <ItemsControl ItemsSource="{Binding FindNameData, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <component:StudentInfoCard Margin="16,5,16,5" HorizontalAlignment="Stretch" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Grid>
-        </ScrollViewer>
-    </Grid>
+    </materialDesign:Card>
 
 
 </UserControl>

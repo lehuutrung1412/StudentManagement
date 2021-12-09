@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using StudentManagement.Objects;
+using static StudentManagement.ViewModels.AdminStudentListViewModel;
 
 namespace StudentManagement.ViewModels
 {
@@ -54,6 +56,10 @@ namespace StudentManagement.ViewModels
 
         private ICommand _editStudentInfo;
 
+        private ICommand _showStudentCardInfo;
+
+        public ICommand ShowStudentCardInfo { get => _showStudentCardInfo; set => _showStudentCardInfo = value; }
+
         public void InitRightSideBarItemViewModel()
         {
             _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemViewModel();
@@ -64,11 +70,12 @@ namespace StudentManagement.ViewModels
         public void InitRightSideBarCommand()
         {
             EditStudentInfo = new RelayCommand<object>((p) => { return true; }, (p) => EditStudentInfoFunction(p));
+            ShowStudentCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowStudentCardInfoFunction(p));
         }
 
         void EditStudentInfoFunction(object p)
         {
-            StudentGrid currentStudent = p as StudentGrid;
+            UserCard currentStudent = p as UserCard;
             _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemEditViewModel(currentStudent);
             RightSideBarItemViewModel = _campusStudentListRightSideBarItemViewModel;
         }
@@ -79,6 +86,13 @@ namespace StudentManagement.ViewModels
             InitRightSideBarCommand();
 
             Instance = this;
+        }
+
+        void ShowStudentCardInfoFunction(UserControl p)
+        {
+            UserCard currentStudent = p.DataContext as UserCard;
+            _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemViewModel(currentStudent);
+            RightSideBarItemViewModel = _campusStudentListRightSideBarItemViewModel;
         }
 
     }

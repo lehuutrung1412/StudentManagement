@@ -40,6 +40,7 @@ namespace StudentManagement.ViewModels
 
         public AdminSubjectClassRightSideBarItemEditViewModel(SubjectClassCard card, bool isCreatedNew = false)
         {
+            card.InitModelNavigationItem();
             CurrentCard = new SubjectClassCard();
             ActualCard = card;
             if (!isCreatedNew)
@@ -79,7 +80,7 @@ namespace StudentManagement.ViewModels
 
         public bool CanConfirmEdit()
         {
-            if (!string.IsNullOrEmpty(CurrentCard.Code))
+            if (!string.IsNullOrEmpty(CurrentCard.Code) && !(CurrentCard.SubjectOfClass == null))
 
                 return true;
             return false;

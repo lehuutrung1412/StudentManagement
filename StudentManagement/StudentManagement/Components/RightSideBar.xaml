@@ -37,6 +37,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:AdminSubjectClassRightSideBarViewModel}">
                     <component:AdminSubjectClassRightSideBar />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminSubjectRightSideBarViewModel}">
+                    <component:AdminSubjectRightSideBar />
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:AdminNotificationRightSideBarViewModel}">
                     <component:AdminNotificationRightSideBar />
                 </DataTemplate>

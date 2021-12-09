@@ -1,4 +1,4 @@
-﻿using ExcelDataReader;
+using ExcelDataReader;
 using StudentManagement.Commands;
 using StudentManagement.Objects;
 using StudentManagement.Utils;
@@ -16,6 +16,8 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
+using StudentManagement.Services;
+using StudentManagement.Models;
 
 namespace StudentManagement.ViewModels
 {
@@ -28,19 +30,23 @@ namespace StudentManagement.ViewModels
 
             private set => s_instance = value;
         }
-
-        private ObservableCollection<StudentGrid> _studentDatabase;
-        public ObservableCollection<StudentGrid> StudentDatabase
+        
+        private ObservableCollection<UserCard> _userDatabase;
+        public ObservableCollection<UserCard> UserDatabase
         {
-            get => _studentDatabase;
-            set => _studentDatabase = value;
+            get => _userDatabase;
+            set
+            {
+                _userDatabase = value;
+              
+            }
         }
 
         public string SearchQuery { get => _searchQuery; set { _searchQuery = value; SearchNameFunction(); OnPropertyChanged(); } }
         private string _searchQuery;
 
-        private ObservableCollection<StudentGrid> _findNameData;
-        public ObservableCollection<StudentGrid> FindNameData
+        private ObservableCollection<UserCard> _findNameData;
+        public ObservableCollection<UserCard> FindNameData
         {
             get => _findNameData;
             set
@@ -54,26 +60,27 @@ namespace StudentManagement.ViewModels
         public ICommand AddStudent { get; set; }
         public ICommand AddStudentList { get; set; }
 
-        private ObservableCollection<Score> _studentScore;
-        public ObservableCollection<Score> StudentScore
-        {
-            get => _studentScore;
-            set => _studentScore = value;
-        }
 
         public CampusStudentListViewModel()
         {
-            StudentDatabase = new ObservableCollection<StudentGrid>();
             Instance = this;
 
-            //StudentDatabase.Add(new Student { Training = "Đại trà", NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123", STT = 1});
-            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
-            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
-            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
-            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
-            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
+            UserDatabase = new ObservableCollection<UserCard>();
 
-            FindNameData = new ObservableCollection<StudentGrid>(StudentDatabase);
+            var teacherList = TeacherServices.Instance.LoadTeacherList();
+            var studentList = StudentServices.Instance.LoadStudentList();
+            var adminList = AdminServices.Instance.LoadAdminList();
+
+            foreach (var item in studentList)
+                UserDatabase.Add(new UserCard(item));
+
+            foreach (var item in teacherList)
+                UserDatabase.Add(new UserCard(item));
+
+            foreach (var item in adminList)
+                UserDatabase.Add(new UserCard(item));
+
+            FindNameData = new ObservableCollection<UserCard>();
 
             SearchName = new RelayCommand<object>((p) => true, (p) => SearchNameFunction());
             AddStudent = new RelayCommand<object>((p) => true, (p) => AddStudentFunction());
@@ -87,17 +94,12 @@ namespace StudentManagement.ViewModels
                 SearchQuery = "";
             }
 
-            int stt = 0;
             FindNameData.Clear();
-            foreach (var item in StudentDatabase)
+            foreach (var item in UserDatabase)
             {
                 if (VietnameseStringNormalizer.Instance.Normalize(item.DisplayName)
-                    .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery))
-                    || item.Username.Contains(SearchQuery)
-                )
+                    .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery)))
                 {
-                    item.Number = stt + 1;
-                    stt += 1;
                     FindNameData.Add(item);
                 }
             }
@@ -105,9 +107,8 @@ namespace StudentManagement.ViewModels
 
         void AddStudentFunction()
         {
-            StudentGrid CurrentStudent = new StudentGrid();
             CampusStudentListRightSideBarViewModel studentListRightSideBarViewModel = CampusStudentListRightSideBarViewModel.Instance;
-            studentListRightSideBarViewModel.RightSideBarItemViewModel = new AddStudentListViewModel(CurrentStudent);
+            studentListRightSideBarViewModel.RightSideBarItemViewModel = new AddStudentListViewModel();
 
             SearchNameFunction();
         }
@@ -134,16 +135,6 @@ namespace StudentManagement.ViewModels
 
                     foreach (DataRow student in data.Rows)
                     {
-                        var item = new StudentGrid
-                        {
-                            Username = Convert.ToString(student[0]),
-                            DisplayName = Convert.ToString(student[1]),
-                            Faculty = Convert.ToString(student[2]),
-                            TrainingForm = Convert.ToString(student[3])
-                        };
-
-                        StudentDatabase.Add(item);
-
                     }
                 }
             }

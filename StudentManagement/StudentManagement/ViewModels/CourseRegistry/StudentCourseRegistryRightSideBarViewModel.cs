@@ -36,6 +36,14 @@ namespace StudentManagement.ViewModels
                 {
                     _studentCourseRegistryRightSideBarItemViewModel = new StudentCourseRegistryRightSideBarItemViewModel(_selectedItem);
                     RightSideBarItemViewModel = _studentCourseRegistryRightSideBarItemViewModel;
+                    try
+                    {
+                        ScheduleItem wilRemoveSchedule = StudentCourseRegistryViewModel.Instance.SelectedScheduleItem2;
+                        StudentCourseRegistryViewModel.Instance.ScheduleItemsRegistered.Remove(wilRemoveSchedule);
+                    }
+                    catch { }
+                    int tempType = SelectedItem.IsConflict ? 1 : 0;
+                    StudentCourseRegistryViewModel.Instance.SelectedScheduleItem2 = new ScheduleItem(SelectedItem.ConvertToSubjectClass(), true, SelectedItem.IsConflict, 1+tempType, false);
                 }
 
             }

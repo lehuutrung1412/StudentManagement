@@ -38,6 +38,8 @@ namespace StudentManagement.ViewModels
             CreatePostNewFeedViewModel.PropertyChanged += CreatePostNewFeedViewModel_PropertyChanged;
             EditPostNewFeedViewModel = new CreatePostNewFeedViewModel();
             EditPostNewFeedViewModel.PropertyChanged += EditPostNewFeedViewModel_PropertyChanged;
+            DeletePost = new RelayCommand<Guid?>(_ => true, (p) => DeleteOnPost(p));
+            EditPost = new RelayCommand<UserControl>(_ => true, (p) => EditOnPost(p));
 
             LoadNewsfeed();
 
@@ -146,6 +148,7 @@ namespace StudentManagement.ViewModels
 
                     PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(post, stackImageUploaded));
                     CreatePostNewFeedViewModel.DraftPostText = "";
+
                     CreatePostNewFeedViewModel.StackImageDraft.Clear();
                 }
                 catch (Exception)
