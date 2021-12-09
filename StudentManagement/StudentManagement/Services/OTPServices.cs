@@ -22,7 +22,7 @@ namespace StudentManagement.Services
             var user = UserServices.Instance.GetUserByGmail(email);
             if (user.Count == 0)
                 return false;
-            if(user.FirstOrDefault().OTP.CODE.Contains(OTP))
+            if(user.FirstOrDefault().OTP.CODE.Equals(OTP))
                 return true;
             return false;
         }

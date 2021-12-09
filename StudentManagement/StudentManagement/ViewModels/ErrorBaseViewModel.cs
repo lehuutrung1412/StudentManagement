@@ -37,6 +37,11 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        public void ClearAllErrors()
+        {
+            _propertyErrors.Clear();
+        }
+
         private void OnErrorsChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));

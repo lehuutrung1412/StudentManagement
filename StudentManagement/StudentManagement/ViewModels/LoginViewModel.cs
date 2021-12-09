@@ -149,11 +149,13 @@ namespace StudentManagement.ViewModels
                 {
                     _errorBaseViewModel.AddError(nameof(ReNewPassWord), "Vui lòng nhập lại mật khẩu mới!");
                 }
-                if (!ReNewPassWord.Equals(NewPassWord))
+                if(IsValid(ReNewPassWord))
                 {
-                    _errorBaseViewModel.AddError(nameof(ReNewPassWord), "Mật khẩu nhập lại không trùng với mật khẩu mới");
-                }    
-
+                    if (!ReNewPassWord.Equals(NewPassWord))
+                    {
+                        _errorBaseViewModel.AddError(nameof(ReNewPassWord), "Mật khẩu nhập lại không trùng với mật khẩu mới");
+                    }
+                }                    
                 OnPropertyChanged();
             }
         }
@@ -180,7 +182,6 @@ namespace StudentManagement.ViewModels
             TimeCountDown = null;
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-
             SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
             GetOTPCodeCommand = new RelayCommand<object>((p) => true, (p) => GetOPT());
             ConFirmCommand = new RelayCommand<object>((p) => true, (p) => ConFirm());
@@ -188,15 +189,17 @@ namespace StudentManagement.ViewModels
         public void ResetView()
         {
             Gmail = "";
-            NewPassWord = "";
-            ReNewPassWord = "";
-            OTP = "";
+            NewPassWord = null;           
+            ReNewPassWord = null;
+            OTPInView = null;
+            Password = null;
+            _errorBaseViewModel.ClearAllErrors();
             IsGetCode = false;
             SwitchViewForm();
         }
         public void  ConFirm()
         {
-            if(!OTPServices.Instance.CheckGetOTPFromEmail(Gmail,OTP))
+            if(!OTPServices.Instance.CheckGetOTPFromEmail(Gmail,OTPInView))
             {
                 MyMessageBox.Show("Mã xác nhận không chính xác", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
