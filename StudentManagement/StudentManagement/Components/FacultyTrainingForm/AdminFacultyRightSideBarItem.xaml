@@ -27,9 +27,8 @@
             <StackPanel Margin="8">
                 <TextBlock
                     Margin="0,0,0,16"
-                    FontSize="28"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                     Text="Thông tin chi tiết"
                     TextWrapping="Wrap" />
                 <Grid Style="{StaticResource text_grid_item}">
@@ -125,10 +124,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button
-                Grid.Column="3"
+                Grid.Column="2"
                 Command="{Binding EditFacultyCardInfo}"
                 CommandParameter="{Binding ElementName=FacultyRightSideBar, Path=DataContext.CurrentCard}"
                 Content="Sửa"
@@ -136,7 +134,7 @@
                 FontSize="16"
                 Style="{StaticResource rounded_btn}" />
             <Button
-                Grid.Column="2"
+                Grid.Column="1"
                 Background="{StaticResource DarkGray}"
                 Command="{Binding DeleteFacultyCardInfo}"
                 CommandParameter="{Binding ElementName=FacultyRightSideBar, Path=DataContext.CurrentCard}"

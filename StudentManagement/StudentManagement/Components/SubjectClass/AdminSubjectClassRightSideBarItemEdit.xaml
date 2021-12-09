@@ -26,9 +26,8 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="8">
                 <TextBlock
-                    FontSize="24"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                     Text="Cập nhật thông tin"
                     TextWrapping="Wrap" />
 
@@ -185,16 +184,15 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button
-                Grid.Column="3"
+                Grid.Column="2"
                 Command="{Binding ConfirmEditSubjectClassCardInfo}"
                 Content="Lưu"
                 FontSize="16"
                 Style="{StaticResource rounded_btn}" />
             <Button
-                Grid.Column="2"
+                Grid.Column="1"
                 Background="{StaticResource DarkGray}"
                 Command="{Binding CancelEditSubjectClassCardInfo}"
                 Content="Hủy"

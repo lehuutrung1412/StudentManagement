@@ -10,7 +10,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     Name="FileManagerUC"
-    d:DataContext="{StaticResource FileManagerClassDetailVM}"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.5'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="Transparent"
@@ -41,10 +40,11 @@
                 </component:EmptyStateRightSideBar.Style>
             </component:EmptyStateRightSideBar>
 
-            <ScrollViewer x:Name="scrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+            <ScrollViewer
+                x:Name="scrollViewer"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Hidden">
                 <DataGrid
-                    PreviewMouseWheel="FileGrid_PreviewMouseWheel"
-                    ScrollViewer.CanContentScroll="True"
                     Name="FileGrid"
                     VerticalContentAlignment="Center"
                     AutoGenerateColumns="False"
@@ -54,6 +54,8 @@
                     CanUserReorderColumns="False"
                     IsReadOnly="True"
                     ItemsSource="{Binding FileDataGroup}"
+                    PreviewMouseWheel="FileGrid_PreviewMouseWheel"
+                    ScrollViewer.CanContentScroll="True"
                     SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}">
 
                     <DataGrid.Style>

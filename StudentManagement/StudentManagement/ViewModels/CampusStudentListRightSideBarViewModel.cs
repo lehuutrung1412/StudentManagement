@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using StudentManagement.Objects;
 using static StudentManagement.ViewModels.AdminStudentListViewModel;
 
 namespace StudentManagement.ViewModels
@@ -34,8 +35,8 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private Student _selectedItem;
-        public Student SelectedItem
+        private StudentGrid _selectedItem;
+        public StudentGrid SelectedItem
         {
             get => _selectedItem;
             set

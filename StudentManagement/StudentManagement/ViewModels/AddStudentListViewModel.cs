@@ -43,7 +43,7 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        
         private bool _isReadOnlyFaculty;
         public bool IsReadOnlyFaculty
         {

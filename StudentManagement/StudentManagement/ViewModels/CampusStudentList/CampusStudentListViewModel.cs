@@ -1,4 +1,4 @@
-﻿using ExcelDataReader;
+using ExcelDataReader;
 using StudentManagement.Commands;
 using StudentManagement.Objects;
 using StudentManagement.Utils;
@@ -30,8 +30,7 @@ namespace StudentManagement.ViewModels
 
             private set => s_instance = value;
         }
-
-
+        
         private ObservableCollection<UserCard> _userDatabase;
         public ObservableCollection<UserCard> UserDatabase
         {
@@ -64,7 +63,6 @@ namespace StudentManagement.ViewModels
 
         public CampusStudentListViewModel()
         {
-           
             Instance = this;
 
             UserDatabase = new ObservableCollection<UserCard>();
@@ -100,11 +98,8 @@ namespace StudentManagement.ViewModels
             foreach (var item in UserDatabase)
             {
                 if (VietnameseStringNormalizer.Instance.Normalize(item.DisplayName)
-                    .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery))
-                    
-                )
+                    .Contains(VietnameseStringNormalizer.Instance.Normalize(SearchQuery)))
                 {
-                   
                     FindNameData.Add(item);
                 }
             }
@@ -140,8 +135,6 @@ namespace StudentManagement.ViewModels
 
                     foreach (DataRow student in data.Rows)
                     {
-                        
-
                     }
                 }
             }

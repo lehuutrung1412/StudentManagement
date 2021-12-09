@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.AdminStudentListViewModel;
-using Student = StudentManagement.ViewModels.AdminStudentListViewModel.Student;
 
 namespace StudentManagement.ViewModels
 {
@@ -41,8 +40,8 @@ namespace StudentManagement.ViewModels
             set => _studentScore = value;
         }
 
-        private Student _selectedItem;
-        public Student SelectedItem
+        private StudentGrid _selectedItem;
+        public StudentGrid SelectedItem
         {
             get => _selectedItem;
             set
@@ -51,11 +50,11 @@ namespace StudentManagement.ViewModels
                 
                 if (_selectedItem != null)
                 {
-                    SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.IDStudent).ToList().FirstOrDefault();
+                    SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
                     if (SelectedScore == null)
                     {
-                        StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", QuaTrinh = "0", ThucHanh = "0", DiemTB = "0", IDStudent = SelectedItem.IDStudent });
-                        SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.IDStudent).ToList().FirstOrDefault();
+                        StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", QuaTrinh = "0", ThucHanh = "0", DiemTB = "0", IDStudent = SelectedItem.Username });
+                        SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
                     }
                     _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SelectedScore);
                     RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;

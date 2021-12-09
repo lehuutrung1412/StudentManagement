@@ -6,7 +6,6 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="SubjectClassCardComponent"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
@@ -17,8 +16,9 @@
     mc:Ignorable="d">
     <Grid Width="auto" Height="auto">
         <materialDesign:Card VerticalAlignment="Stretch">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="scrollViewer" VerticalScrollBarVisibility="Hidden">
                 <DataGrid
+                    PreviewMouseWheel="DataGrid_PreviewMouseWheel"
                     AutoGenerateColumns="False"
                     Background="{StaticResource Background}"
                     CanUserAddRows="False"
@@ -26,8 +26,9 @@
                     CanUserReorderColumns="False"
                     HeadersVisibility="Column"
                     IsReadOnly="True"
-                    ItemsSource="{Binding FindNameData}"
+                    ItemsSource="{Binding BindingData}"
                     SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentListRightSideBarVM}}">
+                    
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -48,9 +49,8 @@
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                         </Style>
-
-
                     </DataGrid.Resources>
+                    
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
                             <Setter Property="Template">
@@ -77,6 +77,7 @@
                             </Setter>
                         </Style>
                     </DataGrid.CellStyle>
+                    
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn
                             Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -85,7 +86,7 @@
                             IsReadOnly="False">
                             <DataGridCheckBoxColumn.Header>
                                 <Border Background="Transparent">
-                                    <CheckBox IsChecked="{Binding IsSelectedAll, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    <CheckBox IsChecked="{Binding DataContext.IsSelectedAll, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" />
                                 </Border>
                             </DataGridCheckBoxColumn.Header>
                             <DataGridCheckBoxColumn.HeaderStyle>
@@ -94,8 +95,8 @@
                                 </Style>
                             </DataGridCheckBoxColumn.HeaderStyle>
                         </DataGridCheckBoxColumn>
-                        <materialDesign:DataGridTextColumn Binding="{Binding IDStudent}" Header="Mã số sinh viên" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding NameStudent}" Header="Tên sinh viên" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding Username}" Header="Mã số sinh viên" />
+                        <materialDesign:DataGridTextColumn Binding="{Binding DisplayName}" Header="Tên sinh viên" />
                         <materialDesign:DataGridTextColumn Binding="{Binding Gender}" Header="Giới tính" />
                         <materialDesign:DataGridTextColumn Binding="{Binding Faculty}" Header="Khoa" />
                         <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="Trạng Thái" />
