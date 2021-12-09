@@ -471,6 +471,7 @@
     <Compile Include="Utils\IsNumericConverter.cs" />
     <Compile Include="Utils\MultiBindingValueCompareConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
+    <Compile Include="Utils\PropertyByRoleConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\Reflection.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />

@@ -56,7 +56,8 @@
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CreateSubjectClassCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
                             Content="Thêm lớp học"
-                            FontSize="14" />
+                            FontSize="14"
+                            Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}" />
                     </Grid>
                     <ItemsControl ItemsSource="{Binding SubjectClassCards}">
                         <ItemsControl.ItemsPanel>
