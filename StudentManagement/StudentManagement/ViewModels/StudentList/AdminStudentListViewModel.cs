@@ -25,75 +25,6 @@ namespace StudentManagement.ViewModels
 {
     public class AdminStudentListViewModel : BaseViewModel
     {
-        #region object
-        public class Student : BaseViewModel
-        {
-            private string _displayName;
-            private string _username;
-            private string _email;
-            private string _gender;
-            private string _faculty;
-            private string _status;
-            private int _number;
-            private string _trainingForm;
-            private bool _isSelected;
-
-            public bool IsSelected
-            {
-                get => _isSelected;
-                set { _isSelected = value; OnPropertyChanged(); }
-            }
-
-            public string DisplayName
-            {
-                get => _displayName;
-                set => _displayName = value;
-            }
-
-            public string Username
-            {
-                get => _username;
-                set => _username = value;
-            }
-
-            public string Email
-            {
-                get => _email;
-                set => _email = value;
-            }
-
-            public string Gender
-            {
-                get => _gender;
-                set => _gender = value;
-            }
-
-            public string Faculty
-            {
-                get => _faculty;
-                set => _faculty = value;
-            }
-
-            public string Status
-            {
-                get => _status;
-                set => _status = value;
-            }
-
-            public int Number
-            {
-                get => _number;
-                set => _number = value;
-            }
-
-            public string TrainingForm
-            {
-                get => _trainingForm;
-                set => _trainingForm = value;
-            }
-        }
-        #endregion
-
         public string SearchQuery { get => _searchQuery; set { _searchQuery = value; SearchNameFunction(); OnPropertyChanged(); } }
         private string _searchQuery;
 
@@ -117,8 +48,8 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        private ObservableCollection<Student> _bindingData;
-        public ObservableCollection<Student> BindingData
+        private ObservableCollection<StudentGrid> _bindingData;
+        public ObservableCollection<StudentGrid> BindingData
         {
             get => _bindingData;
             set
@@ -128,8 +59,8 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private Student _selectedItem;
-        public Student SelectedItem
+        private StudentGrid _selectedItem;
+        public StudentGrid SelectedItem
         {
             get => _selectedItem;
             set => _selectedItem = value;
@@ -159,22 +90,22 @@ namespace StudentManagement.ViewModels
             set => _studentScore = value;
         }
 
-        private ObservableCollection<Student> _studentDatabase;
-        public ObservableCollection<Student> StudentDatabase
+        private ObservableCollection<StudentGrid> _studentDatabase;
+        public ObservableCollection<StudentGrid> StudentDatabase
         {
             get => _studentDatabase;
             set => _studentDatabase = value;
         }
 
-        private ObservableCollection<Student> _studentClass;
-        public ObservableCollection<Student> StudentClass
+        private ObservableCollection<StudentGrid> _studentClass;
+        public ObservableCollection<StudentGrid> StudentClass
         {
             get => _studentClass;
             set => _studentClass = value;
         }
 
-        private ObservableCollection<Student> _deleteStudentList;
-        public ObservableCollection<Student> DeleteStudentList
+        private ObservableCollection<StudentGrid> _deleteStudentList;
+        public ObservableCollection<StudentGrid> DeleteStudentList
         {
             get => _deleteStudentList;
             set => _deleteStudentList = value;
@@ -190,25 +121,25 @@ namespace StudentManagement.ViewModels
         {
             InitChartParemeter();
 
-            StudentDatabase = new ObservableCollection<Student>();
-            StudentDatabase.Add(new Student { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", Number = 1 });
-            StudentDatabase.Add(new Student { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
-            StudentDatabase.Add(new Student { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
-            StudentDatabase.Add(new Student { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
-            StudentDatabase.Add(new Student { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
-            StudentDatabase.Add(new Student { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
-            StudentDatabase.Add(new Student { DisplayName = "Nguyễn Minh Huy", Email = "example6@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520129", Number = 6 });
-            StudentDatabase.Add(new Student { DisplayName = "Nguyễn Minh Huy Cầu Vòng", Email = "example7@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520130", Number = 6 });
-            StudentDatabase.Add(new Student { DisplayName = "Nguyễn Minh RainbowShine", Email = "example8@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520131", Number = 6 });
-            StudentDatabase.Add(new Student { DisplayName = "Nguyễn Minh UIT.Leader", Email = "example9@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520132", Number = 6 });
+            StudentDatabase = new ObservableCollection<StudentGrid>();
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", Number = 1 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh Huy", Email = "example6@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520129", Number = 6 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh Huy Cầu Vòng", Email = "example7@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520130", Number = 6 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh RainbowShine", Email = "example8@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520131", Number = 6 });
+            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh UIT.Leader", Email = "example9@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520132", Number = 6 });
 
-            StudentClass = new ObservableCollection<Student>();
-            StudentClass.Add(new Student { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", IsSelected = false });
-            StudentClass.Add(new Student { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", IsSelected = false });
-            StudentClass.Add(new Student { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", IsSelected = false });
-            StudentClass.Add(new Student { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", IsSelected = false });
-            StudentClass.Add(new Student { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", IsSelected = false });
-            StudentClass.Add(new Student { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", IsSelected = false });
+            StudentClass = new ObservableCollection<StudentGrid>();
+            StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", IsSelected = false });
+            StudentClass.Add(new StudentGrid { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", IsSelected = false });
+            StudentClass.Add(new StudentGrid { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", IsSelected = false });
+            StudentClass.Add(new StudentGrid { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", IsSelected = false });
+            StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", IsSelected = false });
+            StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", IsSelected = false });
 
             StudentScore = new ObservableCollection<DetailScore>();
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "1", IDStudent = "19520123" });
@@ -218,7 +149,7 @@ namespace StudentManagement.ViewModels
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "9", IDStudent = "19520127" });
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520128" });
 
-            BindingData = new ObservableCollection<Student>(StudentClass);
+            BindingData = new ObservableCollection<StudentGrid>(StudentClass);
             InitCommand();
 
             SearchNameFunction();
@@ -291,7 +222,7 @@ namespace StudentManagement.ViewModels
             return StudentClass.Any(student => student.Username == studentId);
         }
 
-        private Student FindSearchQueryInDatabase(string studentId)
+        private StudentGrid FindSearchQueryInDatabase(string studentId)
         {
             return StudentDatabase.FirstOrDefault(student => student.Username == studentId);
         }
@@ -304,7 +235,7 @@ namespace StudentManagement.ViewModels
                 return;
             }
 
-            Student findStudent = FindSearchQueryInDatabase(SearchQuery);
+            StudentGrid findStudent = FindSearchQueryInDatabase(SearchQuery);
 
             if (findStudent == null)
             {
@@ -428,7 +359,7 @@ namespace StudentManagement.ViewModels
 
         void DeleteStudentFunction()
         {
-            DeleteStudentList = new ObservableCollection<Student>();
+            DeleteStudentList = new ObservableCollection<StudentGrid>();
             foreach (var student in BindingData)
             {
                 if (student.IsSelected)

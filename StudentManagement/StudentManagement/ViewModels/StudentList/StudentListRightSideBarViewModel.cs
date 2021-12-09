@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.AdminStudentListViewModel;
-using Student = StudentManagement.ViewModels.AdminStudentListViewModel.Student;
 
 namespace StudentManagement.ViewModels
 {
@@ -41,8 +40,8 @@ namespace StudentManagement.ViewModels
             set => _studentScore = value;
         }
 
-        private Student _selectedItem;
-        public Student SelectedItem
+        private StudentGrid _selectedItem;
+        public StudentGrid SelectedItem
         {
             get => _selectedItem;
             set

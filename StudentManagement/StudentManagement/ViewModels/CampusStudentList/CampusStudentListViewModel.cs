@@ -1,5 +1,6 @@
 ﻿using ExcelDataReader;
 using StudentManagement.Commands;
+using StudentManagement.Objects;
 using StudentManagement.Utils;
 using System;
 using System.Collections;
@@ -15,7 +16,6 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Student = StudentManagement.ViewModels.AdminStudentListViewModel.Student;
 
 namespace StudentManagement.ViewModels
 {
@@ -29,8 +29,8 @@ namespace StudentManagement.ViewModels
             private set => s_instance = value;
         }
 
-        private ObservableCollection<Student> _studentDatabase;
-        public ObservableCollection<Student> StudentDatabase
+        private ObservableCollection<StudentGrid> _studentDatabase;
+        public ObservableCollection<StudentGrid> StudentDatabase
         {
             get => _studentDatabase;
             set => _studentDatabase = value;
@@ -39,8 +39,8 @@ namespace StudentManagement.ViewModels
         public string SearchQuery { get => _searchQuery; set { _searchQuery = value; SearchNameFunction(); OnPropertyChanged(); } }
         private string _searchQuery;
 
-        private ObservableCollection<Student> _findNameData;
-        public ObservableCollection<Student> FindNameData
+        private ObservableCollection<StudentGrid> _findNameData;
+        public ObservableCollection<StudentGrid> FindNameData
         {
             get => _findNameData;
             set
@@ -63,17 +63,17 @@ namespace StudentManagement.ViewModels
 
         public CampusStudentListViewModel()
         {
-            StudentDatabase = new ObservableCollection<Student>();
+            StudentDatabase = new ObservableCollection<StudentGrid>();
             Instance = this;
 
             //StudentDatabase.Add(new Student { Training = "Đại trà", NameStudent = "Nguyễn Tấn Trần Minh Khang", EmailStudent = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", IDStudent = "19520123", STT = 1});
-            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
-            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
-            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
-            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
-            StudentDatabase.Add(new Student { TrainingForm = "Tài năng", DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
+            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
+            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
+            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
+            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
+            StudentDatabase.Add(new StudentGrid { TrainingForm = "Tài năng", DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
 
-            FindNameData = new ObservableCollection<Student>(StudentDatabase);
+            FindNameData = new ObservableCollection<StudentGrid>(StudentDatabase);
 
             SearchName = new RelayCommand<object>((p) => true, (p) => SearchNameFunction());
             AddStudent = new RelayCommand<object>((p) => true, (p) => AddStudentFunction());
@@ -105,7 +105,7 @@ namespace StudentManagement.ViewModels
 
         void AddStudentFunction()
         {
-            Student CurrentStudent = new Student();
+            StudentGrid CurrentStudent = new StudentGrid();
             CampusStudentListRightSideBarViewModel studentListRightSideBarViewModel = CampusStudentListRightSideBarViewModel.Instance;
             studentListRightSideBarViewModel.RightSideBarItemViewModel = new AddStudentListViewModel(CurrentStudent);
 
@@ -134,7 +134,7 @@ namespace StudentManagement.ViewModels
 
                     foreach (DataRow student in data.Rows)
                     {
-                        var item = new Student
+                        var item = new StudentGrid
                         {
                             Username = Convert.ToString(student[0]),
                             DisplayName = Convert.ToString(student[1]),

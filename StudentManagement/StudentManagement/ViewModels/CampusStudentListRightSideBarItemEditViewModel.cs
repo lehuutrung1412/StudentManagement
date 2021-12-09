@@ -7,17 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.AdminStudentListViewModel;
 
 namespace StudentManagement.ViewModels
 {
     public class CampusStudentListRightSideBarItemEditViewModel : BaseViewModel
     {
-        private Student _currentStudent;
-        public Student CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
+        private StudentGrid _currentStudent;
+        public StudentGrid CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
 
-        private Student _actualStudent;
-        public Student ActualStudent { get => _actualStudent; set => _actualStudent = value; }
+        private StudentGrid _actualStudent;
+        public StudentGrid ActualStudent { get => _actualStudent; set => _actualStudent = value; }
 
         public CampusStudentListRightSideBarItemEditViewModel()
         {
@@ -25,9 +24,9 @@ namespace StudentManagement.ViewModels
             ActualStudent = null;
         }
 
-        public CampusStudentListRightSideBarItemEditViewModel(Student x)
+        public CampusStudentListRightSideBarItemEditViewModel(StudentGrid x)
         {
-            CurrentStudent = new Student() { Username = x.Username, Faculty = x.Faculty, Email = x.Email, Gender = x.Gender, DisplayName = x.DisplayName, TrainingForm = x.TrainingForm, Status = x.Status };
+            CurrentStudent = new StudentGrid() { Username = x.Username, Faculty = x.Faculty, Email = x.Email, Gender = x.Gender, DisplayName = x.DisplayName, TrainingForm = x.TrainingForm, Status = x.Status };
             ActualStudent = x;
 
             InitCommand();
@@ -59,7 +58,7 @@ namespace StudentManagement.ViewModels
             return 0;
         }
 
-        void SetValue(Student a, Student b)
+        void SetValue(StudentGrid a, StudentGrid b)
         {
             a.Username = b.Username;
             a.DisplayName = b.DisplayName;

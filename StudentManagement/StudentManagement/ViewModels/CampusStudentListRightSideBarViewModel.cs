@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.AdminStudentListViewModel;
-using Student = StudentManagement.ViewModels.AdminStudentListViewModel.Student;
+using StudentManagement.Objects;
 
 namespace StudentManagement.ViewModels
 {
@@ -34,8 +33,8 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private Student _selectedItem;
-        public Student SelectedItem
+        private StudentGrid _selectedItem;
+        public StudentGrid SelectedItem
         {
             get => _selectedItem;
             set
@@ -69,7 +68,7 @@ namespace StudentManagement.ViewModels
 
         void EditStudentInfoFunction(object p)
         {
-            Student currentStudent = p as Student;
+            StudentGrid currentStudent = p as StudentGrid;
             _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemEditViewModel(currentStudent);
             RightSideBarItemViewModel = _campusStudentListRightSideBarItemViewModel;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentManagement.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StudentManagement.Objects
 {
-    public class StudentGrid
+    public class StudentGrid : BaseViewModel
     {
         private string _displayName;
         private string _username;
@@ -21,7 +22,7 @@ namespace StudentManagement.Objects
         public bool IsSelected
         {
             get => _isSelected;
-            set => _isSelected = value;
+            set { _isSelected = value; OnPropertyChanged(); }
         }
 
         public string DisplayName

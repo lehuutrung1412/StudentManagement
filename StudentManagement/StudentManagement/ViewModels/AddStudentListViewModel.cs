@@ -7,14 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.AdminStudentListViewModel;
 
 namespace StudentManagement.ViewModels
 {
     public class AddStudentListViewModel : BaseViewModel
     {
-        private Student _currentStudent;
-        public Student CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
+        private StudentGrid _currentStudent;
+        public StudentGrid CurrentStudent { get => _currentStudent; set => _currentStudent = value; }
 
         public AddStudentListViewModel()
         {
@@ -23,9 +22,9 @@ namespace StudentManagement.ViewModels
             InitCommand();
         }
 
-        public AddStudentListViewModel(Student x)
+        public AddStudentListViewModel(StudentGrid x)
         {
-            CurrentStudent = new Student();
+            CurrentStudent = new StudentGrid();
 
             InitCommand();
         }
@@ -56,7 +55,7 @@ namespace StudentManagement.ViewModels
             return 0;
         }
 
-        void SetValue(Student a, Student b)
+        void SetValue(StudentGrid a, StudentGrid b)
         {
             a.Username = b.Username;
             a.DisplayName = b.DisplayName;
