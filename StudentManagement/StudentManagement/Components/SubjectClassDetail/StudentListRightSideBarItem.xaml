@@ -18,12 +18,102 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid>
-        <StackPanel Grid.Row="0" Margin="10">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
             <TextBlock
+                Margin="4 0 4 8"
                 FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                TextWrapping="Wrap">
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}">
+                <Run Text="Thông tin sinh viên" />
+            </TextBlock>
+
+            <Grid Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Mã số sinh viên:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding SelectedItem.Username, FallbackValue='19522424'}"
+                    TextAlignment="Right" />
+            </Grid>
+
+            <Grid Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Họ tên:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding SelectedItem.DisplayName, FallbackValue='Lê Hữu Trung'}"
+                    TextAlignment="Right" />
+            </Grid>
+
+            <Grid Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Email:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding SelectedItem.Email, FallbackValue='admin@gmail.com'}"
+                    TextAlignment="Right" />
+            </Grid>
+
+            <Grid Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Khoa:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding SelectedItem.Faculty, FallbackValue='Khoa học máy tính'}"
+                    TextAlignment="Right" />
+            </Grid>
+
+        </StackPanel>
+
+        <Separator Grid.Row="1" Margin="0 16"/>
+
+        <StackPanel Grid.Row="2">
+            <TextBlock
+                Margin="4 0 4 8"
+                FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}">
                 <Run Text="Điểm số sinh viên" />
             </TextBlock>
 
@@ -113,14 +203,10 @@
                     TextAlignment="Right" />
             </Grid>
             <Button
-                Width="140"
-                Margin="16,0,16,0"
-                materialDesign:ButtonAssist.CornerRadius="5"
-                Background="#4caf50"
                 Command="{Binding EditDetailScore}"
                 CommandParameter="{Binding ElementName=StudentListRightSideBar, Path=DataContext.CurrentScore}"
-                DataContext="{DynamicResource StudentListRightSideBarVM}"
-                ToolTip="MaterialDesignRaisedLightButton with Round Corners">
+                Style="{StaticResource rounded_btn}"
+                DataContext="{DynamicResource StudentListRightSideBarVM}">
                 <TextBlock Text="Cập nhật" />
             </Button>
         </StackPanel>
