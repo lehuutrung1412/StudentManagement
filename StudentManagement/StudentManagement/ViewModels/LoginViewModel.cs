@@ -202,7 +202,8 @@ namespace StudentManagement.ViewModels
         }
         public void  ConFirm()
         {
-            if(!OTPServices.Instance.CheckGetOTPFromEmail(Gmail,SHA256Cryptography.Instance.EncryptString(OTPInView)))
+            OTPServices.Instance.DeleteOTPOverTime();
+            if (!OTPServices.Instance.CheckGetOTPFromEmail(Gmail,SHA256Cryptography.Instance.EncryptString(OTPInView)))
             {
                 MyMessageBox.Show("Mã xác nhận không chính xác", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
@@ -263,7 +264,6 @@ namespace StudentManagement.ViewModels
 
             OTP = RandomOTP();
 
-            OTPServices.Instance.DeleteOTPOverTime();
 
             OTPServices.Instance.SaveOTP(Gmail, SHA256Cryptography.Instance.EncryptString(OTP));
 

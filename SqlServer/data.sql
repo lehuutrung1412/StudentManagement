@@ -595,8 +595,20 @@ BEGIN
 END
 GO
 
+BEGIN
+  DECLARE @IdRole UNIQUEIDENTIFIER
+  SET @IdRole = (Select id
+  from UserRole
+  Where Role  like 'H%')
 
--- INSERT INTO dbo.Student
---   (IdTrainingForm, IdUser)
--- VALUES
---   ('52DF1714-C81F-42C2-8C64-8D744D787E0C', '')
+  INSERT INTO dbo.Users
+    (Id,username, DisplayName, Email, Password, IdUserRole)
+  VALUES('DBCF79CC-392D-4BA6-B60B-A2637D3EF249','student', 'student', 'student@gmail.com', '1', @IdRole)
+END
+GO
+
+ INSERT INTO dbo.Student
+   (IdTrainingForm, IdFaculty, IdUsers)
+ VALUES
+   ('52DF1714-C81F-42C2-8C64-8D744D787E0C', '3BADC66B-382B-4F35-A96C-B9B546FF98AD','DBCF79CC-392D-4BA6-B60B-A2637D3EF249' )
+GO

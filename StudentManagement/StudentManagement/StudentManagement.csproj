@@ -429,6 +429,7 @@
     <Compile Include="Objects\ScheduleItem.cs" />
     <Compile Include="Objects\SubjectClassCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
+    <Compile Include="Services\AdminServices.cs" />
     <Compile Include="Services\CourseRegisterServices.cs" />
     <Compile Include="Services\DatabaseImageTableServices.cs" />
     <Compile Include="Services\FacultyServies.cs" />

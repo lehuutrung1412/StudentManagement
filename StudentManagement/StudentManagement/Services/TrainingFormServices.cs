@@ -3,6 +3,7 @@ using StudentManagement.Objects;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -115,6 +116,12 @@ namespace StudentManagement.Services
             TrainingForm traingingForm = ConvertTrainingFormCardToTrainingForm(traingingFormCard);
 
             RemoveTrainingFormFromDatabase(traingingForm);
+        }
+        public ObservableCollection<string> LoadListTrainingForm()
+        {
+            ObservableCollection<string> listTrainingForm = new ObservableCollection<string>();
+            DataProvider.Instance.Database.TrainingForms.ToList().ForEach(trainningForm => listTrainingForm.Add(trainningForm.DisplayName));
+            return listTrainingForm;
         }
     }
 }

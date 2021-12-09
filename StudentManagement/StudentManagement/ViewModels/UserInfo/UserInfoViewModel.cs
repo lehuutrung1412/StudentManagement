@@ -39,10 +39,7 @@ namespace StudentManagement.ViewModels
         public string Avatar { get => _avatar; set { _avatar = value; OnPropertyChanged(); } }
         private string _avatar;
         public ObservableCollection<string> ListTypeControl { get => _listTypeControl; set { _listTypeControl = value; OnPropertyChanged(); } }
-        private ObservableCollection<string> _listTypeControl;
-
-        public ObservableCollection<string> ListTypeUser { get => _listTypeUser; set { _listTypeUser = value; OnPropertyChanged(); } }
-        private ObservableCollection<string> _listTypeUser;        
+        private ObservableCollection<string> _listTypeControl;      
 
         public object _userInfoItemViewModel;
         public object _editInfoItemViewModel;
@@ -79,6 +76,8 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        private Guid _idUser;
+        public Guid IdUser { get => _idUser; set => _idUser = value; }
 
         public ICommand ClickImageCommand { get => _clickImageCommand; set => _clickImageCommand = value; }
         private ICommand _clickImageCommand;
@@ -119,10 +118,10 @@ namespace StudentManagement.ViewModels
             //    new InfoItem(Guid.NewGuid(),"Địa chỉ mail",0,null,"cuongnguyen14022001",true),
             //    new InfoItem(Guid.NewGuid(),"Hệ",2,TrainingForm,"CNTN",false),
             //    new InfoItem(Guid.NewGuid(),"Lớp sinh hoạt",2,Class,"KHTN2019",false),
-            //};           
+            //};
+            IdUser = DataProvider.Instance.Database.Users.FirstOrDefault(user => user.UserRole.Role.Contains("Học sinh")).Id;
             LoadInfoSource();
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
-            ListTypeUser = new ObservableCollection<string> { "Tất cả", "Admin", "Học sinh", "Sinh viên" };
 
             IsOpen = false;
             IsUpdate = false;
@@ -136,8 +135,39 @@ namespace StudentManagement.ViewModels
         }
         public void LoadInfoSource()
         {
-            var id = DataProvider.Instance.Database.Users.FirstOrDefault().Id;
-            InfoSource = InfoItemServices.Instance.GetInfoSourceByUserId(id);
+            var user = UserServices.Instance.GetUserById(IdUser);
+            InfoSource = new ObservableCollection<InfoItem>()
+            {
+                new InfoItem(Guid.NewGuid(),"Họ và tên",0,null,user.DisplayName,false),
+                new InfoItem(Guid.NewGuid(),"Địa chỉ email",0,null,user.Email,false),
+            };
+            switch (user.UserRole.Role)
+            {
+                case "Học sinh":
+                    {
+                        var student = StudentServices.Instance.GetStudentbyUser(user);
+                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Khoa",2,FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName,true));
+                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Hệ đào tạo",2,TrainingFormServices.Instance.LoadListTrainingForm(),student.TrainingForm.DisplayName,true));
+                        break;
+                    }
+                case "Giáo viên":
+                    {
+                        var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
+                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), lecture.Faculty.DisplayName, false));
+                        break;
+                    }
+                case "Admin":
+                    {
+                        foreach(var infoItem in InfoSource)
+                            infoItem.IsEnable = true;
+                        break;
+                    }
+            }    
+            var listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(IdUser);
+            foreach(var infoItem in listInfoItem)
+            {
+                InfoSource.Add(infoItem);
+            }    
         }
         public void ComfirmUserInfo()
         {
@@ -148,7 +178,56 @@ namespace StudentManagement.ViewModels
             }
             else
             {
-                InfoSource.ToList().ForEach(item => InfoItemServices.Instance.UpdateUser_UserRole_UserInfoByInfoItem(item));
+                var user = UserServices.Instance.GetUserById(IdUser);
+                //InfoSource.ToList().ForEach(item => InfoItemServices.Instance.UpdateUser_UserRole_UserInfoByInfoItem(item));
+                foreach (var infoItem in InfoSource)
+                {
+                    switch (infoItem.LabelName)
+                    {
+                        case "Họ và tên":
+                            {
+                                user.DisplayName = infoItem.Value.ToString();
+                                break;
+                            }
+                        case "Địa chỉ email":
+                            {
+                                user.Email = infoItem.Value.ToString();
+                                break;
+                            }
+                        case "Hệ đào tạo":
+                            {
+                                var student = StudentServices.Instance.GetStudentbyUser(user);
+                                student.IdTrainingForm = DataProvider.Instance.Database.TrainingForms.FirstOrDefault(trainingForm=>trainingForm.DisplayName== infoItem.Value.ToString()).Id;
+                                break;
+                            }
+                        case "Khoa":
+                            {
+                                switch (user.UserRole.Role)
+                                {
+                                    case "Học sinh":
+                                        {
+                                            var student = StudentServices.Instance.GetStudentbyUser(user);
+                                            student.IdFaculty = DataProvider.Instance.Database.Faculties.FirstOrDefault(faculty=> faculty.DisplayName== infoItem.Value.ToString()).Id;
+                                            break;
+                                        }
+                                    case "Giáo viên":
+                                        {
+                                            var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
+                                            lecture.IdFaculty = DataProvider.Instance.Database.Faculties.FirstOrDefault(faculty => faculty.DisplayName == infoItem.Value.ToString()).Id;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+
+                        default:
+                            {
+                                InfoItemServices.Instance.UpdateUser_UserRole_UserInfoByInfoItem(infoItem);
+                                break;
+                            }
+                    }
+                    DataProvider.Instance.Database.SaveChanges();
+                }    
             }
             IsUpdate = false;
         }
