@@ -10,6 +10,25 @@ namespace StudentManagement.Services
 {
     public class LoginServices
     {
+        public class LoginEvent : EventArgs
+        {
+            private User _user;
+
+            public User User { get => _user; set => _user = value; }
+
+            public LoginEvent(User user)
+            {
+                this.User = user;
+            }
+        }
+
+        static private event EventHandler<LoginEvent> _updateCurrentUser;
+        static public event EventHandler<LoginEvent> UpdateCurrentUser
+        {
+            add { _updateCurrentUser += value; }
+            remove { _updateCurrentUser -= value; }
+        }
+
         private static LoginServices s_instance;
 
         public static LoginServices Instance => s_instance ?? (s_instance = new LoginServices());
@@ -42,6 +61,8 @@ namespace StudentManagement.Services
             User user = UserServices.Instance.FindUserByUsername(username);
 
             CurrentUser = user;
+
+            _updateCurrentUser?.Invoke(this, new LoginEvent(user));
         }
 
         public static string Base64Encode(string plainText)

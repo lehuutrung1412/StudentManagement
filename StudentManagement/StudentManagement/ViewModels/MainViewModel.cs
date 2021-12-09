@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using static StudentManagement.Services.LoginServices;
 using NavigationItem = StudentManagement.Objects.NavigationItem;
 
 namespace StudentManagement.ViewModels
@@ -59,6 +60,8 @@ namespace StudentManagement.ViewModels
 
         public MainViewModel()
         {
+            LoginServices.UpdateCurrentUser += UpdateCurrentUser;
+
             GotoLoginViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLoginView());
             GotoLayoutViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLayoutView());
 
@@ -110,6 +113,7 @@ namespace StudentManagement.ViewModels
             CurrentViewModel = _loginViewModel;
         }
 
+        #region methods
         public void InitNavigationItemsByRole()
         {
             switch (LoginServices.CurrentUser.UserRole.Role)
@@ -199,7 +203,6 @@ namespace StudentManagement.ViewModels
         {
             if (_loginViewModel.IsExistAccount())
             {
-                InitNavigationItemsByRole();
                 CurrentViewModel = _layoutViewModel;
             }
         }
@@ -265,5 +268,13 @@ namespace StudentManagement.ViewModels
 
             _layoutViewModel.RightSideBar = _adminHomeRightSideBar;
         }
+        #endregion
+
+        #region eventhandlers
+        private void UpdateCurrentUser(object sender, LoginEvent e)
+        {
+            InitNavigationItemsByRole();
+        }
+        #endregion
     }
 }
