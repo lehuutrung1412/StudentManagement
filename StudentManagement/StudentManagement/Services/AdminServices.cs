@@ -60,5 +60,9 @@ namespace StudentManagement.Services
 
         }
 
+        public Admin GetAdminByUser(User user)
+        {
+            return DataProvider.Instance.Database.Admins.FirstOrDefault(admin=>admin.IdUsers == user.Id);
+        }
     }
 }

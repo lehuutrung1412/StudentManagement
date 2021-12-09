@@ -44,6 +44,7 @@ namespace StudentManagement.Models
         public virtual DbSet<NotificationImage> NotificationImages { get; set; }
         public virtual DbSet<NotificationInfo> NotificationInfoes { get; set; }
         public virtual DbSet<NotificationType> NotificationTypes { get; set; }
+        public virtual DbSet<OTP> OTPs { get; set; }
         public virtual DbSet<Semester> Semesters { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudyResult> StudyResults { get; set; }

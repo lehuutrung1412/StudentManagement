@@ -37,6 +37,14 @@ namespace StudentManagement.Services
         //    var user = GetUserById(id);
         //    return user.Faculty.DisplayName;
         //}
+        public List<User> GetUserByGmail(string email)
+        {
+            return DataProvider.Instance.Database.Users.Where(user => user.Email.Equals(email)).ToList();
+        }
+        public User GetUserByOTP(OTP otp)
+        {
+            return DataProvider.Instance.Database.Users.FirstOrDefault(tmpUser => tmpUser.IdOTP == otp.Id);
+        }
 
         public bool CheckAdminByIdUser(Guid id)
         {
@@ -71,7 +79,22 @@ namespace StudentManagement.Services
             {
                 return false;
             }
-
+        }
+        public bool ChangePassWord(string passWord, string gmail)
+        {
+            var user = GetUserByGmail(gmail);
+            if (user.Count == 0)
+                return false;
+            user.FirstOrDefault().Password = passWord;
+            DataProvider.Instance.Database.SaveChanges();
+            return true;
+        }  
+        public bool CheckLogin(string userName, string passWord)
+        {
+            var user = DataProvider.Instance.Database.Users.Where(tmpUser=>tmpUser.Username == userName && tmpUser.Password==passWord).ToList();
+            if(user.Count()>0)
+                return true;
+            return false;
         }
     }
 }

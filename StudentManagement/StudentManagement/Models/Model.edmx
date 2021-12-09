@@ -166,6 +166,14 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="OTP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Time" Type="datetime" />
+        </EntityType>
         <EntityType Name="Semester">
           <Key>
             <PropertyRef Name="Id" />
@@ -298,11 +306,12 @@
           <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="DisplayName" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="IdOTP" Type="uniqueidentifier" />
           <Property Name="Online" Type="bit" />
           <Property Name="IdUserRole" Type="uniqueidentifier" />
           <Property Name="IdAvatar" Type="uniqueidentifier" />
         </EntityType>
-        <Association Name="FK__AbsentCal__IdSub__282DF8C2">
+        <Association Name="FK__AbsentCal__IdSub__2CF2ADDF">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="AbsentCalendar" Type="Self.AbsentCalendar" Multiplicity="*" />
           <ReferentialConstraint>
@@ -314,7 +323,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Admin__IdUsers__0C85DE4D">
+        <Association Name="FK__Admin__IdUsers__114A936A">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -326,7 +335,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdFaculty__123EB7A3">
+        <Association Name="FK__Class__IdFaculty__17036CC0">
           <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
           <End Role="Class" Type="Self.Class" Multiplicity="*" />
           <ReferentialConstraint>
@@ -338,7 +347,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdTeacher__1332DBDC">
+        <Association Name="FK__Class__IdTeacher__17F790F9">
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
           <End Role="Class" Type="Self.Class" Multiplicity="*" />
           <ReferentialConstraint>
@@ -350,7 +359,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdThumbna__14270015">
+        <Association Name="FK__Class__IdThumbna__18EBB532">
           <End Role="DatabaseImageTable" Type="Self.DatabaseImageTable" Multiplicity="0..1" />
           <End Role="Class" Type="Self.Class" Multiplicity="*" />
           <ReferentialConstraint>
@@ -362,7 +371,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdTrainin__114A936A">
+        <Association Name="FK__Class__IdTrainin__160F4887">
           <End Role="TrainingForm" Type="Self.TrainingForm" Multiplicity="0..1" />
           <End Role="Class" Type="Self.Class" Multiplicity="*" />
           <ReferentialConstraint>
@@ -374,7 +383,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Component__IdSub__208CD6FA">
+        <Association Name="FK__Component__IdSub__25518C17">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="ComponentScore" Type="Self.ComponentScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -386,7 +395,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CourseReg__IdSem__1DB06A4F">
+        <Association Name="FK__CourseReg__IdSem__22751F6C">
           <End Role="Semester" Type="Self.Semester" Multiplicity="0..1" />
           <End Role="CourseRegister" Type="Self.CourseRegister" Multiplicity="*" />
           <ReferentialConstraint>
@@ -398,7 +407,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CourseReg__IdStu__1CBC4616">
+        <Association Name="FK__CourseReg__IdStu__2180FB33">
           <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
           <End Role="CourseRegister" Type="Self.CourseRegister" Multiplicity="*" />
           <ReferentialConstraint>
@@ -410,7 +419,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CourseReg__IdSub__1BC821DD">
+        <Association Name="FK__CourseReg__IdSub__208CD6FA">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="CourseRegister" Type="Self.CourseRegister" Multiplicity="*" />
           <ReferentialConstraint>
@@ -422,7 +431,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DetailSco__IdCom__22751F6C">
+        <Association Name="FK__DetailSco__IdCom__2739D489">
           <End Role="ComponentScore" Type="Self.ComponentScore" Multiplicity="0..1" />
           <End Role="DetailScore" Type="Self.DetailScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -434,7 +443,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DetailSco__IdStu__2180FB33">
+        <Association Name="FK__DetailSco__IdStu__2645B050">
           <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
           <End Role="DetailScore" Type="Self.DetailScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -446,7 +455,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Document__IdFold__245D67DE">
+        <Association Name="FK__Document__IdFold__29221CFB">
           <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
           <End Role="Document" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
@@ -458,7 +467,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Document__IdPost__236943A5">
+        <Association Name="FK__Document__IdPost__282DF8C2">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Document" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
@@ -470,7 +479,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Document__IdSubj__25518C17">
+        <Association Name="FK__Document__IdSubj__2A164134">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="Document" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
@@ -482,7 +491,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Examinati__IdSub__18EBB532">
+        <Association Name="FK__Examinati__IdSub__1DB06A4F">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="Examination" Type="Self.Examination" Multiplicity="*" />
           <ReferentialConstraint>
@@ -494,7 +503,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Faculty_T__IdFac__0E6E26BF">
+        <Association Name="FK__Faculty_T__IdFac__1332DBDC">
           <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
           <End Role="Faculty_TrainingForm" Type="Self.Faculty_TrainingForm" Multiplicity="*" />
           <ReferentialConstraint>
@@ -506,7 +515,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Faculty_T__IdTra__0D7A0286">
+        <Association Name="FK__Faculty_T__IdTra__123EB7A3">
           <End Role="TrainingForm" Type="Self.TrainingForm" Multiplicity="0..1" />
           <End Role="Faculty_TrainingForm" Type="Self.Faculty_TrainingForm" Multiplicity="*" />
           <ReferentialConstraint>
@@ -518,7 +527,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Folder__IdPoster__2739D489">
+        <Association Name="FK__Folder__IdPoster__2BFE89A6">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -530,7 +539,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Folder__IdSubjec__2645B050">
+        <Association Name="FK__Folder__IdSubjec__2B0A656D">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -542,7 +551,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdDat__32AB8735">
+        <Association Name="FK__Notificat__IdDat__37703C52">
           <End Role="DatabaseImageTable" Type="Self.DatabaseImageTable" Multiplicity="0..1" />
           <End Role="NotificationImages" Type="Self.NotificationImages" Multiplicity="*" />
           <ReferentialConstraint>
@@ -554,7 +563,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdNot__2CF2ADDF">
+        <Association Name="FK__Notificat__IdNot__31B762FC">
           <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -566,7 +575,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdNot__2DE6D218">
+        <Association Name="FK__Notificat__IdNot__32AB8735">
           <End Role="Notification" Type="Self.Notification" Multiplicity="0..1" />
           <End Role="NotificationInfo" Type="Self.NotificationInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -578,7 +587,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdNot__30C33EC3">
+        <Association Name="FK__Notificat__IdNot__3587F3E0">
           <End Role="Notification" Type="Self.Notification" Multiplicity="0..1" />
           <End Role="NotificationComment" Type="Self.NotificationComment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -590,7 +599,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdNot__31B762FC">
+        <Association Name="FK__Notificat__IdNot__367C1819">
           <End Role="Notification" Type="Self.Notification" Multiplicity="0..1" />
           <End Role="NotificationImages" Type="Self.NotificationImages" Multiplicity="*" />
           <ReferentialConstraint>
@@ -602,7 +611,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdPos__29221CFB">
+        <Association Name="FK__Notificat__IdPos__2DE6D218">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -614,7 +623,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdPos__2B0A656D">
+        <Association Name="FK__Notificat__IdPos__2FCF1A8A">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -626,7 +635,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdSub__2A164134">
+        <Association Name="FK__Notificat__IdSub__2EDAF651">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -638,7 +647,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdSub__2BFE89A6">
+        <Association Name="FK__Notificat__IdSub__30C33EC3">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -650,7 +659,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdUse__2EDAF651">
+        <Association Name="FK__Notificat__IdUse__339FAB6E">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="NotificationInfo" Type="Self.NotificationInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -662,7 +671,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdUse__2FCF1A8A">
+        <Association Name="FK__Notificat__IdUse__3493CFA7">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="NotificationComment" Type="Self.NotificationComment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -674,7 +683,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__IdFacul__09A971A2">
+        <Association Name="FK__Student__IdFacul__0E6E26BF">
           <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -686,7 +695,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__IdTrain__07C12930">
+        <Association Name="FK__Student__IdTrain__0C85DE4D">
           <End Role="TrainingForm" Type="Self.TrainingForm" Multiplicity="0..1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -698,7 +707,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__IdUsers__08B54D69">
+        <Association Name="FK__Student__IdUsers__0D7A0286">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -710,7 +719,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudyResu__IdStu__0F624AF8">
+        <Association Name="FK__StudyResu__IdStu__14270015">
           <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
           <End Role="StudyResult" Type="Self.StudyResult" Multiplicity="*" />
           <ReferentialConstraint>
@@ -722,7 +731,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudyResu__IdSub__10566F31">
+        <Association Name="FK__StudyResu__IdSub__151B244E">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="0..1" />
           <End Role="StudyResult" Type="Self.StudyResult" Multiplicity="*" />
           <ReferentialConstraint>
@@ -734,7 +743,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SubjectCl__IdSem__160F4887">
+        <Association Name="FK__SubjectCl__IdSem__1AD3FDA4">
           <End Role="Semester" Type="Self.Semester" Multiplicity="0..1" />
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -746,7 +755,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SubjectCl__IdSub__151B244E">
+        <Association Name="FK__SubjectCl__IdSub__19DFD96B">
           <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -758,7 +767,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SubjectCl__IdThu__17036CC0">
+        <Association Name="FK__SubjectCl__IdThu__1BC821DD">
           <End Role="DatabaseImageTable" Type="Self.DatabaseImageTable" Multiplicity="0..1" />
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -770,7 +779,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SubjectCl__IdTra__17F790F9">
+        <Association Name="FK__SubjectCl__IdTra__1CBC4616">
           <End Role="TrainingForm" Type="Self.TrainingForm" Multiplicity="0..1" />
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -782,7 +791,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher__IdFacul__0B91BA14">
+        <Association Name="FK__Teacher__IdFacul__10566F31">
           <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -794,7 +803,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher__IdUsers__0A9D95DB">
+        <Association Name="FK__Teacher__IdUsers__0F624AF8">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -806,7 +815,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_S__IdSub__19DFD96B">
+        <Association Name="FK__Teacher_S__IdSub__1EA48E88">
           <End Role="SubjectClass" Type="Self.SubjectClass" Multiplicity="1" />
           <End Role="Teacher_SubjectClass" Type="Self.Teacher_SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -818,7 +827,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_S__IdTea__1AD3FDA4">
+        <Association Name="FK__Teacher_S__IdTea__1F98B2C1">
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
           <End Role="Teacher_SubjectClass" Type="Self.Teacher_SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -830,7 +839,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TrainingS__IdSem__1F98B2C1">
+        <Association Name="FK__TrainingS__IdSem__245D67DE">
           <End Role="Semester" Type="Self.Semester" Multiplicity="0..1" />
           <End Role="TrainingScore" Type="Self.TrainingScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -842,7 +851,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TrainingS__IdStu__1EA48E88">
+        <Association Name="FK__TrainingS__IdStu__236943A5">
           <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
           <End Role="TrainingScore" Type="Self.TrainingScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -854,7 +863,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_User__IdUse__04E4BC85">
+        <Association Name="FK__User_User__IdUse__09A971A2">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="User_UserRole_UserInfo" Type="Self.User_UserRole_UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -866,7 +875,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_User__IdUse__05D8E0BE">
+        <Association Name="FK__User_User__IdUse__0A9D95DB">
           <End Role="UserRole_UserInfo" Type="Self.UserRole_UserInfo" Multiplicity="0..1" />
           <End Role="User_UserRole_UserInfo" Type="Self.User_UserRole_UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -878,7 +887,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole___IdRol__03F0984C">
+        <Association Name="FK__UserRole___IdRol__08B54D69">
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
           <End Role="UserRole_UserInfo" Type="Self.UserRole_UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -890,7 +899,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole___IdUse__06CD04F7">
+        <Association Name="FK__UserRole___IdUse__0B91BA14">
           <End Role="UserRole_UserInfo" Type="Self.UserRole_UserInfo" Multiplicity="0..1" />
           <End Role="UserRole_UserInfoItem" Type="Self.UserRole_UserInfoItem" Multiplicity="*" />
           <ReferentialConstraint>
@@ -902,7 +911,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__IdAvatar__02084FDA">
+        <Association Name="FK__Users__IdAvatar__05D8E0BE">
           <End Role="DatabaseImageTable" Type="Self.DatabaseImageTable" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -914,7 +923,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__IdUserRol__02FC7413">
+        <Association Name="FK__Users__IdOTP__07C12930">
+          <End Role="OTP" Type="Self.OTP" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OTP">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdOTP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__IdUserRol__06CD04F7">
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -944,6 +965,7 @@
           <EntitySet Name="NotificationImages" EntityType="Self.NotificationImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NotificationInfo" EntityType="Self.NotificationInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OTP" EntityType="Self.OTP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Semester" EntityType="Self.Semester" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudyResult" EntityType="Self.StudyResult" Schema="dbo" store:Type="Tables" />
@@ -958,211 +980,215 @@
           <EntitySet Name="UserRole_UserInfo" EntityType="Self.UserRole_UserInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole_UserInfoItem" EntityType="Self.UserRole_UserInfoItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AbsentCal__IdSub__282DF8C2" Association="Self.FK__AbsentCal__IdSub__282DF8C2">
+          <AssociationSet Name="FK__AbsentCal__IdSub__2CF2ADDF" Association="Self.FK__AbsentCal__IdSub__2CF2ADDF">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="AbsentCalendar" EntitySet="AbsentCalendar" />
           </AssociationSet>
-          <AssociationSet Name="FK__Admin__IdUsers__0C85DE4D" Association="Self.FK__Admin__IdUsers__0C85DE4D">
+          <AssociationSet Name="FK__Admin__IdUsers__114A936A" Association="Self.FK__Admin__IdUsers__114A936A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Admin" EntitySet="Admin" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdFaculty__123EB7A3" Association="Self.FK__Class__IdFaculty__123EB7A3">
+          <AssociationSet Name="FK__Class__IdFaculty__17036CC0" Association="Self.FK__Class__IdFaculty__17036CC0">
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Class" EntitySet="Class" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdTeacher__1332DBDC" Association="Self.FK__Class__IdTeacher__1332DBDC">
+          <AssociationSet Name="FK__Class__IdTeacher__17F790F9" Association="Self.FK__Class__IdTeacher__17F790F9">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="Class" EntitySet="Class" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdThumbna__14270015" Association="Self.FK__Class__IdThumbna__14270015">
+          <AssociationSet Name="FK__Class__IdThumbna__18EBB532" Association="Self.FK__Class__IdThumbna__18EBB532">
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTable" />
             <End Role="Class" EntitySet="Class" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdTrainin__114A936A" Association="Self.FK__Class__IdTrainin__114A936A">
+          <AssociationSet Name="FK__Class__IdTrainin__160F4887" Association="Self.FK__Class__IdTrainin__160F4887">
             <End Role="TrainingForm" EntitySet="TrainingForm" />
             <End Role="Class" EntitySet="Class" />
           </AssociationSet>
-          <AssociationSet Name="FK__Component__IdSub__208CD6FA" Association="Self.FK__Component__IdSub__208CD6FA">
+          <AssociationSet Name="FK__Component__IdSub__25518C17" Association="Self.FK__Component__IdSub__25518C17">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="ComponentScore" EntitySet="ComponentScore" />
           </AssociationSet>
-          <AssociationSet Name="FK__CourseReg__IdSem__1DB06A4F" Association="Self.FK__CourseReg__IdSem__1DB06A4F">
+          <AssociationSet Name="FK__CourseReg__IdSem__22751F6C" Association="Self.FK__CourseReg__IdSem__22751F6C">
             <End Role="Semester" EntitySet="Semester" />
             <End Role="CourseRegister" EntitySet="CourseRegister" />
           </AssociationSet>
-          <AssociationSet Name="FK__CourseReg__IdStu__1CBC4616" Association="Self.FK__CourseReg__IdStu__1CBC4616">
+          <AssociationSet Name="FK__CourseReg__IdStu__2180FB33" Association="Self.FK__CourseReg__IdStu__2180FB33">
             <End Role="Student" EntitySet="Student" />
             <End Role="CourseRegister" EntitySet="CourseRegister" />
           </AssociationSet>
-          <AssociationSet Name="FK__CourseReg__IdSub__1BC821DD" Association="Self.FK__CourseReg__IdSub__1BC821DD">
+          <AssociationSet Name="FK__CourseReg__IdSub__208CD6FA" Association="Self.FK__CourseReg__IdSub__208CD6FA">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="CourseRegister" EntitySet="CourseRegister" />
           </AssociationSet>
-          <AssociationSet Name="FK__DetailSco__IdCom__22751F6C" Association="Self.FK__DetailSco__IdCom__22751F6C">
+          <AssociationSet Name="FK__DetailSco__IdCom__2739D489" Association="Self.FK__DetailSco__IdCom__2739D489">
             <End Role="ComponentScore" EntitySet="ComponentScore" />
             <End Role="DetailScore" EntitySet="DetailScore" />
           </AssociationSet>
-          <AssociationSet Name="FK__DetailSco__IdStu__2180FB33" Association="Self.FK__DetailSco__IdStu__2180FB33">
+          <AssociationSet Name="FK__DetailSco__IdStu__2645B050" Association="Self.FK__DetailSco__IdStu__2645B050">
             <End Role="Student" EntitySet="Student" />
             <End Role="DetailScore" EntitySet="DetailScore" />
           </AssociationSet>
-          <AssociationSet Name="FK__Document__IdFold__245D67DE" Association="Self.FK__Document__IdFold__245D67DE">
+          <AssociationSet Name="FK__Document__IdFold__29221CFB" Association="Self.FK__Document__IdFold__29221CFB">
             <End Role="Folder" EntitySet="Folder" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
-          <AssociationSet Name="FK__Document__IdPost__236943A5" Association="Self.FK__Document__IdPost__236943A5">
+          <AssociationSet Name="FK__Document__IdPost__282DF8C2" Association="Self.FK__Document__IdPost__282DF8C2">
             <End Role="Users" EntitySet="Users" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
-          <AssociationSet Name="FK__Document__IdSubj__25518C17" Association="Self.FK__Document__IdSubj__25518C17">
+          <AssociationSet Name="FK__Document__IdSubj__2A164134" Association="Self.FK__Document__IdSubj__2A164134">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
-          <AssociationSet Name="FK__Examinati__IdSub__18EBB532" Association="Self.FK__Examinati__IdSub__18EBB532">
+          <AssociationSet Name="FK__Examinati__IdSub__1DB06A4F" Association="Self.FK__Examinati__IdSub__1DB06A4F">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="Examination" EntitySet="Examination" />
           </AssociationSet>
-          <AssociationSet Name="FK__Faculty_T__IdFac__0E6E26BF" Association="Self.FK__Faculty_T__IdFac__0E6E26BF">
+          <AssociationSet Name="FK__Faculty_T__IdFac__1332DBDC" Association="Self.FK__Faculty_T__IdFac__1332DBDC">
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
-          <AssociationSet Name="FK__Faculty_T__IdTra__0D7A0286" Association="Self.FK__Faculty_T__IdTra__0D7A0286">
+          <AssociationSet Name="FK__Faculty_T__IdTra__123EB7A3" Association="Self.FK__Faculty_T__IdTra__123EB7A3">
             <End Role="TrainingForm" EntitySet="TrainingForm" />
             <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
-          <AssociationSet Name="FK__Folder__IdPoster__2739D489" Association="Self.FK__Folder__IdPoster__2739D489">
+          <AssociationSet Name="FK__Folder__IdPoster__2BFE89A6" Association="Self.FK__Folder__IdPoster__2BFE89A6">
             <End Role="Users" EntitySet="Users" />
             <End Role="Folder" EntitySet="Folder" />
           </AssociationSet>
-          <AssociationSet Name="FK__Folder__IdSubjec__2645B050" Association="Self.FK__Folder__IdSubjec__2645B050">
+          <AssociationSet Name="FK__Folder__IdSubjec__2B0A656D" Association="Self.FK__Folder__IdSubjec__2B0A656D">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="Folder" EntitySet="Folder" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdDat__32AB8735" Association="Self.FK__Notificat__IdDat__32AB8735">
+          <AssociationSet Name="FK__Notificat__IdDat__37703C52" Association="Self.FK__Notificat__IdDat__37703C52">
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTable" />
             <End Role="NotificationImages" EntitySet="NotificationImages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdNot__2CF2ADDF" Association="Self.FK__Notificat__IdNot__2CF2ADDF">
+          <AssociationSet Name="FK__Notificat__IdNot__31B762FC" Association="Self.FK__Notificat__IdNot__31B762FC">
             <End Role="NotificationType" EntitySet="NotificationType" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdNot__2DE6D218" Association="Self.FK__Notificat__IdNot__2DE6D218">
+          <AssociationSet Name="FK__Notificat__IdNot__32AB8735" Association="Self.FK__Notificat__IdNot__32AB8735">
             <End Role="Notification" EntitySet="Notification" />
             <End Role="NotificationInfo" EntitySet="NotificationInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdNot__30C33EC3" Association="Self.FK__Notificat__IdNot__30C33EC3">
+          <AssociationSet Name="FK__Notificat__IdNot__3587F3E0" Association="Self.FK__Notificat__IdNot__3587F3E0">
             <End Role="Notification" EntitySet="Notification" />
             <End Role="NotificationComment" EntitySet="NotificationComment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdNot__31B762FC" Association="Self.FK__Notificat__IdNot__31B762FC">
+          <AssociationSet Name="FK__Notificat__IdNot__367C1819" Association="Self.FK__Notificat__IdNot__367C1819">
             <End Role="Notification" EntitySet="Notification" />
             <End Role="NotificationImages" EntitySet="NotificationImages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdPos__29221CFB" Association="Self.FK__Notificat__IdPos__29221CFB">
+          <AssociationSet Name="FK__Notificat__IdPos__2DE6D218" Association="Self.FK__Notificat__IdPos__2DE6D218">
             <End Role="Users" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdPos__2B0A656D" Association="Self.FK__Notificat__IdPos__2B0A656D">
+          <AssociationSet Name="FK__Notificat__IdPos__2FCF1A8A" Association="Self.FK__Notificat__IdPos__2FCF1A8A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdSub__2A164134" Association="Self.FK__Notificat__IdSub__2A164134">
+          <AssociationSet Name="FK__Notificat__IdSub__2EDAF651" Association="Self.FK__Notificat__IdSub__2EDAF651">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdSub__2BFE89A6" Association="Self.FK__Notificat__IdSub__2BFE89A6">
+          <AssociationSet Name="FK__Notificat__IdSub__30C33EC3" Association="Self.FK__Notificat__IdSub__30C33EC3">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdUse__2EDAF651" Association="Self.FK__Notificat__IdUse__2EDAF651">
+          <AssociationSet Name="FK__Notificat__IdUse__339FAB6E" Association="Self.FK__Notificat__IdUse__339FAB6E">
             <End Role="Users" EntitySet="Users" />
             <End Role="NotificationInfo" EntitySet="NotificationInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdUse__2FCF1A8A" Association="Self.FK__Notificat__IdUse__2FCF1A8A">
+          <AssociationSet Name="FK__Notificat__IdUse__3493CFA7" Association="Self.FK__Notificat__IdUse__3493CFA7">
             <End Role="Users" EntitySet="Users" />
             <End Role="NotificationComment" EntitySet="NotificationComment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__IdFacul__09A971A2" Association="Self.FK__Student__IdFacul__09A971A2">
+          <AssociationSet Name="FK__Student__IdFacul__0E6E26BF" Association="Self.FK__Student__IdFacul__0E6E26BF">
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__IdTrain__07C12930" Association="Self.FK__Student__IdTrain__07C12930">
+          <AssociationSet Name="FK__Student__IdTrain__0C85DE4D" Association="Self.FK__Student__IdTrain__0C85DE4D">
             <End Role="TrainingForm" EntitySet="TrainingForm" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__IdUsers__08B54D69" Association="Self.FK__Student__IdUsers__08B54D69">
+          <AssociationSet Name="FK__Student__IdUsers__0D7A0286" Association="Self.FK__Student__IdUsers__0D7A0286">
             <End Role="Users" EntitySet="Users" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudyResu__IdStu__0F624AF8" Association="Self.FK__StudyResu__IdStu__0F624AF8">
+          <AssociationSet Name="FK__StudyResu__IdStu__14270015" Association="Self.FK__StudyResu__IdStu__14270015">
             <End Role="Student" EntitySet="Student" />
             <End Role="StudyResult" EntitySet="StudyResult" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudyResu__IdSub__10566F31" Association="Self.FK__StudyResu__IdSub__10566F31">
+          <AssociationSet Name="FK__StudyResu__IdSub__151B244E" Association="Self.FK__StudyResu__IdSub__151B244E">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="StudyResult" EntitySet="StudyResult" />
           </AssociationSet>
-          <AssociationSet Name="FK__SubjectCl__IdSem__160F4887" Association="Self.FK__SubjectCl__IdSem__160F4887">
+          <AssociationSet Name="FK__SubjectCl__IdSem__1AD3FDA4" Association="Self.FK__SubjectCl__IdSem__1AD3FDA4">
             <End Role="Semester" EntitySet="Semester" />
             <End Role="SubjectClass" EntitySet="SubjectClass" />
           </AssociationSet>
-          <AssociationSet Name="FK__SubjectCl__IdSub__151B244E" Association="Self.FK__SubjectCl__IdSub__151B244E">
+          <AssociationSet Name="FK__SubjectCl__IdSub__19DFD96B" Association="Self.FK__SubjectCl__IdSub__19DFD96B">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="SubjectClass" EntitySet="SubjectClass" />
           </AssociationSet>
-          <AssociationSet Name="FK__SubjectCl__IdThu__17036CC0" Association="Self.FK__SubjectCl__IdThu__17036CC0">
+          <AssociationSet Name="FK__SubjectCl__IdThu__1BC821DD" Association="Self.FK__SubjectCl__IdThu__1BC821DD">
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTable" />
             <End Role="SubjectClass" EntitySet="SubjectClass" />
           </AssociationSet>
-          <AssociationSet Name="FK__SubjectCl__IdTra__17F790F9" Association="Self.FK__SubjectCl__IdTra__17F790F9">
+          <AssociationSet Name="FK__SubjectCl__IdTra__1CBC4616" Association="Self.FK__SubjectCl__IdTra__1CBC4616">
             <End Role="TrainingForm" EntitySet="TrainingForm" />
             <End Role="SubjectClass" EntitySet="SubjectClass" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher__IdFacul__0B91BA14" Association="Self.FK__Teacher__IdFacul__0B91BA14">
+          <AssociationSet Name="FK__Teacher__IdFacul__10566F31" Association="Self.FK__Teacher__IdFacul__10566F31">
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher__IdUsers__0A9D95DB" Association="Self.FK__Teacher__IdUsers__0A9D95DB">
+          <AssociationSet Name="FK__Teacher__IdUsers__0F624AF8" Association="Self.FK__Teacher__IdUsers__0F624AF8">
             <End Role="Users" EntitySet="Users" />
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher_S__IdSub__19DFD96B" Association="Self.FK__Teacher_S__IdSub__19DFD96B">
+          <AssociationSet Name="FK__Teacher_S__IdSub__1EA48E88" Association="Self.FK__Teacher_S__IdSub__1EA48E88">
             <End Role="SubjectClass" EntitySet="SubjectClass" />
             <End Role="Teacher_SubjectClass" EntitySet="Teacher_SubjectClass" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher_S__IdTea__1AD3FDA4" Association="Self.FK__Teacher_S__IdTea__1AD3FDA4">
+          <AssociationSet Name="FK__Teacher_S__IdTea__1F98B2C1" Association="Self.FK__Teacher_S__IdTea__1F98B2C1">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="Teacher_SubjectClass" EntitySet="Teacher_SubjectClass" />
           </AssociationSet>
-          <AssociationSet Name="FK__TrainingS__IdSem__1F98B2C1" Association="Self.FK__TrainingS__IdSem__1F98B2C1">
+          <AssociationSet Name="FK__TrainingS__IdSem__245D67DE" Association="Self.FK__TrainingS__IdSem__245D67DE">
             <End Role="Semester" EntitySet="Semester" />
             <End Role="TrainingScore" EntitySet="TrainingScore" />
           </AssociationSet>
-          <AssociationSet Name="FK__TrainingS__IdStu__1EA48E88" Association="Self.FK__TrainingS__IdStu__1EA48E88">
+          <AssociationSet Name="FK__TrainingS__IdStu__236943A5" Association="Self.FK__TrainingS__IdStu__236943A5">
             <End Role="Student" EntitySet="Student" />
             <End Role="TrainingScore" EntitySet="TrainingScore" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_User__IdUse__04E4BC85" Association="Self.FK__User_User__IdUse__04E4BC85">
+          <AssociationSet Name="FK__User_User__IdUse__09A971A2" Association="Self.FK__User_User__IdUse__09A971A2">
             <End Role="Users" EntitySet="Users" />
             <End Role="User_UserRole_UserInfo" EntitySet="User_UserRole_UserInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_User__IdUse__05D8E0BE" Association="Self.FK__User_User__IdUse__05D8E0BE">
+          <AssociationSet Name="FK__User_User__IdUse__0A9D95DB" Association="Self.FK__User_User__IdUse__0A9D95DB">
             <End Role="UserRole_UserInfo" EntitySet="UserRole_UserInfo" />
             <End Role="User_UserRole_UserInfo" EntitySet="User_UserRole_UserInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole___IdRol__03F0984C" Association="Self.FK__UserRole___IdRol__03F0984C">
+          <AssociationSet Name="FK__UserRole___IdRol__08B54D69" Association="Self.FK__UserRole___IdRol__08B54D69">
             <End Role="UserRole" EntitySet="UserRole" />
             <End Role="UserRole_UserInfo" EntitySet="UserRole_UserInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole___IdUse__06CD04F7" Association="Self.FK__UserRole___IdUse__06CD04F7">
+          <AssociationSet Name="FK__UserRole___IdUse__0B91BA14" Association="Self.FK__UserRole___IdUse__0B91BA14">
             <End Role="UserRole_UserInfo" EntitySet="UserRole_UserInfo" />
             <End Role="UserRole_UserInfoItem" EntitySet="UserRole_UserInfoItem" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__IdAvatar__02084FDA" Association="Self.FK__Users__IdAvatar__02084FDA">
+          <AssociationSet Name="FK__Users__IdAvatar__05D8E0BE" Association="Self.FK__Users__IdAvatar__05D8E0BE">
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTable" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__IdUserRol__02FC7413" Association="Self.FK__Users__IdUserRol__02FC7413">
+          <AssociationSet Name="FK__Users__IdOTP__07C12930" Association="Self.FK__Users__IdOTP__07C12930">
+            <End Role="OTP" EntitySet="OTP" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__IdUserRol__06CD04F7" Association="Self.FK__Users__IdUserRol__06CD04F7">
             <End Role="UserRole" EntitySet="UserRole" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
@@ -1193,6 +1219,7 @@
           <EntitySet Name="NotificationImages" EntityType="StudentManagementModel.NotificationImage" />
           <EntitySet Name="NotificationInfoes" EntityType="StudentManagementModel.NotificationInfo" />
           <EntitySet Name="NotificationTypes" EntityType="StudentManagementModel.NotificationType" />
+          <EntitySet Name="OTPs" EntityType="StudentManagementModel.OTP" />
           <EntitySet Name="Semesters" EntityType="StudentManagementModel.Semester" />
           <EntitySet Name="Students" EntityType="StudentManagementModel.Student" />
           <EntitySet Name="StudyResults" EntityType="StudentManagementModel.StudyResult" />
@@ -1206,203 +1233,207 @@
           <EntitySet Name="UserRole_UserInfo" EntityType="StudentManagementModel.UserRole_UserInfo" />
           <EntitySet Name="UserRole_UserInfoItem" EntityType="StudentManagementModel.UserRole_UserInfoItem" />
           <EntitySet Name="Users" EntityType="StudentManagementModel.User" />
-          <AssociationSet Name="FK__AbsentCal__IdSub__282DF8C2" Association="StudentManagementModel.FK__AbsentCal__IdSub__282DF8C2">
+          <AssociationSet Name="FK__AbsentCal__IdSub__2CF2ADDF" Association="StudentManagementModel.FK__AbsentCal__IdSub__2CF2ADDF">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="AbsentCalendar" EntitySet="AbsentCalendars" />
           </AssociationSet>
-          <AssociationSet Name="FK__Admin__IdUsers__0C85DE4D" Association="StudentManagementModel.FK__Admin__IdUsers__0C85DE4D">
+          <AssociationSet Name="FK__Admin__IdUsers__114A936A" Association="StudentManagementModel.FK__Admin__IdUsers__114A936A">
             <End Role="User" EntitySet="Users" />
             <End Role="Admin" EntitySet="Admins" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdFaculty__123EB7A3" Association="StudentManagementModel.FK__Class__IdFaculty__123EB7A3">
+          <AssociationSet Name="FK__Class__IdFaculty__17036CC0" Association="StudentManagementModel.FK__Class__IdFaculty__17036CC0">
             <End Role="Faculty" EntitySet="Faculties" />
             <End Role="Class" EntitySet="Classes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdTeacher__1332DBDC" Association="StudentManagementModel.FK__Class__IdTeacher__1332DBDC">
+          <AssociationSet Name="FK__Class__IdTeacher__17F790F9" Association="StudentManagementModel.FK__Class__IdTeacher__17F790F9">
             <End Role="Teacher" EntitySet="Teachers" />
             <End Role="Class" EntitySet="Classes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdThumbna__14270015" Association="StudentManagementModel.FK__Class__IdThumbna__14270015">
+          <AssociationSet Name="FK__Class__IdThumbna__18EBB532" Association="StudentManagementModel.FK__Class__IdThumbna__18EBB532">
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTables" />
             <End Role="Class" EntitySet="Classes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Class__IdTrainin__114A936A" Association="StudentManagementModel.FK__Class__IdTrainin__114A936A">
+          <AssociationSet Name="FK__Class__IdTrainin__160F4887" Association="StudentManagementModel.FK__Class__IdTrainin__160F4887">
             <End Role="TrainingForm" EntitySet="TrainingForms" />
             <End Role="Class" EntitySet="Classes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Component__IdSub__208CD6FA" Association="StudentManagementModel.FK__Component__IdSub__208CD6FA">
+          <AssociationSet Name="FK__Component__IdSub__25518C17" Association="StudentManagementModel.FK__Component__IdSub__25518C17">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="ComponentScore" EntitySet="ComponentScores" />
           </AssociationSet>
-          <AssociationSet Name="FK__DetailSco__IdCom__22751F6C" Association="StudentManagementModel.FK__DetailSco__IdCom__22751F6C">
+          <AssociationSet Name="FK__DetailSco__IdCom__2739D489" Association="StudentManagementModel.FK__DetailSco__IdCom__2739D489">
             <End Role="ComponentScore" EntitySet="ComponentScores" />
             <End Role="DetailScore" EntitySet="DetailScores" />
           </AssociationSet>
-          <AssociationSet Name="FK__CourseReg__IdSem__1DB06A4F" Association="StudentManagementModel.FK__CourseReg__IdSem__1DB06A4F">
+          <AssociationSet Name="FK__CourseReg__IdSem__22751F6C" Association="StudentManagementModel.FK__CourseReg__IdSem__22751F6C">
             <End Role="Semester" EntitySet="Semesters" />
             <End Role="CourseRegister" EntitySet="CourseRegisters" />
           </AssociationSet>
-          <AssociationSet Name="FK__CourseReg__IdStu__1CBC4616" Association="StudentManagementModel.FK__CourseReg__IdStu__1CBC4616">
+          <AssociationSet Name="FK__CourseReg__IdStu__2180FB33" Association="StudentManagementModel.FK__CourseReg__IdStu__2180FB33">
             <End Role="Student" EntitySet="Students" />
             <End Role="CourseRegister" EntitySet="CourseRegisters" />
           </AssociationSet>
-          <AssociationSet Name="FK__CourseReg__IdSub__1BC821DD" Association="StudentManagementModel.FK__CourseReg__IdSub__1BC821DD">
+          <AssociationSet Name="FK__CourseReg__IdSub__208CD6FA" Association="StudentManagementModel.FK__CourseReg__IdSub__208CD6FA">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="CourseRegister" EntitySet="CourseRegisters" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdDat__32AB8735" Association="StudentManagementModel.FK__Notificat__IdDat__32AB8735">
+          <AssociationSet Name="FK__Notificat__IdDat__37703C52" Association="StudentManagementModel.FK__Notificat__IdDat__37703C52">
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTables" />
             <End Role="NotificationImage" EntitySet="NotificationImages" />
           </AssociationSet>
-          <AssociationSet Name="FK__SubjectCl__IdThu__17036CC0" Association="StudentManagementModel.FK__SubjectCl__IdThu__17036CC0">
+          <AssociationSet Name="FK__SubjectCl__IdThu__1BC821DD" Association="StudentManagementModel.FK__SubjectCl__IdThu__1BC821DD">
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTables" />
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__IdAvatar__02084FDA" Association="StudentManagementModel.FK__Users__IdAvatar__02084FDA">
+          <AssociationSet Name="FK__Users__IdAvatar__05D8E0BE" Association="StudentManagementModel.FK__Users__IdAvatar__05D8E0BE">
             <End Role="DatabaseImageTable" EntitySet="DatabaseImageTables" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__DetailSco__IdStu__2180FB33" Association="StudentManagementModel.FK__DetailSco__IdStu__2180FB33">
+          <AssociationSet Name="FK__DetailSco__IdStu__2645B050" Association="StudentManagementModel.FK__DetailSco__IdStu__2645B050">
             <End Role="Student" EntitySet="Students" />
             <End Role="DetailScore" EntitySet="DetailScores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Document__IdFold__245D67DE" Association="StudentManagementModel.FK__Document__IdFold__245D67DE">
+          <AssociationSet Name="FK__Document__IdFold__29221CFB" Association="StudentManagementModel.FK__Document__IdFold__29221CFB">
             <End Role="Folder" EntitySet="Folders" />
             <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
-          <AssociationSet Name="FK__Document__IdPost__236943A5" Association="StudentManagementModel.FK__Document__IdPost__236943A5">
+          <AssociationSet Name="FK__Document__IdPost__282DF8C2" Association="StudentManagementModel.FK__Document__IdPost__282DF8C2">
             <End Role="User" EntitySet="Users" />
             <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
-          <AssociationSet Name="FK__Document__IdSubj__25518C17" Association="StudentManagementModel.FK__Document__IdSubj__25518C17">
+          <AssociationSet Name="FK__Document__IdSubj__2A164134" Association="StudentManagementModel.FK__Document__IdSubj__2A164134">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
-          <AssociationSet Name="FK__Examinati__IdSub__18EBB532" Association="StudentManagementModel.FK__Examinati__IdSub__18EBB532">
+          <AssociationSet Name="FK__Examinati__IdSub__1DB06A4F" Association="StudentManagementModel.FK__Examinati__IdSub__1DB06A4F">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="Examination" EntitySet="Examinations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Faculty_T__IdFac__0E6E26BF" Association="StudentManagementModel.FK__Faculty_T__IdFac__0E6E26BF">
+          <AssociationSet Name="FK__Faculty_T__IdFac__1332DBDC" Association="StudentManagementModel.FK__Faculty_T__IdFac__1332DBDC">
             <End Role="Faculty" EntitySet="Faculties" />
             <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__IdFacul__09A971A2" Association="StudentManagementModel.FK__Student__IdFacul__09A971A2">
+          <AssociationSet Name="FK__Student__IdFacul__0E6E26BF" Association="StudentManagementModel.FK__Student__IdFacul__0E6E26BF">
             <End Role="Faculty" EntitySet="Faculties" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher__IdFacul__0B91BA14" Association="StudentManagementModel.FK__Teacher__IdFacul__0B91BA14">
+          <AssociationSet Name="FK__Teacher__IdFacul__10566F31" Association="StudentManagementModel.FK__Teacher__IdFacul__10566F31">
             <End Role="Faculty" EntitySet="Faculties" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Faculty_T__IdTra__0D7A0286" Association="StudentManagementModel.FK__Faculty_T__IdTra__0D7A0286">
+          <AssociationSet Name="FK__Faculty_T__IdTra__123EB7A3" Association="StudentManagementModel.FK__Faculty_T__IdTra__123EB7A3">
             <End Role="TrainingForm" EntitySet="TrainingForms" />
             <End Role="Faculty_TrainingForm" EntitySet="Faculty_TrainingForm" />
           </AssociationSet>
-          <AssociationSet Name="FK__Folder__IdPoster__2739D489" Association="StudentManagementModel.FK__Folder__IdPoster__2739D489">
+          <AssociationSet Name="FK__Folder__IdPoster__2BFE89A6" Association="StudentManagementModel.FK__Folder__IdPoster__2BFE89A6">
             <End Role="User" EntitySet="Users" />
             <End Role="Folder" EntitySet="Folders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Folder__IdSubjec__2645B050" Association="StudentManagementModel.FK__Folder__IdSubjec__2645B050">
+          <AssociationSet Name="FK__Folder__IdSubjec__2B0A656D" Association="StudentManagementModel.FK__Folder__IdSubjec__2B0A656D">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="Folder" EntitySet="Folders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdNot__2CF2ADDF" Association="StudentManagementModel.FK__Notificat__IdNot__2CF2ADDF">
+          <AssociationSet Name="FK__Notificat__IdNot__31B762FC" Association="StudentManagementModel.FK__Notificat__IdNot__31B762FC">
             <End Role="NotificationType" EntitySet="NotificationTypes" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdNot__2DE6D218" Association="StudentManagementModel.FK__Notificat__IdNot__2DE6D218">
+          <AssociationSet Name="FK__Notificat__IdNot__32AB8735" Association="StudentManagementModel.FK__Notificat__IdNot__32AB8735">
             <End Role="Notification" EntitySet="Notifications" />
             <End Role="NotificationInfo" EntitySet="NotificationInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdNot__30C33EC3" Association="StudentManagementModel.FK__Notificat__IdNot__30C33EC3">
+          <AssociationSet Name="FK__Notificat__IdNot__3587F3E0" Association="StudentManagementModel.FK__Notificat__IdNot__3587F3E0">
             <End Role="Notification" EntitySet="Notifications" />
             <End Role="NotificationComment" EntitySet="NotificationComments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdNot__31B762FC" Association="StudentManagementModel.FK__Notificat__IdNot__31B762FC">
+          <AssociationSet Name="FK__Notificat__IdNot__367C1819" Association="StudentManagementModel.FK__Notificat__IdNot__367C1819">
             <End Role="Notification" EntitySet="Notifications" />
             <End Role="NotificationImage" EntitySet="NotificationImages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdPos__29221CFB" Association="StudentManagementModel.FK__Notificat__IdPos__29221CFB">
+          <AssociationSet Name="FK__Notificat__IdPos__2DE6D218" Association="StudentManagementModel.FK__Notificat__IdPos__2DE6D218">
             <End Role="User" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdPos__2B0A656D" Association="StudentManagementModel.FK__Notificat__IdPos__2B0A656D">
+          <AssociationSet Name="FK__Notificat__IdPos__2FCF1A8A" Association="StudentManagementModel.FK__Notificat__IdPos__2FCF1A8A">
             <End Role="User" EntitySet="Users" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdSub__2A164134" Association="StudentManagementModel.FK__Notificat__IdSub__2A164134">
+          <AssociationSet Name="FK__Notificat__IdSub__2EDAF651" Association="StudentManagementModel.FK__Notificat__IdSub__2EDAF651">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdSub__2BFE89A6" Association="StudentManagementModel.FK__Notificat__IdSub__2BFE89A6">
+          <AssociationSet Name="FK__Notificat__IdSub__30C33EC3" Association="StudentManagementModel.FK__Notificat__IdSub__30C33EC3">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdUse__2FCF1A8A" Association="StudentManagementModel.FK__Notificat__IdUse__2FCF1A8A">
+          <AssociationSet Name="FK__Notificat__IdUse__3493CFA7" Association="StudentManagementModel.FK__Notificat__IdUse__3493CFA7">
             <End Role="User" EntitySet="Users" />
             <End Role="NotificationComment" EntitySet="NotificationComments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notificat__IdUse__2EDAF651" Association="StudentManagementModel.FK__Notificat__IdUse__2EDAF651">
+          <AssociationSet Name="FK__Notificat__IdUse__339FAB6E" Association="StudentManagementModel.FK__Notificat__IdUse__339FAB6E">
             <End Role="User" EntitySet="Users" />
             <End Role="NotificationInfo" EntitySet="NotificationInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__SubjectCl__IdSem__160F4887" Association="StudentManagementModel.FK__SubjectCl__IdSem__160F4887">
+          <AssociationSet Name="FK__Users__IdOTP__07C12930" Association="StudentManagementModel.FK__Users__IdOTP__07C12930">
+            <End Role="OTP" EntitySet="OTPs" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubjectCl__IdSem__1AD3FDA4" Association="StudentManagementModel.FK__SubjectCl__IdSem__1AD3FDA4">
             <End Role="Semester" EntitySet="Semesters" />
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
           </AssociationSet>
-          <AssociationSet Name="FK__TrainingS__IdSem__1F98B2C1" Association="StudentManagementModel.FK__TrainingS__IdSem__1F98B2C1">
+          <AssociationSet Name="FK__TrainingS__IdSem__245D67DE" Association="StudentManagementModel.FK__TrainingS__IdSem__245D67DE">
             <End Role="Semester" EntitySet="Semesters" />
             <End Role="TrainingScore" EntitySet="TrainingScores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__IdTrain__07C12930" Association="StudentManagementModel.FK__Student__IdTrain__07C12930">
+          <AssociationSet Name="FK__Student__IdTrain__0C85DE4D" Association="StudentManagementModel.FK__Student__IdTrain__0C85DE4D">
             <End Role="TrainingForm" EntitySet="TrainingForms" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__IdUsers__08B54D69" Association="StudentManagementModel.FK__Student__IdUsers__08B54D69">
+          <AssociationSet Name="FK__Student__IdUsers__0D7A0286" Association="StudentManagementModel.FK__Student__IdUsers__0D7A0286">
             <End Role="User" EntitySet="Users" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudyResu__IdStu__0F624AF8" Association="StudentManagementModel.FK__StudyResu__IdStu__0F624AF8">
+          <AssociationSet Name="FK__StudyResu__IdStu__14270015" Association="StudentManagementModel.FK__StudyResu__IdStu__14270015">
             <End Role="Student" EntitySet="Students" />
             <End Role="StudyResult" EntitySet="StudyResults" />
           </AssociationSet>
-          <AssociationSet Name="FK__TrainingS__IdStu__1EA48E88" Association="StudentManagementModel.FK__TrainingS__IdStu__1EA48E88">
+          <AssociationSet Name="FK__TrainingS__IdStu__236943A5" Association="StudentManagementModel.FK__TrainingS__IdStu__236943A5">
             <End Role="Student" EntitySet="Students" />
             <End Role="TrainingScore" EntitySet="TrainingScores" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudyResu__IdSub__10566F31" Association="StudentManagementModel.FK__StudyResu__IdSub__10566F31">
+          <AssociationSet Name="FK__StudyResu__IdSub__151B244E" Association="StudentManagementModel.FK__StudyResu__IdSub__151B244E">
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
             <End Role="StudyResult" EntitySet="StudyResults" />
           </AssociationSet>
-          <AssociationSet Name="FK__SubjectCl__IdSub__151B244E" Association="StudentManagementModel.FK__SubjectCl__IdSub__151B244E">
+          <AssociationSet Name="FK__SubjectCl__IdSub__19DFD96B" Association="StudentManagementModel.FK__SubjectCl__IdSub__19DFD96B">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
           </AssociationSet>
-          <AssociationSet Name="FK__SubjectCl__IdTra__17F790F9" Association="StudentManagementModel.FK__SubjectCl__IdTra__17F790F9">
+          <AssociationSet Name="FK__SubjectCl__IdTra__1CBC4616" Association="StudentManagementModel.FK__SubjectCl__IdTra__1CBC4616">
             <End Role="TrainingForm" EntitySet="TrainingForms" />
             <End Role="SubjectClass" EntitySet="SubjectClasses" />
           </AssociationSet>
-          <AssociationSet Name="FK__Teacher__IdUsers__0A9D95DB" Association="StudentManagementModel.FK__Teacher__IdUsers__0A9D95DB">
+          <AssociationSet Name="FK__Teacher__IdUsers__0F624AF8" Association="StudentManagementModel.FK__Teacher__IdUsers__0F624AF8">
             <End Role="User" EntitySet="Users" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_User__IdUse__04E4BC85" Association="StudentManagementModel.FK__User_User__IdUse__04E4BC85">
+          <AssociationSet Name="FK__User_User__IdUse__09A971A2" Association="StudentManagementModel.FK__User_User__IdUse__09A971A2">
             <End Role="User" EntitySet="Users" />
             <End Role="User_UserRole_UserInfo" EntitySet="User_UserRole_UserInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_User__IdUse__05D8E0BE" Association="StudentManagementModel.FK__User_User__IdUse__05D8E0BE">
+          <AssociationSet Name="FK__User_User__IdUse__0A9D95DB" Association="StudentManagementModel.FK__User_User__IdUse__0A9D95DB">
             <End Role="UserRole_UserInfo" EntitySet="UserRole_UserInfo" />
             <End Role="User_UserRole_UserInfo" EntitySet="User_UserRole_UserInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole___IdRol__03F0984C" Association="StudentManagementModel.FK__UserRole___IdRol__03F0984C">
+          <AssociationSet Name="FK__UserRole___IdRol__08B54D69" Association="StudentManagementModel.FK__UserRole___IdRol__08B54D69">
             <End Role="UserRole" EntitySet="UserRoles" />
             <End Role="UserRole_UserInfo" EntitySet="UserRole_UserInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__IdUserRol__02FC7413" Association="StudentManagementModel.FK__Users__IdUserRol__02FC7413">
+          <AssociationSet Name="FK__Users__IdUserRol__06CD04F7" Association="StudentManagementModel.FK__Users__IdUserRol__06CD04F7">
             <End Role="UserRole" EntitySet="UserRoles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole___IdUse__06CD04F7" Association="StudentManagementModel.FK__UserRole___IdUse__06CD04F7">
+          <AssociationSet Name="FK__UserRole___IdUse__0B91BA14" Association="StudentManagementModel.FK__UserRole___IdUse__0B91BA14">
             <End Role="UserRole_UserInfo" EntitySet="UserRole_UserInfo" />
             <End Role="UserRole_UserInfoItem" EntitySet="UserRole_UserInfoItem" />
           </AssociationSet>
@@ -1420,7 +1451,7 @@
           <Property Name="Period" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Type" Type="Int32" />
-          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__AbsentCal__IdSub__282DF8C2" FromRole="AbsentCalendar" ToRole="SubjectClass" />
+          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__AbsentCal__IdSub__2CF2ADDF" FromRole="AbsentCalendar" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="Admin">
           <Key>
@@ -1428,7 +1459,7 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IdUsers" Type="Guid" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Admin__IdUsers__0C85DE4D" FromRole="Admin" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Admin__IdUsers__114A936A" FromRole="Admin" ToRole="User" />
         </EntityType>
         <EntityType Name="Class">
           <Key>
@@ -1441,10 +1472,10 @@
           <Property Name="IdTeacher" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="IdThumbnail" Type="Guid" />
-          <NavigationProperty Name="Faculty" Relationship="StudentManagementModel.FK__Class__IdFaculty__123EB7A3" FromRole="Class" ToRole="Faculty" />
-          <NavigationProperty Name="Teacher" Relationship="StudentManagementModel.FK__Class__IdTeacher__1332DBDC" FromRole="Class" ToRole="Teacher" />
-          <NavigationProperty Name="DatabaseImageTable" Relationship="StudentManagementModel.FK__Class__IdThumbna__14270015" FromRole="Class" ToRole="DatabaseImageTable" />
-          <NavigationProperty Name="TrainingForm" Relationship="StudentManagementModel.FK__Class__IdTrainin__114A936A" FromRole="Class" ToRole="TrainingForm" />
+          <NavigationProperty Name="Faculty" Relationship="StudentManagementModel.FK__Class__IdFaculty__17036CC0" FromRole="Class" ToRole="Faculty" />
+          <NavigationProperty Name="Teacher" Relationship="StudentManagementModel.FK__Class__IdTeacher__17F790F9" FromRole="Class" ToRole="Teacher" />
+          <NavigationProperty Name="DatabaseImageTable" Relationship="StudentManagementModel.FK__Class__IdThumbna__18EBB532" FromRole="Class" ToRole="DatabaseImageTable" />
+          <NavigationProperty Name="TrainingForm" Relationship="StudentManagementModel.FK__Class__IdTrainin__160F4887" FromRole="Class" ToRole="TrainingForm" />
         </EntityType>
         <EntityType Name="ComponentScore">
           <Key>
@@ -1454,8 +1485,8 @@
           <Property Name="IdSubjectClass" Type="Guid" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContributePercent" Type="Double" />
-          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Component__IdSub__208CD6FA" FromRole="ComponentScore" ToRole="SubjectClass" />
-          <NavigationProperty Name="DetailScores" Relationship="StudentManagementModel.FK__DetailSco__IdCom__22751F6C" FromRole="ComponentScore" ToRole="DetailScore" />
+          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Component__IdSub__25518C17" FromRole="ComponentScore" ToRole="SubjectClass" />
+          <NavigationProperty Name="DetailScores" Relationship="StudentManagementModel.FK__DetailSco__IdCom__2739D489" FromRole="ComponentScore" ToRole="DetailScore" />
         </EntityType>
         <EntityType Name="CourseRegister">
           <Key>
@@ -1466,9 +1497,9 @@
           <Property Name="IdStudent" Type="Guid" />
           <Property Name="IdSubjectClass" Type="Guid" />
           <Property Name="IdSemester" Type="Guid" />
-          <NavigationProperty Name="Semester" Relationship="StudentManagementModel.FK__CourseReg__IdSem__1DB06A4F" FromRole="CourseRegister" ToRole="Semester" />
-          <NavigationProperty Name="Student" Relationship="StudentManagementModel.FK__CourseReg__IdStu__1CBC4616" FromRole="CourseRegister" ToRole="Student" />
-          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__CourseReg__IdSub__1BC821DD" FromRole="CourseRegister" ToRole="SubjectClass" />
+          <NavigationProperty Name="Semester" Relationship="StudentManagementModel.FK__CourseReg__IdSem__22751F6C" FromRole="CourseRegister" ToRole="Semester" />
+          <NavigationProperty Name="Student" Relationship="StudentManagementModel.FK__CourseReg__IdStu__2180FB33" FromRole="CourseRegister" ToRole="Student" />
+          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__CourseReg__IdSub__208CD6FA" FromRole="CourseRegister" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="DatabaseImageTable">
           <Key>
@@ -1476,10 +1507,10 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdThumbna__14270015" FromRole="DatabaseImageTable" ToRole="Class" />
-          <NavigationProperty Name="NotificationImages" Relationship="StudentManagementModel.FK__Notificat__IdDat__32AB8735" FromRole="DatabaseImageTable" ToRole="NotificationImage" />
-          <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdThu__17036CC0" FromRole="DatabaseImageTable" ToRole="SubjectClass" />
-          <NavigationProperty Name="Users" Relationship="StudentManagementModel.FK__Users__IdAvatar__02084FDA" FromRole="DatabaseImageTable" ToRole="User" />
+          <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdThumbna__18EBB532" FromRole="DatabaseImageTable" ToRole="Class" />
+          <NavigationProperty Name="NotificationImages" Relationship="StudentManagementModel.FK__Notificat__IdDat__37703C52" FromRole="DatabaseImageTable" ToRole="NotificationImage" />
+          <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdThu__1BC821DD" FromRole="DatabaseImageTable" ToRole="SubjectClass" />
+          <NavigationProperty Name="Users" Relationship="StudentManagementModel.FK__Users__IdAvatar__05D8E0BE" FromRole="DatabaseImageTable" ToRole="User" />
         </EntityType>
         <EntityType Name="DetailScore">
           <Key>
@@ -1489,8 +1520,8 @@
           <Property Name="IdStudent" Type="Guid" />
           <Property Name="IdComponentScore" Type="Guid" />
           <Property Name="Score" Type="Double" />
-          <NavigationProperty Name="ComponentScore" Relationship="StudentManagementModel.FK__DetailSco__IdCom__22751F6C" FromRole="DetailScore" ToRole="ComponentScore" />
-          <NavigationProperty Name="Student" Relationship="StudentManagementModel.FK__DetailSco__IdStu__2180FB33" FromRole="DetailScore" ToRole="Student" />
+          <NavigationProperty Name="ComponentScore" Relationship="StudentManagementModel.FK__DetailSco__IdCom__2739D489" FromRole="DetailScore" ToRole="ComponentScore" />
+          <NavigationProperty Name="Student" Relationship="StudentManagementModel.FK__DetailSco__IdStu__2645B050" FromRole="DetailScore" ToRole="Student" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -1504,9 +1535,9 @@
           <Property Name="IdFolder" Type="Guid" />
           <Property Name="IdSubjectClass" Type="Guid" />
           <Property Name="Size" Type="Int64" />
-          <NavigationProperty Name="Folder" Relationship="StudentManagementModel.FK__Document__IdFold__245D67DE" FromRole="Document" ToRole="Folder" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Document__IdPost__236943A5" FromRole="Document" ToRole="User" />
-          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Document__IdSubj__25518C17" FromRole="Document" ToRole="SubjectClass" />
+          <NavigationProperty Name="Folder" Relationship="StudentManagementModel.FK__Document__IdFold__29221CFB" FromRole="Document" ToRole="Folder" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Document__IdPost__282DF8C2" FromRole="Document" ToRole="User" />
+          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Document__IdSubj__2A164134" FromRole="Document" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="Examination">
           <Key>
@@ -1517,7 +1548,7 @@
           <Property Name="ExamName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WeekDay" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Period" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Examinati__IdSub__18EBB532" FromRole="Examination" ToRole="SubjectClass" />
+          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Examinati__IdSub__1DB06A4F" FromRole="Examination" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="Faculty">
           <Key>
@@ -1527,10 +1558,10 @@
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="FoundationDay" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdFaculty__123EB7A3" FromRole="Faculty" ToRole="Class" />
-          <NavigationProperty Name="Faculty_TrainingForm" Relationship="StudentManagementModel.FK__Faculty_T__IdFac__0E6E26BF" FromRole="Faculty" ToRole="Faculty_TrainingForm" />
-          <NavigationProperty Name="Students" Relationship="StudentManagementModel.FK__Student__IdFacul__09A971A2" FromRole="Faculty" ToRole="Student" />
-          <NavigationProperty Name="Teachers" Relationship="StudentManagementModel.FK__Teacher__IdFacul__0B91BA14" FromRole="Faculty" ToRole="Teacher" />
+          <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdFaculty__17036CC0" FromRole="Faculty" ToRole="Class" />
+          <NavigationProperty Name="Faculty_TrainingForm" Relationship="StudentManagementModel.FK__Faculty_T__IdFac__1332DBDC" FromRole="Faculty" ToRole="Faculty_TrainingForm" />
+          <NavigationProperty Name="Students" Relationship="StudentManagementModel.FK__Student__IdFacul__0E6E26BF" FromRole="Faculty" ToRole="Student" />
+          <NavigationProperty Name="Teachers" Relationship="StudentManagementModel.FK__Teacher__IdFacul__10566F31" FromRole="Faculty" ToRole="Teacher" />
         </EntityType>
         <EntityType Name="Faculty_TrainingForm">
           <Key>
@@ -1540,8 +1571,8 @@
           <Property Name="IdTrainingForm" Type="Guid" />
           <Property Name="IdFaculty" Type="Guid" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Faculty" Relationship="StudentManagementModel.FK__Faculty_T__IdFac__0E6E26BF" FromRole="Faculty_TrainingForm" ToRole="Faculty" />
-          <NavigationProperty Name="TrainingForm" Relationship="StudentManagementModel.FK__Faculty_T__IdTra__0D7A0286" FromRole="Faculty_TrainingForm" ToRole="TrainingForm" />
+          <NavigationProperty Name="Faculty" Relationship="StudentManagementModel.FK__Faculty_T__IdFac__1332DBDC" FromRole="Faculty_TrainingForm" ToRole="Faculty" />
+          <NavigationProperty Name="TrainingForm" Relationship="StudentManagementModel.FK__Faculty_T__IdTra__123EB7A3" FromRole="Faculty_TrainingForm" ToRole="TrainingForm" />
         </EntityType>
         <EntityType Name="Folder">
           <Key>
@@ -1552,9 +1583,9 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="IdSubjectClass" Type="Guid" />
           <Property Name="IdPoster" Type="Guid" />
-          <NavigationProperty Name="Documents" Relationship="StudentManagementModel.FK__Document__IdFold__245D67DE" FromRole="Folder" ToRole="Document" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Folder__IdPoster__2739D489" FromRole="Folder" ToRole="User" />
-          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Folder__IdSubjec__2645B050" FromRole="Folder" ToRole="SubjectClass" />
+          <NavigationProperty Name="Documents" Relationship="StudentManagementModel.FK__Document__IdFold__29221CFB" FromRole="Folder" ToRole="Document" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Folder__IdPoster__2BFE89A6" FromRole="Folder" ToRole="User" />
+          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Folder__IdSubjec__2B0A656D" FromRole="Folder" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
@@ -1567,14 +1598,14 @@
           <Property Name="IdNotificationType" Type="Guid" />
           <Property Name="IdPoster" Type="Guid" />
           <Property Name="IdSubjectClass" Type="Guid" />
-          <NavigationProperty Name="NotificationType" Relationship="StudentManagementModel.FK__Notificat__IdNot__2CF2ADDF" FromRole="Notification" ToRole="NotificationType" />
-          <NavigationProperty Name="NotificationInfoes" Relationship="StudentManagementModel.FK__Notificat__IdNot__2DE6D218" FromRole="Notification" ToRole="NotificationInfo" />
-          <NavigationProperty Name="NotificationComments" Relationship="StudentManagementModel.FK__Notificat__IdNot__30C33EC3" FromRole="Notification" ToRole="NotificationComment" />
-          <NavigationProperty Name="NotificationImages" Relationship="StudentManagementModel.FK__Notificat__IdNot__31B762FC" FromRole="Notification" ToRole="NotificationImage" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Notificat__IdPos__29221CFB" FromRole="Notification" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="StudentManagementModel.FK__Notificat__IdPos__2B0A656D" FromRole="Notification" ToRole="User" />
-          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Notificat__IdSub__2A164134" FromRole="Notification" ToRole="SubjectClass" />
-          <NavigationProperty Name="SubjectClass1" Relationship="StudentManagementModel.FK__Notificat__IdSub__2BFE89A6" FromRole="Notification" ToRole="SubjectClass" />
+          <NavigationProperty Name="NotificationType" Relationship="StudentManagementModel.FK__Notificat__IdNot__31B762FC" FromRole="Notification" ToRole="NotificationType" />
+          <NavigationProperty Name="NotificationInfoes" Relationship="StudentManagementModel.FK__Notificat__IdNot__32AB8735" FromRole="Notification" ToRole="NotificationInfo" />
+          <NavigationProperty Name="NotificationComments" Relationship="StudentManagementModel.FK__Notificat__IdNot__3587F3E0" FromRole="Notification" ToRole="NotificationComment" />
+          <NavigationProperty Name="NotificationImages" Relationship="StudentManagementModel.FK__Notificat__IdNot__367C1819" FromRole="Notification" ToRole="NotificationImage" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Notificat__IdPos__2DE6D218" FromRole="Notification" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="StudentManagementModel.FK__Notificat__IdPos__2FCF1A8A" FromRole="Notification" ToRole="User" />
+          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__Notificat__IdSub__2EDAF651" FromRole="Notification" ToRole="SubjectClass" />
+          <NavigationProperty Name="SubjectClass1" Relationship="StudentManagementModel.FK__Notificat__IdSub__30C33EC3" FromRole="Notification" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="NotificationComment">
           <Key>
@@ -1585,8 +1616,8 @@
           <Property Name="IdNotification" Type="Guid" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Time" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Notification" Relationship="StudentManagementModel.FK__Notificat__IdNot__30C33EC3" FromRole="NotificationComment" ToRole="Notification" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Notificat__IdUse__2FCF1A8A" FromRole="NotificationComment" ToRole="User" />
+          <NavigationProperty Name="Notification" Relationship="StudentManagementModel.FK__Notificat__IdNot__3587F3E0" FromRole="NotificationComment" ToRole="Notification" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Notificat__IdUse__3493CFA7" FromRole="NotificationComment" ToRole="User" />
         </EntityType>
         <EntityType Name="NotificationImage">
           <Key>
@@ -1595,8 +1626,8 @@
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IdNotification" Type="Guid" />
           <Property Name="IdDatabaseImageTable" Type="Guid" />
-          <NavigationProperty Name="DatabaseImageTable" Relationship="StudentManagementModel.FK__Notificat__IdDat__32AB8735" FromRole="NotificationImage" ToRole="DatabaseImageTable" />
-          <NavigationProperty Name="Notification" Relationship="StudentManagementModel.FK__Notificat__IdNot__31B762FC" FromRole="NotificationImage" ToRole="Notification" />
+          <NavigationProperty Name="DatabaseImageTable" Relationship="StudentManagementModel.FK__Notificat__IdDat__37703C52" FromRole="NotificationImage" ToRole="DatabaseImageTable" />
+          <NavigationProperty Name="Notification" Relationship="StudentManagementModel.FK__Notificat__IdNot__367C1819" FromRole="NotificationImage" ToRole="Notification" />
         </EntityType>
         <EntityType Name="NotificationInfo">
           <Key>
@@ -1606,8 +1637,8 @@
           <Property Name="IdNotification" Type="Guid" />
           <Property Name="IdUserReceiver" Type="Guid" />
           <Property Name="IsRead" Type="Boolean" />
-          <NavigationProperty Name="Notification" Relationship="StudentManagementModel.FK__Notificat__IdNot__2DE6D218" FromRole="NotificationInfo" ToRole="Notification" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Notificat__IdUse__2EDAF651" FromRole="NotificationInfo" ToRole="User" />
+          <NavigationProperty Name="Notification" Relationship="StudentManagementModel.FK__Notificat__IdNot__32AB8735" FromRole="NotificationInfo" ToRole="Notification" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Notificat__IdUse__339FAB6E" FromRole="NotificationInfo" ToRole="User" />
         </EntityType>
         <EntityType Name="NotificationType">
           <Key>
@@ -1615,7 +1646,16 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Notifications" Relationship="StudentManagementModel.FK__Notificat__IdNot__2CF2ADDF" FromRole="NotificationType" ToRole="Notification" />
+          <NavigationProperty Name="Notifications" Relationship="StudentManagementModel.FK__Notificat__IdNot__31B762FC" FromRole="NotificationType" ToRole="Notification" />
+        </EntityType>
+        <EntityType Name="OTP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="StudentManagementModel.FK__Users__IdOTP__07C12930" FromRole="OTP" ToRole="User" />
         </EntityType>
         <EntityType Name="Semester">
           <Key>
@@ -1625,9 +1665,9 @@
           <Property Name="Batch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CourseRegisterStatus" Type="Int32" />
-          <NavigationProperty Name="CourseRegisters" Relationship="StudentManagementModel.FK__CourseReg__IdSem__1DB06A4F" FromRole="Semester" ToRole="CourseRegister" />
-          <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdSem__160F4887" FromRole="Semester" ToRole="SubjectClass" />
-          <NavigationProperty Name="TrainingScores" Relationship="StudentManagementModel.FK__TrainingS__IdSem__1F98B2C1" FromRole="Semester" ToRole="TrainingScore" />
+          <NavigationProperty Name="CourseRegisters" Relationship="StudentManagementModel.FK__CourseReg__IdSem__22751F6C" FromRole="Semester" ToRole="CourseRegister" />
+          <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdSem__1AD3FDA4" FromRole="Semester" ToRole="SubjectClass" />
+          <NavigationProperty Name="TrainingScores" Relationship="StudentManagementModel.FK__TrainingS__IdSem__245D67DE" FromRole="Semester" ToRole="TrainingScore" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -1638,13 +1678,13 @@
           <Property Name="IdFaculty" Type="Guid" />
           <Property Name="Status" Type="Int32" />
           <Property Name="IdUsers" Type="Guid" />
-          <NavigationProperty Name="CourseRegisters" Relationship="StudentManagementModel.FK__CourseReg__IdStu__1CBC4616" FromRole="Student" ToRole="CourseRegister" />
-          <NavigationProperty Name="DetailScores" Relationship="StudentManagementModel.FK__DetailSco__IdStu__2180FB33" FromRole="Student" ToRole="DetailScore" />
-          <NavigationProperty Name="Faculty" Relationship="StudentManagementModel.FK__Student__IdFacul__09A971A2" FromRole="Student" ToRole="Faculty" />
-          <NavigationProperty Name="TrainingForm" Relationship="StudentManagementModel.FK__Student__IdTrain__07C12930" FromRole="Student" ToRole="TrainingForm" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Student__IdUsers__08B54D69" FromRole="Student" ToRole="User" />
-          <NavigationProperty Name="StudyResults" Relationship="StudentManagementModel.FK__StudyResu__IdStu__0F624AF8" FromRole="Student" ToRole="StudyResult" />
-          <NavigationProperty Name="TrainingScores" Relationship="StudentManagementModel.FK__TrainingS__IdStu__1EA48E88" FromRole="Student" ToRole="TrainingScore" />
+          <NavigationProperty Name="CourseRegisters" Relationship="StudentManagementModel.FK__CourseReg__IdStu__2180FB33" FromRole="Student" ToRole="CourseRegister" />
+          <NavigationProperty Name="DetailScores" Relationship="StudentManagementModel.FK__DetailSco__IdStu__2645B050" FromRole="Student" ToRole="DetailScore" />
+          <NavigationProperty Name="Faculty" Relationship="StudentManagementModel.FK__Student__IdFacul__0E6E26BF" FromRole="Student" ToRole="Faculty" />
+          <NavigationProperty Name="TrainingForm" Relationship="StudentManagementModel.FK__Student__IdTrain__0C85DE4D" FromRole="Student" ToRole="TrainingForm" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Student__IdUsers__0D7A0286" FromRole="Student" ToRole="User" />
+          <NavigationProperty Name="StudyResults" Relationship="StudentManagementModel.FK__StudyResu__IdStu__14270015" FromRole="Student" ToRole="StudyResult" />
+          <NavigationProperty Name="TrainingScores" Relationship="StudentManagementModel.FK__TrainingS__IdStu__236943A5" FromRole="Student" ToRole="TrainingScore" />
         </EntityType>
         <EntityType Name="StudyResult">
           <Key>
@@ -1653,8 +1693,8 @@
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IdStudent" Type="Guid" />
           <Property Name="IdSubjectClass" Type="Guid" />
-          <NavigationProperty Name="Student" Relationship="StudentManagementModel.FK__StudyResu__IdStu__0F624AF8" FromRole="StudyResult" ToRole="Student" />
-          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__StudyResu__IdSub__10566F31" FromRole="StudyResult" ToRole="SubjectClass" />
+          <NavigationProperty Name="Student" Relationship="StudentManagementModel.FK__StudyResu__IdStu__14270015" FromRole="StudyResult" ToRole="Student" />
+          <NavigationProperty Name="SubjectClass" Relationship="StudentManagementModel.FK__StudyResu__IdSub__151B244E" FromRole="StudyResult" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -1666,7 +1706,7 @@
           <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdSub__151B244E" FromRole="Subject" ToRole="SubjectClass" />
+          <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdSub__19DFD96B" FromRole="Subject" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="SubjectClass">
           <Key>
@@ -1684,19 +1724,19 @@
           <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NumberOfStudents" Type="Int32" />
           <Property Name="MaxNumberOfStudents" Type="Int32" />
-          <NavigationProperty Name="AbsentCalendars" Relationship="StudentManagementModel.FK__AbsentCal__IdSub__282DF8C2" FromRole="SubjectClass" ToRole="AbsentCalendar" />
-          <NavigationProperty Name="ComponentScores" Relationship="StudentManagementModel.FK__Component__IdSub__208CD6FA" FromRole="SubjectClass" ToRole="ComponentScore" />
-          <NavigationProperty Name="CourseRegisters" Relationship="StudentManagementModel.FK__CourseReg__IdSub__1BC821DD" FromRole="SubjectClass" ToRole="CourseRegister" />
-          <NavigationProperty Name="DatabaseImageTable" Relationship="StudentManagementModel.FK__SubjectCl__IdThu__17036CC0" FromRole="SubjectClass" ToRole="DatabaseImageTable" />
-          <NavigationProperty Name="Documents" Relationship="StudentManagementModel.FK__Document__IdSubj__25518C17" FromRole="SubjectClass" ToRole="Document" />
-          <NavigationProperty Name="Examinations" Relationship="StudentManagementModel.FK__Examinati__IdSub__18EBB532" FromRole="SubjectClass" ToRole="Examination" />
-          <NavigationProperty Name="Folders" Relationship="StudentManagementModel.FK__Folder__IdSubjec__2645B050" FromRole="SubjectClass" ToRole="Folder" />
-          <NavigationProperty Name="Notifications" Relationship="StudentManagementModel.FK__Notificat__IdSub__2A164134" FromRole="SubjectClass" ToRole="Notification" />
-          <NavigationProperty Name="Notifications1" Relationship="StudentManagementModel.FK__Notificat__IdSub__2BFE89A6" FromRole="SubjectClass" ToRole="Notification" />
-          <NavigationProperty Name="Semester" Relationship="StudentManagementModel.FK__SubjectCl__IdSem__160F4887" FromRole="SubjectClass" ToRole="Semester" />
-          <NavigationProperty Name="StudyResults" Relationship="StudentManagementModel.FK__StudyResu__IdSub__10566F31" FromRole="SubjectClass" ToRole="StudyResult" />
-          <NavigationProperty Name="Subject" Relationship="StudentManagementModel.FK__SubjectCl__IdSub__151B244E" FromRole="SubjectClass" ToRole="Subject" />
-          <NavigationProperty Name="TrainingForm" Relationship="StudentManagementModel.FK__SubjectCl__IdTra__17F790F9" FromRole="SubjectClass" ToRole="TrainingForm" />
+          <NavigationProperty Name="AbsentCalendars" Relationship="StudentManagementModel.FK__AbsentCal__IdSub__2CF2ADDF" FromRole="SubjectClass" ToRole="AbsentCalendar" />
+          <NavigationProperty Name="ComponentScores" Relationship="StudentManagementModel.FK__Component__IdSub__25518C17" FromRole="SubjectClass" ToRole="ComponentScore" />
+          <NavigationProperty Name="CourseRegisters" Relationship="StudentManagementModel.FK__CourseReg__IdSub__208CD6FA" FromRole="SubjectClass" ToRole="CourseRegister" />
+          <NavigationProperty Name="DatabaseImageTable" Relationship="StudentManagementModel.FK__SubjectCl__IdThu__1BC821DD" FromRole="SubjectClass" ToRole="DatabaseImageTable" />
+          <NavigationProperty Name="Documents" Relationship="StudentManagementModel.FK__Document__IdSubj__2A164134" FromRole="SubjectClass" ToRole="Document" />
+          <NavigationProperty Name="Examinations" Relationship="StudentManagementModel.FK__Examinati__IdSub__1DB06A4F" FromRole="SubjectClass" ToRole="Examination" />
+          <NavigationProperty Name="Folders" Relationship="StudentManagementModel.FK__Folder__IdSubjec__2B0A656D" FromRole="SubjectClass" ToRole="Folder" />
+          <NavigationProperty Name="Notifications" Relationship="StudentManagementModel.FK__Notificat__IdSub__2EDAF651" FromRole="SubjectClass" ToRole="Notification" />
+          <NavigationProperty Name="Notifications1" Relationship="StudentManagementModel.FK__Notificat__IdSub__30C33EC3" FromRole="SubjectClass" ToRole="Notification" />
+          <NavigationProperty Name="Semester" Relationship="StudentManagementModel.FK__SubjectCl__IdSem__1AD3FDA4" FromRole="SubjectClass" ToRole="Semester" />
+          <NavigationProperty Name="StudyResults" Relationship="StudentManagementModel.FK__StudyResu__IdSub__151B244E" FromRole="SubjectClass" ToRole="StudyResult" />
+          <NavigationProperty Name="Subject" Relationship="StudentManagementModel.FK__SubjectCl__IdSub__19DFD96B" FromRole="SubjectClass" ToRole="Subject" />
+          <NavigationProperty Name="TrainingForm" Relationship="StudentManagementModel.FK__SubjectCl__IdTra__1CBC4616" FromRole="SubjectClass" ToRole="TrainingForm" />
           <NavigationProperty Name="Teachers" Relationship="StudentManagementModel.Teacher_SubjectClass" FromRole="SubjectClass" ToRole="Teacher" />
         </EntityType>
         <EntityType Name="Teacher">
@@ -1706,9 +1746,9 @@
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IdFaculty" Type="Guid" />
           <Property Name="IdUsers" Type="Guid" />
-          <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdTeacher__1332DBDC" FromRole="Teacher" ToRole="Class" />
-          <NavigationProperty Name="Faculty" Relationship="StudentManagementModel.FK__Teacher__IdFacul__0B91BA14" FromRole="Teacher" ToRole="Faculty" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Teacher__IdUsers__0A9D95DB" FromRole="Teacher" ToRole="User" />
+          <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdTeacher__17F790F9" FromRole="Teacher" ToRole="Class" />
+          <NavigationProperty Name="Faculty" Relationship="StudentManagementModel.FK__Teacher__IdFacul__10566F31" FromRole="Teacher" ToRole="Faculty" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__Teacher__IdUsers__0F624AF8" FromRole="Teacher" ToRole="User" />
           <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.Teacher_SubjectClass" FromRole="Teacher" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="TrainingForm">
@@ -1718,10 +1758,10 @@
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdTrainin__114A936A" FromRole="TrainingForm" ToRole="Class" />
-          <NavigationProperty Name="Faculty_TrainingForm" Relationship="StudentManagementModel.FK__Faculty_T__IdTra__0D7A0286" FromRole="TrainingForm" ToRole="Faculty_TrainingForm" />
-          <NavigationProperty Name="Students" Relationship="StudentManagementModel.FK__Student__IdTrain__07C12930" FromRole="TrainingForm" ToRole="Student" />
-          <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdTra__17F790F9" FromRole="TrainingForm" ToRole="SubjectClass" />
+          <NavigationProperty Name="Classes" Relationship="StudentManagementModel.FK__Class__IdTrainin__160F4887" FromRole="TrainingForm" ToRole="Class" />
+          <NavigationProperty Name="Faculty_TrainingForm" Relationship="StudentManagementModel.FK__Faculty_T__IdTra__123EB7A3" FromRole="TrainingForm" ToRole="Faculty_TrainingForm" />
+          <NavigationProperty Name="Students" Relationship="StudentManagementModel.FK__Student__IdTrain__0C85DE4D" FromRole="TrainingForm" ToRole="Student" />
+          <NavigationProperty Name="SubjectClasses" Relationship="StudentManagementModel.FK__SubjectCl__IdTra__1CBC4616" FromRole="TrainingForm" ToRole="SubjectClass" />
         </EntityType>
         <EntityType Name="TrainingScore">
           <Key>
@@ -1731,8 +1771,8 @@
           <Property Name="Score" Type="Double" />
           <Property Name="IdSemester" Type="Guid" />
           <Property Name="IdStudent" Type="Guid" />
-          <NavigationProperty Name="Semester" Relationship="StudentManagementModel.FK__TrainingS__IdSem__1F98B2C1" FromRole="TrainingScore" ToRole="Semester" />
-          <NavigationProperty Name="Student" Relationship="StudentManagementModel.FK__TrainingS__IdStu__1EA48E88" FromRole="TrainingScore" ToRole="Student" />
+          <NavigationProperty Name="Semester" Relationship="StudentManagementModel.FK__TrainingS__IdSem__245D67DE" FromRole="TrainingScore" ToRole="Semester" />
+          <NavigationProperty Name="Student" Relationship="StudentManagementModel.FK__TrainingS__IdStu__236943A5" FromRole="TrainingScore" ToRole="Student" />
         </EntityType>
         <EntityType Name="User_UserRole_UserInfo">
           <Key>
@@ -1742,8 +1782,8 @@
           <Property Name="IdUser" Type="Guid" />
           <Property Name="IdUserRole_Info" Type="Guid" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__User_User__IdUse__04E4BC85" FromRole="User_UserRole_UserInfo" ToRole="User" />
-          <NavigationProperty Name="UserRole_UserInfo" Relationship="StudentManagementModel.FK__User_User__IdUse__05D8E0BE" FromRole="User_UserRole_UserInfo" ToRole="UserRole_UserInfo" />
+          <NavigationProperty Name="User" Relationship="StudentManagementModel.FK__User_User__IdUse__09A971A2" FromRole="User_UserRole_UserInfo" ToRole="User" />
+          <NavigationProperty Name="UserRole_UserInfo" Relationship="StudentManagementModel.FK__User_User__IdUse__0A9D95DB" FromRole="User_UserRole_UserInfo" ToRole="UserRole_UserInfo" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -1751,8 +1791,8 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserRole_UserInfo" Relationship="StudentManagementModel.FK__UserRole___IdRol__03F0984C" FromRole="UserRole" ToRole="UserRole_UserInfo" />
-          <NavigationProperty Name="Users" Relationship="StudentManagementModel.FK__Users__IdUserRol__02FC7413" FromRole="UserRole" ToRole="User" />
+          <NavigationProperty Name="UserRole_UserInfo" Relationship="StudentManagementModel.FK__UserRole___IdRol__08B54D69" FromRole="UserRole" ToRole="UserRole_UserInfo" />
+          <NavigationProperty Name="Users" Relationship="StudentManagementModel.FK__Users__IdUserRol__06CD04F7" FromRole="UserRole" ToRole="User" />
         </EntityType>
         <EntityType Name="UserRole_UserInfo">
           <Key>
@@ -1764,9 +1804,9 @@
           <Property Name="Type" Type="Int32" />
           <Property Name="IsEnable" Type="Boolean" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="User_UserRole_UserInfo" Relationship="StudentManagementModel.FK__User_User__IdUse__05D8E0BE" FromRole="UserRole_UserInfo" ToRole="User_UserRole_UserInfo" />
-          <NavigationProperty Name="UserRole" Relationship="StudentManagementModel.FK__UserRole___IdRol__03F0984C" FromRole="UserRole_UserInfo" ToRole="UserRole" />
-          <NavigationProperty Name="UserRole_UserInfoItem" Relationship="StudentManagementModel.FK__UserRole___IdUse__06CD04F7" FromRole="UserRole_UserInfo" ToRole="UserRole_UserInfoItem" />
+          <NavigationProperty Name="User_UserRole_UserInfo" Relationship="StudentManagementModel.FK__User_User__IdUse__0A9D95DB" FromRole="UserRole_UserInfo" ToRole="User_UserRole_UserInfo" />
+          <NavigationProperty Name="UserRole" Relationship="StudentManagementModel.FK__UserRole___IdRol__08B54D69" FromRole="UserRole_UserInfo" ToRole="UserRole" />
+          <NavigationProperty Name="UserRole_UserInfoItem" Relationship="StudentManagementModel.FK__UserRole___IdUse__0B91BA14" FromRole="UserRole_UserInfo" ToRole="UserRole_UserInfoItem" />
         </EntityType>
         <EntityType Name="UserRole_UserInfoItem">
           <Key>
@@ -1775,7 +1815,7 @@
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IdUserRole_Info" Type="Guid" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserRole_UserInfo" Relationship="StudentManagementModel.FK__UserRole___IdUse__06CD04F7" FromRole="UserRole_UserInfoItem" ToRole="UserRole_UserInfo" />
+          <NavigationProperty Name="UserRole_UserInfo" Relationship="StudentManagementModel.FK__UserRole___IdUse__0B91BA14" FromRole="UserRole_UserInfoItem" ToRole="UserRole_UserInfo" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1786,23 +1826,25 @@
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdOTP" Type="Guid" />
           <Property Name="Online" Type="Boolean" />
           <Property Name="IdUserRole" Type="Guid" />
           <Property Name="IdAvatar" Type="Guid" />
-          <NavigationProperty Name="Admins" Relationship="StudentManagementModel.FK__Admin__IdUsers__0C85DE4D" FromRole="User" ToRole="Admin" />
-          <NavigationProperty Name="DatabaseImageTable" Relationship="StudentManagementModel.FK__Users__IdAvatar__02084FDA" FromRole="User" ToRole="DatabaseImageTable" />
-          <NavigationProperty Name="Documents" Relationship="StudentManagementModel.FK__Document__IdPost__236943A5" FromRole="User" ToRole="Document" />
-          <NavigationProperty Name="Folders" Relationship="StudentManagementModel.FK__Folder__IdPoster__2739D489" FromRole="User" ToRole="Folder" />
-          <NavigationProperty Name="Notifications" Relationship="StudentManagementModel.FK__Notificat__IdPos__29221CFB" FromRole="User" ToRole="Notification" />
-          <NavigationProperty Name="Notifications1" Relationship="StudentManagementModel.FK__Notificat__IdPos__2B0A656D" FromRole="User" ToRole="Notification" />
-          <NavigationProperty Name="NotificationComments" Relationship="StudentManagementModel.FK__Notificat__IdUse__2FCF1A8A" FromRole="User" ToRole="NotificationComment" />
-          <NavigationProperty Name="NotificationInfoes" Relationship="StudentManagementModel.FK__Notificat__IdUse__2EDAF651" FromRole="User" ToRole="NotificationInfo" />
-          <NavigationProperty Name="Students" Relationship="StudentManagementModel.FK__Student__IdUsers__08B54D69" FromRole="User" ToRole="Student" />
-          <NavigationProperty Name="Teachers" Relationship="StudentManagementModel.FK__Teacher__IdUsers__0A9D95DB" FromRole="User" ToRole="Teacher" />
-          <NavigationProperty Name="User_UserRole_UserInfo" Relationship="StudentManagementModel.FK__User_User__IdUse__04E4BC85" FromRole="User" ToRole="User_UserRole_UserInfo" />
-          <NavigationProperty Name="UserRole" Relationship="StudentManagementModel.FK__Users__IdUserRol__02FC7413" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="Admins" Relationship="StudentManagementModel.FK__Admin__IdUsers__114A936A" FromRole="User" ToRole="Admin" />
+          <NavigationProperty Name="DatabaseImageTable" Relationship="StudentManagementModel.FK__Users__IdAvatar__05D8E0BE" FromRole="User" ToRole="DatabaseImageTable" />
+          <NavigationProperty Name="Documents" Relationship="StudentManagementModel.FK__Document__IdPost__282DF8C2" FromRole="User" ToRole="Document" />
+          <NavigationProperty Name="Folders" Relationship="StudentManagementModel.FK__Folder__IdPoster__2BFE89A6" FromRole="User" ToRole="Folder" />
+          <NavigationProperty Name="Notifications" Relationship="StudentManagementModel.FK__Notificat__IdPos__2DE6D218" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Notifications1" Relationship="StudentManagementModel.FK__Notificat__IdPos__2FCF1A8A" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="NotificationComments" Relationship="StudentManagementModel.FK__Notificat__IdUse__3493CFA7" FromRole="User" ToRole="NotificationComment" />
+          <NavigationProperty Name="NotificationInfoes" Relationship="StudentManagementModel.FK__Notificat__IdUse__339FAB6E" FromRole="User" ToRole="NotificationInfo" />
+          <NavigationProperty Name="OTP" Relationship="StudentManagementModel.FK__Users__IdOTP__07C12930" FromRole="User" ToRole="OTP" />
+          <NavigationProperty Name="Students" Relationship="StudentManagementModel.FK__Student__IdUsers__0D7A0286" FromRole="User" ToRole="Student" />
+          <NavigationProperty Name="Teachers" Relationship="StudentManagementModel.FK__Teacher__IdUsers__0F624AF8" FromRole="User" ToRole="Teacher" />
+          <NavigationProperty Name="User_UserRole_UserInfo" Relationship="StudentManagementModel.FK__User_User__IdUse__09A971A2" FromRole="User" ToRole="User_UserRole_UserInfo" />
+          <NavigationProperty Name="UserRole" Relationship="StudentManagementModel.FK__Users__IdUserRol__06CD04F7" FromRole="User" ToRole="UserRole" />
         </EntityType>
-        <Association Name="FK__AbsentCal__IdSub__282DF8C2">
+        <Association Name="FK__AbsentCal__IdSub__2CF2ADDF">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.AbsentCalendar" Role="AbsentCalendar" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1814,7 +1856,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Admin__IdUsers__0C85DE4D">
+        <Association Name="FK__Admin__IdUsers__114A936A">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Admin" Role="Admin" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1826,7 +1868,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdFaculty__123EB7A3">
+        <Association Name="FK__Class__IdFaculty__17036CC0">
           <End Type="StudentManagementModel.Faculty" Role="Faculty" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Class" Role="Class" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1838,7 +1880,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdTeacher__1332DBDC">
+        <Association Name="FK__Class__IdTeacher__17F790F9">
           <End Type="StudentManagementModel.Teacher" Role="Teacher" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Class" Role="Class" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1850,7 +1892,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdThumbna__14270015">
+        <Association Name="FK__Class__IdThumbna__18EBB532">
           <End Type="StudentManagementModel.DatabaseImageTable" Role="DatabaseImageTable" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Class" Role="Class" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1862,7 +1904,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Class__IdTrainin__114A936A">
+        <Association Name="FK__Class__IdTrainin__160F4887">
           <End Type="StudentManagementModel.TrainingForm" Role="TrainingForm" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Class" Role="Class" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1874,7 +1916,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Component__IdSub__208CD6FA">
+        <Association Name="FK__Component__IdSub__25518C17">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.ComponentScore" Role="ComponentScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1886,7 +1928,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DetailSco__IdCom__22751F6C">
+        <Association Name="FK__DetailSco__IdCom__2739D489">
           <End Type="StudentManagementModel.ComponentScore" Role="ComponentScore" Multiplicity="0..1" />
           <End Type="StudentManagementModel.DetailScore" Role="DetailScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1898,7 +1940,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CourseReg__IdSem__1DB06A4F">
+        <Association Name="FK__CourseReg__IdSem__22751F6C">
           <End Type="StudentManagementModel.Semester" Role="Semester" Multiplicity="0..1" />
           <End Type="StudentManagementModel.CourseRegister" Role="CourseRegister" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1910,7 +1952,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CourseReg__IdStu__1CBC4616">
+        <Association Name="FK__CourseReg__IdStu__2180FB33">
           <End Type="StudentManagementModel.Student" Role="Student" Multiplicity="0..1" />
           <End Type="StudentManagementModel.CourseRegister" Role="CourseRegister" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1922,7 +1964,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CourseReg__IdSub__1BC821DD">
+        <Association Name="FK__CourseReg__IdSub__208CD6FA">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.CourseRegister" Role="CourseRegister" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1934,7 +1976,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdDat__32AB8735">
+        <Association Name="FK__Notificat__IdDat__37703C52">
           <End Type="StudentManagementModel.DatabaseImageTable" Role="DatabaseImageTable" Multiplicity="0..1" />
           <End Type="StudentManagementModel.NotificationImage" Role="NotificationImage" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1946,7 +1988,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SubjectCl__IdThu__17036CC0">
+        <Association Name="FK__SubjectCl__IdThu__1BC821DD">
           <End Type="StudentManagementModel.DatabaseImageTable" Role="DatabaseImageTable" Multiplicity="0..1" />
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1958,7 +2000,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__IdAvatar__02084FDA">
+        <Association Name="FK__Users__IdAvatar__05D8E0BE">
           <End Type="StudentManagementModel.DatabaseImageTable" Role="DatabaseImageTable" Multiplicity="0..1" />
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1970,7 +2012,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DetailSco__IdStu__2180FB33">
+        <Association Name="FK__DetailSco__IdStu__2645B050">
           <End Type="StudentManagementModel.Student" Role="Student" Multiplicity="0..1" />
           <End Type="StudentManagementModel.DetailScore" Role="DetailScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1982,7 +2024,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Document__IdFold__245D67DE">
+        <Association Name="FK__Document__IdFold__29221CFB">
           <End Type="StudentManagementModel.Folder" Role="Folder" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1994,7 +2036,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Document__IdPost__236943A5">
+        <Association Name="FK__Document__IdPost__282DF8C2">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2006,7 +2048,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Document__IdSubj__25518C17">
+        <Association Name="FK__Document__IdSubj__2A164134">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2018,7 +2060,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Examinati__IdSub__18EBB532">
+        <Association Name="FK__Examinati__IdSub__1DB06A4F">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Examination" Role="Examination" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2030,7 +2072,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Faculty_T__IdFac__0E6E26BF">
+        <Association Name="FK__Faculty_T__IdFac__1332DBDC">
           <End Type="StudentManagementModel.Faculty" Role="Faculty" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Faculty_TrainingForm" Role="Faculty_TrainingForm" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2042,7 +2084,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__IdFacul__09A971A2">
+        <Association Name="FK__Student__IdFacul__0E6E26BF">
           <End Type="StudentManagementModel.Faculty" Role="Faculty" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Student" Role="Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2054,7 +2096,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher__IdFacul__0B91BA14">
+        <Association Name="FK__Teacher__IdFacul__10566F31">
           <End Type="StudentManagementModel.Faculty" Role="Faculty" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Teacher" Role="Teacher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2066,7 +2108,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Faculty_T__IdTra__0D7A0286">
+        <Association Name="FK__Faculty_T__IdTra__123EB7A3">
           <End Type="StudentManagementModel.TrainingForm" Role="TrainingForm" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Faculty_TrainingForm" Role="Faculty_TrainingForm" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2078,7 +2120,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Folder__IdPoster__2739D489">
+        <Association Name="FK__Folder__IdPoster__2BFE89A6">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Folder" Role="Folder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2090,7 +2132,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Folder__IdSubjec__2645B050">
+        <Association Name="FK__Folder__IdSubjec__2B0A656D">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Folder" Role="Folder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2102,7 +2144,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdNot__2CF2ADDF">
+        <Association Name="FK__Notificat__IdNot__31B762FC">
           <End Type="StudentManagementModel.NotificationType" Role="NotificationType" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Notification" Role="Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2114,7 +2156,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdNot__2DE6D218">
+        <Association Name="FK__Notificat__IdNot__32AB8735">
           <End Type="StudentManagementModel.Notification" Role="Notification" Multiplicity="0..1" />
           <End Type="StudentManagementModel.NotificationInfo" Role="NotificationInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2126,7 +2168,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdNot__30C33EC3">
+        <Association Name="FK__Notificat__IdNot__3587F3E0">
           <End Type="StudentManagementModel.Notification" Role="Notification" Multiplicity="0..1" />
           <End Type="StudentManagementModel.NotificationComment" Role="NotificationComment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2138,7 +2180,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdNot__31B762FC">
+        <Association Name="FK__Notificat__IdNot__367C1819">
           <End Type="StudentManagementModel.Notification" Role="Notification" Multiplicity="0..1" />
           <End Type="StudentManagementModel.NotificationImage" Role="NotificationImage" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2150,7 +2192,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdPos__29221CFB">
+        <Association Name="FK__Notificat__IdPos__2DE6D218">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Notification" Role="Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2162,7 +2204,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdPos__2B0A656D">
+        <Association Name="FK__Notificat__IdPos__2FCF1A8A">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Notification" Role="Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2174,7 +2216,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdSub__2A164134">
+        <Association Name="FK__Notificat__IdSub__2EDAF651">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Notification" Role="Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2186,7 +2228,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdSub__2BFE89A6">
+        <Association Name="FK__Notificat__IdSub__30C33EC3">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Notification" Role="Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2198,7 +2240,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdUse__2FCF1A8A">
+        <Association Name="FK__Notificat__IdUse__3493CFA7">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.NotificationComment" Role="NotificationComment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2210,7 +2252,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notificat__IdUse__2EDAF651">
+        <Association Name="FK__Notificat__IdUse__339FAB6E">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.NotificationInfo" Role="NotificationInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2222,7 +2264,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SubjectCl__IdSem__160F4887">
+        <Association Name="FK__Users__IdOTP__07C12930">
+          <End Type="StudentManagementModel.OTP" Role="OTP" Multiplicity="0..1" />
+          <End Type="StudentManagementModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OTP">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdOTP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubjectCl__IdSem__1AD3FDA4">
           <End Type="StudentManagementModel.Semester" Role="Semester" Multiplicity="0..1" />
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2234,7 +2288,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TrainingS__IdSem__1F98B2C1">
+        <Association Name="FK__TrainingS__IdSem__245D67DE">
           <End Type="StudentManagementModel.Semester" Role="Semester" Multiplicity="0..1" />
           <End Type="StudentManagementModel.TrainingScore" Role="TrainingScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2246,7 +2300,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__IdTrain__07C12930">
+        <Association Name="FK__Student__IdTrain__0C85DE4D">
           <End Type="StudentManagementModel.TrainingForm" Role="TrainingForm" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Student" Role="Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2258,7 +2312,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__IdUsers__08B54D69">
+        <Association Name="FK__Student__IdUsers__0D7A0286">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Student" Role="Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2270,7 +2324,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudyResu__IdStu__0F624AF8">
+        <Association Name="FK__StudyResu__IdStu__14270015">
           <End Type="StudentManagementModel.Student" Role="Student" Multiplicity="0..1" />
           <End Type="StudentManagementModel.StudyResult" Role="StudyResult" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2282,7 +2336,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TrainingS__IdStu__1EA48E88">
+        <Association Name="FK__TrainingS__IdStu__236943A5">
           <End Type="StudentManagementModel.Student" Role="Student" Multiplicity="0..1" />
           <End Type="StudentManagementModel.TrainingScore" Role="TrainingScore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2294,7 +2348,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudyResu__IdSub__10566F31">
+        <Association Name="FK__StudyResu__IdSub__151B244E">
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="0..1" />
           <End Type="StudentManagementModel.StudyResult" Role="StudyResult" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2306,7 +2360,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SubjectCl__IdSub__151B244E">
+        <Association Name="FK__SubjectCl__IdSub__19DFD96B">
           <End Type="StudentManagementModel.Subject" Role="Subject" Multiplicity="0..1" />
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2318,7 +2372,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SubjectCl__IdTra__17F790F9">
+        <Association Name="FK__SubjectCl__IdTra__1CBC4616">
           <End Type="StudentManagementModel.TrainingForm" Role="TrainingForm" Multiplicity="0..1" />
           <End Type="StudentManagementModel.SubjectClass" Role="SubjectClass" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2330,7 +2384,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher__IdUsers__0A9D95DB">
+        <Association Name="FK__Teacher__IdUsers__0F624AF8">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.Teacher" Role="Teacher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2342,7 +2396,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_User__IdUse__04E4BC85">
+        <Association Name="FK__User_User__IdUse__09A971A2">
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="0..1" />
           <End Type="StudentManagementModel.User_UserRole_UserInfo" Role="User_UserRole_UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2354,7 +2408,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_User__IdUse__05D8E0BE">
+        <Association Name="FK__User_User__IdUse__0A9D95DB">
           <End Type="StudentManagementModel.UserRole_UserInfo" Role="UserRole_UserInfo" Multiplicity="0..1" />
           <End Type="StudentManagementModel.User_UserRole_UserInfo" Role="User_UserRole_UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2366,7 +2420,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole___IdRol__03F0984C">
+        <Association Name="FK__UserRole___IdRol__08B54D69">
           <End Type="StudentManagementModel.UserRole" Role="UserRole" Multiplicity="0..1" />
           <End Type="StudentManagementModel.UserRole_UserInfo" Role="UserRole_UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2378,7 +2432,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__IdUserRol__02FC7413">
+        <Association Name="FK__Users__IdUserRol__06CD04F7">
           <End Type="StudentManagementModel.UserRole" Role="UserRole" Multiplicity="0..1" />
           <End Type="StudentManagementModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2390,7 +2444,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole___IdUse__06CD04F7">
+        <Association Name="FK__UserRole___IdUse__0B91BA14">
           <End Type="StudentManagementModel.UserRole_UserInfo" Role="UserRole_UserInfo" Multiplicity="0..1" />
           <End Type="StudentManagementModel.UserRole_UserInfoItem" Role="UserRole_UserInfoItem" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2590,6 +2644,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OTPs">
+            <EntityTypeMapping TypeName="StudentManagementModel.OTP">
+              <MappingFragment StoreEntitySet="OTP">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Semesters">
             <EntityTypeMapping TypeName="StudentManagementModel.Semester">
               <MappingFragment StoreEntitySet="Semester">
@@ -2723,6 +2786,7 @@
                 <ScalarProperty Name="IdAvatar" ColumnName="IdAvatar" />
                 <ScalarProperty Name="IdUserRole" ColumnName="IdUserRole" />
                 <ScalarProperty Name="Online" ColumnName="Online" />
+                <ScalarProperty Name="IdOTP" ColumnName="IdOTP" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

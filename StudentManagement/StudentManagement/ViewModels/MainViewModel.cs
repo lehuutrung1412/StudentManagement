@@ -59,7 +59,15 @@ namespace StudentManagement.ViewModels
         public MainViewModel()
         {
             GotoLoginViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLoginView());
-            GotoLayoutViewCommand = new RelayCommand<object>((p) => true, (p) => GotoLayoutView());
+            GotoLayoutViewCommand = new RelayCommand<object>
+                (
+                (p) =>
+                {
+                    if (string.IsNullOrEmpty(_loginViewModel.Password) || string.IsNullOrEmpty(_loginViewModel.Username))
+                        return false;
+                    return true;
+                },
+                (p) => GotoLayoutView());
 
             _loginViewModel = new LoginViewModel();
             _layoutViewModel = new LayoutViewModel

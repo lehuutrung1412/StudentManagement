@@ -49,7 +49,7 @@
                             Text="Danh sách lớp môn học" />
                         <Grid Height="56" Margin="0,8">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="4*" />
                                 <ColumnDefinition Width="1.5*" />
                             </Grid.ColumnDefinitions>
                             <component:SearchBarOne
@@ -64,6 +64,7 @@
                             <Button
                                 Grid.Column="2"
                                 Margin="16,0,0,0"
+                                Height="50"
                                 HorizontalAlignment="Right">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">

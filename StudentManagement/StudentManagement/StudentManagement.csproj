@@ -385,6 +385,9 @@
     <Compile Include="Models\NotificationType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OTP.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Semester.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -452,6 +455,7 @@
     <Compile Include="Services\NewsfeedServices.cs" />
     <Compile Include="Services\NotificationServices.cs" />
     <Compile Include="Services\NotificationTypeServices.cs" />
+    <Compile Include="Services\OTPServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Services\StudentServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />
@@ -472,6 +476,7 @@
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\RatioConverter.cs" />
     <Compile Include="Utils\Reflection.cs" />
+    <Compile Include="Utils\SHA256Cryptography.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
     <Compile Include="ViewModels\AddStudentListViewModel.cs" />

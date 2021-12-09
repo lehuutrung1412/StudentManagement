@@ -1,5 +1,5 @@
 -- USE TEMP
--- DROP DATABASE StudentManagement
+--  DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -13,10 +13,7 @@ CREATE TABLE Users
   Password NVARCHAR(MAX),
   DisplayName NVARCHAR(MAX),
   Email NVARCHAR(MAX),
-  --DayOfBirth DATETIME,
-  --Gender INT,
-  --Email NVARCHAR(MAX),
-  --PhoneNumber NVARCHAR(MAX),
+  IdOTP UNIQUEIDENTIFIER,
   Online BIT DEFAULT 0,
   -- 1: online, 0: offline
   IdUserRole UNIQUEIDENTIFIER NULL,
@@ -339,12 +336,20 @@ CREATE TABLE NotificationImages
   IdDatabaseImageTable UNIQUEIDENTIFIER NULL,
 )
 
+CREATE TABLE OTP
+(
+	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
+	Code NVARCHAR(MAX),
+	Time DATETIME DEFAULT GETDATE(),
+)
+
 
 
 -- foreign key
 ALTER TABLE  Users
 ADD FOREIGN KEY (IdAvatar) REFERENCES DatabaseImageTable(Id),
-FOREIGN KEY (IdUserRole) REFERENCES UserRole(Id)
+FOREIGN KEY (IdUserRole) REFERENCES UserRole(Id),
+FOREIGN KEY (IdOTP) REFERENCES OTP(Id)
 GO
 
 ALTER TABLE UserRole_UserInfo
@@ -493,8 +498,6 @@ ALTER TABLE NotificationImages ADD
 FOREIGN KEY (IdNotification) REFERENCES Notification(Id),
 FOREIGN KEY (IdDatabaseImageTable) REFERENCES DatabaseImageTable(Id)
 GO
-
-
 --INSERT
 INSERT INTO dbo.Subject
   (Code, DisplayName, Credit, Describe)
@@ -546,7 +549,6 @@ INSERT INTO dbo.Faculty
 VALUES
   ('3BADC66B-382B-4F35-A96C-B9B546FF98AD', N'Khoa học Máy tính')
 GO
-
 -- CREATE PROC USP_InsertUserWithRole
 --   @Role NVARCHAR(100),
 --   @Faculty NVARCHAR(100)
@@ -587,12 +589,24 @@ BEGIN
 
   INSERT INTO dbo.Users
     (username, DisplayName, Email, Password, IdUserRole)
-  VALUES('admin', 'admin', 'admin@gmail.com', '1', @IdRole)
+  VALUES('admin', 'admin', 'cuongnguyen14022001@gmail.com', '1', @IdRole)
 END
 GO
 
+BEGIN
+  DECLARE @IdRole UNIQUEIDENTIFIER
+  SET @IdRole = (Select id
+  from UserRole
+  Where Role  like 'H%')
 
--- INSERT INTO dbo.Student
---   (IdTrainingForm, IdUser)
--- VALUES
---   ('52DF1714-C81F-42C2-8C64-8D744D787E0C', '')
+  INSERT INTO dbo.Users
+    (Id,username, DisplayName, Email, Password, IdUserRole)
+  VALUES('DBCF79CC-392D-4BA6-B60B-A2637D3EF249','student', 'student', 'student@gmail.com', '1', @IdRole)
+END
+GO
+
+ INSERT INTO dbo.Student
+   (IdTrainingForm, IdFaculty, IdUsers)
+ VALUES
+   ('52DF1714-C81F-42C2-8C64-8D744D787E0C', '3BADC66B-382B-4F35-A96C-B9B546FF98AD','DBCF79CC-392D-4BA6-B60B-A2637D3EF249' )
+GO

@@ -59,6 +59,11 @@ namespace StudentManagement.Services
             }
 
         }
+        public Student GetStudentbyUser(User user)
+        {
+            return DataProvider.Instance.Database.Students.FirstOrDefault(student => student.IdUsers == user.Id);
+        }
+
 
     }
 }

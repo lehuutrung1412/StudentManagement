@@ -3,6 +3,7 @@ using StudentManagement.Objects;
 using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -135,6 +136,13 @@ namespace StudentManagement.Services
             Faculty faculty = ConvertFacultyCardToFaculty(facultyCard);
 
             RemoveFacultyFromDatabase(faculty);
+        }
+
+        public ObservableCollection<string> LoadListFaculty()
+        {
+            ObservableCollection<string> listFaculty = new ObservableCollection<string>();
+            DataProvider.Instance.Database.Faculties.ToList().ForEach(faculty => listFaculty.Add(faculty.DisplayName));
+            return listFaculty;
         }
     }
 }
