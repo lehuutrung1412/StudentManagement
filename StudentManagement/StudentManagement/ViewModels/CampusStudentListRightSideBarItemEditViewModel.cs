@@ -114,7 +114,7 @@ namespace StudentManagement.ViewModels
         public void ReturnToShowStudentInfo()
         {
             CampusStudentListRightSideBarViewModel studentListRightSideBarViewModel = CampusStudentListRightSideBarViewModel.Instance;
-            studentListRightSideBarViewModel.RightSideBarItemViewModel = new CampusStudentListRightSideBarItemViewModel(ActualStudent);
+           // studentListRightSideBarViewModel.RightSideBarItemViewModel = new CampusStudentListRightSideBarItemViewModel(ActualStudent);
         }
     }
 }

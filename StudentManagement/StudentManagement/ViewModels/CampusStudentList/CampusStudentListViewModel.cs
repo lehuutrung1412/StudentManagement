@@ -60,6 +60,7 @@ namespace StudentManagement.ViewModels
         public ICommand AddStudent { get; set; }
         public ICommand AddStudentList { get; set; }
 
+       
 
         public CampusStudentListViewModel()
         {
@@ -85,6 +86,8 @@ namespace StudentManagement.ViewModels
             SearchName = new RelayCommand<object>((p) => true, (p) => SearchNameFunction());
             AddStudent = new RelayCommand<object>((p) => true, (p) => AddStudentFunction());
             AddStudentList = new RelayCommand<object>((p) => true, (p) => AddStudentListFunction());
+
+            SearchNameFunction();
         }
 
         public void SearchNameFunction()
@@ -104,6 +107,8 @@ namespace StudentManagement.ViewModels
                 }
             }
         }
+
+      
 
         void AddStudentFunction()
         {

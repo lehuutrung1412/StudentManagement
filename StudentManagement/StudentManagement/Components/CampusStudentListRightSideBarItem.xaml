@@ -27,92 +27,35 @@
                 TextWrapping="Wrap">
                 <Run Text="Thông tin sinh viên" />
             </TextBlock>
+            <ItemsControl ItemsSource="{Binding CurrentStudent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                FontWeight="Bold"
+                                Style="{StaticResource textblock_item}"
+                                Text="{Binding LabelName}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Style="{StaticResource textblock_item}"
+                                Text="{Binding Value, FallbackValue='Nothing'}"
+                                TextAlignment="Right" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Họ và tên:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentStudent.DisplayName, FallbackValue='Ngô Quang Vinh'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Mã số sinh viên:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentStudent.IDStudent, FallbackValue='19520000'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Khoa đào tạo: " />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentStudent.Faculty, FallbackValue='KHMT'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Hệ đào tạo:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentStudent.Training, FallbackValue='Tài năng'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Margin="0,4,0,0" Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Email:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentStudent.Email, FallbackValue='example@gmail.com'}"
-                    TextAlignment="Right" />
-            </Grid>
             <Button
                 Width="140"
                 Margin="16,4,16,0"
