@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace StudentManagement.ViewModels
 {
@@ -187,7 +188,7 @@ namespace StudentManagement.ViewModels
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
             SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
-            GetOTPCodeCommand = new RelayCommand<object>((p) => true, (p) => GetOPT());
+            GetOTPCodeCommand = new RelayCommand<object>((p) => true, async (p) => await GetOPTAsync());
             ConFirmCommand = new RelayCommand<object>((p) => true, (p) => ConFirm());
         }
         public void ResetView()
@@ -234,7 +235,7 @@ namespace StudentManagement.ViewModels
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Start();
         }
-        public void SetupAndSendOTPForEmail()
+        public async Task SetupAndSendOTPForEmailAsync()
         {       
             MailMessage mm = new MailMessage("stumanit008@gmail.com", Gmail.Trim());
             mm.Subject = OTP + " là mã khôi phục tài khoản Stuman của bạn";
@@ -243,12 +244,12 @@ namespace StudentManagement.ViewModels
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
-            smtp.Credentials = new NetworkCredential("stumanit008@gmail.com", "Dragonball123");
+            smtp.Credentials = new NetworkCredential(Properties.Settings.Default.Email, Properties.Settings.Default.Password);
             smtp.EnableSsl = true;
-            smtp.Send(mm);
+            await smtp.SendMailAsync(mm);
         }
 
-        public void GetOPT()
+        public async Task GetOPTAsync()
         {
             if(string.IsNullOrEmpty(Gmail))
             {
@@ -266,9 +267,9 @@ namespace StudentManagement.ViewModels
             OTP = RandomOTP();
 
 
-            OTPServices.Instance.SaveOTP(Gmail, SHA256Cryptography.Instance.EncryptString(OTP));
+            await OTPServices.Instance.SaveOTP(Gmail, SHA256Cryptography.Instance.EncryptString(OTP));
 
-            SetupAndSendOTPForEmail();
+            await SetupAndSendOTPForEmailAsync();
             
         }
 

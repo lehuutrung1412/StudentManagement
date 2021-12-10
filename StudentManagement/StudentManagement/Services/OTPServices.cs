@@ -28,7 +28,7 @@ namespace StudentManagement.Services
                 return true;
             return false;
         }
-        public void SaveOTP(string email, string OTP)
+        public async Task SaveOTP(string email, string OTP)
         {
             var user = UserServices.Instance.GetUserByGmail(email);
             if (user.Count == 0)
@@ -41,7 +41,7 @@ namespace StudentManagement.Services
             };        
             DataProvider.Instance.Database.OTPs.AddOrUpdate(otp);
             user.FirstOrDefault().OTP = otp;
-            DataProvider.Instance.Database.SaveChanges();
+            await DataProvider.Instance.Database.SaveChangesAsync();
         }
         public void DeleteOTPOverTime()
         {
