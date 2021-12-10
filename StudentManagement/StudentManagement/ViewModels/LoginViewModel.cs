@@ -236,17 +236,32 @@ namespace StudentManagement.ViewModels
             dispatcherTimer.Start();
         }
         public async Task SetupAndSendOTPForEmailAsync()
-        {       
-            MailMessage mm = new MailMessage("stumanit008@gmail.com", Gmail.Trim());
-            mm.Subject = OTP + " là mã khôi phục tài khoản Stuman của bạn";
-            StringWriter myWriter = new StringWriter();
-            mm.Body = string.Format("Xin chào,\nChúng tôi đã nhận được yêu cầu đặt lại mật khẩu Stuman của bạn. Nhập mã sau đây để đặt lại mật khẩu:\n\n{0}\n\nThank You.", OTP);
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.Credentials = new NetworkCredential(Properties.Settings.Default.Email, Properties.Settings.Default.Password);
-            smtp.EnableSsl = true;
-            await smtp.SendMailAsync(mm);
+        {
+            var body = File.ReadAllText("../../Resources/mail.html");
+            var from = new MailAddress("stumanit008@gmail.com", "Stuman Development Team");
+            var to = new MailAddress(Gmail.Trim());
+            MailMessage mm = new MailMessage(from, to)
+            {
+                Subject = OTP + " là mã khôi phục tài khoản Stuman của bạn",
+                IsBodyHtml = true,
+                Body = body.Replace("OTP_CODE", OTP),
+                Priority = MailPriority.High
+            };
+            SmtpClient smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                Credentials = new NetworkCredential(Properties.Settings.Default.Email, Properties.Settings.Default.Password),
+                EnableSsl = true
+            };
+            try
+            {
+                await smtp.SendMailAsync(mm);
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra, không thể gửi mã OTP", "OTP", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
 
         public async Task GetOPTAsync()
