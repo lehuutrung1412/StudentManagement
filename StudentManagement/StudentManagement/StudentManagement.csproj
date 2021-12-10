@@ -175,6 +175,15 @@
     <Compile Include="Components\Subject\SubjectDataGrid.xaml.cs">
       <DependentUpon>SubjectDataGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\CampusStudentList\UserCardCombobox.xaml.cs">
+      <DependentUpon>UserCardCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CampusStudentList\UserCardDatePicker.xaml.cs">
+      <DependentUpon>UserCardDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CampusStudentList\UserCardTextBox.xaml.cs">
+      <DependentUpon>UserCardTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\UserInfo\EditInfoItemInSetting.xaml.cs">
       <DependentUpon>EditInfoItemInSetting.xaml</DependentUpon>
     </Compile>
@@ -683,6 +692,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Subject\SubjectDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentList\UserCardCombobox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentList\UserCardDatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentList\UserCardTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

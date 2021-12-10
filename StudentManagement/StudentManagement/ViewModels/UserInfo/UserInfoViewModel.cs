@@ -146,8 +146,8 @@ namespace StudentManagement.ViewModels
                 case "Sinh viên":
                     {
                         var student = StudentServices.Instance.GetStudentbyUser(user);
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Khoa",2,FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName,true));
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Hệ đào tạo",2,TrainingFormServices.Instance.LoadListTrainingForm(),student.TrainingForm.DisplayName,true));
+                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName, true));
+                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Hệ đào tạo", 2, TrainingFormServices.Instance.LoadListTrainingForm(), student.TrainingForm.DisplayName, true));
                         break;
                     }
                 case "Giáo viên":

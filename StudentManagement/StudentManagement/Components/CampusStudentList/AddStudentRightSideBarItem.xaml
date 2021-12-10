@@ -2,6 +2,7 @@
     x:Class="StudentManagement.Components.AddStudentRightSideBarItem"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:StudentManagement.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -61,15 +62,15 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Họ và tên" />
+                        Text="Username" />
 
                     <TextBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập họ và tên"
+                        materialDesign:HintAssist.Hint="Nhập username"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding NewUser.DisplayName}" />
-                </Grid>
+                        Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
 
+                </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -80,17 +81,26 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Khoa đào tạo" />
+                        Text="Mật khẩu" />
 
-                    <ComboBox
+                    <PasswordBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Chọn khoa đào tạo"
-                        IsReadOnly="{Binding IsReadOnlyFaculty}"
-                        ItemsSource="{Binding Faculties}"
-                        SelectedItem="{Binding SelectedFaculty, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource combobox_item}" />
-                </Grid>
+                        Margin="4,0,0,0"
+                        local:PasswordBoxHelper.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        materialDesign:HintAssist.Hint="Nhập mật khẩu"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="8">
+                        <PasswordBox.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignOutlinedPasswordBoxCustom}" TargetType="PasswordBox">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </PasswordBox.Style>
+                    </PasswordBox>
 
+                </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -101,16 +111,67 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Hệ đào tạo" />
+                        Text="Nhập lại mật khẩu" />
 
-                    <ComboBox
+                    <PasswordBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Chọn hệ đào tạo"
-                        IsReadOnly="{Binding IsReadOnlyTraining}"
-                        ItemsSource="{Binding Trainings}"
-                        SelectedItem="{Binding SelectedTraining, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource combobox_item}" />
+                        Margin="4,0,0,0"
+                        local:PasswordBoxHelper.Password="{Binding RePassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="8">
+                        <PasswordBox.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignOutlinedPasswordBoxCustom}" TargetType="PasswordBox">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </PasswordBox.Style>
+                    </PasswordBox>
                 </Grid>
+                <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <ContentPresenter Content="{Binding}">
+                                <ContentPresenter.Resources>
+                                    <DataTemplate x:Key="Combobox">
+                                        <component:UserCardCombobox />
+                                    </DataTemplate>
+                                    <DataTemplate x:Key="DatePicker">
+                                        <component:UserCardDatePicker />
+                                    </DataTemplate>
+                                    <DataTemplate x:Key="Textbox">
+                                        <component:UserCardTextBox />
+                                    </DataTemplate>
+                                </ContentPresenter.Resources>
+
+
+                                <ContentPresenter.Style>
+                                    <Style TargetType="{x:Type ContentPresenter}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Type}" Value="0">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource Textbox}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Type}" Value="1">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource DatePicker}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Type}" Value="2">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource Combobox}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentPresenter.Style>
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </ScrollViewer>
         <Grid

@@ -133,6 +133,11 @@ namespace StudentManagement.ViewModels
         void ShowStudentCardInfoFunction(UserControl p)
         {
             UserCard currentStudent = p.DataContext as UserCard;
+            ShowStudentCardInfoDetail(currentStudent);
+        }
+
+        public void ShowStudentCardInfoDetail(UserCard currentStudent)
+        {
             LoadInfoSource((Guid)currentStudent.ID);
             _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemViewModel(InfoSource);
             RightSideBarItemViewModel = _campusStudentListRightSideBarItemViewModel;
