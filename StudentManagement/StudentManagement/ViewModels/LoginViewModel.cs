@@ -238,11 +238,14 @@ namespace StudentManagement.ViewModels
         public async Task SetupAndSendOTPForEmailAsync()
         {
             var body = File.ReadAllText("../../Resources/mail.html");
-            MailMessage mm = new MailMessage("stumanit008@gmail.com", Gmail.Trim())
+            var from = new MailAddress("stumanit008@gmail.com", "Stuman Development Team");
+            var to = new MailAddress(Gmail.Trim());
+            MailMessage mm = new MailMessage(from, to)
             {
                 Subject = OTP + " là mã khôi phục tài khoản Stuman của bạn",
                 IsBodyHtml = true,
-                Body = body.Replace("OTP_CODE", OTP)
+                Body = body.Replace("OTP_CODE", OTP),
+                Priority = MailPriority.High
             };
             SmtpClient smtp = new SmtpClient
             {
@@ -251,7 +254,14 @@ namespace StudentManagement.ViewModels
                 Credentials = new NetworkCredential(Properties.Settings.Default.Email, Properties.Settings.Default.Password),
                 EnableSsl = true
             };
-            await smtp.SendMailAsync(mm);
+            try
+            {
+                await smtp.SendMailAsync(mm);
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra, không thể gửi mã OTP", "OTP", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
 
         public async Task GetOPTAsync()
