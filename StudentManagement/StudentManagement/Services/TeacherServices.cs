@@ -73,22 +73,21 @@ namespace StudentManagement.Services
         /// Save Teacher To Database
         /// </summary>
         /// <param name="teacher"></param>
-        public bool SaveTeacherToDatabase(User teacherUser)
+        public bool SaveTeacherToDatabase(Teacher teacher)
         {
             try
             {
-                User savedUser = UserServices.Instance.GetUserInfo(/*teacherUser.Id*/);
+                Teacher savedUser = TeacherServices.Instance.FindTeacherByTeacherId(teacher.Id);
 
                 if (savedUser == null)
                 {
-                    DataProvider.Instance.Database.Users.Add(teacherUser);
-                    Teacher teacher = new Teacher() { Id = Guid.NewGuid(), IdUsers = teacherUser.Id };
+                    
                     DataProvider.Instance.Database.Teachers.Add(teacher);
                 }
                 else
                 {
                     //savedTeacher = (teacherUser.ShallowCopy() as Teacher);
-                    Reflection.CopyProperties(teacherUser, savedUser);
+                    Reflection.CopyProperties(teacher, savedUser);
                 }
                 DataProvider.Instance.Database.SaveChanges();
                 return true;

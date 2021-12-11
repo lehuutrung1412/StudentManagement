@@ -41,9 +41,8 @@ namespace StudentManagement.Objects
             ID = x.IdUsers;
             DisplayName = UserServices.Instance.GetDisplayNameById((Guid)ID);
             Role = "Sinh viên";
-            //Faculty = UserServices.Instance.GetFacultyById((Guid)ID);
-            Training = x.TrainingForm.DisplayName;
-            Email = "chưa biết";
+            
+            
         }
 
         public UserCard(Teacher x)
@@ -51,9 +50,8 @@ namespace StudentManagement.Objects
             ID = x.IdUsers;
             DisplayName = UserServices.Instance.GetDisplayNameById((Guid)ID);
             Role = "Giáo viên";
-            //Faculty = UserServices.Instance.GetFacultyById((Guid)ID);
-            Training = null;
-            Email = "chưa biết";
+           
+           
         }
 
         public UserCard(Admin x)
@@ -61,9 +59,8 @@ namespace StudentManagement.Objects
             ID =  x.IdUsers;
             DisplayName = UserServices.Instance.GetDisplayNameById((Guid)ID);
             Role = "Sinh viên";
-            //Faculty = UserServices.Instance.GetFacultyById((Guid)ID);
-            Training = null;
-            Email = "chưa biết";
+           
+          
         }
 
 

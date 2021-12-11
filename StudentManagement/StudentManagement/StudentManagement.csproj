@@ -94,7 +94,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Components\AddStudentRightSideBarItem.xaml.cs">
+    <Compile Include="Components\CampusStudentList\AddStudentRightSideBarItem.xaml.cs">
       <DependentUpon>AddStudentRightSideBarItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\SubjectClassDetail\SettingSubjectClassDetail.xaml.cs">
@@ -103,13 +103,13 @@
     <Compile Include="Components\Subject\AdminSubjectRightSideBar.xaml.cs">
       <DependentUpon>AdminSubjectRightSideBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\CampusStudentListRightSideBar.xaml.cs">
+    <Compile Include="Components\CampusStudentList\CampusStudentListRightSideBar.xaml.cs">
       <DependentUpon>CampusStudentListRightSideBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\CampusStudentListRightSideBarItem.xaml.cs">
+    <Compile Include="Components\CampusStudentList\CampusStudentListRightSideBarItem.xaml.cs">
       <DependentUpon>CampusStudentListRightSideBarItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\CampusStudentListRightSideBarItemEdit.xaml.cs">
+    <Compile Include="Components\CampusStudentList\CampusStudentListRightSideBarItemEdit.xaml.cs">
       <DependentUpon>CampusStudentListRightSideBarItemEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\CenterColumnHeaderCard.xaml.cs">
@@ -162,6 +162,15 @@
     </Compile>
     <Compile Include="Components\Subject\SubjectDataGrid.xaml.cs">
       <DependentUpon>SubjectDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CampusStudentList\UserCardCombobox.xaml.cs">
+      <DependentUpon>UserCardCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CampusStudentList\UserCardDatePicker.xaml.cs">
+      <DependentUpon>UserCardDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CampusStudentList\UserCardTextBox.xaml.cs">
+      <DependentUpon>UserCardTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\UserInfo\EditInfoItemInSetting.xaml.cs">
       <DependentUpon>EditInfoItemInSetting.xaml</DependentUpon>
@@ -470,6 +479,7 @@
     <Compile Include="Services\SubjectClassServices.cs" />
     <Compile Include="Services\SubjectServices.cs" />
     <Compile Include="Services\TeacherServices.cs" />
+    <Compile Include="Services\UserUserRoleUserInfoServices.cs" />
     <Compile Include="Utils\BooleanToVisibilityConverter.cs" />
     <Compile Include="Services\TrainingFormServices.cs" />
     <Compile Include="Utils\CheckAdminConverter.cs" />
@@ -490,10 +500,10 @@
     <Compile Include="Utils\SHA256Cryptography.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
-    <Compile Include="ViewModels\AddStudentListViewModel.cs" />
-    <Compile Include="ViewModels\CampusStudentListRightSideBarItemEditViewModel.cs" />
-    <Compile Include="ViewModels\CampusStudentListRightSideBarItemViewModel.cs" />
-    <Compile Include="ViewModels\CampusStudentListRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\CampusStudentList\AddStudentListViewModel.cs" />
+    <Compile Include="ViewModels\CampusStudentList\CampusStudentListRightSideBarItemEditViewModel.cs" />
+    <Compile Include="ViewModels\CampusStudentList\CampusStudentListRightSideBarItemViewModel.cs" />
+    <Compile Include="ViewModels\CampusStudentList\CampusStudentListRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\CampusStudentList\CampusStudentListViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
@@ -590,7 +600,7 @@
     <Compile Include="Views\MyMessageBoxView.xaml.cs">
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Components\AddStudentRightSideBarItem.xaml">
+    <Page Include="Components\CampusStudentList\AddStudentRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -602,15 +612,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\CampusStudentListRightSideBar.xaml">
+    <Page Include="Components\CampusStudentList\CampusStudentListRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\CampusStudentListRightSideBarItem.xaml">
+    <Page Include="Components\CampusStudentList\CampusStudentListRightSideBarItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\CampusStudentListRightSideBarItemEdit.xaml">
+    <Page Include="Components\CampusStudentList\CampusStudentListRightSideBarItemEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -679,6 +689,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Subject\SubjectDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentList\UserCardCombobox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentList\UserCardDatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CampusStudentList\UserCardTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

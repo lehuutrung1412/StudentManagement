@@ -244,9 +244,9 @@ namespace StudentManagement.Services
                 Period = subjectClassCard.Period,
                 MaxNumberOfStudents = subjectClassCard.MaxNumberOfStudents,
                 //GiaoVien = "Nguyễn Tấn Toàn",
-                Subject = subjectClassCard.SelectedSubject,
-                TrainingForm = subjectClassCard.SelectedTrainingForm,
-                Semester = subjectClassCard.SelectedSemester,
+                IdSubject = subjectClassCard.SelectedSubject?.Id,
+                IdTrainingForm = subjectClassCard.SelectedTrainingForm?.Id,
+                IdSemester = subjectClassCard.SelectedSemester?.Id,
                 WeekDay = DayOfWeeks.IndexOf(subjectClassCard.SelectedDay),
             };
 
