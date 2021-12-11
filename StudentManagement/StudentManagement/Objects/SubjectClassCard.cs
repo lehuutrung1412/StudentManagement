@@ -80,13 +80,6 @@ namespace StudentManagement.Objects
             set
             {
                 _numberOfStudents = value;
-
-                // Validation
-                _errorBaseViewModel.ClearErrors();
-                if (!IsValid(NumberOfStudents.ToString()))
-                {
-                    _errorBaseViewModel.AddError(nameof(NumberOfStudents), "Vui lòng nhập sĩ số!");
-                }
             }
         }
 
@@ -256,7 +249,7 @@ namespace StudentManagement.Objects
                 // validation
 
                 _errorBaseViewModel.ClearErrors();
-                if (!IsValid(Period))
+                if (!IsValid(SelectedSemester?.DisplayName))
                 {
                     _errorBaseViewModel.AddError(nameof(SelectedSemester), "Vui lòng chọn học kỳ!");
                 }

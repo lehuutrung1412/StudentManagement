@@ -147,6 +147,41 @@
                     </ComboBox>
                 </Grid>
 
+                <!--  Học kỳ  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Học kỳ" />
+
+                    <ComboBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Chọn học kỳ"
+                        ItemsSource="{Binding CurrentCard.Semesters, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding CurrentCard.SelectedSemester}"
+                        Style="{StaticResource combobox_item}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <!--<TextBlock Text="{Binding DisplayName}" />-->
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="DisplayName" />
+                                            <Binding Path="Batch" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+
                 <!--  Lịch học tiết học  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
@@ -321,7 +356,9 @@
                 Command="{Binding ConfirmEditSubjectClassCardInfo}"
                 Content="Lưu"
                 FontSize="16"
-                Style="{StaticResource rounded_btn}" />
+                Style="{StaticResource rounded_btn}"
+                ToolTip="Bạn chưa điền đầy đủ thông tin"
+                ToolTipService.ShowOnDisabled="True" />
             <Button
                 Grid.Column="1"
                 Background="{StaticResource DarkGray}"

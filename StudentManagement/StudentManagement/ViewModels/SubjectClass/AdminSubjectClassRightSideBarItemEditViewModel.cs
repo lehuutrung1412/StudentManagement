@@ -80,10 +80,25 @@ namespace StudentManagement.ViewModels
 
         public bool CanConfirmEdit()
         {
-            if (!string.IsNullOrEmpty(CurrentCard.Code) && !(CurrentCard.SelectedSubject == null))
-
-                return true;
-            return false;
+            if (string.IsNullOrEmpty(CurrentCard.Code))
+                return false;
+            if (!CurrentCard.StartDate.HasValue)
+                return false;
+            if (!CurrentCard.EndDate.HasValue)
+                return false;
+            if (String.IsNullOrEmpty(CurrentCard.MaxNumberOfStudents.ToString()))
+                return false;
+            if (CurrentCard.SelectedSubject == null)
+                return false;
+            if (CurrentCard.SelectedTrainingForm == null)
+                return false;
+            if (CurrentCard.SelectedDay == null)
+                return false;
+            if (CurrentCard.SelectedSemester == null)
+                return false;
+            if (CurrentCard.SelectedSubject == null)
+                return false;
+            return true;
         }
 
         public void CancelEditSubjectClassCardInfoFunction()

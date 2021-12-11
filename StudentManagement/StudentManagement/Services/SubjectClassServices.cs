@@ -155,7 +155,7 @@ namespace StudentManagement.Services
         public bool IsValidPeriod(string period)
         {
             // Max period of subject class is 5
-            if (period.Length <= 5)
+            if (period?.Length <= 5)
             {
                 try
                 {
