@@ -97,6 +97,9 @@
     <Compile Include="Components\AddStudentRightSideBarItem.xaml.cs">
       <DependentUpon>AddStudentRightSideBarItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\SubjectClassDetail\SettingSubjectClassDetail.xaml.cs">
+      <DependentUpon>SettingSubjectClassDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\Subject\AdminSubjectRightSideBar.xaml.cs">
       <DependentUpon>AdminSubjectRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -428,6 +431,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
+    <Compile Include="Objects\ComponentScoreInSetting.cs" />
     <Compile Include="Objects\CourseItem.cs" />
     <Compile Include="Objects\EmptyCard.cs" />
     <Compile Include="Objects\FacultyCard.cs" />
@@ -460,6 +464,7 @@
     <Compile Include="Services\NotificationServices.cs" />
     <Compile Include="Services\NotificationTypeServices.cs" />
     <Compile Include="Services\OTPServices.cs" />
+    <Compile Include="Services\ScoreServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Services\StudentServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />
@@ -494,6 +499,7 @@
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\DeleteInfoItemViewModel.cs" />
+    <Compile Include="ViewModels\SubjectClassDetail\SettingSubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\NewsfeedRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemViewModel.cs" />
@@ -585,6 +591,10 @@
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\AddStudentRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SubjectClassDetail\SettingSubjectClassDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

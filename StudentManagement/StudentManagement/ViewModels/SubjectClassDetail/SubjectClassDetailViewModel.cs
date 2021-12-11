@@ -20,6 +20,7 @@ namespace StudentManagement.ViewModels
         private object _newFeedSubjectClassDetailViewModel;
         private object _fileManagerClassDetailViewModel;
         private object _adminStudentListViewModel;
+        private object _settingSubjectClassDetailViewModel;
 
         // Rightsidebar corresponding to _contentViewModel
         private object _newsFeedRightSideBarViewModel;
@@ -59,6 +60,7 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Bảng tin", false, null, _newFeedSubjectClassDetailViewModel, _newsFeedRightSideBarViewModel, _layoutViewModel, "NewspaperVariantOutline"),
                 new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "FileDocumentMultipleOutline"),
                 new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, _studentListRightSideBar, _layoutViewModel, "SchoolOutline"),
+                new NavigationItem("Cài đặt", false, null, _settingSubjectClassDetailViewModel, null, _layoutViewModel, "CogOutline")
             };
 
             // Set corresponding active button to default view
@@ -86,10 +88,14 @@ namespace StudentManagement.ViewModels
             _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel(subjectClass);
             (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).PropertyChanged += FileManagerClassDetailViewModel_PropertyChanged;
             
-            _adminStudentListViewModel = new AdminStudentListViewModel();
+            _adminStudentListViewModel = new AdminStudentListViewModel(subjectClass);
+            (_adminStudentListViewModel as AdminStudentListViewModel).PropertyChanged += StudentListViewModel_PropertyChanged;
+
+            _settingSubjectClassDetailViewModel = new SettingSubjectClassDetailViewModel(subjectClass);
 
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;
         }
+
 
         public void InitRightSideBar(SubjectClass subjectClass)
         {
@@ -143,6 +149,15 @@ namespace StudentManagement.ViewModels
             {
                 object selectedFile = (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).SelectedFile;
                 (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).CurrentFile = selectedFile as FileInfo;
+            }
+        }
+
+        private void StudentListViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedItem")
+            {
+                object selectedItem = (_adminStudentListViewModel as AdminStudentListViewModel).SelectedItem;
+                (_studentListRightSideBar as StudentListRightSideBarViewModel).SelectedItem = selectedItem as StudentGrid;
             }
         }
         #endregion Events

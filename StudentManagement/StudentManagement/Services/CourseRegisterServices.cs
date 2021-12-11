@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +85,42 @@ namespace StudentManagement.Services
             DataProvider.Instance.Database.CourseRegisters.Remove(registered);
             DataProvider.Instance.Database.SaveChanges();
             return true;
+        }
+
+        public List<Student> FindStudentsBySubjectClassId(Guid idSubjectClass)
+        {
+            return DataProvider.Instance.Database.CourseRegisters
+                .Where(register => register.IdSubjectClass == idSubjectClass)
+                .Select(student => student.Student).ToList();
+        }
+
+        public CourseRegister FindCourseRegisterByStudentIdAndSubjectClassId(Guid idStudent, Guid idSubjectClass)
+        {
+            return DataProvider.Instance.Database.CourseRegisters
+                .Where(register => register.IdStudent == idStudent)
+                .Where(register => register.IdSubjectClass == idSubjectClass)
+                .FirstOrDefault();
+        }
+
+        public async Task StudentUnregisterSubjectClassDetailToDatabase(Guid idStudent, SubjectClass subjectClass)
+        {
+            CourseRegister registered = FindCourseRegisterByStudentIdAndSubjectClassId(idStudent, subjectClass.Id);
+            DataProvider.Instance.Database.CourseRegisters.Remove(registered);
+            await DataProvider.Instance.Database.SaveChangesAsync();
+        }
+
+        public async Task StudentRegisterSubjectClassDetailToDatabase(Guid idStudent, SubjectClass subjectClass)
+        {
+            CourseRegister registering = new CourseRegister()
+            {
+                Id = Guid.NewGuid(),
+                IdSemester = subjectClass.IdSemester,
+                IdStudent = idStudent,
+                IdSubjectClass = subjectClass.Id,
+                Status = 1,
+            };
+            DataProvider.Instance.Database.CourseRegisters.AddOrUpdate(registering);
+            await DataProvider.Instance.Database.SaveChangesAsync();
         }
 
     }
