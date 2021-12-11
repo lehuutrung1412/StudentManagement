@@ -39,7 +39,8 @@
                         <TextBox
                             materialDesign:HintAssist.Hint="Tên thông tin"
                             Foreground="{DynamicResource BlackDefault}"
-                            Text="{Binding DisplayInfoItem.LabelName, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding LabelName, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:ValidationAssist.Background="Transparent"
                             TextWrapping="Wrap">
                             <TextBox.Style>
                                 <Style BasedOn="{StaticResource TextBox}" TargetType="TextBox">

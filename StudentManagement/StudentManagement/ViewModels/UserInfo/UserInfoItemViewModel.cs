@@ -2,8 +2,10 @@
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ using static StudentManagement.ViewModels.UserInfoViewModel;
 
 namespace StudentManagement.ViewModels
 {
-    public class UserInfoItemViewModel: BaseViewModel
+    public class UserInfoItemViewModel: BaseViewModel, INotifyDataErrorInfo
     {
         public class ItemInCombobox
         {
@@ -27,7 +29,40 @@ namespace StudentManagement.ViewModels
 
         public InfoItem CurrendInfo { get => _currendInfo; set => _currendInfo = value; }
 
-        public string TypeControl { get => _typeControl; set { _typeControl = value; OnPropertyChanged(); } }
+        private readonly ErrorBaseViewModel _errorBaseViewModel;
+        public string LabelName 
+        { 
+            get => _labelName; 
+            set 
+            { 
+                _labelName = value;
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(LabelName))
+                {
+                    _errorBaseViewModel.AddError(nameof(LabelName), "Vui lòng nhập tên thông tin!");
+                }
+
+                OnPropertyChanged(); 
+            } 
+        }
+        private string _labelName;
+
+        public string TypeControl 
+        { 
+            get => _typeControl; 
+            set 
+            { 
+                _typeControl = value;
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(TypeControl))
+                {
+                    _errorBaseViewModel.AddError(nameof(TypeControl), "Vui lòng chọn loại thông tin!");
+                }
+
+                OnPropertyChanged();
+                OnPropertyChanged(); 
+            } 
+        }
         private string _typeControl;
 
         public bool TypeStudent { get => _typeStudent; set { _typeStudent = value; OnPropertyChanged(); } }       
@@ -36,6 +71,8 @@ namespace StudentManagement.ViewModels
         private bool _typeLecturer;
         public bool TypeAdmin { get => _typeAdmin; set { _typeAdmin = value; OnPropertyChanged(); } }
         private bool _typeAdmin;
+
+        public bool HasErrors => _errorBaseViewModel.HasErrors;
 
 
 
@@ -64,11 +101,13 @@ namespace StudentManagement.ViewModels
             TypeStudent = false;
             TypeAdmin = false;
             TypeLecturer = false;
+            _errorBaseViewModel = new ErrorBaseViewModel();
+            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
             AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
             DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
             AddInfoItemCommand = new RelayCommand<object>((p) => 
             {
-                if ((!TypeStudent && !TypeLecturer && !TypeAdmin)||string.IsNullOrEmpty(TypeControl)||string.IsNullOrEmpty(CurrendInfo.LabelName)||IsHollowComboboxItem())
+                if ((!TypeStudent && !TypeLecturer && !TypeAdmin)||string.IsNullOrEmpty(TypeControl)||string.IsNullOrEmpty(LabelName)||IsHollowComboboxItem())
                     return false;
                 return true;                    
             }, 
@@ -94,19 +133,23 @@ namespace StudentManagement.ViewModels
             }
             else
                 CurrendInfo.Type = 0;
+            CurrendInfo.LabelName = LabelName;
             //InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
           
             if (TypeStudent)
             {
-                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Sinh viên");
+                if (!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Sinh viên"))
+                    MyMessageBox.Show("Chưa tồn tại sinh viên trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             if (TypeLecturer)
             {
-                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Giáo viên");
+                if(!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Giáo viên"))
+                    MyMessageBox.Show("Chưa tồn tại giáo viên trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             if (TypeAdmin)
             {
-                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin");
+                if(!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin"))
+                    MyMessageBox.Show("Chưa tồn tại Admin trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             SettingUserInfoViewModel.Instance.IsOpen = false;
             UserInfoViewModel.Instance.LoadInfoSource();
@@ -122,6 +165,22 @@ namespace StudentManagement.ViewModels
         public void AddItem()
         {
             ListItemInCombobox.Add(new ItemInCombobox { Id = Guid.NewGuid(), Value = "" });
+        }
+        private bool IsValid(string propertyName)
+        {
+            return !string.IsNullOrEmpty(propertyName) && !string.IsNullOrWhiteSpace(propertyName);
+        }
+
+        private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(this, e);
+        }
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _errorBaseViewModel.GetErrors(propertyName);
         }
     }
 }
