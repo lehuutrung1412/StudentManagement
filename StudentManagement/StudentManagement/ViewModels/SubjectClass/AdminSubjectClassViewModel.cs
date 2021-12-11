@@ -156,7 +156,7 @@ namespace StudentManagement.ViewModels
         public void SearchSubjectClassCardsFunction()
         {
             var tmp = StoredSubjectClassCards.Where(x => !IsFirstSearchButtonEnabled ?
-                                                    vietnameseStringNormalizer.Normalize(x.SubjectOfClass.DisplayName + " " + x.Code).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
+                                                    vietnameseStringNormalizer.Normalize(x.SelectedSubject.DisplayName + " " + x.Code).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
                                                     : vietnameseStringNormalizer.Normalize(x.GiaoVien).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
             SubjectClassCards.Clear();
             foreach (SubjectClassCard card in tmp)

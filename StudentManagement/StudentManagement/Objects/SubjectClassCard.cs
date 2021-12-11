@@ -3,12 +3,8 @@ using StudentManagement.Services;
 using StudentManagement.ViewModels;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentManagement.Objects
 {
@@ -41,41 +37,44 @@ namespace StudentManagement.Objects
             return _errorBaseViewModel.GetErrors(propertyName);
         }
 
-        private int _numberOfStudents;
+        private int? _numberOfStudents = 0;
         private Guid _id;
-        private User _teacher = null;
-        private Subject _subjectOfClass = null;
-        private SubjectClass _subjectClass = null;
         private string _code;
+        private DateTime? _startDate;
+        private DateTime? _endDate;
+        private string _period;
+        private int? _maxNumberOfStudents;
         private string _giaoVien;
+        private User _selectedTeacher = null;
+        private Subject _selectedSubject = null;
+        private TrainingForm _selectedTrainingForm;
+        private Semester _selectedSemester;
+        private string _selectedDay;
 
-        private ObservableCollection<Subject> _subjectList = new ObservableCollection<Subject>();
+        private ObservableCollection<string> _dayOfWeeks;
+        private ObservableCollection<Subject> _subjects;
+        private ObservableCollection<TrainingForm> _trainingForms;
+        private ObservableCollection<Semester> _semesters;
+        private ObservableCollection<Teacher> _teachers;
+
 
         public SubjectClassCard()
         {
             Id = Guid.NewGuid();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-            InitModelNavigationItem();
+            InitCardData();
         }
 
-        public SubjectClassCard(Guid id, Subject subjectOfClass, SubjectClass subjectClass, string code, string giaoVien, int numberOfStudents) : this()
+        public void InitCardData()
         {
-            _id = id;
-            _numberOfStudents = numberOfStudents;
-            _subjectOfClass = subjectOfClass;
-            _subjectClass = subjectClass;
-            _code = code;
-            _giaoVien = giaoVien;
-            InitModelNavigationItem();
+            Subjects = new ObservableCollection<Subject>(SubjectServices.Instance.LoadSubjectList());
+            TrainingForms = new ObservableCollection<TrainingForm>(DataProvider.Instance.Database.TrainingForms);
+            Semesters = new ObservableCollection<Semester>(DataProvider.Instance.Database.Semesters);
+            Teachers = new ObservableCollection<Teacher>(DataProvider.Instance.Database.Teachers);
+            DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
         }
 
-        public void InitModelNavigationItem()
-        {
-            var subjectList = SubjectServices.Instance.LoadSubjectList().ToList();
-            SubjectList = new ObservableCollection<Subject>(subjectList);
-        }
-
-        public int SiSo
+        public int? NumberOfStudents
         {
             get => _numberOfStudents;
             set
@@ -84,9 +83,9 @@ namespace StudentManagement.Objects
 
                 // Validation
                 _errorBaseViewModel.ClearErrors();
-                if (!IsValid(SiSo.ToString()))
+                if (!IsValid(NumberOfStudents.ToString()))
                 {
-                    _errorBaseViewModel.AddError(nameof(SiSo), "Vui lòng nhập sĩ số!");
+                    _errorBaseViewModel.AddError(nameof(NumberOfStudents), "Vui lòng nhập sĩ số!");
                 }
             }
         }
@@ -121,24 +120,168 @@ namespace StudentManagement.Objects
             }
         }
 
+        public string Period
+        {
+            get => _period;
+            set
+            {
+                _period = value;
+
+                // Validation
+                _errorBaseViewModel.ClearErrors();
+
+                if (string.IsNullOrWhiteSpace(Period))
+                {
+                    _errorBaseViewModel.AddError(nameof(Period), "Vui lòng nhập tiết học!");
+                }
+
+                if (!SubjectClassServices.Instance.IsValidPeriod(Period))
+                {
+                    _errorBaseViewModel.AddError(nameof(Period), "Tiết học không hợp lệ!");
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime? StartDate
+        {
+            get => _startDate;
+            set
+            {
+                _startDate = value;
+
+                //Validation
+                _errorBaseViewModel.ClearErrors();
+                _errorBaseViewModel.ClearErrors(nameof(EndDate));
+
+                if (!StartDate.HasValue)
+                {
+                    _errorBaseViewModel.AddError(nameof(StartDate), "Vui lòng chọn ngày bắt đầu!");
+                }
+                if (StartDate > EndDate)
+                {
+                    _errorBaseViewModel.AddError(nameof(StartDate), "Ngày bắt đầu không được trễ hơn ngày kết thúc");
+                }
+                OnPropertyChanged();
+            }
+        }
+        public DateTime? EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+
+                //Validation
+                _errorBaseViewModel.ClearErrors();
+                _errorBaseViewModel.ClearErrors(nameof(StartDate));
+
+                if (!EndDate.HasValue)
+                {
+                    _errorBaseViewModel.AddError(nameof(EndDate), "Vui lòng chọn ngày kết thúc!");
+                }
+                if (StartDate > EndDate)
+                {
+                    _errorBaseViewModel.AddError(nameof(EndDate), "Ngày kết thúc không được sớm hơn ngày bắt đầu");
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        public int? MaxNumberOfStudents
+        {
+            get => _maxNumberOfStudents;
+            set
+            {
+                _maxNumberOfStudents = value;
+
+                // Validation
+                _errorBaseViewModel.ClearErrors();
+
+                if (string.IsNullOrWhiteSpace(MaxNumberOfStudents.ToString()))
+                {
+                    _errorBaseViewModel.AddError(nameof(MaxNumberOfStudents), "Vui lòng nhập sĩ số tối đa!");
+                }
+                int tempTryParse;
+                if (!int.TryParse(MaxNumberOfStudents.ToString(), out tempTryParse) || tempTryParse < 0)
+                {
+                    _errorBaseViewModel.AddError(nameof(MaxNumberOfStudents), "Giá trị phải là số nguyên dương!");
+                }
+                OnPropertyChanged();
+            }
+        }
+
         public Guid Id { get => _id; set => _id = value; }
-        public User Teacher { get => _teacher; set => _teacher = value; }
-        public Subject SubjectOfClass
+        public User SelectedTeacher { get => _selectedTeacher; set => _selectedTeacher = value; }
+        public Subject SelectedSubject
         {
-            get => _subjectOfClass; set
+            get => _selectedSubject; set
             {
-                _subjectOfClass = value;
+                _selectedSubject = value;
+
+                // validation
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(SelectedSubject?.DisplayName))
+                {
+                    _errorBaseViewModel.AddError(nameof(SelectedSubject), "Vui lòng chọn môn học!");
+                }
+                OnPropertyChanged();
+
                 OnPropertyChanged();
             }
         }
-        public SubjectClass SubjectClass
+        public TrainingForm SelectedTrainingForm
         {
-            get => _subjectClass; set
+            get => _selectedTrainingForm;
+            set
             {
-                _subjectClass = value;
+                _selectedTrainingForm = value;
+
+                // validation
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(SelectedTrainingForm?.DisplayName))
+                {
+                    _errorBaseViewModel.AddError(nameof(SelectedTrainingForm), "Vui lòng chọn hệ đào tạo!");
+                }
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<Subject> SubjectList { get => _subjectList; set => _subjectList = value; }
+        public Semester SelectedSemester
+        {
+            get => _selectedSemester;
+            set
+            {
+                _selectedSemester = value;
+
+                // validation
+
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(Period))
+                {
+                    _errorBaseViewModel.AddError(nameof(SelectedSemester), "Vui lòng chọn học kỳ!");
+                }
+                OnPropertyChanged();
+            }
+        }
+        public string SelectedDay
+        {
+            get => _selectedDay; set
+            {
+                _selectedDay = value;
+
+                // validation
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(SelectedDay))
+                {
+                    _errorBaseViewModel.AddError(nameof(SelectedDay), "Vui lòng chọn thứ!");
+                }
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<Subject> Subjects { get => _subjects; set => _subjects = value; }
+        public ObservableCollection<TrainingForm> TrainingForms { get => _trainingForms; set => _trainingForms = value; }
+        public ObservableCollection<string> DayOfWeeks { get => _dayOfWeeks; set => _dayOfWeeks = value; }
+        public ObservableCollection<Semester> Semesters { get => _semesters; set => _semesters = value; }
+        public ObservableCollection<Teacher> Teachers { get => _teachers; set => _teachers = value; }
     }
 }

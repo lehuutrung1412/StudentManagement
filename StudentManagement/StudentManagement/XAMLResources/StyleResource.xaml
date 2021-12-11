@@ -557,7 +557,7 @@
         x:Key="datepicker_item"
         BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}"
         TargetType="DatePicker">
-        <Setter Property="Margin" Value="8,4,8,16" />
+        <Setter Property="Margin" Value="4,4,8,16" />
         <Setter Property="Height" Value="50" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />

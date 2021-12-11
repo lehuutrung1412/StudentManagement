@@ -203,7 +203,21 @@ namespace StudentManagement.Services
 
         public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
         {
-            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, subjectClass.Subject, subjectClass, subjectClass.Code, "Nguyễn Tấn Toàn", 100);
+            SubjectClassCard subjectClassCard = new SubjectClassCard()
+            {
+                Id = subjectClass.Id,
+                Code = subjectClass.Code,
+                StartDate = subjectClass.StartDate,
+                EndDate = subjectClass.EndDate,
+                Period = subjectClass.Period,
+                MaxNumberOfStudents = subjectClass.MaxNumberOfStudents,
+                NumberOfStudents = subjectClass.NumberOfStudents,
+                GiaoVien = "Nguyễn Tấn Toàn",
+                SelectedSubject = subjectClass.Subject,
+                SelectedTrainingForm = subjectClass.TrainingForm,
+                SelectedSemester = subjectClass.Semester,
+                SelectedDay = subjectClass.WeekDay.ToString(),
+            };
             return subjectClassCard;
         }
 
@@ -213,8 +227,16 @@ namespace StudentManagement.Services
             {
                 Id = subjectClassCard.Id,
                 Code = subjectClassCard.Code,
-                Subject = subjectClassCard.SubjectOfClass,
-                IdSubject = subjectClassCard.SubjectOfClass.Id,
+                StartDate = subjectClassCard.StartDate,
+                EndDate = subjectClassCard.EndDate,
+                Period = subjectClassCard.Period,
+                MaxNumberOfStudents = subjectClassCard.MaxNumberOfStudents,
+                //GiaoVien = "Nguyễn Tấn Toàn",
+                Subject = subjectClassCard.SelectedSubject,
+                TrainingForm = subjectClassCard.SelectedTrainingForm,
+                Semester = subjectClassCard.SelectedSemester,
+                WeekDay = DayOfWeeks.IndexOf(subjectClassCard.SelectedDay),
+                DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable()
             };
 
             return subjectClass;
@@ -230,8 +252,9 @@ namespace StudentManagement.Services
 
                 return success;
             }
-            catch
+            catch (Exception e)
             {
+                MyMessageBox.Show(e.Message);
                 return false;
             }
         }

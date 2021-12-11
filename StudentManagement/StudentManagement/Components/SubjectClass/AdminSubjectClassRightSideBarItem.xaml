@@ -76,7 +76,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.SubjectOfClass.DisplayName, FallbackValue='Ten Mon Hoc'}"
+                        Text="{Binding CurrentCard.SelectedSubject.DisplayName, FallbackValue='Ten Mon Hoc'}"
                         TextAlignment="Right" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
@@ -93,7 +93,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.SubjectOfClass.Code, FallbackValue='Mã Mon Hoc'}"
+                        Text="{Binding CurrentCard.SelectedSubject.Code, FallbackValue='Mã Mon Hoc'}"
                         TextAlignment="Right" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
@@ -144,7 +144,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.SiSo, FallbackValue='Si so'}"
+                        Text="{Binding CurrentCard.NumberOfStudents, FallbackValue='Si so'}"
                         TextAlignment="Right" />
                 </Grid>
             </StackPanel>
