@@ -19,6 +19,26 @@ namespace StudentManagement.Services
 
         public StudentServices() { }
 
+        #region Convert
+
+        public StudentGrid ConvertStudentToStudentGrid(Student student, int number = 0)
+        {
+            return new StudentGrid()
+            {
+                Id = student.Id,
+                Number = number,
+                DisplayName = student.User.DisplayName,
+                Email = student.User.Email,
+                Faculty = student.Faculty.DisplayName,
+                TrainingForm = student.TrainingForm.DisplayName,
+                Username = student.User.Username,
+                Status = student.User.Online == true ? "Trực tuyến" : "Ngoại tuyến"
+            };
+        }
+
+        #endregion
+
+
         public Student GetFirstStudent()
         {
             return DataProvider.Instance.Database.Students.FirstOrDefault();

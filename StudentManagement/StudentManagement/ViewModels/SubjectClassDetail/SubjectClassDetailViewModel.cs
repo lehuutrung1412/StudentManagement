@@ -86,7 +86,7 @@ namespace StudentManagement.ViewModels
             _fileManagerClassDetailViewModel = new FileManagerClassDetailViewModel(subjectClass);
             (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).PropertyChanged += FileManagerClassDetailViewModel_PropertyChanged;
             
-            _adminStudentListViewModel = new AdminStudentListViewModel();
+            _adminStudentListViewModel = new AdminStudentListViewModel(subjectClass);
             (_adminStudentListViewModel as AdminStudentListViewModel).PropertyChanged += StudentListViewModel_PropertyChanged;
 
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;

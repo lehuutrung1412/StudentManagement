@@ -20,6 +20,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StudentManagement.Objects;
+using StudentManagement.Services;
+using StudentManagement.Models;
 
 namespace StudentManagement.ViewModels
 {
@@ -121,29 +123,35 @@ namespace StudentManagement.ViewModels
 
         private float _pieWidth, _pieHeight, _centerX, _centerY, _radius;
 
-        public AdminStudentListViewModel()
+        SubjectClass SubjectClassDetail { get; set; }
+
+        public AdminStudentListViewModel(SubjectClass subjectClass)
         {
+            SubjectClassDetail = subjectClass;
+
+            FirstLoadData();
+
             InitChartParemeter();
 
-            StudentDatabase = new ObservableCollection<StudentGrid>();
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", Number = 1 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh Huy", Email = "example6@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520129", Number = 6 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh Huy Cầu Vòng", Email = "example7@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520130", Number = 6 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh RainbowShine", Email = "example8@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520131", Number = 6 });
-            StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh UIT.Leader", Email = "example9@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520132", Number = 6 });
+            //StudentDatabase = new ObservableCollection<StudentGrid>();
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", Number = 1 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh Huy", Email = "example6@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520129", Number = 6 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh Huy Cầu Vòng", Email = "example7@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520130", Number = 6 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh RainbowShine", Email = "example8@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520131", Number = 6 });
+            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh UIT.Leader", Email = "example9@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520132", Number = 6 });
 
-            StudentClass = new ObservableCollection<StudentGrid>();
-            StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", IsSelected = false });
-            StudentClass.Add(new StudentGrid { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", IsSelected = false });
-            StudentClass.Add(new StudentGrid { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", IsSelected = false });
-            StudentClass.Add(new StudentGrid { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", IsSelected = false });
-            StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", IsSelected = false });
-            StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", IsSelected = false });
+            //StudentClass = new ObservableCollection<StudentGrid>();
+            //StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", IsSelected = false });
+            //StudentClass.Add(new StudentGrid { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", IsSelected = false });
+            //StudentClass.Add(new StudentGrid { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", IsSelected = false });
+            //StudentClass.Add(new StudentGrid { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", IsSelected = false });
+            //StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", IsSelected = false });
+            //StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", IsSelected = false });
 
             StudentScore = new ObservableCollection<DetailScore>();
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "1", IDStudent = "19520123" });
@@ -160,6 +168,24 @@ namespace StudentManagement.ViewModels
         }
 
         #region Methods
+
+        private void FirstLoadData()
+        {
+            try
+            {
+                StudentClass = new ObservableCollection<StudentGrid>();
+                var students = CourseRegisterServices.Instance.FindStudentsBySubjectClassId(SubjectClassDetail.Id);
+                for (int index = 0; index < students.Count; index++)
+                {
+                    StudentClass.Add(StudentServices.Instance.ConvertStudentToStudentGrid(students[index], index + 1));
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải thông tin sinh viên", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+        }
 
         private void InitChartParemeter()
         {
@@ -226,32 +252,52 @@ namespace StudentManagement.ViewModels
             return StudentClass.Any(student => student.Username == studentId);
         }
 
-        private StudentGrid FindSearchQueryInDatabase(string studentId)
+        private StudentGrid FindSearchQueryInDatabase(string username)
         {
-            return StudentDatabase.FirstOrDefault(student => student.Username == studentId);
+            try
+            {
+                var user = UserServices.Instance.FindUserByUsername(username);
+                return StudentServices.Instance.ConvertStudentToStudentGrid(StudentServices.Instance.GetStudentbyUser(user));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
-        private void AddStudentFunction()
+        private async void AddStudentFunction()
         {
-            if (IsStudentExistInClass(SearchQuery))
+            try
             {
-                MyMessageBox.Show("Sinh viên " + SearchQuery + " đã tồn tại ở lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                if (IsStudentExistInClass(SearchQuery))
+                {
+                    MyMessageBox.Show("Sinh viên " + SearchQuery + " đã tồn tại ở lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                StudentGrid findStudent = FindSearchQueryInDatabase(SearchQuery);
+
+                if (findStudent == null)
+                {
+                    MyMessageBox.Show("Mã số sinh viên " + SearchQuery + " không hợp lệ !", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (MyMessageBox.Show($"Bạn có muốn thêm sinh viên {findStudent.DisplayName} vào lớp học?", "Thêm sinh viên", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                    == MessageBoxResult.Yes)
+                {
+                    await CourseRegisterServices.Instance.StudentRegisterSubjectClassDetailToDatabase(findStudent.Id, SubjectClassDetail);
+                    StudentClass.Add(findStudent);
+                    StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", DiemTB = "0", QuaTrinh = "0", ThucHanh = "0", IDStudent = findStudent.Username });
+                    MyMessageBox.Show("Sinh viên " + SearchQuery + " đã được thêm vào lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    SearchQuery = "";
+                }
             }
-
-            StudentGrid findStudent = FindSearchQueryInDatabase(SearchQuery);
-
-            if (findStudent == null)
+            catch (Exception)
             {
-                MyMessageBox.Show("Mã số sinh viên " + SearchQuery + " không hợp lệ !", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MyMessageBox.Show("Đã có lỗi xảy ra! Thêm không thành công", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            StudentClass.Add(findStudent);
-            StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", DiemTB = "0", QuaTrinh = "0", ThucHanh = "0", IDStudent = findStudent.Username });
-            MyMessageBox.Show("Sinh viên " + SearchQuery + " đã được thêm vào lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            SearchQuery = "";
         }
 
         void DrawPieChart()
@@ -361,37 +407,48 @@ namespace StudentManagement.ViewModels
             DrawPieChart();
         }
 
-        void DeleteStudentFunction()
+        private async void DeleteStudentFunction()
         {
-            DeleteStudentList = new ObservableCollection<StudentGrid>();
-            foreach (var student in BindingData)
+            try
             {
-                if (student.IsSelected)
+                DeleteStudentList = new ObservableCollection<StudentGrid>();
+                foreach (var student in BindingData)
                 {
-                    DeleteStudentList.Add(student);
+                    if (student.IsSelected)
+                    {
+                        DeleteStudentList.Add(student);
+                    }
                 }
-            }
 
-            if (DeleteStudentList.Count() == 0)
+                if (DeleteStudentList.Count() == 0)
+                {
+                    MyMessageBox.Show("Vui lòng chọn sinh viên cần xóa!", "Xóa sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                MessageBoxResult messageBoxResult = MyMessageBox.Show(
+                    $"Bạn có chắc chắn muốn xóa {DeleteStudentList.Count()} sinh viên đã chọn?",
+                    "Xóa sinh viên",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    foreach (var student in DeleteStudentList)
+                    {
+                        await CourseRegisterServices.Instance.StudentUnregisterSubjectClassDetailToDatabase(student.Id, SubjectClassDetail);
+                        StudentClass.Remove(student);
+                    }
+                    IsSelectedAll = false;
+                }
+                else return;
+
+                SearchNameFunction();
+            }
+            catch (Exception)
             {
-                MyMessageBox.Show("Vui lòng chọn sinh viên cần xóa!", "Xóa sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MyMessageBox.Show("Đã có lỗi xảy ra! Xóa không thành công", "Xóa sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            MessageBoxResult messageBoxResult = MyMessageBox.Show(
-                $"Bạn có chắc chắn muốn xóa {DeleteStudentList.Count()} sinh viên đã chọn?",
-                "Xóa sinh viên",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-                foreach (var student in DeleteStudentList)
-                    StudentClass.Remove(student);
-                IsSelectedAll = false;
-            }
-            else return;
-
-            SearchNameFunction();
+            
         }
 
         #endregion

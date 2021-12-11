@@ -18,6 +18,13 @@ namespace StudentManagement.Objects
         private int _number;
         private string _trainingForm;
         private bool _isSelected;
+        private Guid _id;
+
+        public Guid Id
+        {
+            get => _id;
+            set { _id = value; OnPropertyChanged(); }
+        }
 
         public bool IsSelected
         {

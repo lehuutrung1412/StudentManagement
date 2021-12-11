@@ -97,7 +97,6 @@
                         </DataGridCheckBoxColumn>
                         <materialDesign:DataGridTextColumn Binding="{Binding Username}" Header="Mã số sinh viên" />
                         <materialDesign:DataGridTextColumn Binding="{Binding DisplayName}" Header="Tên sinh viên" />
-                        <materialDesign:DataGridTextColumn Binding="{Binding Gender}" Header="Giới tính" />
                         <materialDesign:DataGridTextColumn Binding="{Binding Faculty}" Header="Khoa" />
                         <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="Trạng Thái" />
                     </DataGrid.Columns>
