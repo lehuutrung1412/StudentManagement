@@ -62,6 +62,7 @@ namespace StudentManagement.ViewModels
             {
                 _selectedSemester = value;
                 LoadSubjectClassListBySemester();
+                OnPropertyChanged();
             }
         }
 
@@ -87,6 +88,8 @@ namespace StudentManagement.ViewModels
         public AdminSubjectClassViewModel()
         {
             LoginServices.UpdateCurrentUser += UpdateCurrentUser;
+
+            LoadSubjectClassCards();
 
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchSubjectClassCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectClassCardsFunction());
@@ -165,9 +168,10 @@ namespace StudentManagement.ViewModels
 
         public List<SubjectClass> LoadSubjectClassListByRole()
         {
+
             var subjectClasses = SubjectClassServices.Instance.LoadSubjectClassList();
 
-            switch (LoginServices.CurrentUser.UserRole.Role)
+            switch (LoginServices.CurrentUser?.UserRole?.Role)
             {
                 case "Admin":
                     return subjectClasses.Where(el => true).ToList();
@@ -207,7 +211,6 @@ namespace StudentManagement.ViewModels
         #region eventhandler
         private void UpdateCurrentUser(object sender, LoginEvent e)
         {
-            LoadSemesters();
             LoadSubjectClassCards();
         }
         #endregion
