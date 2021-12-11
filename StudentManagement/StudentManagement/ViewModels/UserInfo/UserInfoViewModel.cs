@@ -88,9 +88,6 @@ namespace StudentManagement.ViewModels
         public ICommand AddNewInfoItemCommand { get => _addNewInfoItemCommand; set => _addNewInfoItemCommand = value; }
         private ICommand _addNewInfoItemCommand;
 
-        public ICommand EditInfoItemCommand { get => _editInfoItemCommand; set => _editInfoItemCommand = value; }
-        private ICommand _editInfoItemCommand;
-
         public ICommand UpdateUserInfoCommand { get => _updateUserInfoCommand; set => _updateUserInfoCommand = value; }
         private ICommand _updateUserInfoCommand;
 
@@ -102,6 +99,7 @@ namespace StudentManagement.ViewModels
             Instance = this;
             IsChangeAvatar = false;
             Avatar = "https://picsum.photos/200";
+            LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
 
             //ObservableCollection<string> Faculty = new ObservableCollection<string> { "KHMT", "KTPM" };
             //ObservableCollection<string> Sex = new ObservableCollection<string> { "Nam", "Nữ" };
@@ -119,20 +117,31 @@ namespace StudentManagement.ViewModels
             //    new InfoItem(Guid.NewGuid(),"Hệ",2,TrainingForm,"CNTN",false),
             //    new InfoItem(Guid.NewGuid(),"Lớp sinh hoạt",2,Class,"KHTN2019",false),
             //};
-            IdUser = DataProvider.Instance.Database.Users.FirstOrDefault(user => user.UserRole.Role.Contains("Sinh viên")).Id;
-            LoadInfoSource();
+            if(LoginServices.CurrentUser!=null)
+            {
+                IdUser = LoginServices.CurrentUser.Id;
+                LoadInfoSource();
+            }
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
-
             IsOpen = false;
             IsUpdate = false;
+            InitCommand();
+        }
+        public void InitCommand()
+        {
             ClickImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickImage());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
-            EditInfoItemCommand = new RelayCommand<System.Windows.Controls.UserControl>((p) => { return true; }, (p) => EditInfoItem(p));
             UpdateUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateUserInfo());
             ConfirmUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => ComfirmUserInfo());
-
         }
+
+        private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
+        {
+            IdUser = LoginServices.CurrentUser.Id;
+            UserInfoViewModel.Instance.LoadInfoSource();
+        }
+
         public void LoadInfoSource()
         {
             var user = UserServices.Instance.GetUserById(IdUser);
@@ -146,8 +155,8 @@ namespace StudentManagement.ViewModels
                 case "Sinh viên":
                     {
                         var student = StudentServices.Instance.GetStudentbyUser(user);
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Khoa",2,FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName,true));
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Hệ đào tạo",2,TrainingFormServices.Instance.LoadListTrainingForm(),student.TrainingForm.DisplayName,true));
+                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Khoa",2,FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName,false));
+                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Hệ đào tạo",2,TrainingFormServices.Instance.LoadListTrainingForm(),student.TrainingForm.DisplayName,false));
                         break;
                     }
                 case "Giáo viên":
@@ -240,15 +249,6 @@ namespace StudentManagement.ViewModels
                 var item = new InfoItem(info);
                 DisplaySource.Add(item);
             }    
-        }
-        public void EditInfoItem(System.Windows.Controls.UserControl p)
-        {
-            if(p.DataContext == null)
-                return;
-            var item = p.DataContext as InfoItem;
-            this._editInfoItemViewModel = new EditInfoItemViewModel(item);
-            this.DialogItemViewModel = this._editInfoItemViewModel;
-            IsOpen = true;
         }
         public void AddNewInfoItem()
         {

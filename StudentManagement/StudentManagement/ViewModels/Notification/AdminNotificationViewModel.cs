@@ -167,14 +167,22 @@ namespace StudentManagement.ViewModels
             //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
 
             //};
-            IdUser = DataProvider.Instance.Database.Users.FirstOrDefault(user=>user.UserRole.Role.Contains("Admin")).Id;
-            Cards = NotificationServices.Instance.LoadNotificationCardByUserId(IdUser);
-            Cards = new ObservableCollection<NotificationCard>(Cards.OrderByDescending(card => card.Time).ThenBy(card => card.Time.TimeOfDay));
-            RealCards = new ObservableCollection<NotificationCard>(Cards.Select(card=>card));
-            CardsInBadge = NotificationServices.Instance.LoadNotificationInBadgeByIdUser(IdUser);
-            NumCardInBadged = CardsInBadge.Where(notificationInfo => notificationInfo.Status == false).ToList().Count;
+            LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
+
+            if(LoginServices.CurrentUser != null)
+            {
+                IdUser = LoginServices.CurrentUser.Id;
+                LoadCardNotification();
+            }    
+           
             IsOpen = false;
             InitIcommand();
+        }
+
+        private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
+        {
+            IdUser = LoginServices.CurrentUser.Id;
+            LoadCardNotification();
         }
         #region method
         public void InitIcommand()
@@ -189,6 +197,15 @@ namespace StudentManagement.ViewModels
             MarkAsUnreadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAsUnread(p));
             MarkAsReadCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => MarkAsRead(p));
             DeleteNotificationInBadgeCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => DeleteNotificationCardInBadge(p));
+        }
+        public void LoadCardNotification()
+        {
+            Cards = NotificationServices.Instance.LoadNotificationCardByUserId(IdUser);
+            Cards = new ObservableCollection<NotificationCard>(Cards.OrderByDescending(card => card.Time).ThenBy(card => card.Time.TimeOfDay));
+            RealCards = new ObservableCollection<NotificationCard>(Cards.Select(card => card));
+            CardsInBadge = NotificationServices.Instance.LoadNotificationInBadgeByIdUser(IdUser);
+            CardsInBadge = new ObservableCollection<NotificationCard>(CardsInBadge.OrderByDescending(card => card.Time).ThenBy(card => card.Time.TimeOfDay));
+            NumCardInBadged = CardsInBadge.Where(notificationInfo => notificationInfo.Status == false).ToList().Count;
         }
         //public void ReLoadCardInBadge()
         //{
