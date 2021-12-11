@@ -150,6 +150,20 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        public Teacher SelectedTeacher
+        {
+            get => _selectedTeacher;
+            set
+            {
+                _selectedTeacher = value;
+
+                //Validaton
+                _errorBaseViewModel.ClearErrors();
+                if (SelectedTeacher == null)
+                    _errorBaseViewModel.AddError(nameof(SelectedTeacher), "Vui lòng chọn giáo viên");
+                OnPropertyChanged();
+            }
+        }
 
         private CourseItem _currentItem;
 
@@ -160,13 +174,17 @@ namespace StudentManagement.ViewModels
         private string _weekDay;
         private DateTime? _startDate;
         private DateTime? _endDate;
+        private Teacher _selectedTeacher;
 
         public ICommand ConfirmCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
         public ObservableCollection<string> DayOfWeeks { get => _dayOfWeeks; set { _dayOfWeeks = value; OnPropertyChanged(); } }
         private ObservableCollection<string> _dayOfWeeks;
-        
+
+        public ObservableCollection<Teacher> Teachers { get => _teachers; set { _teachers = value; OnPropertyChanged(); } }
+        private ObservableCollection<Teacher> _teachers;
+
         public AdminCourseRegistryRightSideBarItemEditViewModel()
         {
             _errorBaseViewModel = new ErrorBaseViewModel();
@@ -196,6 +214,7 @@ namespace StudentManagement.ViewModels
         public void InitProperties()
         {
             DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
+            Teachers = new ObservableCollection<Teacher>(TeacherServices.Instance.LoadTeacherList());
             SubjectName = CurrentItem.Subject.DisplayName;
             SubjectClassCode = CurrentItem.Code;
             StartDate = CurrentItem.StartDate;
@@ -203,6 +222,7 @@ namespace StudentManagement.ViewModels
             Period = CurrentItem.Period;
             WeekDay = DayOfWeeks[(int)CurrentItem.WeekDay];
             MaxOfRegister = Convert.ToString(CurrentItem.MaxNumberOfStudents);
+            SelectedTeacher = CurrentItem.Teachers.FirstOrDefault();
         }
 
         public void InitCommand()
@@ -236,6 +256,7 @@ namespace StudentManagement.ViewModels
             CurrentItem.Period = Period;
             CurrentItem.WeekDay = DayOfWeeks.IndexOf(WeekDay);
             CurrentItem.MaxNumberOfStudents = Convert.ToInt32(MaxOfRegister);
+            CurrentItem.Teachers = new ObservableCollection<Teacher>() { SelectedTeacher };
             SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
             SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
             Cancel();

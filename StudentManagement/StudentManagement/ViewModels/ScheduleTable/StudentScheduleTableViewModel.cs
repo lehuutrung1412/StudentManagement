@@ -42,6 +42,16 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+        private Teacher _currentTeacher;
+        public Teacher CurrentTeacher
+        {
+            get => _currentTeacher;
+            set
+            {
+                _currentTeacher = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         private static StudentScheduleTableViewModel s_instance;
@@ -54,23 +64,60 @@ namespace StudentManagement.ViewModels
         public StudentScheduleTableViewModel()
         {
             Instance = this;
-            CurrentStudent = StudentServices.Instance.GetFirstStudent();
+            LoginServices.UpdateCurrentUser += UpdateCurrentUser;
+        }
+
+        private void UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
+        {
             UpdateData();
         }
+
         public void UpdateScheduleItems()
         {
             if (SelectedSemester == null)
                 return;
-            foreach (SubjectClass item in CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(SelectedSemester.Id, CurrentStudent.Id))
+            switch (LoginServices.CurrentUser.UserRole.Role)
             {
-                ScheduleItem temp = new ScheduleItem(item);
-                ScheduleItems.Add(temp);
+                case "Sinh viên":
+                    foreach (SubjectClass item in CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(SelectedSemester.Id, CurrentStudent.Id))
+                    {
+                        ScheduleItem temp = new ScheduleItem(item);
+                        ScheduleItems.Add(temp);
+                    }
+                    break;
+                case "Giáo viên":
+                    List<SubjectClass> listSubjectClass = SubjectClassServices.Instance.LoadSubjectClassListBySemesterId(SelectedSemester.Id).ToList();
+                    listSubjectClass = new List<SubjectClass>(listSubjectClass.Where(subjectClass => subjectClass.Teachers.Contains(CurrentTeacher)));
+                    foreach (SubjectClass item in listSubjectClass)
+                    {
+                        ScheduleItem temp = new ScheduleItem(item);
+                        ScheduleItems.Add(temp);
+                    }
+                    break;
+            }
+        }
+
+        public ObservableCollection<Semester> LoadListSemester()
+        {
+            User currentUser = LoginServices.CurrentUser;
+            switch(currentUser.UserRole.Role)
+            {
+                case "Sinh viên":
+                    CurrentStudent = StudentServices.Instance.FindStudentByUserId(currentUser.Id);
+                    return SemesterServices.Instance.LoadListSemestersByStudentIdAndSemesterStatuses(CurrentStudent.Id, new bool[] { false, false, true });
+                    break;
+                case "Giáo viên":
+                    CurrentTeacher = TeacherServices.Instance.GetTeacherbyUser(currentUser);
+                    return SemesterServices.Instance.LoadListSemestersByTeacherAndSemesterStatuses(CurrentTeacher, new bool[] { false, false, true });
+                    break;
+                default:
+                    return new ObservableCollection<Semester>();
             }
         }
 
         public void UpdateData()
         {
-            Semesters = SemesterServices.Instance.LoadListSemestersByStudentIdAndSemesterStatuses(CurrentStudent.Id, new bool[]{false, false, true });
+            Semesters = LoadListSemester();
             if (Semesters.Count == 0)
             {
                 ScheduleItems = new ObservableCollection<ScheduleItem>();

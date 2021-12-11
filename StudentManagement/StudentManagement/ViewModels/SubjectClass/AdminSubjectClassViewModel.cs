@@ -141,10 +141,18 @@ namespace StudentManagement.ViewModels
             {
                 case "Admin":
                     return subjectClasses.Where(el => true).ToList();
+                    break;
                 case "Giáo viên":
-                    return subjectClasses.Where(el => true).ToList();
+                    List<SubjectClass> listSubjectClassTeacher = SubjectClassServices.Instance.MinimizeSubjectClassListBySemesterStatus(subjectClasses.ToList(), new bool[] { false, true, true });
+                    Teacher currentTeacher = TeacherServices.Instance.GetTeacherbyUser(LoginServices.CurrentUser);
+                    return listSubjectClassTeacher.Where(subjectClass => subjectClass.Teachers.FirstOrDefault() == currentTeacher).ToList();
+                    break;
                 default:
-                    return subjectClasses.Where(el => false).ToList();
+                    Student currentStudent = StudentServices.Instance.FindStudentByUserId(LoginServices.CurrentUser.Id);
+                    List<SubjectClass> listSubjectClassStudent = CourseRegisterServices.Instance.LoadCourseRegisteredListByStudentId(currentStudent.Id).ToList();
+                    listSubjectClassStudent = SubjectClassServices.Instance.MinimizeSubjectClassListBySemesterStatus(listSubjectClassStudent, new bool[] { false, false, true });
+                    return listSubjectClassStudent;
+                    break;
             }
         }
 

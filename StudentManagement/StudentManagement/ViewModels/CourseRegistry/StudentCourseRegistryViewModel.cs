@@ -109,17 +109,19 @@ namespace StudentManagement.ViewModels
         public StudentCourseRegistryViewModel()
         {
             Instance = this;
-            UpdateData();
-            courseRegistryItemsChecked = new ObservableCollection<CourseItem>();
+            LoginServices.UpdateCurrentUser += UpdateCurrentUser;
             InitCommand();
         }
+
+        
         #region Methods
 
         public void UpdateData()
         {
             UpdateSemester();
-            CurrentStudent = StudentServices.Instance.GetFirstStudent();
+            CurrentStudent = LoginServices.CurrentUser.Students.FirstOrDefault();
 
+            courseRegistryItemsChecked = new ObservableCollection<CourseItem>();
             if (CurrentSemester == null || CurrentStudent == null)
             {
                 CourseRegistryItems1 = new ObservableCollection<CourseItem>();
@@ -134,8 +136,6 @@ namespace StudentManagement.ViewModels
             }
             CourseRegistryItems2Display = CourseRegistryItems2;
             TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
-            StudentScheduleTableViewModel.Instance.UpdateData();
-
         }
         public void InitCommand()
         {
@@ -200,7 +200,6 @@ namespace StudentManagement.ViewModels
             UploadConflictCourseRegistry();
             Search();
             UpdateScheduleItems();
-            StudentScheduleTableViewModel.Instance.UpdateData();
             CourseRegistryItemsChecked = new ObservableCollection<CourseItem>();
         }
         public void UnregisterSelectedCourses()
@@ -217,7 +216,6 @@ namespace StudentManagement.ViewModels
             }
             UploadConflictCourseRegistry();
             Search();
-            StudentScheduleTableViewModel.Instance.UpdateData();
             UpdateScheduleItems();
         }
         public void Search()
@@ -291,7 +289,10 @@ namespace StudentManagement.ViewModels
             editCourseItem.IsSelected = !editCourseItem.IsSelected;
             e.Cancel = true;
         }
-
+        private void UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
+        {
+            UpdateData();
+        }
         #endregion
     }
 }

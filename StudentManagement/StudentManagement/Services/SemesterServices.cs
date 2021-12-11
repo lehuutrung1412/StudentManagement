@@ -61,6 +61,22 @@ namespace StudentManagement.Services
             return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
         }
 
+        public ObservableCollection<Semester> LoadListSemestersByTeacherAndSemesterStatuses(Teacher teacher, bool[] semesterStatus)
+        {
+            var listSemester = new List<Semester>();
+            var listSubjectClass = DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Teachers.FirstOrDefault().Id == teacher.Id).ToList();
+            for (int i = 0; i < semesterStatus.Length; i++)
+            {
+                if (!semesterStatus[i])
+                    listSubjectClass = listSubjectClass.Where(subjectClass => subjectClass.Semester.CourseRegisterStatus != i).ToList();
+            }
+            foreach (SubjectClass subjectClass in listSubjectClass)
+            {
+                listSemester.Add(subjectClass.Semester);
+            }
+            return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
+        }
+
         public bool SaveSemesterToDatabase(Semester semester)
         {
             try

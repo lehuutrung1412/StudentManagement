@@ -26,9 +26,19 @@ namespace StudentManagement.Services
             return DataProvider.Instance.Database.SubjectClasses;
         }
 
-        public ObservableCollection<SubjectClass> LoadSubjectClassListBySemesterId(Guid id)
+        public List<SubjectClass> MinimizeSubjectClassListBySemesterStatus(List<SubjectClass> listSubjectClass, bool[] semesterStatus)
         {
-            return new ObservableCollection<SubjectClass>(DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).ToList());
+            for (int i = 0; i < semesterStatus.Length; i++)
+            {
+                if (!semesterStatus[i])
+                    listSubjectClass = listSubjectClass.Where(subjectClass => subjectClass.Semester.CourseRegisterStatus != i).ToList();
+            }
+            return listSubjectClass;
+        }
+
+        public List<SubjectClass> LoadSubjectClassListBySemesterId(Guid id)
+        {
+            return DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).ToList();
         }
 
         /*public SubjectClass ConvertSubjectClassCardToSubjectClass(SubjectClassCard subjectClassCard)

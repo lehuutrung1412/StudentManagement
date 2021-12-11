@@ -29,9 +29,15 @@ namespace StudentManagement.Services
             return DataProvider.Instance.Database.Students;
         }
 
-        public Student FindStudentByStudentId(Guid id)
+        public Student FindStudentByStudentId(Guid idStudent)
         {
-            Student a = DataProvider.Instance.Database.Students.Where(studentItem => studentItem.Id == id).FirstOrDefault();
+            Student a = DataProvider.Instance.Database.Students.Where(studentItem => studentItem.Id == idStudent).FirstOrDefault();
+            return a;
+        }
+
+        public Student FindStudentByUserId(Guid idUser)
+        {
+            Student a = DataProvider.Instance.Database.Students.Where(studentItem => studentItem.IdUsers == idUser).FirstOrDefault();
             return a;
         }
 

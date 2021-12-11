@@ -133,8 +133,6 @@ namespace StudentManagement.ViewModels
         public ICommand StopSemesterCommand { get; set; }
         public ICommand CreateNewSemesterCommand { get; set; }
         public ICommand AddFromExcelCommand { get; set; }
-        public ICommand SaveChangesCommand { get; set; }
-        public ICommand ConvertChangesCommand { get; set; }
         public ICommand ExportExcelCommand { get; set; }
 
 
@@ -199,9 +197,9 @@ namespace StudentManagement.ViewModels
                     return false;
                 return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => CreateNewCourse());
-            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 1; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
-            PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 0; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
-            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 2; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); StudentCourseRegistryViewModel.Instance.UpdateData(); });
+            OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 1; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); });
+            PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 0; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); });
+            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 2; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester);  });
 
             CreateNewSemesterCommand = new RelayCommand<object>((p) =>
             {
@@ -219,18 +217,6 @@ namespace StudentManagement.ViewModels
                     return false;
                 return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => AddFromExcel());
-            SaveChangesCommand = new RelayCommand<object>((p) =>
-            {
-                if (SelectedSemester == null)
-                    return false;
-                return !(SelectedSemester.CourseRegisterStatus > 1);
-            }, (p) => SaveChanges());
-            ConvertChangesCommand = new RelayCommand<object>((p) =>
-            {
-                if (SelectedSemester == null)
-                    return false;
-                return !(SelectedSemester.CourseRegisterStatus > 1);
-            }, (p) => ConvertChanges());
         }
         public void SelectData()
         {
@@ -275,7 +261,7 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems.Remove(item);
             }
             SearchCourseRegistryItemsFunction();
-            StudentCourseRegistryViewModel.Instance.UpdateData();
+            /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
         }
         public void CreateNewCourse()
         {
@@ -325,7 +311,7 @@ namespace StudentManagement.ViewModels
             defaultNewBatch = defaultNewBatch.Remove(defaultNewBatch.Length - 1);
             Batches.Add(defaultNewBatch);
         }
-        DataTableCollection dataSheets;
+        
         public void AddFromExcel()
         {
             using (OpenFileDialog op = new OpenFileDialog() { Filter = "Excel|*.xls;*.xlsx;" })
@@ -334,6 +320,7 @@ namespace StudentManagement.ViewModels
                 {
                     if (op.ShowDialog() == DialogResult.OK)
                     {
+                        DataTableCollection dataSheets;
                         using (var stream = File.Open(op.FileName, FileMode.Open, FileAccess.Read))
                         {
                             using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
@@ -347,26 +334,24 @@ namespace StudentManagement.ViewModels
                         }
                         DataTable data = dataSheets[0];
 
-                        ObservableCollection<CourseItem> excelList = CourseRegistryItems;
-
-                        foreach (DataRow course in data.Rows)
+                        foreach (DataRow courseRow in data.Rows)
                         {
-                            string TFName = course[7].ToString();
-                            Guid idTeacher = Guid.Parse(Convert.ToString(course[8]));
+                            string TFName = courseRow[7].ToString();
+                            Guid idTeacher = Guid.Parse(Convert.ToString(courseRow[8]));
                             var tempSubjectClass = new SubjectClass()
                             {
                                 Id = Guid.NewGuid(),
                                 Semester = SelectedSemester,
-                                Subject = SubjectServices.Instance.FindSubjectBySubjectName(Convert.ToString(course[0])),   //Column SubjectName NVARCHAR
-                                StartDate = Convert.ToDateTime(course[1]),                                                  //Column StartDate Date
-                                EndDate = Convert.ToDateTime(course[2]),                                                  //Column EndDate Date
-                                Period = Convert.ToString(course[3]),                                                       //Column Period NVARCHAR
-                                WeekDay = Convert.ToInt32(course[4]),                                                      //Column WeekDay NVARCHAR
-                                Code = Convert.ToString(course[5]),
-                                MaxNumberOfStudents = Convert.ToInt32(course[6]),
+                                Subject = SubjectServices.Instance.FindSubjectBySubjectName(Convert.ToString(courseRow[0])),   //Column SubjectName NVARCHAR
+                                StartDate = Convert.ToDateTime(courseRow[1]),                                                  //Column StartDate Date
+                                EndDate = Convert.ToDateTime(courseRow[2]),                                                  //Column EndDate Date
+                                Period = Convert.ToString(courseRow[3]),                                                       //Column Period NVARCHAR
+                                WeekDay = Convert.ToInt32(courseRow[4]),                                                      //Column WeekDay NVARCHAR
+                                Code = Convert.ToString(courseRow[5]),
+                                MaxNumberOfStudents = Convert.ToInt32(courseRow[6]),
                                 TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(tf => tf.DisplayName.Equals(TFName)).FirstOrDefault(),
                                 Teachers = new ObservableCollection<Teacher>() { TeacherServices.Instance.FindTeacherByTeacherId(idTeacher) },
-                                DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable(),           //Thiếu image
+                                DatabaseImageTable = DatabaseImageTableServices.Instance.GetFirstDatabaseImageTable(),           //Thiếu image
                                 NumberOfStudents = 0
                             };
                             SubjectClassServices.Instance.UpdateIds(tempSubjectClass);
@@ -390,12 +375,11 @@ namespace StudentManagement.ViewModels
                             {
                                 var tempCourse = new CourseItem(tempSubjectClass, false);
                                 SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
-                                excelList.Add(tempCourse);
+                                CourseRegistryItems.Add(tempCourse);
                             }
-                            SelectData();
-                            /*UpdateSubjectClassCode(tempSubjectClass);*/
                         }
-                        StudentCourseRegistryViewModel.Instance.UpdateData();
+                        SelectData();
+                        /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
                     }
                 }
                 catch
@@ -403,39 +387,6 @@ namespace StudentManagement.ViewModels
                     MyMessageBox.Show("File này đang được sử dụng", "Lỗi");
                 }
             }
-            /*DataTable data = dataSheets[dataSheets.Cast<DataTable>().Select(t=>t.TableName).Last().ToString()];*/
-        }
-        public void UpdateSubjectClassCode(SubjectClass subjectClass)
-        {
-            string subjectClassCode = "";
-            subjectClassCode += subjectClass.Subject.Code;
-
-            string codeSemester = ".";
-            codeSemester += (char)(Convert.ToInt32(SelectedSemester.Batch.Split('-')[0]) - 2010 + 65);
-            var listSemester = SemesterServices.Instance.LoadListSemestersByBatch(SelectedSemester.Batch);
-            int indexSemester = listSemester.IndexOf(SelectedSemester) + 1;
-            codeSemester += Convert.ToString(indexSemester);
-            subjectClassCode += codeSemester;
-
-            int indexCourse = (CourseRegistryItems == null) ? 1 : CourseRegistryItems.Where(course => course.Subject.DisplayName == subjectClass.Subject.DisplayName).Count() + 1;
-            subjectClassCode += Convert.ToString(indexCourse);
-            subjectClass.Code = subjectClassCode;
-        }
-        public void SaveChanges()
-        {
-
-            /*foreach(ObservableCollection<CourseItems> list1Semester in CourseRegistryItemsAll)
-            {
-                foreach(CourseItems item in list1Semester)
-                {
-
-                }
-            }*/
-        }
-
-        public void ConvertChanges()
-        {
-
         }
     }
 }

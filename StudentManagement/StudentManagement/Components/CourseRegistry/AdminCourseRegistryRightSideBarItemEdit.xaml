@@ -193,6 +193,33 @@
                         Grid.ColumnSpan="2"
                         Margin="8,4.4,8,0" />
                 </Grid>
+                <Grid
+                    Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Giảng viên" />
+                    <ComboBox
+                        Grid.Row="1"
+                        materialDesign:ComboBoxAssist.ShowSelectedItem="True"
+                        materialDesign:HintAssist.Hint="Chọn giảng viên"
+                        ItemsSource="{Binding Teachers}"
+                        SelectedItem="{Binding SelectedTeacher, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource combobox_item}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Text="{Binding User.DisplayName}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
 
             </StackPanel>
         </ScrollViewer>

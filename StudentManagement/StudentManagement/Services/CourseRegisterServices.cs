@@ -23,6 +23,17 @@ namespace StudentManagement.Services
         {
             return DataProvider.Instance.Database.CourseRegisters.FirstOrDefault();
         }
+
+        public ObservableCollection<SubjectClass> LoadCourseRegisteredListByStudentId(Guid idStudent)
+        {
+            ObservableCollection<SubjectClass> listSubjectClass = new ObservableCollection<SubjectClass>();
+            List<CourseRegister> listCourseRegistered = DataProvider.Instance.Database.CourseRegisters.Where(y => y.IdStudent == idStudent).Where(z => z.Status == 1).ToList();
+            foreach (CourseRegister registeredCourse in listCourseRegistered)
+            {
+                listSubjectClass.Add(registeredCourse.SubjectClass);
+            }
+            return listSubjectClass;
+        }
         public ObservableCollection<SubjectClass> LoadCourseRegisteredListBySemesterIdAndStudentId(Guid idSemester, Guid idStudent)
         {
             ObservableCollection<SubjectClass> listSubjectClass = new ObservableCollection<SubjectClass>();
@@ -35,7 +46,7 @@ namespace StudentManagement.Services
         }
         public ObservableCollection<SubjectClass> LoadCourseUnregisteredListBySemesterIdAndStudentId(Guid idSemester, Guid idStudent)
         {
-            ObservableCollection<SubjectClass> listSubjectClassInSemester = new ObservableCollection<SubjectClass>(SubjectClassServices.Instance.LoadSubjectClassListBySemesterId(idSemester).ToList());
+            ObservableCollection<SubjectClass> listSubjectClassInSemester = new ObservableCollection<SubjectClass>(SubjectClassServices.Instance.LoadSubjectClassListBySemesterId(idSemester));
             ObservableCollection<SubjectClass> listSubjectClassRegistered = LoadCourseRegisteredListBySemesterIdAndStudentId(idSemester, idStudent);
             foreach(SubjectClass registered in listSubjectClassRegistered)
             {

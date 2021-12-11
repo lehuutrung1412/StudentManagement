@@ -6,9 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:math="http://hexinnovation.com/math"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:views="clr-namespace:StudentManagement.Views"
+    x:Name="StudentCRUserControl"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
     Background="{StaticResource CenterColumn}"
@@ -18,21 +20,25 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    x:Name="StudentCRUserControl"
     mc:Ignorable="d">
-    <Grid
-        x:Name="MainGrid">
+    <UserControl.Resources>
+        <math:MathConverter x:Key="math" />
+    </UserControl.Resources>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition
-                Height="55*"  />
-            <RowDefinition
-                Height="45*" />
+            <RowDefinition Height="55*" />
+            <RowDefinition Height="45*" />
         </Grid.RowDefinitions>
-        <materialDesign:Card
-            Grid.Row="0"
-            Margin="8,8,8,16">
-            <DockPanel
-                LastChildFill="False">
+        <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8 16 16 8" Panel.ZIndex="1">
+            <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
+                    <Binding Path="CurrentSemester.Batch" />
+                    <Binding Path="CurrentSemester.DisplayName" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <materialDesign:Card Grid.Row="0" Margin="8,8,8,16">
+            <DockPanel LastChildFill="False">
                 <StackPanel DockPanel.Dock="Top">
                     <TabControl
                         Margin="0"
@@ -41,41 +47,28 @@
                         Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
                         TabStripPlacement="Top">
 
-                        <TabItem
-                            Margin="4">
+                        <TabItem Margin="4">
                             <TabItem.Header>
-                                <StackPanel
-                                    Width="auto"
-                                    Height="auto">
+                                <StackPanel Width="auto" Height="auto">
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
                                         HorizontalAlignment="Center"
                                         Kind="ViewListOutline" />
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        Text="Danh sách" />
+                                    <TextBlock HorizontalAlignment="Center" Text="Danh sách" />
                                 </StackPanel>
                             </TabItem.Header>
 
-                            <Grid
-                                x:Name="RegisteredGrid"
-                                Grid.Row="1">
+                            <Grid x:Name="RegisteredGrid" Grid.Row="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition
-                                        Height="auto" />
-                                    <RowDefinition
-                                        Height="*" />
-                                    <RowDefinition
-                                        Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
-                                <Grid
-                                    Grid.Row="0">
+                                <Grid Grid.Row="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition
-                                            Width="auto" />
-                                        <ColumnDefinition
-                                            Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock
                                         Grid.Column="0"
@@ -111,63 +104,48 @@
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
-                                <StackPanel
-                                    Width="auto"
-                                    Height="auto">
+                                <StackPanel Width="auto" Height="auto">
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
                                         HorizontalAlignment="Center"
                                         Kind="TableLarge" />
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        Text="TKB" />
+                                    <TextBlock HorizontalAlignment="Center" Text="TKB" />
                                 </StackPanel>
                             </TabItem.Header>
                             <Grid>
-                                <component:ScheduleTable
-                                    Margin="8"
-                                    Tag="{Binding ScheduleItemsRegistered}" />
+                                <component:ScheduleTable Margin="8" Tag="{Binding ScheduleItemsRegistered}" />
                             </Grid>
                         </TabItem>
                     </TabControl>
                 </StackPanel>
                 <TextBlock
-                    DockPanel.Dock="Bottom"
                     Margin="10"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom">
-                        <Run
-                        Text="Số tín chỉ đã đăng ký: " />
-                        <Run
-                        Text="{Binding TotalCredit, FallbackValue=0}" />
+                    VerticalAlignment="Bottom"
+                    DockPanel.Dock="Bottom">
+                    <Run Text="Số tín chỉ đã đăng ký: " />
+                    <Run Text="{Binding TotalCredit, FallbackValue=0}" />
                 </TextBlock>
             </DockPanel>
-            
-            
+
+
         </materialDesign:Card>
         <materialDesign:Card
             Grid.Row="1"
             Margin="8,8,8,16"
             Style="{StaticResource CardContainer}">
-            <Grid
-                Grid.Row="3">
+            <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
-                    <RowDefinition
-                        Height="auto" />
-                    <RowDefinition
-                        Height="auto" />
-                    <RowDefinition
-                        Height="*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid
-                    Grid.Row="0">
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            Width="auto" />
-                        <ColumnDefinition
-                            Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Column="0"
@@ -191,8 +169,7 @@
                         Content="Đăng ký"
                         Style="{StaticResource PrimaryButton}" />
                 </Grid>
-                <Grid
-                    Grid.Row="1">
+                <Grid Grid.Row="1">
                     <component:SearchBarOne
                         Margin="16,0"
                         DatePickerVisibility="False"
@@ -208,13 +185,10 @@
                     IsAllItemsSelected="{Binding IsAllItemsSelected2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     IsCatchEditEvent="True"
                     Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource StudentCourseRegistryRightSideBarVM}}" />
-                <Grid
-                    Grid.Row="2"
-                    VerticalAlignment="Bottom">
+                <Grid Grid.Row="2" VerticalAlignment="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
-                        <ColumnDefinition
-                            Width="auto" />
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <!--<Button

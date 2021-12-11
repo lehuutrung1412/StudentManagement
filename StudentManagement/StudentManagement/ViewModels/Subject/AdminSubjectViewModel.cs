@@ -78,19 +78,28 @@ namespace StudentManagement.ViewModels
 
         #region methods
 
-        public void LoadSubjectCards()
+        public void LoadDataBehind()
         {
             var subjectes = SubjectServices.Instance.LoadSubjectList();
 
             StoredSubjectCards = new ObservableCollection<SubjectCard>();
-            SubjectCards = new ObservableCollection<SubjectCard>();
-
+            
             subjectes.ToList().ForEach(subject => StoredSubjectCards.Add(SubjectServices.Instance.ConvertSubjectToSubjectCard(subject)));
+        }
 
+        public void LoadDataFront()
+        {
+            SubjectCards.Clear();
             foreach (var subject in StoredSubjectCards)
             {
                 SubjectCards.Add(subject);
             }
+        }
+        public void LoadSubjectCards()
+        {
+            LoadDataBehind();
+            SubjectCards = new ObservableCollection<SubjectCard>();
+            LoadDataFront();
         }
 
         public void SwitchSearchButtonFunction(object p)
@@ -162,10 +171,12 @@ namespace StudentManagement.ViewModels
                             else
                             {
                                 SubjectServices.Instance.SaveSubjectToDatabase(newSubject);
-                                StoredSubjectCards.Add(new SubjectCard(newSubject.Id, newSubject.DisplayName, newSubject.Credit, newSubject.Describe));
+                                /*StoredSubjectCards.Add(new SubjectCard(newSubject.Id, newSubject.DisplayName, newSubject.Credit, newSubject.Code, newSubject.Describe));*/
                             }
 
                         }
+                        LoadDataBehind();
+                        LoadDataFront();
                         SearchSubjectCardsFunction(); // Phòng trường hợp mình thêm trong lúc đang search
                     }
                 }

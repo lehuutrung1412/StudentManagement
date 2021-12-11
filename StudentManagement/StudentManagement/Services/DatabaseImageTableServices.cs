@@ -53,7 +53,7 @@ namespace StudentManagement.Services
             return await db().DatabaseImageTables.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public DatabaseImageTable GetDatabaseImageTable()
+        public DatabaseImageTable GetFirstDatabaseImageTable()
         {
             return db().DatabaseImageTables.FirstOrDefault();
         }

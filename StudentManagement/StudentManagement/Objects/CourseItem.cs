@@ -31,6 +31,10 @@ namespace StudentManagement.Objects
             get => _isConflict;
             set { _isConflict = value; OnPropertyChanged(); }
         }
+
+        private Teacher _mainTeacher;
+        public Teacher MainTeacher { get => _mainTeacher; set { _mainTeacher = value; OnPropertyChanged(); } }
+
         public CourseItem(Models.SubjectClass a, bool isSelected, bool isConflict = false)
         {
             this.Id = a.Id;
@@ -52,6 +56,7 @@ namespace StudentManagement.Objects
             this.DatabaseImageTable = a.DatabaseImageTable;
             this.IsSelected = false;
             this.IsConflict = isConflict;
+            this.MainTeacher = this.Teachers.FirstOrDefault();
         }
         public SubjectClass ConvertToSubjectClass()
         {

@@ -46,11 +46,15 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<TrainingForm> TrainingForms { get => _trainingForms; set => _trainingForms = value; }
         public ObservableCollection<string> DayOfWeeks { get => _dayOfWeeks; set { _dayOfWeeks = value; OnPropertyChanged(); } }
 
+        public ObservableCollection<Teacher> Teachers { get => _teachers; set { _teachers = value; OnPropertyChanged(); } }
+
         private ObservableCollection<Subject> _subjects;
 
         private ObservableCollection<TrainingForm> _trainingForms;
 
         private ObservableCollection<string> _dayOfWeeks;
+
+        private ObservableCollection<Teacher> _teachers;
 
         private Subject _selectedSubject;
         private TrainingForm _selectedTF;
@@ -60,6 +64,7 @@ namespace StudentManagement.ViewModels
         private string _subjectClassCode;
         private DateTime? _startDate;
         private DateTime? _endDate;
+        private Teacher _selectedTeacher;
 
         public Subject SelectedSubject { get => _selectedSubject; set { 
                 _selectedSubject = value; 
@@ -165,6 +170,22 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public Teacher SelectedTeacher 
+        { 
+            get => _selectedTeacher;
+            set 
+            { 
+                _selectedTeacher = value;
+
+                //Validaton
+                _errorBaseViewModel.ClearErrors();
+                if (SelectedTeacher == null)
+                    _errorBaseViewModel.AddError(nameof(SelectedTeacher), "Vui lòng chọn giáo viên");
+                OnPropertyChanged();
+            } 
+        }
+
         private bool _isDoneVisible;
         public bool IsDoneVisible { get => _isDoneVisible; set { _isDoneVisible = value; OnPropertyChanged(); } }
         #endregion
@@ -190,6 +211,7 @@ namespace StudentManagement.ViewModels
             Subjects = new ObservableCollection<Subject>(DataProvider.Instance.Database.Subjects);
             TrainingForms = new ObservableCollection<TrainingForm>(DataProvider.Instance.Database.TrainingForms);
             DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
+            Teachers = new ObservableCollection<Teacher>(DataProvider.Instance.Database.Teachers);
         }
 
         public void InitCommand()
@@ -212,7 +234,8 @@ namespace StudentManagement.ViewModels
                 MaxNumberOfStudents = Convert.ToInt32(MaxNumber),
                 NumberOfStudents = 0,
                 TrainingForm = SelectedTF,
-                DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable()
+                DatabaseImageTable = DatabaseImageTableServices.Instance.GetFirstDatabaseImageTable(),
+                Teachers = new ObservableCollection<Teacher>() { SelectedTeacher }
             };
             CurrentCard = newCourse;
             IsDoneVisible = SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);

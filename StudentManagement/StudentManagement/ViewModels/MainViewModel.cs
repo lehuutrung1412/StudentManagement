@@ -180,6 +180,7 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Đào tạo", true, temp, null, null, _layoutViewModel, "SchoolOutline"),
                 new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, _layoutViewModel, "DiceD10Outline"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, _layoutViewModel, "BellOutline"),
+                new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, _layoutViewModel, "CalendarMonthOutline"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, _layoutViewModel, "AccountCircleOutline"),
                 new NavigationItem("Danh sách sinh viên", false, null, _campusStudentListViewModel, _campusStudentListRightSideBar, _layoutViewModel, "SchoolOutline"),
             };
