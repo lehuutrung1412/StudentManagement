@@ -41,7 +41,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock
-                            Margin="0 20"
+                            Margin="0,20"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
                             FontSize="16"
@@ -52,8 +52,9 @@
                         <TextBox
                             VerticalAlignment="Center"
                             materialDesign:HintAssist.Hint="Tên thông tin"
+                            materialDesign:ValidationAssist.Background="Transparent"
                             FontWeight="SemiBold"
-                            Text="{Binding CurrendInfo.LabelName, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding LabelName, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="Wrap">
                             <TextBox.Style>
                                 <Style BasedOn="{StaticResource textbox_item}" TargetType="TextBox">
@@ -79,8 +80,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBlock
+                            Margin="0,20"
                             HorizontalAlignment="Stretch"
-                            Margin="0 20"
                             VerticalAlignment="Top"
                             FontSize="16"
                             FontWeight="SemiBold"
@@ -90,6 +91,7 @@
                         <ComboBox
                             materialDesign:HintAssist.Hint="Loại thông tin"
                             materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:ValidationAssist.Background="Transparent"
                             FontWeight="SemiBold"
                             ItemsSource="{Binding ListTypeControl, UpdateSourceTrigger=PropertyChanged, Source={StaticResource UserInfoVM}}"
                             SelectedItem="{Binding TypeControl, UpdateSourceTrigger=PropertyChanged}">
@@ -140,13 +142,25 @@
 
                         </Border>-->
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <CheckBox Margin="4 0" Grid.Column="0" Content="Sinh viên" IsChecked="{Binding TypeStudent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                        <CheckBox Margin="4 0" Grid.Column="1" Content="Giáo viên" IsChecked="{Binding TypeLecturer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                        <CheckBox Margin="4 0" Grid.Column="2" Content="Admin" IsChecked="{Binding TypeAdmin, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                        <CheckBox
+                            Grid.Column="0"
+                            Margin="4,0"
+                            Content="Sinh viên"
+                            IsChecked="{Binding TypeStudent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        <CheckBox
+                            Grid.Column="1"
+                            Margin="4,0"
+                            Content="Giáo viên"
+                            IsChecked="{Binding TypeLecturer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        <CheckBox
+                            Grid.Column="2"
+                            Margin="4,0"
+                            Content="Admin"
+                            IsChecked="{Binding TypeAdmin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </Grid>
 
                 </Grid>

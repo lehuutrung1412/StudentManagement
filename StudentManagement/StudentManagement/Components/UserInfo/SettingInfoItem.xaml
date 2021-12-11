@@ -52,7 +52,7 @@
                         Command="{Binding DeleteInfoItemCommand}"
                         DataContext="{Binding EditInfoItemViewModel}"
                         Foreground="{StaticResource ErrorMain}"
-                        Header="Xóa thư mục"
+                        Header="Xóa thông tin"
                         Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />
                 </ContextMenu>
             </Expander.ContextMenu>

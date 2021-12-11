@@ -113,7 +113,17 @@ namespace StudentManagement.ViewModels
         }
         public void InitCommand()
         {
-            ConfirmSettingCommand = new RelayCommand<object>((p) => { return true; }, (p) => ConfirmSetting());
+            ConfirmSettingCommand = new RelayCommand<object>(
+                (p) => 
+                {
+                    if (InfoSource == null)
+                        return true;
+                    foreach (var infoItem in InfoSource)
+                        if (infoItem.EditInfoItemViewModel.HasErrors)
+                            return false;
+                    return true;
+                }, 
+                (p) => ConfirmSetting());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItemInSetting());
             GetInfoSourceInSettingByRoleCommand = new RelayCommand<object>((p) => { return true; }, (p) => GetInfoSourceInSettingByRole());
         }

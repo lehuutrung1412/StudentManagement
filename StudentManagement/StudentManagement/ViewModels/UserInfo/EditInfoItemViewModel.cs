@@ -2,8 +2,10 @@
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +16,7 @@ using static StudentManagement.ViewModels.UserInfoViewModel;
 
 namespace StudentManagement.ViewModels
 {
-    public class EditInfoItemViewModel: BaseViewModel
+    public class EditInfoItemViewModel: BaseViewModel, INotifyDataErrorInfo
     {
         private InfoItem _currendInfoItem;
         public InfoItem CurrendInfoItem { get => _currendInfoItem; set => _currendInfoItem = value; }
@@ -24,10 +26,44 @@ namespace StudentManagement.ViewModels
         private ObservableCollection<ItemInCombobox> _listItemInCombobox;
         public ObservableCollection<ItemInCombobox> ListItemInCombobox { get => _listItemInCombobox; set { _listItemInCombobox = value; OnPropertyChanged(); } }
 
-        public string TypeControl { get => _typeControl; set { _typeControl = value; OnPropertyChanged(); } }
-        public bool IsEnable { get => _isEnable; set { _isEnable = value; OnPropertyChanged(); } }
+        private readonly ErrorBaseViewModel _errorBaseViewModel;
+        public string LabelName
+        {
+            get => _labelName;
+            set
+            {
+                _labelName = value;
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(LabelName))
+                {
+                    _errorBaseViewModel.AddError(nameof(LabelName), "Vui lòng nhập tên thông tin!");
+                }
 
+                OnPropertyChanged();
+            }
+        }
+        private string _labelName;
+
+        public string TypeControl
+        {
+            get => _typeControl;
+            set
+            {
+                _typeControl = value;
+                _errorBaseViewModel.ClearErrors();
+                if (!IsValid(TypeControl))
+                {
+                    _errorBaseViewModel.AddError(nameof(TypeControl), "Vui lòng chọn loại thông tin!");
+                }
+
+                OnPropertyChanged();
+                OnPropertyChanged();
+            }
+        }
         private string _typeControl;
+        public bool HasErrors => _errorBaseViewModel.HasErrors;
+
+        public bool IsEnable { get => _isEnable; set { _isEnable = value; OnPropertyChanged(); } }
         private bool _isEnable;
 
         public ICommand DeleteInfoItemCommand { get => _deleteInfoItemCommand; set => _deleteInfoItemCommand = value; }
@@ -47,13 +83,17 @@ namespace StudentManagement.ViewModels
 
         public EditInfoItemViewModel(InfoItem infoItem)
         {
+            _errorBaseViewModel = new ErrorBaseViewModel();
+            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
             CurrendInfoItem = infoItem;
             DisplayInfoItem = new InfoItem(infoItem);
             ListItemInCombobox = new ObservableCollection<ItemInCombobox>();
             if (infoItem.Type == 2)
                 ConvertItemSourceToListItemCombobox();
             ConvertTypeToTypeControl();
-            
+         
+            LabelName = CurrendInfoItem.LabelName;
+
             AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
             DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
             UpdateInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateInfoItem());
@@ -81,6 +121,7 @@ namespace StudentManagement.ViewModels
             }
             else
                 DisplayInfoItem.Type = 0;
+            DisplayInfoItem.LabelName = LabelName;
             InfoItemServices.Instance.UpdateUserRole_UserInfoByInfoItem(DisplayInfoItem);
             UserInfoViewModel.Instance.LoadInfoSource();
 
@@ -131,6 +172,22 @@ namespace StudentManagement.ViewModels
                         break;
                     }
             }
+        }
+        private bool IsValid(string propertyName)
+        {
+            return !string.IsNullOrEmpty(propertyName) && !string.IsNullOrWhiteSpace(propertyName);
+        }
+
+        private void ErrorBaseViewModel_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(this, e);
+        }
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _errorBaseViewModel.GetErrors(propertyName);
         }
     }
 }
