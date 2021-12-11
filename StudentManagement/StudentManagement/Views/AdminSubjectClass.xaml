@@ -30,13 +30,16 @@
                 </Grid.Resources>
                 <StackPanel>
                     <TextBlock
+                        Grid.Column="0"
                         Margin="16"
                         FontWeight="Bold"
                         Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                         Text="Danh sách lớp môn học" />
+
                     <Grid Margin="16" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5.5*" />
+                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='SearchBarOneButton'}" />
                         </Grid.ColumnDefinitions>
                         <component:SearchBarOne
@@ -49,8 +52,35 @@
                             SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SecondSearchButtonText="Giáo viên"
                             SwitchSearchButton="{Binding SwitchSearchButton}" />
-                        <Button
+                        <ComboBox
                             Grid.Column="1"
+                            Height="51"
+                            Margin="16,0,0,0"
+                            Padding="16,4"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:HintAssist.Hint="Chọn học kỳ"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            ItemsSource="{Binding Semesters, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding SelectedSemester}"
+                            Style="{StaticResource combobox_item}"
+                            ToolTip="Mặc định là tất cả">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="DisplayName" />
+                                                <Binding Path="Batch" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button
+                            Grid.Column="2"
                             Height="50"
                             Margin="16,0,0,0"
                             materialDesign:ButtonAssist.CornerRadius="8"

@@ -21,10 +21,10 @@ namespace StudentManagement.ViewModels
     public class AdminSubjectClassViewModel : BaseViewModel
     {
         #region properties
-        static private ObservableCollection<SubjectClassCard> _storedSubjectClassCards;
+        static private ObservableCollection<SubjectClassCard> _storedSubjectClassCards = new ObservableCollection<SubjectClassCard>();
         public static ObservableCollection<SubjectClassCard> StoredSubjectClassCards { get => _storedSubjectClassCards; set => _storedSubjectClassCards = value; }
 
-        private static ObservableCollection<SubjectClassCard> _subjectClassCards;
+        private static ObservableCollection<SubjectClassCard> _subjectClassCards = new ObservableCollection<SubjectClassCard>();
 
         public static ObservableCollection<SubjectClassCard> SubjectClassCards { get => _subjectClassCards; set => _subjectClassCards = value; }
 
@@ -53,6 +53,22 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private Semester _selectedSemester;
+
+        public Semester SelectedSemester
+        {
+            get => _selectedSemester; set
+            {
+                _selectedSemester = value;
+                LoadSubjectClassListBySemester();
+            }
+        }
+
+        private ObservableCollection<Semester> _semesters;
+
+        public ObservableCollection<Semester> Semesters { get => _semesters; set => _semesters = value; }
+
         #endregion
 
         #region icommand
@@ -66,7 +82,7 @@ namespace StudentManagement.ViewModels
 
         public ICommand ShowSubjectClassDetail { get; set; }
 
-        #endregion 
+        #endregion
 
         public AdminSubjectClassViewModel()
         {
@@ -82,16 +98,13 @@ namespace StudentManagement.ViewModels
         {
             var subjectClasses = LoadSubjectClassListByRole();
 
-            StoredSubjectClassCards = new ObservableCollection<SubjectClassCard>();
-            SubjectClassCards = new ObservableCollection<SubjectClassCard>();
+            StoredSubjectClassCards.Clear();
 
             subjectClasses.ForEach(subjectClass => StoredSubjectClassCards.Add(SubjectClassServices.Instance.ConvertSubjectClassToSubjectClassCard(subjectClass)));
 
-            foreach (var subjectClass in StoredSubjectClassCards)
-            {
-                SubjectClassCards.Add(subjectClass);
-            }
+            LoadSubjectClassListBySemester();
 
+            LoadSemesters();
             #region temporary code
             /*
             StoredSubjectClassCards = new ObservableCollection<SubjectClassCard>()
@@ -133,6 +146,23 @@ namespace StudentManagement.ViewModels
             #endregion
         }
 
+        public void LoadSemesters()
+        {
+            SelectedSemester = null;
+            Semesters = new ObservableCollection<Semester>(DataProvider.Instance.Database.Semesters);
+        }
+
+        public void LoadSubjectClassListBySemester()
+        {
+            SubjectClassCards.Clear();
+
+            foreach (var subjectClass in StoredSubjectClassCards)
+            {
+                if (subjectClass.SelectedSemester == SelectedSemester || SelectedSemester == null)
+                    SubjectClassCards.Add(subjectClass);
+            }
+        }
+
         public List<SubjectClass> LoadSubjectClassListByRole()
         {
             var subjectClasses = SubjectClassServices.Instance.LoadSubjectClassList();
@@ -160,7 +190,8 @@ namespace StudentManagement.ViewModels
                                                     : vietnameseStringNormalizer.Normalize(x.GiaoVien).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
             SubjectClassCards.Clear();
             foreach (SubjectClassCard card in tmp)
-                SubjectClassCards.Add(card);
+                if (card.SelectedSemester == SelectedSemester || SelectedSemester == null)
+                    SubjectClassCards.Add(card);
         }
 
         public void ShowSubjectClassDetailFunction(UserControl cardComponent)
@@ -176,6 +207,7 @@ namespace StudentManagement.ViewModels
         #region eventhandler
         private void UpdateCurrentUser(object sender, LoginEvent e)
         {
+            LoadSemesters();
             LoadSubjectClassCards();
         }
         #endregion
