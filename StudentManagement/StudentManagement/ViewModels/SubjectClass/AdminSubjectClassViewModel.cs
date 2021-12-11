@@ -171,23 +171,24 @@ namespace StudentManagement.ViewModels
 
             var subjectClasses = SubjectClassServices.Instance.LoadSubjectClassList();
 
-            switch (LoginServices.CurrentUser?.UserRole?.Role)
+            if (LoginServices.CurrentUser != null)
             {
-                case "Admin":
-                    return subjectClasses.Where(el => true).ToList();
-                    break;
-                case "Giáo viên":
-                    List<SubjectClass> listSubjectClassTeacher = SubjectClassServices.Instance.MinimizeSubjectClassListBySemesterStatus(subjectClasses.ToList(), new bool[] { false, true, true });
-                    Teacher currentTeacher = TeacherServices.Instance.GetTeacherbyUser(LoginServices.CurrentUser);
-                    return listSubjectClassTeacher.Where(subjectClass => subjectClass.Teachers.FirstOrDefault() == currentTeacher).ToList();
-                    break;
-                default:
-                    Student currentStudent = StudentServices.Instance.FindStudentByUserId(LoginServices.CurrentUser.Id);
-                    List<SubjectClass> listSubjectClassStudent = CourseRegisterServices.Instance.LoadCourseRegisteredListByStudentId(currentStudent.Id).ToList();
-                    listSubjectClassStudent = SubjectClassServices.Instance.MinimizeSubjectClassListBySemesterStatus(listSubjectClassStudent, new bool[] { false, false, true });
-                    return listSubjectClassStudent;
-                    break;
+                switch (LoginServices.CurrentUser.UserRole.Role)
+                {
+                    case "Admin":
+                        return subjectClasses.Where(el => true).ToList();
+                    case "Giáo viên":
+                        List<SubjectClass> listSubjectClassTeacher = SubjectClassServices.Instance.MinimizeSubjectClassListBySemesterStatus(subjectClasses.ToList(), new bool[] { false, true, true });
+                        Teacher currentTeacher = TeacherServices.Instance.GetTeacherbyUser(LoginServices.CurrentUser);
+                        return listSubjectClassTeacher.Where(subjectClass => subjectClass.Teachers.FirstOrDefault() == currentTeacher).ToList();
+                    default:
+                        Student currentStudent = StudentServices.Instance.FindStudentByUserId(LoginServices.CurrentUser.Id);
+                        List<SubjectClass> listSubjectClassStudent = CourseRegisterServices.Instance.LoadCourseRegisteredListByStudentId(currentStudent.Id).ToList();
+                        listSubjectClassStudent = SubjectClassServices.Instance.MinimizeSubjectClassListBySemesterStatus(listSubjectClassStudent, new bool[] { false, false, true });
+                        return listSubjectClassStudent;
+                }
             }
+            return new List<SubjectClass>();
         }
 
         public void SwitchSearchButtonFunction(UserControl p)

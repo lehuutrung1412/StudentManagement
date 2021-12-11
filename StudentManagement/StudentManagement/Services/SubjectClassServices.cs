@@ -248,7 +248,6 @@ namespace StudentManagement.Services
                 TrainingForm = subjectClassCard.SelectedTrainingForm,
                 Semester = subjectClassCard.SelectedSemester,
                 WeekDay = DayOfWeeks.IndexOf(subjectClassCard.SelectedDay),
-                DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable()
             };
 
             return subjectClass;
