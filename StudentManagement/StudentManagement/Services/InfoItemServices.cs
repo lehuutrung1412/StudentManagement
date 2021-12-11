@@ -145,23 +145,32 @@ namespace StudentManagement.Services
         //{
         //    return DataProvider.Instance.Database.UserInfoes.Where(userInfo => userInfo.Id == id).FirstOrDefault();
         //}
-        public void AddUserRole_UserInfoByRoleAndInfoItem(InfoItem infoItem, string role)
+        public bool AddUserRole_UserInfoByRoleAndInfoItem(InfoItem infoItem, string role)
         {
-            Guid userRoleId = DataProvider.Instance.Database.UserRoles.Where(userRole => userRole.Role == role).FirstOrDefault().Id;
-            UserRole_UserInfo userRole_UserInfo = new UserRole_UserInfo()
+            try
             {
-                Id = Guid.NewGuid(),
-                IdRole = userRoleId,
-                InfoName = infoItem.LabelName,
-                Type = infoItem.Type,
-                IsEnable = infoItem.IsEnable,
-                IsDeleted = false,
-            };
-            DataProvider.Instance.Database.UserRole_UserInfo.Add(userRole_UserInfo);
-            DataProvider.Instance.Database.SaveChanges();
-            AddUser_UserRole_UserInfoByUserRole_UserInfo(userRole_UserInfo);
-            if(infoItem.Type==2)
-                AddUserRole_UserInfoItemByInfoItem(infoItem, role);
+                Guid userRoleId = DataProvider.Instance.Database.UserRoles.Where(userRole => userRole.Role == role).FirstOrDefault().Id;
+                UserRole_UserInfo userRole_UserInfo = new UserRole_UserInfo()
+                {
+                    Id = Guid.NewGuid(),
+                    IdRole = userRoleId,
+                    InfoName = infoItem.LabelName,
+                    Type = infoItem.Type,
+                    IsEnable = infoItem.IsEnable,
+                    IsDeleted = false,
+                };
+                DataProvider.Instance.Database.UserRole_UserInfo.Add(userRole_UserInfo);
+                DataProvider.Instance.Database.SaveChanges();
+                AddUser_UserRole_UserInfoByUserRole_UserInfo(userRole_UserInfo);
+                if (infoItem.Type == 2)
+                    AddUserRole_UserInfoItemByInfoItem(infoItem, role);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+          
         }
         public void AddUser_UserRole_UserInfoByUserRole_UserInfo(UserRole_UserInfo userRole_UserInfo)
         {

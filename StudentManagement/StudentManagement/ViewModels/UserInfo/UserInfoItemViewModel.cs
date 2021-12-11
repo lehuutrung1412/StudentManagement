@@ -107,7 +107,7 @@ namespace StudentManagement.ViewModels
             DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
             AddInfoItemCommand = new RelayCommand<object>((p) => 
             {
-                if ((!TypeStudent && !TypeLecturer && !TypeAdmin)||string.IsNullOrEmpty(TypeControl)||string.IsNullOrEmpty(CurrendInfo.LabelName)||IsHollowComboboxItem())
+                if ((!TypeStudent && !TypeLecturer && !TypeAdmin)||string.IsNullOrEmpty(TypeControl)||string.IsNullOrEmpty(LabelName)||IsHollowComboboxItem())
                     return false;
                 return true;                    
             }, 
@@ -138,15 +138,18 @@ namespace StudentManagement.ViewModels
           
             if (TypeStudent)
             {
-                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Sinh viên");
+                if (!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Sinh viên"))
+                    MyMessageBox.Show("Chưa tồn tại sinh viên trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             if (TypeLecturer)
             {
-                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Giáo viên");
+                if(!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Giáo viên"))
+                    MyMessageBox.Show("Chưa tồn tại giáo viên trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             if (TypeAdmin)
             {
-                InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin");
+                if(!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin"))
+                    MyMessageBox.Show("Chưa tồn tại Admin trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             SettingUserInfoViewModel.Instance.IsOpen = false;
             UserInfoViewModel.Instance.LoadInfoSource();

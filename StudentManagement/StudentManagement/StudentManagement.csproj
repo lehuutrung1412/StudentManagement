@@ -503,6 +503,7 @@
     <Compile Include="ViewModels\Subject\AdminSubjectRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\Subject\AdminSubjectRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\Subject\AdminSubjectViewModel.cs" />
+    <Compile Include="ViewModels\UserInfo\InfoItemViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\SettingUserInfoViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\FileManagerRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\SubjectClass\AdminSubjectClassRightSideBarItemEditViewModel.cs" />

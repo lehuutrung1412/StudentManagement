@@ -25,19 +25,22 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
-            <TextBox materialDesign:HintAssist.Hint="{Binding LabelName}" Text="{Binding Value}">
+            <Label Content="{Binding CurrendInfoItem.LabelName}" Style="{StaticResource LabelText}" />
+            <TextBox materialDesign:HintAssist.Hint="{Binding CurrendInfoItem.LabelName}" Text="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <TextBox.Style>
                     <Style BasedOn="{StaticResource textbox_item}" TargetType="TextBox">
                         <Setter Property="IsEnabled" Value="False" />
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsEnable}" Value="true" />
+                                    <Condition Binding="{Binding CurrendInfoItem.IsEnable}" Value="true" />
                                     <Condition Binding="{Binding IsUpdate, Source={StaticResource UserInfoVM}}" Value="true" />
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="True" />
                             </MultiDataTrigger>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MaterialDesignValidationErrorBrush}" />
+                            </Trigger>
                         </Style.Triggers>
                     </Style>
                 </TextBox.Style>

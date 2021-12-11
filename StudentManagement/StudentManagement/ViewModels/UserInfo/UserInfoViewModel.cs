@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using StudentManagement.Models;
+using StudentManagement.ViewModels.UserInfo;
 
 namespace StudentManagement.ViewModels
 {
@@ -24,9 +25,9 @@ namespace StudentManagement.ViewModels
             private set => s_instance = value;
         }
 
-        private ObservableCollection<InfoItem> _infoSource;
+        private ObservableCollection<InfoItemViewModel> _infoSource;
 
-        public ObservableCollection<InfoItem> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
+        public ObservableCollection<InfoItemViewModel> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
 
         private List<InfoItem> _displaySource;
 
@@ -133,7 +134,17 @@ namespace StudentManagement.ViewModels
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
             UpdateUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateUserInfo());
-            ConfirmUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => ComfirmUserInfo());
+            ConfirmUserInfoCommand = new RelayCommand<object>(
+                (p) => 
+                { 
+                    foreach(var infoItem in InfoSource)
+                    {
+                        if (infoItem.HasErrors)
+                            return false;
+                    }    
+                    return true; 
+                }, 
+                (p) => ComfirmUserInfo());
         }
 
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
@@ -145,45 +156,48 @@ namespace StudentManagement.ViewModels
         public void LoadInfoSource()
         {
             var user = UserServices.Instance.GetUserById(IdUser);
-            InfoSource = new ObservableCollection<InfoItem>()
+            InfoSource = new ObservableCollection<InfoItemViewModel>()
             {
-                new InfoItem(Guid.NewGuid(),"Họ và tên",0,null,user.DisplayName,false),
-                new InfoItem(Guid.NewGuid(),"Địa chỉ email",0,null,user.Email,false),
+                new InfoItemViewModel(new InfoItem(Guid.NewGuid(),"Họ và tên",0,null,user.DisplayName,false)),
             };
+            if (string.IsNullOrEmpty(user.Email))
+                InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Địa chỉ email", 0, null, user.Email, true)));
+            else
+                InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Địa chỉ email", 0, null, user.Email, false)));
             switch (user.UserRole.Role)
             {
                 case "Sinh viên":
                     {
                         var student = StudentServices.Instance.GetStudentbyUser(user);
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Khoa",2,FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName,false));
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(),"Hệ đào tạo",2,TrainingFormServices.Instance.LoadListTrainingForm(),student.TrainingForm.DisplayName,false));
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(),"Khoa",2,FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName,false)));
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(),"Hệ đào tạo",2,TrainingFormServices.Instance.LoadListTrainingForm(),student.TrainingForm.DisplayName,false)));
                         break;
                     }
                 case "Giáo viên":
                     {
                         var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), lecture.Faculty.DisplayName, false));
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), lecture.Faculty.DisplayName, false)));
                         break;
                     }
                 case "Admin":
                     {
-                        foreach(var infoItem in InfoSource)
-                            infoItem.IsEnable = true;
+                        foreach(var infoItemViewModel in InfoSource)
+                            infoItemViewModel.CurrendInfoItem.IsEnable = true;
                         break;
                     }
             }    
             var listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(IdUser);
             foreach(var infoItem in listInfoItem)
             {
-                InfoSource.Add(infoItem);
+                InfoSource.Add(new InfoItemViewModel(infoItem));
             }    
         }
         public void ComfirmUserInfo()
         {
             if (MyMessageBox.Show("Bạn có muốn cập nhật thông tin", "Thông báo", System.Windows.MessageBoxButton.OKCancel, System.Windows.MessageBoxImage.Information) != System.Windows.MessageBoxResult.OK)
             {
-                InfoSource = new ObservableCollection<InfoItem>();
-                DisplaySource.ForEach(info => InfoSource.Add(new InfoItem(info)));
+                InfoSource = new ObservableCollection<InfoItemViewModel>();
+                DisplaySource.ForEach(info => InfoSource.Add(new InfoItemViewModel(new InfoItem(info))));
             }
             else
             {
@@ -191,22 +205,23 @@ namespace StudentManagement.ViewModels
                 //InfoSource.ToList().ForEach(item => InfoItemServices.Instance.UpdateUser_UserRole_UserInfoByInfoItem(item));
                 foreach (var infoItem in InfoSource)
                 {
-                    switch (infoItem.LabelName)
+                    infoItem.UpdateValue();
+                    switch (infoItem.CurrendInfoItem.LabelName)
                     {
                         case "Họ và tên":
                             {
-                                user.DisplayName = infoItem.Value.ToString();
+                                user.DisplayName = infoItem.CurrendInfoItem.Value.ToString();
                                 break;
                             }
                         case "Địa chỉ email":
                             {
-                                user.Email = infoItem.Value.ToString();
+                                user.Email = infoItem.CurrendInfoItem.Value.ToString();
                                 break;
                             }
                         case "Hệ đào tạo":
                             {
                                 var student = StudentServices.Instance.GetStudentbyUser(user);
-                                student.IdTrainingForm = DataProvider.Instance.Database.TrainingForms.FirstOrDefault(trainingForm=>trainingForm.DisplayName== infoItem.Value.ToString()).Id;
+                                student.IdTrainingForm = DataProvider.Instance.Database.TrainingForms.FirstOrDefault(trainingForm=>trainingForm.DisplayName== infoItem.CurrendInfoItem.Value.ToString()).Id;
                                 break;
                             }
                         case "Khoa":
@@ -216,13 +231,13 @@ namespace StudentManagement.ViewModels
                                     case "Sinh viên":
                                         {
                                             var student = StudentServices.Instance.GetStudentbyUser(user);
-                                            student.IdFaculty = DataProvider.Instance.Database.Faculties.FirstOrDefault(faculty=> faculty.DisplayName== infoItem.Value.ToString()).Id;
+                                            student.IdFaculty = DataProvider.Instance.Database.Faculties.FirstOrDefault(faculty=> faculty.DisplayName== infoItem.CurrendInfoItem.Value.ToString()).Id;
                                             break;
                                         }
                                     case "Giáo viên":
                                         {
                                             var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
-                                            lecture.IdFaculty = DataProvider.Instance.Database.Faculties.FirstOrDefault(faculty => faculty.DisplayName == infoItem.Value.ToString()).Id;
+                                            lecture.IdFaculty = DataProvider.Instance.Database.Faculties.FirstOrDefault(faculty => faculty.DisplayName == infoItem.CurrendInfoItem.Value.ToString()).Id;
                                             break;
                                         }
                                 }
@@ -231,7 +246,7 @@ namespace StudentManagement.ViewModels
 
                         default:
                             {
-                                InfoItemServices.Instance.UpdateUser_UserRole_UserInfoByInfoItem(infoItem);
+                                InfoItemServices.Instance.UpdateUser_UserRole_UserInfoByInfoItem(infoItem.CurrendInfoItem);
                                 break;
                             }
                     }
@@ -246,7 +261,7 @@ namespace StudentManagement.ViewModels
             DisplaySource = new List<InfoItem>();
             foreach(var info in InfoSource)
             {
-                var item = new InfoItem(info);
+                var item = new InfoItem(info.CurrendInfoItem);
                 DisplaySource.Add(item);
             }    
         }
