@@ -165,7 +165,7 @@ namespace StudentManagement.Services
         public bool IsValidPeriod(string period)
         {
             // Max period of subject class is 5
-            if (period.Length <= 5)
+            if (period?.Length <= 5)
             {
                 try
                 {
@@ -213,7 +213,23 @@ namespace StudentManagement.Services
 
         public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
         {
-            SubjectClassCard subjectClassCard = new SubjectClassCard(subjectClass.Id, subjectClass.Subject, subjectClass, subjectClass.Code, "Nguyễn Tấn Toàn", 100);
+            var DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
+
+            SubjectClassCard subjectClassCard = new SubjectClassCard()
+            {
+                Id = subjectClass.Id,
+                Code = subjectClass.Code,
+                StartDate = subjectClass.StartDate,
+                EndDate = subjectClass.EndDate,
+                Period = subjectClass.Period,
+                MaxNumberOfStudents = subjectClass.MaxNumberOfStudents,
+                NumberOfStudents = subjectClass.NumberOfStudents,
+                GiaoVien = "Nguyễn Tấn Toàn",
+                SelectedSubject = subjectClass.Subject,
+                SelectedTrainingForm = subjectClass.TrainingForm,
+                SelectedSemester = subjectClass.Semester,
+                SelectedDay = DayOfWeeks[(int)subjectClass.WeekDay],
+            };
             return subjectClassCard;
         }
 
@@ -223,8 +239,16 @@ namespace StudentManagement.Services
             {
                 Id = subjectClassCard.Id,
                 Code = subjectClassCard.Code,
-                Subject = subjectClassCard.SubjectOfClass,
-                IdSubject = subjectClassCard.SubjectOfClass.Id,
+                StartDate = subjectClassCard.StartDate,
+                EndDate = subjectClassCard.EndDate,
+                Period = subjectClassCard.Period,
+                MaxNumberOfStudents = subjectClassCard.MaxNumberOfStudents,
+                //GiaoVien = "Nguyễn Tấn Toàn",
+                Subject = subjectClassCard.SelectedSubject,
+                TrainingForm = subjectClassCard.SelectedTrainingForm,
+                Semester = subjectClassCard.SelectedSemester,
+                WeekDay = DayOfWeeks.IndexOf(subjectClassCard.SelectedDay),
+                DatabaseImageTable = DatabaseImageTableServices.Instance.GetDatabaseImageTable()
             };
 
             return subjectClass;
@@ -240,8 +264,9 @@ namespace StudentManagement.Services
 
                 return success;
             }
-            catch
+            catch (Exception e)
             {
+                MyMessageBox.Show(e.Message);
                 return false;
             }
         }

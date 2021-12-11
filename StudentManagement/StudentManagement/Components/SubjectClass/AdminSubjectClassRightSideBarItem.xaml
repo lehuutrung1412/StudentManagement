@@ -62,6 +62,8 @@
                         </Button.Style>
                     </Button>
                 </Grid>
+
+                <!--  Tên môn học  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -72,13 +74,15 @@
                         Grid.Column="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Tên môn học:" />
+                        Text="Môn học:" />
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.SubjectOfClass.DisplayName, FallbackValue='Ten Mon Hoc'}"
+                        Text="{Binding CurrentCard.SelectedSubject.DisplayName, FallbackValue='Ten Mon Hoc'}"
                         TextAlignment="Right" />
                 </Grid>
+
+                <!--  Mã môn học  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -93,9 +97,55 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.SubjectOfClass.Code, FallbackValue='Mã Mon Hoc'}"
+                        Text="{Binding CurrentCard.SelectedSubject.Code, FallbackValue='Mã Mon Hoc'}"
                         TextAlignment="Right" />
                 </Grid>
+
+                <!--  Hệ đào tạo  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Hệ đào tạo:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.SelectedTrainingForm.DisplayName, FallbackValue='Hệ đào tạo'}"
+                        TextAlignment="Right" />
+                </Grid>
+
+                <!--  Học kỳ năm học  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Học kỳ:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        TextAlignment="Right">
+                        <TextBlock.Text>
+                            <MultiBinding FallbackValue="Học kỳ" StringFormat="{}{0} {1}">
+                                <Binding Path="CurrentCard.SelectedSemester.DisplayName" />
+                                <Binding Path="CurrentCard.SelectedSemester.Batch" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+
+                <!--  Mã lớp học  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -113,6 +163,59 @@
                         Text="{Binding CurrentCard.Code, FallbackValue='Code'}"
                         TextAlignment="Right" />
                 </Grid>
+
+                <!--  Lịch học  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Lịch học:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        TextAlignment="Right">
+                        <TextBlock.Text>
+                            <MultiBinding FallbackValue="lịch học" StringFormat="{}Tiết {0} {1}">
+                                <Binding Path="CurrentCard.Period" />
+                                <Binding Path="CurrentCard.SelectedDay" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+
+                <!--  Thời gian học  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Thời gian:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        TextAlignment="Right"
+                        ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}">
+                        <TextBlock.Text>
+                            <MultiBinding FallbackValue="lịch học" StringFormat="{}Từ {0:dd/MM/yy} đến {1:dd/MM/yy}">
+                                <Binding Path="CurrentCard.StartDate" />
+                                <Binding Path="CurrentCard.EndDate" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+
+                <!--  Giáo viên  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -130,6 +233,8 @@
                         Text="{Binding CurrentCard.GiaoVien, FallbackValue='Ten Giao Vien'}"
                         TextAlignment="Right" />
                 </Grid>
+
+                <!--  Sĩ số  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -144,9 +249,30 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.SiSo, FallbackValue='Si so'}"
+                        Text="{Binding CurrentCard.NumberOfStudents, FallbackValue='Si so'}"
                         TextAlignment="Right" />
                 </Grid>
+
+                <!--  Sĩ số tối đa  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Sĩ số tối đa:" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource textblock_item}"
+                        Text="{Binding CurrentCard.MaxNumberOfStudents, FallbackValue='Si so'}"
+                        TextAlignment="Right" />
+                </Grid>
+
+
             </StackPanel>
         </ScrollViewer>
         <Grid

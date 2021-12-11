@@ -122,6 +122,9 @@ namespace StudentManagement.ViewModels
         #region methods
         public void InitNavigationItemsByRole()
         {
+            _layoutViewModel.ContentViewModel = _adminHomeViewModel;
+            _layoutViewModel.RightSideBar = _adminHomeRightSideBar;
+
             switch (LoginServices.CurrentUser.UserRole.Role)
             {
                 case "Admin":

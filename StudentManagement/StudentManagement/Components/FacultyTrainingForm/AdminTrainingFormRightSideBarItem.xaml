@@ -27,9 +27,8 @@
             <StackPanel Margin="8">
                 <TextBlock
                     Margin="0,0,0,16"
-                    FontSize="24"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                     Text="Thông tin chi tiết"
                     TextWrapping="Wrap" />
 
@@ -94,10 +93,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button
-                Grid.Column="3"
+                Grid.Column="2"
                 Command="{Binding EditTrainingFormCardInfo}"
                 CommandParameter="{Binding ElementName=TrainingFormRightSideBar, Path=DataContext.CurrentCard}"
                 Content="Sửa"
@@ -105,7 +103,7 @@
                 FontSize="16"
                 Style="{StaticResource rounded_btn}" />
             <Button
-                Grid.Column="2"
+                Grid.Column="1"
                 Background="{StaticResource DarkGray}"
                 Command="{Binding DeleteTrainingFormCardInfo}"
                 CommandParameter="{Binding ElementName=TrainingFormRightSideBar, Path=DataContext.CurrentCard}"

@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using StudentManagement.Objects;
 using static StudentManagement.ViewModels.AdminStudentListViewModel;
 
 namespace StudentManagement.ViewModels

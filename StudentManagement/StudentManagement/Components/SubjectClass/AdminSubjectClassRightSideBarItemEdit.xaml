@@ -63,6 +63,8 @@
                         </Button.Style>
                     </Button>
                 </Grid>
+
+                <!--  Tên môn học  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -73,12 +75,13 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Tên môn học" />
+                        Text="Môn học" />
 
                     <ComboBox
                         Grid.Row="1"
-                        ItemsSource="{Binding CurrentCard.SubjectList}"
-                        SelectedItem="{Binding CurrentCard.SubjectOfClass}"
+                        materialDesign:HintAssist.Hint="Chọn môn học"
+                        ItemsSource="{Binding CurrentCard.Subjects}"
+                        SelectedItem="{Binding CurrentCard.SelectedSubject}"
                         Style="{StaticResource combobox_item}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -89,6 +92,7 @@
 
                 </Grid>
 
+                <!--  Mã môn học  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -103,9 +107,10 @@
 
                     <ComboBox
                         Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Mã môn học ứng với môn học"
                         IsEnabled="False"
-                        ItemsSource="{Binding CurrentCard.SubjectList, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedItem="{Binding CurrentCard.SubjectOfClass}"
+                        ItemsSource="{Binding CurrentCard.Subjects, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding CurrentCard.SelectedSubject}"
                         Style="{StaticResource combobox_item}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -113,9 +118,9 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-
                 </Grid>
 
+                <!--  Hệ đào tạo  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -126,16 +131,137 @@
                         Grid.Row="0"
                         FontWeight="Bold"
                         Style="{StaticResource textblock_item}"
-                        Text="Mã lớp học" />
+                        Text="Hệ đào tạo" />
+
+                    <ComboBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Chọn hệ đào tạo"
+                        ItemsSource="{Binding CurrentCard.TrainingForms, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding CurrentCard.SelectedTrainingForm}"
+                        Style="{StaticResource combobox_item}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+
+                <!--  Học kỳ  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Học kỳ" />
+
+                    <ComboBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Chọn học kỳ"
+                        ItemsSource="{Binding CurrentCard.Semesters, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding CurrentCard.SelectedSemester}"
+                        Style="{StaticResource combobox_item}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <!--<TextBlock Text="{Binding DisplayName}" />-->
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="DisplayName" />
+                                            <Binding Path="Batch" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+
+                <!--  Lịch học tiết học  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Thứ" />
+
+                    <ComboBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Chọn thứ"
+                        ItemsSource="{Binding CurrentCard.DayOfWeeks}"
+                        SelectedItem="{Binding CurrentCard.SelectedDay}"
+                        Style="{StaticResource combobox_item}" />
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Tiết" />
 
                     <TextBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập mã lớp học"
+                        Grid.Column="1"
+                        materialDesign:HintAssist.Hint="Nhập tiết học"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.Code, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding CurrentCard.Period, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
+                <!--  Ngày bắt đầu, ngày kết thúc  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Ngày bắt đầu" />
 
+                    <DatePicker
+                        Name="dpStart"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                        SelectedDate="{Binding CurrentCard.StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Style="{StaticResource datepicker_item}" />
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Ngày kết thúc" />
+
+                    <DatePicker
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        materialDesign:HintAssist.Hint="Ngày kết thúc"
+                        SelectedDate="{Binding CurrentCard.EndDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Style="{StaticResource datepicker_item}" />
+                </Grid>
+
+                <!--  Giáo viên  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -155,6 +281,27 @@
                         Text="{Binding CurrentCard.GiaoVien, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
 
+                <!--  Mã lớp học  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Mã lớp học" />
+
+                    <TextBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Nhập mã lớp học"
+                        Style="{StaticResource textbox_item}"
+                        Text="{Binding CurrentCard.Code, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+
+                <!--  Sĩ số  -->
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -169,10 +316,29 @@
 
                     <TextBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập sĩ số lớp"
                         IsEnabled="False"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.SiSo}" />
+                        Text="{Binding CurrentCard.NumberOfStudents, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+
+                <!--  Số lượng sinh viên tối đa  -->
+                <Grid Style="{StaticResource text_grid_item}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontWeight="Bold"
+                        Style="{StaticResource textblock_item}"
+                        Text="Sĩ số tối đa" />
+
+                    <TextBox
+                        Grid.Row="1"
+                        materialDesign:HintAssist.Hint="Nhập sĩ số tối đa lớp"
+                        Style="{StaticResource textbox_item}"
+                        Text="{Binding CurrentCard.MaxNumberOfStudents, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </StackPanel>
         </ScrollViewer>
@@ -190,7 +356,9 @@
                 Command="{Binding ConfirmEditSubjectClassCardInfo}"
                 Content="Lưu"
                 FontSize="16"
-                Style="{StaticResource rounded_btn}" />
+                Style="{StaticResource rounded_btn}"
+                ToolTip="Bạn chưa điền đầy đủ thông tin"
+                ToolTipService.ShowOnDisabled="True" />
             <Button
                 Grid.Column="1"
                 Background="{StaticResource DarkGray}"
