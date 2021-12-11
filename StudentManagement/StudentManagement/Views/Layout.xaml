@@ -113,6 +113,9 @@
                     <DataTemplate DataType="{x:Type viewmodels:CampusStudentListViewModel}">
                         <views:CampusStudentList />
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:SettingSubjectClassDetailViewModel}">
+                        <components:SettingSubjectClassDetail />
+                    </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
         </Grid>

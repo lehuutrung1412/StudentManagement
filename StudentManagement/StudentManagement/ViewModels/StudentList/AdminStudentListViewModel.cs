@@ -133,26 +133,6 @@ namespace StudentManagement.ViewModels
 
             InitChartParemeter();
 
-            //StudentDatabase = new ObservableCollection<StudentGrid>();
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", Number = 1 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", Number = 2 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", Number = 3 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", Number = 4 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", Number = 5 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", Number = 6 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh Huy", Email = "example6@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520129", Number = 6 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh Huy Cầu Vòng", Email = "example7@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520130", Number = 6 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh RainbowShine", Email = "example8@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520131", Number = 6 });
-            //StudentDatabase.Add(new StudentGrid { DisplayName = "Nguyễn Minh UIT.Leader", Email = "example9@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520132", Number = 6 });
-
-            //StudentClass = new ObservableCollection<StudentGrid>();
-            //StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Tấn Trần Minh Khang", Email = "example0@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520123", IsSelected = false });
-            //StudentClass.Add(new StudentGrid { DisplayName = "Ngô Quang Vinh", Email = "example1@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520124", IsSelected = false });
-            //StudentClass.Add(new StudentGrid { DisplayName = "Lê Hữu Trung", Email = "example2@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520125", IsSelected = false });
-            //StudentClass.Add(new StudentGrid { DisplayName = "Hứa Thanh Tân", Email = "example3@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520126", IsSelected = false });
-            //StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Đỗ Mạnh Cường", Email = "example4@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520127", IsSelected = false });
-            //StudentClass.Add(new StudentGrid { DisplayName = "Nguyễn Đình Bình An", Email = "example5@gmail.com", Gender = "Nam", Faculty = "KHMT", Status = "Online", Username = "19520128", IsSelected = false });
-
             StudentScore = new ObservableCollection<DetailScore>();
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "1", IDStudent = "19520123" });
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "6", IDStudent = "19520124" });
