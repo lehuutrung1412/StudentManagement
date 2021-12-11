@@ -59,11 +59,15 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private StudentGrid _selectedItem;
-        public StudentGrid SelectedItem
+        private object _selectedItem;
+        public object SelectedItem
         {
             get => _selectedItem;
-            set => _selectedItem = value;
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged();
+            }
         }
 
         private bool _isSelectedAll;

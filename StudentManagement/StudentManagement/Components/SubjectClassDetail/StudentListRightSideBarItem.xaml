@@ -20,14 +20,14 @@
     mc:Ignorable="d">
     <Grid Margin="8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
             <TextBlock
-                Margin="4 0 4 8"
+                Margin="4,0,4,8"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline6TextBlock}">
                 <Run Text="Thông tin sinh viên" />
@@ -36,7 +36,7 @@
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -48,13 +48,14 @@
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding SelectedItem.Username, FallbackValue='19522424'}"
-                    TextAlignment="Right" />
+                    TextAlignment="Right"
+                    ToolTip="{Binding SelectedItem.Username, FallbackValue='19522424'}" />
             </Grid>
 
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -64,15 +65,17 @@
                     Text="Họ tên:" />
                 <TextBlock
                     Grid.Column="1"
+                    MaxWidth="180"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding SelectedItem.DisplayName, FallbackValue='Lê Hữu Trung'}"
-                    TextAlignment="Right" />
+                    TextAlignment="Right"
+                    ToolTip="{Binding SelectedItem.DisplayName, FallbackValue='Lê Hữu Trung'}" />
             </Grid>
 
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -84,13 +87,14 @@
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding SelectedItem.Email, FallbackValue='admin@gmail.com'}"
-                    TextAlignment="Right" />
+                    TextAlignment="Right"
+                    ToolTip="{Binding SelectedItem.Email, FallbackValue='admin@gmail.com'}" />
             </Grid>
 
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
@@ -102,16 +106,17 @@
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding SelectedItem.Faculty, FallbackValue='Khoa học máy tính'}"
-                    TextAlignment="Right" />
+                    TextAlignment="Right"
+                    ToolTip="{Binding SelectedItem.Faculty, FallbackValue='Khoa học máy tính'}" />
             </Grid>
 
         </StackPanel>
 
-        <Separator Grid.Row="1" Margin="0 16"/>
+        <Separator Grid.Row="1" Margin="0,16" />
 
         <StackPanel Grid.Row="2">
             <TextBlock
-                Margin="4 0 4 8"
+                Margin="4,0,4,8"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline6TextBlock}">
                 <Run Text="Điểm số sinh viên" />
@@ -204,9 +209,7 @@
             </Grid>
             <Button
                 Command="{Binding EditDetailScore}"
-                CommandParameter="{Binding ElementName=StudentListRightSideBar, Path=DataContext.CurrentScore}"
-                Style="{StaticResource rounded_btn}"
-                DataContext="{DynamicResource StudentListRightSideBarVM}">
+                Style="{StaticResource rounded_btn}">
                 <TextBlock Text="Cập nhật" />
             </Button>
         </StackPanel>

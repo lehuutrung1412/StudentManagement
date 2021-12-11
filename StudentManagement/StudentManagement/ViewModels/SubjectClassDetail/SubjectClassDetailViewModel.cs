@@ -87,9 +87,11 @@ namespace StudentManagement.ViewModels
             (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).PropertyChanged += FileManagerClassDetailViewModel_PropertyChanged;
             
             _adminStudentListViewModel = new AdminStudentListViewModel();
+            (_adminStudentListViewModel as AdminStudentListViewModel).PropertyChanged += StudentListViewModel_PropertyChanged;
 
             _layoutViewModel.ContentViewModel = _newFeedSubjectClassDetailViewModel;
         }
+
 
         public void InitRightSideBar(SubjectClass subjectClass)
         {
@@ -143,6 +145,15 @@ namespace StudentManagement.ViewModels
             {
                 object selectedFile = (_fileManagerClassDetailViewModel as FileManagerClassDetailViewModel).SelectedFile;
                 (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).CurrentFile = selectedFile as FileInfo;
+            }
+        }
+
+        private void StudentListViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedItem")
+            {
+                object selectedItem = (_adminStudentListViewModel as AdminStudentListViewModel).SelectedItem;
+                (_studentListRightSideBar as StudentListRightSideBarViewModel).SelectedItem = selectedItem as StudentGrid;
             }
         }
         #endregion Events

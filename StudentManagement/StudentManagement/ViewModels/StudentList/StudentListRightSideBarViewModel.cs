@@ -3,6 +3,7 @@ using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,14 +14,6 @@ namespace StudentManagement.ViewModels
 {
     public class StudentListRightSideBarViewModel : BaseViewModel
     {
-        private static StudentListRightSideBarViewModel s_instance;
-        public static StudentListRightSideBarViewModel Instance
-        {
-            get => s_instance ?? (s_instance = new StudentListRightSideBarViewModel());
-
-            private set => s_instance = value;
-        }
-
         private object _rightSideBarItemViewModel;
 
         public object RightSideBarItemViewModel
@@ -47,18 +40,23 @@ namespace StudentManagement.ViewModels
             set
             {
                 _selectedItem = value;
-                
-                if (_selectedItem != null)
-                {
-                    SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
-                    if (SelectedScore == null)
-                    {
-                        StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", QuaTrinh = "0", ThucHanh = "0", DiemTB = "0", IDStudent = SelectedItem.Username });
-                        SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
-                    }
-                    _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SelectedScore);
-                    RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;
-                }
+
+                //if (_selectedItem != null)
+                //{
+                //    SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
+                //    if (SelectedScore == null)
+                //    {
+                //        StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", QuaTrinh = "0", ThucHanh = "0", DiemTB = "0", IDStudent = SelectedItem.Username });
+                //        SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
+                //    }
+                //    _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SelectedScore);
+                //    RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;
+                //}
+                //SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
+                (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel).SelectedItem = SelectedItem;
+                (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel).CurrentScore = SelectedScore;
+                RightSideBarItemViewModel = _selectedItem == null ? _emptyStateRightSideBarViewModel : _studentListRightSideBarItemViewModel;
+
                 OnPropertyChanged();
             }
         }
@@ -74,20 +72,12 @@ namespace StudentManagement.ViewModels
         }
 
         private object _studentListRightSideBarItemViewModel;
-
+        private object _studentListRightSideBarItemEditViewModel;
         private object _emptyStateRightSideBarViewModel;
-
-        public ICommand EditDetailScore { get => _editDetailScore; set => _editDetailScore = value; }
-
-        private ICommand _editDetailScore;
-
 
         public StudentListRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
-            InitRightSideBarCommand();
-
-            Instance = this;
 
             StudentScore = new ObservableCollection<DetailScore>();
             StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520123" });
@@ -100,21 +90,40 @@ namespace StudentManagement.ViewModels
 
         public void InitRightSideBarItemViewModel()
         {
-            _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel();
             _emptyStateRightSideBarViewModel = new EmptyStateRightSideBarViewModel();
+
+            _studentListRightSideBarItemEditViewModel = new StudentListRightSideBarItemEditViewModel();
+            (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).PropertyChanged += StudentListRightSideBarItemEditViewModel_PropertyChanged;
+
+            _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel();
+            (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel).PropertyChanged += StudentListRightSideBarItemViewModel_PropertyChanged;
+
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
 
-        public void InitRightSideBarCommand()
+        private void StudentListRightSideBarItemViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            EditDetailScore = new RelayCommand<object>((p) => { return true; }, (p) => EditDetailScoreFunction(p));
+            if (e.PropertyName == "SwitchToEdit")
+            {
+                var studentListItem = (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel);
+                if (studentListItem.SwitchToEdit)
+                {
+                    (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).ActualScore = SelectedScore;
+                    RightSideBarItemViewModel = _studentListRightSideBarItemEditViewModel;
+                }
+            }
         }
 
-        public void EditDetailScoreFunction(object p)
+        private void StudentListRightSideBarItemEditViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            DetailScore currentScore = p as DetailScore;
-            _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemEditViewModel(currentScore);
-            RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;
+            if (e.PropertyName == "SwitchToView")
+            {
+                var studentListItem = (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel);
+                if (studentListItem.SwitchToView)
+                {
+                    RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;
+                }
+            }
         }
     }
 }

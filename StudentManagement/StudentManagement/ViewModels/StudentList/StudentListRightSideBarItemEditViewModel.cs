@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static StudentManagement.ViewModels.AdminStudentListViewModel;
 
 namespace StudentManagement.ViewModels
 {
@@ -19,10 +18,21 @@ namespace StudentManagement.ViewModels
         private DetailScore _actualScore;
         public DetailScore ActualScore { get => _actualScore; set => _actualScore = value; }
 
+        public bool SwitchToView { get => _switchToView; set { _switchToView = value; OnPropertyChanged(); } }
+
+        private bool _switchToView;
+
+        public ICommand ConfirmEditDetailScore { get => _confirmEditDetailScore; set => _confirmEditDetailScore = value; }
+
+        private ICommand _confirmEditDetailScore;
+
+        public ICommand CancelEditDetailScore { get => _cancelEditDetailScore; set => _cancelEditDetailScore = value; }
+
+        private ICommand _cancelEditDetailScore;
+
         public StudentListRightSideBarItemEditViewModel()
         {
-            CurrentScore = null;
-            ActualScore = null;
+            InitCommand();
         }
 
         public StudentListRightSideBarItemEditViewModel(DetailScore x)
@@ -32,13 +42,6 @@ namespace StudentManagement.ViewModels
             InitCommand();
         }
 
-        public ICommand ConfirmEditDetailScore { get => _confirmEditDetailScore; set => _confirmEditDetailScore = value; }
-
-        private ICommand _confirmEditDetailScore;
-
-        public ICommand CancelEditDetailScore { get => _cancelEditDetailScore; set => _cancelEditDetailScore = value; }
-
-        private ICommand _cancelEditDetailScore;
 
         public void InitCommand()
         {
@@ -72,8 +75,7 @@ namespace StudentManagement.ViewModels
 
         public void ReturnToShowDetailScore()
         {
-            StudentListRightSideBarViewModel studentListRightSideBarViewModel = StudentListRightSideBarViewModel.Instance;
-            studentListRightSideBarViewModel.RightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(ActualScore);
+            SwitchToView = true;
         }
 
 

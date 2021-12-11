@@ -23,8 +23,6 @@
     <viewmodel:AdminHomeRightSideBarViewModel x:Key="AdminHomeRightSideBarVM" />
     <viewmodel:StudentScheduleTableViewModel x:Key="StudentScheduleTableVM" />
     <viewmodel:AdminCourseRegistryViewModel x:Key="AdminCourseRegistryVM" />
-    <viewmodel:AdminStudentListViewModel x:Key="AdminStudentListVM" />
-    <viewmodel:StudentListRightSideBarViewModel x:Key="StudentListRightSideBarVM" />
     <viewmodel:SettingUserInfoViewModel x:Key="SettingUserInfoVM" />
     <viewmodel:AdminCourseRegistryRightSideBarViewModel x:Key="AdminCourseRegistryRightSideBarVM" />
     <viewmodel:CampusStudentListViewModel x:Key="CampusStudentListVM" />
