@@ -20,100 +20,119 @@
     mc:Ignorable="d">
     <Grid>
         <materialDesign:Card Style="{StaticResource CardContainer}">
-            <StackPanel>
-                <TextBlock
-                    Margin="16,16,16,0"
-                    FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="Cài đặt" />
-                <Grid Margin="16,16,16,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="auto" />
-                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        Text="Điểm thành phần" />
-                    <ItemsControl Grid.Row="1" ItemsSource="{Binding ListComponentScore, UpdateSourceTrigger=PropertyChanged}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Margin="0,4" />
-                            </ItemsPanelTemplate>
 
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="2,8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="auto" />
-
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox
-                                        x:Name="txbItem"
-                                        Grid.Column="0"
-                                        materialDesign:HintAssist.Hint="Tên cột điểm thành phần"
-                                        materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
-                                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                        Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                                    <TextBox
-                                        Margin="8 0"
-                                        Grid.Column="1"
-                                        materialDesign:HintAssist.Hint="Phần trăm"
-                                        materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
-                                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                        Text="{Binding Percent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                                    <Button
-                                        Grid.Column="2"
-                                        HorizontalAlignment="Center"
-                                        Background="Transparent"
-                                        Command="{Binding DeleteItemCommand}"
-                                        CommandParameter="{Binding ElementName=txbItem}"
-                                        DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                        Foreground="{DynamicResource BlackDefault}"
-                                        Style="{StaticResource MaterialDesignFlatButton}">
-                                        <materialDesign:PackIcon
-                                            Width="20"
-                                            Height="20"
-                                            Kind="CloseBoxOutline" />
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-
-                <Button
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Left"
-                    Background="Transparent"
-                    Command="{Binding AddItemCommand}"
-                    FontSize="16"
-                    Foreground="{DynamicResource BlackDefault}"
-                    Style="{StaticResource MaterialDesignFlatButton}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon
-                            Grid.Column="0"
-                            Width="20"
-                            Height="20"
-                            Margin="0,4,16,4"
-                            VerticalAlignment="Center"
-                            Kind="PlusCircleOutline" />
+                    <StackPanel Grid.Row="0">
                         <TextBlock
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
+                            Margin="16,16,16,0"
+                            FontWeight="Bold"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Text="Cài đặt" />
+                        <Grid Margin="16,16,16,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Text="Điểm thành phần" />
+                            <ItemsControl Grid.Row="1" ItemsSource="{Binding ListComponentScore, UpdateSourceTrigger=PropertyChanged}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Margin="0,4" />
+                                    </ItemsPanelTemplate>
+
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="2,16">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="auto" />
+
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox
+                                                x:Name="txbItem"
+                                                Grid.Column="0"
+                                                materialDesign:HintAssist.Hint="Tên cột điểm thành phần"
+                                                materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
+                                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                            <TextBox
+                                                Grid.Column="1"
+                                                Margin="8,0"
+                                                materialDesign:HintAssist.Hint="Phần trăm"
+                                                materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
+                                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                Text="{Binding Percent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                            <Button
+                                                Grid.Column="2"
+                                                HorizontalAlignment="Center"
+                                                Background="Transparent"
+                                                Command="{Binding DeleteItemCommand}"
+                                                CommandParameter="{Binding ElementName=txbItem}"
+                                                DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Foreground="{DynamicResource BlackDefault}"
+                                                Style="{StaticResource MaterialDesignFlatButton}">
+                                                <materialDesign:PackIcon
+                                                    Width="20"
+                                                    Height="20"
+                                                    Kind="CloseBoxOutline" />
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            Command="{Binding AddItemCommand}"
                             FontSize="16"
-                            Text="Thêm tuỳ chọn" />
-                    </Grid>
-                </Button>
-            </StackPanel>
+                            Foreground="{DynamicResource BlackDefault}"
+                            Style="{StaticResource MaterialDesignFlatButton}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon
+                                    Grid.Column="0"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,4,16,4"
+                                    VerticalAlignment="Center"
+                                    Kind="PlusCircleOutline" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Text="Thêm tuỳ chọn" />
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+
+                    <Button
+                        Grid.Row="1"
+                        Width="80"
+                        Margin="16"
+                        HorizontalAlignment="Right"
+                        Content="Lưu"
+                        Command="{Binding SaveSettingCommand}"
+                        Style="{StaticResource PrimaryButton}" />
+
+                </Grid>
+            </ScrollViewer>
         </materialDesign:Card>
     </Grid>
 </UserControl>

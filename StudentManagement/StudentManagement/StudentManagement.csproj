@@ -479,6 +479,7 @@
     <Compile Include="Services\NotificationServices.cs" />
     <Compile Include="Services\NotificationTypeServices.cs" />
     <Compile Include="Services\OTPServices.cs" />
+    <Compile Include="Services\ScoreServices.cs" />
     <Compile Include="Services\SemesterServices.cs" />
     <Compile Include="Services\StudentServices.cs" />
     <Compile Include="Services\SubjectClassServices.cs" />
