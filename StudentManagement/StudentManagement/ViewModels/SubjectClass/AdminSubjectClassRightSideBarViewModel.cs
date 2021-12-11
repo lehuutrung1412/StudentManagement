@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,17 +98,19 @@ namespace StudentManagement.ViewModels
         {
             SubjectClassCard card = new SubjectClassCard();
 
-            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card, isCreatedNew:true);
+            _adminSubjectClassRightSideBarItemViewModel = new AdminSubjectClassRightSideBarItemEditViewModel(card, isCreatedNew: true);
 
             RightSideBarItemViewModel = _adminSubjectClassRightSideBarItemViewModel;
         }
-        
+
         public void DeleteSubjectClassCardByCardFunction(object p)
         {
             SubjectClassCard card = p as SubjectClassCard;
 
             SubjectClassCards.Remove(card);
             StoredSubjectClassCards.Remove(card);
+
+            SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(card.Id);
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }

@@ -203,6 +203,8 @@ namespace StudentManagement.Services
 
         public SubjectClassCard ConvertSubjectClassToSubjectClassCard(SubjectClass subjectClass)
         {
+            var DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
+
             SubjectClassCard subjectClassCard = new SubjectClassCard()
             {
                 Id = subjectClass.Id,
@@ -216,7 +218,7 @@ namespace StudentManagement.Services
                 SelectedSubject = subjectClass.Subject,
                 SelectedTrainingForm = subjectClass.TrainingForm,
                 SelectedSemester = subjectClass.Semester,
-                SelectedDay = subjectClass.WeekDay.ToString(),
+                SelectedDay = DayOfWeeks[(int)subjectClass.WeekDay],
             };
             return subjectClassCard;
         }
