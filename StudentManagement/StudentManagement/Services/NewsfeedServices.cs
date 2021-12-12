@@ -79,6 +79,31 @@ namespace StudentManagement.Services
             await db().SaveChangesAsync();
         }
 
+        public async Task SavePostToNotificationInfoAsync(NewsfeedPost post)
+        {
+            var notification = NotificationServices.Instance.FindNotificationByNotificationId(post.PostId);
+            var listCourseRegister = notification.SubjectClass.CourseRegisters.ToList();
+            foreach (var courseRegister in listCourseRegister)
+            {
+                //not sent to the poster if poster is student
+                if (LoginServices.CurrentUser.UserRole.Role == "Sinh viên")
+                {
+                    if (StudentServices.Instance.FindStudentByUserId(LoginServices.CurrentUser.Id).Id == courseRegister.Id)
+                        continue;
+                }
+                var notificationInfo = new NotificationInfo()
+                {
+                    Id = Guid.NewGuid(),
+                    IdNotification = notification.Id,
+                    IdUserReceiver = courseRegister.Student.IdUsers,
+                    IsRead = false,
+                };
+                db().NotificationInfoes.AddOrUpdate(notificationInfo);
+            }
+            await db().SaveChangesAsync();
+
+        }
+
         public async Task SaveCommentToDatabaseAsync(PostComment comment)
         {
             db().NotificationComments.AddOrUpdate(ConvertPostCommentToNotificationComment(comment));

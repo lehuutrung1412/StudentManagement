@@ -28,7 +28,7 @@ namespace StudentManagement.Services
                 Topic = notification.Topic,
                 Time = Convert.ToDateTime(notification.Time),
                 IdSubjectClass = notification.IdSubjectClass,
-                Type = notification.NotificationType.Content,
+                Type = notification.NotificationType?.Content,
             };
             if (notificationInfo.Count > 0)
                 notificationCard.Status = Convert.ToBoolean(notificationInfo.FirstOrDefault().IsRead);
@@ -125,6 +125,7 @@ namespace StudentManagement.Services
             }
             DataProvider.Instance.Database.SaveChanges();
         }
+
 
         public void CopyNotificationCardToNotification(NotificationCard notificationCard, Notification updateNotification)
         {
