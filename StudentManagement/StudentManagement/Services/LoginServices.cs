@@ -134,8 +134,10 @@ namespace StudentManagement.Services
                     fileContent = sr.ReadToEnd();
                     foreach (string accountRow in fileContent.Split('\n'))
                     {
+                        if (accountRow == "")
+                            continue;
                         string[] account = accountRow.Split('\t');
-                        LoginServices.ListRememberedAccount.Add(new Account(account[0], account[1]));
+                        LoginServices.ListRememberedAccount.Add(new Account(account[0], account[1].Replace("\r", "")));
                     }
                 }
             }
