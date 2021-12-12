@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
 using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
@@ -26,13 +27,6 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private ObservableCollection<DetailScore> _studentScore;
-        public ObservableCollection<DetailScore> StudentScore
-        {
-            get => _studentScore;
-            set => _studentScore = value;
-        }
-
         private StudentGrid _selectedItem;
         public StudentGrid SelectedItem
         {
@@ -41,32 +35,9 @@ namespace StudentManagement.ViewModels
             {
                 _selectedItem = value;
 
-                //if (_selectedItem != null)
-                //{
-                //    SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
-                //    if (SelectedScore == null)
-                //    {
-                //        StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", QuaTrinh = "0", ThucHanh = "0", DiemTB = "0", IDStudent = SelectedItem.Username });
-                //        SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
-                //    }
-                //    _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SelectedScore);
-                //    RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;
-                //}
-                //SelectedScore = StudentScore.Where(x => x.IDStudent == SelectedItem.Username).ToList().FirstOrDefault();
                 (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel).SelectedItem = SelectedItem;
-                (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel).CurrentScore = SelectedScore;
                 RightSideBarItemViewModel = _selectedItem == null ? _emptyStateRightSideBarViewModel : _studentListRightSideBarItemViewModel;
 
-                OnPropertyChanged();
-            }
-        }
-
-        private DetailScore _selectedScore;
-        public DetailScore SelectedScore
-        {
-            get => _selectedScore; set
-            {
-                _selectedScore = value;
                 OnPropertyChanged();
             }
         }
@@ -75,17 +46,13 @@ namespace StudentManagement.ViewModels
         private object _studentListRightSideBarItemEditViewModel;
         private object _emptyStateRightSideBarViewModel;
 
-        public StudentListRightSideBarViewModel()
-        {
-            InitRightSideBarItemViewModel();
+        SubjectClass SubjectClassDetail { get; set; }
 
-            StudentScore = new ObservableCollection<DetailScore>();
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520123" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520124" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520125" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520126" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520127" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520128" });
+        public StudentListRightSideBarViewModel(SubjectClass subjectClass)
+        {
+            SubjectClassDetail = subjectClass;
+
+            InitRightSideBarItemViewModel();
         }
 
         public void InitRightSideBarItemViewModel()
@@ -95,7 +62,7 @@ namespace StudentManagement.ViewModels
             _studentListRightSideBarItemEditViewModel = new StudentListRightSideBarItemEditViewModel();
             (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).PropertyChanged += StudentListRightSideBarItemEditViewModel_PropertyChanged;
 
-            _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel();
+            _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SubjectClassDetail);
             (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel).PropertyChanged += StudentListRightSideBarItemViewModel_PropertyChanged;
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
@@ -108,8 +75,8 @@ namespace StudentManagement.ViewModels
                 var studentListItem = (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel);
                 if (studentListItem.SwitchToEdit)
                 {
-                    (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).ActualScore = SelectedScore;
-                    RightSideBarItemViewModel = _studentListRightSideBarItemEditViewModel;
+                    //(_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).ActualScore = SelectedScore;
+                    //RightSideBarItemViewModel = _studentListRightSideBarItemEditViewModel;
                 }
             }
         }

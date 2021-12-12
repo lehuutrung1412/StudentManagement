@@ -42,6 +42,11 @@ namespace StudentManagement.Services
             };
         }
 
+        public double? CalculateAverageScore(List<StudentDetailScore> scores)
+        {
+            return scores.Average(score => score.Score);
+        }
+
         #endregion Convert
 
         #region Create
@@ -59,6 +64,23 @@ namespace StudentManagement.Services
         public List<ComponentScore> LoadComponentScoreOfSubjectClass(Guid idSubjectClass)
         {
             return db().ComponentScores.Where(score => score.IdSubjectClass == idSubjectClass).ToList();
+        }
+
+        public List<StudentDetailScore> LoadScoreStudentInSubjectClass(Guid idSubjectClass)
+        {
+            return (from components in db().ComponentScores
+                    join details in db().DetailScores
+                    on components.Id equals details.IdComponentScore
+                    select new StudentDetailScore()
+                    {
+                        Id = details.Id,
+                        DisplayName = components.DisplayName,
+                        IdComponentScore = components.Id,
+                        IdStudent = details.IdStudent,
+                        IdSubjectClass = components.IdSubjectClass,
+                        Percent = components.ContributePercent,
+                        Score = details.Score
+                    }).ToList();
         }
 
         #endregion

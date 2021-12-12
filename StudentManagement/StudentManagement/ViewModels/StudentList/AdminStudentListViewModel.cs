@@ -89,8 +89,8 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private ObservableCollection<DetailScore> _studentScore;
-        public ObservableCollection<DetailScore> StudentScore
+        private ObservableCollection<StudentDetailScore> _studentScore;
+        public ObservableCollection<StudentDetailScore> StudentScore
         {
             get => _studentScore;
             set => _studentScore = value;
@@ -133,13 +133,12 @@ namespace StudentManagement.ViewModels
 
             InitChartParemeter();
 
-            StudentScore = new ObservableCollection<DetailScore>();
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "1", IDStudent = "19520123" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "6", IDStudent = "19520124" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "7", IDStudent = "19520125" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "8", IDStudent = "19520126" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "9", IDStudent = "19520127" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520128" });
+            //StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "1", IDStudent = "19520123" });
+            //StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "6", IDStudent = "19520124" });
+            //StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "7", IDStudent = "19520125" });
+            //StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "8", IDStudent = "19520126" });
+            //StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "9", IDStudent = "19520127" });
+            //StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520128" });
 
             BindingData = new ObservableCollection<StudentGrid>(StudentClass);
             InitCommand();
@@ -153,18 +152,22 @@ namespace StudentManagement.ViewModels
         {
             try
             {
+                // Load list students
                 StudentClass = new ObservableCollection<StudentGrid>();
                 var students = CourseRegisterServices.Instance.FindStudentsBySubjectClassId(SubjectClassDetail.Id);
                 for (int index = 0; index < students.Count; index++)
                 {
                     StudentClass.Add(StudentServices.Instance.ConvertStudentToStudentGrid(students[index], index + 1));
                 }
+
+                var scores = ScoreServices.Instance.LoadScoreStudentInSubjectClass(SubjectClassDetail.Id);
+                StudentScore = new ObservableCollection<StudentDetailScore>(scores);
             }
             catch (Exception)
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải thông tin sinh viên", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
+
         }
 
         private void InitChartParemeter()
@@ -201,22 +204,21 @@ namespace StudentManagement.ViewModels
             int exellent = 0, veryGood = 0, good = 0, avg = 0, bad = 0;
 
             foreach (var student in StudentClass)
-                foreach (var score in StudentScore)
-                    if (student.Username == score.IDStudent)
-                    {
-                        double currentScore = Convert.ToDouble(score.DiemTB);
-                        if (currentScore >= 9)
-                            exellent += 1;
-                        else if (currentScore >= 8)
-                            veryGood += 1;
-                        else if (currentScore >= 7)
-                            good += 1;
-                        else if (currentScore >= 6)
-                            avg += 1;
-                        else
-                            bad += 1;
-                        break;
-                    }
+            {
+                var avgScore = StudentScore.Where(score => score.IdStudent == student.Id).Average(score => score.Score);
+                if (avgScore == null)
+                    continue;
+                else if (avgScore >= 9)
+                    exellent += 1;
+                else if (avgScore >= 8)
+                    veryGood += 1;
+                else if (avgScore >= 7)
+                    good += 1;
+                else if (avgScore >= 6)
+                    avg += 1;
+                else
+                    bad += 1;
+            }
 
             int sizeClass = StudentClass.Count();
 
@@ -268,7 +270,7 @@ namespace StudentManagement.ViewModels
                 {
                     await CourseRegisterServices.Instance.StudentRegisterSubjectClassDetailToDatabase(findStudent.Id, SubjectClassDetail);
                     StudentClass.Add(findStudent);
-                    StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", DiemTB = "0", QuaTrinh = "0", ThucHanh = "0", IDStudent = findStudent.Username });
+                    //StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", DiemTB = "0", QuaTrinh = "0", ThucHanh = "0", IDStudent = findStudent.Username });
                     MyMessageBox.Show("Sinh viên " + SearchQuery + " đã được thêm vào lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     SearchQuery = "";
@@ -359,7 +361,7 @@ namespace StudentManagement.ViewModels
             {
                 return;
             }
-            
+
         }
 
         void SearchNameFunction()
@@ -428,7 +430,7 @@ namespace StudentManagement.ViewModels
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra! Xóa không thành công", "Xóa sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
+
         }
 
         #endregion

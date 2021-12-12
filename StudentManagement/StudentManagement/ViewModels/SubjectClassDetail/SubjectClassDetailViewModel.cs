@@ -104,7 +104,7 @@ namespace StudentManagement.ViewModels
             
             _newsFeedRightSideBarViewModel = new NewsfeedRightSideBarViewModel(subjectClass);
 
-            _studentListRightSideBar = new StudentListRightSideBarViewModel();
+            _studentListRightSideBar = new StudentListRightSideBarViewModel(subjectClass);
 
             _layoutViewModel.RightSideBar = _newsFeedRightSideBarViewModel;
         }

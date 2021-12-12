@@ -1,10 +1,14 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
@@ -18,21 +22,58 @@ namespace StudentManagement.ViewModels
             set
             {
                 _selectedItem = value;
+
+                if (_selectedItem != null)
+                {
+                    BindingScore.Clear();
+                    DetailScores.Where(score => score.IdStudent == _selectedItem.Id).ToList()
+                        .ForEach(studentScore => BindingScore.Add(studentScore));
+
+                    AverageScore = BindingScore.Average(score => score.Score);
+                }
+
                 OnPropertyChanged();
             }
         }
 
-        private DetailScore _currentScore;
-        public DetailScore CurrentScore { get => _currentScore; set => _currentScore = value; }
+        public double? AverageScore { get => _averageScore; set { _averageScore = value; OnPropertyChanged(); } }
+        private double? _averageScore;
+
+        public ObservableCollection<StudentDetailScore> DetailScores { get => _detailScores; set { _detailScores = value; OnPropertyChanged(); } }
+        private ObservableCollection<StudentDetailScore> _detailScores;
+
+        public ObservableCollection<StudentDetailScore> BindingScore { get; set; }
+
         public ICommand EditDetailScore { get; set; }
         public bool SwitchToEdit { get => _switchToEdit; set { _switchToEdit = value; OnPropertyChanged(); } }
 
+
         private bool _switchToEdit;
 
-        public StudentListRightSideBarItemViewModel()
+        SubjectClass SubjectClassDetail { get; set; }
+
+        public StudentListRightSideBarItemViewModel(SubjectClass subjectClass)
         {
-            CurrentScore = null;
+            SubjectClassDetail = subjectClass;
+
+            FirstLoadData();
+
+            BindingScore = new ObservableCollection<StudentDetailScore>();
+
             EditDetailScore = new RelayCommand<object>((p) => { return true; }, (p) => EditDetailScoreFunction(p));
+        }
+
+        private void FirstLoadData()
+        {
+            try
+            {
+                var scores = ScoreServices.Instance.LoadScoreStudentInSubjectClass(SubjectClassDetail.Id);
+                DetailScores = new ObservableCollection<StudentDetailScore>(scores);
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải điểm sinh viên", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public void EditDetailScoreFunction(object p)
