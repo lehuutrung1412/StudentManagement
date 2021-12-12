@@ -69,6 +69,7 @@
                         Style="{StaticResource textblock_item}"
                         Text="Giáo viên:" />
                     <TextBlock
+                        x:Name="txblockTeacherName"
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
                         Text="{Binding CurrentItem.MainTeacher.User.DisplayName, FallbackValue='Chưa có'}"

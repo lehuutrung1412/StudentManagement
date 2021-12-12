@@ -440,6 +440,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="MyMessageBox.cs" />
+    <Compile Include="Objects\Account.cs" />
     <Compile Include="Objects\ComponentScoreInSetting.cs" />
     <Compile Include="Objects\CourseItem.cs" />
     <Compile Include="Objects\EmptyCard.cs" />

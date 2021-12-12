@@ -6,6 +6,7 @@ using StudentManagement.Models;
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Linq;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
@@ -14,6 +15,7 @@ using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.Threading.Tasks;
+using StudentManagement.Objects;
 
 namespace StudentManagement.ViewModels
 {
@@ -171,6 +173,9 @@ namespace StudentManagement.ViewModels
 
         private object _currentView;
 
+        private bool _isToRemember;
+        public bool IsToRemember { get => _isToRemember; set => _isToRemember = value; }
+
         public ICommand SwitchView { get; set; }
 
         public ICommand GetOTPCodeCommand { get => _getOTPCodeCommand; set => _getOTPCodeCommand = value; }
@@ -181,6 +186,10 @@ namespace StudentManagement.ViewModels
 
         private ICommand _conFirmCommand;
 
+        public ICommand RememberUserCommand { get => _remberUserCommand; set => _remberUserCommand = value; }
+
+        private ICommand _remberUserCommand;
+
         public LoginViewModel()
         {
             IsGetCode = false;
@@ -190,6 +199,7 @@ namespace StudentManagement.ViewModels
             SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
             GetOTPCodeCommand = new RelayCommand<object>((p) => true, async (p) => await GetOPTAsync());
             ConFirmCommand = new RelayCommand<object>((p) => true, (p) => ConFirm());
+            RememberUserCommand = new RelayCommand<object>((p) => true, (p) => RememberUser());
         }
         public void ResetView()
         {
@@ -342,6 +352,36 @@ namespace StudentManagement.ViewModels
                 _ = MyMessageBox.Show("Xảy ra lỗi kết nối đến cơ sở dữ liệu!\nVui lòng thử lại!", "Đăng nhập thất bại", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return false;
             }*/
+        }
+
+        public void RememberUser()
+        {
+            if (!IsToRemember)
+                return;
+
+            if (!LoginServices.Instance.IsUserAuthentic(Username, Password))
+                return;
+
+            string passWordHash = LoginServices.Encrypt(Password, "S7uMan");
+            Account validAccount = LoginServices.ListRememberedAccount.Where(account => account.UserName == Username).FirstOrDefault();
+            if (validAccount != null)
+            {
+                if (validAccount.PassWordHash == passWordHash)
+                    return;
+                validAccount.PassWordHash = passWordHash;
+            }
+            else
+            {
+                LoginServices.ListRememberedAccount.Add(new Account(Username, passWordHash));
+            }
+
+            using (StreamWriter sw = new StreamWriter(LoginServices.FilePathRememberedAccount))
+            {
+                foreach (Account accountRow in LoginServices.ListRememberedAccount)
+                {
+                    sw.WriteLine(accountRow.UserName + '\t' + accountRow.PassWordHash);
+                }
+            }
         }
 
         private bool IsValid(string propertyName)

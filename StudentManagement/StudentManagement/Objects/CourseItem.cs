@@ -65,21 +65,18 @@ namespace StudentManagement.Objects
                 Id = this.Id,
                 Teachers = this.Teachers,
                 Semester = this.Semester,
-                IdSemester = this.IdSemester,
                 Subject = this.Subject,
-                IdSubject = this.IdSubject,
                 StartDate = this.StartDate,
                 EndDate = this.EndDate,
                 Period = this.Period,
                 WeekDay = this.WeekDay,
                 Code = this.Code,
                 TrainingForm = this.TrainingForm,
-                IdTrainingForm = this.IdTrainingForm,
                 NumberOfStudents = this.NumberOfStudents,
                 MaxNumberOfStudents = this.MaxNumberOfStudents,
-                IdThumbnail = this.IdThumbnail,
                 DatabaseImageTable = this.DatabaseImageTable,
             };
+            SubjectClassServices.Instance.UpdateIds(temp);
             return temp;
         }
 

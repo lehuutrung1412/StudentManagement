@@ -256,7 +256,9 @@ namespace StudentManagement.ViewModels
             CurrentItem.Period = Period;
             CurrentItem.WeekDay = DayOfWeeks.IndexOf(WeekDay);
             CurrentItem.MaxNumberOfStudents = Convert.ToInt32(MaxOfRegister);
-            CurrentItem.Teachers = new ObservableCollection<Teacher>() { SelectedTeacher };
+            CurrentItem.Teachers.Clear();
+            CurrentItem.Teachers.Add(SelectedTeacher);
+            CurrentItem.MainTeacher = SelectedTeacher;
             SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
             SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
             Cancel();
