@@ -223,7 +223,9 @@ namespace StudentManagement.ViewModels
             var listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(IdUser);
             foreach (var infoItem in listInfoItem)
             {
-                InfoSource.Add(infoItem);
+                InfoItem temp = new InfoItem();
+                temp.LabelName = infoItem.LabelName;
+                InfoSource.Add(temp);
             }
         }
 
@@ -283,11 +285,12 @@ namespace StudentManagement.ViewModels
 
             foreach (var item in InfoSource)
             {
-                if (item.LabelName != "Hệ đào tạo" && item.LabelName != "Khoa")
+                if (item.LabelName != "Hệ đào tạo" && item.LabelName != "Khoa" && item.LabelName != "Họ và tên" && item.LabelName != "Địa chỉ email")
                 {
                     User_UserRole_UserInfo newInfo = new User_UserRole_UserInfo();
                     newInfo.Id = Guid.NewGuid();
                     newInfo.IdUser = NewUser.Id;
+                    newInfo.IdUserRole_Info = DataProvider.Instance.Database.UserRole_UserInfo.Where(x => x.InfoName == item.LabelName).FirstOrDefault().Id;
                     newInfo.Content = Convert.ToString(item.Value);
                     UserUserRoleUserInfoServices.Instance.SaveUserInfoToDatabase(newInfo);
                 }
