@@ -24,7 +24,7 @@ namespace StudentManagement.Services
             {
                 Id = notification.Id,
                 IdPoster = notification.IdPoster,
-                Content = notification.Content,
+                Content = notification?.Content,
                 Topic = notification.Topic,
                 Time = Convert.ToDateTime(notification.Time),
                 IdSubjectClass = notification.IdSubjectClass,

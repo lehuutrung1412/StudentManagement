@@ -33,10 +33,11 @@ namespace StudentManagement.Objects
             Id = a.Id;
             Topic = a.Topic;
             IdPoster = a.IdPoster;
-            Type = a.Type;
-            Content = a.Content;
+            Type = a?.Type;
+            Content = a?.Content;
             Time = a.Time;
             Status = a.Status;
+            IdSubjectClass = a?.IdSubjectClass;
         }
 
         public Nullable<Guid> IdPoster { get => _idPoster; set => _idPoster = value; }
