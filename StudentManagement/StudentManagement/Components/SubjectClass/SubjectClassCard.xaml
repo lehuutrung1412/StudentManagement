@@ -89,7 +89,7 @@
                             FontSize="12"
                             TextWrapping="Wrap">
                             <Run Text="Giáo viên:" />
-                            <Run Text="{Binding GiaoVien, FallbackValue='Ten Giao Vien'}" />
+                            <Run Text="{Binding SelectedTeacher.User.DisplayName, FallbackValue='Ten Giao Vien'}" />
                         </TextBlock>
                         <TextBlock
                             VerticalAlignment="Center"

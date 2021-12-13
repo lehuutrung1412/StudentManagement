@@ -224,7 +224,8 @@ namespace StudentManagement.Services
                 Period = subjectClass.Period,
                 MaxNumberOfStudents = subjectClass.MaxNumberOfStudents,
                 NumberOfStudents = subjectClass.NumberOfStudents,
-                GiaoVien = "Nguyễn Tấn Toàn",
+                //get main teacher of the class
+                SelectedTeacher = subjectClass.Teachers.FirstOrDefault(),
                 SelectedSubject = subjectClass.Subject,
                 SelectedTrainingForm = subjectClass.TrainingForm,
                 SelectedSemester = subjectClass.Semester,
@@ -243,12 +244,14 @@ namespace StudentManagement.Services
                 EndDate = subjectClassCard.EndDate,
                 Period = subjectClassCard.Period,
                 MaxNumberOfStudents = subjectClassCard.MaxNumberOfStudents,
-                //GiaoVien = "Nguyễn Tấn Toàn",
                 IdSubject = subjectClassCard.SelectedSubject?.Id,
                 IdTrainingForm = subjectClassCard.SelectedTrainingForm?.Id,
                 IdSemester = subjectClassCard.SelectedSemester?.Id,
                 WeekDay = DayOfWeeks.IndexOf(subjectClassCard.SelectedDay),
             };
+
+            subjectClass.Teachers?.Clear();
+            subjectClass.Teachers?.Add(subjectClassCard.SelectedTeacher);
 
             return subjectClass;
         }

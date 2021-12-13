@@ -44,8 +44,7 @@ namespace StudentManagement.Objects
         private DateTime? _endDate;
         private string _period;
         private int? _maxNumberOfStudents;
-        private string _giaoVien;
-        private User _selectedTeacher = null;
+        private Teacher _selectedTeacher = null;
         private Subject _selectedSubject = null;
         private TrainingForm _selectedTrainingForm;
         private Semester _selectedSemester;
@@ -80,21 +79,6 @@ namespace StudentManagement.Objects
             set
             {
                 _numberOfStudents = value;
-            }
-        }
-
-        public string GiaoVien
-        {
-            get => _giaoVien;
-            set
-            {
-                _giaoVien = value;
-                // Validation
-                _errorBaseViewModel.ClearErrors();
-                if (!IsValid(_giaoVien))
-                {
-                    _errorBaseViewModel.AddError(nameof(GiaoVien), "Vui lòng chọn giáo viên!");
-                }
             }
         }
 
@@ -205,7 +189,22 @@ namespace StudentManagement.Objects
         }
 
         public Guid Id { get => _id; set => _id = value; }
-        public User SelectedTeacher { get => _selectedTeacher; set => _selectedTeacher = value; }
+        public Teacher SelectedTeacher
+        {
+            get => _selectedTeacher;
+
+            set
+            {
+                _selectedTeacher = value;
+
+                //Validaton
+                _errorBaseViewModel.ClearErrors();
+                if (SelectedTeacher == null)
+                    _errorBaseViewModel.AddError(nameof(SelectedTeacher), "Vui lòng chọn giáo viên");
+                OnPropertyChanged();
+            }
+        }
+
         public Subject SelectedSubject
         {
             get => _selectedSubject; set

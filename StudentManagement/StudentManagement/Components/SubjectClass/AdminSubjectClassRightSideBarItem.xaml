@@ -230,7 +230,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
-                        Text="{Binding CurrentCard.GiaoVien, FallbackValue='Ten Giao Vien'}"
+                        Text="{Binding CurrentCard.SelectedTeacher.User.DisplayName, FallbackValue='Ten Giao Vien'}"
                         TextAlignment="Right" />
                 </Grid>
 

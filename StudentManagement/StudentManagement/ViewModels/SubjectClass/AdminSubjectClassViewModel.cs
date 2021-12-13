@@ -200,7 +200,7 @@ namespace StudentManagement.ViewModels
         {
             var tmp = StoredSubjectClassCards.Where(x => !IsFirstSearchButtonEnabled ?
                                                     vietnameseStringNormalizer.Normalize(x?.SelectedSubject?.DisplayName + " " + x?.Code).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))
-                                                    : vietnameseStringNormalizer.Normalize(x.GiaoVien).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
+                                                    : vietnameseStringNormalizer.Normalize(x?.SelectedTeacher?.User?.DisplayName).Contains(vietnameseStringNormalizer.Normalize(SearchQuery)));
             SubjectClassCards.Clear();
             foreach (SubjectClassCard card in tmp)
                 if (card.SelectedSemester == SelectedSemester || SelectedSemester == null)

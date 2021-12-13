@@ -274,11 +274,18 @@
                         Style="{StaticResource textblock_item}"
                         Text="Giáo viên" />
 
-                    <TextBox
+                    <ComboBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập tên giáo viên"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.GiaoVien, UpdateSourceTrigger=PropertyChanged}" />
+                        materialDesign:HintAssist.Hint="Chọn giáo viên"
+                        ItemsSource="{Binding CurrentCard.Teachers, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding CurrentCard.SelectedTeacher}"
+                        Style="{StaticResource combobox_item}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding User.DisplayName}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
 
                 <!--  Mã lớp học  -->
