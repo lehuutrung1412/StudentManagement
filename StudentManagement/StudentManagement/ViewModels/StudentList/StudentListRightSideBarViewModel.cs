@@ -27,6 +27,9 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        public bool ReloadData { get => _reloadData; set { _reloadData = value; OnPropertyChanged(); } }
+        private bool _reloadData;
+
         private StudentGrid _selectedItem;
         public StudentGrid SelectedItem
         {
@@ -59,7 +62,7 @@ namespace StudentManagement.ViewModels
         {
             _emptyStateRightSideBarViewModel = new EmptyStateRightSideBarViewModel();
 
-            _studentListRightSideBarItemEditViewModel = new StudentListRightSideBarItemEditViewModel();
+            _studentListRightSideBarItemEditViewModel = new StudentListRightSideBarItemEditViewModel(SubjectClassDetail);
             (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).PropertyChanged += StudentListRightSideBarItemEditViewModel_PropertyChanged;
 
             _studentListRightSideBarItemViewModel = new StudentListRightSideBarItemViewModel(SubjectClassDetail);
@@ -75,8 +78,9 @@ namespace StudentManagement.ViewModels
                 var studentListItem = (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel);
                 if (studentListItem.SwitchToEdit)
                 {
-                    //(_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).ActualScore = SelectedScore;
-                    //RightSideBarItemViewModel = _studentListRightSideBarItemEditViewModel;
+                    (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).SelectedItem = studentListItem.SelectedItem;
+                    (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel).ActualScore = studentListItem.BindingScore;
+                    RightSideBarItemViewModel = _studentListRightSideBarItemEditViewModel;
                 }
             }
         }
@@ -88,6 +92,9 @@ namespace StudentManagement.ViewModels
                 var studentListItem = (_studentListRightSideBarItemEditViewModel as StudentListRightSideBarItemEditViewModel);
                 if (studentListItem.SwitchToView)
                 {
+                    (_studentListRightSideBarItemViewModel as StudentListRightSideBarItemViewModel).BindingScore =
+                        new ObservableCollection<StudentDetailScore>(studentListItem.ActualScore.Where(score => score.Score != null));
+                    ReloadData = true;
                     RightSideBarItemViewModel = _studentListRightSideBarItemViewModel;
                 }
             }

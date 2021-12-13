@@ -21,7 +21,15 @@ namespace StudentManagement.Objects
         public Guid? IdStudent { get => _idStudent; set => _idStudent = value; }
         public Guid? IdComponentScore { get => _idComponentScore; set => _idComponentScore = value; }
         public Guid? IdSubjectClass { get => _idSubjectClass; set => _idSubjectClass = value; }
-        public double? Score { get => _score; set { _score = value; OnPropertyChanged(); } }
+        public double? Score
+        {
+            get => _score;
+            set
+            {
+                _score = value;
+                OnPropertyChanged();
+            }
+        }
         public string DisplayName { get => _displayName; set => _displayName = value; }
         public double? Percent { get => _percent; set => _percent = value; }
     }

@@ -488,6 +488,7 @@
     <Compile Include="Utils\BindingProxy.cs" />
     <Compile Include="Utils\ConverterDisplayNameFromIdUser.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
+    <Compile Include="Utils\DoubleStringConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\FileSizeConverter.cs" />
     <Compile Include="Utils\IntToDateOfWeekConverter.cs" />

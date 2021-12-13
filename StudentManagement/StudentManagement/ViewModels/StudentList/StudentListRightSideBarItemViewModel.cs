@@ -29,7 +29,7 @@ namespace StudentManagement.ViewModels
                     DetailScores.Where(score => score.IdStudent == _selectedItem.Id).ToList()
                         .ForEach(studentScore => BindingScore.Add(studentScore));
 
-                    AverageScore = BindingScore.Average(score => score.Score);
+                    AverageScore = ScoreServices.Instance.CalculateAverageScore(BindingScore.ToList());
                 }
 
                 OnPropertyChanged();
@@ -42,7 +42,21 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<StudentDetailScore> DetailScores { get => _detailScores; set { _detailScores = value; OnPropertyChanged(); } }
         private ObservableCollection<StudentDetailScore> _detailScores;
 
-        public ObservableCollection<StudentDetailScore> BindingScore { get; set; }
+        public ObservableCollection<StudentDetailScore> BindingScore
+        {
+            get => _bindingScore;
+            set
+            {
+                _bindingScore = value;
+
+                AverageScore = ScoreServices.Instance.CalculateAverageScore(_bindingScore.ToList());
+
+                FirstLoadData();
+
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<StudentDetailScore> _bindingScore;
 
         public ICommand EditDetailScore { get; set; }
         public bool SwitchToEdit { get => _switchToEdit; set { _switchToEdit = value; OnPropertyChanged(); } }
@@ -63,16 +77,29 @@ namespace StudentManagement.ViewModels
             EditDetailScore = new RelayCommand<object>((p) => { return true; }, (p) => EditDetailScoreFunction(p));
         }
 
-        private void FirstLoadData()
+        public void FirstLoadData()
         {
             try
             {
                 var scores = ScoreServices.Instance.LoadScoreStudentInSubjectClass(SubjectClassDetail.Id);
+                scores.RemoveAll(score => score.Score == null);
                 DetailScores = new ObservableCollection<StudentDetailScore>(scores);
+                foreach (var score in DetailScores)
+                {
+                    score.PropertyChanged += Score_PropertyChanged;
+                }
             }
             catch (Exception)
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải điểm sinh viên", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Score_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Score")
+            {
+                AverageScore = ScoreServices.Instance.CalculateAverageScore(BindingScore.ToList());
             }
         }
 

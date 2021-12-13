@@ -42,9 +42,22 @@ namespace StudentManagement.Services
             };
         }
 
+        public DetailScore ConvertStudentDetailScoreToDetailScore(StudentDetailScore score)
+        {
+            return new DetailScore()
+            {
+                Id = score.Id,
+                IdComponentScore = score.IdComponentScore,
+                IdStudent = score.IdStudent,
+                Score = score.Score
+            };
+        }
+
         public double? CalculateAverageScore(List<StudentDetailScore> scores)
         {
-            return scores.Average(score => score.Score);
+            double? averageScore = 0;
+            scores.ForEach(score => averageScore += score.Score * score.Percent / 100);
+            return averageScore;
         }
 
         #endregion Convert
@@ -54,6 +67,15 @@ namespace StudentManagement.Services
         public async Task<int> SaveComponentScoreDatabaseAsync(ComponentScoreInSetting score)
         {
             db().ComponentScores.AddOrUpdate(ConvertScoreInSettingToComponentScore(score));
+            return await db().SaveChangesAsync();
+        }
+
+        public async Task<int> SaveStudentScoreDatabaseAsync(List<StudentDetailScore> scores)
+        {
+            foreach (var score in scores)
+            {
+                db().DetailScores.AddOrUpdate(ConvertStudentDetailScoreToDetailScore(score));
+            }
             return await db().SaveChangesAsync();
         }
 
@@ -83,6 +105,24 @@ namespace StudentManagement.Services
                     }).ToList();
         }
 
+        public List<StudentDetailScore> LoadScoreStudentById(Guid idSubjectClass, Guid idStudent)
+        {
+            return (from components in db().ComponentScores
+                    join details in db().DetailScores
+                    on components.Id equals details.IdComponentScore
+                    where components.IdSubjectClass == idSubjectClass && details.IdStudent == idStudent
+                    select new StudentDetailScore()
+                    {
+                        Id = details.Id,
+                        DisplayName = components.DisplayName,
+                        IdComponentScore = components.Id,
+                        IdStudent = details.IdStudent,
+                        IdSubjectClass = components.IdSubjectClass,
+                        Percent = components.ContributePercent,
+                        Score = details.Score
+                    }).ToList();
+        }
+
         #endregion
 
         #region Delete
@@ -98,6 +138,13 @@ namespace StudentManagement.Services
         {
             var scores = db().ComponentScores.Where(s => s.IdSubjectClass == idSubjectClass);
             db().ComponentScores.RemoveRange(scores);
+            await db().SaveChangesAsync();
+        }
+
+        public async Task DeleteStudentScoreByIdAsync(Guid idSubjectClass, Guid idStudent)
+        {
+            var scores = db().DetailScores.Where(s => s.IdStudent == idStudent && s.ComponentScore.IdSubjectClass == idSubjectClass);
+            db().DetailScores.RemoveRange(scores);
             await db().SaveChangesAsync();
         }
 
