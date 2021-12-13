@@ -225,7 +225,7 @@ namespace StudentManagement.Services
                 MaxNumberOfStudents = subjectClass.MaxNumberOfStudents,
                 NumberOfStudents = subjectClass.NumberOfStudents,
                 //get main teacher of the class
-                SelectedTeacher = subjectClass.Teachers.FirstOrDefault(),
+                SelectedTeacher = subjectClass.Teacher_SubjectClass.FirstOrDefault()?.Teacher,
                 SelectedSubject = subjectClass.Subject,
                 SelectedTrainingForm = subjectClass.TrainingForm,
                 SelectedSemester = subjectClass.Semester,
@@ -250,8 +250,16 @@ namespace StudentManagement.Services
                 WeekDay = DayOfWeeks.IndexOf(subjectClassCard.SelectedDay),
             };
 
-            subjectClass.Teachers?.Clear();
-            subjectClass.Teachers?.Add(subjectClassCard.SelectedTeacher);
+            var teacher_SubjectClass = new Teacher_SubjectClass()
+            {
+                Id = Guid.NewGuid(),
+                IdSubjectClass = subjectClass.Id,
+                IdTeacher = subjectClass.Id
+            };
+
+            subjectClass.Teacher_SubjectClass.Clear();
+            subjectClass.Teacher_SubjectClass.Add(teacher_SubjectClass);
+
 
             return subjectClass;
         }
@@ -266,9 +274,16 @@ namespace StudentManagement.Services
 
                 return success;
             }
-            catch (Exception e)
+            catch (DbEntityValidationException e)
             {
-                MyMessageBox.Show(e.Message);
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    MyMessageBox.Show($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        MyMessageBox.Show($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                    }
+                }
                 return false;
             }
         }

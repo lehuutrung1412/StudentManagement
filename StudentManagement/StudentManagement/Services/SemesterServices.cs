@@ -23,7 +23,7 @@ namespace StudentManagement.Services
         //2-Kết thúc đợt đăng ký học phần, đưa sinh viên vào lớp học và update TKB SV
         public Semester FindSemesterBySemesterId(Guid id)
         {
-            Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem=>semesterItem.Id == id).FirstOrDefault();
+            Semester a = DataProvider.Instance.Database.Semesters.Where(semesterItem => semesterItem.Id == id).FirstOrDefault();
             return a;
         }
 
@@ -41,7 +41,7 @@ namespace StudentManagement.Services
 
         public ObservableCollection<Semester> LoadListSemestersByBatch(string batch)
         {
-            var a = DataProvider.Instance.Database.Semesters.Where(semesterItem=>semesterItem.Batch == batch).ToList();
+            var a = DataProvider.Instance.Database.Semesters.Where(semesterItem => semesterItem.Batch == batch).ToList();
             return new ObservableCollection<Semester>(a);
         }
 
@@ -49,12 +49,12 @@ namespace StudentManagement.Services
         {
             var listSemester = new List<Semester>();
             var listCourseRegister = DataProvider.Instance.Database.CourseRegisters.Where(register => register.IdStudent == idStudent).ToList();
-            for(int i = 0; i<semesterStatus.Length; i++)
+            for (int i = 0; i < semesterStatus.Length; i++)
             {
                 if (!semesterStatus[i])
                     listCourseRegister = listCourseRegister.Where(register => register.Semester.CourseRegisterStatus != i).ToList();
             }
-            foreach(CourseRegister register in listCourseRegister)
+            foreach (CourseRegister register in listCourseRegister)
             {
                 listSemester.Add(register.Semester);
             }
@@ -64,7 +64,7 @@ namespace StudentManagement.Services
         public ObservableCollection<Semester> LoadListSemestersByTeacherAndSemesterStatuses(Teacher teacher, bool[] semesterStatus)
         {
             var listSemester = new List<Semester>();
-            var listSubjectClass = DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Teachers.FirstOrDefault().Id == teacher.Id).ToList();
+            var listSubjectClass = DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Teacher_SubjectClass.FirstOrDefault().Teacher.Id == teacher.Id).ToList();
             for (int i = 0; i < semesterStatus.Length; i++)
             {
                 if (!semesterStatus[i])
@@ -99,7 +99,7 @@ namespace StudentManagement.Services
             {
                 return false;
             }
-            
+
         }
     }
 }

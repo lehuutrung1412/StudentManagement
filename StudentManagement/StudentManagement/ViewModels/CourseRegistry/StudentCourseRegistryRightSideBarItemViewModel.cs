@@ -26,7 +26,7 @@ namespace StudentManagement.ViewModels
         public StudentCourseRegistryRightSideBarItemViewModel(CourseItem item)
         {
             CurrentItem = item;
-            Teacher teacher = CurrentItem.Teachers.FirstOrDefault();
+            Teacher teacher = CurrentItem.Teacher_SubjectClass.FirstOrDefault()?.Teacher;
             TeacherName = (teacher == null) ? null : teacher.User.DisplayName;
         }
     }

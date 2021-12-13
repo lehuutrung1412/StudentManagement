@@ -180,7 +180,7 @@ namespace StudentManagement.ViewModels
                     case "Giáo viên":
                         List<SubjectClass> listSubjectClassTeacher = SubjectClassServices.Instance.MinimizeSubjectClassListBySemesterStatus(subjectClasses.ToList(), new bool[] { false, true, true });
                         Teacher currentTeacher = TeacherServices.Instance.GetTeacherbyUser(LoginServices.CurrentUser);
-                        return listSubjectClassTeacher.Where(subjectClass => subjectClass.Teachers.FirstOrDefault() == currentTeacher).ToList();
+                        return listSubjectClassTeacher.Where(subjectClass => subjectClass.Teacher_SubjectClass.FirstOrDefault()?.Teacher == currentTeacher).ToList();
                     default:
                         Student currentStudent = StudentServices.Instance.FindStudentByUserId(LoginServices.CurrentUser.Id);
                         List<SubjectClass> listSubjectClassStudent = CourseRegisterServices.Instance.LoadCourseRegisteredListByStudentId(currentStudent.Id).ToList();

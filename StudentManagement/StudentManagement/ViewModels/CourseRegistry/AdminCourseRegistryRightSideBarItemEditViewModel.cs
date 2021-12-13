@@ -89,11 +89,11 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string WeekDay 
-        { 
-            get => _weekDay; 
-            set 
-            { 
+        public string WeekDay
+        {
+            get => _weekDay;
+            set
+            {
                 _weekDay = value;
 
                 //Validation
@@ -103,8 +103,8 @@ namespace StudentManagement.ViewModels
                 {
                     _errorBaseViewModel.AddError(nameof(WeekDay), "Vui lòng chọn thứ trong tuần");
                 }
-                OnPropertyChanged(); 
-            } 
+                OnPropertyChanged();
+            }
         }
         public DateTime? StartDate
         {
@@ -222,7 +222,7 @@ namespace StudentManagement.ViewModels
             Period = CurrentItem.Period;
             WeekDay = DayOfWeeks[(int)CurrentItem.WeekDay];
             MaxOfRegister = Convert.ToString(CurrentItem.MaxNumberOfStudents);
-            SelectedTeacher = CurrentItem.Teachers.FirstOrDefault();
+            SelectedTeacher = CurrentItem.Teacher_SubjectClass.FirstOrDefault()?.Teacher;
         }
 
         public void InitCommand()
@@ -256,8 +256,19 @@ namespace StudentManagement.ViewModels
             CurrentItem.Period = Period;
             CurrentItem.WeekDay = DayOfWeeks.IndexOf(WeekDay);
             CurrentItem.MaxNumberOfStudents = Convert.ToInt32(MaxOfRegister);
-            CurrentItem.Teachers = new ObservableCollection<Teacher>() { SelectedTeacher };
+            //CurrentItem.Teachers = new ObservableCollection<Teacher>() { SelectedTeacher };
             SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
+
+            var teacher_SubjectClass = new Teacher_SubjectClass()
+            {
+                Id = Guid.NewGuid(),
+                IdSubjectClass = tempSubjectClass.Subject.Id,
+                IdTeacher = SelectedTeacher.Id
+            };
+            CurrentItem.Teacher_SubjectClass.Clear();
+            CurrentItem.Teacher_SubjectClass.Add(teacher_SubjectClass);
+
+
             SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
             Cancel();
         }

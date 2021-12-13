@@ -18,7 +18,7 @@ namespace StudentManagement.Models
         public Teacher()
         {
             this.Classes = new HashSet<Class>();
-            this.SubjectClasses = new HashSet<SubjectClass>();
+            this.Teacher_SubjectClass = new HashSet<Teacher_SubjectClass>();
         }
     
         private System.Guid _id { get; set; }
@@ -31,6 +31,6 @@ namespace StudentManagement.Models
         public virtual ICollection<Class> Classes { get; set; }
         public virtual Faculty Faculty { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<SubjectClass> SubjectClasses { get; set; }
+        public virtual ICollection<Teacher_SubjectClass> Teacher_SubjectClass { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace StudentManagement.Models
             this.Notifications = new HashSet<Notification>();
             this.Notifications1 = new HashSet<Notification>();
             this.StudyResults = new HashSet<StudyResult>();
-            this.Teachers = new HashSet<Teacher>();
+            this.Teacher_SubjectClass = new HashSet<Teacher_SubjectClass>();
         }
     
         private System.Guid _id { get; set; }
@@ -67,6 +67,6 @@ namespace StudentManagement.Models
         public virtual ICollection<StudyResult> StudyResults { get; set; }
         public virtual Subject Subject { get; set; }
         public virtual TrainingForm TrainingForm { get; set; }
-        public virtual ICollection<Teacher> Teachers { get; set; }
+        public virtual ICollection<Teacher_SubjectClass> Teacher_SubjectClass { get; set; }
     }
 }

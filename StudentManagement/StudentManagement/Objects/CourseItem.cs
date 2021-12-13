@@ -38,7 +38,6 @@ namespace StudentManagement.Objects
         public CourseItem(Models.SubjectClass a, bool isSelected, bool isConflict = false)
         {
             this.Id = a.Id;
-            this.Teachers = a.Teachers;
             this.Semester = a.Semester;
             this.IdSemester = a.IdSemester;
             this.Subject = a.Subject;
@@ -56,14 +55,13 @@ namespace StudentManagement.Objects
             this.DatabaseImageTable = a.DatabaseImageTable;
             this.IsSelected = false;
             this.IsConflict = isConflict;
-            this.MainTeacher = this.Teachers.FirstOrDefault();
+            this.MainTeacher = this.Teacher_SubjectClass.FirstOrDefault()?.Teacher;
         }
         public SubjectClass ConvertToSubjectClass()
         {
             SubjectClass temp = new SubjectClass()
             {
                 Id = this.Id,
-                Teachers = this.Teachers,
                 Semester = this.Semester,
                 IdSemester = this.IdSemester,
                 Subject = this.Subject,
@@ -120,7 +118,6 @@ namespace StudentManagement.Objects
         public bool IsEqualProperty(SubjectClass a)
         {
             return
-            this.Teachers.FirstOrDefault() == a.Teachers.FirstOrDefault() &&
             this.Semester == a.Semester &&
             this.Subject == a.Subject &&
             this.StartDate == a.StartDate &&

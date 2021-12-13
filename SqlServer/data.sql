@@ -231,11 +231,9 @@ GO
 
 CREATE TABLE Teacher_SubjectClass
 (
+  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
   IdSubjectClass UNIQUEIDENTIFIER ,
   IdTeacher UNIQUEIDENTIFIER ,
-
-  PRIMARY KEY 
-    (IdSubjectClass,IdTeacher),
 )
 GO
 

@@ -51,6 +51,7 @@ namespace StudentManagement.Models
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<SubjectClass> SubjectClasses { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
+        public virtual DbSet<Teacher_SubjectClass> Teacher_SubjectClass { get; set; }
         public virtual DbSet<TrainingForm> TrainingForms { get; set; }
         public virtual DbSet<TrainingScore> TrainingScores { get; set; }
         public virtual DbSet<User_UserRole_UserInfo> User_UserRole_UserInfo { get; set; }

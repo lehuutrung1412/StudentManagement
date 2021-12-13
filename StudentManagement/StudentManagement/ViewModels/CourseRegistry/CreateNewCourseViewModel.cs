@@ -235,8 +235,18 @@ namespace StudentManagement.ViewModels
                 NumberOfStudents = 0,
                 TrainingForm = SelectedTF,
                 DatabaseImageTable = DatabaseImageTableServices.Instance.GetFirstDatabaseImageTable(),
-                Teachers = new ObservableCollection<Teacher>() { SelectedTeacher }
             };
+
+
+            var teacher_SubjectClass = new Teacher_SubjectClass()
+            {
+                Id = Guid.NewGuid(),
+                IdSubjectClass = newCourse.Subject.Id,
+                IdTeacher = SelectedTeacher.Id
+            };
+            newCourse.Teacher_SubjectClass.Clear();
+            newCourse.Teacher_SubjectClass.Add(teacher_SubjectClass);
+
             CurrentCard = newCourse;
             IsDoneVisible = SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);
             

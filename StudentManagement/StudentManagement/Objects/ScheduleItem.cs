@@ -40,10 +40,10 @@ namespace StudentManagement.Objects
             this.Count = a.NumberOfStudents.ToString();
             this.StartDate = String.Format("{0:dd/MM/yyyy}", a.StartDate);
             this.EndDate = String.Format("{0:dd/MM/yyyy}", a.EndDate);
-            if (a.Teachers.Count == 0)
+            if (a.Teacher_SubjectClass.Count == 0)
                 TeacherName = "Chưa có";
             else
-                this.TeacherName = a.Teachers.FirstOrDefault()?.User?.DisplayName;
+                this.TeacherName = a.Teacher_SubjectClass.FirstOrDefault()?.Teacher?.User?.DisplayName;
             IsTemp = isTemp;
             IsConflict = isConflict;
             Type = type;
