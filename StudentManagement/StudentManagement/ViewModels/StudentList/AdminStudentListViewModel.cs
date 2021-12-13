@@ -286,7 +286,7 @@ namespace StudentManagement.ViewModels
                     await ScoreServices.Instance.SaveStudentScoreDatabaseAsync(StudentScore.Where(score => score.IdStudent == findStudent.Id).ToList());
 
                     StudentClass.Add(findStudent);
-                    MyMessageBox.Show("Sinh viên " + SearchQuery + " đã được thêm vào lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MyMessageBox.Show($"Sinh viên {findStudent.DisplayName} đã được thêm vào lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     SearchQuery = "";
                 }

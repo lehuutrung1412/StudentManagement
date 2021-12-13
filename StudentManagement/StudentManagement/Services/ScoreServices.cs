@@ -123,6 +123,11 @@ namespace StudentManagement.Services
                     }).ToList();
         }
 
+        public List<DetailScore> GetComponentScoreInDetailScoreById(Guid idComponentScore)
+        {
+            return db().DetailScores.Where(score => score.IdComponentScore == idComponentScore).ToList();
+        }
+
         #endregion
 
         #region Delete
@@ -145,6 +150,17 @@ namespace StudentManagement.Services
         {
             var scores = db().DetailScores.Where(s => s.IdStudent == idStudent && s.ComponentScore.IdSubjectClass == idSubjectClass);
             db().DetailScores.RemoveRange(scores);
+            await db().SaveChangesAsync();
+        }
+
+        public async Task DeleteListComponentScoreAsync(List<ComponentScoreInSetting> scores)
+        {
+            foreach (var score in scores)
+            {
+                var studentScores = db().DetailScores.Where(ds => ds.IdComponentScore == score.Id);
+                db().DetailScores.RemoveRange(studentScores);
+                db().ComponentScores.RemoveRange(db().ComponentScores.Where(s => s.Id == score.Id));
+            }
             await db().SaveChangesAsync();
         }
 
