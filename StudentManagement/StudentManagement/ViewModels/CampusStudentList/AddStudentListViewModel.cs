@@ -151,6 +151,23 @@ namespace StudentManagement.ViewModels
             studentListRightSideBarViewModel.RightSideBarItemViewModel = new EmptyStateRightSideBarViewModel();
         }
 
+        bool IsValidEmail(string email)
+        {
+            if (email.Trim().EndsWith("."))
+            {
+                return false;
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         int checkExitCode()
         {
             if (InfoSource.First().Value == null || Username == null || Password == null || RePassword == null || InfoSource[1] == null)
@@ -168,6 +185,19 @@ namespace StudentManagement.ViewModels
             if (Password != RePassword)
             {
                 MyMessageBox.Show("Hai mật khẩu không khớp nhau");
+                return -1;
+            }
+
+            string Email = Convert.ToString(InfoSource[1].Value);
+            if (!IsValidEmail(Email))
+            {
+                MyMessageBox.Show("Email không đúng định dạng");
+                return -1;
+            }
+
+            if (DataProvider.Instance.Database.Users.Where(x => x.Email == Email).FirstOrDefault() != null)
+            {
+                MyMessageBox.Show("Email đã tồn tại");
                 return -1;
             }
 

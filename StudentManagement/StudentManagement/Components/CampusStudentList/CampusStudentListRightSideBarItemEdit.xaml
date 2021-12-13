@@ -2,6 +2,7 @@
     x:Class="StudentManagement.Components.CampusStudentListRightSideBarItemEdit"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:component="clr-namespace:StudentManagement.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -28,9 +29,9 @@
                 <TextBlock
                     Margin="0,0,0,16"
                     FontSize="28"
-                    FontWeight="Bold"
+                    FontWeight="ExtraBold"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                    Text="Cập nhật thông tin"
+                    Text="Thay đổi thông tin"
                     TextWrapping="Wrap" />
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
@@ -38,17 +39,16 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Họ và tên" />
+                        Content="Vai trò người dùng"
+                        Style="{StaticResource LabelText}" />
 
-                    <TextBox
+                    <ComboBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập họ và tên"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentStudent.NameStudent}" />
+                        ItemsSource="{Binding Roles}"
+                        SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource combobox_item}" />
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
@@ -56,60 +56,62 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Mã số sinh viên" />
+                        Content="Username"
+                        Style="{StaticResource LabelText}" />
 
                     <TextBox
                         Grid.Row="1"
                         Background="LightGray"
                         IsReadOnly="True"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentStudent.IDStudent}" />
-                </Grid>
-                <Grid Style="{StaticResource text_grid_item}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                        Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <TextBlock
-                        Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Khoa đào tạo" />
-
-                    <ComboBox
-                        Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Chọn khoa đào tạo"
-                        ItemsSource="{Binding Faculties}"
-                        SelectedItem="{Binding SelectedFaculty, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource combobox_item}"
-                        Text="{Binding CurrentStudent.Faculty}" />
                 </Grid>
 
-                <Grid Style="{StaticResource text_grid_item}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
 
-                    <TextBlock
-                        Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Hệ đào tạo" />
+                            <ContentPresenter Content="{Binding}">
+                                <ContentPresenter.Resources>
+                                    <DataTemplate x:Key="Combobox">
+                                        <component:UserCardCombobox />
+                                    </DataTemplate>
+                                    <DataTemplate x:Key="DatePicker">
+                                        <component:UserCardDatePicker />
+                                    </DataTemplate>
+                                    <DataTemplate x:Key="Textbox">
+                                        <component:UserCardTextBox />
+                                    </DataTemplate>
+                                </ContentPresenter.Resources>
 
-                    <ComboBox
-                        Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Chọn hệ đào tạo"
-                        ItemsSource="{Binding Trainings}"
-                        SelectedItem="{Binding SelectedTraining, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource combobox_item}"
-                        Text="{Binding CurrentStudent.Training}" />
-                </Grid>
+
+                                <ContentPresenter.Style>
+                                    <Style TargetType="{x:Type ContentPresenter}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Type}" Value="0">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource Textbox}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Type}" Value="1">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource DatePicker}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Type}" Value="2">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource Combobox}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentPresenter.Style>
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </ScrollViewer>
         <Grid

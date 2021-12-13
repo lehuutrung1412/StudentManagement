@@ -58,7 +58,7 @@ namespace StudentManagement.Objects
         {
             ID =  x.IdUsers;
             DisplayName = UserServices.Instance.GetDisplayNameById((Guid)ID);
-            Role = "Sinh viên";
+            Role = "Admin";
            
           
         }

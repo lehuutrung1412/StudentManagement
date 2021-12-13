@@ -25,7 +25,7 @@
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 TextWrapping="Wrap">
-                <Run Text="Thông tin sinh viên" />
+                <Run Text="Thông tin người dùng" />
             </TextBlock>
             <ItemsControl ItemsSource="{Binding CurrentStudent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <ItemsControl.ItemsPanel>
