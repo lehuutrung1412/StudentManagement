@@ -22,5 +22,9 @@ namespace StudentManagement.Services
             DataProvider.Instance.Database.NotificationTypes.ToList().ForEach(notificationType => listNotificationType.Add(notificationType.Content));
             return listNotificationType;
         }
+        public NotificationType GetNotificationTypeWithTypeContent(string content)
+        {
+            return DataProvider.Instance.Database.NotificationTypes.FirstOrDefault(notificationType => notificationType.Content.Contains(content));
+        }
     }
 }

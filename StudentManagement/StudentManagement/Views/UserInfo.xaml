@@ -43,7 +43,7 @@
 
                 </materialDesign:DialogHost.DialogContent>
                 <Grid
-                    Margin="16 0 0 0"
+                    Margin="16,0,0,0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
                     <Grid.RowDefinitions>
@@ -55,8 +55,9 @@
                             <Button
                                 x:Name="btnImage"
                                 Width="168"
+                                ToolTip="Ấn vào đây để thay đổi ảnh đại diện"
                                 Height="168"
-                                Command="{Binding ClickImageCommand}">
+                                Command="{Binding ClickChangeImageCommand}">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Grid>
@@ -68,12 +69,38 @@
                                                 <Ellipse.Fill>
                                                     <ImageBrush ImageSource="{Binding Avatar, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
                                                 </Ellipse.Fill>
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="True">
+                                                                <Setter Property="Opacity" Value="0.5" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
                                             </Ellipse>
+                                            <materialDesign:PackIcon
+                                                Width="40"
+                                                Height="40"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Kind="Camera" >
+                                                <materialDesign:PackIcon.Style>
+                                                    <Style TargetType="materialDesign:PackIcon">
+                                                        <Setter Property="Opacity" Value="0"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="True">
+                                                                <Setter Property="Opacity" Value="1" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </materialDesign:PackIcon.Style>
+                                            </materialDesign:PackIcon>
                                         </Grid>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
-                            <Button
+                            <!--<Button
                                 Width="200"
                                 Margin="0,16,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="5"
@@ -91,7 +118,7 @@
                                     </Style>
                                 </Button.Style>
                                 <TextBlock Foreground="White" Text="Thay đổi ảnh đại diện" />
-                            </Button>
+                            </Button>-->
                             <TextBlock
                                 Margin="0,16,0,0"
                                 HorizontalAlignment="Center"

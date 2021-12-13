@@ -33,10 +33,6 @@ namespace StudentManagement.ViewModels
 
         public List<InfoItem> DisplaySource { get => _displaySource; set { _displaySource = value; OnPropertyChanged(); } }
 
-        public bool IsChangeAvatar { get => _isChangeAvatar; set { _isChangeAvatar = value; OnPropertyChanged(); } }
-
-        private bool _isChangeAvatar;
-
         public string Avatar { get => _avatar; set { _avatar = value; OnPropertyChanged(); } }
         private string _avatar;
         public ObservableCollection<string> ListTypeControl { get => _listTypeControl; set { _listTypeControl = value; OnPropertyChanged(); } }
@@ -80,9 +76,6 @@ namespace StudentManagement.ViewModels
         private Guid _idUser;
         public Guid IdUser { get => _idUser; set => _idUser = value; }
 
-        public ICommand ClickImageCommand { get => _clickImageCommand; set => _clickImageCommand = value; }
-        private ICommand _clickImageCommand;
-
         public ICommand ClickChangeImageCommand { get => _clickChangeImageCommand; set => _clickChangeImageCommand = value; }
         private ICommand _clickChangeImageCommand;
 
@@ -98,7 +91,6 @@ namespace StudentManagement.ViewModels
         public UserInfoViewModel()
         {
             Instance = this;
-            IsChangeAvatar = false;
             Avatar = "https://picsum.photos/200";
             LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
 
@@ -130,7 +122,6 @@ namespace StudentManagement.ViewModels
         }
         public void InitCommand()
         {
-            ClickImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickImage());
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
             UpdateUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateUserInfo());
@@ -274,11 +265,6 @@ namespace StudentManagement.ViewModels
 
             IsOpen = true;
         }
-        public void ClickImage()
-        {
-            IsChangeAvatar = !IsChangeAvatar;
-
-        }
         public void ClickChangeImage()
         {
             OpenFileDialog op = new OpenFileDialog
@@ -289,9 +275,7 @@ namespace StudentManagement.ViewModels
             if (op.ShowDialog() == DialogResult.OK)
             {
                 Avatar = op.FileName;
-                IsChangeAvatar = false;
             }
-            IsChangeAvatar = false;
         }
 
     }

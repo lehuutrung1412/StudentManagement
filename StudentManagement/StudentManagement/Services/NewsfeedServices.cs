@@ -62,6 +62,32 @@ namespace StudentManagement.Services
                 IdNotification = comment.PostId
             };
         }
+        public Notification ConvertPostCommentToNotification(PostComment comment)
+        {
+            NotificationComment notificationComment = db().NotificationComments.FirstOrDefault(noticeComment=>noticeComment.Id == comment.Id);
+            return new Notification()
+            {
+                Id = comment.Id,
+                IdPoster = comment.UserId,
+                Time = comment.Time,
+                IdNotificationType = NotificationTypeServices.Instance.GetNotificationTypeWithTypeContent("Thông báo bình luận")?.Id,
+                Topic = notificationComment.Notification.SubjectClass.Code,
+                Content = comment.Comment,
+                IdSubjectClass = notificationComment.Notification.IdSubjectClass,
+            };
+        }
+        public NotificationInfo ConvertPostCommentToNotificationInfo(PostComment comment)
+        {
+            Notification notification = NotificationServices.Instance.FindNotificationByNotificationId(comment.Id);
+            NotificationComment notificationComment = db().NotificationComments.FirstOrDefault(noticeComment=> noticeComment.Id == comment.Id);
+            return new NotificationInfo()
+            {
+                Id = Guid.NewGuid(),
+                IdNotification = notification.Id,
+                IdUserReceiver = notificationComment.Notification.IdPoster,
+                IsRead = false,
+            };
+        }
 
         public PostComment ConvertNotificationCommentToPostComment(NotificationComment comment)
         {
@@ -110,6 +136,17 @@ namespace StudentManagement.Services
             await db().SaveChangesAsync();
         }
 
+        public async Task SaveCommentToNotification(PostComment comment)
+        {
+            db().Notifications.AddOrUpdate(ConvertPostCommentToNotification(comment));
+            await db().SaveChangesAsync();
+        }
+        public async Task SaveCommentToNotificationInfo(PostComment comment)
+        {
+            db().NotificationInfoes.AddOrUpdate(ConvertPostCommentToNotificationInfo(comment));
+            await db().SaveChangesAsync();
+        }
+
         public async Task SaveImageToDatabaseAsync(Guid postId, string image)
         {
             var imgId = await DatabaseImageTableServices.Instance.SaveImageToDatabaseAsync(image);
@@ -130,7 +167,7 @@ namespace StudentManagement.Services
 
         public List<Notification> GetListNotificationOfSubjectClass(Guid? idSubjectClass)
         {
-            return db().Notifications.Where(notif => notif.IdSubjectClass == idSubjectClass).ToList();
+            return db().Notifications.Where(notif => notif.IdSubjectClass == idSubjectClass && notif.IdNotificationType==null).ToList();
         }
 
         public List<NotificationComment> GetListCommentInPost(Guid postId)

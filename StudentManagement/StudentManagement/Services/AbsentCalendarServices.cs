@@ -48,6 +48,7 @@ namespace StudentManagement.Services
                 Time = DateTime.Now,
                 IdPoster = LoginServices.CurrentUser.Id,
                 IdSubjectClass = absentCalendar.IdSubjectClass,
+                IdNotificationType = NotificationTypeServices.Instance.GetNotificationTypeWithTypeContent("Thông báo nghỉ bù").Id,
             };
             notification.Topic = absentCalendar.SubjectClass.Code;
             if (item.Type == "Học bù")
