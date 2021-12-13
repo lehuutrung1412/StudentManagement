@@ -147,8 +147,8 @@
                 Style="{StaticResource PrimaryButton}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding GotoLayoutViewCommand, Source={StaticResource MainVM}}" />
                         <i:InvokeCommandAction Command="{Binding RememberUserCommand}" />
+                        <i:InvokeCommandAction Command="{Binding GotoLayoutViewCommand, Source={StaticResource MainVM}}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>

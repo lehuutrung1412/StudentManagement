@@ -39,17 +39,12 @@ namespace StudentManagement.Services
         private static User s_currentUser;
         public static User CurrentUser { get => s_currentUser; set => s_currentUser = value; }
 
-        public static ObservableCollection<Account> ListRememberedAccount { get; set; }
-
-        public static string FilePathRememberedAccount = "D:\\account.txt"; 
+        public static string FilePathRememberedAccount = "D:\\accountStuMan.txt";
 
         public StudentManagementEntities db = DataProvider.Instance.Database;
 
 
-        public LoginServices()
-        {
-            InitListRememberedAccount();
-        }
+        public LoginServices() { }
 
         public bool IsUserAuthentic(string username, string password)
         {
@@ -112,38 +107,13 @@ namespace StudentManagement.Services
             byte[] data = Convert.FromBase64String(input);
             using (MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider())
             {
-                byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(input));
+                byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
                 using (TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
                 {
                     ICryptoTransform transform = tripleDES.CreateDecryptor();
                     byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
                     return UTF8Encoding.UTF8.GetString(results);
                 }
-            }
-        }
-
-        public void InitListRememberedAccount()
-        {
-            ListRememberedAccount = new ObservableCollection<Account>();
-            string filePath = LoginServices.FilePathRememberedAccount;
-            if (File.Exists(filePath))
-            {
-                string fileContent = "";
-                using (StreamReader sr = new StreamReader(filePath))
-                {
-                    fileContent = sr.ReadToEnd();
-                    foreach (string accountRow in fileContent.Split('\n'))
-                    {
-                        if (accountRow == "")
-                            continue;
-                        string[] account = accountRow.Split('\t');
-                        LoginServices.ListRememberedAccount.Add(new Account(account[0], account[1].Replace("\r", "")));
-                    }
-                }
-            }
-            else
-            {
-                File.CreateText(LoginServices.FilePathRememberedAccount);
             }
         }
     }

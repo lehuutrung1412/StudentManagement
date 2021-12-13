@@ -11,15 +11,15 @@ namespace StudentManagement.Objects
         private string _userName;
 
         // Hash style
-        private string _passWordHash;
+        private string _passWord;
 
         public string UserName { get => _userName; set => _userName = value; }
-        public string PassWordHash { get => _passWordHash; set => _passWordHash = value; }
+        public string PassWord { get => _passWord; set => _passWord = value; }
 
-        public Account(string userName, string passWordHash)
+        public Account(string userName, string passWord)
         {
             this.UserName = userName;
-            this.PassWordHash = passWordHash;
+            this.PassWord = passWord;
         }
     }
 }
