@@ -67,7 +67,7 @@
                                                 Stroke="Gray"
                                                 StrokeThickness="2">
                                                 <Ellipse.Fill>
-                                                    <ImageBrush ImageSource="{Binding Avatar, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill" />
+                                                    <ImageBrush ImageSource="{Binding Avatar, UpdateSourceTrigger=PropertyChanged, TargetNullValue={StaticResource ImageDefault}}" Stretch="UniformToFill"/>
                                                 </Ellipse.Fill>
                                                 <Ellipse.Style>
                                                     <Style TargetType="Ellipse">
@@ -124,7 +124,7 @@
                                 HorizontalAlignment="Center"
                                 FontSize="28"
                                 FontWeight="Bold"
-                                Text="Nguyễn Đỗ Mạnh Cường" />
+                                Text="{Binding IdUser, Converter={utils:ConverterDisplayNameFromIdUser}}" />
 
                         </StackPanel>
                     </Grid>

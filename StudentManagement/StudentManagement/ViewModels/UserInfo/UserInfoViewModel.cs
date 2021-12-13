@@ -91,7 +91,6 @@ namespace StudentManagement.ViewModels
         public UserInfoViewModel()
         {
             Instance = this;
-            Avatar = "https://picsum.photos/200";
             LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
 
             //ObservableCollection<string> Faculty = new ObservableCollection<string> { "KHMT", "KTPM" };
@@ -113,6 +112,7 @@ namespace StudentManagement.ViewModels
             if (LoginServices.CurrentUser != null)
             {
                 IdUser = LoginServices.CurrentUser.Id;
+                Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
                 LoadInfoSource();
             }
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
@@ -143,6 +143,7 @@ namespace StudentManagement.ViewModels
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
         {
             IdUser = LoginServices.CurrentUser.Id;
+            Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
             UserInfoViewModel.Instance.LoadInfoSource();
         }
 
@@ -265,7 +266,7 @@ namespace StudentManagement.ViewModels
 
             IsOpen = true;
         }
-        public void ClickChangeImage()
+        public async void ClickChangeImage()
         {
             OpenFileDialog op = new OpenFileDialog
             {
@@ -274,9 +275,14 @@ namespace StudentManagement.ViewModels
             };
             if (op.ShowDialog() == DialogResult.OK)
             {
+                var uploadImageTasks = new List<Task<string>>();
+                uploadImageTasks.Add(ImageUploader.Instance.UploadAsync(op.FileName));
+                foreach (var img in await Task.WhenAll(uploadImageTasks))
+                {
+                    await UserServices.Instance.SaveImageToUser(op.FileName);
+                }
                 Avatar = op.FileName;
             }
         }
-
     }
 }

@@ -88,16 +88,16 @@
                             Stroke="{StaticResource DarkGray}"
                             StrokeThickness="2">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="https://picsum.photos/200" Stretch="UniformToFill" />
+                                <ImageBrush ImageSource="{Binding IdPoster, Converter={utils:ConverterImageFromIdUser}, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="UniformToFill" />
                             </Ellipse.Fill>
                         </Ellipse>
                         <ToggleButton
-                            Foreground="White"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom" >
+                            VerticalAlignment="Bottom"
+                            Foreground="White">
                             <ToggleButton.Style>
-                                <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignActionAccentToggleButton}">
-                                    <Setter Property="Background" Value="{DynamicResource GenaralInNotification}"/>
+                                <Style BasedOn="{StaticResource MaterialDesignActionAccentToggleButton}" TargetType="ToggleButton">
+                                    <Setter Property="Background" Value="{DynamicResource GenaralInNotification}" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
                                             <Setter Property="Background" Value="{DynamicResource ClassNotification}" />
@@ -115,7 +115,7 @@
                             <materialDesign:PackIcon>
                                 <materialDesign:PackIcon.Style>
                                     <Style TargetType="materialDesign:PackIcon">
-                                        <Setter Property="Kind" Value="Account"/>
+                                        <Setter Property="Kind" Value="Account" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
                                                 <Setter Property="Kind" Value="AccountGroup" />
