@@ -360,13 +360,19 @@ namespace StudentManagement.ViewModels
                 }
             }
 
+            if (SelectedRole != PreviousRole.Role)
+            {
+                var deleteRoleInfo = DataProvider.Instance.Database.User_UserRole_UserInfo.Where(x => x.IdUser == ThisUser.Id);
+                foreach (var item in deleteRoleInfo)
+                {
+                    item.IdUser = null;
+                }
+            }
+
             foreach (var item in InfoSource)
             {
                 if (item.LabelName != "Hệ đào tạo" && item.LabelName != "Khoa" && item.LabelName != "Họ và tên" && item.LabelName != "Địa chỉ email")
-                {
-                    User_UserRole_UserInfo previousInfo = DataProvider.Instance.Database.User_UserRole_UserInfo.Where(x => x.IdUser == ThisUser.Id).FirstOrDefault();
-                    previousInfo.IdUser = null;
-                   
+                { 
 
                     User_UserRole_UserInfo newInfo = new User_UserRole_UserInfo();
                     newInfo.Id = Guid.NewGuid();
