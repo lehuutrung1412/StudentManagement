@@ -88,7 +88,7 @@ namespace StudentManagement.Services
                 //not sent to the poster if poster is student
                 if (LoginServices.CurrentUser.UserRole.Role == "Sinh viên")
                 {
-                    if (StudentServices.Instance.FindStudentByUserId(LoginServices.CurrentUser.Id).Id == courseRegister.Id)
+                    if (StudentServices.Instance.FindStudentByUserId(LoginServices.CurrentUser.Id).Id == courseRegister.IdStudent)
                         continue;
                 }
                 var notificationInfo = new NotificationInfo()

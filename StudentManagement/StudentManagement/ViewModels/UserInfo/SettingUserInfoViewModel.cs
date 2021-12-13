@@ -14,34 +14,34 @@ namespace StudentManagement.ViewModels
 {
     public class SettingUserInfoViewModel : BaseViewModel
     {
-        public class InfoItemWithViewMode
-        {
-            private InfoItem _infoItem;
-            private EditInfoItemViewModel _editInfoItemViewModel;
+        //public class InfoItemWithViewMode
+        //{
+        //    private InfoItem _infoItem;
+        //    private EditInfoItemViewModel _editInfoItemViewModel;
 
-            public InfoItem InfoItem { get => _infoItem; set => _infoItem = value; }
-            public EditInfoItemViewModel EditInfoItemViewModel { get => _editInfoItemViewModel; set => _editInfoItemViewModel = value; }
+        //    public InfoItem InfoItem { get => _infoItem; set => _infoItem = value; }
+        //    public EditInfoItemViewModel EditInfoItemViewModel { get => _editInfoItemViewModel; set => _editInfoItemViewModel = value; }
 
-            public InfoItemWithViewMode(InfoItem infoItem)
-            {
-                InfoItem = infoItem;
-                EditInfoItemViewModel = new EditInfoItemViewModel(infoItem);
-            }
-        }
-        public class DeleteInfoItemWithViewMode
-        {
-            private InfoItem _infoItem;
-            private DeleteInfoItemViewModel _deleteInfoItemWithViewModel;
+        //    public InfoItemWithViewMode(InfoItem infoItem)
+        //    {
+        //        InfoItem = infoItem;
+        //        EditInfoItemViewModel = new EditInfoItemViewModel(infoItem);
+        //    }
+        //}
+        //public class DeleteInfoItemWithViewMode
+        //{
+        //    private InfoItem _infoItem;
+        //    private DeleteInfoItemViewModel _deleteInfoItemWithViewModel;
 
-            public InfoItem InfoItem { get => _infoItem; set => _infoItem = value; }
-            public DeleteInfoItemViewModel DeleteInfoItemWithViewModel { get => _deleteInfoItemWithViewModel; set => _deleteInfoItemWithViewModel = value; }
+        //    public InfoItem InfoItem { get => _infoItem; set => _infoItem = value; }
+        //    public DeleteInfoItemViewModel DeleteInfoItemWithViewModel { get => _deleteInfoItemWithViewModel; set => _deleteInfoItemWithViewModel = value; }
 
-            public DeleteInfoItemWithViewMode(InfoItem infoItem)
-            {
-                InfoItem = infoItem;
-                DeleteInfoItemWithViewModel = new DeleteInfoItemViewModel(infoItem);
-            }
-        }
+        //    public DeleteInfoItemWithViewMode(InfoItem infoItem)
+        //    {
+        //        InfoItem = infoItem;
+        //        DeleteInfoItemWithViewModel = new DeleteInfoItemViewModel(infoItem);
+        //    }
+        //}
 
         private static SettingUserInfoViewModel s_instance;
         public static SettingUserInfoViewModel Instance
@@ -51,11 +51,11 @@ namespace StudentManagement.ViewModels
             private set => s_instance = value;
         }
 
-        private ObservableCollection<InfoItemWithViewMode> _infoSource;
-        public ObservableCollection<InfoItemWithViewMode> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
+        private ObservableCollection<EditInfoItemViewModel> _infoSource;
+        public ObservableCollection<EditInfoItemViewModel> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<DeleteInfoItemWithViewMode> _deleteSource;
-        public ObservableCollection<DeleteInfoItemWithViewMode> DeleteSource { get => _deleteSource; set { _deleteSource = value; OnPropertyChanged(); } }
+        private ObservableCollection<DeleteInfoItemViewModel> _deleteSource;
+        public ObservableCollection<DeleteInfoItemViewModel> DeleteSource { get => _deleteSource; set { _deleteSource = value; OnPropertyChanged(); } }
 
 
         private List<bool> _listCheck;
@@ -119,7 +119,7 @@ namespace StudentManagement.ViewModels
                     if (InfoSource == null)
                         return true;
                     foreach (var infoItem in InfoSource)
-                        if (infoItem.EditInfoItemViewModel.HasErrors)
+                        if (infoItem.HasErrors)
                             return false;
                     return true;
                 }, 
@@ -129,34 +129,27 @@ namespace StudentManagement.ViewModels
         }
         public void GetInfoSourceInSettingByRole()
         {
-            InfoSource = new ObservableCollection<InfoItemWithViewMode>();
+            InfoSource = new ObservableCollection<EditInfoItemViewModel>();
+            DeleteSource = new ObservableCollection<DeleteInfoItemViewModel>();
             if (ListCheck[0])
             {
-                Role = "Học sinh";
-                InfoItemServices.Instance.GetInfoSourceInSettingByRole("Học sinh").ToList().ForEach(infoSource => InfoSource.Add(new InfoItemWithViewMode(infoSource)));
+                Role = "Sinh viên";
+                InfoItemServices.Instance.GetInfoSourceInSettingByRole("Sinh viên").ToList().ForEach(infoSource => InfoSource.Add(new EditInfoItemViewModel(infoSource)));
+                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Sinh viên").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemViewModel(infoSource)));
             }
             else if (ListCheck[1])
             {
                 Role = "Giáo viên";
-                InfoItemServices.Instance.GetInfoSourceInSettingByRole("Giáo viên").ToList().ForEach(infoSource => InfoSource.Add(new InfoItemWithViewMode(infoSource)));
+                InfoItemServices.Instance.GetInfoSourceInSettingByRole("Giáo viên").ToList().ForEach(infoSource => InfoSource.Add(new EditInfoItemViewModel(infoSource)));
+                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Giáo viên").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemViewModel(infoSource)));
             }
             else
             {
                 Role = "Admin";
-                InfoItemServices.Instance.GetInfoSourceInSettingByRole("Admin").ToList().ForEach(infoSource => InfoSource.Add(new InfoItemWithViewMode(infoSource)));
+                InfoItemServices.Instance.GetInfoSourceInSettingByRole("Admin").ToList().ForEach(infoSource => InfoSource.Add(new EditInfoItemViewModel(infoSource)));
+                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Admin").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemViewModel(infoSource)));
             }
-            GetDeleteSourceInSettingByRole();
             IsSetting = true;
-        }
-        public void GetDeleteSourceInSettingByRole()
-        {
-            DeleteSource = new ObservableCollection<DeleteInfoItemWithViewMode>();
-            if (ListCheck[0])
-                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Học sinh").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemWithViewMode(infoSource)));
-            else if (ListCheck[1])
-                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Giáo viên").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemWithViewMode(infoSource)));
-            else
-                InfoItemServices.Instance.GetDeleteInfoSourceByRole("Admin").ToList().ForEach(infoSource => DeleteSource.Add(new DeleteInfoItemWithViewMode(infoSource)));
         }
         public void AddNewInfoItemInSetting()
         {
@@ -176,7 +169,7 @@ namespace StudentManagement.ViewModels
             if (MyMessageBox.Show("Bạn muốn lưu cài đặt này", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) == System.Windows.MessageBoxResult.Yes)
             {
                 MyMessageBox.Show("Cài đặt thành công", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                InfoSource.ToList().ForEach(infoSource => infoSource.EditInfoItemViewModel.UpdateInfoItem());
+                InfoSource.ToList().ForEach(infoSource => infoSource.UpdateInfoItem());
             }
             GetInfoSourceInSettingByRole();
             return;

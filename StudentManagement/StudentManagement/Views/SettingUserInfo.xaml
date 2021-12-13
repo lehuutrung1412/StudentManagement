@@ -148,7 +148,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <component:DeleteInfoItem MaxWidth="240" DataContext="{Binding DeleteInfoItemWithViewModel}" />
+                                            <component:DeleteInfoItem MaxWidth="240"/>
                                             
                                         </StackPanel>
 
