@@ -89,11 +89,11 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string WeekDay 
-        { 
-            get => _weekDay; 
-            set 
-            { 
+        public string WeekDay
+        {
+            get => _weekDay;
+            set
+            {
                 _weekDay = value;
 
                 //Validation
@@ -103,8 +103,8 @@ namespace StudentManagement.ViewModels
                 {
                     _errorBaseViewModel.AddError(nameof(WeekDay), "Vui lòng chọn thứ trong tuần");
                 }
-                OnPropertyChanged(); 
-            } 
+                OnPropertyChanged();
+            }
         }
         public DateTime? StartDate
         {
@@ -256,7 +256,18 @@ namespace StudentManagement.ViewModels
             CurrentItem.Period = Period;
             CurrentItem.WeekDay = DayOfWeeks.IndexOf(WeekDay);
             CurrentItem.MaxNumberOfStudents = Convert.ToInt32(MaxOfRegister);
-            CurrentItem.Teachers = new ObservableCollection<Teacher>() { SelectedTeacher };
+            //CurrentItem.Teachers = new ObservableCollection<Teacher>() { SelectedTeacher };
+
+            var temp = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId(CurrentItem.Id);
+
+            if (temp != null)
+            {
+                CurrentItem.Teachers = temp.Teachers;
+            }
+
+            CurrentItem.Teachers.Clear();
+            CurrentItem.Teachers.Add(SelectedTeacher);
+
             SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
             SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
             Cancel();

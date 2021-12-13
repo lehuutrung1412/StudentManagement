@@ -250,8 +250,15 @@ namespace StudentManagement.Services
                 WeekDay = DayOfWeeks.IndexOf(subjectClassCard.SelectedDay),
             };
 
-            subjectClass.Teachers?.Clear();
-            subjectClass.Teachers?.Add(subjectClassCard.SelectedTeacher);
+            var temp = FindSubjectClassBySubjectClassId(subjectClassCard.Id);
+
+            if (temp != null)
+            {
+                subjectClass.Teachers = temp.Teachers;
+            }
+
+            subjectClass.Teachers.Clear();
+            subjectClass.Teachers.Add(subjectClassCard.SelectedTeacher);
 
             return subjectClass;
         }
