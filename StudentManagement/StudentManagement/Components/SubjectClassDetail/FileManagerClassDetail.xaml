@@ -50,6 +50,7 @@
                         Padding="8"
                         Command="{Binding AddFile}"
                         FontSize="14"
+                        Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}"
                         Style="{StaticResource PrimaryButton}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon
@@ -70,6 +71,7 @@
                         materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding AddFolder}"
                         FontSize="14"
+                        Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}"
                         Style="{StaticResource PrimaryButton}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon

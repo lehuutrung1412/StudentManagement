@@ -7,14 +7,14 @@
     xmlns:local="clr-namespace:StudentManagement.Components"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:objects="clr-namespace:StudentManagement.Objects"
     xmlns:utils="clr-namespace:StudentManagement.Utils"
     xmlns:viewmodels="clr-namespace:StudentManagement.ViewModels"
-    xmlns:objects="clr-namespace:StudentManagement.Objects"
+    Name="FileManagerRightSideBarUC"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.21'}"
     Background="{StaticResource SideBar}"
     FontFamily="{DynamicResource MaterialDesignFont}"
-    Name="FileManagerRightSideBarUC"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -28,7 +28,7 @@
                     <components:EmptyStateRightSideBar />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type objects:FileInfo}">
-                    <components:FileManagerRightSideBarItem Tag="{Binding ElementName=FileManagerRightSideBarUC, Path=DataContext}"/>
+                    <components:FileManagerRightSideBarItem Tag="{Binding ElementName=FileManagerRightSideBarUC, Path=DataContext}" />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

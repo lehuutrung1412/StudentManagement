@@ -70,7 +70,10 @@
                         </Style>
                     </Calendar.CalendarDayButtonStyle>
                 </Calendar>
-                <StackPanel Grid.Row="2" Margin="4">
+                <StackPanel
+                    Grid.Row="2"
+                    Margin="4"
+                    Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
                     <Button
                         Background="{DynamicResource Orange}"
                         Command="{Binding AddAbsentDay}"
@@ -173,7 +176,7 @@
                                         <materialDesign:PackIcon>
                                             <materialDesign:PackIcon.Style>
                                                 <Style TargetType="materialDesign:PackIcon">
-                                                    <Setter Property="Kind" Value="ExitRun"/>
+                                                    <Setter Property="Kind" Value="ExitRun" />
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Type}" Value="Học bù">
                                                             <Setter Property="Kind" Value="BackupRestore" />

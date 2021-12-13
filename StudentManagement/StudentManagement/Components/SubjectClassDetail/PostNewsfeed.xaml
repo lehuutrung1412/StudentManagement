@@ -69,7 +69,7 @@
                         </StackPanel>
 
                         <materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignCentres">
-                            <StackPanel>
+                            <StackPanel Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
                                 <Button
                                     Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.EditPost}"
                                     CommandParameter="{Binding ElementName=PostNewsFeedUC}">
