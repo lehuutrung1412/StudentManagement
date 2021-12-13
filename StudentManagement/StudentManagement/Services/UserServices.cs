@@ -62,6 +62,16 @@ namespace StudentManagement.Services
             return DataProvider.Instance.Database.Users.FirstOrDefault(user => user.Id == id).UserRole.Role.Contains("Admin");
         }
 
+        public bool IsUsedEmail(string email)
+        {
+            foreach(var user in DataProvider.Instance.Database.Users.ToList())
+            {
+                if (user.Email.Equals(email))
+                    return true;             
+            }    
+            return false;
+        }
+
         public User FindUserbyUserId(Guid id)
         {
             User a = DataProvider.Instance.Database.Users.Where(userItem => userItem.Id == id).FirstOrDefault();

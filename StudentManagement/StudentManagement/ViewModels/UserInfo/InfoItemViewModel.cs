@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,17 +33,21 @@ namespace StudentManagement.ViewModels.UserInfo
                     if(!IsValidEmail(Content))
                     {
                         _errorBaseViewModel.AddError(nameof(Content), "Địa chỉ email không đúng định dạng!");
+                    }
+                    if(UserServices.Instance.IsUsedEmail(Content))
+                    {
+                        _errorBaseViewModel.AddError(nameof(Content), "Địa chỉ email đã được sử dụng ở tài khoản khác!");
                     }    
                 }
                 if (CurrendInfoItem.LabelName.Contains("Số điện thoại"))
                 {
-                    if (!int.TryParse(Content,out var tmp))
+                    if (!Int64.TryParse(Content, out var tmp))
                     {
                         _errorBaseViewModel.AddError(nameof(Content), "Số điện thoại phải là số!");
                     }
                     else
                     {
-                        if (Content.Length < 10)
+                        if (Content.Length != 10)
                         {
                             _errorBaseViewModel.AddError(nameof(Content), "Số điện thoại phải đủ 10 số!");
                         }
@@ -68,6 +73,7 @@ namespace StudentManagement.ViewModels.UserInfo
             CurrendInfoItem = infoItem;
             if(infoItem.Value!=null)
                 Content = infoItem.Value.ToString();
+            _errorBaseViewModel.ClearAllErrors();
         }
         public bool CanConvertDateTime(string value)
         {
