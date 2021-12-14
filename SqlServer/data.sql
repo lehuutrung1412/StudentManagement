@@ -134,23 +134,6 @@ CREATE TABLE Faculty_TrainingForm
 )
 GO
 
-CREATE TABLE StudyResult
-(
-  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  IdStudent UNIQUEIDENTIFIER NULL,
-  IdSubjectClass UNIQUEIDENTIFIER NULL,
-  -- ProcessScore FLOAT,
-  -- MidTermScore FLOAT,
-  -- FinalTermScore FLOAT,
-  -- PracticeScore FLOAT,
-  -- AverageScore FLOAT,
-  -- ProcessScorePercentage FLOAT,
-  -- MidTermScorePercentage FLOAT,
-  -- FinalTermScorePercentage FLOAT,
-  -- PracticeScorePercentage FLOAT,
-)
-GO
-
 CREATE TABLE ComponentScore
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
@@ -215,6 +198,7 @@ CREATE TABLE SubjectClass
   Code NVARCHAR(MAX) NOT NULL,
   NumberOfStudents INT NULL,
   MaxNumberOfStudents INT NULL,
+  IsDeleted BIT DEFAULT 0,
 )
 GO
 
@@ -246,7 +230,6 @@ CREATE TABLE CourseRegister
   -- 0:Chưa đăng ký || 1:Đã đăng ký || 2:Đang chờ duyệt
   IdStudent UNIQUEIDENTIFIER NULL,
   IdSubjectClass UNIQUEIDENTIFIER NULL,
-  IdSemester UNIQUEIDENTIFIER NULL,
 )
 GO
 
@@ -295,7 +278,7 @@ GO
 CREATE TABLE DatabaseImageTable
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
-  Image NVARCHAR(max),
+  Image NVARCHAR(MAX),
 )
 GO
 
@@ -393,14 +376,6 @@ ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
  GO
 
 
-
-ALTER TABLE  StudyResult
-ADD FOREIGN KEY(IdStudent) REFERENCES Student(Id),
- FOREIGN KEY(IdSubjectClass) REFERENCES SubjectClass(Id)
- GO
-
-
-
 ALTER TABLE  Class
 ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
  FOREIGN KEY(IdFaculty) REFERENCES Faculty(Id),
@@ -434,8 +409,7 @@ GO
 
 ALTER TABLE CourseRegister ADD
 FOREIGN KEY (IdSubjectClass) REFERENCES SubjectClass(Id),
-FOREIGN KEY (IdStudent) REFERENCES Student(Id),
-FOREIGN KEY (IdSemester) REFERENCES Semester(Id)
+FOREIGN KEY (IdStudent) REFERENCES Student(Id)
 GO
 
 

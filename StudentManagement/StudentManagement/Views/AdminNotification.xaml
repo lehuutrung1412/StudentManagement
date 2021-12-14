@@ -22,114 +22,116 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <materialDesign:Card Style="{StaticResource CardContainer}">
-        <ScrollViewer>
-            <materialDesign:DialogHost
-                Name="DialogHostNotification"
-                CloseOnClickAway="True"
-                IsOpen="{Binding IsOpen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                <materialDesign:DialogHost.DialogContent>
-                    <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminNotificationVM}">
-                        <ContentControl.Resources>
-                            <DataTemplate DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
-                                <component:NewNotification Width="600" Height="500" />
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type viewmodels:ShowDetailNotificationViewModel}">
-                                <component:ShowDetailNotification Width="600" Height="500" />
-                            </DataTemplate>
-                        </ContentControl.Resources>
-                    </ContentControl>
-                </materialDesign:DialogHost.DialogContent>
-                <Grid Margin="16 8 0 8">
-                    <StackPanel>
-                        <TextBlock
-                            Margin="0,8"
-                            FontWeight="Bold"
-                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                            Text="Danh sách lớp môn học" />
-                        <Grid Height="56" Margin="0,8">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="4*" />
-                                <ColumnDefinition Width="1.5*" />
-                            </Grid.ColumnDefinitions>
-                            <component:SearchBarOne
-                                Grid.Column="0"
-                                DataContext="{DynamicResource AdminNotificationVM}"
-                                FirstSearchButtonVisibility="False"
-                                SearchCommand="{Binding SearchCommand}"
-                                SearchQuery="{Binding SearchInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                SecondSearchButtonVisibility="False"
-                                SelectedDateInSearchBar="{Binding SearchDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                TextInTextBlockSearchBaseOn="Chọn ngày" />
-                            <Button
-                                Grid.Column="2"
-                                Margin="16,0,0,0"
-                                Height="50"
-                                HorizontalAlignment="Right">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
-                                        <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <TextBlock
-                                    FontSize="14"
-                                    Text="Thêm thông báo"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
-                                <Button.Style>
-                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IdUser, Converter={utils:CheckAdminConverter}}" Value="false">
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                        </Grid>
-                        <DockPanel Margin="0 8">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Margin="0 8 16 8"
-                                    FontSize="20"
-                                    FontWeight="SemiBold"
-                                    Text="Loại thông báo" />
-                                <ComboBox
-                                    x:Name="cbTypeNotification"
-                                    Height="36"
-                                    Margin="0,4"
-                                    materialDesign:HintAssist.Hint="Chọn loại thông báo"
-                                    FontSize="16"
-                                    Foreground="Black"
-                                    ItemsSource="{Binding TypeInMain, Source={StaticResource AdminNotificationVM}}"
-                                    SelectedItem="{Binding SearchType}"
-                                    Style="{StaticResource ComboboxInfo}">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <materialDesign:DialogHost
+            Name="DialogHostNotification"
+            CloseOnClickAway="True"
+            IsOpen="{Binding IsOpen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <materialDesign:DialogHost.DialogContent>
+                <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource AdminNotificationVM}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
+                            <component:NewNotification Width="600" Height="500" />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewmodels:ShowDetailNotificationViewModel}">
+                            <component:ShowDetailNotification Width="600" Height="500" />
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </materialDesign:DialogHost.DialogContent>
+            <Grid>
+                <StackPanel Margin="4,0,0,0">
+                    <materialDesign:Card Padding="16,16,16,8" Style="{StaticResource CardContainer}">
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,8"
+                                FontWeight="Bold"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                Text="Danh sách thông báo" />
+                            <Grid Height="50" Margin="0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="1.5*" />
+                                </Grid.ColumnDefinitions>
+                                <component:SearchBarOne
+                                    Grid.Column="0"
+                                    DataContext="{DynamicResource AdminNotificationVM}"
+                                    FirstSearchButtonVisibility="False"
+                                    SearchCommand="{Binding SearchCommand}"
+                                    SearchQuery="{Binding SearchInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SecondSearchButtonVisibility="False"
+                                    SelectedDateInSearchBar="{Binding SearchDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    TextInTextBlockSearchBaseOn="Chọn ngày" />
+                                <Button
+                                    Grid.Column="2"
+                                    Height="50"
+                                    Margin="16,0,0,0"
+                                    HorizontalAlignment="Right">
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="DropDownClosed">
-                                            <i:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=cbTypeNotification}" />
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding CreateNotificationCommand}" />
+                                            <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                </ComboBox>
-                            </StackPanel>
-                        </DockPanel>
-                        <ItemsControl ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel HorizontalAlignment="Center" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <component:NotificationCard Margin="0 5" HorizontalAlignment="Stretch" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:DialogHost>
-        </ScrollViewer>
-    </materialDesign:Card>
+                                    <TextBlock
+                                        FontSize="14"
+                                        Text="Thêm thông báo"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IdUser, Converter={utils:CheckAdminConverter}}" Value="false">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+                            <DockPanel Margin="0,8">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="0,8,16,8"
+                                        FontSize="20"
+                                        FontWeight="SemiBold"
+                                        Text="Loại thông báo" />
+                                    <ComboBox
+                                        x:Name="cbTypeNotification"
+                                        Height="36"
+                                        Margin="0,4"
+                                        materialDesign:HintAssist.Hint="Chọn loại thông báo"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        ItemsSource="{Binding TypeInMain, Source={StaticResource AdminNotificationVM}}"
+                                        SelectedItem="{Binding SearchType}"
+                                        Style="{StaticResource ComboboxInfo}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="DropDownClosed">
+                                                <i:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=cbTypeNotification}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                </StackPanel>
+                            </DockPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <ItemsControl ItemsSource="{Binding RealCards, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <component:NotificationCard HorizontalAlignment="Stretch" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+        </materialDesign:DialogHost>
+    </ScrollViewer>
 
 </UserControl>

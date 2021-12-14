@@ -38,7 +38,7 @@ namespace StudentManagement.Services
         public ObservableCollection<SubjectClass> LoadCourseRegisteredListBySemesterIdAndStudentId(Guid idSemester, Guid idStudent)
         {
             ObservableCollection<SubjectClass> listSubjectClass = new ObservableCollection<SubjectClass>();
-            List<CourseRegister> listCourseRegistered = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdSemester == idSemester).Where(y => y.IdStudent == idStudent).Where(z=>z.Status==1).ToList();
+            List<CourseRegister> listCourseRegistered = DataProvider.Instance.Database.CourseRegisters.Where(x => x.SubjectClass.IdSemester == idSemester).Where(y => y.IdStudent == idStudent).Where(z=>z.Status==1).ToList();
             foreach(CourseRegister registeredCourse in listCourseRegistered)
             {
                 listSubjectClass.Add(registeredCourse.SubjectClass);
@@ -59,7 +59,7 @@ namespace StudentManagement.Services
         public CourseRegister FindCourseRegisterBySemesterIdAndStudentIdAndSubjectClassId(Guid idSemester, Guid idStudent, Guid idSubjectClass)
         {
             return DataProvider.Instance.Database.CourseRegisters
-                .Where(register => register.IdSemester == idSemester)
+                .Where(register => register.SubjectClass.IdSemester == idSemester)
                 .Where(register => register.IdStudent == idStudent)
                 .Where(register => register.IdSubjectClass == idSubjectClass)
                 .FirstOrDefault();
@@ -69,8 +69,6 @@ namespace StudentManagement.Services
             CourseRegister registering = new CourseRegister()
             {
                 Id = Guid.NewGuid(),
-                Semester = SemesterServices.Instance.FindSemesterBySemesterId(idSemester),
-                IdSemester = idSemester,
                 IdStudent = idStudent,
                 IdSubjectClass = subjectClass.Id,
                 Status = 1,
@@ -114,7 +112,6 @@ namespace StudentManagement.Services
             CourseRegister registering = new CourseRegister()
             {
                 Id = Guid.NewGuid(),
-                IdSemester = subjectClass.IdSemester,
                 IdStudent = idStudent,
                 IdSubjectClass = subjectClass.Id,
                 Status = 1,

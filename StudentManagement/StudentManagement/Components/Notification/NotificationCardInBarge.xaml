@@ -33,6 +33,7 @@
                 Padding="4,0,0,0"
                 HorizontalAlignment="Stretch"
                 Panel.ZIndex="2"
+                materialDesign:RippleAssist.Feedback="Gray"
                 materialDesign:ShadowAssist.ShadowDepth="Depth4"
                 Background="{DynamicResource White}"
                 BorderThickness="0"

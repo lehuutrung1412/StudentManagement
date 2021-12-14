@@ -16,7 +16,6 @@
     VerticalContentAlignment="Stretch"
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.49'}"
-    Background="{DynamicResource CenterColumn}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
@@ -24,172 +23,189 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Border x:Name="bdNotification">
-
-        <Grid HorizontalAlignment="Stretch">
-            <Grid.Resources>
-                <math:MathConverter x:Key="math" />
-            </Grid.Resources>
-            <Button
-                x:Name="btnNotification"
-                Height="{Binding Path=ActualWidth, ElementName=grdImg, Converter={StaticResource math}, ConverterParameter='x+16'}"
-                Margin="0"
-                Padding="4,0,0,0"
-                HorizontalAlignment="Stretch"
-                Panel.ZIndex="2"
-                materialDesign:ShadowAssist.ShadowDepth="Depth4"
-                Click="btnNotification_Click"
-                Foreground="Black">
-                <Button.Style>
-                    <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Cursor" Value="Hand" />
-                                <Setter Property="Background" Value="{StaticResource SelectedItemGray}" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.8*" />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="7*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Name="grdImg" Grid.Column="0">
-                        <Ellipse
-                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                            HorizontalAlignment="Stretch"
-                            Stroke="{StaticResource DarkGray}"
-                            StrokeThickness="2">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding IdPoster, Converter={utils:ConverterImageFromIdUser}, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="UniformToFill" />
-                            </Ellipse.Fill>
-                        </Ellipse>
-                    </Grid>
-                    <!--<GridSplitter
-                        Grid.Column="1"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Stretch"
-                        Background="Gray" />-->
-                    <ToggleButton
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Foreground="White">
-                        <ToggleButton.Style>
-                            <Style BasedOn="{StaticResource MaterialDesignActionAccentToggleButton}" TargetType="ToggleButton">
-                                <Setter Property="Background" Value="{DynamicResource GenaralInNotification}" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
-                                        <Setter Property="Background" Value="{DynamicResource ClassNotification}" />
-                                    </DataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
-                                            <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="{DynamicResource CommentNotification}" />
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ToggleButton.Style>
-                        <materialDesign:PackIcon>
-                            <materialDesign:PackIcon.Style>
-                                <Style TargetType="materialDesign:PackIcon">
-                                    <Setter Property="Kind" Value="Account" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
-                                            <Setter Property="Kind" Value="AccountGroup" />
-                                        </DataTrigger>
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
-                                                <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
-                                            </MultiDataTrigger.Conditions>
-                                            <Setter Property="Kind" Value="Comment" />
-                                        </MultiDataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </materialDesign:PackIcon.Style>
-                        </materialDesign:PackIcon>
-                    </ToggleButton>
-                    <Grid Grid.Column="2" Margin="8,0,8,0">
-                        <StackPanel>
-
-                            <TextBlock
-                                MaxHeight="28"
-                                VerticalAlignment="Top"
-                                FontSize="14"
-                                FontWeight="Bold"
-                                LineHeight="14"
-                                LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding Topic, FallbackValue='Chủ đề'}"
-                                TextTrimming="WordEllipsis"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                MaxHeight="36"
-                                Margin="0,4,0,0"
-                                FontSize="12"
-                                Foreground="Gray"
-                                LineHeight="12"
-                                LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding Content, FallbackValue='Nội dung'}"
-                                TextWrapping="Wrap" />
-
-                        </StackPanel>
-
-                    </Grid>
-                    <Grid
-                        Grid.Column="3"
-                        Margin="0,0,16,0"
-                        HorizontalAlignment="Right">
+    <materialDesign:Card Margin="0,8" Padding="0">
+        <Border x:Name="bdNotification">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.Resources>
+                    <math:MathConverter x:Key="math" />
+                </Grid.Resources>
+                <Button
+                    x:Name="btnNotification"
+                    Height="auto"
+                    Margin="0"
+                    Padding="8"
+                    HorizontalAlignment="Stretch"
+                    Panel.ZIndex="2"
+                    materialDesign:RippleAssist.Feedback="Gray"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    Click="btnNotification_Click"
+                    Foreground="Black">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ShowCardInfo, Source={StaticResource AdminNotificationRightSideBarVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            FontWeight="SemiBold"
-                            Foreground="#03a9f4"
-                            Text="{Binding Time, StringFormat='dd/MM/yyyy', FallbackValue='Ngày Đăng'}" />
-                        <Button
-                            Grid.Row="1"
-                            Padding="0"
-                            Panel.ZIndex="1"
-                            Style="{StaticResource MaterialDesignFlatButton}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
-                                    <i:InvokeCommandAction Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
-
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                        <Grid Grid.Row="0" Margin="0,0,0,8">
                             <TextBlock
-                                Grid.Row="1"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Bottom"
-                                FontSize="14"
+                                Grid.Column="0"
+                                FontSize="20"
                                 FontWeight="SemiBold"
-                                Foreground="#ba68c8"
-                                Text="Xem thông báo"
-                                TextAlignment="Center"
-                                TextWrapping="Wrap" />
-                        </Button>
+                                Foreground="{StaticResource Black}"
+                                Text="{Binding Time, StringFormat='dd/MM/yyyy', FallbackValue='Ngày Đăng'}" />
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.6*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="7*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Name="grdImg" Grid.Column="0">
+                                <Ellipse
+                                    Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                    HorizontalAlignment="Stretch"
+                                    Stroke="{StaticResource Transparent}"
+                                    StrokeThickness="1">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding IdPoster, Converter={utils:ConverterImageFromIdUser}, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="UniformToFill" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </Grid>
+                            <!--<GridSplitter
+                        Grid.Column="1"
+                        Margin="4,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        Background="Gray" />-->
+                            <ToggleButton
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Foreground="White">
+                                <ToggleButton.Style>
+                                    <Style BasedOn="{StaticResource MaterialDesignActionAccentToggleButton}" TargetType="ToggleButton">
+                                        <Setter Property="Background" Value="{DynamicResource GenaralInNotification}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
+                                                <Setter Property="Background" Value="{DynamicResource ClassNotification}" />
+                                            </DataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
+                                                    <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Background" Value="{DynamicResource CommentNotification}" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                                <materialDesign:PackIcon>
+                                    <materialDesign:PackIcon.Style>
+                                        <Style TargetType="materialDesign:PackIcon">
+                                            <Setter Property="Kind" Value="Account" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
+                                                    <Setter Property="Kind" Value="AccountGroup" />
+                                                </DataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
+                                                        <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Kind" Value="Comment" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:PackIcon.Style>
+                                </materialDesign:PackIcon>
+                            </ToggleButton>
+                            <Grid
+                                Grid.Column="2"
+                                Margin="8,0,8,0"
+                                VerticalAlignment="Center">
+                                <StackPanel>
+                                    <TextBlock
+                                        MaxHeight="28"
+                                        VerticalAlignment="Top"
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        LineHeight="14"
+                                        LineStackingStrategy="BlockLineHeight"
+                                        Text="{Binding Topic, FallbackValue='Chủ đề'}"
+                                        TextTrimming="WordEllipsis"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        MaxHeight="36"
+                                        Margin="0,4,0,0"
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        LineHeight="12"
+                                        LineStackingStrategy="BlockLineHeight"
+                                        Text="{Binding Content, FallbackValue='Nội dung'}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid
+                                Grid.Column="3"
+                                Margin="0,0,16,0"
+                                HorizontalAlignment="Right">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--  còn sửa nữa  -->
+                                <Button
+                                    Grid.Row="1"
+                                    Padding="0"
+                                    Panel.ZIndex="1"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
+                                            <i:InvokeCommandAction Command="{Binding ShowDetailNotificationCommand, Source={StaticResource AdminNotificationVM}}" CommandParameter="{Binding ElementName=NotificationComponent}" />
 
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        FontSize="14"
+                                        FontWeight="SemiBold"
+                                        Foreground="#ba68c8"
+                                        Text="Xem thông báo"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                </Button>
+
+                            </Grid>
+                        </Grid>
                     </Grid>
-                </Grid>
 
-            </Button>
-        </Grid>
-    </Border>
-
+                </Button>
+            </Grid>
+        </Border>
+        <materialDesign:Card.Style>
+            <Style BasedOn="{StaticResource CardContainer}" TargetType="materialDesign:Card">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource SelectedItemGray}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </materialDesign:Card.Style>
+    </materialDesign:Card>
 </UserControl>

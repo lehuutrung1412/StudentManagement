@@ -19,7 +19,6 @@ namespace StudentManagement.Models
         {
             this.CourseRegisters = new HashSet<CourseRegister>();
             this.DetailScores = new HashSet<DetailScore>();
-            this.StudyResults = new HashSet<StudyResult>();
             this.TrainingScores = new HashSet<TrainingScore>();
         }
     
@@ -39,7 +38,6 @@ namespace StudentManagement.Models
         public virtual Faculty Faculty { get; set; }
         public virtual TrainingForm TrainingForm { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<StudyResult> StudyResults { get; set; }
         public virtual ICollection<TrainingScore> TrainingScores { get; set; }
     }
 }

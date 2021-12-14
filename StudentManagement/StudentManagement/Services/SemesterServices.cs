@@ -52,11 +52,11 @@ namespace StudentManagement.Services
             for(int i = 0; i<semesterStatus.Length; i++)
             {
                 if (!semesterStatus[i])
-                    listCourseRegister = listCourseRegister.Where(register => register.Semester.CourseRegisterStatus != i).ToList();
+                    listCourseRegister = listCourseRegister.Where(register => register.SubjectClass.Semester.CourseRegisterStatus != i).ToList();
             }
             foreach(CourseRegister register in listCourseRegister)
             {
-                listSemester.Add(register.Semester);
+                listSemester.Add(register.SubjectClass.Semester);
             }
             return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
         }

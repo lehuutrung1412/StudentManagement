@@ -25,7 +25,6 @@ namespace StudentManagement.Models
             this.Folders = new HashSet<Folder>();
             this.Notifications = new HashSet<Notification>();
             this.Notifications1 = new HashSet<Notification>();
-            this.StudyResults = new HashSet<StudyResult>();
             this.Teachers = new HashSet<Teacher>();
         }
     
@@ -53,6 +52,8 @@ namespace StudentManagement.Models
         public Nullable<int> NumberOfStudents { get => _numberOfStudents; set { _numberOfStudents = value; OnPropertyChanged(); } }
         private Nullable<int> _maxNumberOfStudents { get; set; }
         public Nullable<int> MaxNumberOfStudents { get => _maxNumberOfStudents; set { _maxNumberOfStudents = value; OnPropertyChanged(); } }
+        private Nullable<bool> _isDeleted { get; set; }
+        public Nullable<bool> IsDeleted { get => _isDeleted; set { _isDeleted = value; OnPropertyChanged(); } }
     
         public virtual ICollection<AbsentCalendar> AbsentCalendars { get; set; }
         public virtual ICollection<ComponentScore> ComponentScores { get; set; }
@@ -64,7 +65,6 @@ namespace StudentManagement.Models
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Notification> Notifications1 { get; set; }
         public virtual Semester Semester { get; set; }
-        public virtual ICollection<StudyResult> StudyResults { get; set; }
         public virtual Subject Subject { get; set; }
         public virtual TrainingForm TrainingForm { get; set; }
         public virtual ICollection<Teacher> Teachers { get; set; }

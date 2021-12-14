@@ -344,17 +344,12 @@
     <!--  AdminNotification  -->
     <Style
         x:Key="AdminNotificationButton"
-        BasedOn="{StaticResource MaterialDesignFlatButton}"
+        BasedOn="{StaticResource MaterialDesignRaisedButton}"
         TargetType="{x:Type Button}">
-        <Setter Property="BorderBrush" Value="{DynamicResource DarkGray}" />
-        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="8" />
-        <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="Background" Value="{DynamicResource SelectedItemGray}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLight}" />
-            </Trigger>
-        </Style.Triggers>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
     <Style
         x:Key="ButtonInPopupBox"

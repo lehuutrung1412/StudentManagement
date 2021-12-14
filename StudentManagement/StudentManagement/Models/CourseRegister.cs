@@ -23,10 +23,7 @@ namespace StudentManagement.Models
         public Nullable<System.Guid> IdStudent { get => _idStudent; set { _idStudent = value; OnPropertyChanged(); } }
         private Nullable<System.Guid> _idSubjectClass { get; set; }
         public Nullable<System.Guid> IdSubjectClass { get => _idSubjectClass; set { _idSubjectClass = value; OnPropertyChanged(); } }
-        private Nullable<System.Guid> _idSemester { get; set; }
-        public Nullable<System.Guid> IdSemester { get => _idSemester; set { _idSemester = value; OnPropertyChanged(); } }
     
-        public virtual Semester Semester { get; set; }
         public virtual Student Student { get; set; }
         public virtual SubjectClass SubjectClass { get; set; }
     }

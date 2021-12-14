@@ -47,7 +47,6 @@ namespace StudentManagement.Models
         public virtual DbSet<OTP> OTPs { get; set; }
         public virtual DbSet<Semester> Semesters { get; set; }
         public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<StudyResult> StudyResults { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<SubjectClass> SubjectClasses { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
