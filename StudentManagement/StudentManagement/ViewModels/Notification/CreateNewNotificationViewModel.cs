@@ -117,25 +117,33 @@ namespace StudentManagement.ViewModels
  
         public void CreateNewNotification()
         {
-            if (!IsValid(Content) || !IsValid(Topic) || !IsValid(Type))
+            try
             {
-                MyMessageBox.Show("Nội dung nhập chưa đầy đủ","Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                return;
+                if (!IsValid(Content) || !IsValid(Topic) || !IsValid(Type))
+                {
+                    MyMessageBox.Show("Nội dung nhập chưa đầy đủ", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    return;
+                }
+                var AdminNotificationVM = AdminNotificationViewModel.Instance;
+                CurrentCard.Content = Content;
+                CurrentCard.Topic = Topic;
+                CurrentCard.Type = Type;
+                AdminNotificationVM.Cards.Insert(0, CurrentCard);
+                if (string.IsNullOrEmpty(AdminNotificationVM.SearchInfo))
+                    if (AdminNotificationVM.RealCards.Where(x => x.Id == CurrentCard.Id).Count() == 0)
+                        AdminNotificationVM.RealCards.Insert(0, CurrentCard);
+                NotificationServices.Instance.AddNotificationByNotificationCard(CurrentCard);
+                if (CurrentCard.Type.Contains("Thông báo chung") || CurrentCard.Type.Contains("Thông báo Admin"))
+                {
+                    AdminNotificationVM.NumCardInBadged += 1;
+                    AdminNotificationVM.CardsInBadge.Insert(0, CurrentCard);
+                }
             }
-            var AdminNotificationVM = AdminNotificationViewModel.Instance;
-            CurrentCard.Content = Content;
-            CurrentCard.Topic = Topic;
-            CurrentCard.Type = Type;
-            AdminNotificationVM.Cards.Insert(0, CurrentCard);
-            if (string.IsNullOrEmpty(AdminNotificationVM.SearchInfo))
-                if (AdminNotificationVM.RealCards.Where(x => x.Id == CurrentCard.Id).Count() == 0)
-                    AdminNotificationVM.RealCards.Insert(0, CurrentCard);            
-            NotificationServices.Instance.AddNotificationByNotificationCard(CurrentCard);
-            if (CurrentCard.Type.Contains("Thông báo chung") || CurrentCard.Type.Contains("Thông báo Admin"))
+            catch
             {
-                AdminNotificationVM.NumCardInBadged += 1;
-                AdminNotificationVM.CardsInBadge.Insert(0, CurrentCard);
+                MyMessageBox.Show("Đã có lỗi trong tạo thông báo mới", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
+          
         }
         #endregion
     }

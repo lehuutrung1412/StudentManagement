@@ -23,13 +23,13 @@ namespace StudentManagement.Services
         }
         public User GetUserById(Guid id)
         {
-            User a = DataProvider.Instance.Database.Users.Where(user=>user.Id==id).FirstOrDefault();
+            User a = DataProvider.Instance.Database.Users.FirstOrDefault(user=>user.Id==id);
             return a;
         }
 
         public User FindUserByUsername(string username)
         {
-            User user = DataProvider.Instance.Database.Users.Where(account => account.Username == username).FirstOrDefault();
+            User user = DataProvider.Instance.Database.Users.FirstOrDefault(account => account.Username == username);
 
             return user;
         }

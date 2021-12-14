@@ -57,7 +57,7 @@ namespace StudentManagement.Services
             ObservableCollection<NotificationCard> notificationCards = new ObservableCollection<NotificationCard>();
             List<Notification> notificationList = new List<Notification>();
             if (UserServices.Instance.GetUserById(id).UserRole.Role.Contains("Admin"))
-                notificationList = DataProvider.Instance.Database.Notifications.Where(notification => notification.IdSubjectClass == null).ToList();
+                notificationList = DataProvider.Instance.Database.Notifications.Where(notification => notification.NotificationType!=null).ToList();
             else
                 notificationList = DataProvider.Instance.Database.NotificationInfoes.Where(notificationInfo => notificationInfo.IdUserReceiver == id).Select(notificationInfo => notificationInfo.Notification).ToList();
             foreach (Notification notification in notificationList)
