@@ -107,9 +107,10 @@ namespace StudentManagement.ViewModels
             ReturnToShowSubjectClassCardInfo();
         }
 
-        public void ConfirmEditSubjectClassCardInfoFunction()
+        public async void ConfirmEditSubjectClassCardInfoFunction()
         {
             bool isCardExist = AdminSubjectClassViewModel.StoredSubjectClassCards.Contains(ActualCard);
+            var tmpImage = ActualCard.Image;
             ActualCard.CopyCardInfo(CurrentCard);
 
             // check if card exist -> Not exist insert new
@@ -118,9 +119,16 @@ namespace StudentManagement.ViewModels
                 AdminSubjectClassViewModel.StoredSubjectClassCards.Insert(0, ActualCard);
                 AdminSubjectClassViewModel.SubjectClassCards.Insert(0, ActualCard);
             }
-
-            SubjectClassServices.Instance.SaveSubjectClassCardToDatabase(ActualCard);
-
+            if(!ActualCard.Image.Equals(tmpImage))
+            {
+                var uploadImageTasks = new List<Task<string>>();
+                uploadImageTasks.Add(ImageUploader.Instance.UploadAsync(ActualCard.Image));
+                foreach (var img in await Task.WhenAll(uploadImageTasks))
+                {
+                    ActualCard.Image = img;
+                }
+            }
+            await SubjectClassServices.Instance.SaveSubjectClassCardToDatabase(ActualCard);
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowSubjectClassCardInfo();
@@ -141,6 +149,7 @@ namespace StudentManagement.ViewModels
             };
             if (op.ShowDialog() == true)
             {
+                CurrentCard.Image = op.FileName;
             }
         }
     }

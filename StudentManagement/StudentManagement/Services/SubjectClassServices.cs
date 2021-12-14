@@ -224,6 +224,7 @@ namespace StudentManagement.Services
                 Period = subjectClass.Period,
                 MaxNumberOfStudents = subjectClass.MaxNumberOfStudents,
                 NumberOfStudents = subjectClass.NumberOfStudents,
+                Image = subjectClass?.DatabaseImageTable?.Image,
                 //get main teacher of the class
                 SelectedTeacher = subjectClass.Teachers.FirstOrDefault(),
                 SelectedSubject = subjectClass.Subject,
@@ -263,22 +264,21 @@ namespace StudentManagement.Services
             return subjectClass;
         }
 
-        public bool SaveSubjectClassCardToDatabase(SubjectClassCard subjectClassCard)
+        public async Task SaveSubjectClassCardToDatabase(SubjectClassCard subjectClassCard)
         {
             try
             {
+                var imgId = await DatabaseImageTableServices.Instance.SaveImageToDatabaseAsync(subjectClassCard.Image);
                 SubjectClass subjectClass = ConvertSubjectClassCardToSubjectClass(subjectClassCard);
-
+                subjectClass.IdThumbnail = imgId;
                 bool success = SaveSubjectClassToDatabase(subjectClass);
-
-                return success;
             }
             catch (Exception e)
             {
                 MyMessageBox.Show(e.Message);
-                return false;
             }
         }
+  
 
         public void UpdateIds(SubjectClass a)
         {
