@@ -104,14 +104,25 @@ namespace StudentManagement.ViewModels
             
             _newsFeedRightSideBarViewModel = new NewsfeedRightSideBarViewModel(subjectClass);
 
-            _studentListRightSideBar = new StudentListRightSideBarViewModel();
+            _studentListRightSideBar = new StudentListRightSideBarViewModel(subjectClass);
+            (_studentListRightSideBar as StudentListRightSideBarViewModel).PropertyChanged += StudentListRightSideBarViewModel_PropertyChanged;
 
             _layoutViewModel.RightSideBar = _newsFeedRightSideBarViewModel;
         }
 
+
         #endregion Methods
 
         #region Events
+
+        private void StudentListRightSideBarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ReloadData")
+            {
+                (_adminStudentListViewModel as AdminStudentListViewModel).FirstLoadData();
+                (_adminStudentListViewModel as AdminStudentListViewModel).DrawPieChart();
+            }
+        }
 
         private void FileManagerRightSideBarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

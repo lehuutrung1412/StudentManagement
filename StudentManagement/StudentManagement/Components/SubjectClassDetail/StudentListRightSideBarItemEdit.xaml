@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="StudentManagement.Components.StudentListRightSideBarItemEdit"         
+    x:Class="StudentManagement.Components.StudentListRightSideBarItemEdit"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -26,83 +26,41 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="8">
                 <TextBlock
-                    Margin="4 0 4 8"
+                    Margin="4,0,4,8"
                     FontWeight="Bold"
                     Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                    Text="Cập nhật bảng điểm"/>
-                <Grid Style="{StaticResource text_grid_item}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                    Text="Cập nhật bảng điểm" />
 
-                    <TextBlock
-                        Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Điểm quá trình" />
+                <ItemsControl ItemsSource="{Binding CurrentScore}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Style="{StaticResource text_grid_item}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
-                    <TextBox
-                        Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập điểm quá trình"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentScore.QuaTrinh}" />
-                </Grid>
-                <Grid Style="{StaticResource text_grid_item}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    FontWeight="Bold"
+                                    Style="{StaticResource textblock_item}"
+                                    Text="{Binding DisplayName}" />
 
-                    <TextBlock
-                        Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Điểm giữa kỳ" />
+                                <TextBox
+                                    Grid.Row="1"
+                                    materialDesign:HintAssist.Hint="{Binding DisplayName, StringFormat={}Nhập {0}}"
+                                    Style="{StaticResource textbox_item}"
+                                    Text="{Binding Score, UpdateSourceTrigger=PropertyChanged, Converter={utils:DoubleStringConverter}}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                    <TextBox
-                        Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập điểm giữa kỳ"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentScore.GiuaKi}" />
-                </Grid>
-                <Grid Style="{StaticResource text_grid_item}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock
-                        Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Điểm thực hành" />
-
-                    <TextBox
-                        Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập điểm thực hành"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentScore.ThucHanh}" />
-                </Grid>
-
-                <Grid Style="{StaticResource text_grid_item}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock
-                        Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Điểm cuối kỳ" />
-
-                    <TextBox
-                        Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Nhập điểm cuối kỳ"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentScore.CuoiKi}" />
-                </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -117,10 +75,10 @@
 
                     <TextBox
                         Grid.Row="1"
-                        IsReadOnly="True"
                         Background="LightGray"
+                        IsReadOnly="True"
                         Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentScore.DiemTB}" />
+                        Text="{Binding AverageScore, Converter={utils:DoubleStringConverter}}" />
                 </Grid>
             </StackPanel>
         </ScrollViewer>

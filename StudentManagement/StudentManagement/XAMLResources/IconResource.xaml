@@ -10,6 +10,7 @@
     <BitmapImage x:Key="DefaultUserAvatar" UriSource="pack://application:,,,/Resources/Images/user.png" />
     <BitmapImage x:Key="BackgroundLoginImage" UriSource="pack://application:,,,/Resources/Images/bg.jpg" />
     <BitmapImage x:Key="NoData" UriSource="pack://application:,,,/Resources/Images/NoData.png" />
+    <BitmapImage x:Key="NotFound" UriSource="pack://application:,,,/Resources/Images/embarrassed.png" />
     <BitmapImage x:Key="Folder" UriSource="pack://application:,,,/Resources/Images/folder.png" />
     <PathGeometry x:Key="CloseButton" Figures="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
     <PathGeometry x:Key="MinimizeButton" Figures="M6 12h12v2H6z" />

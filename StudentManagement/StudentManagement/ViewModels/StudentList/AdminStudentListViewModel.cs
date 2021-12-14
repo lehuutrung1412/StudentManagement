@@ -89,8 +89,8 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private ObservableCollection<DetailScore> _studentScore;
-        public ObservableCollection<DetailScore> StudentScore
+        private ObservableCollection<StudentDetailScore> _studentScore;
+        public ObservableCollection<StudentDetailScore> StudentScore
         {
             get => _studentScore;
             set => _studentScore = value;
@@ -133,14 +133,6 @@ namespace StudentManagement.ViewModels
 
             InitChartParemeter();
 
-            StudentScore = new ObservableCollection<DetailScore>();
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "1", IDStudent = "19520123" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "6", IDStudent = "19520124" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "7", IDStudent = "19520125" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "8", IDStudent = "19520126" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "9", IDStudent = "19520127" });
-            StudentScore.Add(new DetailScore { CuoiKi = "10", GiuaKi = "10", QuaTrinh = "10", ThucHanh = "10", DiemTB = "10", IDStudent = "19520128" });
-
             BindingData = new ObservableCollection<StudentGrid>(StudentClass);
             InitCommand();
 
@@ -149,22 +141,26 @@ namespace StudentManagement.ViewModels
 
         #region Methods
 
-        private void FirstLoadData()
+        public void FirstLoadData()
         {
             try
             {
+                // Load list students
                 StudentClass = new ObservableCollection<StudentGrid>();
                 var students = CourseRegisterServices.Instance.FindStudentsBySubjectClassId(SubjectClassDetail.Id);
                 for (int index = 0; index < students.Count; index++)
                 {
                     StudentClass.Add(StudentServices.Instance.ConvertStudentToStudentGrid(students[index], index + 1));
                 }
+
+                var scores = ScoreServices.Instance.LoadScoreStudentInSubjectClass(SubjectClassDetail.Id);
+                StudentScore = new ObservableCollection<StudentDetailScore>(scores);
             }
             catch (Exception)
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải thông tin sinh viên", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
+
         }
 
         private void InitChartParemeter()
@@ -194,37 +190,39 @@ namespace StudentManagement.ViewModels
             return (float)number * 100 / totalNumber;
         }
 
-        void CalculationPercentage()
+        public void CalculationPercentage()
         {
             DataPieChart.Clear();
 
             int exellent = 0, veryGood = 0, good = 0, avg = 0, bad = 0;
 
             foreach (var student in StudentClass)
-                foreach (var score in StudentScore)
-                    if (student.Username == score.IDStudent)
-                    {
-                        double currentScore = Convert.ToDouble(score.DiemTB);
-                        if (currentScore >= 9)
-                            exellent += 1;
-                        else if (currentScore >= 8)
-                            veryGood += 1;
-                        else if (currentScore >= 7)
-                            good += 1;
-                        else if (currentScore >= 6)
-                            avg += 1;
-                        else
-                            bad += 1;
-                        break;
-                    }
+            {
+                var avgScore = ScoreServices.Instance.CalculateAverageScore(StudentScore.Where(score => score.IdStudent == student.Id).ToList());
+                if (avgScore == null)
+                    continue;
+                else if (avgScore >= 9)
+                    exellent += 1;
+                else if (avgScore >= 8)
+                    veryGood += 1;
+                else if (avgScore >= 7)
+                    good += 1;
+                else if (avgScore >= 6)
+                    avg += 1;
+                else
+                    bad += 1;
+            }
 
             int sizeClass = StudentClass.Count();
 
-            DataPieChart.Add(new PieChartElement { Title = "Sinh viên xuất sắc", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4472C4")), Percentage = RecalculateStudentRating(exellent, sizeClass) }); ;
-            DataPieChart.Add(new PieChartElement { Title = "Sinh viên giỏi", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ED7D31")), Percentage = RecalculateStudentRating(veryGood, sizeClass) });
-            DataPieChart.Add(new PieChartElement { Title = "Sinh viên khá", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC000")), Percentage = RecalculateStudentRating(good, sizeClass) });
-            DataPieChart.Add(new PieChartElement { Title = "Sinh viên trung bình", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5B9BD5")), Percentage = RecalculateStudentRating(avg, sizeClass) });
-            DataPieChart.Add(new PieChartElement { Title = "Sinh viên yếu", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A5A5A5")), Percentage = RecalculateStudentRating(bad, sizeClass) });
+            if (exellent != 0 || veryGood != 0 || good != 0 || avg != 0 || bad != 0)
+            {
+                DataPieChart.Add(new PieChartElement { Title = "Sinh viên xuất sắc", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4472C4")), Percentage = RecalculateStudentRating(exellent, sizeClass) }); ;
+                DataPieChart.Add(new PieChartElement { Title = "Sinh viên giỏi", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ED7D31")), Percentage = RecalculateStudentRating(veryGood, sizeClass) });
+                DataPieChart.Add(new PieChartElement { Title = "Sinh viên khá", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC000")), Percentage = RecalculateStudentRating(good, sizeClass) });
+                DataPieChart.Add(new PieChartElement { Title = "Sinh viên trung bình", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5B9BD5")), Percentage = RecalculateStudentRating(avg, sizeClass) });
+                DataPieChart.Add(new PieChartElement { Title = "Sinh viên yếu", ColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A5A5A5")), Percentage = RecalculateStudentRating(bad, sizeClass) });
+            }
         }
 
         private bool IsStudentExistInClass(string studentId)
@@ -267,9 +265,28 @@ namespace StudentManagement.ViewModels
                     == MessageBoxResult.Yes)
                 {
                     await CourseRegisterServices.Instance.StudentRegisterSubjectClassDetailToDatabase(findStudent.Id, SubjectClassDetail);
+
+                    var componentScore = ScoreServices.Instance.LoadComponentScoreOfSubjectClass(SubjectClassDetail.Id);
+                    foreach (var score in componentScore)
+                    {
+                        var newStudentScore = new StudentDetailScore()
+                        {
+                            Id = Guid.NewGuid(),
+                            DisplayName = score.DisplayName,
+                            IdComponentScore = score.Id,
+                            IdSubjectClass = score.IdSubjectClass,
+                            Percent = score.ContributePercent,
+                            Score = null,
+                            IdStudent = findStudent.Id
+                        };
+                        newStudentScore.PropertyChanged += NewStudentScore_PropertyChanged;
+                        StudentScore.Add(newStudentScore);
+                    }
+
+                    await ScoreServices.Instance.SaveStudentScoreDatabaseAsync(StudentScore.Where(score => score.IdStudent == findStudent.Id).ToList());
+
                     StudentClass.Add(findStudent);
-                    StudentScore.Add(new DetailScore { CuoiKi = "0", GiuaKi = "0", DiemTB = "0", QuaTrinh = "0", ThucHanh = "0", IDStudent = findStudent.Username });
-                    MyMessageBox.Show("Sinh viên " + SearchQuery + " đã được thêm vào lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MyMessageBox.Show($"Sinh viên {findStudent.DisplayName} đã được thêm vào lớp học!", "Thêm sinh viên", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     SearchQuery = "";
                 }
@@ -280,26 +297,43 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        void DrawPieChart()
+        private void NewStudentScore_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Score")
+            {
+                DrawPieChart();
+            }
+        }
+
+        public void DrawPieChart()
         {
             try
             {
                 CalculationPercentage();
 
-                float angle = 0, prevAngle = 0;
+                MainCanvas.Children.Clear();
+
+                double angle = 0, prevAngle = 0;
                 foreach (var category in DataPieChart)
                 {
                     double line1X = (_radius * Math.Cos(angle * Math.PI / 180)) + _centerX;
                     double line1Y = (_radius * Math.Sin(angle * Math.PI / 180)) + _centerY;
 
-                    angle = category.Percentage * (float)360 / 100 + prevAngle;
+                    if (category.Percentage == 100)
+                    {
+                        angle = 99.99 * (float)360 / 100 + prevAngle;
+                    }
+                    else
+                    {
+                        angle = category.Percentage * (float)360 / 100 + prevAngle;
+                    }
 
                     double arcX = (_radius * Math.Cos(angle * Math.PI / 180)) + _centerX;
                     double arcY = (_radius * Math.Sin(angle * Math.PI / 180)) + _centerY;
 
                     var line1Segment = new LineSegment(new Point(line1X, line1Y), false);
                     double arcWidth = _radius, arcHeight = _radius;
-                    bool isLargeArc = category.Percentage > 50;
+                    bool isLargeArc = category.Percentage >= 50;
                     var arcSegment = new ArcSegment()
                     {
                         Size = new Size(arcWidth, arcHeight),
@@ -332,34 +366,37 @@ namespace StudentManagement.ViewModels
 
 
                     // draw outlines
-                    var outline1 = new Line()
+                    if (category.Percentage != 100 && category.Percentage != 0)
                     {
-                        X1 = _centerX,
-                        Y1 = _centerY,
-                        X2 = line1Segment.Point.X,
-                        Y2 = line1Segment.Point.Y,
-                        Stroke = Brushes.White,
-                        StrokeThickness = 5,
-                    };
-                    var outline2 = new Line()
-                    {
-                        X1 = _centerX,
-                        Y1 = _centerY,
-                        X2 = arcSegment.Point.X,
-                        Y2 = arcSegment.Point.Y,
-                        Stroke = Brushes.White,
-                        StrokeThickness = 5,
-                    };
+                        var outline1 = new Line()
+                        {
+                            X1 = _centerX,
+                            Y1 = _centerY,
+                            X2 = line1Segment.Point.X,
+                            Y2 = line1Segment.Point.Y,
+                            Stroke = Brushes.White,
+                            StrokeThickness = 5,
+                        };
+                        var outline2 = new Line()
+                        {
+                            X1 = _centerX,
+                            Y1 = _centerY,
+                            X2 = arcSegment.Point.X,
+                            Y2 = arcSegment.Point.Y,
+                            Stroke = Brushes.White,
+                            StrokeThickness = 5,
+                        };
 
-                    MainCanvas.Children.Add(outline1);
-                    MainCanvas.Children.Add(outline2);
+                        MainCanvas.Children.Add(outline1);
+                        MainCanvas.Children.Add(outline2);
+                    }
                 }
             }
             catch (Exception)
             {
                 return;
             }
-            
+
         }
 
         void SearchNameFunction()
@@ -415,20 +452,23 @@ namespace StudentManagement.ViewModels
                 {
                     foreach (var student in DeleteStudentList)
                     {
+                        await ScoreServices.Instance.DeleteStudentScoreByIdAsync(SubjectClassDetail.Id, student.Id);
+
                         await CourseRegisterServices.Instance.StudentUnregisterSubjectClassDetailToDatabase(student.Id, SubjectClassDetail);
+
                         StudentClass.Remove(student);
                     }
                     IsSelectedAll = false;
                 }
                 else return;
 
+                FirstLoadData();
                 SearchNameFunction();
             }
             catch (Exception)
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra! Xóa không thành công", "Xóa sinh viên", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
         }
 
         #endregion

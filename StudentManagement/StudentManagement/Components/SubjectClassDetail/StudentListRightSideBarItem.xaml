@@ -122,7 +122,56 @@
                 <Run Text="Điểm số sinh viên" />
             </TextBlock>
 
-            <Grid Style="{StaticResource text_grid_item}">
+            <ItemsControl ItemsSource="{Binding BindingScore}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Style="{StaticResource text_grid_item}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                FontWeight="Bold"
+                                Style="{StaticResource textblock_item}">
+                                <Run Text="{Binding DisplayName}" />
+                                <Run Text=": " />
+                            </TextBlock>
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Style="{StaticResource textblock_item}"
+                                Text="{Binding Score, FallbackValue='10'}"
+                                TextAlignment="Right" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid>
+                <Grid.Style>
+                    <Style BasedOn="{StaticResource text_grid_item}" TargetType="Grid">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding BindingScore.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding BindingScore}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding AverageScore}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -132,84 +181,40 @@
                     Grid.Column="0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
-                    Text="Điểm quá trình:" />
+                    Text="Điểm trung bình:" />
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentScore.QuaTrinh, FallbackValue='10'}"
+                    Text="{Binding AverageScore, FallbackValue='10'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Điểm giữa kì:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentScore.GiuaKi, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            <StackPanel Margin="8">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding BindingScore.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding BindingScore}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
 
+                <Image
+                    Width="100"
+                    Height="100"
+                    Source="{StaticResource NotFound}" />
                 <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Điểm thực hành:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentScore.ThucHanh, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Center"
+                    Text="Sinh viên này chưa có điểm" />
+            </StackPanel>
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Điểm cuối kì:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentScore.CuoiKi, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Trung bình môn:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentScore.DiemTB, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Button
-                Command="{Binding EditDetailScore}"
-                Style="{StaticResource rounded_btn}">
+            <Button Command="{Binding EditDetailScore}" Style="{StaticResource rounded_btn}">
                 <TextBlock Text="Cập nhật" />
             </Button>
         </StackPanel>

@@ -450,6 +450,7 @@
     <Compile Include="Objects\NotificationCard.cs" />
     <Compile Include="Objects\PieChartElement.cs" />
     <Compile Include="Objects\ScheduleItem.cs" />
+    <Compile Include="Objects\StudentDetailScore.cs" />
     <Compile Include="Objects\StudentGrid.cs" />
     <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\SubjectClassCard.cs" />
@@ -485,6 +486,7 @@
     <Compile Include="Utils\ConverterDisplayNameFromIdUser.cs" />
     <Compile Include="Utils\ConverterImageFromIdUser.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
+    <Compile Include="Utils\DoubleStringConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\FileSizeConverter.cs" />
     <Compile Include="Utils\IntToDateOfWeekConverter.cs" />
@@ -1107,6 +1109,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\embarrassed.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\cancel.png" />
