@@ -623,3 +623,39 @@ BEGIN
     ('924F1714-D81F-12C2-8C64-6D744D787E0D', '3BADC66B-382B-4F35-A96C-B9B546FF98AD', '52DF1714-C81F-42C2-8C64-8D744D787E0C')
 END
 GO
+
+-- Trigger
+
+CREATE TRIGGER UTG_CountNumberOfStudentsInClass
+      ON dbo.CourseRegister
+      AFTER INSERT, UPDATE, DELETE
+    AS
+    BEGIN
+    UPDATE b SET NumberOfStudents = (SELECT COUNT(*) FROM CourseRegister AS a WHERE a.IdSubjectClass = b.Id) FROM dbo.SubjectClass AS b WHERE Id IN (
+      SELECT IdSubjectClass FROM DELETED 
+      UNION  
+      SELECT IdSubjectClass FROM INSERTED 
+    )
+    END
+GO
+
+-- DECLARE @IdSubjectClass UNIQUEIDENTIFIER
+-- SET @IdSubjectClass = (SELECT TOP 1
+--     (Id)
+--   From SubjectClass)
+
+
+-- DECLARE @IdStudent UNIQUEIDENTIFIER
+-- SET @IdStudent = (SELECT TOP 1
+--     (Id)
+--   From Student)
+--   print(@IdStudent)
+
+-- INSERT INTO dbo.CourseRegister 
+--   (IdStudent, IdSubjectClass)
+--   VALUES
+--   (@IdStudent, @IdSubjectClass)
+
+
+-- SELECT * FROM dbo.SubjectClass
+  
