@@ -492,6 +492,7 @@
     <Compile Include="Utils\IntToDateOfWeekConverter.cs" />
     <Compile Include="Utils\IsNullConverter.cs" />
     <Compile Include="Utils\IsNumericConverter.cs" />
+    <Compile Include="Utils\LayoutConverter.cs" />
     <Compile Include="Utils\MultiBindingValueCompareConverter.cs" />
     <Compile Include="Utils\MultiCommandParameterConverter.cs" />
     <Compile Include="Utils\PropertyByRoleConverter.cs" />

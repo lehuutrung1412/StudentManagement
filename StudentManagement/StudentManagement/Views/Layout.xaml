@@ -38,33 +38,21 @@
         </materialDesign:Card>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="{Binding ContentViewModel, Converter={utils:LayoutConverter}, ConverterParameter='left'}" />
+                <ColumnDefinition Width="{Binding ContentViewModel, Converter={utils:LayoutConverter}, ConverterParameter='center'}" />
+                <ColumnDefinition Width="{Binding ContentViewModel, Converter={utils:LayoutConverter}, ConverterParameter='right'}" />
             </Grid.ColumnDefinitions>
 
-            <components:LeftSideBar Grid.Column="0" Grid.ColumnSpan="2" />
-
+            <components:LeftSideBar Grid.Column="0" />
             <materialDesign:Card
-                Grid.Column="9"
-                Grid.ColumnSpan="3"
+                Grid.Column="2"
                 Margin="12,0,12,8"
                 Style="{StaticResource CardContainer}">
                 <components:RightSideBar />
             </materialDesign:Card>
 
             <ContentControl
-                Grid.Column="2"
-                Grid.ColumnSpan="7"
+                Grid.Column="1"
                 Margin="0,0,0,8"
                 Content="{Binding ContentViewModel}">
                 <ContentControl.Resources>
