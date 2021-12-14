@@ -94,7 +94,7 @@ namespace StudentManagement.Services
             using (MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider())
             {
                 byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
-                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() {Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() {Key = keys, Mode = CipherMode.CFB, Padding = PaddingMode.PKCS7 })
                 {
                     ICryptoTransform transform = aes.CreateEncryptor();
                     byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
@@ -108,7 +108,7 @@ namespace StudentManagement.Services
             using (MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider())
             {
                 byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
-                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() { Key = keys, Mode = CipherMode.CFB, Padding = PaddingMode.PKCS7 })
                 {
                     ICryptoTransform transform = aes.CreateDecryptor();
                     byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
