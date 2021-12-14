@@ -81,7 +81,7 @@ namespace StudentManagement.ViewModels
             if (txbComment.Text != "")
             {
                 // Get current user
-                var user = UserServices.Instance.GetUserInfo();
+                var user = LoginServices.CurrentUser;
 
                 var newComment = new PostComment(Guid.NewGuid(), Post.PostId, user.Id, user.DisplayName, txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
 
