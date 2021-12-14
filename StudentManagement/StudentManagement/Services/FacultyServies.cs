@@ -49,7 +49,9 @@ namespace StudentManagement.Services
         /// <returns>FacultyCard</returns>
         public FacultyCard ConvertFacultyToFacultyCard(Faculty faculty)
         {
-            FacultyCard facultyCard = new FacultyCard(faculty.Id, faculty.DisplayName, new DateTime(2015, 12, 31), 100, "test");
+            int numberOfStudentsOfFaculty = DataProvider.Instance.Database.Students.Where(student => student.IdFaculty == faculty.Id).Count();
+
+            FacultyCard facultyCard = new FacultyCard(faculty.Id, faculty.DisplayName, new DateTime(2015, 12, 31), numberOfStudentsOfFaculty);
 
             return facultyCard;
         }

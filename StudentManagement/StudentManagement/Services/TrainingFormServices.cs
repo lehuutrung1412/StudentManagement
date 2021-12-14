@@ -54,7 +54,8 @@ namespace StudentManagement.Services
         /// <returns>TrainingFormCard</returns>
         public TrainingFormCard ConvertTrainingFormToTrainingFormCard(TrainingForm trainingForm)
         {
-            TrainingFormCard trainingFormCard = new TrainingFormCard(trainingForm.Id, trainingForm.DisplayName, 5, 100);
+            int numberOfStudentsOfTrainingForm = DataProvider.Instance.Database.Students.Where(student => student.IdTrainingForm == trainingForm.Id).Count();
+            TrainingFormCard trainingFormCard = new TrainingFormCard(trainingForm.Id, trainingForm.DisplayName, trainingForm.Faculty_TrainingForm.Count, numberOfStudentsOfTrainingForm);
 
             return trainingFormCard;
         }

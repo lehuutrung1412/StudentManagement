@@ -64,6 +64,7 @@ namespace StudentManagement.ViewModels
             set
             {
                 _searchQuery = value;
+                SearchFacultyCardsFunction();
                 OnPropertyChanged();
             }
         }
@@ -118,7 +119,7 @@ namespace StudentManagement.ViewModels
             LoadFacultyByPageView();
 
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
-            SearchFacultyCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchFacultyCardsFunction(p));
+            SearchFacultyCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchFacultyCardsFunction());
             NextFacultyPageView = new RelayCommand<object>((p) =>
             {
                 if (CurrentFacultyPageView < NumberOfFacultyPageView)
@@ -237,7 +238,7 @@ namespace StudentManagement.ViewModels
             LoadFacultyByPageView();
         }
 
-        public void SearchFacultyCardsFunction(object p)
+        public void SearchFacultyCardsFunction()
         {
             var tmp = StoredFacultyCards.Where(x => !IsFirstSearchButtonEnabled ?
                                                     vietnameseStringNormalizer.Normalize(x.DisplayName).Contains(vietnameseStringNormalizer.Normalize(SearchQuery))

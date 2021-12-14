@@ -70,7 +70,14 @@ namespace StudentManagement.Objects
         }
         public DateTime FoundationDay { get => _foundationDay; set => _foundationDay = value; }
         public int NumberOfStudents { get => _numberOfStudents; set => _numberOfStudents = value; }
-        public string CacHeDaoTao { get => _cacHeDaoTao; set => _cacHeDaoTao = value; }
+        public string CacHeDaoTao
+        {
+            get => _cacHeDaoTao; set
+            {
+                _cacHeDaoTao = value;
+                OnPropertyChanged();
+            }
+        }
         public Guid Id { get => _id; set => _id = value; }
         public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
         public ObservableCollection<TrainingForm> TrainingFormsOfFacultyList { get => _trainingFormsOfFacultyList; set { _trainingFormsOfFacultyList = value; OnPropertyChanged(); } }
@@ -84,16 +91,17 @@ namespace StudentManagement.Objects
             Id = Guid.NewGuid();
             InitTrainingFormOfFacultyList();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+
+            CacHeDaoTao = "";
         }
-        public FacultyCard(Guid id, string displayName, DateTime foundationDay, int numberOfStudents, string cacHeDaoTao) : base()
+        public FacultyCard(Guid id, string displayName, DateTime foundationDay, int numberOfStudents) : base()
         {
             Id = id;
             DisplayName = displayName;
             FoundationDay = foundationDay;
             NumberOfStudents = numberOfStudents;
-            CacHeDaoTao = cacHeDaoTao;
-
             InitTrainingFormOfFacultyList();
+
         }
 
 
@@ -125,6 +133,8 @@ namespace StudentManagement.Objects
                     }
                 }
 
+                CacHeDaoTao = string.Join(", ", TrainingFormsOfFacultyList.Select(el => el.DisplayName).ToList());
+
                 return true;
             }
             catch
@@ -148,6 +158,8 @@ namespace StudentManagement.Objects
                     IdFaculty = Id,
                     IdTrainingForm = trainingForm.Id,
                 });
+
+                CacHeDaoTao = string.Join(", ", TrainingFormsOfFacultyList.Select(el => el.DisplayName).ToList());
                 return true;
             }
             catch
@@ -166,6 +178,8 @@ namespace StudentManagement.Objects
                 Faculty_TrainingForm removedRelation = Faculty_TrainingFormList.Where(el => el.IdTrainingForm == trainingForm.Id).FirstOrDefault();
                 Faculty_TrainingFormList.Remove(removedRelation);
                 DataProvider.Instance.Database.Faculty_TrainingForm.Remove(removedRelation);
+
+                CacHeDaoTao = string.Join(", ", TrainingFormsOfFacultyList.Select(el => el.DisplayName).ToList());
                 return true;
             }
             catch
