@@ -139,14 +139,15 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock
                                 Grid.Column="0"
-                                VerticalAlignment="Center"
+                                Margin="16"
                                 FontWeight="Bold"
                                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                 Text="Thông tin sinh viên" />
-                            <Grid Grid.Column="1">
+                            <Grid Grid.Column="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
@@ -160,7 +161,7 @@
                                 <Button
                                     Name="btnUpdate"
                                     Grid.Column="1"
-                                    Margin="8,0,0,0"
+                                    Margin="16,0"
                                     Command="{Binding UpdateUserInfoCommand}"
                                     Content="Chỉnh sửa thông tin">
                                     <Button.Style>
@@ -180,13 +181,15 @@
                             <ItemsControl Margin="-4,0" ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel />
+                                        <UniformGrid Columns="2" Rows="4" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-
-                                        <ContentPresenter Margin="0,4" Content="{Binding}">
+                                        <ContentPresenter
+                                            Height="auto"
+                                            Margin="16,-4"
+                                            Content="{Binding}">
                                             <ContentPresenter.Resources>
                                                 <DataTemplate x:Key="Combobox">
                                                     <component:UserCombobox />
@@ -224,6 +227,7 @@
                         <Button
                             Grid.Row="2"
                             Width="{Binding Path=ActualWidth, ElementName=btnUpdate}"
+                            Margin="16,0"
                             HorizontalAlignment="Right"
                             Command="{Binding ConfirmUserInfoCommand}"
                             Content="Xác nhận">

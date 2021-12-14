@@ -22,24 +22,28 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <materialDesign:Card Style="{StaticResource CardContainer}">
-        <ScrollViewer>
-            <materialDesign:DialogHost
-                Name="DialogHostUserInfo"
-                VerticalContentAlignment="Center"
-                CloseOnClickAway="True"
-                IsOpen="{Binding IsOpen}">
-                <materialDesign:DialogHost.DialogContent>
-                    <component:NewInfoItem MinWidth="600" DataContext="{Binding AddNewInfoItem}" />
-                </materialDesign:DialogHost.DialogContent>
-                <Grid Margin="16,8,0,8">
+    <ScrollViewer>
+        <materialDesign:DialogHost
+            Name="DialogHostUserInfo"
+            VerticalContentAlignment="Center"
+            CloseOnClickAway="True"
+            IsOpen="{Binding IsOpen}">
+            <materialDesign:DialogHost.DialogContent>
+                <component:NewInfoItem MinWidth="600" DataContext="{Binding AddNewInfoItem}" />
+            </materialDesign:DialogHost.DialogContent>
+            <Grid Margin="16,8,0,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1.5*" />
-                        <RowDefinition Height="3*" />
-                        <RowDefinition Height="10*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="0,8">
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
@@ -53,8 +57,8 @@
                         </Grid>
                         <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
                             <Button
                                 Grid.Column="1"
@@ -63,6 +67,7 @@
                                 Style="{StaticResource PrimaryButton}" />
                         </Grid>
                     </Grid>
+
                     <Grid Grid.Row="1" Margin="0,8,0,8">
                         <StackPanel>
                             <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Đối tượng cài đặt" />
@@ -122,83 +127,100 @@
                             </RadioButton>
                         </StackPanel>
                     </Grid>
-                    <Grid Grid.Row="2">
-                        <Grid.Style>
-                            <Style TargetType="Grid">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsSetting}" Value="true">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSetting}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
 
-                        </Grid.Style>
-                        <StackPanel>
-                            <TextBlock
-                                Margin="0,8"
-                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                Text="Các trường thông tin đã bị xoá" />
-                            <ItemsControl ItemsSource="{Binding DeleteSource, UpdateSourceTrigger=PropertyChanged}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <component:DeleteInfoItem MaxWidth="240"/>
-                                            
-                                        </StackPanel>
+                    </Grid.Style>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="0,8,0,4"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="Các trường thông tin hiện tại" />
+                        <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Margin="-8,4" Columns="2" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
 
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                            <TextBlock
-                                Margin="0,8"
-                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                Text="Các trường thông tin hiện tại" />
-                            <ItemsControl ItemsSource="{Binding InfoSource, UpdateSourceTrigger=PropertyChanged}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <component:SettingInfoItem MinWidth="600" Background="Transparent" />
-                                            <Border
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <!--<StackPanel>-->
+                                        <materialDesign:Card
+                                            Margin="8"
+                                            Padding="8"
+                                            Style="{StaticResource CardContainer}">
+
+                                            <component:SettingInfoItem
+                                                Grid.Row="0"
+                                                MinWidth="600"
+                                                Background="Transparent" />
+                                        </materialDesign:Card>
+
+                                        <!--<Border
                                                 Margin="0,8"
                                                 VerticalAlignment="Bottom"
-                                                Style="{StaticResource HorizontalDividerBorder}" />
-                                        </StackPanel>
+                                                Style="{StaticResource HorizontalDividerBorder}" />-->
+                                        <!--</StackPanel>-->
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock
+                            Margin="0,8"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="Các trường thông tin đã bị xoá" />
+                        <ItemsControl ItemsSource="{Binding DeleteSource, UpdateSourceTrigger=PropertyChanged}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Margin="-4,0" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <component:DeleteInfoItem MaxWidth="240" />
 
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </Grid>
-                    <Grid Grid.Row="3" Margin="0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                        <Button
-                            Grid.Column="1"
-                            Command="{Binding ConfirmSettingCommand}"
-                            Content="Xác nhận"
-                            Style="{StaticResource PrimaryButton}" />
-                    </Grid>
+                                    </StackPanel>
 
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </Grid>
-            </materialDesign:DialogHost>
+
+                <Grid Grid.Row="2" Margin="0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding ConfirmSettingCommand}"
+                        Content="Xác nhận"
+                        Style="{StaticResource PrimaryButton}" />
+                </Grid>
+
+            </Grid>
+        </materialDesign:DialogHost>
 
 
-        </ScrollViewer>
+    </ScrollViewer>
 
-    </materialDesign:Card>
 </UserControl>
 
 

@@ -21,7 +21,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <Grid Margin="16,8,0,8">
+            <Grid Margin="24,8,8,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="1.2*" />
@@ -38,9 +38,9 @@
                     <Border Background="Transparent" Style="{StaticResource BorderStyle}">
                         <TextBox
                             materialDesign:HintAssist.Hint="Tên thông tin"
+                            materialDesign:ValidationAssist.Background="Transparent"
                             Foreground="{DynamicResource BlackDefault}"
                             Text="{Binding LabelName, UpdateSourceTrigger=PropertyChanged}"
-                            materialDesign:ValidationAssist.Background="Transparent"
                             TextWrapping="Wrap">
                             <TextBox.Style>
                                 <Style BasedOn="{StaticResource TextBox}" TargetType="TextBox">
@@ -57,7 +57,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Margin="16,8,0,8">
+            <Grid Margin="24,8,8,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="1.2*" />
@@ -94,7 +94,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Margin="16,8,0,8">
+            <Grid Margin="24,8,8,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="1.2*" />
@@ -150,7 +150,8 @@
                 </Grid>
 
             </Grid>
-            <Grid Margin="16,16,16,4">
+
+            <Grid Margin="24,8,8,8">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Collapsed" />
@@ -164,7 +165,7 @@
                 </Grid.Style>
                 <StackPanel>
 
-                    <Grid Height="180">
+                    <Grid Height="80">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition />
@@ -178,7 +179,7 @@
                             <ItemsControl ItemsSource="{Binding ListItemInCombobox, UpdateSourceTrigger=PropertyChanged}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Margin="0,4" />
+                                        <UniformGrid Columns="2" />
                                     </ItemsPanelTemplate>
 
                                 </ItemsControl.ItemsPanel>

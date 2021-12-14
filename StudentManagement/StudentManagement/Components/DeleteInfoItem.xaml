@@ -22,7 +22,7 @@
             Height="Auto"
             Padding="6"
             Background="Transparent"
-            BorderBrush="Transparent"         
+            BorderBrush="Transparent"
             FontWeight="Normal"
             Foreground="Black">
             <materialDesign:Card
@@ -31,15 +31,15 @@
                 UniformCornerRadius="8">
                 <materialDesign:Card.Style>
                     <Style TargetType="materialDesign:Card">
-                        <Setter Property="Background" Value="Purple" />
+                        <Setter Property="Background" Value="Gray" />
                         <Setter Property="Foreground" Value="White" />
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Cursor" Value="Hand" />
-                                <Setter Property="Background" Value="Orange" />
+                                <Setter Property="Background" Value="DarkGray" />
                             </Trigger>
                             <DataTrigger Binding="{Binding ElementName=CardButton, Path=IsFocused}" Value="true">
-                                <Setter Property="Background" Value="Orange" />
+                                <Setter Property="Background" Value="DarkGray" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

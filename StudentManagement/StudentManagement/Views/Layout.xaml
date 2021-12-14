@@ -46,14 +46,14 @@
             <components:LeftSideBar Grid.Column="0" />
             <materialDesign:Card
                 Grid.Column="2"
-                Margin="12,0,12,8"
+                Margin="0,0,12,8"
                 Style="{StaticResource CardContainer}">
                 <components:RightSideBar />
             </materialDesign:Card>
 
             <ContentControl
                 Grid.Column="1"
-                Margin="0,0,0,8"
+                Margin="0,0,12,8"
                 Content="{Binding ContentViewModel}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">

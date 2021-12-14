@@ -39,6 +39,11 @@ namespace StudentManagement.Utils
                 layoutType = 1;
             }
 
+            if (layoutViewModel.ContentViewModel is UserInfoViewModel)
+            {
+                layoutType = 1;
+            }
+
             return ListLayout[layoutType][parameter.ToString()];
         }
 
