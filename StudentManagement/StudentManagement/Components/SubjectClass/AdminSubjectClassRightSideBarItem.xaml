@@ -37,7 +37,7 @@
                         Margin="0,16"
                         CornerRadius="8">
                         <Border.Background>
-                            <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
+                            <ImageBrush ImageSource="{Binding CurrentCard.Image, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="UniformToFill" />
                         </Border.Background>
                     </Border>
                     <Button
@@ -47,9 +47,7 @@
                         Padding="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Command="{Binding ClickChangeImageCommand}"
-                        Content="{materialDesign:PackIcon Camera,
-                                                          Size=50}"
+                        IsEnabled="False"
                         Visibility="Visible">
                         <Button.Style>
                             <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
