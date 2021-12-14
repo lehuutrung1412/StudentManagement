@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:StudentManagement.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:StudentManagement.Utils"
     d:DesignHeight="617"
     d:DesignWidth="785"
     Background="{StaticResource CenterColumn}"
@@ -27,7 +28,8 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Margin="1,1,1,12"
-                Style="{StaticResource CardContainer}">
+                Style="{StaticResource CardContainer}"
+                Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -163,7 +165,8 @@
                             Command="{Binding AddStudent}"
                             Content="Thêm sinh viên"
                             Style="{StaticResource PrimaryButton}"
-                            ToolTip="Thêm sinh viên" />
+                            ToolTip="Thêm sinh viên"
+                            Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}" />
 
                         <Button
                             Grid.Column="2"
@@ -171,7 +174,8 @@
                             Command="{Binding DeleteStudent}"
                             Content="Xóa sinh viên"
                             Style="{StaticResource PrimaryButton}"
-                            ToolTip="Xóa sinh viên" />
+                            ToolTip="Xóa sinh viên"
+                            Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}" />
                     </Grid>
 
                     <component:StudentListDataGrid

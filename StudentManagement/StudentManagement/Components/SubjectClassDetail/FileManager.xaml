@@ -85,7 +85,7 @@
                                                 <ToolTip Content="{Binding Name}" />
                                             </Grid.ToolTip>
                                             <Grid.ContextMenu>
-                                                <ContextMenu>
+                                                <ContextMenu Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
                                                     <MenuItem
                                                         Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DataContext.DeleteFile}"
                                                         CommandParameter="{Binding Source={StaticResource BindingProxy}, Path=Data.SelectedItems}"
@@ -115,7 +115,7 @@
                                                 Style="{StaticResource MaterialDesignExpander}"
                                                 Tag="{Binding ElementName=FileManagerUC, Path=DataContext}">
                                                 <Expander.ContextMenu>
-                                                    <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                                                    <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}" Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
                                                         <MenuItem
                                                             Command="{Binding AddFile}"
                                                             CommandParameter="{TemplateBinding DataContext}"
@@ -197,7 +197,7 @@
                                                 Background="Linen"
                                                 Tag="{Binding ElementName=FileManagerUC, Path=DataContext}">
                                                 <Border.ContextMenu>
-                                                    <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                                                    <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}" Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
                                                         <MenuItem
                                                             Command="{Binding AddFile}"
                                                             CommandParameter="{TemplateBinding DataContext}"

@@ -15,9 +15,10 @@ namespace StudentManagement.Utils
         private static PropertyByRoleConverter _instance;
 
         public Dictionary<string, List<object>> PropertyByRoleList = new Dictionary<string, List<object>>() {
-                {"Visibility", new List<object> { Visibility.Visible, Visibility.Visible, Visibility.Collapsed }},
+            {"Visibility", new List<object> { Visibility.Visible, Visibility.Visible, Visibility.Collapsed }},
             {"IsEnabled", new List<object> { true, false, false }},
             {"SearchBarOneButton", new List<object> { "1.5*", "Auto", "Auto"}},
+            {"FileManagerRSB", new List<object> { "*", "*", "Auto"}},
             };
 
         public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -145,13 +145,13 @@
                 <Grid Margin="0" Style="{StaticResource text_grid_item}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='FileManagerRSB'}" />
+                        <ColumnDefinition Width="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='FileManagerRSB'}" />
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
-                        Content="Tải về"
                         Command="{Binding Tag.DownloadCurrentFile, ElementName=FileManagerRightSideBarItemUC}"
+                        Content="Tải về"
                         FontSize="14"
                         Foreground="White">
                         <Button.Style>
@@ -173,6 +173,7 @@
                         <Button.Style>
                             <Style BasedOn="{StaticResource rounded_btn}" TargetType="{x:Type Button}">
                                 <Setter Property="Content" Value="Đổi tên" />
+                                <Setter Property="Visibility" Value="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
                                         <Setter Property="Content" Value="Lưu" />
@@ -189,7 +190,7 @@
                         FontSize="14">
                         <Button.Style>
                             <Style BasedOn="{StaticResource rounded_btn}" TargetType="{x:Type Button}">
-                                <Setter Property="Visibility" Value="Visible" />
+                                <Setter Property="Visibility" Value="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Tag.IsEditing, ElementName=FileManagerRightSideBarItemUC}" Value="True">
                                         <Setter Property="Visibility" Value="Collapsed" />

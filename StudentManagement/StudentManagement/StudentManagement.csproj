@@ -500,6 +500,7 @@
     <Compile Include="Utils\SHA256Cryptography.cs" />
     <Compile Include="Utils\SwitchBoolConverter.cs" />
     <Compile Include="Utils\VietnameseStringNormalizer.cs" />
+    <Compile Include="Utils\VisibilityByUserIdConverter.cs" />
     <Compile Include="ViewModels\CampusStudentList\AddStudentListViewModel.cs" />
     <Compile Include="ViewModels\CampusStudentList\CampusStudentListRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\CampusStudentList\CampusStudentListRightSideBarItemViewModel.cs" />

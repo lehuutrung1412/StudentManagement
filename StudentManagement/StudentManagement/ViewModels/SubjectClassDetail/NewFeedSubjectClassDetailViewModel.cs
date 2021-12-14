@@ -125,7 +125,7 @@ namespace StudentManagement.ViewModels
                         PosterName = user.DisplayName,
                         PostText = CreatePostNewFeedViewModel.DraftPostText,
                         PostTime = DateTime.Parse(DateTime.Now.ToString(), _culture),
-                        Topic = SubjectClassDetail.Code //+ " - " + SubjectClassDetail.Subject.DisplayName
+                        Topic = SubjectClassDetail.Code + " - " + SubjectClassDetail.Subject.DisplayName
                     };
 
                     await NewsfeedServices.Instance.SavePostToDatabaseAsync(post);

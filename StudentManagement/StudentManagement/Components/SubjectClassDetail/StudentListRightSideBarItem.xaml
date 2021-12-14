@@ -114,7 +114,7 @@
 
         <Separator Grid.Row="1" Margin="0,16" />
 
-        <StackPanel Grid.Row="2">
+        <StackPanel Grid.Row="2" Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
             <TextBlock
                 Margin="4,0,4,8"
                 FontWeight="Bold"

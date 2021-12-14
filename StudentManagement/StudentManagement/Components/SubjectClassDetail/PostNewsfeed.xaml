@@ -65,14 +65,32 @@
                                 Height="18"
                                 Margin="4,0,0,0"
                                 Source="{StaticResource BlueTick}"
-                                ToolTip="Người dùng đã xác minh" />
+                                ToolTip="Người dùng đã xác minh">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Value="Admin">
+                                                <DataTrigger.Binding>
+                                                    <Binding Converter="{utils:VisibilityByUserIdConverter}" Path="Post.IdPoster" />
+                                                </DataTrigger.Binding>
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Value="Giáo viên">
+                                                <DataTrigger.Binding>
+                                                    <Binding Converter="{utils:VisibilityByUserIdConverter}" Path="Post.IdPoster" />
+                                                </DataTrigger.Binding>
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </StackPanel>
 
                         <materialDesign:PopupBox Grid.Column="1" PlacementMode="BottomAndAlignCentres">
-                            <StackPanel>
-                                <Button
-                                    Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.EditPost}"
-                                    CommandParameter="{Binding ElementName=PostNewsFeedUC}">
+                            <StackPanel Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.EditPost}" CommandParameter="{Binding ElementName=PostNewsFeedUC}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Margin="0,0,8,0" Kind="PencilOutline" />
                                         <TextBlock
@@ -207,7 +225,10 @@
                     HorizontalAlignment="Right"
                     DockPanel.Dock="Right"
                     Orientation="Horizontal">
-                    <TextBlock DockPanel.Dock="Right" FontWeight="SemiBold" Cursor="Hand">
+                    <TextBlock
+                        Cursor="Hand"
+                        DockPanel.Dock="Right"
+                        FontWeight="SemiBold">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
@@ -306,7 +327,27 @@
                                                     Height="18"
                                                     Margin="4,0,0,0"
                                                     Source="{StaticResource BlueTick}"
-                                                    ToolTip="Người dùng đã xác minh" />
+                                                    ToolTip="Người dùng đã xác minh">
+                                                    <Image.Style>
+                                                        <Style TargetType="Image">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Value="Admin">
+                                                                    <DataTrigger.Binding>
+                                                                        <Binding Converter="{utils:VisibilityByUserIdConverter}" Path="UserId" />
+                                                                    </DataTrigger.Binding>
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Value="Giáo viên">
+                                                                    <DataTrigger.Binding>
+                                                                        <Binding Converter="{utils:VisibilityByUserIdConverter}" Path="UserId" />
+                                                                    </DataTrigger.Binding>
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
+                                                </Image>
                                             </StackPanel>
                                             <TextBox
                                                 Grid.Row="1"
@@ -317,11 +358,27 @@
 
                                     <materialDesign:PopupBox
                                         x:Name="MoreDetailComment"
-                                        Opacity="0"
                                         Grid.Column="1"
                                         Margin="4,0,0,0"
                                         DockPanel.Dock="Right"
+                                        Opacity="0"
                                         PlacementMode="BottomAndAlignCentres">
+                                        <materialDesign:PopupBox.Style>
+                                            <Style TargetType="materialDesign:PopupBox">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Value="True">
+                                                        <DataTrigger.Binding>
+                                                            <MultiBinding Converter="{utils:MultiBindingValueCompareConverter}">
+                                                                <Binding Path="UserId" />
+                                                                <Binding Path="CurrentUser.Id" Source="{StaticResource LoginServices}" />
+                                                            </MultiBinding>
+                                                        </DataTrigger.Binding>
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </materialDesign:PopupBox.Style>
                                         <materialDesign:PopupBox.ToggleContent>
                                             <materialDesign:PackIcon Kind="DotsHorizontal" />
                                         </materialDesign:PopupBox.ToggleContent>
@@ -402,8 +459,7 @@
                     x:Name="txbMainComment"
                     Background="{DynamicResource Gray}"
                     Style="{StaticResource CommentTextBox}"
-                    Tag="{Binding SendComment}">
-                </TextBox>
+                    Tag="{Binding SendComment}" />
             </DockPanel>
         </Grid>
     </Border>
