@@ -29,7 +29,7 @@
                 <TextBlock
                     Margin="0,0,0,16"
                     FontSize="28"
-                    FontWeight="Bold"
+                    FontWeight="ExtraBold"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                     Text="Thêm người dùng"
                     TextWrapping="Wrap" />
@@ -39,11 +39,10 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Vai trò người dùng" />
+                        Content="Vai trò người dùng"
+                        Style="{StaticResource LabelText}" />
 
                     <ComboBox
                         Grid.Row="1"
@@ -58,11 +57,10 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Username" />
+                        Content="Username"
+                        Style="{StaticResource LabelText}" />
 
                     <TextBox
                         Grid.Row="1"
@@ -77,11 +75,10 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Mật khẩu" />
+                        Content="Mật khẩu"
+                        Style="{StaticResource LabelText}" />
 
                     <PasswordBox
                         Grid.Row="1"
@@ -107,11 +104,10 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <Label
                         Grid.Row="0"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Nhập lại mật khẩu" />
+                        Content="Nhập lại mật khẩu"
+                        Style="{StaticResource LabelText}" />
 
                     <PasswordBox
                         Grid.Row="1"

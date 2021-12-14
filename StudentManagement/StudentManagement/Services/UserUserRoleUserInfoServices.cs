@@ -32,7 +32,7 @@ namespace StudentManagement.Services
                 if (savedUserInfo == null)
                 {
 
-                    DataProvider.Instance.Database.User_UserRole_UserInfo.Add(savedUserInfo);
+                    DataProvider.Instance.Database.User_UserRole_UserInfo.Add(userInfo);
                 }
                 else
                 {

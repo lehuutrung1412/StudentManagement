@@ -151,6 +151,23 @@ namespace StudentManagement.ViewModels
             studentListRightSideBarViewModel.RightSideBarItemViewModel = new EmptyStateRightSideBarViewModel();
         }
 
+        bool IsValidEmail(string email)
+        {
+            if (email.Trim().EndsWith("."))
+            {
+                return false;
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         int checkExitCode()
         {
             if (InfoSource.First().Value == null || Username == null || Password == null || RePassword == null || InfoSource[1] == null)
@@ -168,6 +185,19 @@ namespace StudentManagement.ViewModels
             if (Password != RePassword)
             {
                 MyMessageBox.Show("Hai mật khẩu không khớp nhau");
+                return -1;
+            }
+
+            string Email = Convert.ToString(InfoSource[1].Value);
+            if (!IsValidEmail(Email))
+            {
+                MyMessageBox.Show("Email không đúng định dạng");
+                return -1;
+            }
+
+            if (DataProvider.Instance.Database.Users.Where(x => x.Email == Email).FirstOrDefault() != null)
+            {
+                MyMessageBox.Show("Email đã tồn tại");
                 return -1;
             }
 
@@ -223,7 +253,9 @@ namespace StudentManagement.ViewModels
             var listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(IdUser);
             foreach (var infoItem in listInfoItem)
             {
-                InfoSource.Add(infoItem);
+                InfoItem temp = new InfoItem();
+                temp.LabelName = infoItem.LabelName;
+                InfoSource.Add(temp);
             }
         }
 
@@ -283,11 +315,12 @@ namespace StudentManagement.ViewModels
 
             foreach (var item in InfoSource)
             {
-                if (item.LabelName != "Hệ đào tạo" && item.LabelName != "Khoa")
+                if (item.LabelName != "Hệ đào tạo" && item.LabelName != "Khoa" && item.LabelName != "Họ và tên" && item.LabelName != "Địa chỉ email")
                 {
                     User_UserRole_UserInfo newInfo = new User_UserRole_UserInfo();
                     newInfo.Id = Guid.NewGuid();
                     newInfo.IdUser = NewUser.Id;
+                    newInfo.IdUserRole_Info = DataProvider.Instance.Database.UserRole_UserInfo.Where(x => x.InfoName == item.LabelName).FirstOrDefault().Id;
                     newInfo.Content = Convert.ToString(item.Value);
                     UserUserRoleUserInfoServices.Instance.SaveUserInfoToDatabase(newInfo);
                 }

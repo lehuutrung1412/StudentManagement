@@ -140,10 +140,41 @@ namespace StudentManagement.ViewModels
 
                     foreach (DataRow student in data.Rows)
                     {
+                        User NewUser = new User();
+
+                        NewUser.Id = Guid.NewGuid();
+                        NewUser.Username = student[0].ToString();
+                        NewUser.Password = student[5].ToString();
+                        NewUser.DisplayName = student[1].ToString();
+                        NewUser.Email = student[2].ToString();
+                        NewUser.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => x.Role == "Sinh viên").FirstOrDefault();
+                        NewUser.IdUserRole = NewUser.UserRole.Id;
+
+                        UserServices.Instance.SaveUserToDatabase(NewUser);
+
+                        Student newStudent = new Student();
+                        newStudent.IdUsers = NewUser.Id;
+                        newStudent.Id = Guid.NewGuid();
+                        string temp = student[3].ToString();
+                        newStudent.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
+                        temp = student[4].ToString();
+                        newStudent.TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(x => x.DisplayName == temp).FirstOrDefault();
+                        newStudent.IdFaculty = newStudent.Faculty.Id;
+                        newStudent.IdTrainingForm = newStudent.TrainingForm.Id;
+
+                        StudentServices.Instance.SaveStudentToDatabase(newStudent);
+
+                        UserDatabase.Add(new UserCard(newStudent));
                     }
+
+                    MyMessageBox.Show("Thêm thành công");
+                    SearchNameFunction();
+
+                    return;
                 }
             }
-            MyMessageBox.Show("Thêm thành công");
+
+            MyMessageBox.Show("Thêm thất bại");
             SearchNameFunction();
         }
     }

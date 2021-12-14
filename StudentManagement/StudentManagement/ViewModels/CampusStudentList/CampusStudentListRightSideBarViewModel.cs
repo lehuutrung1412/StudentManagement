@@ -79,7 +79,7 @@ namespace StudentManagement.ViewModels
         void EditStudentInfoFunction(object p)
         {
             UserCard currentStudent = p as UserCard;
-            _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemEditViewModel(currentStudent);
+            _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemEditViewModel(SelectedItem);
             RightSideBarItemViewModel = _campusStudentListRightSideBarItemViewModel;
         }
 
@@ -132,6 +132,7 @@ namespace StudentManagement.ViewModels
         void ShowStudentCardInfoFunction(UserControl p)
         {
             UserCard currentStudent = p.DataContext as UserCard;
+            SelectedItem = currentStudent;
             ShowStudentCardInfoDetail(currentStudent);
         }
 
