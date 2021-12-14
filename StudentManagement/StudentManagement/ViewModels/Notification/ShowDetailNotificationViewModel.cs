@@ -134,9 +134,22 @@ namespace StudentManagement.ViewModels
 
         public void DeleteNotification()
         {
-            var AdminNotificationVM = Instance;
-            AdminNotificationVM.Cards.Remove(CurrentCard);
-            AdminNotificationVM.RealCards.Remove(CurrentCard);
+            try
+            {
+                var AdminNotificationVM = Instance;
+                AdminNotificationVM.Cards.Remove(CurrentCard);
+                AdminNotificationVM.RealCards.Remove(CurrentCard);
+                AdminNotificationVM.CardsInBadge.Remove(CurrentCard);
+                if (UserServices.Instance.GetUserById(AdminNotificationVM.IdUser).UserRole.Role.Contains("Admin"))
+                    NotificationServices.Instance.DeleteNotificationByNotificationCard(CurrentCard);
+                else
+                    NotificationServices.Instance.DeleteNotificationInfoByNotificationCardAndIdUser(CurrentCard, LoginServices.CurrentUser.Id);
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc xoá thông báo", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+        
         }
         public void CancelEdit()
         {
@@ -148,38 +161,45 @@ namespace StudentManagement.ViewModels
         }
         public void EditNotification()
         {
-            var AdminNotificationVM = Instance;
-            CurrentCard.Topic = Topic;
-            CurrentCard.Content = Content;
-            for (int i = 0; i < AdminNotificationVM.Cards.Count; i++)
+            try
             {
-                if (AdminNotificationVM.Cards[i].Id == CurrentCard.Id)
+                var AdminNotificationVM = Instance;
+                CurrentCard.Topic = Topic;
+                CurrentCard.Content = Content;
+                for (int i = 0; i < AdminNotificationVM.Cards.Count; i++)
                 {
-                    AdminNotificationVM.Cards.Remove(AdminNotificationVM.Cards[i]);
-                    AdminNotificationVM.Cards.Insert(i, CurrentCard);
+                    if (AdminNotificationVM.Cards[i].Id == CurrentCard.Id)
+                    {
+                        AdminNotificationVM.Cards.Remove(AdminNotificationVM.Cards[i]);
+                        AdminNotificationVM.Cards.Insert(i, CurrentCard);
 
-                    break;
+                        break;
+                    }
                 }
-            }
-            for (int i = 0; i < AdminNotificationVM.RealCards.Count; i++)
+                for (int i = 0; i < AdminNotificationVM.RealCards.Count; i++)
+                {
+                    if (AdminNotificationVM.RealCards[i].Id == CurrentCard.Id)
+                    {
+
+                        AdminNotificationVM.RealCards.Remove(AdminNotificationVM.RealCards[i]);
+                        AdminNotificationVM.RealCards.Insert(i, CurrentCard);
+                        break;
+                    }
+                }
+                for (int i = 0; i < AdminNotificationVM.CardsInBadge.Count; i++)
+                    if (AdminNotificationVM.CardsInBadge[i].Id == CurrentCard.Id)
+                    {
+                        AdminNotificationVM.CardsInBadge.Remove(AdminNotificationVM.CardsInBadge[i]);
+                        AdminNotificationVM.CardsInBadge.Insert(i, CurrentCard);
+                        break;
+                    }
+                NotificationServices.Instance.UpdateNotificationByNotificationCard(CurrentCard);
+                IsEnable = false;
+            }    
+            catch
             {
-                if (AdminNotificationVM.RealCards[i].Id == CurrentCard.Id)
-                {
-
-                    AdminNotificationVM.RealCards.Remove(AdminNotificationVM.RealCards[i]);
-                    AdminNotificationVM.RealCards.Insert(i, CurrentCard);
-                    break;
-                }
+                MyMessageBox.Show("Đã có lỗi trong cập nhật thông báo", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-            for (int i = 0; i < AdminNotificationVM.CardsInBadge.Count; i++)
-                if (AdminNotificationVM.CardsInBadge[i].Id == CurrentCard.Id)
-                {
-                    AdminNotificationVM.CardsInBadge.Remove(AdminNotificationVM.CardsInBadge[i]);
-                    AdminNotificationVM.CardsInBadge.Insert(i, CurrentCard);
-                    break;
-                }
-            NotificationServices.Instance.UpdateNotificationByNotificationCard(CurrentCard);
-            IsEnable = false;
         }
         #endregion
     }

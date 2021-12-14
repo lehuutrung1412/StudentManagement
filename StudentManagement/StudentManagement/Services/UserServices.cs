@@ -23,13 +23,13 @@ namespace StudentManagement.Services
         }
         public User GetUserById(Guid id)
         {
-            User a = DataProvider.Instance.Database.Users.Where(user=>user.Id==id).FirstOrDefault();
+            User a = DataProvider.Instance.Database.Users.FirstOrDefault(user=>user.Id==id);
             return a;
         }
 
         public User FindUserByUsername(string username)
         {
-            User user = DataProvider.Instance.Database.Users.Where(account => account.Username == username).FirstOrDefault();
+            User user = DataProvider.Instance.Database.Users.FirstOrDefault(account => account.Username == username);
 
             return user;
         }
@@ -38,7 +38,11 @@ namespace StudentManagement.Services
             var user = GetUserById(id);
             return user.DisplayName;
         }
-
+        public string GetAvatarById(Guid id)
+        {
+            var user = GetUserById(id);
+            return user.DatabaseImageTable?.Image;
+        }
         //public string GetFacultyById(Guid id)
         //{
         //    var user = GetUserById(id);
@@ -56,6 +60,16 @@ namespace StudentManagement.Services
         public bool CheckAdminByIdUser(Guid id)
         {
             return DataProvider.Instance.Database.Users.FirstOrDefault(user => user.Id == id).UserRole.Role.Contains("Admin");
+        }
+
+        public bool IsUsedEmail(string email)
+        {
+            foreach(var user in DataProvider.Instance.Database.Users.ToList())
+            {
+                if (user.Email.Equals(email))
+                    return true;             
+            }    
+            return false;
         }
 
         public User FindUserbyUserId(Guid id)
@@ -87,6 +101,12 @@ namespace StudentManagement.Services
                 return false;
             }
         }
+        public async Task SaveImageToUser(string image)
+        {
+            var imgId = await DatabaseImageTableServices.Instance.SaveImageToDatabaseAsync(image);
+            LoginServices.CurrentUser.IdAvatar = imgId;
+            DataProvider.Instance.Database.SaveChanges();
+        }    
         public bool ChangePassWord(string passWord, string gmail)
         {
             var user = GetUserByGmail(gmail);

@@ -486,6 +486,7 @@
     <Compile Include="Utils\ConverterDateTimeFromString.cs" />
     <Compile Include="Utils\BindingProxy.cs" />
     <Compile Include="Utils\ConverterDisplayNameFromIdUser.cs" />
+    <Compile Include="Utils\ConverterImageFromIdUser.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
     <Compile Include="Utils\FileExtensionToImageConverter.cs" />
     <Compile Include="Utils\FileSizeConverter.cs" />

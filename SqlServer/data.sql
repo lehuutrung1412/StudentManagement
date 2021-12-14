@@ -533,7 +533,9 @@ VALUES
   (N'Thông báo chung'),
   (N'Thông báo sinh viên'),
   (N'Thông báo giáo viên'),
-  (N'Thông báo Admin')
+  (N'Thông báo Admin'),
+  (N'Thông báo nghỉ bù'),
+  (N'Thông báo bình luận')
 GO
 
 -- Insert Database image

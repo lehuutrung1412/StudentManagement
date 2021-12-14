@@ -338,6 +338,8 @@ namespace StudentManagement.ViewModels
                 var newAbsent = new AbsentAndMakeUpItem(Guid.NewGuid(), SubjectClassDetail.Id, SelectedDate, PeriodMakeUp, "Học bù");
                 AbsentAndMakeUpItemsData.Add(newAbsent);
                 await AbsentCalendarServices.Instance.SaveCalendarToDatabaseAsync(newAbsent);
+                await AbsentCalendarServices.Instance.SaveCalendarToNotification(newAbsent);
+                await AbsentCalendarServices.Instance.SaveCalendarToNotificationInfo(newAbsent);
 
                 PeriodMakeUp = "";
                 _errorBaseViewModel.ClearErrors(nameof(PeriodMakeUp));
@@ -368,6 +370,8 @@ namespace StudentManagement.ViewModels
                 var newAbsent = new AbsentAndMakeUpItem(Guid.NewGuid(), SubjectClassDetail.Id, SelectedDate, SubjectClassDetail.Period, "Nghỉ học");
                 AbsentAndMakeUpItemsData.Add(newAbsent);
                 await AbsentCalendarServices.Instance.SaveCalendarToDatabaseAsync(newAbsent);
+                await AbsentCalendarServices.Instance.SaveCalendarToNotification(newAbsent);
+                await AbsentCalendarServices.Instance.SaveCalendarToNotificationInfo(newAbsent);
 
                 RefreshCalendar();
                 CancelAddMakeUpDayFunction();

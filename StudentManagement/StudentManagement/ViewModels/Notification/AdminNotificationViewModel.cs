@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
 {
-    public class AdminNotificationViewModel: BaseViewModel
+    public class AdminNotificationViewModel : BaseViewModel
     {
         #region properties
         private static AdminNotificationViewModel s_instance;
@@ -169,12 +169,12 @@ namespace StudentManagement.ViewModels
             //};
             LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
 
-            if(LoginServices.CurrentUser != null)
+            if (LoginServices.CurrentUser != null)
             {
                 IdUser = LoginServices.CurrentUser.Id;
                 LoadCardNotification();
-            }    
-           
+            }
+
             IsOpen = false;
             InitIcommand();
         }
@@ -217,39 +217,70 @@ namespace StudentManagement.ViewModels
         //}
         public void DeleteNotificationCardInBadge(UserControl p)
         {
-            if (p.DataContext == null)
-                return;
-            var card = p.DataContext as NotificationCard;
-            if(!UserServices.Instance.GetUserById(IdUser).UserRole.Role.Contains("Admin"))
+            try
             {
-                var tmp = Cards.FirstOrDefault(tmpCard => tmpCard.Id == card.Id);
-                Cards.Remove(tmp);
-                RealCards.Remove(tmp);
+                if (p.DataContext == null)
+                    return;
+                var card = p.DataContext as NotificationCard;
+                if (!UserServices.Instance.GetUserById(IdUser).UserRole.Role.Contains("Admin"))
+                {
+                    var tmp = Cards.FirstOrDefault(tmpCard => tmpCard.Id == card.Id);
+                    Cards.Remove(tmp);
+                    RealCards.Remove(tmp);
+                }
+                NotificationServices.Instance.DeleteNotificationInfoByNotificationCardAndIdUser(card, IdUser);
+                CardsInBadge.Remove(card);
             }
-            NotificationServices.Instance.DeleteNotificationInfoByNotificationCardAndIdUser(card, IdUser); 
-            CardsInBadge.Remove(card);
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc tải thông báo", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+
         }
         public void MarkAsRead(UserControl p)
         {
-            if (p.DataContext == null)
-                return;
-            var card = p.DataContext as NotificationCard;
-            card.Status = true;
-            NotificationServices.Instance.MarkAsReadNotificationInfoByNotificationCardAndIdUser(card,IdUser);
+            try
+            {
+                if (p.DataContext == null)
+                    return;
+                var card = p.DataContext as NotificationCard;
+                card.Status = true;
+                NotificationServices.Instance.MarkAsReadNotificationInfoByNotificationCardAndIdUser(card, IdUser);
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc đánh dấu đã đọc", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+            
         }
         public void MarkAsUnread(UserControl p)
         {
-            if (p.DataContext == null)
-                return;
-            var card = p.DataContext as NotificationCard;
-            card.Status = false;
-            NotificationServices.Instance.MarkAsUnReadNotificationInfoByNotificationCardAndIdUser(card, IdUser);
-            //NumCardInBadged += 1;
+            try
+            {
+                if (p.DataContext == null)
+                    return;
+                var card = p.DataContext as NotificationCard;
+                card.Status = false;
+                NotificationServices.Instance.MarkAsUnReadNotificationInfoByNotificationCardAndIdUser(card, IdUser);
+                //NumCardInBadged += 1;
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc đánh dấu chưa đọc", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
         public void MarkAllAsRead()
         {
-            Cards.ToList().ForEach(card => card.Status = true);
-            NotificationServices.Instance.MarkAllAsReadNotificationInfoByIdUser(IdUser);
+            try
+            {
+                Cards.ToList().ForEach(card => card.Status = true);
+                NotificationServices.Instance.MarkAllAsReadNotificationInfoByIdUser(IdUser);
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc đánh dấu tất cả đã đọc", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+        
         }
         public void SeenNotification()
         {
@@ -265,17 +296,25 @@ namespace StudentManagement.ViewModels
             this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
             this.DialogItemViewModel = this._showDetailNotificationViewModel;
             card.Status = true;
-            for(int i=0;i<CardsInBadge.Count;i++)
+            for (int i = 0; i < CardsInBadge.Count; i++)
             {
-                if(CardsInBadge[i].Id == card.Id)
+                if (CardsInBadge[i].Id == card.Id)
                 {
                     CardsInBadge[i].Status = true;
                     break;
                 }
-            }    
-            NotificationServices.Instance.MarkAsReadNotificationInfoByNotificationCardAndIdUser(card, IdUser);
+            }
+            try
+            {
+                NotificationServices.Instance.MarkAsReadNotificationInfoByNotificationCardAndIdUser(card, IdUser);
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc đánh dấu đã đọc", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+          
         }
-     
+
         public void Search()
         {
             //RealCards = Cards;
@@ -284,10 +323,10 @@ namespace StudentManagement.ViewModels
             {
                 tmp = tmp.Where(x => x.Time.Date == _searchDate);
             }
-            if(!SearchType.Equals("Tất cả"))
+            if (!SearchType.Equals("Tất cả"))
             {
                 tmp = tmp.Where(x => x.Type.Contains(SearchType));
-            }    
+            }
             RealCards = new ObservableCollection<NotificationCard>(tmp);
         }
         public void UpdateNotification()
@@ -296,7 +335,7 @@ namespace StudentManagement.ViewModels
             NotificationCard card = (AdminNotificationRightSideBarVM._adminNotificationRightSideBarEditViewModel as AdminNotificationRightSideBarEditViewModel).CurrentCard;
             (AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard = card;
             AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel;
-        
+
             for (int i = 0; i < Cards.Count; i++)
                 if (Cards[i].Id == card.Id)
                 {
@@ -309,21 +348,35 @@ namespace StudentManagement.ViewModels
                     RealCards[i] = card;
                     break;
                 }
+            for (int i = 0; i < CardsInBadge.Count; i++)
+                if (CardsInBadge[i].Id == card.Id)
+                {
+                    CardsInBadge[i] = card;
+                    break;
+                }
         }
         public void DeleteNotification()
         {
-            if (MyMessageBox.Show("Bạn có chắc muốn xoá thông báo này", "Thông báo", System.Windows.MessageBoxButton.OKCancel, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.OK)
-                return;
-            var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
-            AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._emptyStateRightSideBarViewModel;
-            var tmp = Cards.Where(x => x.Id == AdminNotificationRightSideBarVM.CurrentCard.Id).FirstOrDefault();
-            Cards.Remove(tmp);
-            RealCards.Remove(tmp);
-            CardsInBadge.Remove(tmp);
-            if (UserServices.Instance.GetUserById(IdUser).UserRole.Role.Contains("Admin"))
-                NotificationServices.Instance.DeleteNotificationByNotificationCard(tmp);
-            else
-                NotificationServices.Instance.DeleteNotificationInfoByNotificationCardAndIdUser(tmp, DataProvider.Instance.Database.Users.FirstOrDefault().Id);
+            try
+            {
+                if (MyMessageBox.Show("Bạn có chắc muốn xoá thông báo này", "Thông báo", System.Windows.MessageBoxButton.OKCancel, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.OK)
+                    return;
+                var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
+                AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._emptyStateRightSideBarViewModel;
+                var tmp = Cards.Where(x => x.Id == AdminNotificationRightSideBarVM.CurrentCard.Id).FirstOrDefault();
+                Cards.Remove(tmp);
+                RealCards.Remove(tmp);
+                CardsInBadge.Remove(tmp);
+                if (UserServices.Instance.GetUserById(IdUser).UserRole.Role.Contains("Admin"))
+                    NotificationServices.Instance.DeleteNotificationByNotificationCard(tmp);
+                else
+                    NotificationServices.Instance.DeleteNotificationInfoByNotificationCardAndIdUser(tmp, LoginServices.CurrentUser.Id);
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc xoá thông báo", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+          
         }
 
         public void CreateNewNotification()
@@ -331,7 +384,7 @@ namespace StudentManagement.ViewModels
             var card = new NotificationCard(Guid.NewGuid(), IdUser, "", "", "", DateTime.Now);
             this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
             this.DialogItemViewModel = this._creatNewNotificationViewModel;
-        }  
+        }
     }
     #endregion
 }

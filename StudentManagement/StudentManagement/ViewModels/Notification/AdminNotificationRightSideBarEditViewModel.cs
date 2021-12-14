@@ -97,32 +97,40 @@ namespace StudentManagement.ViewModels
         }
         public void UpdateNotification()
         {
-            var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
-            NotificationCard card = CurrentCard;
-            (AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard = card;
-            AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel;
-            CurrentCard.Topic = Topic;
-            CurrentCard.Type = Type;
-            var AdminNotificationVM = Instance;
-            for (int i = 0; i < AdminNotificationVM.Cards.Count; i++)
-                if (AdminNotificationVM.Cards[i].Id == card.Id)
-                {
-                    AdminNotificationVM.Cards[i] = card;
-                    break;
-                }
-            for (int i = 0; i < AdminNotificationVM.RealCards.Count; i++)
-                if (AdminNotificationVM.RealCards[i].Id == card.Id)
-                {
-                    AdminNotificationVM.RealCards[i] = card;
-                    break;
-                }
-            for (int i = 0; i < AdminNotificationVM.CardsInBadge.Count; i++)
-                if (AdminNotificationVM.CardsInBadge[i].Id == card.Id)
-                {
-                    AdminNotificationVM.CardsInBadge[i] = card;
-                    break;
-                }
-            NotificationServices.Instance.UpdateNotificationByNotificationCard(CurrentCard);
+            try
+            {
+                var AdminNotificationRightSideBarVM = AdminNotificationRightSideBarViewModel.Instance;
+                NotificationCard card = CurrentCard;
+                (AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel as AdminNotificationRightSideBarItemViewModel).CurrentCard = card;
+                AdminNotificationRightSideBarVM.RightSideBarItemViewModel = AdminNotificationRightSideBarVM._adminNotificationRightSideBarItemViewModel;
+                CurrentCard.Topic = Topic;
+                CurrentCard.Type = Type;
+                var AdminNotificationVM = Instance;
+                for (int i = 0; i < AdminNotificationVM.Cards.Count; i++)
+                    if (AdminNotificationVM.Cards[i].Id == card.Id)
+                    {
+                        AdminNotificationVM.Cards[i] = card;
+                        break;
+                    }
+                for (int i = 0; i < AdminNotificationVM.RealCards.Count; i++)
+                    if (AdminNotificationVM.RealCards[i].Id == card.Id)
+                    {
+                        AdminNotificationVM.RealCards[i] = card;
+                        break;
+                    }
+                for (int i = 0; i < AdminNotificationVM.CardsInBadge.Count; i++)
+                    if (AdminNotificationVM.CardsInBadge[i].Id == card.Id)
+                    {
+                        AdminNotificationVM.CardsInBadge[i] = card;
+                        break;
+                    }
+                NotificationServices.Instance.UpdateNotificationByNotificationCard(CurrentCard);
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc cập nhật thông báo", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+           
         }
         #endregion
     }

@@ -38,7 +38,8 @@
                 HorizontalAlignment="Stretch"
                 Panel.ZIndex="2"
                 materialDesign:ShadowAssist.ShadowDepth="Depth4"
-                Foreground="Black" Click="btnNotification_Click">
+                Click="btnNotification_Click"
+                Foreground="Black">
                 <Button.Style>
                     <Style BasedOn="{StaticResource AdminNotificationButton}" TargetType="Button">
                         <Style.Triggers>
@@ -57,7 +58,7 @@
                 <Grid Width="{Binding ElementName=bdNotification, Path=ActualWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.8*" />
-                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="7*" />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
@@ -68,15 +69,56 @@
                             Stroke="{StaticResource DarkGray}"
                             StrokeThickness="2">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="https://picsum.photos/200" Stretch="UniformToFill" />
+                                <ImageBrush ImageSource="{Binding IdPoster, Converter={utils:ConverterImageFromIdUser}, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="UniformToFill" />
                             </Ellipse.Fill>
                         </Ellipse>
                     </Grid>
-                    <GridSplitter
+                    <!--<GridSplitter
                         Grid.Column="1"
                         Margin="4,0,0,0"
                         HorizontalAlignment="Stretch"
-                        Background="Gray" />
+                        Background="Gray" />-->
+                    <ToggleButton
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Foreground="White">
+                        <ToggleButton.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignActionAccentToggleButton}" TargetType="ToggleButton">
+                                <Setter Property="Background" Value="{DynamicResource GenaralInNotification}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
+                                        <Setter Property="Background" Value="{DynamicResource ClassNotification}" />
+                                    </DataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
+                                            <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="{DynamicResource CommentNotification}" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
+                        <materialDesign:PackIcon>
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="Account" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
+                                            <Setter Property="Kind" Value="AccountGroup" />
+                                        </DataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
+                                                <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Kind" Value="Comment" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                    </ToggleButton>
                     <Grid Grid.Column="2" Margin="8,0,8,0">
                         <StackPanel>
 

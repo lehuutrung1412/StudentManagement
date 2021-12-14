@@ -62,6 +62,32 @@ namespace StudentManagement.Services
                 IdNotification = comment.PostId
             };
         }
+        public Notification ConvertPostCommentToNotification(PostComment comment)
+        {
+            NotificationComment notificationComment = db().NotificationComments.FirstOrDefault(noticeComment=>noticeComment.Id == comment.Id);
+            return new Notification()
+            {
+                Id = comment.Id,
+                IdPoster = comment.UserId,
+                Time = comment.Time,
+                IdNotificationType = NotificationTypeServices.Instance.GetNotificationTypeWithTypeContent("Thông báo bình luận")?.Id,
+                Topic = notificationComment.Notification.SubjectClass.Code,
+                Content = comment.Comment,
+                IdSubjectClass = notificationComment.Notification.IdSubjectClass,
+            };
+        }
+        public NotificationInfo ConvertPostCommentToNotificationInfo(PostComment comment)
+        {
+            Notification notification = NotificationServices.Instance.FindNotificationByNotificationId(comment.Id);
+            NotificationComment notificationComment = db().NotificationComments.FirstOrDefault(noticeComment=> noticeComment.Id == comment.Id);
+            return new NotificationInfo()
+            {
+                Id = Guid.NewGuid(),
+                IdNotification = notification.Id,
+                IdUserReceiver = notificationComment.Notification.IdPoster,
+                IsRead = false,
+            };
+        }
 
         public PostComment ConvertNotificationCommentToPostComment(NotificationComment comment)
         {
@@ -79,9 +105,45 @@ namespace StudentManagement.Services
             await db().SaveChangesAsync();
         }
 
+        public async Task SavePostToNotificationInfoAsync(NewsfeedPost post)
+        {
+            var notification = NotificationServices.Instance.FindNotificationByNotificationId(post.PostId);
+            var listCourseRegister = notification.SubjectClass.CourseRegisters.ToList();
+            foreach (var courseRegister in listCourseRegister)
+            {
+                //not sent to the poster if poster is student
+                if (LoginServices.CurrentUser.UserRole.Role == "Sinh viên")
+                {
+                    if (StudentServices.Instance.FindStudentByUserId(LoginServices.CurrentUser.Id).Id == courseRegister.IdStudent)
+                        continue;
+                }
+                var notificationInfo = new NotificationInfo()
+                {
+                    Id = Guid.NewGuid(),
+                    IdNotification = notification.Id,
+                    IdUserReceiver = courseRegister.Student.IdUsers,
+                    IsRead = false,
+                };
+                db().NotificationInfoes.AddOrUpdate(notificationInfo);
+            }
+            await db().SaveChangesAsync();
+
+        }
+
         public async Task SaveCommentToDatabaseAsync(PostComment comment)
         {
             db().NotificationComments.AddOrUpdate(ConvertPostCommentToNotificationComment(comment));
+            await db().SaveChangesAsync();
+        }
+
+        public async Task SaveCommentToNotification(PostComment comment)
+        {
+            db().Notifications.AddOrUpdate(ConvertPostCommentToNotification(comment));
+            await db().SaveChangesAsync();
+        }
+        public async Task SaveCommentToNotificationInfo(PostComment comment)
+        {
+            db().NotificationInfoes.AddOrUpdate(ConvertPostCommentToNotificationInfo(comment));
             await db().SaveChangesAsync();
         }
 
@@ -105,7 +167,7 @@ namespace StudentManagement.Services
 
         public List<Notification> GetListNotificationOfSubjectClass(Guid? idSubjectClass)
         {
-            return db().Notifications.Where(notif => notif.IdSubjectClass == idSubjectClass).ToList();
+            return db().Notifications.Where(notif => notif.IdSubjectClass == idSubjectClass && notif.IdNotificationType==null).ToList();
         }
 
         public List<NotificationComment> GetListCommentInPost(Guid postId)

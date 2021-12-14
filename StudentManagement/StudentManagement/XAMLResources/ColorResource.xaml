@@ -25,4 +25,8 @@
     <SolidColorBrush x:Key="Orange" Color="Orange" />
     <SolidColorBrush x:Key="LightGreen" Color="LightGreen" />
     <SolidColorBrush x:Key="BlackDefault" Color="#DD000000" />
+    <SolidColorBrush x:Key="GenaralInNotification" Color="#FA383E" />
+    <SolidColorBrush x:Key="CommentNotification" Color="#00A400" />
+    <SolidColorBrush x:Key="ClassNotification" Color="#1877F2" />
+    
 </ResourceDictionary>

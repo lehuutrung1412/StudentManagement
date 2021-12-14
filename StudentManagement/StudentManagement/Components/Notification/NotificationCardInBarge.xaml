@@ -56,15 +56,82 @@
                         <ColumnDefinition Width="0.5*" />
                     </Grid.ColumnDefinitions>
                     <Grid Name="grdImg" Grid.Column="0">
+                        <!--<materialDesign:Badged Height="20" Width="20" BadgePlacementMode="BottomRight">
+                            <materialDesign:Badged.Style>
+                                <Style TargetType="materialDesign:Badged">
+                                    <Setter Property="Background" Value="Green" />
+                                    <Style.Triggers />
+                                </Style>
+                            </materialDesign:Badged.Style>
+                            <Button>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse
+                                                Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                HorizontalAlignment="Stretch"
+                                                Stroke="{StaticResource DarkGray}"
+                                                StrokeThickness="2">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="https://picsum.photos/200" Stretch="UniformToFill" />
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </materialDesign:Badged>-->
+
                         <Ellipse
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                             HorizontalAlignment="Stretch"
                             Stroke="{StaticResource DarkGray}"
                             StrokeThickness="2">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="https://picsum.photos/200" Stretch="UniformToFill" />
+                                <ImageBrush ImageSource="{Binding IdPoster, Converter={utils:ConverterImageFromIdUser}, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="UniformToFill" />
                             </Ellipse.Fill>
                         </Ellipse>
+                        <ToggleButton
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Foreground="White">
+                            <ToggleButton.Style>
+                                <Style BasedOn="{StaticResource MaterialDesignActionAccentToggleButton}" TargetType="ToggleButton">
+                                    <Setter Property="Background" Value="{DynamicResource GenaralInNotification}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
+                                            <Setter Property="Background" Value="{DynamicResource ClassNotification}" />
+                                        </DataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
+                                                <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="{DynamicResource CommentNotification}" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ToggleButton.Style>
+                            <materialDesign:PackIcon>
+                                <materialDesign:PackIcon.Style>
+                                    <Style TargetType="materialDesign:PackIcon">
+                                        <Setter Property="Kind" Value="Account" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
+                                                <Setter Property="Kind" Value="AccountGroup" />
+                                            </DataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
+                                                    <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Kind" Value="Comment" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
+                        </ToggleButton>
                     </Grid>
                     <Grid
                         Grid.Column="1"
@@ -74,7 +141,7 @@
                         <StackPanel>
 
                             <TextBlock
-                                MaxHeight="28"
+                                MaxHeight="32"
                                 VerticalAlignment="Top"
                                 LineStackingStrategy="BlockLineHeight"
                                 TextTrimming="WordEllipsis"
@@ -83,21 +150,62 @@
                                     FontSize="14"
                                     FontWeight="SemiBold"
                                     Foreground="Gray"
-                                    Text="{Binding IdPoster, FallbackValue='Người đăng',Converter={utils:ConverterDisplayNameFromIdUser}}" />
+                                    Text="{Binding IdPoster, FallbackValue='Người đăng', Converter={utils:ConverterDisplayNameFromIdUser}}" />
+                                <Run FontSize="12" Foreground="Gray">
+                                    <Run.Style>
+                                        <Style TargetType="Run">
+                                            <Setter Property="Text" Value="đã đăng thông báo mới!!!" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
+                                                    <Setter Property="Text" Value="Đã đăng thông báo mới trong " />
+                                                </DataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false" />
+                                                        <Condition Binding="{Binding Type}" Value="Thông báo bình luận" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Text" Value="đã bình luận về bài viết của bạn trong" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Run.Style>
+                                </Run>
                                 <Run
                                     FontSize="12"
-                                    Foreground="Gray"
-                                    Text="Đã đăng thông báo mới!!!" />
+                                    FontWeight="SemiBold"
+                                    Foreground="Gray">
+                                    <Run.Style>
+                                        <Style TargetType="Run">
+                                            <Setter Property="Text" Value="{x:Null}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="false">
+                                                    <Setter Property="Text" Value="{Binding Topic}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Run.Style>
+                                </Run>
                             </TextBlock>
                             <TextBlock
                                 MaxHeight="28"
                                 Margin="0,4,0,0"
                                 FontSize="12"
+                                FontWeight="SemiBold"
                                 Foreground="Gray"
                                 LineHeight="14"
                                 LineStackingStrategy="BlockLineHeight"
-                                Text="{Binding Content}"
-                                TextWrapping="Wrap" />
+                                TextWrapping="Wrap">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="{Binding Content}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IdSubjectClass, Converter={utils:IsNullConverter}}" Value="true">
+                                                <Setter Property="Text" Value="{Binding Topic}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                             <TextBlock
                                 FontSize="12"
                                 FontWeight="SemiBold"
@@ -238,8 +346,8 @@
                                             <materialDesign:PopupBox.Style>
                                                 <Style TargetType="materialDesign:PopupBox">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Path=IsFocused, RelativeSource={RelativeSource AncestorType={x:Type Button}} }" Value="true">
-                                                            <Setter Property="IsPopupOpen" Value="True"/>
+                                                        <DataTrigger Binding="{Binding Path=IsFocused, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="true">
+                                                            <Setter Property="IsPopupOpen" Value="True" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

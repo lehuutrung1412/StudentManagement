@@ -115,7 +115,7 @@ namespace StudentManagement.ViewModels
                 try
                 {
                     // Get current user
-                    var user = UserServices.Instance.GetUserInfo();
+                    var user = LoginServices.CurrentUser;
 
                     NewsfeedPost post = new NewsfeedPost()
                     {
@@ -129,6 +129,7 @@ namespace StudentManagement.ViewModels
                     };
 
                     await NewsfeedServices.Instance.SavePostToDatabaseAsync(post);
+                    await NewsfeedServices.Instance.SavePostToNotificationInfoAsync(post);
 
                     // Upload image
                     var stackImageUploaded = new ObservableCollection<string>();
