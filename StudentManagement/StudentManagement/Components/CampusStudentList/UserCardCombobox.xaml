@@ -25,18 +25,18 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
+            <Label Content="{Binding CurrendInfoItem.LabelName}" Style="{StaticResource LabelText}" />
             <ComboBox
-                materialDesign:HintAssist.Hint="{Binding LabelName}"
-                ItemsSource="{Binding ItemSource}"
-                SelectedItem="{Binding Value}">
+                materialDesign:HintAssist.Hint="{Binding CurrendInfoItem.LabelName}"
+                ItemsSource="{Binding CurrendInfoItem.ItemSource}"
+                SelectedItem="{Binding Content}">
                 <ComboBox.Style>
                     <Style BasedOn="{StaticResource combobox_item}" TargetType="ComboBox">
                         <Setter Property="IsEnabled" Value="False" />
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsEnable}" Value="true" />
+                                    <Condition Binding="{Binding CurrendInfoItem.IsEnable}" Value="true" />
 
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="True" />

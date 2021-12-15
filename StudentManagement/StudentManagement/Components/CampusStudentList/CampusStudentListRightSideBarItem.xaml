@@ -45,11 +45,11 @@
                                 Grid.Column="0"
                                 FontWeight="Bold"
                                 Style="{StaticResource textblock_item}"
-                                Text="{Binding LabelName}" />
+                                Text="{Binding CurrendInfoItem.LabelName}" />
                             <TextBlock
                                 Grid.Column="1"
                                 Style="{StaticResource textblock_item}"
-                                Text="{Binding Value, FallbackValue='Nothing'}"
+                                Text="{Binding Content, FallbackValue='Nothing'}"
                                 TextAlignment="Right" />
                         </Grid>
                     </DataTemplate>
