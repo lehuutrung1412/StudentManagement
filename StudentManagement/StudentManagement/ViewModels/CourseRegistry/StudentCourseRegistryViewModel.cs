@@ -113,7 +113,7 @@ namespace StudentManagement.ViewModels
             InitCommand();
         }
 
-        
+
         #region Methods
 
         public void UpdateData()
@@ -146,7 +146,7 @@ namespace StudentManagement.ViewModels
                         return true;
                 return false;
             }, (p) => RegisterSelectedCourses());
-            UnregisterCommand = new RelayCommand<UserControl>((p) => 
+            UnregisterCommand = new RelayCommand<UserControl>((p) =>
             {
                 foreach (CourseItem course in CourseRegistryItems1)
                     if (course.IsSelected)
@@ -190,12 +190,16 @@ namespace StudentManagement.ViewModels
             {
                 if (item.IsConflict)
                     continue;
-                item.NumberOfStudents += 1;
-                TotalCredit += Convert.ToInt32(item.Subject.Credit);
                 item.IsSelected = false;
-                CourseRegistryItems1.Add(item);
-                CourseRegisterServices.Instance.StudentRegisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
-                CourseRegistryItems2.Remove(item);
+
+                // Nếu đăng ký thành công thì mới thay đổi
+                if (CourseRegisterServices.Instance.StudentRegisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass()))
+                {
+                    CourseRegistryItems1.Add(item);
+                    CourseRegistryItems2.Remove(item);
+                    item.NumberOfStudents += 1;
+                    TotalCredit += Convert.ToInt32(item.Subject.Credit);
+                }
             }
             UploadConflictCourseRegistry();
             Search();

@@ -22,6 +22,7 @@ using System.Windows.Shapes;
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using StudentManagement.Models;
+using System.Data.Entity.Infrastructure;
 
 namespace StudentManagement.ViewModels
 {
@@ -290,6 +291,10 @@ namespace StudentManagement.ViewModels
 
                     SearchQuery = "";
                 }
+            }
+            catch (DbUpdateException e)
+            {
+                MyMessageBox.Show("Lớp học đã đủ số lượng, thêm sinh viên không thành công");
             }
             catch (Exception)
             {

@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,8 +40,8 @@ namespace StudentManagement.Services
         public ObservableCollection<SubjectClass> LoadCourseRegisteredListBySemesterIdAndStudentId(Guid idSemester, Guid idStudent)
         {
             ObservableCollection<SubjectClass> listSubjectClass = new ObservableCollection<SubjectClass>();
-            List<CourseRegister> listCourseRegistered = DataProvider.Instance.Database.CourseRegisters.Where(x => x.SubjectClass.IdSemester == idSemester).Where(y => y.IdStudent == idStudent).Where(z=>z.Status==1).ToList();
-            foreach(CourseRegister registeredCourse in listCourseRegistered)
+            List<CourseRegister> listCourseRegistered = DataProvider.Instance.Database.CourseRegisters.Where(x => x.SubjectClass.IdSemester == idSemester).Where(y => y.IdStudent == idStudent).Where(z => z.Status == 1).ToList();
+            foreach (CourseRegister registeredCourse in listCourseRegistered)
             {
                 listSubjectClass.Add(registeredCourse.SubjectClass);
             }
@@ -49,7 +51,7 @@ namespace StudentManagement.Services
         {
             ObservableCollection<SubjectClass> listSubjectClassInSemester = new ObservableCollection<SubjectClass>(SubjectClassServices.Instance.LoadSubjectClassListBySemesterId(idSemester));
             ObservableCollection<SubjectClass> listSubjectClassRegistered = LoadCourseRegisteredListBySemesterIdAndStudentId(idSemester, idStudent);
-            foreach(SubjectClass registered in listSubjectClassRegistered)
+            foreach (SubjectClass registered in listSubjectClassRegistered)
             {
                 listSubjectClassInSemester.Remove(registered);
             }
@@ -66,16 +68,29 @@ namespace StudentManagement.Services
         }
         public bool StudentRegisterSubjectClassToDatabase(Guid idSemester, Guid idStudent, SubjectClass subjectClass)
         {
-            CourseRegister registering = new CourseRegister()
+            try
             {
-                Id = Guid.NewGuid(),
-                IdStudent = idStudent,
-                IdSubjectClass = subjectClass.Id,
-                Status = 1,
-            };
-            DataProvider.Instance.Database.CourseRegisters.Add(registering);
-            DataProvider.Instance.Database.SaveChanges();
-            return true;
+                CourseRegister registering = new CourseRegister()
+                {
+                    Id = Guid.NewGuid(),
+                    IdStudent = idStudent,
+                    IdSubjectClass = subjectClass.Id,
+                    Status = 1,
+                };
+                DataProvider.Instance.Database.CourseRegisters.Add(registering);
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
+            }
+            catch (DbUpdateException e)
+            {
+                MyMessageBox.Show("Lớp học đã đủ số lượng, đăng ký không thành công");
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
         public bool StudentUnregisterSubjectClassToDatabase(Guid idSemester, Guid idStudent, SubjectClass subjectClass)
         {
