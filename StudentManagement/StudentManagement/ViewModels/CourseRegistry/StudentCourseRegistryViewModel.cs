@@ -138,6 +138,10 @@ namespace StudentManagement.ViewModels
             {
                 CourseRegistryItems1 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
                 CourseRegistryItems2 = CourseItem.ConvertToListCourseItem(CourseRegisterServices.Instance.LoadCourseUnregisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id));
+
+                foreach (CourseItem course in CourseRegistryItems2.Where(fullCourse => fullCourse.NumberOfStudents >= fullCourse.MaxNumberOfStudents).ToList())
+                    CourseRegistryItems2.Remove(course);
+
                 UpdateScheduleItems();
                 UploadConflictCourseRegistry();
             }
