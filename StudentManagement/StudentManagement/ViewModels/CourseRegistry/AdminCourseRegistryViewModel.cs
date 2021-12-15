@@ -46,24 +46,30 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<Models.Semester> Semesters { get => _semesters; set { _semesters = value; OnPropertyChanged(); } }
         private ObservableCollection<Models.Semester> _semesters;
 
-        public Models.Semester SelectedSemester { get => _selectedSemester; 
-            set 
-            { 
-                _selectedSemester = value; 
-                OnPropertyChanged(); 
-                if(value != null)
-                    AdminCourseRegistryRightSideBarViewModel.Instance.CanEdit = !(_selectedSemester.CourseRegisterStatus > 0); 
-            } }
+        public Models.Semester SelectedSemester
+        {
+            get => _selectedSemester;
+            set
+            {
+                _selectedSemester = value;
+                OnPropertyChanged();
+                if (value != null)
+                    AdminCourseRegistryRightSideBarViewModel.Instance.CanEdit = !(_selectedSemester.CourseRegisterStatus > 0);
+            }
+        }
         private Models.Semester _selectedSemester;
-        public int SelectedSemesterIndex { get => _selectedSemesterIndex; 
-            set 
-            { 
-                _selectedSemesterIndex = value; 
-                OnPropertyChanged(); 
+        public int SelectedSemesterIndex
+        {
+            get => _selectedSemesterIndex;
+            set
+            {
+                _selectedSemesterIndex = value;
+                OnPropertyChanged();
                 SelectData();
 
                 AdminCourseRegistryRightSideBarViewModel.Instance.RightSideBarItemViewModel = new EmptyStateRightSideBarViewModel();
-            } }
+            }
+        }
         private int _selectedSemesterIndex;
 
         public VietnameseStringNormalizer vietnameseStringNormalizer = VietnameseStringNormalizer.Instance;
@@ -148,7 +154,7 @@ namespace StudentManagement.ViewModels
         {
             Instance = this;
             Semesters = SemesterServices.Instance.LoadListSemester();
-            SubjectClasses = new ObservableCollection<SubjectClass>(SubjectClassServices.Instance.LoadSubjectClassList());
+            SubjectClasses = new ObservableCollection<SubjectClass>(SubjectClassServices.Instance.LoadSubjectClassList().Where(el => el.IsDeleted != true));
             CourseRegistryItemsAll = new ObservableCollection<ObservableCollection<CourseItem>>();
             for (int i = 0; i < Semesters.Count; i++)
             {
@@ -192,14 +198,15 @@ namespace StudentManagement.ViewModels
                 {
                     DeleteSelectedItems();
                 });
-            CreateNewCourseCommand = new RelayCommand<object>((p) => {
+            CreateNewCourseCommand = new RelayCommand<object>((p) =>
+            {
                 if (SelectedSemester == null)
                     return false;
                 return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => CreateNewCourse());
             OpenSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 1; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); });
             PauseSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 0; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); });
-            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 2; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester);  });
+            StopSemesterCommand = new RelayCommand<object>((p) => true, (p) => { SelectedSemester.CourseRegisterStatus = 2; SemesterServices.Instance.SaveSemesterToDatabase(SelectedSemester); });
 
             CreateNewSemesterCommand = new RelayCommand<object>((p) =>
             {
@@ -265,7 +272,7 @@ namespace StudentManagement.ViewModels
         }
         public void CreateNewCourse()
         {
-            var newSubjectClass = new SubjectClass(); 
+            var newSubjectClass = new SubjectClass();
             _creatNewCourseViewModel = new CreateNewCourseViewModel(newSubjectClass, SelectedSemester, CourseRegistryItems);
             this.DialogItemViewModel = this._creatNewCourseViewModel;
         }
@@ -311,7 +318,7 @@ namespace StudentManagement.ViewModels
             defaultNewBatch = defaultNewBatch.Remove(defaultNewBatch.Length - 1);
             Batches.Add(defaultNewBatch);
         }
-        
+
         public void AddFromExcel()
         {
             using (OpenFileDialog op = new OpenFileDialog() { Filter = "Excel|*.xls;*.xlsx;" })

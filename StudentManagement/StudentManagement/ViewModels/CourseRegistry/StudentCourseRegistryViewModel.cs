@@ -165,7 +165,7 @@ namespace StudentManagement.ViewModels
         public void UpdateScheduleItems()
         {
             ScheduleItemsRegistered = new ObservableCollection<ScheduleItem>();
-            if (SubjectClassServices.Instance.LoadSubjectClassList().Count() == 0)
+            if (SubjectClassServices.Instance.LoadSubjectClassList().Where(el => el.IsDeleted != true).Count() == 0)
                 return;
             foreach (SubjectClass item in CourseRegisterServices.Instance.LoadCourseRegisteredListBySemesterIdAndStudentId(CurrentSemester.Id, CurrentStudent.Id))
             {

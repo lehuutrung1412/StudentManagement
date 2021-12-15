@@ -141,7 +141,10 @@ namespace StudentManagement.Services
             {
                 SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(id);
 
-                DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
+                //soft delete
+                savedSubjectClass.IsDeleted = true;
+
+                //DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
 
                 DataProvider.Instance.Database.SaveChanges();
 

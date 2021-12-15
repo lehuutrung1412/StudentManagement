@@ -110,17 +110,32 @@ namespace StudentManagement.ViewModels
         public void ConfirmEditSubjectClassCardInfoFunction()
         {
             bool isCardExist = AdminSubjectClassViewModel.StoredSubjectClassCards.Contains(ActualCard);
+
+            // store current actual
+            SubjectClassCard storedActualCard = new SubjectClassCard();
+            storedActualCard.CopyCardInfo(ActualCard);
+
+            // copy current card property to actual card
             ActualCard.CopyCardInfo(CurrentCard);
 
-            // check if card exist -> Not exist insert new
-            if (!isCardExist)
+            bool success = SubjectClassServices.Instance.SaveSubjectClassCardToDatabase(ActualCard);
+
+            if (success)
             {
-                AdminSubjectClassViewModel.StoredSubjectClassCards.Insert(0, ActualCard);
-                AdminSubjectClassViewModel.SubjectClassCards.Insert(0, ActualCard);
+                // check if card exist -> Not exist insert new
+                if (!isCardExist)
+                {
+                    AdminSubjectClassViewModel.StoredSubjectClassCards.Insert(0, ActualCard);
+                    AdminSubjectClassViewModel.SubjectClassCards.Insert(0, ActualCard);
+                }
+                MyMessageBox.Show("Thêm/chỉnh sửa lớp môn học thành công");
             }
-
-            SubjectClassServices.Instance.SaveSubjectClassCardToDatabase(ActualCard);
-
+            else
+            {
+                // rollback to previous actual card
+                ActualCard.CopyCardInfo(storedActualCard);
+                MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
+            }
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowSubjectClassCardInfo();

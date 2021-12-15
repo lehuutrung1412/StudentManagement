@@ -168,8 +168,7 @@ namespace StudentManagement.ViewModels
 
         public List<SubjectClass> LoadSubjectClassListByRole()
         {
-
-            var subjectClasses = SubjectClassServices.Instance.LoadSubjectClassList();
+            var subjectClasses = SubjectClassServices.Instance.LoadSubjectClassList().Where(el => el.IsDeleted != true);
 
             if (LoginServices.CurrentUser != null)
             {

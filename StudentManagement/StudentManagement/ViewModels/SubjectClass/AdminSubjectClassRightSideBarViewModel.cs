@@ -107,12 +107,22 @@ namespace StudentManagement.ViewModels
         {
             SubjectClassCard card = p as SubjectClassCard;
 
-            SubjectClassCards.Remove(card);
-            StoredSubjectClassCards.Remove(card);
+            if (MyMessageBox.Show($"Bạn thực sự muốn xóa lớp {card?.Code}? Xóa lớp học sẽ xóa toàn bộ dữ liệu trong lớp học!!!", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            {
+                bool success = SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(card.Id);
 
-            SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(card.Id);
-
-            RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
+                if (success)
+                {
+                    SubjectClassCards.Remove(card);
+                    StoredSubjectClassCards.Remove(card);
+                    MyMessageBox.Show($"Xóa lớp {card.Code} thành công");
+                }
+                else
+                {
+                    MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
+                }
+                RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
+            }
         }
         #endregion
     }
