@@ -53,7 +53,14 @@ namespace StudentManagement.ViewModels
             {
                 _isAllItemsSelected2 = value;
                 OnPropertyChanged();
-                CourseRegistryItems2.Where(a => a.IsConflict == false).Select(c => { c.IsSelected = value; return c; }).ToList();
+                foreach(CourseItem course in CourseRegistryItems2)
+                {
+                    if (course.IsSelected == !value && course.IsConflict == false)
+                    {
+                        course.IsSelected = value;
+                        UpdateConflictionByEditCourse(course);
+                    }
+                }
             }
         }
         private ObservableCollection<CourseItem> courseRegistryItems1;
@@ -256,6 +263,19 @@ namespace StudentManagement.ViewModels
             if (editCourseItem.IsConflict)
                 return;
             editCourseItem.IsSelected = !editCourseItem.IsSelected;
+
+            UpdateConflictionByEditCourse(editCourseItem);
+
+            editCourseItem.IsSelected = !editCourseItem.IsSelected;
+            e.Cancel = true;
+        }
+        private void UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
+        {
+            UpdateData();
+        }
+
+        public void UpdateConflictionByEditCourse(CourseItem editCourseItem)
+        {
             if (editCourseItem.IsSelected)
             {
                 CourseRegistryItemsChecked.Add(editCourseItem);
@@ -286,12 +306,6 @@ namespace StudentManagement.ViewModels
                 ScheduleItem thisSchedule = ScheduleItemsRegistered.Where(schedule => schedule.Id == editCourseItem.Id).FirstOrDefault();
                 ScheduleItemsRegistered.Remove(thisSchedule);
             }
-            editCourseItem.IsSelected = !editCourseItem.IsSelected;
-            e.Cancel = true;
-        }
-        private void UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
-        {
-            UpdateData();
         }
         #endregion
     }
