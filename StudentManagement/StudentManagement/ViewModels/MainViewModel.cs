@@ -187,6 +187,8 @@ namespace StudentManagement.ViewModels
         {
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, LayoutViewModel, "School"),
+                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, LayoutViewModel, "School"),
+                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, LayoutViewModel, "School"),
             };
 
             LayoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
@@ -204,6 +206,8 @@ namespace StudentManagement.ViewModels
         {
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, LayoutViewModel, "School"),
+                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, LayoutViewModel, "School"),
+                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, LayoutViewModel, "School"),
             };
 
             LayoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {

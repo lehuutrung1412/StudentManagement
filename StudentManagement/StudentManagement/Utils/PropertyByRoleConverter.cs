@@ -16,8 +16,9 @@ namespace StudentManagement.Utils
 
         public Dictionary<string, List<object>> PropertyByRoleList = new Dictionary<string, List<object>>() {
             {"Visibility", new List<object> { Visibility.Visible, Visibility.Visible, Visibility.Collapsed }},
+            {"Visibility2", new List<object> { Visibility.Visible, Visibility.Collapsed, Visibility.Collapsed }},
             {"IsEnabled", new List<object> { true, false, false }},
-            {"SearchBarOneButton", new List<object> { "1.5*", "Auto", "Auto"}},
+            {"SearchBarOneButton", new List<object> { "1.5*", "0", "0"}},
             {"FileManagerRSB", new List<object> { "*", "*", "Auto"}},
             };
 

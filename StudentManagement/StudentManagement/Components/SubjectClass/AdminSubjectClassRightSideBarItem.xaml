@@ -50,7 +50,7 @@
                         Command="{Binding ClickChangeImageCommand}"
                         Content="{materialDesign:PackIcon Camera,
                                                           Size=50}"
-                        Visibility="Visible">
+                        Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}">
                         <Button.Style>
                             <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
                                 <Setter Property="Background" Value="Transparent" />
@@ -278,7 +278,8 @@
         <Grid
             Grid.Row="1"
             Margin="8"
-            Style="{StaticResource text_grid_item}">
+            Style="{StaticResource text_grid_item}"
+            Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility2'}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

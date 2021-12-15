@@ -33,8 +33,8 @@
                 <Grid Margin="16" DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5*" />
-                        <ColumnDefinition Width="1.5*" />
-                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='SearchBarOneButton'}" />
+                        <ColumnDefinition Width="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='SearchBarOneButton'}" />
                     </Grid.ColumnDefinitions>
                     <component:SearchBarOne
                         Grid.Column="0"

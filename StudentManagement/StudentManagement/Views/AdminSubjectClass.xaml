@@ -87,7 +87,7 @@
                             Command="{Binding CreateSubjectClassCardInfo, Source={StaticResource AdminSubjectClassRightSideBarVM}}"
                             Content="Thêm lớp học"
                             FontSize="14"
-                            Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility'}" />
+                            Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility2'}" />
                     </Grid>
                     <ItemsControl ItemsSource="{Binding SubjectClassCards}">
                         <ItemsControl.ItemsPanel>

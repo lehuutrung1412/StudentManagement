@@ -50,7 +50,8 @@
                                     Height="96"
                                     Margin="12"
                                     BorderThickness="1"
-                                    CornerRadius="8">
+                                    CornerRadius="8"
+                                    Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility2'}">
                                     <Border.BorderBrush>
                                         <VisualBrush>
                                             <VisualBrush.Visual>
@@ -122,7 +123,7 @@
                 <Grid Margin="16" DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5.5*" />
-                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='SearchBarOneButton'}" />
                     </Grid.ColumnDefinitions>
                     <component:SearchBarOne
                         Grid.Column="0"
