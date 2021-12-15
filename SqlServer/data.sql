@@ -1,5 +1,5 @@
 -- USE TEMP
---  DROP DATABASE StudentManagement
+-- DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -196,9 +196,9 @@ CREATE TABLE SubjectClass
   IdThumbnail UNIQUEIDENTIFIER NULL,
   IdTrainingForm UNIQUEIDENTIFIER NULL,
   Code NVARCHAR(MAX) NOT NULL,
-  NumberOfStudents INT NULL,
+  NumberOfStudents INT NOT NULL DEFAULT 0,
   MaxNumberOfStudents INT NULL,
-  IsDeleted BIT DEFAULT 0,
+  IsDeleted BIT NOT NULL DEFAULT 0,
 )
 GO
 
@@ -626,16 +626,53 @@ GO
 
 -- Trigger
 
-CREATE TRIGGER UTG_CountNumberOfStudentsInClass
+-- O(N) trigger
+-- CREATE TRIGGER UTG_CountNumberOfStudentsInClass
+--       ON dbo.CourseRegister
+--       AFTER INSERT, UPDATE, DELETE
+--     AS
+--     BEGIN
+--     UPDATE b SET NumberOfStudents = (SELECT COUNT(*) FROM CourseRegister AS a WHERE a.IdSubjectClass = b.Id) FROM dbo.SubjectClass AS b WHERE Id IN (
+--       SELECT IdSubjectClass FROM DELETED 
+--       UNION  
+--       SELECT IdSubjectClass FROM INSERTED 
+--     )
+--     END
+-- GO
+
+-- O(1) trigger
+ALTER TRIGGER UTG_CountNumberOfStudentsInClass
       ON dbo.CourseRegister
       AFTER INSERT, UPDATE, DELETE
     AS
     BEGIN
-    UPDATE b SET NumberOfStudents = (SELECT COUNT(*) FROM CourseRegister AS a WHERE a.IdSubjectClass = b.Id) FROM dbo.SubjectClass AS b WHERE Id IN (
+    DECLARE @NumberOfStudentsInClass INT
+    DECLARE @MaxNumberOfStudentsInClass INT
+    SET @NumberOfStudentsInClass = (SELECT NumberOfStudents FROM SubjectClass AS a WHERE Id IN (
       SELECT IdSubjectClass FROM DELETED 
       UNION  
       SELECT IdSubjectClass FROM INSERTED 
-    )
+    ))
+
+    SET @MaxNumberOfStudentsInClass = (SELECT MaxNumberOfStudents FROM SubjectClass WHERE Id IN (
+      SELECT IdSubjectClass FROM DELETED 
+      UNION  
+      SELECT IdSubjectClass FROM INSERTED 
+    ))
+
+    IF (@MaxNumberOfStudentsInClass <= @NumberOfStudentsInClass)
+    BEGIN 
+      RAISERROR  ('SubjectClass is full', 16, 1)
+      ROLLBACK TRANSACTION
+    END
+    ELSE
+    BEGIN
+      UPDATE b SET NumberOfStudents = 1 + NumberOfStudents FROM dbo.SubjectClass AS b WHERE Id IN (
+        SELECT IdSubjectClass FROM DELETED 
+        UNION  
+        SELECT IdSubjectClass FROM INSERTED 
+      )
+    END
     END
 GO
 
@@ -658,4 +695,5 @@ GO
 
 
 -- SELECT * FROM dbo.SubjectClass
+-- SELECT * FROM dbo.CourseRegister
   
