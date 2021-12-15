@@ -94,40 +94,61 @@ namespace StudentManagement.Services
         /// Save TrainingForm Card To Database
         /// </summary>
         /// <param name="trainingFormCard"></param>
-        public void SaveTrainingFormCardToDatabase(TrainingFormCard trainingFormCard)
+        public bool SaveTrainingFormCardToDatabase(TrainingFormCard trainingFormCard)
         {
-            TrainingForm trainingForm = ConvertTrainingFormCardToTrainingForm(trainingFormCard);
 
-            SaveTrainingFormToDatabase(trainingForm);
+            try
+            {
+                TrainingForm trainingForm = ConvertTrainingFormCardToTrainingForm(trainingFormCard);
+
+                SaveTrainingFormToDatabase(trainingForm);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
         /// Remove TrainingForm From Database
         /// </summary>
         /// <param name="traingingForm"></param>
-        public void RemoveTrainingFormFromDatabase(TrainingForm traingingForm)
+        public bool RemoveTrainingFormFromDatabase(TrainingForm traingingForm)
         {
-            TrainingForm savedTrainingForm = FindTrainingFormByTrainingFormId(traingingForm.Id);
+            try
+            {
+                TrainingForm savedTrainingForm = FindTrainingFormByTrainingFormId(traingingForm.Id);
 
-            DataProvider.Instance.Database.TrainingForms.Remove(savedTrainingForm);
+                //DataProvider.Instance.Database.TrainingForms.Remove(savedTrainingForm);
 
-            DataProvider.Instance.Database.SaveChanges();
+                // soft delete
+                savedTrainingForm.IsDeleted = true;
+
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
         /// Remove TrainingFormCard From Database
         /// </summary>
         /// <param name="traingingFormCard"></param>
-        public void RemoveTrainingFormCardFromDatabase(TrainingFormCard traingingFormCard)
+        public bool RemoveTrainingFormCardFromDatabase(TrainingFormCard traingingFormCard)
         {
             TrainingForm traingingForm = ConvertTrainingFormCardToTrainingForm(traingingFormCard);
 
-            RemoveTrainingFormFromDatabase(traingingForm);
+            return RemoveTrainingFormFromDatabase(traingingForm);
         }
         public ObservableCollection<string> LoadListTrainingForm()
         {
             ObservableCollection<string> listTrainingForm = new ObservableCollection<string>();
-            DataProvider.Instance.Database.TrainingForms.ToList().ForEach(trainningForm => listTrainingForm.Add(trainningForm.DisplayName));
+            DataProvider.Instance.Database.TrainingForms.Where(el => el.IsDeleted != true).ToList().ForEach(trainningForm => listTrainingForm.Add(trainningForm.DisplayName));
             return listTrainingForm;
         }
     }

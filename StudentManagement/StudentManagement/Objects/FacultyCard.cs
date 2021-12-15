@@ -114,7 +114,7 @@ namespace StudentManagement.Objects
 
                 TrainingFormsOfFacultyList = new ObservableCollection<TrainingForm>(tempFaculty);
 
-                var temp2 = DataProvider.Instance.Database.TrainingForms.ToList();
+                var temp2 = TrainingFormServices.Instance.LoadTrainingFormList().Where(el => el.IsDeleted != true).ToList();
 
                 temp2.RemoveAll(el => tempFaculty.Contains(el));
 

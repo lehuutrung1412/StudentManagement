@@ -111,6 +111,7 @@ namespace StudentManagement.ViewModels
                     }
                 case "Giáo viên":
                     {
+
                         var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
                         InfoSource.Add(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), lecture.Faculty.DisplayName, false));
                         break;

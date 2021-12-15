@@ -87,15 +87,31 @@ namespace StudentManagement.ViewModels
         public void ConfirmEditTrainingFormCardInfoFunction()
         {
             bool isCardExist = AdminFacultyTrainingFormViewModel.TrainingFormCards.Contains(ActualCard);
+
+            // store current actual
+            TrainingFormCard storedActualCard = new TrainingFormCard();
+            storedActualCard.CopyCardInfo(ActualCard);
+
+            // copy current card property to actual card
             ActualCard.CopyCardInfo(CurrentCard);
 
-            // check if card exist -> Not exist insert new
-            if (!isCardExist)
-            {
-                AdminFacultyTrainingFormViewModel.TrainingFormCards.Insert(1, ActualCard);
-            }
+            bool success = TrainingFormServices.Instance.SaveTrainingFormCardToDatabase(ActualCard);
 
-            TrainingFormServices.Instance.SaveTrainingFormCardToDatabase(ActualCard);
+            if (success)
+            {
+                // check if card exist -> Not exist insert new
+                if (!isCardExist)
+                {
+                    AdminFacultyTrainingFormViewModel.TrainingFormCards.Insert(1, ActualCard);
+                }
+                MyMessageBox.Show("Thêm/chỉnh sửa hệ đào tạo thành công");
+            }
+            else
+            {
+                // rollback to previous actual card
+                ActualCard.CopyCardInfo(storedActualCard);
+                MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
+            }
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowTrainingFormCardInfo();

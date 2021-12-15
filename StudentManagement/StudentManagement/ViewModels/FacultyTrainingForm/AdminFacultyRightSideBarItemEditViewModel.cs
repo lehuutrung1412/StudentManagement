@@ -109,19 +109,34 @@ namespace StudentManagement.ViewModels
         public void ConfirmEditFacultyCardInfoFunction()
         {
             bool isCardExist = AdminFacultyTrainingFormViewModel.StoredFacultyCards.Contains(ActualCard);
+
+            // store current actual
+            FacultyCard storedActualCard = new FacultyCard();
+            storedActualCard.CopyCardInfo(ActualCard);
+
+            // copy current card property to actual card
             ActualCard.CopyCardInfo(CurrentCard);
 
-            // check if card exist -> Not exist insert new
-            if (!isCardExist)
+            bool success = FacultyServices.Instance.SaveFacultyCardToDatabase(ActualCard) && ActualCard.SaveTrainingFormOfFacultyListToDatabase();
+            
+            if (success)
             {
-                AdminFacultyTrainingFormViewModel.StoredFacultyCards.Insert(0, ActualCard);
-                AdminFacultyTrainingFormViewModel.FacultyCards.Insert(0, ActualCard);
-                AdminFacultyTrainingFormViewModel.CurrentFacultyCards.Insert(0, ActualCard);
-                AdminFacultyTrainingFormViewModel.Instance.LoadFacultyByPageView();
+                // check if card exist -> Not exist insert new
+                if (!isCardExist)
+                {
+                    AdminFacultyTrainingFormViewModel.StoredFacultyCards.Insert(0, ActualCard);
+                    AdminFacultyTrainingFormViewModel.FacultyCards.Insert(0, ActualCard);
+                    AdminFacultyTrainingFormViewModel.CurrentFacultyCards.Insert(0, ActualCard);
+                    AdminFacultyTrainingFormViewModel.Instance.LoadFacultyByPageView();
+                }
+                MyMessageBox.Show("Thêm/chỉnh sửa khoa thành công");
             }
-
-            FacultyServices.Instance.SaveFacultyCardToDatabase(ActualCard);
-            ActualCard.SaveTrainingFormOfFacultyListToDatabase();
+            else
+            {
+                // rollback to previous actual card
+                ActualCard.CopyCardInfo(storedActualCard);
+                MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
+            }
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowFacultyCardInfo();

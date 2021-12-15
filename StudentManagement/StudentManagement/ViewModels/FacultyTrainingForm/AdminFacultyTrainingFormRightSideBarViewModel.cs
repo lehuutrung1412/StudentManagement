@@ -188,12 +188,25 @@ namespace StudentManagement.ViewModels
         {
             FacultyCard card = p as FacultyCard;
 
-            FacultyCards.Remove(card);
-            StoredFacultyCards.Remove(card);
-            CurrentFacultyCards.Remove(card);
-            AdminFacultyTrainingFormViewModel.Instance.LoadFacultyByPageView();
+            if (MyMessageBox.Show($"Bạn thực sự muốn xóa khoa {card?.DisplayName}? Xóa khoa vẫn giữ lại toàn bộ dữ liệu liên kết với khoa trước đó!!!", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            {
+                bool success = FacultyServices.Instance.RemoveFacultyCardFromDatabase(card);
 
-            FacultyServices.Instance.RemoveFacultyCardFromDatabase(card);
+                if (success)
+                {
+                    FacultyCards.Remove(card);
+                    StoredFacultyCards.Remove(card);
+                    CurrentFacultyCards.Remove(card);
+                    AdminFacultyTrainingFormViewModel.Instance.LoadFacultyByPageView();
+                    MyMessageBox.Show($"Xóa khoa {card.DisplayName} thành công");
+                }
+                else
+                {
+                    MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
+
+                }
+
+            }
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
@@ -203,9 +216,18 @@ namespace StudentManagement.ViewModels
 
             TrainingFormCard card = p as TrainingFormCard;
 
-            TrainingFormCards.Remove(card);
+            if (MyMessageBox.Show($"Bạn thực sự muốn xóa hệ đào tạo {card?.DisplayName}? Dữ liệu về các khoa và sinh viên có hệ đào tạo này vẫn được giữ nguyên!!!", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            {
+                bool success = TrainingFormServices.Instance.RemoveTrainingFormCardFromDatabase(card);
 
-            TrainingFormServices.Instance.RemoveTrainingFormCardFromDatabase(card);
+                TrainingFormCards.Remove(card);
+
+                MyMessageBox.Show($"Xóa hệ đào tạo {card.DisplayName} thành công");
+            }
+            else
+            {
+                MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
+            }
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }

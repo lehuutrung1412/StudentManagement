@@ -61,11 +61,14 @@
                         Style="{StaticResource textblock_item}"
                         Text="Ngày thành lập" />
 
-                    <TextBox
+                    <DatePicker
+                        Name="dpStart"
                         Grid.Row="1"
+                        Grid.Column="0"
                         materialDesign:HintAssist.Hint="Ngày thành lập"
-                        Style="{StaticResource textbox_item}"
-                        Text="{Binding CurrentCard.FoundationDay, UpdateSourceTrigger=PropertyChanged}" />
+                        SelectedDate="{Binding CurrentCard.FoundationDay, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Style="{StaticResource datepicker_item}" />
+
                 </Grid>
                 <Grid Style="{StaticResource text_grid_item}">
                     <Grid.RowDefinitions>

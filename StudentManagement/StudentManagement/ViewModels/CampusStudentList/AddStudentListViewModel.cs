@@ -64,7 +64,7 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private bool _isReadOnlyFaculty;
         public bool IsReadOnlyFaculty
         {
@@ -100,10 +100,10 @@ namespace StudentManagement.ViewModels
         public AddStudentListViewModel()
         {
             CurrentStudent = new UserCard();
-           
 
-            var trainingForms = TrainingFormServices.Instance.LoadTrainingFormList();
-            var faculties = FacultyServices.Instance.LoadFacultyList();
+
+            var trainingForms = TrainingFormServices.Instance.LoadTrainingFormList().Where(el => el.IsDeleted != true);
+            var faculties = FacultyServices.Instance.LoadFacultyList().Where(el => el.IsDeleted != true);
 
             Faculties = new ObservableCollection<string>();
             Trainings = new ObservableCollection<string>();
@@ -121,7 +121,7 @@ namespace StudentManagement.ViewModels
 
             IsReadOnlyFaculty = false;
             IsReadOnlyTraining = false;
-            
+
 
             SelectedFaculty = null;
             SelectedTraining = null;
@@ -217,7 +217,7 @@ namespace StudentManagement.ViewModels
         public void LoadInfoSource(Guid IdUser)
         {
             var user = UserServices.Instance.GetUserById(IdUser);
-            
+
             InfoSource = new ObservableCollection<InfoItem>();
 
             InfoSource = new ObservableCollection<InfoItem>();
@@ -267,7 +267,7 @@ namespace StudentManagement.ViewModels
             }
 
             NewUser = new User();
-            
+
             NewUser.Id = Guid.NewGuid();
             NewUser.Username = Username;
             NewUser.Password = Password;
@@ -277,7 +277,7 @@ namespace StudentManagement.ViewModels
             NewUser.IdUserRole = NewUser.UserRole.Id;
 
             UserServices.Instance.SaveUserToDatabase(NewUser);
-            
+
             if (SelectedRole == "Sinh viên")
             {
                 Student newStudent = new Student();

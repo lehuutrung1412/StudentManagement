@@ -45,7 +45,7 @@
 
                     <TextBox
                         Grid.Row="1"
-                        materialDesign:HintAssist.Hint="Chọn hệ đào tạo"
+                        materialDesign:HintAssist.Hint="Nhập tên hệ đào tạo"
                         Style="{StaticResource textbox_item}"
                         Text="{Binding CurrentCard.DisplayName, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>

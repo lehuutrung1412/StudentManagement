@@ -90,11 +90,11 @@ namespace StudentManagement.Services
         /// Save Faculty Card To Database
         /// </summary>
         /// <param name="facultyCard"></param>
-        public void SaveFacultyCardToDatabase(FacultyCard facultyCard)
+        public bool SaveFacultyCardToDatabase(FacultyCard facultyCard)
         {
             Faculty faculty = ConvertFacultyCardToFaculty(facultyCard);
 
-            SaveFacultyToDatabase(faculty);
+            return SaveFacultyToDatabase(faculty);
         }
 
         /// <summary>
@@ -107,7 +107,10 @@ namespace StudentManagement.Services
             {
                 Faculty savedFaculty = FindFacultyByFacultyId(faculty.Id);
 
-                DataProvider.Instance.Database.Faculties.Remove(savedFaculty);
+                // soft delete
+                savedFaculty.IsDeleted = true;
+
+                //DataProvider.Instance.Database.Faculties.Remove(savedFaculty);
 
                 DataProvider.Instance.Database.SaveChanges();
 
@@ -123,11 +126,11 @@ namespace StudentManagement.Services
         /// Remove FacultyCard From Database
         /// </summary>
         /// <param name="facultyCard"></param>
-        public void RemoveFacultyCardFromDatabase(FacultyCard facultyCard)
+        public bool RemoveFacultyCardFromDatabase(FacultyCard facultyCard)
         {
             Faculty faculty = ConvertFacultyCardToFaculty(facultyCard);
 
-            RemoveFacultyFromDatabase(faculty);
+            return RemoveFacultyFromDatabase(faculty);
         }
 
         public ObservableCollection<string> LoadListFaculty()

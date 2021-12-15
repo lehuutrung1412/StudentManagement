@@ -169,7 +169,7 @@ namespace StudentManagement.ViewModels
             //    new TrainingFormCard(Guid.NewGuid(), "Chương trình đại trà", 10, 3000),
             //};
 
-            var trainingForms = TrainingFormServices.Instance.LoadTrainingFormList();
+            var trainingForms = TrainingFormServices.Instance.LoadTrainingFormList().Where(el => el.IsDeleted != true);
 
             TrainingFormCards = new ObservableCollection<IBaseCard> { new EmptyCard() };
 
@@ -199,7 +199,7 @@ namespace StudentManagement.ViewModels
             //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
             //    new FacultyCard(Guid.NewGuid(), "Khoa học máy tính 4" , new DateTime(2015, 12, 31), 1500, "Đại trà, Chất lượng cao, Tiên tiến, Tài năng"),
             //};
-            var faculties = FacultyServices.Instance.LoadFacultyList();
+            var faculties = FacultyServices.Instance.LoadFacultyList().Where(el => el.IsDeleted != true);
 
             StoredFacultyCards = new ObservableCollection<FacultyCard>();
 
