@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace StudentManagement.Objects
 {
@@ -66,8 +67,8 @@ namespace StudentManagement.Objects
 
         public void InitCardData()
         {
-            Subjects = new ObservableCollection<Subject>(SubjectServices.Instance.LoadSubjectList());
-            TrainingForms = new ObservableCollection<TrainingForm>(DataProvider.Instance.Database.TrainingForms);
+            Subjects = new ObservableCollection<Subject>(SubjectServices.Instance.LoadSubjectList().Where(el => el.IsDeleted != true));
+            TrainingForms = new ObservableCollection<TrainingForm>(DataProvider.Instance.Database.TrainingForms.Where(el => el.IsDeleted != true));
             Semesters = new ObservableCollection<Semester>(DataProvider.Instance.Database.Semesters);
             Teachers = new ObservableCollection<Teacher>(DataProvider.Instance.Database.Teachers);
             DayOfWeeks = new ObservableCollection<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };

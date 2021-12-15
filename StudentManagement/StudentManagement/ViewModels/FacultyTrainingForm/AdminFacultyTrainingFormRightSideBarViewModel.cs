@@ -203,12 +203,10 @@ namespace StudentManagement.ViewModels
                 else
                 {
                     MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
-
                 }
 
+                RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
             }
-
-            RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
         public void DeleteTrainingFormCardByCardFunction(object p)
         {
@@ -220,16 +218,19 @@ namespace StudentManagement.ViewModels
             {
                 bool success = TrainingFormServices.Instance.RemoveTrainingFormCardFromDatabase(card);
 
-                TrainingFormCards.Remove(card);
+                if (success)
+                {
+                    TrainingFormCards.Remove(card);
+                    MyMessageBox.Show($"Xóa hệ đào tạo {card.DisplayName} thành công");
+                }
+                else
+                {
+                    MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
+                }
 
-                MyMessageBox.Show($"Xóa hệ đào tạo {card.DisplayName} thành công");
-            }
-            else
-            {
-                MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
+                RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
             }
 
-            RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
         #endregion
     }

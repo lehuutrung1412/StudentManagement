@@ -103,13 +103,25 @@ namespace StudentManagement.Services
         /// Remove Subject From Database
         /// </summary>
         /// <param name="subject"></param>
-        public void RemoveSubjectFromDatabase(Subject subject)
+        public bool RemoveSubjectFromDatabase(Subject subject)
         {
-            Subject savedSubject = FindSubjectBySubjectId(subject.Id);
+            try
+            {
+                Subject savedSubject = FindSubjectBySubjectId(subject.Id);
 
-            DataProvider.Instance.Database.Subjects.Remove(savedSubject);
+                // soft delete
+                savedSubject.IsDeleted = true;
 
-            DataProvider.Instance.Database.SaveChanges();
+                //DataProvider.Instance.Database.Subjects.Remove(savedSubject);
+
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -147,17 +159,9 @@ namespace StudentManagement.Services
 
         public bool RemoveSubjectCardFromDatabase(SubjectCard subjectCard)
         {
-            try
-            {
-                Subject subject = ConvertSubjectCardToSubject(subjectCard);
+            Subject subject = ConvertSubjectCardToSubject(subjectCard);
 
-                RemoveSubjectFromDatabase(subject);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return RemoveSubjectFromDatabase(subject);
         }
 
         public bool SaveSubjectCardToDatabase(SubjectCard subjectCard)
