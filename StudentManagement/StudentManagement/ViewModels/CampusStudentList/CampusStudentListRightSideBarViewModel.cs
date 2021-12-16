@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using static StudentManagement.ViewModels.AdminStudentListViewModel;
 using StudentManagement.Services;
+using StudentManagement.ViewModels.UserInfo;
 
 namespace StudentManagement.ViewModels
 {
@@ -46,8 +47,8 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private ObservableCollection<InfoItem> _infoSource;
-        public ObservableCollection<InfoItem> InfoSource { get => _infoSource; set => _infoSource = value; }
+        private ObservableCollection<InfoItemViewModel> _infoSource;
+        public ObservableCollection<InfoItemViewModel> InfoSource { get => _infoSource; set => _infoSource = value; }
 
         private object _campusStudentListRightSideBarItemViewModel;
 
@@ -87,7 +88,7 @@ namespace StudentManagement.ViewModels
         {
             InitRightSideBarItemViewModel();
             InitRightSideBarCommand();
-            InfoSource = new ObservableCollection<InfoItem>();
+            InfoSource = new ObservableCollection<InfoItemViewModel>();
 
             Instance = this;
         }
@@ -95,9 +96,9 @@ namespace StudentManagement.ViewModels
         public void LoadInfoSource(Guid IdUser)
         {
             var user = UserServices.Instance.GetUserById(IdUser);
-            InfoSource = new ObservableCollection<InfoItem>();
-            InfoSource.Add(new InfoItem(Guid.NewGuid(), "Họ và tên", 0, null, user.DisplayName, false));
-            InfoSource.Add(new InfoItem(Guid.NewGuid(), "Địa chỉ email", 0, null, user.Email, false));
+            InfoSource = new ObservableCollection<InfoItemViewModel>();
+            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Họ và tên", 0, null, user.DisplayName, false)));
+            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Địa chỉ email", 0, null, user.Email, false)));
             
             switch (user.UserRole.Role)
             {
@@ -105,28 +106,28 @@ namespace StudentManagement.ViewModels
                     {
                         var student = StudentServices.Instance.GetStudentbyUser(user);
                         
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName, true));
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Hệ đào tạo", 2, TrainingFormServices.Instance.LoadListTrainingForm(), student.TrainingForm.DisplayName, true));
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName, true)));
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Hệ đào tạo", 2, TrainingFormServices.Instance.LoadListTrainingForm(), student.TrainingForm.DisplayName, true)));
                         break;
                     }
                 case "Giáo viên":
                     {
 
                         var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), lecture.Faculty.DisplayName, false));
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), lecture.Faculty.DisplayName, false)));
                         break;
                     }
                 case "Admin":
                     {
                         foreach (var infoItem in InfoSource)
-                            infoItem.IsEnable = true;
+                            infoItem.CurrendInfoItem.IsEnable = true;
                         break;
                     }
             }
             var listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(IdUser);
             foreach (var infoItem in listInfoItem)
             {
-                InfoSource.Add(infoItem);
+                InfoSource.Add(new InfoItemViewModel(infoItem));
             }
         }
 

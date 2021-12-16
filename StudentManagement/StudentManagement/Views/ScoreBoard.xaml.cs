@@ -24,5 +24,10 @@ namespace StudentManagement.Views
         {
             InitializeComponent();
         }
+
+        private void ScoreboardDataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

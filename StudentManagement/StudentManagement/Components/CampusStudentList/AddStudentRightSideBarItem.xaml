@@ -152,13 +152,13 @@
                                 <ContentPresenter.Style>
                                     <Style TargetType="{x:Type ContentPresenter}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Type}" Value="0">
+                                            <DataTrigger Binding="{Binding CurrendInfoItem.Type}" Value="0">
                                                 <Setter Property="ContentTemplate" Value="{StaticResource Textbox}" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding Type}" Value="1">
+                                            <DataTrigger Binding="{Binding CurrendInfoItem.Type}" Value="1">
                                                 <Setter Property="ContentTemplate" Value="{StaticResource DatePicker}" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding Type}" Value="2">
+                                            <DataTrigger Binding="{Binding CurrendInfoItem.Type}" Value="2">
                                                 <Setter Property="ContentTemplate" Value="{StaticResource Combobox}" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -185,7 +185,9 @@
                 Command="{Binding ConfirmEditStudentInfo}"
                 Content="Lưu"
                 FontSize="16"
-                Style="{StaticResource rounded_btn}" />
+                Style="{StaticResource rounded_btn}"
+                ToolTip="Bạn chưa điền đầy đủ thông tin"
+                ToolTipService.ShowOnDisabled="True" />
             <Button
                 Grid.Column="2"
                 Background="{StaticResource DarkGray}"

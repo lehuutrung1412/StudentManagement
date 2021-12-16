@@ -286,6 +286,7 @@ namespace StudentManagement.ViewModels
 
             LayoutViewModel.RightSideBar = _adminHomeRightSideBar;
         }
+
         #endregion
 
         #region eventhandlers

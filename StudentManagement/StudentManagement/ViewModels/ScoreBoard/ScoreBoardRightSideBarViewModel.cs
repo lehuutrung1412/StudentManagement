@@ -1,4 +1,7 @@
 ﻿using StudentManagement.Commands;
+using StudentManagement.Models;
+using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,8 +28,14 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private Score _selectedItem;
-        public Score SelectedItem
+        private Guid _idUser;
+        public Guid IdStudent
+        {
+            get => _idUser;
+            set => _idUser = value;
+        }
+        private ScoreDataGrid _selectedItem;
+        public ScoreDataGrid SelectedItem
         {
             get => _selectedItem;
             set
@@ -35,25 +44,20 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
                 if (_selectedItem != null)
                 {
-                    SelectedScore = ScoreList.Where(x => x.IDSubject == SelectedItem.IDSubject).ToList()[0];
-                    _scoreboardRightSideBarItemViewModel = new ScoreBoardRightSideBarItemViewModel(SelectedScore);
+                    ShowDetailScore();
+                    string SubjectClassDisplayName = DataProvider.Instance.Database.SubjectClasses.Where(x => x.Id == _selectedItem.IdSubjectClass).FirstOrDefault().Subject.DisplayName;
+                    _scoreboardRightSideBarItemViewModel = new ScoreBoardRightSideBarItemViewModel(CurrentScore, SubjectClassDisplayName);
                     RightSideBarItemViewModel = _scoreboardRightSideBarItemViewModel;
                 }
             }
         }
 
-        private DetailScore _selectedScore;
-        public DetailScore SelectedScore
+        private ObservableCollection<DetailScoreItem> _currentScore;
+        public ObservableCollection<DetailScoreItem> CurrentScore
         {
-            get => _selectedScore; set
-            {
-                _selectedScore = value;
-                OnPropertyChanged();
-            }
+            get => _currentScore;
+            set => _currentScore = value;
         }
-
-        private ObservableCollection<DetailScore> _scoreList;
-        public ObservableCollection<DetailScore> ScoreList { get => _scoreList; set => _scoreList = value; }
 
         private object _scoreboardRightSideBarItemViewModel;
 
@@ -62,10 +66,32 @@ namespace StudentManagement.ViewModels
         public ScoreBoardRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
-            ScoreList = new ObservableCollection<DetailScore>
+            var user = LoginServices.CurrentUser;
+            if (user == null)
+                return;
+
+            IdStudent = DataProvider.Instance.Database.Students.Where(x => x.IdUsers == user.Id).FirstOrDefault().Id;
+
+            CurrentScore = new ObservableCollection<DetailScoreItem>();
+
+        }
+
+        void ShowDetailScore()
+        {
+            double gpa = 0;
+            CurrentScore = new ObservableCollection<DetailScoreItem>();
+
+            var ListDetailScore = DataProvider.Instance.Database.DetailScores.Where(x => x.IdStudent == IdStudent && x.ComponentScore.IdSubjectClass == SelectedItem.IdSubjectClass);
+            foreach (var item in ListDetailScore)
             {
-                new DetailScore() {QuaTrinh = "10", CuoiKi = "10", GiuaKi = "10", DiemTB = "10", ThucHanh = "10", IDSubject = "IT008"}
-            };
+                if (item?.Score != null)
+                {
+                    gpa += (double)item.Score * (double)item.ComponentScore.ContributePercent / 100;
+                    CurrentScore.Add(new DetailScoreItem(item.ComponentScore.DisplayName, Convert.ToString(item.ComponentScore.ContributePercent) + "%", Convert.ToString(item.Score)));
+                }
+            }
+
+            CurrentScore.Add(new DetailScoreItem("Điểm trung bình", "Điểm trung bình", Convert.ToString(gpa)));
 
         }
 

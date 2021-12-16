@@ -625,23 +625,8 @@ END
 GO
 
 -- Trigger
-
--- O(N) trigger
--- CREATE TRIGGER UTG_CountNumberOfStudentsInClass
---       ON dbo.CourseRegister
---       AFTER INSERT, UPDATE, DELETE
---     AS
---     BEGIN
---     UPDATE b SET NumberOfStudents = (SELECT COUNT(*) FROM CourseRegister AS a WHERE a.IdSubjectClass = b.Id) FROM dbo.SubjectClass AS b WHERE Id IN (
---       SELECT IdSubjectClass FROM DELETED 
---       UNION  
---       SELECT IdSubjectClass FROM INSERTED 
---     )
---     END
--- GO
-
 -- O(1) trigger
-ALTER TRIGGER UTG_CountNumberOfStudentsInClass
+CREATE TRIGGER UTG_CountNumberOfStudentsInClass
       ON dbo.CourseRegister
       AFTER INSERT, UPDATE, DELETE
     AS
@@ -676,24 +661,4 @@ ALTER TRIGGER UTG_CountNumberOfStudentsInClass
     END
 GO
 
--- DECLARE @IdSubjectClass UNIQUEIDENTIFIER
--- SET @IdSubjectClass = (SELECT TOP 1
---     (Id)
---   From SubjectClass)
-
-
--- DECLARE @IdStudent UNIQUEIDENTIFIER
--- SET @IdStudent = (SELECT TOP 1
---     (Id)
---   From Student)
---   print(@IdStudent)
-
--- INSERT INTO dbo.CourseRegister 
---   (IdStudent, IdSubjectClass)
---   VALUES
---   (@IdStudent, @IdSubjectClass)
-
-
--- SELECT * FROM dbo.SubjectClass
--- SELECT * FROM dbo.CourseRegister
   

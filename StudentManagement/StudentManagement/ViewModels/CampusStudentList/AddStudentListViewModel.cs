@@ -2,6 +2,7 @@
 using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Services;
+using StudentManagement.ViewModels.UserInfo;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -84,12 +85,12 @@ namespace StudentManagement.ViewModels
             {
                 _selectedRole = value;
                 if (_selectedRole != null)
-                    PrepairToLoadInfoSource();
+                    LoadInfoSource();
             }
         }
 
-        private ObservableCollection<InfoItem> _infoSource;
-        public ObservableCollection<InfoItem> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
+        private ObservableCollection<InfoItemViewModel> _infoSource;
+        public ObservableCollection<InfoItemViewModel> InfoSource { get => _infoSource; set { _infoSource = value; OnPropertyChanged(); } }
 
         private string _selectedFaculty;
         public string SelectedFaculty { get => _selectedFaculty; set => _selectedFaculty = value; }
@@ -142,7 +143,32 @@ namespace StudentManagement.ViewModels
         public void InitCommand()
         {
             CancelEditStudentInfo = new RelayCommand<object>((p) => { return true; }, (p) => CancelEditStudentInfoFunction());
-            ConfirmEditStudentInfo = new RelayCommand<object>((p) => { return true; }, (p) => ConfirmEditStudentInfoFunction());
+            ConfirmEditStudentInfo = new RelayCommand<object>((p) => 
+            {
+                if (CanEdit()) return true;
+                else
+                    return false;
+            }, (p) => ConfirmEditStudentInfoFunction());
+        }
+
+        bool CanEdit()
+        {
+            if (SelectedRole == null)
+                return false;
+
+            int num = 4;
+            if (SelectedRole == "Giáo viên")
+                num = 3;
+            else if (SelectedRole == "Admin")
+                num = 2;
+
+            for (int i = 0; i < num; ++i)
+            {
+                if (InfoSource[i].HasErrors || string.IsNullOrEmpty(InfoSource[i].Content))
+                    return false;
+            }
+
+            return true;
         }
 
         void CancelEditStudentInfoFunction()
@@ -151,26 +177,9 @@ namespace StudentManagement.ViewModels
             studentListRightSideBarViewModel.RightSideBarItemViewModel = new EmptyStateRightSideBarViewModel();
         }
 
-        bool IsValidEmail(string email)
-        {
-            if (email.Trim().EndsWith("."))
-            {
-                return false;
-            }
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         int checkExitCode()
         {
-            if (InfoSource.First().Value == null || Username == null || Password == null || RePassword == null || InfoSource[1] == null)
+            if (InfoSource.First().Content == null || Username == null || Password == null || RePassword == null || InfoSource[1] == null)
             {
                 MyMessageBox.Show("Xin mời nhập thông tin hợp lệ");
                 return -1;
@@ -188,13 +197,7 @@ namespace StudentManagement.ViewModels
                 return -1;
             }
 
-            string Email = Convert.ToString(InfoSource[1].Value);
-            if (!IsValidEmail(Email))
-            {
-                MyMessageBox.Show("Email không đúng định dạng");
-                return -1;
-            }
-
+            string Email = Convert.ToString(InfoSource[1].Content);
             if (DataProvider.Instance.Database.Users.Where(x => x.Email == Email).FirstOrDefault() != null)
             {
                 MyMessageBox.Show("Email đã tồn tại");
@@ -204,59 +207,35 @@ namespace StudentManagement.ViewModels
             return 0;
         }
 
-        void PrepairToLoadInfoSource()
+
+        public void LoadInfoSource()
         {
-            if (SelectedRole == "Sinh viên")
-                LoadInfoSource((Guid)DataProvider.Instance.Database.Students.FirstOrDefault().IdUsers);
-            else if (SelectedRole == "Giáo viên")
-                LoadInfoSource((Guid)DataProvider.Instance.Database.Teachers.FirstOrDefault().IdUsers);
-            else if (SelectedRole == "Admin")
-                LoadInfoSource((Guid)DataProvider.Instance.Database.Admins.FirstOrDefault().IdUsers);
-        }
+            InfoSource = new ObservableCollection<InfoItemViewModel>();
+            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Họ và tên", 0, null, null, true)));
+            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Địa chỉ email", 0, null, null, true)));
 
-        public void LoadInfoSource(Guid IdUser)
-        {
-            var user = UserServices.Instance.GetUserById(IdUser);
-
-            InfoSource = new ObservableCollection<InfoItem>();
-
-            InfoSource = new ObservableCollection<InfoItem>();
-            InfoSource.Add(new InfoItem(Guid.NewGuid(), "Họ và tên", 0, null, null, true));
-            InfoSource.Add(new InfoItem(Guid.NewGuid(), "Địa chỉ email", 0, null, null, true));
-
-            user.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => user.IdUserRole == x.Id).FirstOrDefault();
-
-            switch (user.UserRole.Role)
+            switch (SelectedRole)
             {
                 case "Sinh viên":
                     {
-                        var student = StudentServices.Instance.GetStudentbyUser(user);
-
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), null, true));
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Hệ đào tạo", 2, TrainingFormServices.Instance.LoadListTrainingForm(), null, true));
+                        
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), null, true)));
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Hệ đào tạo", 2, TrainingFormServices.Instance.LoadListTrainingForm(), null, true)));
                         break;
                     }
                 case "Giáo viên":
                     {
-                        var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
-                        InfoSource.Add(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), null, true));
+                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), null, true)));
                         break;
                     }
                 case "Admin":
                     {
                         foreach (var infoItem in InfoSource)
-                            infoItem.IsEnable = true;
+                            infoItem.CurrendInfoItem.IsEnable = true;
                         break;
                     }
             }
 
-            var listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(IdUser);
-            foreach (var infoItem in listInfoItem)
-            {
-                InfoItem temp = new InfoItem();
-                temp.LabelName = infoItem.LabelName;
-                InfoSource.Add(temp);
-            }
         }
 
         void ConfirmEditStudentInfoFunction()
@@ -271,8 +250,8 @@ namespace StudentManagement.ViewModels
             NewUser.Id = Guid.NewGuid();
             NewUser.Username = Username;
             NewUser.Password = Password;
-            NewUser.DisplayName = Convert.ToString(InfoSource.First().Value);
-            NewUser.Email = Convert.ToString(InfoSource[1].Value);
+            NewUser.DisplayName = Convert.ToString(InfoSource.First().Content);
+            NewUser.Email = Convert.ToString(InfoSource[1].Content);
             NewUser.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => x.Role == SelectedRole).FirstOrDefault();
             NewUser.IdUserRole = NewUser.UserRole.Id;
 
@@ -283,9 +262,9 @@ namespace StudentManagement.ViewModels
                 Student newStudent = new Student();
                 newStudent.IdUsers = NewUser.Id;
                 newStudent.Id = Guid.NewGuid();
-                string temp = Convert.ToString(InfoSource[2].Value);
+                string temp = Convert.ToString(InfoSource[2].Content);
                 newStudent.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
-                temp = Convert.ToString(InfoSource[3].Value);
+                temp = Convert.ToString(InfoSource[3].Content);
                 newStudent.TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(x => x.DisplayName == temp).FirstOrDefault();
                 newStudent.IdFaculty = newStudent.Faculty.Id;
                 newStudent.IdTrainingForm = newStudent.TrainingForm.Id;
@@ -297,7 +276,7 @@ namespace StudentManagement.ViewModels
                 Teacher newTeacher = new Teacher();
                 newTeacher.IdUsers = NewUser.Id;
                 newTeacher.Id = Guid.NewGuid();
-                string temp = Convert.ToString(InfoSource[2].Value);
+                string temp = Convert.ToString(InfoSource[2].Content);
                 newTeacher.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
                 newTeacher.IdFaculty = newTeacher.Faculty.Id;
 
@@ -312,16 +291,18 @@ namespace StudentManagement.ViewModels
                 AdminServices.Instance.SaveAdminToDatabase(newAdmin);
 
             }
-
-            foreach (var item in InfoSource)
+            List<UserRole_UserInfo> db = DataProvider.Instance.Database.UserRole_UserInfo.Where(infoItem => infoItem.UserRole.Role == SelectedRole).ToList();
+            foreach (var item in db)
             {
-                if (item.LabelName != "Hệ đào tạo" && item.LabelName != "Khoa" && item.LabelName != "Họ và tên" && item.LabelName != "Địa chỉ email")
+                if (item.InfoName != "Hệ đào tạo" && item.InfoName != "Khoa" && item.InfoName != "Họ và tên" && item.InfoName != "Địa chỉ email")
                 {
                     User_UserRole_UserInfo newInfo = new User_UserRole_UserInfo();
                     newInfo.Id = Guid.NewGuid();
                     newInfo.IdUser = NewUser.Id;
-                    newInfo.IdUserRole_Info = DataProvider.Instance.Database.UserRole_UserInfo.Where(x => x.InfoName == item.LabelName).FirstOrDefault().Id;
-                    newInfo.Content = Convert.ToString(item.Value);
+                    newInfo.IdUserRole_Info = item.Id;
+                    newInfo.UserRole_UserInfo = item;
+                    newInfo.User = NewUser;
+                    newInfo.Content = null ;
                     UserUserRoleUserInfoServices.Instance.SaveUserInfoToDatabase(newInfo);
                 }
             }
@@ -340,8 +321,8 @@ namespace StudentManagement.ViewModels
             CampusStudentListRightSideBarViewModel studentListRightSideBarViewModel = CampusStudentListRightSideBarViewModel.Instance;
             CampusStudentListViewModel campusStudentListViewModel = CampusStudentListViewModel.Instance;
             campusStudentListViewModel.UserDatabase.Add(CurrentStudent);
-            studentListRightSideBarViewModel.ShowStudentCardInfoDetail(CurrentStudent);
             campusStudentListViewModel.SearchNameFunction();
+            studentListRightSideBarViewModel.ShowStudentCardInfoDetail(CurrentStudent);
         }
     }
 }

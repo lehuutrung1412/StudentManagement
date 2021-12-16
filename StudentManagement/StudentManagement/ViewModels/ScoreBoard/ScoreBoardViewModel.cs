@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using StudentManagement.Objects;
+using StudentManagement.Services;
+using StudentManagement.Models;
 
 namespace StudentManagement.ViewModels
 {
@@ -27,48 +30,6 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private ObservableCollection<Score> _studentScoreItems;
-        public ObservableCollection<Score> StudentScoreItems
-        {
-            get => _studentScoreItems;
-            set => _studentScoreItems = value;
-        }
-
-
-        private ObservableCollection<Score> _currentStudentScore;
-        public ObservableCollection<Score> CurrentStudentScore
-        {
-            get => _currentStudentScore;
-            set
-            {
-                _currentStudentScore = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _gpa;
-        public string GPA
-        {
-            get => _gpa;
-            set
-            {
-                _gpa = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _trainingScore;
-        public string TrainingScore
-        {
-            get => _trainingScore;
-            set
-            {
-                _trainingScore = value;
-                OnPropertyChanged();
-            }
-        }
-
-
         private ObservableCollection<string> _semesters;
         public ObservableCollection<string> Semesters
         {
@@ -79,286 +40,173 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private ObservableCollection<TrainingScore> _studentTrainingScoreItems;
-        public ObservableCollection<TrainingScore> StudentTrainingScoreItems
+        private double _gpa;
+        public double GPA
         {
-            get => _studentTrainingScoreItems;
-            set => _studentTrainingScoreItems = value;
+            get => _gpa;
+            set => _gpa = value;
         }
 
-        private ObservableCollection<TrainingScore> _currentTrainingScore;
-        public ObservableCollection<TrainingScore> CurrentTrainingScore
+        private int _totalCredit;
+        public int TotalCredit
         {
-            get => _currentTrainingScore;
-            set
-            {
-                _currentTrainingScore = value;
-                OnPropertyChanged();
-            }
+            get => _totalCredit;
+            set => _totalCredit = value;
         }
-
-        private ObservableCollection<DetailScore> _scoreList;
-        public ObservableCollection<DetailScore> ScoreList { get => _scoreList; set => _scoreList = value; }
-
-        public ScoreBoardViewModel()
-        {
-            StudentScoreItems = new ObservableCollection<Score>();
-            StudentTrainingScoreItems = new ObservableCollection<TrainingScore>();
-
-            StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 1, Semester = "Học kì I, 2018-2019" });
-            StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 2, Semester = "Học kì II, 2018-2019" });
-            StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 3, Semester = "Học kì I, 2018-2019" });
-            StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 4, Semester = "Học kì II, 2018-2019" });
-            StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 5, Semester = "Học kì I, 2018-2019" });
-            StudentScoreItems.Add(new Score() { IDSubject = "IT008", Subject = "Lập trình trực quan", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 6, Semester = "Học kì II, 2018-2019" });
-            StudentScoreItems.Add(new Score() { IDSubject = "IT001", Subject = "Nhập môn lập trình", Credit = "4", Faculty = "KHMT", Status = "Hoàn thành", ID = 7, Semester = "Học kì I, 2018-2019" });
-
-
-            StudentTrainingScoreItems.Add(new TrainingScore() { Event = "ACM ICPC Contest", Faculty = "KHMT", Type = "Học thuật", Score = 30, Semester = "Học kì I, 2018-2019" });
-            StudentTrainingScoreItems.Add(new TrainingScore() { Event = "Ăn quả nhớ kẻ trồng cây", Faculty = "KHMT", Type = "Văn nghệ", Score = 30, Semester = "Học kì II, 2018-2019" });
-            StudentTrainingScoreItems.Add(new TrainingScore() { Event = "Đua xe với mpz", Faculty = "KHMT", Type = "Thể thao", Score = -5, Semester = "Học kì II, 2018-2019" });
-            StudentTrainingScoreItems.Add(new TrainingScore() { Event = "Hiến máu nhân đạo", Faculty = "KHMT", Type = "Tình nguyện", Score = 30, Semester = "Học kì II, 2018-2019" });
-            StudentTrainingScoreItems.Add(new TrainingScore() { Event = "Thủ lĩnh sinh viên", Faculty = "KHMT", Type = "Ngoại khóa", Score = 30, Semester = "Học kì I, 2018-2019" });
-            StudentTrainingScoreItems.Add(new TrainingScore() { Event = "Phương pháp học tập bậc đại học", Faculty = "CNPM", Type = "Chia sẻ", Score = 30, Semester = "Học kì II, 2018-2019" });
-
-            ScoreList = new ObservableCollection<DetailScore>
-            {
-                new DetailScore() {QuaTrinh = "10", CuoiKi = "10", GiuaKi = "10", DiemTB = "10", ThucHanh = "10", IDSubject = "IT008"},
-                new DetailScore() {QuaTrinh = "1", CuoiKi = "1", GiuaKi = "1", DiemTB = "1", ThucHanh = "0", IDSubject = "IT001"}
-            };
-
-            Semesters = new ObservableCollection<string>(StudentScoreItems.Select(x => x.Semester).Distinct().ToList());
-
-            UpdateScoreBoard(Semesters.Last());
-        }
-
-        private void UpdateScoreBoard(string semester)
-        {
-            if (semester == null)
-                return;
-
-            int size = 0, _gpa = 0, _trainingscore = 0;
-            GPA = "Điểm tích lũy: ";
-            TrainingScore = "Điểm rèn luyện: ";
-            CurrentStudentScore = new ObservableCollection<Score>();
-            foreach (Score item in StudentScoreItems)
-                if (item.Semester.Contains(semester))
-                {
-                    item.STT = size + 1;
-                    CurrentStudentScore.Add(item);
-                    size += 1;
-                    _gpa += int.Parse(ScoreList.Where(x => x.IDSubject == item.IDSubject).ToList()[0].DiemTB);
-                }
-
-            int size2 = 0;
-            CurrentTrainingScore = new ObservableCollection<TrainingScore>();
-            foreach (TrainingScore item in StudentTrainingScoreItems)
-                if (item.Semester.Contains(semester))
-                {
-                    item.STT = size2 + 1;
-                    CurrentTrainingScore.Add(item);
-                    _trainingscore += item.Score;
-                    size2 += 1;
-                }
-
-            double full_gpa = 1.0 * _gpa / size;
-            GPA += full_gpa.ToString();
-            TrainingScore += _trainingscore.ToString();
-        }
-
-    }
-
-    public class Score
-    {
-        private string _idSubject;
-        private string _subject;
-        private string _credit;
-        private string _faculty;
-        private string _status;
-        private int _id;
-        private string _semester;
-        private int _stt;
-
-        public int STT
-        {
-            get => _stt;
-            set => _stt = value;
-        }
-        public int ID
-        {
-            get => _id;
-            set => _id = value;
-        }
-
-        public string IDSubject
-        {
-            get => _idSubject;
-            set => _idSubject = value;
-        }
-
-        public string Subject
-        {
-            get => _subject;
-            set => _subject = value;
-        }
-
-        public string Credit
-        {
-            get => _credit;
-            set => _credit = value;
-        }
-
-        public string Faculty
-        {
-            get => _faculty;
-            set => _faculty = value;
-        }
-
-        public string Status
-        {
-            get => _status;
-            set => _status = value;
-        }
-
-        public string Semester
-        {
-            get => _semester;
-            set => _semester = value;
-        }
-
-    }
-
-    public class TrainingScore
-    {
-        private string _event;
-        private string _faculty;
-        private int _score;
-        private int _stt;
-        private string _semester;
-        private string _type;
-
-        public string Event
-        {
-            get => _event;
-            set => _event = value;
-        }
-
-        public string Faculty
-        {
-            get => _faculty;
-            set => _faculty = value;
-        }
-
-        public int Score
-        {
-            get => _score;
-            set => _score = value;
-        }
-
-        public int STT
-        {
-            get => _stt;
-            set => _stt = value;
-        }
-
-        public string Semester
-        {
-            get => _semester;
-            set => _semester = value;
-        }
-
-        public string Type
-        {
-            get => _type;
-            set => _type = value;
-        }
-
-    }
-
-    public class DetailScore
-    {
-        private string _quaTrinh;
-        private string _thucHanh;
-        private string _giuaKi;
-        private string _cuoiKi;
-        private string _diemTB;
-        private string _idSubject;
-        private string _idStudent;
-
-        public string QuaTrinh
-        {
-            get => _quaTrinh;
-            set => _quaTrinh = value;
-        }
-
-
-        public string ThucHanh
-        {
-            get => _thucHanh;
-            set => _thucHanh = value;
-        }
-
-        public string GiuaKi
-        {
-            get => _giuaKi;
-            set => _giuaKi = value;
-        }
-
-        public string CuoiKi
-        {
-            get => _cuoiKi;
-            set => _cuoiKi = value;
-        }
-
-        public string DiemTB
-        {
-            get => _diemTB;
-            set => _diemTB = value;
-        }
-
-        public string IDSubject
-        {
-            get => _idSubject;
-            set => _idSubject = value;
-        }
-
-        public string IDStudent
+        private Guid _idStudent;
+        public Guid IdStudent
         {
             get => _idStudent;
             set => _idStudent = value;
         }
 
-    }
-
-    public class SemesterDetail
-    {
-        private string _score;
-        private string _training;
-        private ObservableCollection<TrainingScore> _semesterTraining;
-        private ObservableCollection<Score> _semesterScore;
-
-        public ObservableCollection<Score> SemesterScore
+        private ObservableCollection<SemesterDataGrid> _databaseSemester;
+        public ObservableCollection<SemesterDataGrid> DatabaseSemester
         {
-            get => _semesterScore;
-            set => _semesterScore = value;
+            get => _databaseSemester;
+            set => _databaseSemester = value;
         }
 
-        public ObservableCollection<TrainingScore> SemesterTraining
+        private ObservableCollection<SemesterDataGrid> _displaySemester;
+        public ObservableCollection<SemesterDataGrid> DisplaySemester
         {
-            get => _semesterTraining;
-            set => _semesterTraining = value;
+            get => _displaySemester;
+            set
+            {
+                _displaySemester = value;
+                OnPropertyChanged();
+            }
         }
 
-        public string Score
+        public ICommand OverviewScoreboard { get => _overviewScoreboard; set => _overviewScoreboard = value; }
+
+        private ICommand _overviewScoreboard;
+
+        public ICommand ExportScoreBoard { get => _exportScoreBoard; set => _exportScoreBoard = value; }
+
+        private ICommand _exportScoreBoard;
+
+        public void InitCommand()
         {
-            get => _score;
-            set => _score = value;
+            OverviewScoreboard = new RelayCommand<object>((p) => { return true; }, (p) => OverviewScoreboardFunction());
+            ExportScoreBoard = new RelayCommand<object>((p) => { return true; }, (p) => ExportScoreBoardFunction());
         }
 
-        public string Training
+        public void OverviewScoreboardFunction()
         {
-            get => _training;
-            set => _training = value;
+
+        }
+
+        public void ExportScoreBoardFunction()
+        {
+
+        }
+
+        public ScoreBoardViewModel()
+        {
+            if (LoginServices.CurrentUser != null)
+            {
+                var student = DataProvider.Instance.Database.Students.Where(x => x.IdUsers == LoginServices.CurrentUser.Id).FirstOrDefault();
+                if (student == null)
+                    return;
+                IdStudent = student.Id;
+            }
+
+            GPA = 0;
+            TotalCredit = 0;
+            DatabaseSemester = new ObservableCollection<SemesterDataGrid>();
+            Semesters = new ObservableCollection<string>();
+            Semesters.Add("Tất cả các kỳ");
+            SelectedSemester = "Tất cả các kỳ";
+            InitCommand();
+
+
+            var ListCourses = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdStudent == IdStudent);
+
+            ObservableCollection<Guid> ListSemester = new ObservableCollection<Guid>();
+
+            foreach (var item in ListCourses)
+            {
+                Guid CurrentSemester = item.SubjectClass.Semester.Id;
+
+                var temp = ListSemester.Where(x => x == CurrentSemester).FirstOrDefault();
+                if (temp != Guid.Empty)
+                    continue;
+
+                ListSemester.Add(CurrentSemester);
+            }
+
+            foreach (var id in ListSemester)
+            {
+                ObservableCollection<ScoreDataGrid> TempScore = new ObservableCollection<ScoreDataGrid>();
+                double semesterGPA = 0;
+                int semesterCredit = 0;
+
+                foreach (var item in ListCourses)
+                {
+                    if (item.SubjectClass.IdSemester != id)
+                        continue;
+
+                    double gpa = 0;
+
+                    var ListComponentScore = DataProvider.Instance.Database.ComponentScores.Where(x => x.IdSubjectClass == item.IdSubjectClass);
+                    foreach (var component in ListComponentScore)
+                    {
+                        var score = DataProvider.Instance.Database.DetailScores.Where(x => x.IdComponentScore == component.Id).FirstOrDefault();
+                        if (score == null || score?.Score == null)
+                            continue;
+                        gpa += (double)score.Score * (double)component.ContributePercent / 100;
+                    }
+
+                    TotalCredit += (int)item.SubjectClass.Subject.Credit;
+                    semesterCredit += (int)item.SubjectClass.Subject.Credit;
+                    GPA += gpa * (int)item.SubjectClass.Subject.Credit;
+                    semesterGPA += gpa * (int)item.SubjectClass.Subject.Credit;
+
+                    var teacher = item.SubjectClass.Teachers.FirstOrDefault();
+                    string nameTeacher = null;
+                    if (teacher != null)
+                        nameTeacher = DataProvider.Instance.Database.Users.Where(x => x.Id == teacher.IdUsers).FirstOrDefault().DisplayName;
+
+                    TempScore.Add(new ScoreDataGrid(item.SubjectClass.Id, item.SubjectClass.Code, item.SubjectClass.Subject.DisplayName, Convert.ToString(item.SubjectClass.Subject.Credit), nameTeacher));
+
+                }
+
+                semesterGPA = semesterGPA / semesterCredit;
+                var CurrentSemester = DataProvider.Instance.Database.Semesters.Where(x => x.Id == id).FirstOrDefault();
+                DatabaseSemester.Add(new SemesterDataGrid(id, CurrentSemester.DisplayName, CurrentSemester.Batch, semesterGPA, 0, TempScore, null));
+            }
+
+            DatabaseSemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester.OrderBy(x => x.Batch + x.DisplayName));
+            foreach (var item in DatabaseSemester)
+            {
+                Semesters.Add(item.DisplayName + ", năm học " + item.Batch);
+            }
+
+            UpdateScoreBoard("Tất cả các kỳ");
+        }
+
+        private void UpdateScoreBoard(string semester)
+        {
+
+
+            if (semester == "Tất cả các kỳ")
+            {
+                DisplaySemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester);
+                return;
+            }
+
+            DisplaySemester = new ObservableCollection<SemesterDataGrid>();
+            foreach (var item in DatabaseSemester)
+            {
+                string nameSemester = item.DisplayName + ", năm học " + item.Batch;
+                if (semester == nameSemester)
+                {
+                    DisplaySemester.Add(item);
+                    return;
+                }
+            }
+
         }
 
     }

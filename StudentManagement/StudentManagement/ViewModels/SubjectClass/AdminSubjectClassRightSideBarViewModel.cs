@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static StudentManagement.Services.LoginServices;
 using static StudentManagement.ViewModels.AdminSubjectClassViewModel;
 
 namespace StudentManagement.ViewModels
@@ -60,6 +61,8 @@ namespace StudentManagement.ViewModels
         public AdminSubjectClassRightSideBarViewModel()
         {
             Instance = this;
+            LoginServices.UpdateCurrentUser += FreeRightSideBar;
+
             InitRightSideBarItemViewModel();
 
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
@@ -123,6 +126,14 @@ namespace StudentManagement.ViewModels
                 }
                 RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
             }
+        }
+        #endregion
+
+
+        #region eventhandler
+        private void FreeRightSideBar(object sender, LoginEvent e)
+        {
+            _rightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
         #endregion
     }

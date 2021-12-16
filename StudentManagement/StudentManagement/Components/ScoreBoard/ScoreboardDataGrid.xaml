@@ -1,4 +1,4 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="StudentManagement.Components.ScoreboardDataGrid"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,135 +9,119 @@
     x:Name="SubjectClassCardComponent"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
-    TextElement.FontSize="13"
+    TextElement.FontSize="15"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid Width="auto" Height="auto">
-        <materialDesign:Card VerticalAlignment="Stretch">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <DataGrid
-                    AutoGenerateColumns="False"
-                    Background="{StaticResource Background}"
-                    CanUserAddRows="False"
-                    CanUserDeleteRows="False"
-                    CanUserReorderColumns="False"
-                    HeadersVisibility="Column"
-                    IsReadOnly="True"
-                    ItemsSource="{Binding CurrentStudentScore}"
-                    SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource ScoreBoardRightSideBarVM}}">
-                    <DataGrid.Resources>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                                            Text="{Binding}"
-                                            TextAlignment="Right"
-                                            TextWrapping="Wrap" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
-                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
-                        </Style>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Margin="4,8,4,4"
+                FontSize="13"
+                FontWeight="Bold"
+                Style="{StaticResource textblock_item}"
+                TextAlignment="Left">
+                <Run Text="{Binding DisplayName}" />
+                <Run Text=", năm học" />
+                <Run Text="{Binding Batch}" />
+            </TextBlock>
+
+            <TextBlock
+                Grid.Column="1"
+                Margin="4,8,4,4"
+                FontSize="13"
+                FontWeight="Bold"
+                Style="{StaticResource textblock_item}"
+                TextAlignment="Right">
+                <Run Text="Điểm trung bình học kỳ: " />
+                <Run Text="{Binding GPA}" />
+
+            </TextBlock>
+
+        </Grid>
+
+        <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch">
+
+            <DataGrid
+                AutoGenerateColumns="False"
+                Background="{StaticResource Background}"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserReorderColumns="False"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{Binding CurrentScore}"
+                SelectedItem="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource ScoreBoardRightSideBarVM}}"
+                Style="{StaticResource MaterialDesignDataGrid}">
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding}"
+                                        TextAlignment="Right"
+                                        TextWrapping="Wrap" />
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                    </Style>
 
 
-                    </DataGrid.Resources>
-                    <DataGrid.CellStyle>
-                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                        <Grid Margin="16" Background="{TemplateBinding Background}">
-                                            <Grid.ToolTip>
-                                                <ToolTip Content="Chạm để hiển thị thông tin" />
-                                            </Grid.ToolTip>
-                                            <Grid.ContextMenu>
-                                                <ContextMenu>
-                                                    <!--<MenuItem
-                                                        Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DataContext.DeleteFile}"
-                                                        CommandParameter="{Binding Source={StaticResource BindingProxy}, Path=Data.SelectedItems}"
-                                                        Foreground="{StaticResource ErrorMain}"
-                                                        Header="Xóa tài liệu"
-                                                        Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />-->
-                                                </ContextMenu>
-                                            </Grid.ContextMenu>
-                                            <ContentPresenter VerticalAlignment="Center" />
-                                        </Grid>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGrid.CellStyle>
-                    <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn
-                            Width="auto"
-                            Binding="{Binding STT}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                            Header="Số thứ tự">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="{x:Type DataGridColumnHeader}">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                    <Setter Property="ContentTemplate">
-                                        <Setter.Value>
-                                            <DataTemplate>
-                                                <TextBlock
-                                                    Text="{Binding}"
-                                                    TextAlignment="Right"
-                                                    TextWrapping="Wrap" />
-                                            </DataTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="{x:Type TextBlock}">
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </materialDesign:DataGridTextColumn>
+                </DataGrid.Resources>
 
-                        <DataGridTextColumn
-                            Binding="{Binding IDSubject}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Mã môn học" />
+                <DataGrid.Columns>
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding IDSubject}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="Mã môn học" />
 
-                        <DataGridTextColumn
-                            Binding="{Binding Subject}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Tên môn học" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding Subject}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="Tên môn học" />
 
-                        <DataGridTextColumn
-                            Binding="{Binding Credit}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Số tín chỉ" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding Credit}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="Số tín chỉ" />
 
-                        <DataGridTextColumn
-                            Binding="{Binding Faculty}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Khoa" />
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding NameTeacher}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="Giáo viên" />
 
-                        <DataGridTextColumn
-                            Binding="{Binding Status}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            Header="Trạng thái" />
-
-                    </DataGrid.Columns>
-                </DataGrid>
-            </ScrollViewer>
+                    <materialDesign:DataGridTextColumn
+                        Binding="{Binding Status}"
+                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                        Header="Trạng thái" />
+                </DataGrid.Columns>
+            </DataGrid>
         </materialDesign:Card>
     </Grid>
 </UserControl>

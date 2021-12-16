@@ -25,15 +25,15 @@
     mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <Label Content="{Binding LabelName}" Style="{StaticResource LabelText}" />
-            <DatePicker materialDesign:HintAssist.Hint="{Binding LabelName}" SelectedDate="{Binding Value, Converter={utils:ConverterDateTimeFromString}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <Label Content="{Binding CurrendInfoItem.LabelName}" Style="{StaticResource LabelText}" />
+            <DatePicker materialDesign:HintAssist.Hint="{Binding CurrendInfoItem.LabelName}" SelectedDate="{Binding Content, Converter={utils:ConverterDateTimeFromString}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <DatePicker.Style>
                     <Style BasedOn="{StaticResource datepicker_item}" TargetType="DatePicker">
                         <Setter Property="IsEnabled" Value="False" />
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsEnable}" Value="true" />
+                                    <Condition Binding="{Binding CurrendInfoItem.IsEnable}" Value="true" />
 
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="True" />
