@@ -94,7 +94,8 @@ namespace StudentManagement.Services
             using (MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider())
             {
                 byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
-                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() {Key = keys, Mode = CipherMode.CFB, Padding = PaddingMode.PKCS7 })
+                byte[] iv = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() {Key = keys, Mode = CipherMode.CFB, Padding = PaddingMode.PKCS7, IV = iv })
                 {
                     ICryptoTransform transform = aes.CreateEncryptor();
                     byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
@@ -107,8 +108,9 @@ namespace StudentManagement.Services
             byte[] data = Convert.FromBase64String(input);
             using (MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider())
             {
-                byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
-                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() { Key = keys, Mode = CipherMode.CFB, Padding = PaddingMode.PKCS7 })
+                byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash)); 
+                byte[] iv = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() { Key = keys, Mode = CipherMode.CFB, Padding = PaddingMode.PKCS7, IV = iv })
                 {
                     ICryptoTransform transform = aes.CreateDecryptor();
                     byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
