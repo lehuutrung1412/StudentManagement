@@ -67,30 +67,44 @@ namespace StudentManagement.ViewModels
 
         private void FirstLoadComment()
         {
-            PostComments = new ObservableCollection<PostComment>();
-            var comments = NewsfeedServices.Instance.GetListCommentInPost(Post.PostId);
-            foreach (var comment in comments)
+            try
             {
-                PostComments.Add(NewsfeedServices.Instance.ConvertNotificationCommentToPostComment(comment));
+                PostComments = new ObservableCollection<PostComment>();
+                var comments = NewsfeedServices.Instance.GetListCommentInPost(Post.PostId);
+                foreach (var comment in comments)
+                {
+                    PostComments.Add(NewsfeedServices.Instance.ConvertNotificationCommentToPostComment(comment));
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải bình luận!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
 
         private async void SendDraftComment(object comment)
         {
-            TextBox txbComment = comment as TextBox;
-            if (txbComment.Text != "")
+            try
             {
-                // Get current user
-                var user = LoginServices.CurrentUser;
+                TextBox txbComment = comment as TextBox;
+                if (txbComment.Text != "")
+                {
+                    // Get current user
+                    var user = LoginServices.CurrentUser;
 
-                var newComment = new PostComment(Guid.NewGuid(), Post.PostId, user.Id, user.DisplayName, txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
+                    var newComment = new PostComment(Guid.NewGuid(), Post.PostId, user.Id, user.DisplayName, txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
 
-                await NewsfeedServices.Instance.SaveCommentToDatabaseAsync(newComment);
-                await NewsfeedServices.Instance.SaveCommentToNotification(newComment);
-                await NewsfeedServices.Instance.SaveCommentToNotificationInfo(newComment);
+                    await NewsfeedServices.Instance.SaveCommentToDatabaseAsync(newComment);
+                    await NewsfeedServices.Instance.SaveCommentToNotification(newComment);
+                    await NewsfeedServices.Instance.SaveCommentToNotificationInfo(newComment);
 
-                PostComments.Add(newComment);
-                txbComment.Text = "";
+                    PostComments.Add(newComment);
+                    txbComment.Text = "";
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể đăng bình luận!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
 

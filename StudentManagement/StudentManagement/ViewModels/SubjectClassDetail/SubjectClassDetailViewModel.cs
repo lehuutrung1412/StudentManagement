@@ -60,8 +60,12 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Bảng tin", false, null, _newFeedSubjectClassDetailViewModel, _newsFeedRightSideBarViewModel, _layoutViewModel, "NewspaperVariantOutline"),
                 new NavigationItem("Tài liệu", false, null, _fileManagerClassDetailViewModel, _fileManagerRightSideBarViewModel, _layoutViewModel, "FileDocumentMultipleOutline"),
                 new NavigationItem("Danh sách sinh viên", false, null, _adminStudentListViewModel, _studentListRightSideBar, _layoutViewModel, "SchoolOutline"),
-                new NavigationItem("Cài đặt", false, null, _settingSubjectClassDetailViewModel, null, _layoutViewModel, "CogOutline")
             };
+
+            if (LoginServices.CurrentUser.UserRole.Role == "Admin" || LoginServices.CurrentUser.UserRole.Role == "Giáo viên")
+            {
+                _layoutViewModel.NavigationItems.Add(new NavigationItem("Cài đặt", false, null, _settingSubjectClassDetailViewModel, null, _layoutViewModel, "CogOutline"));
+            }
 
             // Set corresponding active button to default view
             ObservableCollection<NavigationItem> navigationItems = _layoutViewModel.NavigationItems;
