@@ -264,16 +264,16 @@ namespace StudentManagement.ViewModels
             var SelectedItems = CourseRegistryItems.Where(x => x.IsSelected == true).ToList();
             foreach (CourseItem item in SelectedItems)
             {
-                SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id);
-                CourseRegistryItems.Remove(item);
+                if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id))
+                    CourseRegistryItems.Remove(item);
             }
             SearchCourseRegistryItemsFunction();
             /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
         }
         public void CreateNewCourse()
         {
-            var newSubjectClass = new SubjectClass();
-            _creatNewCourseViewModel = new CreateNewCourseViewModel(newSubjectClass, SelectedSemester, CourseRegistryItems);
+            var newSubjectClass = new SubjectClass(); 
+            _creatNewCourseViewModel = new CreateNewCourseViewModel(newSubjectClass, SelectedSemester, CourseRegistryItemsAll[SelectedSemesterIndex]);
             this.DialogItemViewModel = this._creatNewCourseViewModel;
         }
 
@@ -362,7 +362,7 @@ namespace StudentManagement.ViewModels
                                 NumberOfStudents = 0
                             };
                             SubjectClassServices.Instance.UpdateIds(tempSubjectClass);
-                            var conflictAvailableCourse = CourseRegistryItems.Where(x => x.Code == tempSubjectClass.Code).FirstOrDefault();
+                            var conflictAvailableCourse = CourseRegistryItemsAll[SelectedSemesterIndex].Where(x => x.Code == tempSubjectClass.Code).FirstOrDefault();
                             if (conflictAvailableCourse != null)
                             {
                                 tempSubjectClass.Id = conflictAvailableCourse.Id;
@@ -382,16 +382,17 @@ namespace StudentManagement.ViewModels
                             {
                                 var tempCourse = new CourseItem(tempSubjectClass, false);
                                 SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
-                                CourseRegistryItems.Add(tempCourse);
+                                CourseRegistryItemsAll[SelectedSemesterIndex].Add(tempCourse);
                             }
                         }
                         SelectData();
+                        SearchQuery = "";
                         /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
                     }
                 }
                 catch
                 {
-                    MyMessageBox.Show("File này đang được sử dụng", "Lỗi");
+                    MyMessageBox.Show("Lỗi không đọc file được", "Lỗi");
                 }
             }
         }
