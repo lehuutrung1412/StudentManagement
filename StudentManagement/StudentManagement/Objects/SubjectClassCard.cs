@@ -45,6 +45,7 @@ namespace StudentManagement.Objects
         private DateTime? _endDate;
         private string _period;
         private int? _maxNumberOfStudents;
+        private string _image;
         private Teacher _selectedTeacher = null;
         private Subject _selectedSubject = null;
         private TrainingForm _selectedTrainingForm;
@@ -276,5 +277,6 @@ namespace StudentManagement.Objects
         public ObservableCollection<string> DayOfWeeks { get => _dayOfWeeks; set => _dayOfWeeks = value; }
         public ObservableCollection<Semester> Semesters { get => _semesters; set => _semesters = value; }
         public ObservableCollection<Teacher> Teachers { get => _teachers; set => _teachers = value; }
+        public string Image { get => _image; set { _image = value; OnPropertyChanged(); } }
     }
 }

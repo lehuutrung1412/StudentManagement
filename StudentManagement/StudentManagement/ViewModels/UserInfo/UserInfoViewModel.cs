@@ -87,6 +87,8 @@ namespace StudentManagement.ViewModels
 
         public ICommand ConfirmUserInfoCommand { get => _confirmUserInfoCommand; set => _confirmUserInfoCommand = value; }
         private ICommand _confirmUserInfoCommand;
+        public ICommand CancelUpdateCommand { get => _cancelUpdateCommand; set => _cancelUpdateCommand = value; }
+        private ICommand _cancelUpdateCommand;
 
         public UserInfoViewModel()
         {
@@ -125,6 +127,7 @@ namespace StudentManagement.ViewModels
             ClickChangeImageCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClickChangeImage());
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
             UpdateUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateUserInfo());
+            CancelUpdateCommand = new RelayCommand<object>((p) => { return true; }, (p) => CancelUpdate());
             ConfirmUserInfoCommand = new RelayCommand<object>(
                 (p) =>
                 {
@@ -194,6 +197,14 @@ namespace StudentManagement.ViewModels
             }
    
         }
+
+        public void CancelUpdate()
+        {
+            InfoSource = new ObservableCollection<InfoItemViewModel>();
+            DisplaySource.ForEach(info => InfoSource.Add(new InfoItemViewModel(new InfoItem(info))));
+            IsUpdate = false;
+        }
+
         public void ComfirmUserInfo()
         {
             try

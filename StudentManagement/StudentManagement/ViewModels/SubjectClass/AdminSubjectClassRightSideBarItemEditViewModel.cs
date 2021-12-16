@@ -107,7 +107,7 @@ namespace StudentManagement.ViewModels
             ReturnToShowSubjectClassCardInfo();
         }
 
-        public void ConfirmEditSubjectClassCardInfoFunction()
+        public async void ConfirmEditSubjectClassCardInfoFunction()
         {
             bool isCardExist = AdminSubjectClassViewModel.StoredSubjectClassCards.Contains(ActualCard);
 
@@ -116,9 +116,20 @@ namespace StudentManagement.ViewModels
             storedActualCard.CopyCardInfo(ActualCard);
 
             // copy current card property to actual card
+            var tmpImage = ActualCard.Image;
             ActualCard.CopyCardInfo(CurrentCard);
 
-            bool success = SubjectClassServices.Instance.SaveSubjectClassCardToDatabase(ActualCard);
+            if(!ActualCard.Image.Equals(tmpImage))
+            {
+                var uploadImageTasks = new List<Task<string>>();
+                uploadImageTasks.Add(ImageUploader.Instance.UploadAsync(ActualCard.Image));
+                foreach (var img in await Task.WhenAll(uploadImageTasks))
+                {
+                    ActualCard.Image = img;
+                }
+            }
+            
+            bool success = await SubjectClassServices.Instance.SaveSubjectClassCardToDatabase(ActualCard);
 
             if (success)
             {
@@ -136,6 +147,7 @@ namespace StudentManagement.ViewModels
                 ActualCard.CopyCardInfo(storedActualCard);
                 MyMessageBox.Show("Có lỗi kết nối đến cơ sở dữ liệu, vui lòng thử lại sau");
             }
+            
 
             ActualCard.RunOnPropertyChanged();
             ReturnToShowSubjectClassCardInfo();
@@ -156,6 +168,7 @@ namespace StudentManagement.ViewModels
             };
             if (op.ShowDialog() == true)
             {
+                CurrentCard.Image = op.FileName;
             }
         }
     }

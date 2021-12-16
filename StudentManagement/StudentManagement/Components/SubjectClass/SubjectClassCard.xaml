@@ -65,7 +65,7 @@
                         Width="{Binding Width, ElementName=SubjectClassCardComponent, Converter={StaticResource math}, ConverterParameter='x - 16 > 0? x - 16 : x'}"
                         CornerRadius="8">
                         <Border.Background>
-                            <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
+                            <ImageBrush ImageSource="{Binding Image, TargetNullValue={StaticResource ImageDefault}}" Stretch="UniformToFill" />
                         </Border.Background>
                     </Border>
 

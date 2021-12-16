@@ -163,7 +163,8 @@
                                     Grid.Column="1"
                                     Margin="16,0"
                                     Command="{Binding UpdateUserInfoCommand}"
-                                    Content="Chỉnh sửa thông tin">
+                                    Content="Chỉnh sửa thông tin"
+                                    ToolTip="Ấn vào đây để chỉnh sửa thông tin thông tin">
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
                                             <Setter Property="IsEnabled" Value="True" />
@@ -224,7 +225,49 @@
                             </ItemsControl>
 
                         </Grid>
-                        <Button
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Grid.Column="2"
+                                Margin="8,0,0,0"
+                                Command="{Binding ConfirmUserInfoCommand}"
+                                Content="Lưu"
+                                ToolTip="Ấn vào đây để cập nhật thông tin">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsUpdate}" Value="true">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button
+                                Grid.Column="1"
+                                Margin="8,0"
+                                Background="{DynamicResource DarkGray}"
+                                Command="{Binding CancelUpdateCommand}"
+                                Content="Huỷ"
+                                ToolTip="Ấn vào đây để huỷ cập nhật thông tin">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsUpdate}" Value="true">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                        <!--<Button
                             Grid.Row="2"
                             Width="{Binding Path=ActualWidth, ElementName=btnUpdate}"
                             Margin="16,0"
@@ -241,7 +284,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
-                        </Button>
+                        </Button>-->
                     </Grid>
                     <!--<StackPanel
                         Margin="64,8,64,8">
