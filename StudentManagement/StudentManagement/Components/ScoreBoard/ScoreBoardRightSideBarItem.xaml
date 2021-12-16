@@ -18,99 +18,43 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel Margin="8">
+        <StackPanel Grid.Row="0" Margin="10">
             <TextBlock
                 FontSize="24"
                 FontWeight="Bold"
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 TextWrapping="Wrap">
-                <Run Text="{Binding CurrentItem.IDSubject, FallbackValue='Mã lớp học'}" />
+                <Run Text="{Binding SubjectDisplayName}" />
             </TextBlock>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            <ItemsControl ItemsSource="{Binding CurrentItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Style="{StaticResource text_grid_item}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Điểm quá trình:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.QuaTrinh, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Điểm giữa kì:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.GiuaKi, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Điểm thực hành:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.ThucHanh, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Điểm cuối kì:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.CuoiKi, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="0"
-                    FontWeight="Bold"
-                    Style="{StaticResource textblock_item}"
-                    Text="Trung bình môn:" />
-                <TextBlock
-                    Grid.Column="1"
-                    Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.DiemTB, FallbackValue='10'}"
-                    TextAlignment="Right" />
-            </Grid>
+                            <TextBlock
+                                Grid.Column="0"
+                                FontWeight="Bold"
+                                Style="{StaticResource textblock_item}"
+                                Text="{Binding DisplayName}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Style="{StaticResource textblock_item}"
+                                Text="{Binding Score, FallbackValue='Nothing'}"
+                                TextAlignment="Right"
+                                ToolTip="{Binding Percent}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </UserControl>

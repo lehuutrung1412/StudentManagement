@@ -36,7 +36,7 @@
                 Margin="12,8,8,0"
                 FontSize="30"
                 FontWeight="Bold"
-                Text="Danh sách sinh viên" />
+                Text="Danh sách người dùng" />
             <Grid Grid.Row="1" Margin="12,8,0,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

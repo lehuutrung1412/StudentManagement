@@ -439,6 +439,7 @@
     <Compile Include="MyMessageBox.cs" />
     <Compile Include="Objects\ComponentScoreInSetting.cs" />
     <Compile Include="Objects\CourseItem.cs" />
+    <Compile Include="Objects\DetailScoreItem.cs" />
     <Compile Include="Objects\EmptyCard.cs" />
     <Compile Include="Objects\FacultyCard.cs" />
     <Compile Include="Objects\FileInfo.cs" />
@@ -450,11 +451,14 @@
     <Compile Include="Objects\NotificationCard.cs" />
     <Compile Include="Objects\PieChartElement.cs" />
     <Compile Include="Objects\ScheduleItem.cs" />
+    <Compile Include="Objects\ScoreDataGrid.cs" />
+    <Compile Include="Objects\SemesterDataGrid.cs" />
     <Compile Include="Objects\StudentDetailScore.cs" />
     <Compile Include="Objects\StudentGrid.cs" />
     <Compile Include="Objects\SubjectCard.cs" />
     <Compile Include="Objects\SubjectClassCard.cs" />
     <Compile Include="Objects\TrainingFormCard.cs" />
+    <Compile Include="Objects\TrainingScoreDataGrid.cs" />
     <Compile Include="Objects\UserCard.cs" />
     <Compile Include="Services\AdminServices.cs" />
     <Compile Include="Services\AbsentCalendarServices.cs" />
