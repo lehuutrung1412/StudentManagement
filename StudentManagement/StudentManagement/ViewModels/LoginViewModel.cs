@@ -6,6 +6,7 @@ using StudentManagement.Models;
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Linq;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
@@ -14,6 +15,8 @@ using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.Threading.Tasks;
+using StudentManagement.Objects;
+using System.Collections.ObjectModel;
 
 namespace StudentManagement.ViewModels
 {
@@ -34,7 +37,7 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private bool _isGetCode;
         public bool IsGetCode
         {
@@ -97,10 +100,10 @@ namespace StudentManagement.ViewModels
                 {
                     _errorBaseViewModel.AddError(nameof(Gmail), "Vui lòng nhập gmail!");
                 }
-                if(!IsValidEmail(Gmail))
+                if (!IsValidEmail(Gmail))
                 {
                     _errorBaseViewModel.AddError(nameof(Gmail), "Địa chỉ mail không đúng định dạng!");
-                }    
+                }
                 OnPropertyChanged();
             }
         }
@@ -154,13 +157,13 @@ namespace StudentManagement.ViewModels
                 {
                     _errorBaseViewModel.AddError(nameof(ReNewPassWord), "Vui lòng nhập lại mật khẩu mới!");
                 }
-                if(IsValid(ReNewPassWord))
+                if (IsValid(ReNewPassWord))
                 {
                     if (!ReNewPassWord.Equals(NewPassWord))
                     {
                         _errorBaseViewModel.AddError(nameof(ReNewPassWord), "Mật khẩu nhập lại không trùng với mật khẩu mới");
                     }
-                }                    
+                }
                 OnPropertyChanged();
             }
         }
@@ -171,15 +174,25 @@ namespace StudentManagement.ViewModels
 
         private object _currentView;
 
+        private bool _isToRemember;
+        public bool IsToRemember { get => _isToRemember; set => _isToRemember = value; }
+
+        private Account _rememberedAccount;
+        public Account RememberedAccount { get => _rememberedAccount; set { _rememberedAccount = value; } }
+
         public ICommand SwitchView { get; set; }
 
         public ICommand GetOTPCodeCommand { get => _getOTPCodeCommand; set => _getOTPCodeCommand = value; }
- 
+
         private ICommand _getOTPCodeCommand;
 
         public ICommand ConFirmCommand { get => _conFirmCommand; set => _conFirmCommand = value; }
 
         private ICommand _conFirmCommand;
+
+        public ICommand RememberUserCommand { get => _remberUserCommand; set => _remberUserCommand = value; }
+
+        private ICommand _remberUserCommand;
 
         public LoginViewModel()
         {
@@ -187,14 +200,16 @@ namespace StudentManagement.ViewModels
             TimeCountDown = null;
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+            InitListRememberedAccount();
             SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
             GetOTPCodeCommand = new RelayCommand<object>((p) => true, async (p) => await GetOPTAsync());
             ConFirmCommand = new RelayCommand<object>((p) => true, (p) => ConFirm());
+            RememberUserCommand = new RelayCommand<object>((p) => true, (p) => RememberUser());
         }
         public void ResetView()
         {
             Gmail = "";
-            NewPassWord = null;           
+            NewPassWord = null;
             ReNewPassWord = null;
             OTPInView = null;
             Password = null;
@@ -202,15 +217,15 @@ namespace StudentManagement.ViewModels
             IsGetCode = false;
             SwitchViewForm();
         }
-        public void  ConFirm()
+        public void ConFirm()
         {
             OTPServices.Instance.DeleteOTPOverTime();
-            if (!OTPServices.Instance.CheckGetOTPFromEmail(Gmail,SHA256Cryptography.Instance.EncryptString(OTPInView)))
+            if (!OTPServices.Instance.CheckGetOTPFromEmail(Gmail, SHA256Cryptography.Instance.EncryptString(OTPInView)))
             {
                 MyMessageBox.Show("Mã xác nhận không chính xác", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
             }
-            if(UserServices.Instance.ChangePassWord(NewPassWord, Gmail))
+            if (UserServices.Instance.ChangePassWord(NewPassWord, Gmail))
             {
                 MyMessageBox.Show("Cập nhật mật khẩu thành công", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 ResetView();
@@ -224,7 +239,7 @@ namespace StudentManagement.ViewModels
         public string RandomOTP()
         {
             Random generator = new Random();
-            return  generator.Next(0, 1000000).ToString("D6");
+            return generator.Next(0, 1000000).ToString("D6");
         }
         public void StartCountdown()
         {
@@ -266,12 +281,12 @@ namespace StudentManagement.ViewModels
 
         public async Task GetOPTAsync()
         {
-            if(string.IsNullOrEmpty(Gmail))
+            if (string.IsNullOrEmpty(Gmail))
             {
                 MyMessageBox.Show("Cần phải nhập địa chỉ mail trước khi lấy mã", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
-            }  
-            if(!IsValidEmail(Gmail))
+            }
+            if (!IsValidEmail(Gmail))
             {
                 MyMessageBox.Show("Địa chỉ mail không hợp lệ", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
@@ -285,7 +300,7 @@ namespace StudentManagement.ViewModels
             await OTPServices.Instance.SaveOTP(Gmail, SHA256Cryptography.Instance.EncryptString(OTP));
 
             await SetupAndSendOTPForEmailAsync();
-            
+
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -297,8 +312,8 @@ namespace StudentManagement.ViewModels
             {
                 (sender as DispatcherTimer).Stop();
                 TimeCountDown = null;
-            }    
-               
+            }
+
         }
 
         bool IsValidEmail(string email)
@@ -342,6 +357,65 @@ namespace StudentManagement.ViewModels
                 _ = MyMessageBox.Show("Xảy ra lỗi kết nối đến cơ sở dữ liệu!\nVui lòng thử lại!", "Đăng nhập thất bại", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return false;
             }*/
+        }
+
+        public void RememberUser()
+        {
+            if (!IsToRemember)
+            {
+                if (RememberedAccount == null)
+                    return;
+                // Use Remembered Account to input textboxes
+                if (!LoginServices.Instance.IsUserAuthentic(Username, Password))
+                {
+                    // Tự động đăng nhập nếu txbName trống, hoặc txbName trùng Username remembered
+                    if (Username == null || Username == "" || Username.ToLower() == RememberedAccount.UserName.ToLower())
+                    {
+                        Username = RememberedAccount.UserName;
+                        Password = RememberedAccount.PassWord;
+                    }
+                    return;
+                }
+            }
+            else
+            {
+                // Note Remember Account to RAM and disk
+                if (LoginServices.Instance.IsUserAuthentic(Username, Password))
+                {
+                    RememberedAccount = new Account(Username, Password);
+                    using (StreamWriter sw = new StreamWriter(LoginServices.FilePathRememberedAccount))
+                    {
+                        sw.Write(RememberedAccount.UserName + '\t' + LoginServices.Encrypt(RememberedAccount.PassWord, "S7uMan"));
+                    }
+                }
+            }
+
+            
+
+            
+            
+        }
+        public void InitListRememberedAccount()
+        {
+            RememberedAccount = null;
+            string filePath = LoginServices.FilePathRememberedAccount;
+            if (File.Exists(filePath))
+            {
+                string fileContent = "";
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    fileContent = sr.ReadToEnd();
+                    string accountRow = fileContent.Split('\n')[0];
+                    if (accountRow == "")
+                        return;
+                    string[] account = accountRow.Split('\t');
+                    RememberedAccount = new Account(account[0], LoginServices.Decrypt(account[1], "S7uMan"));
+                }
+            }
+            else
+            {
+                File.CreateText(LoginServices.FilePathRememberedAccount);
+            }
         }
 
         private bool IsValid(string propertyName)

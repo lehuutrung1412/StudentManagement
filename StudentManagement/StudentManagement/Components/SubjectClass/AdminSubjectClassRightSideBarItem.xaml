@@ -37,7 +37,7 @@
                         Margin="0,16"
                         CornerRadius="8">
                         <Border.Background>
-                            <ImageBrush ImageSource="https://picsum.photos/200/200" Stretch="UniformToFill" />
+                            <ImageBrush ImageSource="{Binding CurrentCard.Image, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={StaticResource ImageDefault}}" Stretch="UniformToFill" />
                         </Border.Background>
                     </Border>
                     <Button

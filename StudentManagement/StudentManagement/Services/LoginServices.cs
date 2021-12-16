@@ -1,6 +1,9 @@
 ﻿using StudentManagement.Models;
+using StudentManagement.Objects;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -36,6 +39,7 @@ namespace StudentManagement.Services
         private static User s_currentUser;
         public static User CurrentUser { get => s_currentUser; set => s_currentUser = value; }
 
+        public static string FilePathRememberedAccount = "D:\\accountStuMan.txt";
 
         public StudentManagementEntities db = DataProvider.Instance.Database;
 
@@ -82,6 +86,36 @@ namespace StudentManagement.Services
                 hash.Append(bytes[i].ToString("x2"));
             }
             return hash.ToString();
+        }
+
+        public static string Encrypt(string input, string hash)
+        {
+            byte[] data = UTF8Encoding.UTF8.GetBytes(input);
+            using (MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider())
+            {
+                byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() { Key = keys, Mode = CipherMode.CFB, Padding = PaddingMode.PKCS7 })
+                {
+                    ICryptoTransform transform = aes.CreateEncryptor();
+                    byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
+                    return Convert.ToBase64String(results, 0, results.Length);
+                }
+            }
+        }
+        public static string Decrypt(string input, string hash)
+        {
+            byte[] data = Convert.FromBase64String(input);
+            using (MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider())
+            {
+                byte[] keys = md5provider.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+                using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider() { Key = keys, Mode = CipherMode.CFB, Padding = PaddingMode.PKCS7 })
+                {
+                    //ICryptoTransform transform = aes.CreateDecryptor();
+                    //byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
+                    //return UTF8Encoding.UTF8.GetString(results);
+                    return "";
+                }
+            }
         }
     }
 }

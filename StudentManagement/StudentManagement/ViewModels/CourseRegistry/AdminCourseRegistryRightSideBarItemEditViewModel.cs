@@ -267,6 +267,7 @@ namespace StudentManagement.ViewModels
 
             CurrentItem.Teachers.Clear();
             CurrentItem.Teachers.Add(SelectedTeacher);
+            CurrentItem.MainTeacher = SelectedTeacher;
 
             SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
             SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
