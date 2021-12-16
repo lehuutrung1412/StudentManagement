@@ -116,40 +116,39 @@ namespace StudentManagement.Services
 
         public bool RemoveSubjectClassFromDatabaseBySubjectClassId(Guid id)
         {
-            SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(id);
-
-            /*if (savedSubjectClass.CourseRegisters.Count() > 0 ||
-                savedSubjectClass.Folders.Count() > 0 ||
-                savedSubjectClass.Examinations.Count() > 0 ||
-                savedSubjectClass.Documents.Count() > 0 ||
-                savedSubjectClass.AbsentCalendars.Count() > 0 ||
-                savedSubjectClass.ComponentScores.Count() > 0 ||
-                savedSubjectClass.Notifications.Count() > 0 ||
-                savedSubjectClass.Notifications1.Count() > 0)
-                return false;*/
-            foreach (CourseRegister item in DataProvider.Instance.Database.CourseRegisters.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
-                DataProvider.Instance.Database.CourseRegisters.Remove(item);
-            foreach (Folder item in DataProvider.Instance.Database.Folders.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
-                DataProvider.Instance.Database.Folders.Remove(item);
-            foreach (Examination item in DataProvider.Instance.Database.Examinations.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
-                DataProvider.Instance.Database.Examinations.Remove(item);
-            foreach (Document item in DataProvider.Instance.Database.Documents.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
-                DataProvider.Instance.Database.Documents.Remove(item);
-            foreach (AbsentCalendar item in DataProvider.Instance.Database.AbsentCalendars.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
-                DataProvider.Instance.Database.AbsentCalendars.Remove(item);
-            foreach (ComponentScore item in DataProvider.Instance.Database.ComponentScores.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
-                DataProvider.Instance.Database.ComponentScores.Remove(item);
-            foreach (Notification item in DataProvider.Instance.Database.Notifications.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
-                DataProvider.Instance.Database.Notifications.Remove(item);
-
-            DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
-
-            DataProvider.Instance.Database.SaveChanges();
-
-            return true;
             try
             {
-                
+                SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(id);
+
+                /*if (savedSubjectClass.CourseRegisters.Count() > 0 ||
+                    savedSubjectClass.Folders.Count() > 0 ||
+                    savedSubjectClass.Examinations.Count() > 0 ||
+                    savedSubjectClass.Documents.Count() > 0 ||
+                    savedSubjectClass.AbsentCalendars.Count() > 0 ||
+                    savedSubjectClass.ComponentScores.Count() > 0 ||
+                    savedSubjectClass.Notifications.Count() > 0 ||
+                    savedSubjectClass.Notifications1.Count() > 0)
+                    return false;*/
+                foreach (CourseRegister item in DataProvider.Instance.Database.CourseRegisters.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
+                    DataProvider.Instance.Database.CourseRegisters.Remove(item);
+                foreach (Folder item in DataProvider.Instance.Database.Folders.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
+                    DataProvider.Instance.Database.Folders.Remove(item);
+                foreach (Examination item in DataProvider.Instance.Database.Examinations.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
+                    DataProvider.Instance.Database.Examinations.Remove(item);
+                foreach (Document item in DataProvider.Instance.Database.Documents.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
+                    DataProvider.Instance.Database.Documents.Remove(item);
+                foreach (AbsentCalendar item in DataProvider.Instance.Database.AbsentCalendars.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
+                    DataProvider.Instance.Database.AbsentCalendars.Remove(item);
+                foreach (ComponentScore item in DataProvider.Instance.Database.ComponentScores.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
+                    DataProvider.Instance.Database.ComponentScores.Remove(item);
+                foreach (Notification item in DataProvider.Instance.Database.Notifications.Where(x => x.SubjectClass.Id == savedSubjectClass.Id).ToList())
+                    DataProvider.Instance.Database.Notifications.Remove(item);
+
+                DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
+
+                DataProvider.Instance.Database.SaveChanges();
+
+                return true;
             }
             catch
             {
