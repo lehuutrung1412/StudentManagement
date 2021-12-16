@@ -67,6 +67,14 @@ namespace StudentManagement.ViewModels
         {
             try
             {
+                double? totalScore = 0;
+                ListComponentScore.ToList().ForEach(score => totalScore += score.Percent);
+                if (totalScore != 100)
+                {
+                    MyMessageBox.Show("Tổng phần trăm các cột điểm phải là 100%", "Không hợp lệ", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    return;
+                }
+
                 if (MyMessageBox.Show("Bạn có muốn lưu cài đặt không?", "Lưu cài đặt", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question)
                     == System.Windows.MessageBoxResult.Yes)
                 {

@@ -49,14 +49,21 @@ namespace StudentManagement.ViewModels
 
         private void LoadNewsfeed()
         {
-            PostNewsfeedViewModels = new ObservableCollection<PostNewsfeedViewModel>();
-            var posts = NewsfeedServices.Instance.GetListNotificationOfSubjectClass(SubjectClassDetail.Id);
-            foreach (var post in posts)
+            try
             {
-                // Load image
-                var images = new ObservableCollection<string>(NewsfeedServices.Instance.GetListImagesInPost(post.Id));
+                PostNewsfeedViewModels = new ObservableCollection<PostNewsfeedViewModel>();
+                var posts = NewsfeedServices.Instance.GetListNotificationOfSubjectClass(SubjectClassDetail.Id);
+                foreach (var post in posts)
+                {
+                    // Load image
+                    var images = new ObservableCollection<string>(NewsfeedServices.Instance.GetListImagesInPost(post.Id));
 
-                PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(NewsfeedServices.Instance.ConvertNotificationToPostNewsfeed(post), images));
+                    PostNewsfeedViewModels.Add(new PostNewsfeedViewModel(NewsfeedServices.Instance.ConvertNotificationToPostNewsfeed(post), images));
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải bài đăng!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
 
@@ -64,47 +71,54 @@ namespace StudentManagement.ViewModels
         {
             if (e.PropertyName == "IsPost")
             {
-                int index = PostNewsfeedViewModels.IndexOf(PostEditingViewModel);
-                if (index > -1)
+                try
                 {
-                    PostEditingViewModel.Post.PostText = EditPostNewFeedViewModel.DraftPostText;
-
-                    await NewsfeedServices.Instance.SavePostToDatabaseAsync(PostEditingViewModel.Post);
-
-                    // Upload Image
-                    var stackImageUploaded = new ObservableCollection<string>();
-                    var uploadImageTasks = new List<Task<string>>();
-
-                    Parallel.ForEach(EditPostNewFeedViewModel.StackImageDraft, img =>
+                    int index = PostNewsfeedViewModels.IndexOf(PostEditingViewModel);
+                    if (index > -1)
                     {
-                        if (!img.Contains("http"))
+                        PostEditingViewModel.Post.PostText = EditPostNewFeedViewModel.DraftPostText;
+
+                        await NewsfeedServices.Instance.SavePostToDatabaseAsync(PostEditingViewModel.Post);
+
+                        // Upload Image
+                        var stackImageUploaded = new ObservableCollection<string>();
+                        var uploadImageTasks = new List<Task<string>>();
+
+                        Parallel.ForEach(EditPostNewFeedViewModel.StackImageDraft, img =>
                         {
-                            uploadImageTasks.Add(ImageUploader.Instance.UploadAsync(img));
-                        }
-                        else
+                            if (!img.Contains("http"))
+                            {
+                                uploadImageTasks.Add(ImageUploader.Instance.UploadAsync(img));
+                            }
+                            else
+                            {
+                                stackImageUploaded.Add(img);
+                            }
+                        });
+
+                        foreach (var img in await Task.WhenAll(uploadImageTasks))
                         {
+                            await NewsfeedServices.Instance.SaveImageToDatabaseAsync(PostEditingViewModel.Post.PostId, img);
+
                             stackImageUploaded.Add(img);
                         }
-                    });
 
-                    foreach (var img in await Task.WhenAll(uploadImageTasks))
-                    {
-                        await NewsfeedServices.Instance.SaveImageToDatabaseAsync(PostEditingViewModel.Post.PostId, img);
+                        await NewsfeedServices.Instance.DeleteImagesInPostAsync(PostEditingViewModel.Post.PostId, PostEditingViewModel.StackPostImage.Except(EditPostNewFeedViewModel.StackImageDraft).ToList());
 
-                        stackImageUploaded.Add(img);
+                        PostEditingViewModel.StackPostImage = stackImageUploaded;
+
+                        _ = MyMessageBox.Show("Chỉnh sửa bài đăng thành công!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                     }
-
-                    await NewsfeedServices.Instance.DeleteImagesInPostAsync(PostEditingViewModel.Post.PostId, PostEditingViewModel.StackPostImage.Except(EditPostNewFeedViewModel.StackImageDraft).ToList());
-
-                    PostEditingViewModel.StackPostImage = stackImageUploaded;
-
-                    _ = MyMessageBox.Show("Chỉnh sửa bài đăng thành công!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    else
+                    {
+                        _ = MyMessageBox.Show("Đã có lỗi xảy ra! Xin vui lòng thử lại sau!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    }
+                    IsEditing = false;
                 }
-                else
+                catch (Exception)
                 {
-                    _ = MyMessageBox.Show("Đã có lỗi xảy ra! Xin vui lòng thử lại sau!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    MyMessageBox.Show("Đã có lỗi xảy ra! Không thể sửa bài đăng!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 }
-                IsEditing = false;
             }
         }
 

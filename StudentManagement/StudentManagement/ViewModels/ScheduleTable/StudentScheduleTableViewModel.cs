@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StudentManagement.ViewModels.StudentCourseRegistryRightSideBarViewModel;
 
 namespace StudentManagement.ViewModels
 {
@@ -105,11 +104,9 @@ namespace StudentManagement.ViewModels
                 case "Sinh viên":
                     CurrentStudent = StudentServices.Instance.FindStudentByUserId(currentUser.Id);
                     return SemesterServices.Instance.LoadListSemestersByStudentIdAndSemesterStatuses(CurrentStudent.Id, new bool[] { false, false, true });
-                    break;
                 case "Giáo viên":
                     CurrentTeacher = TeacherServices.Instance.GetTeacherbyUser(currentUser);
                     return SemesterServices.Instance.LoadListSemestersByTeacherAndSemesterStatuses(CurrentTeacher, new bool[] { false, false, true });
-                    break;
                 default:
                     return new ObservableCollection<Semester>();
             }

@@ -36,7 +36,14 @@ namespace StudentManagement.ViewModels
 
         private void DeleteImageInDraftPost(object image)
         {
-            _ = StackImageDraft.Remove((image as Button)?.Tag as string);
+            try
+            {
+                _ = StackImageDraft.Remove((image as Button)?.Tag as string);
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể xóa ảnh!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
 
         private void SendDraftPost()

@@ -164,14 +164,21 @@ namespace StudentManagement.ViewModels
 
         private void LoadAbsentAndMakeUpItems()
         {
-            AbsentAndMakeUpItems.Clear();
-
-            foreach (var item in AbsentAndMakeUpItemsData)
+            try
             {
-                if (item.Date == SelectedDate)
+                AbsentAndMakeUpItems.Clear();
+
+                foreach (var item in AbsentAndMakeUpItemsData)
                 {
-                    AbsentAndMakeUpItems.Add(new AbsentAndMakeUpItem(item.Id, item.IdSubjectClass, item.Date, item.Period, item.Type));
+                    if (item.Date == SelectedDate)
+                    {
+                        AbsentAndMakeUpItems.Add(new AbsentAndMakeUpItem(item.Id, item.IdSubjectClass, item.Date, item.Period, item.Type));
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể tải lịch báo nghỉ và báo bù!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
 
@@ -247,16 +254,23 @@ namespace StudentManagement.ViewModels
 
         private void CancelAddMakeUpDayFunction()
         {
-            AddMakeUpMode = false;
-            IsMakeUpDay = true;
-            IsEvent = AbsentAndMakeUpItemsData.Any(item => item.Date == SelectedDate);
-            IsAbsentDay = ScheduleTimes.Contains(_selectedDate);
-
-            if (_selectedDate < DateTime.Now.AddDays(-1))
+            try
             {
-                IsAbsentDay = false;
-                IsMakeUpDay = false;
-                IsEvent = false;
+                AddMakeUpMode = false;
+                IsMakeUpDay = true;
+                IsEvent = AbsentAndMakeUpItemsData.Any(item => item.Date == SelectedDate);
+                IsAbsentDay = ScheduleTimes.Contains(_selectedDate);
+
+                if (_selectedDate < DateTime.Now.AddDays(-1))
+                {
+                    IsAbsentDay = false;
+                    IsMakeUpDay = false;
+                    IsEvent = false;
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra!", "Lỗi rồi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
 
