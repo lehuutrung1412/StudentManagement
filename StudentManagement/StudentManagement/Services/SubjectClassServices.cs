@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -112,34 +113,22 @@ namespace StudentManagement.Services
         /// Remove SubjectClass From Database
         /// </summary>
         /// <param name="subjectClass"></param>
-        public bool RemoveSubjectClassFromDatabase(SubjectClass subjectClass)
-        {
-
-            try
-            {
-                SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(subjectClass.Id);
-
-                if (savedSubjectClass.CourseRegisters.Count() > 0)
-
-                    return false;
-
-                DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
-
-                DataProvider.Instance.Database.SaveChanges();
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
 
         public bool RemoveSubjectClassFromDatabaseBySubjectClassId(Guid id)
         {
             try
             {
                 SubjectClass savedSubjectClass = FindSubjectClassBySubjectClassId(id);
+
+                if (savedSubjectClass.CourseRegisters.Count() > 0 ||
+                    savedSubjectClass.Folders.Count() > 0 ||
+                    savedSubjectClass.Examinations.Count() > 0 ||
+                    savedSubjectClass.Documents.Count() > 0 ||
+                    savedSubjectClass.AbsentCalendars.Count() > 0 ||
+                    savedSubjectClass.ComponentScores.Count() > 0 ||
+                    savedSubjectClass.Notifications.Count() > 0 ||
+                    savedSubjectClass.Notifications1.Count() > 0)
+                    return false;
 
                 DataProvider.Instance.Database.SubjectClasses.Remove(savedSubjectClass);
 

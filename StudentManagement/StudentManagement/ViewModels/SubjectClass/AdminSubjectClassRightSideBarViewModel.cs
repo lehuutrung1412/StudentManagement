@@ -107,10 +107,11 @@ namespace StudentManagement.ViewModels
         {
             SubjectClassCard card = p as SubjectClassCard;
 
-            SubjectClassCards.Remove(card);
-            StoredSubjectClassCards.Remove(card);
-
-            SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(card.Id);
+            if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(card.Id))
+            {
+                SubjectClassCards.Remove(card);
+                StoredSubjectClassCards.Remove(card);
+            }
 
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }

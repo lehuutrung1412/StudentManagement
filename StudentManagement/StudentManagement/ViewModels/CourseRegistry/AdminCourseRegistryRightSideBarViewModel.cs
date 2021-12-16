@@ -96,8 +96,8 @@ namespace StudentManagement.ViewModels
         public void DeleteCourse(object p)
         {
             CourseItem item = p as CourseItem;
-            AdminCourseRegistryViewModel.Instance.CourseRegistryItems.Remove(item);
-            SubjectClassServices.Instance.RemoveSubjectClassFromDatabase(item.ConvertToSubjectClass());
+            if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.ConvertToSubjectClass().Id))
+                AdminCourseRegistryViewModel.Instance.CourseRegistryItems.Remove(item);
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
     }

@@ -257,8 +257,8 @@ namespace StudentManagement.ViewModels
             var SelectedItems = CourseRegistryItems.Where(x => x.IsSelected == true).ToList();
             foreach (CourseItem item in SelectedItems)
             {
-                SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id);
-                CourseRegistryItems.Remove(item);
+                if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id))
+                    CourseRegistryItems.Remove(item);
             }
             SearchCourseRegistryItemsFunction();
             /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
