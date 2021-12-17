@@ -41,6 +41,15 @@ namespace StudentManagement.ViewModels
         }
 
         private bool _isFirstSearchButtonEnabled = false;
+        private bool _inLoadingSubjectClass = false;
+        public bool InLoadingSubjectClass
+        {
+            get => _inLoadingSubjectClass; set
+            {
+                _inLoadingSubjectClass = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _searchQuery = "";
         public string SearchQuery
@@ -83,6 +92,11 @@ namespace StudentManagement.ViewModels
 
         public ICommand ShowSubjectClassDetail { get; set; }
 
+
+        private ICommand _synchronizeSubjectClass;
+        public ICommand SynchronizeSubjectClass { get => _synchronizeSubjectClass; set => _synchronizeSubjectClass = value; }
+
+
         #endregion
 
         public AdminSubjectClassViewModel()
@@ -94,11 +108,15 @@ namespace StudentManagement.ViewModels
             SwitchSearchButton = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButtonFunction(p));
             SearchSubjectClassCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectClassCardsFunction());
             ShowSubjectClassDetail = new RelayCommand<UserControl>((p) => { return p != null; }, (p) => ShowSubjectClassDetailFunction(p));
+
+            SynchronizeSubjectClass = new RelayCommand<UserControl>((p) => { return true; }, (p) => LoadSubjectClassCards());
         }
 
         #region methods
         public void LoadSubjectClassCards()
         {
+            InLoadingSubjectClass = true;
+
             var subjectClasses = LoadSubjectClassListByRole();
 
             StoredSubjectClassCards.Clear();
@@ -108,6 +126,9 @@ namespace StudentManagement.ViewModels
             LoadSubjectClassListBySemester();
 
             LoadSemesters();
+
+            Task.Delay(1000).ContinueWith((task) => { InLoadingSubjectClass = false; });
+
             #region temporary code
             /*
             StoredSubjectClassCards = new ObservableCollection<SubjectClassCard>()

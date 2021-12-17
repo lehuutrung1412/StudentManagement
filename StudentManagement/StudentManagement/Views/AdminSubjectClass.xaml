@@ -29,13 +29,58 @@
                     <math:MathConverter x:Key="math" />
                 </Grid.Resources>
                 <StackPanel>
-                    <TextBlock
-                        Grid.Column="0"
-                        Margin="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Text="Danh sách lớp môn học" />
-
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="16"
+                            FontWeight="Bold"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Text="Danh sách lớp môn học" />
+                        <Button
+                            Grid.Column="1"
+                            Width="45"
+                            Height="45"
+                            Margin="16,0"
+                            HorizontalAlignment="Right"
+                            materialDesign:ButtonProgressAssist.IndicatorBackground="Transparent"
+                            materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding InLoadingSubjectClass}"
+                            materialDesign:ButtonProgressAssist.Value="-1"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                            Background="{DynamicResource PrimaryMain}"
+                            Command="{Binding SynchronizeSubjectClass}"
+                            Foreground="White"
+                            Style="{StaticResource MaterialDesignFloatingActionLightButton}">
+                            <!--  simple example of toggling/animating pack icon with a data trigger  -->
+                            <materialDesign:PackIcon Width="24" Height="24">
+                                <materialDesign:PackIcon.Style>
+                                    <Style BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}" TargetType="materialDesign:PackIcon">
+                                        <Setter Property="Kind" Value="CloudSync" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSaveComplete}" Value="True">
+                                                <Setter Property="Kind" Value="Check" />
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation
+                                                                Storyboard.TargetProperty="Opacity"
+                                                                From="0"
+                                                                To="1"
+                                                                Duration="0:0:0.8" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
+                        </Button>
+                    </Grid>
                     <Grid Margin="16" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5.5*" />
