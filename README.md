@@ -210,7 +210,7 @@
 
 <details>
   <summary>Các công nghệ sử dụng</summary>
-  
+
 - Nền tảng: .Net FrameWork, version 4.7.2
 - Frontend: C#, XAML, Windows Presentation Foundation (WPF)
 - Backend: C#
@@ -230,10 +230,10 @@
 - Download hoặc clone repo về máy tính.
 - Chạy file `SqlServer/data.sql`
 - Chạy file `StudentManagement/StudentManagement/StudentManagement.sln` bằng Visual Studio
-- Tài khoản mặc định: 
-	- Tài khoản admin: admin/admin
-	- Tài khoản giáo viên: gv/gv
-	- Tài khoản sinh viên: sv/sv
+- Tài khoản mặc định:
+  - Tài khoản admin: admin/admin
+  - Tài khoản giáo viên: gv/gv
+  - Tài khoản sinh viên: sv/sv
 
 </details>
 
@@ -247,4 +247,48 @@
 	- Tài khoản giáo viên: gv/gv
 	- Tài khoản sinh viên: sv/sv
 
+</details>
+
+## 5. Hướng dẫn sử dụng
+
+<details>
+  <summary>Đăng nhập và quên mật khẩu</summary>
+
+| ![](./ReadmeAssets/Login.png) | ![](./ReadmeAssets/ForgotPassword.png) |
+| :---------------------------: | :------------------------------------: |
+|     _Màn hình đăng nhập_      |        _Màn hình quên mật khẩu_        |
+
+1. Nhập tên đăng nhập - textbox
+2. Nhập mật khẩu - passwordbox
+3. Ghi nhớ đăng nhập - checkbox
+4. Đăng nhập - button
+5. Chuyển sang màn hình quên mật khẩu - button
+6. Nhập Email để xác thực danh tính - textbox
+7. Nhập mã OTP được gửi về Email - textbox and button
+8. Nhập mật khẩu mới - passwordbox
+9. Nhập lại mật khẩu mới - passwordbox
+
+</details>
+
+<details>
+  <summary>Màn hình lớp môn học</summary>
+
+| ![](./ReadmeAssets/SubjectClass.png) | ![](./ReadmeAssets/SubjectClassEdit.png) |
+| :----------------------------------: | :--------------------------------------: |
+|      _Màn hình quản lý lớp học_      |  _Màn hình chỉnh sửa thông tin lớp học_  |
+
+1. Tìm kiếm lớp môn học - textbox
+2. Chọn để tìm kiếm lớp môn học theo mã lớp và tên môn - button
+3. Chọn để tìm kiếm lớp môn học theo giáo viên - button
+4. Chọn học kỳ cần lọc - combobox
+5. Đồng bộ với dữ liệu mới trên cloud - button
+6. Xem thông tin lớp môn học - button
+7. Đến trang thông tin chi tiết lớp học - button
+8. Thêm lớp học mới - button
+9. Đến giao diện chỉnh sửa lớp học - button
+10. Xóa lớp học - button
+11. Thay đổi ảnh bìa cho lớp học - button
+12. Thay đổi thông tin cho lớp học - textbox, datepicker, combobox
+13. Hủy tất cả thay đổi - button
+14. Xác nhận thay đổi - button
 </details>
