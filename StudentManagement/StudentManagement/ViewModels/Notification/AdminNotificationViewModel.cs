@@ -3,6 +3,7 @@ using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using StudentManagement.Utils;
+using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -298,30 +299,42 @@ namespace StudentManagement.ViewModels
 
         public void ShowDetailNotification(UserControl p)
         {
-            if (p.DataContext == null)
-                return;
-            var card = p.DataContext as NotificationCard;
-            IsOpen = true;
-            this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
-            this.DialogItemViewModel = this._showDetailNotificationViewModel;
-            card.Status = true;
-            for (int i = 0; i < CardsInBadge.Count; i++)
-            {
-                if (CardsInBadge[i].Id == card.Id)
-                {
-                    CardsInBadge[i].Status = true;
-                    break;
-                }
-            }
             try
             {
+                if (p.DataContext == null)
+                    return;
+                var card = p.DataContext as NotificationCard;
+                if(card.IdSubjectClass==null)
+                {
+                    IsOpen = true;
+                    this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
+                    this.DialogItemViewModel = this._showDetailNotificationViewModel;
+                    card.Status = true;
+                    for (int i = 0; i < CardsInBadge.Count; i++)
+                    {
+                        if (CardsInBadge[i].Id == card.Id)
+                        {
+                            CardsInBadge[i].Status = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId((Guid)card.IdSubjectClass);
+                    var subjectClassCard = SubjectClassServices.Instance.ConvertSubjectClassToSubjectClassCard(subjectClass);
+                    SubjectClassDetail subjectClassDetail = new SubjectClassDetail
+                    {
+                        DataContext = new SubjectClassDetailViewModel(subjectClassCard)
+                    };
+                    subjectClassDetail.Show();
+                }    
                 NotificationServices.Instance.MarkAsReadNotificationInfoByNotificationCardAndIdUser(card, IdUser);
             }
             catch
             {
                 MyMessageBox.Show("Đã có lỗi trong việc đánh dấu đã đọc", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-          
         }
 
         public void Search()
