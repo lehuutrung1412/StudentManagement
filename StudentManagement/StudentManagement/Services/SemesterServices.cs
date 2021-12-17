@@ -27,7 +27,7 @@ namespace StudentManagement.Services
             return a;
         }
 
-        public Semester GetFirstOpenningRegisterSemester()
+        public Semester GetLastOpenningRegisterSemester()
         {
             var listSemesterDesc = DataProvider.Instance.Database.Semesters.OrderByDescending(y => y.DisplayName).OrderByDescending(x => x.Batch);
             Semester a = listSemesterDesc.Where(semesterItem => semesterItem.CourseRegisterStatus == 1).FirstOrDefault();
@@ -35,7 +35,7 @@ namespace StudentManagement.Services
         }
         public ObservableCollection<Semester> LoadListSemester()
         {
-            var a = DataProvider.Instance.Database.Semesters.OrderBy(y => y.DisplayName).OrderBy(x => x.Batch).ToList();
+            var a = DataProvider.Instance.Database.Semesters.OrderBy(x => x.Batch).ThenBy(y => y.DisplayName).ToList();
             return new ObservableCollection<Semester>(a);
         }
 

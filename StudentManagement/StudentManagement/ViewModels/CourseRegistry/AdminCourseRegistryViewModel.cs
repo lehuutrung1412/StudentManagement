@@ -288,7 +288,7 @@ namespace StudentManagement.ViewModels
                 var courseItemsNewSemester = new ObservableCollection<CourseItem>() { };
                 CourseRegistryItemsAll.Add(courseItemsNewSemester);
                 SelectedSemester = Semesters.Last();
-                Semesters = new ObservableCollection<Semester>(Semesters.OrderBy(y => y.DisplayName).OrderBy(x => x.Batch).ToList());
+                /*Semesters = new ObservableCollection<Semester>(Semesters.OrderBy(y => y.DisplayName).OrderBy(x => x.Batch).ToList());*/
                 CreateNewBatch();
             }
             catch

@@ -171,7 +171,7 @@ namespace StudentManagement.ViewModels
 
         public void UpdateSemester()
         {
-            CurrentSemester = SemesterServices.Instance.GetFirstOpenningRegisterSemester();
+            CurrentSemester = SemesterServices.Instance.GetLastOpenningRegisterSemester();
         }
         public void UpdateScheduleItems()
         {

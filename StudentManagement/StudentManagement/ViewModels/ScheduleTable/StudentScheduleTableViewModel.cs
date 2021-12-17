@@ -103,10 +103,12 @@ namespace StudentManagement.ViewModels
             {
                 case "Sinh viên":
                     CurrentStudent = StudentServices.Instance.FindStudentByUserId(currentUser.Id);
-                    return SemesterServices.Instance.LoadListSemestersByStudentIdAndSemesterStatuses(CurrentStudent.Id, new bool[] { false, false, true });
+                    var tempSemesters = SemesterServices.Instance.LoadListSemestersByStudentIdAndSemesterStatuses(CurrentStudent.Id, new bool[] { false, false, true });
+                    return new ObservableCollection<Semester>(tempSemesters.OrderBy(x => x.Batch).ThenBy(y => y.DisplayName).ToList());
                 case "Giáo viên":
                     CurrentTeacher = TeacherServices.Instance.GetTeacherbyUser(currentUser);
-                    return SemesterServices.Instance.LoadListSemestersByTeacherAndSemesterStatuses(CurrentTeacher, new bool[] { false, false, true });
+                    var tempSemesters2 = SemesterServices.Instance.LoadListSemestersByTeacherAndSemesterStatuses(CurrentTeacher, new bool[] { false, false, true });
+                    return new ObservableCollection<Semester>(tempSemesters2.OrderBy(x => x.Batch).ThenBy(y => y.DisplayName).ToList());
                 default:
                     return new ObservableCollection<Semester>();
             }
