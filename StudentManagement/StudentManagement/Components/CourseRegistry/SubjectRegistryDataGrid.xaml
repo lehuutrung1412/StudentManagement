@@ -18,8 +18,7 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <math:MathConverter
-            x:Key="math" />
+        <math:MathConverter x:Key="math" />
     </UserControl.Resources>
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -50,6 +49,11 @@
                                 <Setter Property="Opacity" Value="0.5" />
                                 <Setter Property="Foreground" Value="Red" />
                                 <Setter Property="ToolTip" Value="Trùng giờ học" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsValidSubject}" Value="True">
+                                <Setter Property="Opacity" Value="0.5" />
+                                <Setter Property="Foreground" Value="DarkBlue" />
+                                <Setter Property="ToolTip" Value="Trùng môn học" />
                             </DataTrigger>
                         </Style.Triggers>
 
@@ -116,8 +120,7 @@
                     <DataGridTextColumn
                         Binding="{Binding WeekDay, Mode=OneWay, Converter={StaticResource math}, ConverterParameter='x+2'}"
                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="Thứ">
-                    </DataGridTextColumn>
+                        Header="Thứ" />
                     <materialDesign:DataGridTextColumn
                         Binding="{Binding Period, Mode=OneWay}"
                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"

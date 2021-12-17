@@ -55,7 +55,7 @@ namespace StudentManagement.ViewModels
                 OnPropertyChanged();
                 foreach(CourseItem course in CourseRegistryItems2)
                 {
-                    if (course.IsSelected == !value && course.IsConflict == false)
+                    if (course.IsSelected == !value && course.IsConflict == false && course.IsValidSubject == false)
                     {
                         course.IsSelected = value;
                         UpdateConflictionByEditCourse(course);
@@ -188,10 +188,8 @@ namespace StudentManagement.ViewModels
         {
             foreach (CourseItem item in CourseRegistryItems2)
             {
-                if (CourseItem.IsConflictCourseRegistry(CourseRegistryItems1, item))
-                    item.IsConflict = true;
-                else
-                    item.IsConflict = false;
+                item.IsConflict = CourseItem.IsConflictCourseRegistry(CourseRegistryItems1, item);
+                item.IsValidSubject = CourseItem.IsSameSubjectCourseRegistry(CourseRegistryItems1, item);
             }
         }
         public void RegisterSelectedCourses()
@@ -268,7 +266,7 @@ namespace StudentManagement.ViewModels
         public void CourseCheckChanged(DataGridBeginningEditEventArgs e)
         {
             CourseItem editCourseItem = e.Row.Item as CourseItem;
-            if (editCourseItem.IsConflict)
+            if (editCourseItem.IsConflict || editCourseItem.IsValidSubject)
                 return;
             editCourseItem.IsSelected = !editCourseItem.IsSelected;
 
@@ -287,14 +285,17 @@ namespace StudentManagement.ViewModels
             if (editCourseItem.IsSelected)
             {
                 CourseRegistryItemsChecked.Add(editCourseItem);
-                /*CheckConflict*/
+                /*UpdateConflict*/
                 foreach (CourseItem course in CourseRegistryItems2)
                 {
                     if (course.IsSelected)
                         continue;
-                    if (course.IsConflict)
-                        continue;
                     if (course == editCourseItem)
+                        continue;
+                    if (!course.IsValidSubject)
+                        if (course.Subject.Id == editCourseItem.Subject.Id)
+                            course.IsValidSubject = true;
+                    if (course.IsConflict)
                         continue;
                     course.IsConflict = CourseItem.IsConflictCourseRegistry(CourseRegistryItemsChecked, course);
                 }
@@ -305,9 +306,12 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItemsChecked.Remove(editCourseItem);
                 foreach (CourseItem course in CourseRegistryItems2)
                 {
-                    if (!course.IsConflict)
-                        continue;
                     if (course == editCourseItem)
+                        continue;
+                    if (course.IsValidSubject)
+                        if (course.Subject.Id == editCourseItem.Subject.Id)
+                            course.IsValidSubject = false;
+                    if (!course.IsConflict)
                         continue;
                     course.IsConflict = CourseItem.IsConflictCourseRegistry(CourseRegistryItemsChecked, course) || CourseItem.IsConflictCourseRegistry(CourseRegistryItems1, course);
                 }
