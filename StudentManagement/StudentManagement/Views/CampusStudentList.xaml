@@ -34,8 +34,8 @@
             <TextBlock
                 Grid.Row="0"
                 Margin="12,8,8,0"
-                FontSize="30"
                 FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                 Text="Danh sách người dùng" />
             <Grid Grid.Row="1" Margin="12,8,0,8">
                 <Grid.ColumnDefinitions>

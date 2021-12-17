@@ -40,8 +40,8 @@
             <TextBlock
                 Grid.Row="0"
                 Margin="12,8,8,0"
-                FontSize="35"
                 FontWeight="Bold"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                 Text="Bảng điểm sinh viên" />
 
             <Grid Grid.Row="1" Margin="12,8,0,8">
@@ -83,15 +83,14 @@
 
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="5" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
                     Grid.Row="0"
                     Margin="12,0,0,0"
                     FontSize="25"
-                    FontWeight="Bold"
-                    Text="Kết quả học tập" />
+                    FontWeight="Bold" />
 
                 <ScrollViewer
                     Grid.Row="1"
