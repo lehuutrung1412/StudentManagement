@@ -63,6 +63,7 @@ namespace StudentManagement.Services
 
         public ObservableCollection<Semester> LoadListSemestersByTeacherAndSemesterStatuses(Teacher teacher, bool[] semesterStatus)
         {
+
             var listSemester = new List<Semester>();
             var listSubjectClass = DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Teachers.FirstOrDefault().Id == teacher.Id).ToList();
             for (int i = 0; i < semesterStatus.Length; i++)

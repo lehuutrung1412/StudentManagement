@@ -169,6 +169,7 @@ namespace StudentManagement.ViewModels
             if (op.ShowDialog() == true)
             {
                 CurrentCard.Image = op.FileName;
+                
             }
         }
     }

@@ -67,8 +67,10 @@
                     Margin="0,0,0,8"
                     FontSize="20"
                     FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                    Text="Xin chào, Ngô Quang Vinh" />
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}">
+                    <Run Text="Xin chào, "/>
+                    <Run Text="{Binding DisplayName, Source={StaticResource UserInfoVM}}"/>
+                </TextBlock>
 
                 <TextBlock
                     Grid.Row="0"
@@ -117,13 +119,14 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    TextAlignment="Center">
+                    TextAlignment="Center"
+                    DataContext="{DynamicResource UserInfoVM}">
                     <Run
                         FontSize="16"
                         FontWeight="Bold"
-                        Text="Ngô Quang Vinh" />
+                        Text="{Binding DisplayName}" />
                     <LineBreak />
-                    <Run Foreground="Gray" Text="Học sinh" />
+                    <Run Foreground="Gray" Text="{Binding Role}" />
                 </TextBlock>
             </StackPanel>
 

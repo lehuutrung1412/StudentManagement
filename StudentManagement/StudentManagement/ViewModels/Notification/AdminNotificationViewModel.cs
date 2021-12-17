@@ -155,6 +155,7 @@ namespace StudentManagement.ViewModels
             Instance = this;
             Type = NotificationTypeServices.Instance.GetListNotificationType();
             TypeInMain = new ObservableCollection<string>(Type);
+            Type = new ObservableCollection<string> { "Thông báo chung", "Thông báo sinh viên", "Thông báo giáo viên", "Thông báo Admin" };
             TypeInMain.Add("Tất cả");
             SearchInfo = "";
             SearchType = "Tất cả";
