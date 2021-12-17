@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
@@ -61,12 +62,18 @@ namespace StudentManagement.ViewModels
 
         public AdminNotificationRightSideBarViewModel()
         {
+            LoginServices.UpdateCurrentUser += FreeRightSideBar;
             InitRightSideBarItemViewModel();
             CurrentCard = null;
             ShowCardInfo = new RelayCommand<UserControl>((p) => { return true; }, (p) => ShowCardInfoByCardDataContext(p));
             Editnotification = new RelayCommand<object>((p) => { return true; }, (p) => EditnotificationByCardDataContext());
             CancelNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => CancelNotification());
             Instance = this;
+        }
+
+        private void FreeRightSideBar(object sender, LoginServices.LoginEvent e)
+        {
+            _rightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
 
         #region Method
