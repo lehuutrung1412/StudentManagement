@@ -292,3 +292,68 @@
 13. Hủy tất cả thay đổi - button
 14. Xác nhận thay đổi - button
 </details>
+
+<details>
+  <summary>Màn hình khoa - hệ đào tạo</summary>
+
+| ![](./ReadmeAssets/TrainingForm.png) | ![](./ReadmeAssets/TrainingFormEdit.png)  |
+| :----------------------------------: | :---------------------------------------: |
+|    _Màn hình quản lý hệ đào tạo_     | _Màn hình chỉnh sửa thông tin hệ đào tạo_ |
+
+1. Thêm hệ đào tạo mới - button
+2. Xem thông tin hệ đào tạo - button
+3. Chỉnh sửa thông tin hệ đào tạo - button
+4. Xóa hệ đào tạo - button
+5. Xóa hệ đào tạo - button
+6. Chỉnh sửa thông tin hệ đào tạo - button
+7. Nhập tên hệ đào tạo - textbox
+8. Số lượng khoa có hệ đào tạo (ứng dụng tự tính toán) - textbox
+9. Số lượng sinh viên thuộc hệ đào tạo (ứng dụng tự tính toán) - textbox
+10. Hủy bỏ các thay đổi hiện tại - button
+11. Xác nhận các thay đổi hiện tại - button
+
+| ![](./ReadmeAssets/Faculty.png) |    ![](./ReadmeAssets/FacultyEdit.png)    |
+| :-----------------------------: | :---------------------------------------: |
+|  _Màn hình quản lý hệ đào tạo_  | _Màn hình chỉnh sửa thông tin hệ đào tạo_ |
+
+12. Tìm kiếm khoa - textbox
+13. Tìm kiếm khoa theo tên khoa - button
+14. Tìm kiếm khoa theo hệ đào tạo - button
+15. Thêm khoa mới - button
+16. Xóa khoa - button
+17. Chỉnh sửa thông tin khoa - button
+18. Nhập tên khoa - textbox
+19. Chọn ngày thành lập khoa - datepicker
+20. Số lượng sinh viên thuộc khoa (ứng dụng tự tính toán) - textbox
+21. Các hệ đào tạo mà khoa chưa có - combobox
+22. Thêm hệ đào tạo mới cho khoa - button
+23. Xóa hệ đào tạo thuộc khoa - button
+24. Hủy bỏ các thay đổi hiện tại - button
+25. Xác nhận các thay đổi hiện tại - button
+
+</details>
+
+<details>
+  
+  <summary>Màn hình quản lý thông báo</summary>
+
+| ![](./ReadmeAssets/Notification.png) | ![](./ReadmeAssets/NotificationEdit.png) |
+| :----------------------------------: | :--------------------------------------: |
+|     _Màn hình quản lý thông báo_     |      _Màn hình chỉnh sửa thông báo_      |
+
+| ![](./ReadmeAssets/CreateNotification.png) | ![](./ReadmeAssets/NotificationPopupbox.png) |
+| :----------------------------------------: | :------------------------------------------: |
+|          _Màn hình tạo thông báo_          |          _Popup box xem thông báo_           |
+
+</details>
+
+<details>
+  <summary>Màn hình thông tin cá nhân</summary>
+
+|   ![](./ReadmeAssets/UserInfo.png)   |  ![](./ReadmeAssets/UserInfoEdit.png)  |
+| :----------------------------------: | :------------------------------------: |
+| _Màn hình quản lý thông tin cá nhân_ | _Màn hình chỉnh sửa thông tin cá nhân_ |
+
+1. Tìm kiếm lớp môn học - textbox
+
+</details>

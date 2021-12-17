@@ -85,6 +85,7 @@
                     <TextBox
                         Grid.Row="1"
                         materialDesign:HintAssist.Hint="Số lượng sinh viên"
+                        IsEnabled="False"
                         Style="{StaticResource textbox_item}"
                         Text="{Binding CurrentCard.NumberOfStudents, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
