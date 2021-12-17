@@ -93,7 +93,7 @@
                         Margin="8"
                         VerticalAlignment="Center"
                         FontWeight="Bold"
-                        Foreground="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Green&quot; : (x == 1 ? &quot;Red&quot; : &quot;Gray&quot;)), x)'}"
+                        Foreground="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;BlueViolet&quot; : (x == 1 ? &quot;Green&quot; : &quot;FireBrick&quot;)), x)'}"
                         Text="{Binding ElementName=cbSemester, Path=SelectedItem.CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;Tạm đóng&quot; : (x == 1 ? &quot;Đang mở&quot; : &quot;Kết thúc&quot;)), x)'}" />
                     <DockPanel Grid.Column="3" LastChildFill="False">
                         <Button
@@ -140,7 +140,8 @@
                             </materialDesign:PopupBox>
                         </Button>
                         <Button
-                            Margin="0,0,24,0"
+                            Width="160"
+                            Margin="0,0,-1,0"
                             DockPanel.Dock="Right"
                             Style="{StaticResource rounded_btn}">
                             <materialDesign:PopupBox
@@ -148,10 +149,22 @@
                                 PopupMode="Click"
                                 StaysOpen="True">
                                 <materialDesign:PopupBox.ToggleContent>
-                                    <TextBlock
-                                        FontWeight="SemiBold"
-                                        Foreground="White"
-                                        Text="Tạo học kỳ" />
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                            Kind="BookPlus" />
+                                        <TextBlock
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            FontWeight="Medium"
+                                            Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                                            Text="Tạo học kỳ" />
+                                    </StackPanel>
+
                                 </materialDesign:PopupBox.ToggleContent>
                                 <component:CreateNewSemester />
                             </materialDesign:PopupBox>
@@ -179,32 +192,34 @@
                 </Grid>
                 <DockPanel
                     Grid.Row="2"
-                    Margin="8"
+                    Margin="0 8 0 8"
                     LastChildFill="False">
-                    <Button
+                    <!--<Button
                         Width="150"
                         Margin="16,0,16,0"
                         Command="{Binding ExportExcelCommand}"
                         Content="Xuất ra Excel"
                         DockPanel.Dock="Right"
                         FontSize="14"
-                        Style="{StaticResource rounded_btn}" />
+                        Style="{StaticResource rounded_btn}" />-->
                     <Button
-                        Width="150"
-                        Margin="16,0,0,0"
-                        Command="{Binding AddFromExcelCommand}"
-                        Content="Thêm từ Excel"
-                        DockPanel.Dock="Right"
-                        FontSize="14"
-                        Style="{StaticResource rounded_btn}" />
-                    <Button
-                        Width="150"
-                        Margin="16,0,0,0"
+                        Width="160"
+                        Margin="0,0,0,0"
                         Command="{Binding CreateNewCourseCommand}"
-                        Content="Thêm thủ công"
                         DockPanel.Dock="Left"
-                        FontSize="14"
                         Style="{StaticResource rounded_btn}">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                VerticalAlignment="Center"
+                                Kind="Plus" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="Thêm thủ công" />
+                        </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
@@ -212,13 +227,45 @@
                         </i:Interaction.Triggers>
                     </Button>
                     <Button
-                        Width="150"
+                        Width="160"
                         Margin="16,0,0,0"
-                        Command="{Binding DeleteSelectedItemsCommand}"
-                        Content="Xóa"
+                        Command="{Binding AddFromExcelCommand}"
                         DockPanel.Dock="Left"
-                        FontSize="14"
-                        Style="{StaticResource rounded_btn}" />
+                        Style="{StaticResource rounded_btn}">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                VerticalAlignment="Center"
+                                Kind="FilePlus" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="Thêm từ Excel" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button
+                        Width="160"
+                        Margin="16,0,-1,0"
+                        Background="DarkGray"
+                        Command="{Binding DeleteSelectedItemsCommand}"
+                        DockPanel.Dock="Right"
+                        Style="{StaticResource rounded_btn}">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                VerticalAlignment="Center"
+                                Kind="Delete" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="Xóa các lớp" />
+                        </StackPanel>
+                    </Button>
                 </DockPanel>
                 <component:SubjectRegistryDataGrid
                     Grid.Row="3"

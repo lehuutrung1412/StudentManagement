@@ -207,7 +207,7 @@
                                     Grid.Row="1"
                                     materialDesign:HintAssist.Hint="Nhập tiết (Vd: 8910)"
                                     AcceptsReturn="False"
-                                    Style="{StaticResource MaterialDesignComboBoxEditableTextBox}"
+                                    Style="{StaticResource textbox_item}"
                                     Text="{Binding Period, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             </Grid>
                             <Grid Style="{StaticResource text_grid_item}">
