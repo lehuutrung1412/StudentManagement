@@ -84,11 +84,19 @@ namespace StudentManagement.ViewModels
         #endregion
         public CreateNewNotificationViewModel(NotificationCard card)
         {
-            CurrentCard = card;
-            InitCommand();
-            IsCreateNotification = false;
-            _errorBaseViewModel = new ErrorBaseViewModel();
-            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+            try
+            {
+                CurrentCard = card;
+                InitCommand();
+                IsCreateNotification = false;
+                _errorBaseViewModel = new ErrorBaseViewModel();
+                _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong khởi tạo thông báo", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+
+            }
         }
         #region validation
         private bool IsValid(string propertyName)

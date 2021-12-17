@@ -148,36 +148,44 @@ namespace StudentManagement.ViewModels
 
         public AdminNotificationViewModel()
         {
-            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
-            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
-            Thread.CurrentThread.CurrentCulture = ci;
-
-            Instance = this;
-            Type = NotificationTypeServices.Instance.GetListNotificationType();
-            TypeInMain = new ObservableCollection<string>(Type);
-            Type = new ObservableCollection<string> { "Thông báo chung", "Thông báo sinh viên", "Thông báo giáo viên", "Thông báo Admin" };
-            TypeInMain.Add("Tất cả");
-            SearchInfo = "";
-            SearchType = "Tất cả";
-            SearchDate = null;
-            //Cards = new ObservableCollection<NotificationCard>() {
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
-
-            //};
-            LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
-
-            if (LoginServices.CurrentUser != null)
+            try
             {
-                IdUser = LoginServices.CurrentUser.Id;
-                LoadCardNotification();
+                CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+                ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+                Thread.CurrentThread.CurrentCulture = ci;
+
+                Instance = this;
+                Type = NotificationTypeServices.Instance.GetListNotificationType();
+                TypeInMain = new ObservableCollection<string>(Type);
+                Type = new ObservableCollection<string> { "Thông báo chung", "Thông báo sinh viên", "Thông báo giáo viên", "Thông báo Admin" };
+                TypeInMain.Add("Tất cả");
+                SearchInfo = "";
+                SearchType = "Tất cả";
+                SearchDate = null;
+                //Cards = new ObservableCollection<NotificationCard>() {
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
+
+                //};
+                LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
+
+                if (LoginServices.CurrentUser != null)
+                {
+                    IdUser = LoginServices.CurrentUser.Id;
+                    LoadCardNotification();
+                }
+
+                IsOpen = false;
+                InitIcommand();
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong khởi tạo thông báo", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
 
-            IsOpen = false;
-            InitIcommand();
         }
 
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)

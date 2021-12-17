@@ -156,11 +156,19 @@ namespace StudentManagement.ViewModels
 
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
         {
-            IdUser = LoginServices.CurrentUser.Id;
-            Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
-            DisplayName = LoginServices.CurrentUser?.DisplayName;
-            Role = LoginServices.CurrentUser?.UserRole.Role;
-            UserInfoViewModel.Instance.LoadInfoSource();
+            try
+            {
+                IdUser = LoginServices.CurrentUser.Id;
+                Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
+                DisplayName = LoginServices.CurrentUser?.DisplayName;
+                Role = LoginServices.CurrentUser?.UserRole.Role;
+                UserInfoViewModel.Instance.LoadInfoSource();
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong khởi tạo thông tin cá nhân", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+
         }
 
         public void LoadInfoSource()

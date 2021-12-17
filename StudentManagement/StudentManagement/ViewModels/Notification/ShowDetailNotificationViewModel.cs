@@ -92,14 +92,22 @@ namespace StudentManagement.ViewModels
 
         public ShowDetailNotificationViewModel(NotificationCard card)
         {
-            CurrentCard = card;
-            IsEnable = false;
-            _errorBaseViewModel = new ErrorBaseViewModel();
-            Topic = CurrentCard.Topic;
-            Content = CurrentCard.Content;
-            Type = CurrentCard.Type;
-            InitCommand();
-            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+            try
+            {
+                CurrentCard = card;
+                IsEnable = false;
+                _errorBaseViewModel = new ErrorBaseViewModel();
+                Topic = CurrentCard.Topic;
+                Content = CurrentCard.Content;
+                Type = CurrentCard.Type;
+                InitCommand();
+                _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong khởi tạo thông tin cá nhân", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+           
         }
         #region validation
         private bool IsValid(string propertyName)

@@ -83,47 +83,71 @@ namespace StudentManagement.ViewModels
 
         public EditInfoItemViewModel(InfoItem infoItem)
         {
-            _errorBaseViewModel = new ErrorBaseViewModel();
-            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-            CurrendInfoItem = infoItem;
-            DisplayInfoItem = new InfoItem(infoItem);
-            ListItemInCombobox = new ObservableCollection<ItemInCombobox>();
-            if (infoItem.Type == 2)
-                ConvertItemSourceToListItemCombobox();
-            ConvertTypeToTypeControl();
-         
-            LabelName = CurrendInfoItem.LabelName;
+            try
+            {
+                _errorBaseViewModel = new ErrorBaseViewModel();
+                _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+                CurrendInfoItem = infoItem;
+                DisplayInfoItem = new InfoItem(infoItem);
+                ListItemInCombobox = new ObservableCollection<ItemInCombobox>();
+                if (infoItem.Type == 2)
+                    ConvertItemSourceToListItemCombobox();
+                ConvertTypeToTypeControl();
 
-            AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
-            DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
-            UpdateInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateInfoItem());
-            DeleteInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteInfoItem());
+                LabelName = CurrendInfoItem.LabelName;
+
+                AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
+                DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
+                UpdateInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateInfoItem());
+                DeleteInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteInfoItem());
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong việc khởi tạo trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+
         }
         public void DeleteInfoItem()
         {
-            if (MyMessageBox.Show("Bạn có chắc xoá trường thông tin này: ", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.Yes)
-                return;
-            InfoItemServices.Instance.HiddenUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
-            UserInfoViewModel.Instance.LoadInfoSource();
-            SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
+            try
+            {
+                if (MyMessageBox.Show("Bạn có chắc xoá trường thông tin này: ", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.Yes)
+                    return;
+                InfoItemServices.Instance.HiddenUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
+                UserInfoViewModel.Instance.LoadInfoSource();
+                SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong việc xoá trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+          
         }
         public void UpdateInfoItem()
         {
-            DisplayInfoItem.ItemSource = new ObservableCollection<string>();
-            if (TypeControl == "Combobox")
+            try
             {
-                ListItemInCombobox.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => DisplayInfoItem.ItemSource.Add(s.Value));
-                DisplayInfoItem.Type = 2;
+                DisplayInfoItem.ItemSource = new ObservableCollection<string>();
+                if (TypeControl == "Combobox")
+                {
+                    ListItemInCombobox.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => DisplayInfoItem.ItemSource.Add(s.Value));
+                    DisplayInfoItem.Type = 2;
+                }
+                else if (TypeControl == "Datepicker")
+                {
+                    DisplayInfoItem.Type = 1;
+                }
+                else
+                    DisplayInfoItem.Type = 0;
+                DisplayInfoItem.LabelName = LabelName;
+                InfoItemServices.Instance.UpdateUserRole_UserInfoByInfoItem(DisplayInfoItem);
+                UserInfoViewModel.Instance.LoadInfoSource();
             }
-            else if (TypeControl == "Datepicker")
+            catch
             {
-                DisplayInfoItem.Type = 1;
+                MyMessageBox.Show("Có lỗi trong việc cập nhật trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-            else
-                DisplayInfoItem.Type = 0;
-            DisplayInfoItem.LabelName = LabelName;
-            InfoItemServices.Instance.UpdateUserRole_UserInfoByInfoItem(DisplayInfoItem);
-            UserInfoViewModel.Instance.LoadInfoSource();
+      
 
             //for (int i =0; i<UserInfoViewModel.Instance.InfoSource.Count; i++)
             //{

@@ -25,24 +25,48 @@ namespace StudentManagement.ViewModels
 
         public DeleteInfoItemViewModel(InfoItem infoItem)
         {
-            CurrendInfoItem = infoItem;
-            DeleteInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteInfoItem());
-            RestoreInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => RestoreInfoItem());
+            try
+            {
+                CurrendInfoItem = infoItem;
+                DeleteInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => DeleteInfoItem());
+                RestoreInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => RestoreInfoItem());
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong việc khởi tạo trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+         
         }
         public void DeleteInfoItem()
         {
-            if (MyMessageBox.Show("Bạn có xoá vĩnh viễn trường thông tin này: ", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.Yes)
-                return;
-            InfoItemServices.Instance.DeleteUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
-            SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
+            try
+            {
+                if (MyMessageBox.Show("Bạn có xoá vĩnh viễn trường thông tin này: ", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.Yes)
+                    return;
+                InfoItemServices.Instance.DeleteUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
+                SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong việc xoá trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+
         }
         public void RestoreInfoItem()
         {
-            if (MyMessageBox.Show("Bạn có khôi phục trường thông tin này: ", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.Yes)
-                return;
-            InfoItemServices.Instance.RestoreUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
-            UserInfoViewModel.Instance.LoadInfoSource();
-            SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
+            try
+            {
+                if (MyMessageBox.Show("Bạn có khôi phục trường thông tin này: ", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Warning) != System.Windows.MessageBoxResult.Yes)
+                    return;
+                InfoItemServices.Instance.RestoreUserRole_UserInfo(CurrendInfoItem, SettingUserInfoViewModel.Instance.Role);
+                UserInfoViewModel.Instance.LoadInfoSource();
+                SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong việc khôi phục trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+
         }
 
     }
