@@ -298,6 +298,54 @@
 </details>
 
 <details>
+  <summary>Màn hình chi tiết lớp học - Bảng tin lớp học</summary>
+
+|      ![](./ReadmeAssets/Newfeed1.png)       |
+| :-----------------------------------------: |
+| _Chức năng đăng bài viết mới trong lớp học_ |
+
+|       ![](./ReadmeAssets/Newfeed2.png)       |
+| :------------------------------------------: |
+| _Chức năng chỉnh sửa bài viết trong lớp học_ |
+
+|       ![](./ReadmeAssets/Newfeed3.png)       |
+| :------------------------------------------: |
+| _Chức năng bình luận bài viết trong lớp học_ |
+
+</details>
+
+<details>
+  <summary>Màn hình chi tiết lớp học - Tài liệu lớp học</summary>
+
+|    ![](./ReadmeAssets/FileManager1.png)     |
+| :-----------------------------------------: |
+| _Chức năng thêm sửa xóa file trong lớp học_ |
+
+|     ![](./ReadmeAssets/FileManager2.png)      |
+| :-------------------------------------------: |
+| _Chức năng thêm sửa xóa folder trong lớp học_ |
+
+</details>
+
+<details>
+  <summary>Màn hình chi tiết lớp học - Cài đặt lớp học</summary>
+
+| ![](./ReadmeAssets/SettingSubjectClass.png) |
+| :-----------------------------------------: |
+|         _Màn hình cài đặt lớp học_          |
+
+</details>
+
+<details>
+  <summary>Màn hình chi tiết lớp học - Danh sách sinh viên lớp học</summary>
+
+| ![](./ReadmeAssets/StudentSubjectClass.png) |  ![](./ReadmeAssets/StudentSubjectClassEdit.png)  |
+| :-----------------------------------------: | :-----------------------------------------------: |
+|   _Màn hình danh sách sinh viên lớp học_    | _Màn hình chỉnh sửa thông tin học phần sinh viên_ |
+
+</details>
+
+<details>
   <summary>Màn hình khoa - hệ đào tạo</summary>
 
 | ![](./ReadmeAssets/TrainingForm.png) | ![](./ReadmeAssets/TrainingFormEdit.png)  |
@@ -369,10 +417,6 @@
 | :----------------------------------: | :--------------------------------------: |
 |     _Màn hình quản lý thông báo_     |      _Màn hình chỉnh sửa thông báo_      |
 
-| ![](./ReadmeAssets/CreateNotification.png) | ![](./ReadmeAssets/NotificationPopupbox.png) |
-| :----------------------------------------: | :------------------------------------------: |
-|          _Màn hình tạo thông báo_          |          _Popup box xem thông báo_           |
-
 1. Tìm kiếm theo loại thông báo - combobox
 2. Nhập chủ đề theo chủ đề - textbox
 3. Nhập ngày tìm kiếm - datepicker
@@ -385,13 +429,18 @@
 10. Thay đổi thông tin cho thông báo - textbox, textbox, datepicker, combobox
 11. Huỷ sửa thông báo - button
 12. Lưu cập nhật - button
-    13.Nhập thông tin thông bao - textbox, combobox, datepicker
-13. Thêm thông báo - button
-14. Huỷ thêm thông báo - button
-15. Đánh dấu tất cả đã đọc - button
-16. Xem chi tiết thông báo - button
-17. Đánh dấu đã đọc - button
-18. Đánh dấu chưa đọc - button
+
+| ![](./ReadmeAssets/CreateNotification.png) | ![](./ReadmeAssets/NotificationPopupbox.png) |
+| :----------------------------------------: | :------------------------------------------: |
+|          _Màn hình tạo thông báo_          |          _Popup box xem thông báo_           |
+
+13. Nhập thông tin thông bao - textbox, combobox, datepicker
+14. Thêm thông báo - button
+15. Huỷ thêm thông báo - button
+16. Đánh dấu tất cả đã đọc - button
+17. Xem chi tiết thông báo - button
+18. Đánh dấu đã đọc - button
+19. Đánh dấu chưa đọc - button
 
 </details>
 
