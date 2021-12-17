@@ -179,12 +179,16 @@
 <details>
   <summary>Quản lý Thông tin cá nhân</summary>
 
-- Quản trị viên:
-  - HIển thị các trường thông tin cá nhân theo role
-  - Thêm, xóa , sửa, ẩn, xem các cài đặt của trường thông tin theo role
-- Tất cả người dùng khác:
-  - Hiển thị thông tin cá nhân của người dùng
-  - Chỉnh sửa thông tin cá nhân theo quyền
+- Hiển thị thông tin cá nhân của người dùng
+- Chỉnh sửa thông tin cá nhân theo quyền
+
+</details>
+
+<details>
+  <summary>Quản lý cài đặt Thông tin cá nhân (admin)</summary>
+
+- HIển thị các trường thông tin cá nhân theo role
+- Thêm, xóa , sửa, ẩn, xem các cài đặt của trường thông tin theo role
 
 </details>
 
@@ -249,7 +253,7 @@
 
 </details>
 
-## 5. Hướng dẫn sử dụng
+## 6. Hướng dẫn sử dụng
 
 <details>
   <summary>Đăng nhập và quên mật khẩu</summary>
@@ -330,6 +334,30 @@
 23. Xóa hệ đào tạo thuộc khoa - button
 24. Hủy bỏ các thay đổi hiện tại - button
 25. Xác nhận các thay đổi hiện tại - button
+
+</details>
+
+<details>
+  <summary>Màn hình môn học</summary>
+
+| ![](./ReadmeAssets/Subject.png) |  ![](./ReadmeAssets/SubjectEdit.png)   |
+| :-----------------------------: | :------------------------------------: |
+|   _Màn hình quản lý môn học_    | _Màn hình chỉnh sửa thông tin môn học_ |
+
+1. Tìm kiếm môn học - textbox
+2. Tìm kiếm môn học theo mã môn - textbox
+3. Tìm kiếm môn học theo tên môn - textbox
+4. Thêm môn học mới - button
+5. Thêm môn học mới từ excel- button
+6. Hiển thị danh sách môn học - datagrid
+7. Chỉnh sửa thông tin môn học - button
+8. Xóa môn học - button
+9. Nhập tên môn học - textbox
+10. Nhập mã môn học - textbox
+11. Nhập số tín chỉ của môn học - textbox
+12. Nhập mô tả môn học - textbox
+13. Hủy bỏ các thay đổi hiện tại - button
+14. Xác nhận các thay đổi hiện tại - button
 
 </details>
 
