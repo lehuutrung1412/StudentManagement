@@ -166,6 +166,7 @@
     - Tìm kiếm thông báo theo chủ đề, thời gian, loại thông báo
 
 - Giáo viên:
+
   - Xem chi tiết thông báo thông báo. - Thêm thông báo nghỉ, thông báo bù
   - Tìm kiếm thông báo theo chủ đề, thời gian, loại thông báo
 
@@ -178,12 +179,12 @@
 <details>
   <summary>Quản lý Thông tin cá nhân</summary>
 
-  - Quản trị viên:
-    - HIển thị các trường thông tin cá nhân theo role
-    - Thêm, xóa , sửa, ẩn, xem các cài đặt của trường thông tin theo role
-  - Tất cả người dùng khác:
-    - Hiển thị thông tin cá nhân của người dùng
-    - Chỉnh sửa thông tin cá nhân theo quyền
+- Quản trị viên:
+  - HIển thị các trường thông tin cá nhân theo role
+  - Thêm, xóa , sửa, ẩn, xem các cài đặt của trường thông tin theo role
+- Tất cả người dùng khác:
+  - Hiển thị thông tin cá nhân của người dùng
+  - Chỉnh sửa thông tin cá nhân theo quyền
 
 </details>
 
@@ -200,7 +201,50 @@
 <details>
   <summary>Quản lý điểm (sinh viên)</summary>
 
-  - Xem bảng điểm sinh viên.
-  - Xuất bảng điểm sinh viên (future work)
+- Xem bảng điểm sinh viên.
+- Xuất bảng điểm sinh viên (future work)
+
+</details>
+
+## 4. Công nghệ sử dụng
+
+<details>
+  <summary>Các công nghệ sử dụng</summary>
+  
+- Nền tảng: .Net FrameWork, version 4.7.2
+- Frontend: C#, XAML, Windows Presentation Foundation (WPF)
+- Backend: C#
+- ORM FrameWork: ADO.NET Entity FrameWork, version 6.0.0
+- Hệ quản trị cơ sở dữ liệu: SQL Server
+- Dịch vụ lưu trữ đám mây: Google Cloud Platform, CDN
+- IDE: Microsoft Visual Studio 2019
+- UI design tool: Miro
+- Thư viện hỗ trợ khác: MaterialDesignXAML, System.Windows.Interactivity.WPF, Math Converter
+</details>
+
+## 5. Hướng dẫn cài đặt
+
+<details>
+  <summary>Hướng dẫn cài đặt phần mềm Stuman từ mã nguồn</summary>
+
+- Download hoặc clone repo về máy tính.
+- Chạy file `SqlServer/data.sql`
+- Chạy file `StudentManagement/StudentManagement/StudentManagement.sln` bằng Visual Studio
+- Tài khoản mặc định: 
+	- Tài khoản admin: admin/admin
+	- Tài khoản giáo viên: gv/gv
+	- Tài khoản sinh viên: sv/sv
+
+</details>
+
+<details>
+  <summary>Hướng dẫn cài đặt phần mềm Stuman bản release</summary>
+  
+- Download file zip tại mục release.
+- Giải nén file zip và bật kết nối mạng để sử dụng.
+- Tài khoản mặc định: 
+	- Tài khoản admin: admin/admin
+	- Tài khoản giáo viên: gv/gv
+	- Tài khoản sinh viên: sv/sv
 
 </details>
