@@ -185,7 +185,7 @@
 </details>
 
 <details>
-  <summary>Quản lý cài đặt Thông tin cá nhân (admin)</summary>
+  <summary>Quản lý cài đặt Thông tin cá nhân (Quản trị viên)</summary>
 
 - HIển thị các trường thông tin cá nhân theo role
 - Thêm, xóa , sửa, ẩn, xem các cài đặt của trường thông tin theo role
@@ -373,6 +373,26 @@
 | :----------------------------------------: | :------------------------------------------: |
 |          _Màn hình tạo thông báo_          |          _Popup box xem thông báo_           |
 
+1. Tìm kiếm theo loại thông báo - combobox
+2. Nhập chủ đề theo chủ đề - textbox
+3. Nhập ngày tìm kiếm - datepicker
+4. Tìm kiếm theo chủ đề, ngày, loại thông báo - button
+5. Thêm thông báo - button
+6. Xem thông báo bên right side bar - button
+7. Xem chi tiết thông báo trong dialog host - button
+8. Xoá thông báo - button
+9. Sửa thông báo - button
+10. Thay đổi thông tin cho thông báo - textbox, textbox, datepicker, combobox
+11. Huỷ sửa thông báo - button
+12. Lưu cập nhật - button
+    13.Nhập thông tin thông bao - textbox, combobox, datepicker
+13. Thêm thông báo - button
+14. Huỷ thêm thông báo - button
+15. Đánh dấu tất cả đã đọc - button
+16. Xem chi tiết thông báo - button
+17. Đánh dấu đã đọc - button
+18. Đánh dấu chưa đọc - button
+
 </details>
 
 <details>
@@ -382,6 +402,30 @@
 | :----------------------------------: | :------------------------------------: |
 | _Màn hình quản lý thông tin cá nhân_ | _Màn hình chỉnh sửa thông tin cá nhân_ |
 
-1. Tìm kiếm lớp môn học - textbox
+1. Chỉnh sửa thông tin cá nhân - button
+2. Thay đổi ảnh đại diện - button
+3. Thêm đổi thông tin - textbox, combobox, datepicker
+4. Huỷ thay đổi thông tin - button
+5. Lưu thông tin thay đổi - button
+
+</details>
+
+<details>
+  <summary>Màn hình cài đặt thông tin cá nhân</summary>
+
+| ![](./ReadmeAssets/SettingUserInfo.png) | ![](./ReadmeAssets/CreateSettingUserInfo.png) |
+| :-------------------------------------: | :-------------------------------------------: |
+|  _Màn hình cài đặt thông tin cá nhân_   |    _Cửa sổ thêm trường thông tin cá nhân_     |
+
+1. Chọn role cài đặt - radio button
+2. Thay đổi thiết lập trường thông tin - textbox, combobox, radio button, button
+3. Xoá trường thông tin - button
+4. Xoá vĩnh viễn trường thông tin - button
+5. Khôi phục trường thông tin - button
+6. Thêm trường thông tin - button
+7. Xác nhận cài đặt - button
+8. Nhập trường thông tin - textbox, combobox, checkbox
+9. Thêm trường thông tin - button
+10. Huỷ trường thông tin - button
 
 </details>
