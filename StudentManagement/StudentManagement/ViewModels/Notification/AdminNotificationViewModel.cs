@@ -283,7 +283,7 @@ namespace StudentManagement.ViewModels
         {
             try
             {
-                Cards.ToList().ForEach(card => card.Status = true);
+                CardsInBadge.ToList().ForEach(card => card.Status = true);
                 NotificationServices.Instance.MarkAllAsReadNotificationInfoByIdUser(IdUser);
             }
             catch

@@ -21,7 +21,11 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="8">
             <TextBlock
                 Margin="0,0,0,16"
                 Padding="4"
@@ -54,15 +58,12 @@
             </Grid>
             <Grid Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="64*" />
-                    <ColumnDefinition Width="53*" />
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition  />
+                    <ColumnDefinition  />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
                     Grid.Column="0"
-                    Margin="8,0,8,-1.6"
                     FontSize="16"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
@@ -70,7 +71,6 @@
                 <TextBlock
                     Grid.Column="1"
                     Grid.ColumnSpan="3"
-                    Margin="8,1,8,0.4"
                     VerticalAlignment="Center"
                     FontSize="14"
                     Style="{StaticResource textblock_item}"
@@ -100,73 +100,34 @@
                     TextAlignment="Right"
                     TextWrapping="Wrap" />
             </Grid>
-            <Grid>
-                <Separator Margin="5" />
-            </Grid>
-            <Button
-                x:Name="btnEdit"
-                Padding="0"
-                BorderThickness="0"
-                Command="{Binding Editnotification}"
-                DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
-                Foreground="#DD000000">
 
-                <Grid Width="{Binding ElementName=btnEdit, Path=ActualWidth}">
-                    <TextBlock
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Chỉnh sửa:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Pencil" />
-                </Grid>
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatLightButton}">
-                        <Setter Property="Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IdUser, Converter={utils:CheckAdminConverter}, Source={StaticResource AdminNotificationVM}}" Value="false">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button
-                x:Name="btnDelete"
-                Padding="0"
-                BorderThickness="0"
-                Command="{Binding DeleteNotificationCommand}"
-                DataContext="{DynamicResource AdminNotificationVM}"
-                Foreground="#DD000000">
-
-                <Grid Width="{Binding ElementName=btnDelete, Path=ActualWidth}">
-                    <TextBlock
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Style="{StaticResource textblock_item}"
-                        Text="Xoá:" />
-                    <materialDesign:PackIcon
-                        Width="18"
-                        Height="18"
-                        Margin="0,0,8,0"
-                        HorizontalAlignment="Right"
-                        Kind="Eraser" />
-                </Grid>
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatLightButton}">
-                        <Setter Property="Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IdUser, Converter={utils:CheckAdminConverter}, Source={StaticResource AdminNotificationVM}}" Value="false">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
         </StackPanel>
+        <Grid
+            Grid.Row="1"
+            Margin="8"
+            Style="{StaticResource text_grid_item}"
+            Visibility="{Binding Converter={utils:PropertyByRoleConverter}, ConverterParameter='Visibility2'}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="2"
+                Command="{Binding Editnotification}"
+                Content="Sửa"
+                DataContext="{DynamicResource AdminNotificationRightSideBarVM}"
+                FontSize="16"
+                Style="{StaticResource rounded_btn}" />
+            <Button
+                Grid.Column="1"
+                Background="{StaticResource DarkGray}"
+                Command="{Binding DeleteNotificationCommand}"
+                Content="Xóa"
+                DataContext="{DynamicResource AdminNotificationVM}"
+                FontSize="16"
+                Foreground="White"
+                Style="{StaticResource rounded_btn}" />
+        </Grid>
     </Grid>
 </UserControl>
