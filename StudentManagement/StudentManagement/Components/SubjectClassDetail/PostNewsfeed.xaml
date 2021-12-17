@@ -292,7 +292,7 @@
                                     VerticalAlignment="Top"
                                     DockPanel.Dock="Left">
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{DynamicResource DefaultUserAvatar}" Stretch="Uniform" />
+                                        <ImageBrush ImageSource="{Binding UserAvatar, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
                                     </Ellipse.Fill>
                                 </Ellipse>
 
@@ -452,7 +452,7 @@
                     VerticalAlignment="Top"
                     DockPanel.Dock="Left">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="{DynamicResource DefaultUserAvatar}" Stretch="Uniform" />
+                        <ImageBrush ImageSource="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.DatabaseImageTable.Image, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
                     </Ellipse.Fill>
                 </Ellipse>
                 <TextBox
