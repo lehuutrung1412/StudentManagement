@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static StudentManagement.Services.LoginServices;
 using static StudentManagement.ViewModels.ScoreBoardViewModel;
 
 namespace StudentManagement.ViewModels
@@ -70,6 +71,8 @@ namespace StudentManagement.ViewModels
             if (user == null)
                 return;
 
+            LoginServices.UpdateCurrentUser += FreeRightSideBar;
+
             IdStudent = DataProvider.Instance.Database.Students.Where(x => x.IdUsers == user.Id).FirstOrDefault().Id;
 
             CurrentScore = new ObservableCollection<DetailScoreItem>();
@@ -102,6 +105,10 @@ namespace StudentManagement.ViewModels
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
 
+        private void FreeRightSideBar(object sender, LoginEvent e)
+        {
+            _rightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
+        }
 
     }
 }

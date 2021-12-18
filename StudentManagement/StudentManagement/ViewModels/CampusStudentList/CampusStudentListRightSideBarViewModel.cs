@@ -11,6 +11,7 @@ using System.Windows.Input;
 using static StudentManagement.ViewModels.AdminStudentListViewModel;
 using StudentManagement.Services;
 using StudentManagement.ViewModels.UserInfo;
+using static StudentManagement.Services.LoginServices;
 
 namespace StudentManagement.ViewModels
 {
@@ -91,6 +92,7 @@ namespace StudentManagement.ViewModels
             InfoSource = new ObservableCollection<InfoItemViewModel>();
 
             Instance = this;
+            LoginServices.UpdateCurrentUser += FreeRightSideBar;
         }
 
         public void LoadInfoSource(Guid IdUser)
@@ -143,6 +145,11 @@ namespace StudentManagement.ViewModels
             LoadInfoSource((Guid)currentStudent.ID);
             _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemViewModel(InfoSource);
             RightSideBarItemViewModel = _campusStudentListRightSideBarItemViewModel;
+        }
+
+        private void FreeRightSideBar(object sender, LoginEvent e)
+        {
+            _rightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
 
     }

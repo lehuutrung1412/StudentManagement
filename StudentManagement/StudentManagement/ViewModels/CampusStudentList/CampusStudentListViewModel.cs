@@ -177,6 +177,7 @@ namespace StudentManagement.ViewModels
                             newStudent.TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(x => x.DisplayName == temp).FirstOrDefault();
                             newStudent.IdFaculty = newStudent.Faculty.Id;
                             newStudent.IdTrainingForm = newStudent.TrainingForm.Id;
+                            newStudent.User = NewUser;
 
                             StudentServices.Instance.SaveStudentToDatabase(newStudent);
                             UserDatabase.Add(new UserCard(newStudent));
@@ -191,6 +192,7 @@ namespace StudentManagement.ViewModels
                             string temp = student[4].ToString();
                             newTeacher.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
                             newTeacher.IdFaculty = newTeacher.Faculty.Id;
+                            newTeacher.User = NewUser;
 
                             TeacherServices.Instance.SaveTeacherToDatabase(newTeacher);
                             UserDatabase.Add(new UserCard(newTeacher));
