@@ -130,7 +130,7 @@ namespace StudentManagement.ViewModels
         {
             SubjectCard card = p as SubjectCard;
 
-            if (MyMessageBox.Show($"Bạn thực sự muốn xóa môn học {card.DisplayName}({card?.Code})? Xóa môn học sẽ không xóa các lớp học và điểm thành phân của sinh viên!!!", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            if (MyMessageBox.Show($"Bạn thực sự muốn xóa môn học {card.DisplayName}({card?.Code})? Xóa môn học sẽ không xóa các lớp học và điểm thành phần của sinh viên!!!", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
             {
                 bool success = SubjectServices.Instance.RemoveSubjectCardFromDatabase(card);
 

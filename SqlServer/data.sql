@@ -653,12 +653,15 @@ CREATE TRIGGER UTG_CountNumberOfStudentsInClass
     ELSE
     BEGIN
       UPDATE b SET NumberOfStudents = 1 + NumberOfStudents FROM dbo.SubjectClass AS b WHERE Id IN (
-        SELECT IdSubjectClass FROM DELETED 
-        UNION  
         SELECT IdSubjectClass FROM INSERTED 
+      )
+      UPDATE b SET NumberOfStudents = NumberOfStudents - 1 FROM dbo.SubjectClass AS b WHERE Id IN (
+        SELECT IdSubjectClass FROM DELETED 
       )
     END
     END
 GO
 
-  
+USE StudentManagement
+
+SELECT * FROM SubjectClass Where Code = 'ssdfgdsgsdfsdfsds.K11'

@@ -100,6 +100,9 @@
     <Compile Include="Components\SubjectClassDetail\SettingSubjectClassRightSideBar.xaml.cs">
       <DependentUpon>SettingSubjectClassRightSideBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\OverviewScoreboardCard.xaml.cs">
+      <DependentUpon>OverviewScoreboardCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassDetail\SettingSubjectClassDetail.xaml.cs">
       <DependentUpon>SettingSubjectClassDetail.xaml</DependentUpon>
     </Compile>
@@ -520,6 +523,7 @@
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\DeleteInfoItemViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SettingSubjectClassRightSideBarViewModel.cs" />
+    <Compile Include="ViewModels\OverviewScoreboardViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SettingSubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\NewsfeedRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemEditViewModel.cs" />
@@ -616,6 +620,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\SubjectClassDetail\SettingSubjectClassRightSideBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\OverviewScoreboardCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

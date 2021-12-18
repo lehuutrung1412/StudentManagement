@@ -39,9 +39,7 @@
 
                         </DataTemplate>
                     </ContentControl.Resources>-->
-                    <component:EditInfoItemInSetting
-                        MinWidth="600"
-                        Background="Transparent" />
+                    <component:EditInfoItemInSetting MinWidth="600" Background="Transparent" />
 
                 </ContentControl>
             </Grid>

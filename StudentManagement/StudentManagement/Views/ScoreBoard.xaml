@@ -20,101 +20,110 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <materialDesign:Card
-        Grid.Column="9"
-        Grid.ColumnSpan="3"
-        Style="{StaticResource CardContainer}">
-        <Grid>
-            <Grid.Resources>
-                <Style TargetType="{x:Type materialDesign:SmartHint}">
-                    <Setter Property="HorizontalAlignment" Value="Center" />
-                </Style>
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-
-            </Grid.RowDefinitions>
-
-            <TextBlock
-                Grid.Row="0"
-                Margin="12,8,8,0"
-                FontSize="35"
-                FontWeight="Bold"
-                Text="Bảng điểm sinh viên" />
-
-            <Grid Grid.Row="1" Margin="12,8,0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <ComboBox
-                    Grid.Column="0"
-                    materialDesign:HintAssist.Hint="Chọn học kỳ cần xem"
-                    ItemsSource="{Binding Semesters}"
-                    SelectedItem="{Binding SelectedSemester}"
-                    Style="{StaticResource combobox_item}" />
-
-                <Grid Grid.Column="1">
-                    <Button
-                        Height="50"
-                        Margin="16,0,0,12"
-                        Command="{Binding OverviewScoreboard}"
-                        Style="{StaticResource PrimaryButton}"
-                        ToolTip="Tổng quan điểm sinh viên">
-                        <TextBlock Text="Tổng quan" />
-                    </Button>
-                </Grid>
-
-                <Grid Grid.Column="2">
-                    <Button
-                        Height="50"
-                        Margin="16,0,8,12"
-                        Command="{Binding ExportScoreBoard}"
-                        Style="{StaticResource PrimaryButton}"
-                        ToolTip="Xuất bản điểm ra PDF">
-                        <TextBlock Text="Xuất bảng điểm" />
-                    </Button>
-                </Grid>
-            </Grid>
-
-            <Grid Grid.Row="2">
+    <materialDesign:DialogHost
+        VerticalContentAlignment="Center"
+        CloseOnClickAway="True"
+        IsOpen="{Binding IsOpen}">
+        <materialDesign:DialogHost.DialogContent>
+            <component:OverviewScoreboardCard
+                Width="Auto"
+                Height="Auto"
+                DataContext="{Binding OverviewScoreboardItem}" />
+        </materialDesign:DialogHost.DialogContent>
+        <materialDesign:Card
+            Grid.Column="9"
+            Grid.ColumnSpan="3"
+            Style="{StaticResource CardContainer}">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type materialDesign:SmartHint}">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="50" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+
                 </Grid.RowDefinitions>
+
                 <TextBlock
                     Grid.Row="0"
-                    Margin="12,0,0,0"
-                    FontSize="25"
+                    Margin="12,8,8,0"
                     FontWeight="Bold"
-                    Text="Kết quả học tập" />
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="Bảng điểm sinh viên" />
 
-                <ScrollViewer
-                    Grid.Row="1"
-                    HorizontalAlignment="Center"
-                    VerticalScrollBarVisibility="Visible">
-                    <StackPanel>
-                        <ItemsControl ItemsSource="{Binding DisplaySemester, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <component:ScoreboardDataGrid Margin="16,4,0,4" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
+                <Grid Grid.Row="1" Margin="12,8,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox
+                        Grid.Column="0"
+                        materialDesign:HintAssist.Hint="Chọn học kỳ cần xem"
+                        ItemsSource="{Binding Semesters}"
+                        SelectedItem="{Binding SelectedSemester}"
+                        Style="{StaticResource combobox_item}" />
+
+                    <Grid Grid.Column="1">
+                        <Button
+                            Height="50"
+                            Margin="16,0,0,12"
+                            Command="{Binding OverviewScoreboard}"
+                            Style="{StaticResource PrimaryButton}"
+                            ToolTip="Tổng quan điểm sinh viên">
+                            <TextBlock Text="Tổng quan" />
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Button
+                            Height="50"
+                            Margin="16,0,8,12"
+                            Command="{Binding ExportScoreBoard}"
+                            Style="{StaticResource PrimaryButton}"
+                            ToolTip="Xuất bản điểm ra PDF">
+                            <TextBlock Text="Xuất bảng điểm" />
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="12,0,0,0"
+                        FontSize="25"
+                        FontWeight="Bold" />
+
+                    <ScrollViewer
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalScrollBarVisibility="Visible">
+                        <StackPanel>
+                            <ItemsControl ItemsSource="{Binding DisplaySemester, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <component:ScoreboardDataGrid Margin="16,4,0,4" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
             </Grid>
-
-        </Grid>
-    </materialDesign:Card>
-
+        </materialDesign:Card>
+    </materialDesign:DialogHost>
 </UserControl>

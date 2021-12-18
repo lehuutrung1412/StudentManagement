@@ -28,6 +28,13 @@ namespace StudentManagement.ViewModels.UserInfo
                 {
                     _errorBaseViewModel.AddError(nameof(Content), "Vui lòng nhập tên thông tin!");
                 }
+                if (CurrendInfoItem.LabelName.Contains("Username"))
+                {
+                    if (UserServices.Instance.FindUserByUsername(Content) != null)
+                    {
+                        _errorBaseViewModel.AddError(nameof(Content), "Username đã được sử dụng");
+                    }
+                }
                 if(CurrendInfoItem.LabelName.Contains("Địa chỉ email"))
                 {
                     if(!IsValidEmail(Content))
