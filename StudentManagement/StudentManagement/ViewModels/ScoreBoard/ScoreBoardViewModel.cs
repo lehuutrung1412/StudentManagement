@@ -143,7 +143,7 @@ namespace StudentManagement.ViewModels
                 InitCommand();
 
 
-                var ListCourses = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdStudent == IdStudent);
+                var ListCourses = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdStudent == IdStudent && x.SubjectClass.IsDeleted != true);
 
                 ObservableCollection<Guid> ListSemester = new ObservableCollection<Guid>();
 
