@@ -70,12 +70,21 @@ namespace StudentManagement.ViewModels
         }
         public AdminNotificationRightSideBarEditViewModel(NotificationCard card)
         {
-            CurrentCard = card;
-            UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
-            _errorBaseViewModel = new ErrorBaseViewModel();
-            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-            Topic = CurrentCard.Topic;
-            Type = CurrentCard.Type;
+            try
+            {
+                CurrentCard = card;
+                UpdateNotificationCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateNotification());
+                _errorBaseViewModel = new ErrorBaseViewModel();
+                _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+                Topic = CurrentCard.Topic;
+                Type = CurrentCard.Type;
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong khởi tạo thông tin cá nhân", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+ 
+
         }
         #region Method
         private bool IsValid(string propertyName)

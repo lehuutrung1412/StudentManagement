@@ -35,6 +35,14 @@ namespace StudentManagement.ViewModels
 
         public string Avatar { get => _avatar; set { _avatar = value; OnPropertyChanged(); } }
         private string _avatar;
+
+        public string DisplayName { get => _displayName; set { _displayName = value; OnPropertyChanged(); } }
+        private string _displayName;
+
+        public string Role { get => _role; set { _role = value; OnPropertyChanged(); } }
+        private string _role;
+
+
         public ObservableCollection<string> ListTypeControl { get => _listTypeControl; set { _listTypeControl = value; OnPropertyChanged(); } }
         private ObservableCollection<string> _listTypeControl;
 
@@ -115,6 +123,9 @@ namespace StudentManagement.ViewModels
             {
                 IdUser = LoginServices.CurrentUser.Id;
                 Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
+                DisplayName = LoginServices.CurrentUser?.DisplayName;
+                Role = LoginServices.CurrentUser?.UserRole.Role;
+
                 LoadInfoSource();
             }
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
@@ -145,9 +156,19 @@ namespace StudentManagement.ViewModels
 
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
         {
-            IdUser = LoginServices.CurrentUser.Id;
-            Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
-            UserInfoViewModel.Instance.LoadInfoSource();
+            try
+            {
+                IdUser = LoginServices.CurrentUser.Id;
+                Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
+                DisplayName = LoginServices.CurrentUser?.DisplayName;
+                Role = LoginServices.CurrentUser?.UserRole.Role;
+                UserInfoViewModel.Instance.LoadInfoSource();
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong khởi tạo thông tin cá nhân", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+
         }
 
         public void LoadInfoSource()

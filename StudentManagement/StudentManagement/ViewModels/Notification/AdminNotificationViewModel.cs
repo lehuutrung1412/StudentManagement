@@ -3,6 +3,7 @@ using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Services;
 using StudentManagement.Utils;
+using StudentManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -148,35 +149,44 @@ namespace StudentManagement.ViewModels
 
         public AdminNotificationViewModel()
         {
-            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
-            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
-            Thread.CurrentThread.CurrentCulture = ci;
-
-            Instance = this;
-            Type = NotificationTypeServices.Instance.GetListNotificationType();
-            TypeInMain = new ObservableCollection<string>(Type);
-            TypeInMain.Add("Tất cả");
-            SearchInfo = "";
-            SearchType = "Tất cả";
-            SearchDate = null;
-            //Cards = new ObservableCollection<NotificationCard>() {
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
-            //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
-
-            //};
-            LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
-
-            if (LoginServices.CurrentUser != null)
+            try
             {
-                IdUser = LoginServices.CurrentUser.Id;
-                LoadCardNotification();
+                CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+                ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+                Thread.CurrentThread.CurrentCulture = ci;
+
+                Instance = this;
+                Type = NotificationTypeServices.Instance.GetListNotificationType();
+                TypeInMain = new ObservableCollection<string>(Type);
+                Type = new ObservableCollection<string> { "Thông báo chung", "Thông báo sinh viên", "Thông báo giáo viên", "Thông báo Admin" };
+                TypeInMain.Add("Tất cả");
+                SearchInfo = "";
+                SearchType = "Tất cả";
+                SearchDate = null;
+                //Cards = new ObservableCollection<NotificationCard>() {
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo sinh viên","ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Thị Quý","Thông báo giáo viên","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Tổ chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now),
+                //    new NotificationCard(Guid.NewGuid(),"Nguyễn Tấn Toàn","Thông báo chung","Chào các bạn sinh viên! Trung tâm Khảo thí và Đánh giá chất lượng đào tạo - ĐHQG-HCM thông báo lịch thi chứng chỉ trong các tháng 10, 11, 12  ...", "Cường chức thi chứng chỉ tiếng Anh VNU-OPT", DateTime.Now)
+
+                //};
+                LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
+
+                if (LoginServices.CurrentUser != null)
+                {
+                    IdUser = LoginServices.CurrentUser.Id;
+                    LoadCardNotification();
+                }
+
+                IsOpen = false;
+                InitIcommand();
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong khởi tạo thông báo", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
 
-            IsOpen = false;
-            InitIcommand();
         }
 
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
@@ -273,7 +283,7 @@ namespace StudentManagement.ViewModels
         {
             try
             {
-                Cards.ToList().ForEach(card => card.Status = true);
+                CardsInBadge.ToList().ForEach(card => card.Status = true);
                 NotificationServices.Instance.MarkAllAsReadNotificationInfoByIdUser(IdUser);
             }
             catch
@@ -289,30 +299,42 @@ namespace StudentManagement.ViewModels
 
         public void ShowDetailNotification(UserControl p)
         {
-            if (p.DataContext == null)
-                return;
-            var card = p.DataContext as NotificationCard;
-            IsOpen = true;
-            this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
-            this.DialogItemViewModel = this._showDetailNotificationViewModel;
-            card.Status = true;
-            for (int i = 0; i < CardsInBadge.Count; i++)
-            {
-                if (CardsInBadge[i].Id == card.Id)
-                {
-                    CardsInBadge[i].Status = true;
-                    break;
-                }
-            }
             try
             {
+                if (p.DataContext == null)
+                    return;
+                var card = p.DataContext as NotificationCard;
+                if(card.IdSubjectClass==null)
+                {
+                    IsOpen = true;
+                    this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
+                    this.DialogItemViewModel = this._showDetailNotificationViewModel;
+                    card.Status = true;
+                    for (int i = 0; i < CardsInBadge.Count; i++)
+                    {
+                        if (CardsInBadge[i].Id == card.Id)
+                        {
+                            CardsInBadge[i].Status = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId((Guid)card.IdSubjectClass);
+                    var subjectClassCard = SubjectClassServices.Instance.ConvertSubjectClassToSubjectClassCard(subjectClass);
+                    SubjectClassDetail subjectClassDetail = new SubjectClassDetail
+                    {
+                        DataContext = new SubjectClassDetailViewModel(subjectClassCard)
+                    };
+                    subjectClassDetail.Show();
+                }    
                 NotificationServices.Instance.MarkAsReadNotificationInfoByNotificationCardAndIdUser(card, IdUser);
             }
             catch
             {
                 MyMessageBox.Show("Đã có lỗi trong việc đánh dấu đã đọc", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-          
         }
 
         public void Search()

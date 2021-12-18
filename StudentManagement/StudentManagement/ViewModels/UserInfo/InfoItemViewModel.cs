@@ -68,12 +68,19 @@ namespace StudentManagement.ViewModels.UserInfo
         public bool HasErrors => _errorBaseViewModel.HasErrors;
         public InfoItemViewModel(InfoItem infoItem)
         {
-            _errorBaseViewModel = new ErrorBaseViewModel();
-            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-            CurrendInfoItem = infoItem;
-            if(infoItem.Value!=null)
-                Content = infoItem.Value.ToString();
-            _errorBaseViewModel.ClearAllErrors();
+            try
+            {
+                _errorBaseViewModel = new ErrorBaseViewModel();
+                _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+                CurrendInfoItem = infoItem;
+                if (infoItem.Value != null)
+                    Content = infoItem.Value.ToString();
+                _errorBaseViewModel.ClearAllErrors();
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong việc khởi tạo trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }    
         }
         public bool CanConvertDateTime(string value)
         {

@@ -47,9 +47,9 @@ namespace StudentManagement.ViewModels
 
         private object _dialogViewModel;
 
-        public SubjectClassDetailViewModel(UserControl cardComponent)
+        public SubjectClassDetailViewModel(SubjectClassCard card)
         {
-            SubjectClassCard card = cardComponent.DataContext as SubjectClassCard;
+            //SubjectClassCard card = cardComponent.DataContext as SubjectClassCard;
             var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId(card.Id);
 
             _layoutViewModel = new LayoutViewModel();

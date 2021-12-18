@@ -231,9 +231,10 @@ namespace StudentManagement.ViewModels
         {
             try
             {
+                SubjectClassCard card = cardComponent.DataContext as SubjectClassCard;
                 SubjectClassDetail subjectClassDetail = new SubjectClassDetail
                 {
-                    DataContext = new SubjectClassDetailViewModel(cardComponent)
+                    DataContext = new SubjectClassDetailViewModel(card)
                 };
                 subjectClassDetail.Show();
             }

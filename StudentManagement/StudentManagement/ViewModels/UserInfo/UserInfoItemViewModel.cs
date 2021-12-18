@@ -90,28 +90,36 @@ namespace StudentManagement.ViewModels
 
         public UserInfoItemViewModel()
         {
-            CurrendInfo = new InfoItem();
-            CurrendInfo.ItemSource = new ObservableCollection<string>();
-            ListItemInCombobox =  new ObservableCollection<ItemInCombobox>() 
-            { 
-                new ItemInCombobox { Id = Guid.NewGuid(), Value = "" }, 
-                new ItemInCombobox { Id = Guid.NewGuid(), Value = "" }, 
-                new ItemInCombobox { Id = Guid.NewGuid(), Value = "" } 
-            };
-            TypeStudent = false;
-            TypeAdmin = false;
-            TypeLecturer = false;
-            _errorBaseViewModel = new ErrorBaseViewModel();
-            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-            AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
-            DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
-            AddInfoItemCommand = new RelayCommand<object>((p) => 
+            try
             {
-                if ((!TypeStudent && !TypeLecturer && !TypeAdmin)||string.IsNullOrEmpty(TypeControl)||string.IsNullOrEmpty(LabelName)||IsHollowComboboxItem())
-                    return false;
-                return true;                    
-            }, 
-            (p) => AddInfoItem());
+                CurrendInfo = new InfoItem();
+                CurrendInfo.ItemSource = new ObservableCollection<string>();
+                ListItemInCombobox = new ObservableCollection<ItemInCombobox>()
+                {
+                    new ItemInCombobox { Id = Guid.NewGuid(), Value = "" },
+                    new ItemInCombobox { Id = Guid.NewGuid(), Value = "" },
+                    new ItemInCombobox { Id = Guid.NewGuid(), Value = "" }
+                };
+                TypeStudent = false;
+                TypeAdmin = false;
+                TypeLecturer = false;
+                _errorBaseViewModel = new ErrorBaseViewModel();
+                _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+                AddItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddItem());
+                DeleteItemCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) => DeleteItem(p));
+                AddInfoItemCommand = new RelayCommand<object>((p) =>
+                {
+                    if ((!TypeStudent && !TypeLecturer && !TypeAdmin) || string.IsNullOrEmpty(TypeControl) || string.IsNullOrEmpty(LabelName) || IsHollowComboboxItem())
+                        return false;
+                    return true;
+                },
+                (p) => AddInfoItem());
+            }
+            catch
+            {
+                MyMessageBox.Show("Có lỗi trong việc khởi tạo trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+
         }
         public bool IsHollowComboboxItem()
         {
@@ -122,38 +130,46 @@ namespace StudentManagement.ViewModels
         }
         public void AddInfoItem()
         {
-            if (TypeControl == "Combobox")
+            try
             {
-                ListItemInCombobox.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => CurrendInfo.ItemSource.Add(s.Value));
-                CurrendInfo.Type = 2;
+                if (TypeControl == "Combobox")
+                {
+                    ListItemInCombobox.Where(x => !string.IsNullOrEmpty(x.Value)).ToList().ForEach(s => CurrendInfo.ItemSource.Add(s.Value));
+                    CurrendInfo.Type = 2;
+                }
+                else if (TypeControl == "Datepicker")
+                {
+                    CurrendInfo.Type = 1;
+                }
+                else
+                    CurrendInfo.Type = 0;
+                CurrendInfo.LabelName = LabelName;
+                //InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
+
+                if (TypeStudent)
+                {
+                    if (!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Sinh viên"))
+                        MyMessageBox.Show("Chưa tồn tại sinh viên trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
+                if (TypeLecturer)
+                {
+                    if (!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Giáo viên"))
+                        MyMessageBox.Show("Chưa tồn tại giáo viên trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
+                if (TypeAdmin)
+                {
+                    if (!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin"))
+                        MyMessageBox.Show("Chưa tồn tại Admin trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
+                SettingUserInfoViewModel.Instance.IsOpen = false;
+                UserInfoViewModel.Instance.LoadInfoSource();
+                SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
             }
-            else if (TypeControl == "Datepicker")
+            catch
             {
-                CurrendInfo.Type = 1;
+                MyMessageBox.Show("Có lỗi trong việc thêm trường thông tin", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-            else
-                CurrendInfo.Type = 0;
-            CurrendInfo.LabelName = LabelName;
-            //InfoItemServices.Instance.AddUserInfoByInfoItem(CurrendInfo);
-          
-            if (TypeStudent)
-            {
-                if (!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Sinh viên"))
-                    MyMessageBox.Show("Chưa tồn tại sinh viên trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-            }
-            if (TypeLecturer)
-            {
-                if(!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Giáo viên"))
-                    MyMessageBox.Show("Chưa tồn tại giáo viên trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-            }
-            if (TypeAdmin)
-            {
-                if(!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin"))
-                    MyMessageBox.Show("Chưa tồn tại Admin trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-            }
-            SettingUserInfoViewModel.Instance.IsOpen = false;
-            UserInfoViewModel.Instance.LoadInfoSource();
-            SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
+         
         }
         public void DeleteItem(TextBox p)
         {
