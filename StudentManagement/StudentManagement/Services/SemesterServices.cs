@@ -47,34 +47,48 @@ namespace StudentManagement.Services
 
         public ObservableCollection<Semester> LoadListSemestersByStudentIdAndSemesterStatuses(Guid idStudent, bool[] semesterStatus)
         {
-            var listSemester = new List<Semester>();
-            var listCourseRegister = DataProvider.Instance.Database.CourseRegisters.Where(register => register.IdStudent == idStudent).ToList();
-            for(int i = 0; i<semesterStatus.Length; i++)
+            try
             {
-                if (!semesterStatus[i])
-                    listCourseRegister = listCourseRegister.Where(register => register.SubjectClass.Semester.CourseRegisterStatus != i).ToList();
+                var listSemester = new List<Semester>();
+                var listCourseRegister = DataProvider.Instance.Database.CourseRegisters.Where(register => register.IdStudent == idStudent).ToList();
+                for (int i = 0; i < semesterStatus.Length; i++)
+                {
+                    if (!semesterStatus[i])
+                        listCourseRegister = listCourseRegister.Where(register => register.SubjectClass.Semester.CourseRegisterStatus != i).ToList();
+                }
+                foreach (CourseRegister register in listCourseRegister)
+                {
+                    listSemester.Add(register.SubjectClass.Semester);
+                }
+                return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
             }
-            foreach(CourseRegister register in listCourseRegister)
+            catch
             {
-                listSemester.Add(register.SubjectClass.Semester);
+                return new ObservableCollection<Semester>();
             }
-            return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
         }
 
         public ObservableCollection<Semester> LoadListSemestersByTeacherAndSemesterStatuses(Teacher teacher, bool[] semesterStatus)
         {
-            var listSemester = new List<Semester>();
-            var listSubjectClass = DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Teachers.FirstOrDefault().Id == teacher.Id).ToList();
-            for (int i = 0; i < semesterStatus.Length; i++)
+            try
             {
-                if (!semesterStatus[i])
-                    listSubjectClass = listSubjectClass.Where(subjectClass => subjectClass.Semester.CourseRegisterStatus != i).ToList();
+                var listSemester = new List<Semester>();
+                var listSubjectClass = DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Teachers.FirstOrDefault().Id == teacher.Id).ToList();
+                for (int i = 0; i < semesterStatus.Length; i++)
+                {
+                    if (!semesterStatus[i])
+                        listSubjectClass = listSubjectClass.Where(subjectClass => subjectClass.Semester.CourseRegisterStatus != i).ToList();
+                }
+                foreach (SubjectClass subjectClass in listSubjectClass)
+                {
+                    listSemester.Add(subjectClass.Semester);
+                }
+                return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
             }
-            foreach (SubjectClass subjectClass in listSubjectClass)
+            catch
             {
-                listSemester.Add(subjectClass.Semester);
+                return new ObservableCollection<Semester>();
             }
-            return new ObservableCollection<Semester>(listSemester.Distinct().ToList());
         }
 
         public bool SaveSemesterToDatabase(Semester semester)
