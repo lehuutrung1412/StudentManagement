@@ -592,7 +592,7 @@ BEGIN
 
   INSERT INTO dbo.Users
     (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
-  VALUES('14DF1714-C81F-42C2-8C64-6D744D787E0D', 'gv', 'Nguyễn Tấn Toàn', 'gv@gmail.com', 'gv', @IdRole, @IdAvatar)
+  VALUES('14DF1714-C81F-42C2-8C64-6D744D787E0D', 'gv', N'Nguyễn Tấn Toàn', 'gv@gmail.com', 'gv', @IdRole, @IdAvatar)
 
   INSERT INTO dbo.Teacher
     (IdUsers, IdFaculty)
@@ -615,7 +615,7 @@ BEGIN
 
   INSERT INTO dbo.Users
     (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
-  VALUES('924F1714-D81F-12C2-8C64-6D744D787E0D', 'sv', 'Ngô Quang Vinh', 'vinhqngo5@gmail.com', 'sv', @IdRole, @IdAvatar)
+  VALUES('924F1714-D81F-12C2-8C64-6D744D787E0D', 'sv', N'Ngô Quang Vinh', 'vinhqngo5@gmail.com', 'sv', @IdRole, @IdAvatar)
 
   INSERT INTO dbo.Student
     (IdUsers, IdFaculty, IdTrainingForm)

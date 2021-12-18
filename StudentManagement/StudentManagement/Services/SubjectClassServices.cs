@@ -39,7 +39,7 @@ namespace StudentManagement.Services
 
         public List<SubjectClass> LoadSubjectClassListBySemesterId(Guid id)
         {
-            return DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).ToList();
+            return DataProvider.Instance.Database.SubjectClasses.Where(subjectClass => subjectClass.Semester.Id == id).Where(subjectClass=>subjectClass.IsDeleted == false).ToList();
         }
 
         /*public SubjectClass ConvertSubjectClassCardToSubjectClass(SubjectClassCard subjectClassCard)

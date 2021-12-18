@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Objects;
+using StudentManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static StudentManagement.Services.LoginServices;
 using static StudentManagement.ViewModels.StudentCourseRegistryViewModel;
 
 namespace StudentManagement.ViewModels
@@ -55,6 +57,7 @@ namespace StudentManagement.ViewModels
         public StudentCourseRegistryRightSideBarViewModel()
         {
             InitRightSideBarItemViewModel();
+            LoginServices.UpdateCurrentUser += FreeRightSideBar;
         }
 
 
@@ -65,5 +68,11 @@ namespace StudentManagement.ViewModels
             RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
 
+        #region eventhandler
+        private void FreeRightSideBar(object sender, LoginEvent e)
+        {
+            _rightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
+        }
+        #endregion
     }
 }

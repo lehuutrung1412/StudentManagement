@@ -200,7 +200,14 @@ namespace StudentManagement.ViewModels
             TimeCountDown = null;
             _errorBaseViewModel = new ErrorBaseViewModel();
             _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-            InitListRememberedAccount();
+            InitRememberedAccount();
+
+            if (RememberedAccount != null)
+            {
+                Username = RememberedAccount.UserName;
+                Password = RememberedAccount.PassWord;
+            }
+
             SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
             GetOTPCodeCommand = new RelayCommand<object>((p) => true, async (p) => await GetOPTAsync());
             ConFirmCommand = new RelayCommand<object>((p) => true, (p) => ConFirm());
@@ -395,7 +402,7 @@ namespace StudentManagement.ViewModels
             
             
         }
-        public void InitListRememberedAccount()
+        public void InitRememberedAccount()
         {
             RememberedAccount = null;
             string filePath = LoginServices.FilePathRememberedAccount;

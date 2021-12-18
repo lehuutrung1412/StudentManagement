@@ -79,7 +79,8 @@
                         Grid.Column="1"
                         Style="{StaticResource textblock_item}"
                         Text="{Binding CurrentCard.SelectedSubject.DisplayName, FallbackValue='Ten Mon Hoc'}"
-                        TextAlignment="Right" />
+                        TextAlignment="Right"
+                        ToolTip="{Binding CurrentCard.SelectedSubject.DisplayName, FallbackValue='Ten Mon Hoc'}" />
                 </Grid>
 
                 <!--  Mã môn học  -->

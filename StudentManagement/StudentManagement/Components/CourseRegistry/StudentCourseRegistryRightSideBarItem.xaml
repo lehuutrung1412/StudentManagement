@@ -21,37 +21,74 @@
     <UserControl.Resources>
         <math:MathConverter x:Key="math" />
     </UserControl.Resources>
-    <Grid>
-        <StackPanel Margin="8">
+    <ScrollViewer
+        Grid.Row="0"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            Margin="8">
             <TextBlock
-                FontSize="28"
                 FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                TextWrapping="Wrap">
-                <Run Text="{Binding CurrentItem.Code, FallbackValue='Mã lớp học'}" />
-            </TextBlock>
-            <Grid Style="{StaticResource text_grid_item}">
+                Margin="0 0 0 8"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                Text="Thông tin chi tiết"
+                TextWrapping="Wrap" />
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="43*" />
-                    <ColumnDefinition Width="147*" />
-                    <ColumnDefinition Width="190*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
                     Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="4,0"
                     FontWeight="Bold"
                     Style="{StaticResource textblock_item}"
                     Text="Môn học:" />
                 <TextBlock
-                    Grid.Column="2"
-                    Margin="4,0"
+                    Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding CurrentItem.Subject.DisplayName, FallbackValue='Ten Mon Hoc'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+
+            <Grid
+                Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Mã môn học:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentItem.Subject.Code, FallbackValue='Mã Mon Hoc'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid
+                Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Mã lớp học:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentItem.Code, FallbackValue='Code'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -63,12 +100,32 @@
                     Style="{StaticResource textblock_item}"
                     Text="Giáo viên:" />
                 <TextBlock
+                    x:Name="txblockTeacherName"
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding CurrentItem.MainTeacher.User.DisplayName, FallbackValue='Chưa có'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    FontWeight="Bold"
+                    Style="{StaticResource textblock_item}"
+                    Text="Hệ đào tạo:" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource textblock_item}"
+                    Text="{Binding CurrentItem.TrainingForm.DisplayName, FallbackValue='Hệ đào tạo'}"
+                    TextAlignment="Right" />
+            </Grid>
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -82,10 +139,11 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.StartDate, StringFormat='dd/MM/yyyy', FallbackValue='01/01/2001'}"
+                    Text="{Binding CurrentItem.StartDate, StringFormat='dd/MM/yyyy'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -99,10 +157,11 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
-                    Text="{Binding CurrentItem.EndDate, StringFormat='dd/MM/yyyy', FallbackValue='30/01/2001'}"
+                    Text="{Binding CurrentItem.EndDate, StringFormat='dd/MM/yyyy'}"
                     TextAlignment="Right" />
             </Grid>
-            <Grid Style="{StaticResource text_grid_item}">
+            <Grid
+                Style="{StaticResource text_grid_item}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -118,16 +177,18 @@
                     Style="{StaticResource textblock_item}"
                     TextAlignment="Right">
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="Thứ {0}, Tiết {1}">
+                        <MultiBinding
+                            StringFormat="Thứ {0}, Tiết {1}">
                             <Binding
                                 Converter="{StaticResource math}"
                                 ConverterParameter="x+2"
                                 Path="CurrentItem.WeekDay" />
-                            <Binding Path="CurrentItem.Period" />
+                            <Binding
+                                Path="CurrentItem.Period" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
             </Grid>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

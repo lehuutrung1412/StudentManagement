@@ -21,7 +21,7 @@ namespace StudentManagement.Objects
                 OnPropertyChanged(); 
                 if (value)
                 {
-                    _isSelected = !IsConflict;
+                    _isSelected = !(IsConflict || IsValidSubject) ;
                 }
             }
         }
@@ -32,10 +32,17 @@ namespace StudentManagement.Objects
             set { _isConflict = value; OnPropertyChanged(); }
         }
 
+        private bool _isValidSubject;
+        public bool IsValidSubject
+        {
+            get => _isValidSubject;
+            set { _isValidSubject = value; OnPropertyChanged(); }
+        }
+
         private Teacher _mainTeacher;
         public Teacher MainTeacher { get => _mainTeacher; set { _mainTeacher = value; OnPropertyChanged(); } }
 
-        public CourseItem(Models.SubjectClass a, bool isSelected, bool isConflict = false)
+        public CourseItem(Models.SubjectClass a, bool isSelected, bool isConflict = false, bool isValidSubject = false)
         {
             this.Id = a.Id;
             this.Teachers = a.Teachers;
@@ -56,6 +63,7 @@ namespace StudentManagement.Objects
             this.DatabaseImageTable = a.DatabaseImageTable;
             this.IsSelected = false;
             this.IsConflict = isConflict;
+            this.IsValidSubject = isValidSubject;
             this.MainTeacher = this.Teachers.FirstOrDefault();
         }
         public SubjectClass ConvertToSubjectClass()
@@ -109,6 +117,18 @@ namespace StudentManagement.Objects
                         if (course.Period.Contains(period))
                             return true;
                     }
+                }
+            }
+            return false;
+        }
+
+        public static bool IsSameSubjectCourseRegistry(ObservableCollection<CourseItem> listCourse, CourseItem course)
+        {
+            foreach (CourseItem listElement in listCourse)
+            {
+                if (course.Subject.Id == listElement.Subject.Id)
+                {
+                    return true;
                 }
             }
             return false;

@@ -36,7 +36,7 @@
                                             Path="TeacherName" />
                                         <Binding
                                             Converter="{StaticResource math}"
-                                            ConverterParameter="format((x == 0 ? &quot;Đã đăng ký&quot; : (x == 1 ? &quot;Đang chọn&quot; : (x == 2 ? &quot;Red&quot; : &quot;Đã chọn (checked)&quot;))), x)"
+                                            ConverterParameter="format((x == 0 ? &quot;Đã đăng ký&quot; : (x == 1 ? &quot;Đang chọn&quot; : (x == 2 ? &quot;Trùng giờ học&quot; : &quot;Đã chọn (checked)&quot;))), x)"
                                             Path="Type" />
                                     </MultiBinding>
                                 </Setter.Value>

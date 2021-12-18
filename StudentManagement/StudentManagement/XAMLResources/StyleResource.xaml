@@ -554,6 +554,7 @@
         TargetType="DatePicker">
         <Setter Property="Margin" Value="4,4,8,16" />
         <Setter Property="Height" Value="50" />
+        <Setter Property="Language" Value="vi-VN" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="materialDesign:HintAssist.IsFloating" Value="False" />
         <Setter Property="materialDesign:TextFieldAssist.TextFieldCornerRadius" Value="8" />
