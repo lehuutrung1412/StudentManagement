@@ -119,6 +119,9 @@ namespace StudentManagement.ViewModels
 
             var subjectClasses = LoadSubjectClassListByRole();
 
+            // reload after trigger in db
+            subjectClasses.ForEach(el => DataProvider.Instance.Database.Entry(el).Reload());
+
             StoredSubjectClassCards.Clear();
 
             subjectClasses.ForEach(subjectClass => StoredSubjectClassCards.Add(SubjectClassServices.Instance.ConvertSubjectClassToSubjectClassCard(subjectClass)));

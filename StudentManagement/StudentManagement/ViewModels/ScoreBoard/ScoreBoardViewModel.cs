@@ -78,6 +78,20 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        private object _isOpen;
+        public object IsOpen
+        {
+            get { return _isOpen; }
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private object _overviewScoreboardItem;
+        public object OverviewScoreboardItem { get => _overviewScoreboardItem; set { _overviewScoreboardItem = value; OnPropertyChanged(); } }
+
         public ICommand OverviewScoreboard { get => _overviewScoreboard; set => _overviewScoreboard = value; }
 
         private ICommand _overviewScoreboard;
@@ -94,7 +108,12 @@ namespace StudentManagement.ViewModels
 
         public void OverviewScoreboardFunction()
         {
+            if (LoginServices.CurrentUser == null)
+                return;
 
+            var name = DataProvider.Instance.Database.Students.Where(x => x.Id == IdStudent).FirstOrDefault().User.DisplayName;
+            OverviewScoreboardItem = new OverviewScoreboardViewModel(GPA, 90, TotalCredit, name);
+            IsOpen = true;
         }
 
         public void ExportScoreBoardFunction()
@@ -112,101 +131,116 @@ namespace StudentManagement.ViewModels
                 IdStudent = student.Id;
             }
 
-            GPA = 0;
-            TotalCredit = 0;
-            DatabaseSemester = new ObservableCollection<SemesterDataGrid>();
-            Semesters = new ObservableCollection<string>();
-            Semesters.Add("Tất cả các kỳ");
-            SelectedSemester = "Tất cả các kỳ";
-            InitCommand();
-
-
-            var ListCourses = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdStudent == IdStudent);
-
-            ObservableCollection<Guid> ListSemester = new ObservableCollection<Guid>();
-
-            foreach (var item in ListCourses)
+            try
             {
-                Guid CurrentSemester = item.SubjectClass.Semester.Id;
 
-                var temp = ListSemester.Where(x => x == CurrentSemester).FirstOrDefault();
-                if (temp != Guid.Empty)
-                    continue;
+                GPA = 0;
+                TotalCredit = 0;
+                DatabaseSemester = new ObservableCollection<SemesterDataGrid>();
+                Semesters = new ObservableCollection<string>();
+                Semesters.Add("Tất cả các kỳ");
+                SelectedSemester = "Tất cả các kỳ";
+                InitCommand();
 
-                ListSemester.Add(CurrentSemester);
-            }
 
-            foreach (var id in ListSemester)
-            {
-                ObservableCollection<ScoreDataGrid> TempScore = new ObservableCollection<ScoreDataGrid>();
-                double semesterGPA = 0;
-                int semesterCredit = 0;
+                var ListCourses = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdStudent == IdStudent);
+
+                ObservableCollection<Guid> ListSemester = new ObservableCollection<Guid>();
 
                 foreach (var item in ListCourses)
                 {
-                    if (item.SubjectClass.IdSemester != id)
+                    Guid CurrentSemester = item.SubjectClass.Semester.Id;
+
+                    var temp = ListSemester.Where(x => x == CurrentSemester).FirstOrDefault();
+                    if (temp != Guid.Empty)
                         continue;
 
-                    double gpa = 0;
-
-                    var ListComponentScore = DataProvider.Instance.Database.ComponentScores.Where(x => x.IdSubjectClass == item.IdSubjectClass);
-                    foreach (var component in ListComponentScore)
-                    {
-                        var score = DataProvider.Instance.Database.DetailScores.Where(x => x.IdComponentScore == component.Id).FirstOrDefault();
-                        if (score == null || score?.Score == null)
-                            continue;
-                        gpa += (double)score.Score * (double)component.ContributePercent / 100;
-                    }
-
-                    TotalCredit += (int)item.SubjectClass.Subject.Credit;
-                    semesterCredit += (int)item.SubjectClass.Subject.Credit;
-                    GPA += gpa * (int)item.SubjectClass.Subject.Credit;
-                    semesterGPA += gpa * (int)item.SubjectClass.Subject.Credit;
-
-                    var teacher = item.SubjectClass.Teachers.FirstOrDefault();
-                    string nameTeacher = null;
-                    if (teacher != null)
-                        nameTeacher = DataProvider.Instance.Database.Users.Where(x => x.Id == teacher.IdUsers).FirstOrDefault().DisplayName;
-
-                    TempScore.Add(new ScoreDataGrid(item.SubjectClass.Id, item.SubjectClass.Code, item.SubjectClass.Subject.DisplayName, Convert.ToString(item.SubjectClass.Subject.Credit), nameTeacher));
-
+                    ListSemester.Add(CurrentSemester);
                 }
 
-                semesterGPA = semesterGPA / semesterCredit;
-                var CurrentSemester = DataProvider.Instance.Database.Semesters.Where(x => x.Id == id).FirstOrDefault();
-                DatabaseSemester.Add(new SemesterDataGrid(id, CurrentSemester.DisplayName, CurrentSemester.Batch, semesterGPA, 0, TempScore, null));
-            }
+                foreach (var id in ListSemester)
+                {
+                    ObservableCollection<ScoreDataGrid> TempScore = new ObservableCollection<ScoreDataGrid>();
+                    double semesterGPA = 0;
+                    int semesterCredit = 0;
 
-            DatabaseSemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester.OrderBy(x => x.Batch + x.DisplayName));
-            foreach (var item in DatabaseSemester)
+                    foreach (var item in ListCourses)
+                    {
+                        if (item.SubjectClass.IdSemester != id)
+                            continue;
+
+                        double gpa = 0;
+
+                        var ListComponentScore = DataProvider.Instance.Database.ComponentScores.Where(x => x.IdSubjectClass == item.IdSubjectClass);
+                        foreach (var component in ListComponentScore)
+                        {
+                            var score = DataProvider.Instance.Database.DetailScores.Where(x => x.IdComponentScore == component.Id).FirstOrDefault();
+                            if (score == null || score?.Score == null)
+                                continue;
+                            gpa += (double)score.Score * (double)component.ContributePercent / 100;
+                        }
+
+                        TotalCredit += (int)item.SubjectClass.Subject.Credit;
+                        semesterCredit += (int)item.SubjectClass.Subject.Credit;
+                        GPA += gpa * (int)item.SubjectClass.Subject.Credit;
+                        semesterGPA += gpa * (int)item.SubjectClass.Subject.Credit;
+
+                        var teacher = item.SubjectClass.Teachers.FirstOrDefault();
+                        string nameTeacher = null;
+                        if (teacher != null)
+                            nameTeacher = DataProvider.Instance.Database.Users.Where(x => x.Id == teacher.IdUsers).FirstOrDefault().DisplayName;
+
+                        TempScore.Add(new ScoreDataGrid(item.SubjectClass.Id, item.SubjectClass.Code, item.SubjectClass.Subject.DisplayName, Convert.ToString(item.SubjectClass.Subject.Credit), nameTeacher));
+
+                    }
+
+                    semesterGPA = semesterGPA / semesterCredit;
+                    var CurrentSemester = DataProvider.Instance.Database.Semesters.Where(x => x.Id == id).FirstOrDefault();
+                    DatabaseSemester.Add(new SemesterDataGrid(id, CurrentSemester.DisplayName, CurrentSemester.Batch, semesterGPA, 0, TempScore, null));
+                }
+
+                GPA = 1.0 * GPA / TotalCredit;
+
+                DatabaseSemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester.OrderBy(x => x.Batch + x.DisplayName));
+                foreach (var item in DatabaseSemester)
+                {
+                    Semesters.Add(item.DisplayName + ", năm học " + item.Batch);
+                }
+
+                UpdateScoreBoard("Tất cả các kỳ");
+            }
+            catch (Exception)
             {
-                Semesters.Add(item.DisplayName + ", năm học " + item.Batch);
+                MyMessageBox.Show("Đã có lỗi xảy ra");
             }
-
-            UpdateScoreBoard("Tất cả các kỳ");
         }
 
         private void UpdateScoreBoard(string semester)
         {
-
-
-            if (semester == "Tất cả các kỳ")
+            try
             {
-                DisplaySemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester);
-                return;
-            }
 
-            DisplaySemester = new ObservableCollection<SemesterDataGrid>();
-            foreach (var item in DatabaseSemester)
-            {
-                string nameSemester = item.DisplayName + ", năm học " + item.Batch;
-                if (semester == nameSemester)
+                if (semester == "Tất cả các kỳ")
                 {
-                    DisplaySemester.Add(item);
+                    DisplaySemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester);
                     return;
                 }
-            }
 
+                DisplaySemester = new ObservableCollection<SemesterDataGrid>();
+                foreach (var item in DatabaseSemester)
+                {
+                    string nameSemester = item.DisplayName + ", năm học " + item.Batch;
+                    if (semester == nameSemester)
+                    {
+                        DisplaySemester.Add(item);
+                        return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra");
+            }
         }
 
     }

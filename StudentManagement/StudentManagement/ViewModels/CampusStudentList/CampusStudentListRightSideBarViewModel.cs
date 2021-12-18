@@ -11,6 +11,7 @@ using System.Windows.Input;
 using static StudentManagement.ViewModels.AdminStudentListViewModel;
 using StudentManagement.Services;
 using StudentManagement.ViewModels.UserInfo;
+using static StudentManagement.Services.LoginServices;
 
 namespace StudentManagement.ViewModels
 {
@@ -91,43 +92,52 @@ namespace StudentManagement.ViewModels
             InfoSource = new ObservableCollection<InfoItemViewModel>();
 
             Instance = this;
+            LoginServices.UpdateCurrentUser += FreeRightSideBar;
         }
 
         public void LoadInfoSource(Guid IdUser)
         {
-            var user = UserServices.Instance.GetUserById(IdUser);
-            InfoSource = new ObservableCollection<InfoItemViewModel>();
-            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Họ và tên", 0, null, user.DisplayName, false)));
-            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Địa chỉ email", 0, null, user.Email, false)));
-            
-            switch (user.UserRole.Role)
+            try
             {
-                case "Sinh viên":
-                    {
-                        var student = StudentServices.Instance.GetStudentbyUser(user);
-                        
-                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName, true)));
-                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Hệ đào tạo", 2, TrainingFormServices.Instance.LoadListTrainingForm(), student.TrainingForm.DisplayName, true)));
-                        break;
-                    }
-                case "Giáo viên":
-                    {
+                var user = UserServices.Instance.GetUserById(IdUser);
+                InfoSource = new ObservableCollection<InfoItemViewModel>();
+                InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Họ và tên", 0, null, user.DisplayName, false)));
+                InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Địa chỉ email", 0, null, user.Email, false)));
 
-                        var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
-                        InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), lecture.Faculty.DisplayName, false)));
-                        break;
-                    }
-                case "Admin":
-                    {
-                        foreach (var infoItem in InfoSource)
-                            infoItem.CurrendInfoItem.IsEnable = true;
-                        break;
-                    }
+                switch (user.UserRole.Role)
+                {
+                    case "Sinh viên":
+                        {
+                            var student = StudentServices.Instance.GetStudentbyUser(user);
+
+                            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), student.Faculty.DisplayName, true)));
+                            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Hệ đào tạo", 2, TrainingFormServices.Instance.LoadListTrainingForm(), student.TrainingForm.DisplayName, true)));
+                            break;
+                        }
+                    case "Giáo viên":
+                        {
+
+                            var lecture = TeacherServices.Instance.GetTeacherbyUser(user);
+                            InfoSource.Add(new InfoItemViewModel(new InfoItem(Guid.NewGuid(), "Khoa", 2, FacultyServices.Instance.LoadListFaculty(), lecture.Faculty.DisplayName, false)));
+                            break;
+                        }
+                    case "Admin":
+                        {
+                            foreach (var infoItem in InfoSource)
+                                infoItem.CurrendInfoItem.IsEnable = true;
+                            break;
+                        }
+                }
+                var listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(IdUser);
+                foreach (var infoItem in listInfoItem)
+                {
+                    InfoSource.Add(new InfoItemViewModel(infoItem));
+                }
             }
-            var listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(IdUser);
-            foreach (var infoItem in listInfoItem)
+            catch (Exception)
             {
-                InfoSource.Add(new InfoItemViewModel(infoItem));
+                MyMessageBox.Show("Đã có lỗi xảy ra");
+                
             }
         }
 
@@ -143,6 +153,11 @@ namespace StudentManagement.ViewModels
             LoadInfoSource((Guid)currentStudent.ID);
             _campusStudentListRightSideBarItemViewModel = new CampusStudentListRightSideBarItemViewModel(InfoSource);
             RightSideBarItemViewModel = _campusStudentListRightSideBarItemViewModel;
+        }
+
+        private void FreeRightSideBar(object sender, LoginEvent e)
+        {
+            _rightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
         }
 
     }

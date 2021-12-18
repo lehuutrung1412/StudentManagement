@@ -9,13 +9,13 @@
     x:Name="SubjectClassCardComponent"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}"
-    TextElement.FontSize="15"
+    TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <Grid>
+    <Grid Width="Auto" Height="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="Auto" />
@@ -30,7 +30,6 @@
             <TextBlock
                 Grid.Column="0"
                 Margin="4,8,4,4"
-                FontSize="13"
                 FontWeight="Bold"
                 Style="{StaticResource textblock_item}"
                 TextAlignment="Left">
@@ -42,7 +41,6 @@
             <TextBlock
                 Grid.Column="1"
                 Margin="4,8,4,4"
-                FontSize="13"
                 FontWeight="Bold"
                 Style="{StaticResource textblock_item}"
                 TextAlignment="Right">
@@ -53,9 +51,10 @@
 
         </Grid>
 
-        <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch">
+        <materialDesign:Card Grid.Row="1" HorizontalAlignment="Stretch">
 
             <DataGrid
+                Width="auto"
                 AutoGenerateColumns="False"
                 Background="{StaticResource Background}"
                 CanUserAddRows="False"
@@ -90,36 +89,44 @@
 
                 </DataGrid.Resources>
 
+                <DataGrid.CellStyle>
+                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                    <Grid Margin="16" Background="{TemplateBinding Background}">
+                                        <Grid.ToolTip>
+                                            <ToolTip Content="Chạm để hiển thị thông tin" />
+                                        </Grid.ToolTip>
+                                        <Grid.ContextMenu>
+                                            <ContextMenu>
+                                                <!--<MenuItem
+                                                        Command="{Binding Source={StaticResource BindingProxy}, Path=Data.DataContext.DeleteFile}"
+                                                        CommandParameter="{Binding Source={StaticResource BindingProxy}, Path=Data.SelectedItems}"
+                                                        Foreground="{StaticResource ErrorMain}"
+                                                        Header="Xóa tài liệu"
+                                                        Icon="{materialDesign:PackIcon Kind=DeleteOutline}" />-->
+                                            </ContextMenu>
+                                        </Grid.ContextMenu>
+                                        <ContentPresenter VerticalAlignment="Center" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+
+
                 <DataGrid.Columns>
-                    <materialDesign:DataGridTextColumn
-                        Binding="{Binding IDSubject}"
-                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="Mã môn học" />
+                    <materialDesign:DataGridTextColumn Binding="{Binding IDSubject}" Header="Mã môn học" />
 
-                    <materialDesign:DataGridTextColumn
-                        Binding="{Binding Subject}"
-                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="Tên môn học" />
+                    <materialDesign:DataGridTextColumn Binding="{Binding Subject}" Header="Tên môn học" />
 
-                    <materialDesign:DataGridTextColumn
-                        Binding="{Binding Credit}"
-                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="Số tín chỉ" />
+                    <materialDesign:DataGridTextColumn Binding="{Binding Credit}" Header="Số tín chỉ" />
 
-                    <materialDesign:DataGridTextColumn
-                        Binding="{Binding NameTeacher}"
-                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="Giáo viên" />
+                    <materialDesign:DataGridTextColumn Binding="{Binding NameTeacher}" Header="Giáo viên" />
 
-                    <materialDesign:DataGridTextColumn
-                        Binding="{Binding Status}"
-                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                        Header="Trạng thái" />
+                    <materialDesign:DataGridTextColumn Binding="{Binding Status}" Header="Trạng thái" />
                 </DataGrid.Columns>
             </DataGrid>
         </materialDesign:Card>

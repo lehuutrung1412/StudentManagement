@@ -21,9 +21,9 @@
     <Grid>
         <StackPanel Grid.Row="0" Margin="10">
             <TextBlock
-                FontSize="24"
+                Margin="0,0,0,10"
                 FontWeight="Bold"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                 TextWrapping="Wrap">
                 <Run Text="Thông tin người dùng" />
             </TextBlock>

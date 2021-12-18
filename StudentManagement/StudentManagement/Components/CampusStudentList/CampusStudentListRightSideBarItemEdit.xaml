@@ -28,9 +28,8 @@
             <StackPanel Margin="8">
                 <TextBlock
                     Margin="0,0,0,16"
-                    FontSize="28"
                     FontWeight="ExtraBold"
-                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                     Text="Thay đổi thông tin"
                     TextWrapping="Wrap" />
                 <Grid Style="{StaticResource text_grid_item}">
