@@ -233,10 +233,7 @@ namespace StudentManagement.ViewModels
             ObservableCollection<InfoItem> listInfoItem = InfoItemServices.Instance.GetInfoSourceByUserId(thisId);
             foreach (var infoItem in listInfoItem)
             {
-                InfoItem temp = new InfoItem();
-                temp.LabelName = infoItem.LabelName;
-                temp.Value = infoItem.Value;
-                InfoSource.Add(new InfoItemViewModel(temp));
+                InfoSource.Add(new InfoItemViewModel(infoItem));
             }
         }
 
@@ -296,7 +293,7 @@ namespace StudentManagement.ViewModels
             {
                 if (item.CurrendInfoItem.LabelName != "Hệ đào tạo" && item.CurrendInfoItem.LabelName != "Khoa" && item.CurrendInfoItem.LabelName != "Họ và tên" && item.CurrendInfoItem.LabelName != "Địa chỉ email")
                 {
-                    var findInfo = DataProvider.Instance.Database.User_UserRole_UserInfo.Where(x => x.IdUser == ThisUser.Id).FirstOrDefault();
+                    var findInfo = DataProvider.Instance.Database.User_UserRole_UserInfo.Where(x => x.IdUser == ThisUser.Id && x.UserRole_UserInfo.InfoName == item.CurrendInfoItem.LabelName).FirstOrDefault();
                     if (findInfo != null)
                     {
                         findInfo.Content = Convert.ToString(item.Content);

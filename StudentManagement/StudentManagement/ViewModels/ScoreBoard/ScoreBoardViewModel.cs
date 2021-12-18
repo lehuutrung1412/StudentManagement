@@ -78,6 +78,20 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        private object _isOpen;
+        public object IsOpen
+        {
+            get { return _isOpen; }
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private object _overviewScoreboardItem;
+        public object OverviewScoreboardItem { get => _overviewScoreboardItem; set { _overviewScoreboardItem = value; OnPropertyChanged(); } }
+
         public ICommand OverviewScoreboard { get => _overviewScoreboard; set => _overviewScoreboard = value; }
 
         private ICommand _overviewScoreboard;
@@ -94,7 +108,12 @@ namespace StudentManagement.ViewModels
 
         public void OverviewScoreboardFunction()
         {
+            if (LoginServices.CurrentUser == null)
+                return;
 
+            var name = DataProvider.Instance.Database.Students.Where(x => x.Id == IdStudent).FirstOrDefault().User.DisplayName;
+            OverviewScoreboardItem = new OverviewScoreboardViewModel(GPA, 90, TotalCredit, name);
+            IsOpen = true;
         }
 
         public void ExportScoreBoardFunction()
@@ -176,6 +195,8 @@ namespace StudentManagement.ViewModels
                 var CurrentSemester = DataProvider.Instance.Database.Semesters.Where(x => x.Id == id).FirstOrDefault();
                 DatabaseSemester.Add(new SemesterDataGrid(id, CurrentSemester.DisplayName, CurrentSemester.Batch, semesterGPA, 0, TempScore, null));
             }
+
+            GPA = 1.0 * GPA / TotalCredit;
 
             DatabaseSemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester.OrderBy(x => x.Batch + x.DisplayName));
             foreach (var item in DatabaseSemester)

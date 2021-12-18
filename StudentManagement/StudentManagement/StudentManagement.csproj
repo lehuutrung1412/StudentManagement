@@ -97,6 +97,9 @@
     <Compile Include="Components\CampusStudentList\AddStudentRightSideBarItem.xaml.cs">
       <DependentUpon>AddStudentRightSideBarItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\OverviewScoreboardCard.xaml.cs">
+      <DependentUpon>OverviewScoreboardCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassDetail\SettingSubjectClassDetail.xaml.cs">
       <DependentUpon>SettingSubjectClassDetail.xaml</DependentUpon>
     </Compile>
@@ -516,6 +519,7 @@
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\DeleteInfoItemViewModel.cs" />
+    <Compile Include="ViewModels\OverviewScoreboardViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SettingSubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\NewsfeedRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemEditViewModel.cs" />
@@ -608,6 +612,10 @@
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\CampusStudentList\AddStudentRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\OverviewScoreboardCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
