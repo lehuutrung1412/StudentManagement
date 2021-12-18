@@ -97,6 +97,9 @@
     <Compile Include="Components\CampusStudentList\AddStudentRightSideBarItem.xaml.cs">
       <DependentUpon>AddStudentRightSideBarItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\SubjectClassDetail\SettingSubjectClassRightSideBar.xaml.cs">
+      <DependentUpon>SettingSubjectClassRightSideBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassDetail\SettingSubjectClassDetail.xaml.cs">
       <DependentUpon>SettingSubjectClassDetail.xaml</DependentUpon>
     </Compile>
@@ -516,6 +519,7 @@
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\DeleteInfoItemViewModel.cs" />
+    <Compile Include="ViewModels\SubjectClassDetail\SettingSubjectClassRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SettingSubjectClassDetailViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\NewsfeedRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\StudentList\StudentListRightSideBarItemEditViewModel.cs" />
@@ -608,6 +612,10 @@
       <DependentUpon>MyMessageBoxView.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\CampusStudentList\AddStudentRightSideBarItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SubjectClassDetail\SettingSubjectClassRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1116,6 +1124,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\owl.png" />
     <Resource Include="Resources\Images\embarrassed.png" />
   </ItemGroup>
   <ItemGroup>

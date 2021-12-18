@@ -35,9 +35,24 @@
                     Margin="16,16,4,16"
                     VerticalAlignment="Top"
                     DockPanel.Dock="Left">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.DatabaseImageTable.Image, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
-                    </Ellipse.Fill>
+                    <Ellipse.Style>
+                        <Style TargetType="Ellipse">
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.DatabaseImageTable.Image, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.IdAvatar}" Value="{x:Null}">
+                                    <Setter Property="Fill">
+                                        <Setter.Value>
+                                            <ImageBrush ImageSource="{StaticResource DefaultUserAvatar}" Stretch="Uniform" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Ellipse.Style>
                 </Ellipse>
                 <!--<RichTextBox
                     Margin="4,16,16,4"
@@ -57,7 +72,6 @@
                     MaxHeight="300"
                     Margin="4,16,16,4"
                     Padding="16"
-                    materialDesign:HintAssist.Hint="Bạn đang nghĩ gì, Trung?"
                     materialDesign:HintAssist.IsFloating="False"
                     materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
                     TextWrapping="Wrap"
@@ -69,7 +83,11 @@
                     HorizontalScrollBarVisibility="Disabled"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding DraftPostText, Mode=TwoWay}"
-                    VerticalScrollBarVisibility="auto" />
+                    VerticalScrollBarVisibility="auto">
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock Text="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.DisplayName, StringFormat={}Bạn\ đang\ nghĩ\ gì\,\ {0}?}" />
+                    </materialDesign:HintAssist.Hint>
+                </TextBox>
             </DockPanel>
 
             <ScrollViewer

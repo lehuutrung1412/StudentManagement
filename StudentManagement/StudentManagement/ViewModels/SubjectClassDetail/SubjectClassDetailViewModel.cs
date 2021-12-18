@@ -26,6 +26,7 @@ namespace StudentManagement.ViewModels
         private object _newsFeedRightSideBarViewModel;
         private object _fileManagerRightSideBarViewModel;
         private object _studentListRightSideBar;
+        private object _settingSubjectClassRightSideBar;
 
         // Properties
         private bool _isShowDialog;
@@ -64,7 +65,7 @@ namespace StudentManagement.ViewModels
 
             if (LoginServices.CurrentUser.UserRole.Role == "Admin" || LoginServices.CurrentUser.UserRole.Role == "Giáo viên")
             {
-                _layoutViewModel.NavigationItems.Add(new NavigationItem("Cài đặt", false, null, _settingSubjectClassDetailViewModel, null, _layoutViewModel, "CogOutline"));
+                _layoutViewModel.NavigationItems.Add(new NavigationItem("Cài đặt", false, null, _settingSubjectClassDetailViewModel, _settingSubjectClassRightSideBar, _layoutViewModel, "CogOutline"));
             }
 
             // Set corresponding active button to default view
@@ -103,6 +104,8 @@ namespace StudentManagement.ViewModels
 
         public void InitRightSideBar(SubjectClass subjectClass)
         {
+            _settingSubjectClassRightSideBar = new SettingSubjectClassRightSideBarViewModel();
+
             _fileManagerRightSideBarViewModel = new FileManagerRightSideBarViewModel();
             (_fileManagerRightSideBarViewModel as FileManagerRightSideBarViewModel).PropertyChanged += FileManagerRightSideBarViewModel_PropertyChanged;
             

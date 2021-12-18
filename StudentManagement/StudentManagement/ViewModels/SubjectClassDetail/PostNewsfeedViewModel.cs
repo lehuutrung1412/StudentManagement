@@ -92,7 +92,7 @@ namespace StudentManagement.ViewModels
                     // Get current user
                     var user = LoginServices.CurrentUser;
 
-                    var newComment = new PostComment(Guid.NewGuid(), Post.PostId, user.Id, user.DisplayName, txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
+                    var newComment = new PostComment(Guid.NewGuid(), Post.PostId, user.Id, user.IdAvatar != null ? user.DatabaseImageTable.Image : null, user.DisplayName, txbComment.Text, DateTime.Parse(DateTime.Now.ToString(), _culture));
 
                     await NewsfeedServices.Instance.SaveCommentToDatabaseAsync(newComment);
                     await NewsfeedServices.Instance.SaveCommentToNotification(newComment);

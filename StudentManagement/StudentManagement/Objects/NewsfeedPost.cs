@@ -31,7 +31,7 @@ namespace StudentManagement.Objects
         public DateTime? Time { get; set; }
         public Guid PostId { get; set; }
 
-        public PostComment(Guid id, Guid postId, Guid userId, string username, string comment, DateTime? time)
+        public PostComment(Guid id, Guid postId, Guid userId, string avatar, string username, string comment, DateTime? time)
         {
             Id = id;
             PostId = postId;
@@ -39,6 +39,7 @@ namespace StudentManagement.Objects
             Username = username;
             Comment = comment;
             Time = time;
+            UserAvatar = avatar;
         }
     }
 }

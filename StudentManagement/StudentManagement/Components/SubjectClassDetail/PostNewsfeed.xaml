@@ -41,7 +41,7 @@
                     VerticalAlignment="Top"
                     DockPanel.Dock="Left">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="{DynamicResource DefaultUserAvatar}" Stretch="Uniform" />
+                        <ImageBrush ImageSource="{Binding Post.PosterAvatar, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
                     </Ellipse.Fill>
                 </Ellipse>
                 <Grid Margin="8,16,16,8" DockPanel.Dock="Right">
@@ -376,6 +376,9 @@
                                                         </DataTrigger.Binding>
                                                         <Setter Property="Visibility" Value="Visible" />
                                                     </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.UserRole.Role}" Value="Admin">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </materialDesign:PopupBox.Style>
@@ -451,9 +454,24 @@
                     Margin="0,0,8,16"
                     VerticalAlignment="Top"
                     DockPanel.Dock="Left">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.DatabaseImageTable.Image, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
-                    </Ellipse.Fill>
+                    <Ellipse.Style>
+                        <Style TargetType="Ellipse">
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.DatabaseImageTable.Image, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.IdAvatar}" Value="{x:Null}">
+                                    <Setter Property="Fill">
+                                        <Setter.Value>
+                                            <ImageBrush ImageSource="{StaticResource DefaultUserAvatar}" Stretch="Uniform" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Ellipse.Style>
                 </Ellipse>
                 <TextBox
                     x:Name="txbMainComment"

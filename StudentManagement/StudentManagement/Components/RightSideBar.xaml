@@ -21,11 +21,6 @@
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
     <Grid>
-        <!--<ContentControl
-            Grid.Column="10"
-            Grid.ColumnSpan="3"
-            Content="{Binding RightSideBar}" />-->
-
         <ContentControl
             Grid.Column="10"
             Grid.ColumnSpan="3"
@@ -66,6 +61,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:CampusStudentListRightSideBarViewModel}">
                     <component:CampusStudentListRightSideBar />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:SettingSubjectClassRightSideBarViewModel}">
+                    <component:SettingSubjectClassRightSideBar />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

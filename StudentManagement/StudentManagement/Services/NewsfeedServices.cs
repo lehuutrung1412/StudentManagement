@@ -47,7 +47,8 @@ namespace StudentManagement.Services
                 IdSubjectClass = notif.IdSubjectClass,
                 IdPoster = poster.Id,
                 PosterName = poster.DisplayName,
-                Topic = notif.Topic
+                Topic = notif.Topic,
+                PosterAvatar = poster.DatabaseImageTable.Image
             };
         }
 
@@ -92,7 +93,7 @@ namespace StudentManagement.Services
         public PostComment ConvertNotificationCommentToPostComment(NotificationComment comment)
         {
             User user = UserServices.Instance.GetUserById((Guid)comment.IdUserComment);
-            return new PostComment(comment.Id, (Guid)comment.IdNotification, (Guid)comment.IdUserComment, user.DisplayName, comment.Content, comment.Time);
+            return new PostComment(comment.Id, (Guid)comment.IdNotification, (Guid)comment.IdUserComment, user.DatabaseImageTable.Image, user.DisplayName, comment.Content, comment.Time);
         }
 
         #endregion Convert

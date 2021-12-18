@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:viewmodel="clr-namespace:StudentManagement.ViewModels"
-    xmlns:services="clr-namespace:StudentManagement.Services">
+    xmlns:services="clr-namespace:StudentManagement.Services"
+    xmlns:viewmodel="clr-namespace:StudentManagement.ViewModels">
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:LayoutViewModel x:Key="LayoutVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
@@ -28,5 +28,5 @@
     <viewmodel:AdminCourseRegistryRightSideBarViewModel x:Key="AdminCourseRegistryRightSideBarVM" />
     <viewmodel:CampusStudentListViewModel x:Key="CampusStudentListVM" />
     <viewmodel:CampusStudentListRightSideBarViewModel x:Key="CampusStudentListRightSideBarVM" />
-    <services:LoginServices x:Key="LoginServices"/>
+    <services:LoginServices x:Key="LoginServices" />
 </ResourceDictionary>

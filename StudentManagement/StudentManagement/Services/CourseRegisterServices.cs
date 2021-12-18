@@ -82,12 +82,12 @@ namespace StudentManagement.Services
 
                 return true;
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 MyMessageBox.Show("Lớp học đã đủ số lượng, đăng ký không thành công");
                 return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

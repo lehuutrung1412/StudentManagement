@@ -137,6 +137,7 @@ namespace StudentManagement.ViewModels
                         IdPoster = user.Id,
                         IdSubjectClass = SubjectClassDetail.Id,
                         PosterName = user.DisplayName,
+                        PosterAvatar = user.IdAvatar != null ? user.DatabaseImageTable.Image : null,
                         PostText = CreatePostNewFeedViewModel.DraftPostText,
                         PostTime = DateTime.Parse(DateTime.Now.ToString(), _culture),
                         Topic = SubjectClassDetail.Code + " - " + SubjectClassDetail.Subject.DisplayName

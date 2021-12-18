@@ -292,7 +292,7 @@ namespace StudentManagement.ViewModels
                     SearchQuery = "";
                 }
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 MyMessageBox.Show("Lớp học đã đủ số lượng, thêm sinh viên không thành công");
             }
