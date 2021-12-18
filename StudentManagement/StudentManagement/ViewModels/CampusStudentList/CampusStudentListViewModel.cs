@@ -66,28 +66,37 @@ namespace StudentManagement.ViewModels
         {
             Instance = this;
 
-            UserDatabase = new ObservableCollection<UserCard>();
+            try
+            {
 
-            var teacherList = TeacherServices.Instance.LoadTeacherList();
-            var studentList = StudentServices.Instance.LoadStudentList();
-            var adminList = AdminServices.Instance.LoadAdminList();
 
-            foreach (var item in studentList)
-                UserDatabase.Add(new UserCard(item));
+                UserDatabase = new ObservableCollection<UserCard>();
 
-            foreach (var item in teacherList)
-                UserDatabase.Add(new UserCard(item));
+                var teacherList = TeacherServices.Instance.LoadTeacherList();
+                var studentList = StudentServices.Instance.LoadStudentList();
+                var adminList = AdminServices.Instance.LoadAdminList();
 
-            foreach (var item in adminList)
-                UserDatabase.Add(new UserCard(item));
+                foreach (var item in studentList)
+                    UserDatabase.Add(new UserCard(item));
 
-            FindNameData = new ObservableCollection<UserCard>();
+                foreach (var item in teacherList)
+                    UserDatabase.Add(new UserCard(item));
 
-            SearchName = new RelayCommand<object>((p) => true, (p) => SearchNameFunction());
-            AddStudent = new RelayCommand<object>((p) => true, (p) => AddStudentFunction());
-            AddStudentList = new RelayCommand<object>((p) => true, (p) => AddStudentListFunction());
+                foreach (var item in adminList)
+                    UserDatabase.Add(new UserCard(item));
 
-            SearchNameFunction();
+                FindNameData = new ObservableCollection<UserCard>();
+
+                SearchName = new RelayCommand<object>((p) => true, (p) => SearchNameFunction());
+                AddStudent = new RelayCommand<object>((p) => true, (p) => AddStudentFunction());
+                AddStudentList = new RelayCommand<object>((p) => true, (p) => AddStudentListFunction());
+
+                SearchNameFunction();
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra");
+            }
         }
 
         public void SearchNameFunction()
@@ -121,109 +130,118 @@ namespace StudentManagement.ViewModels
         DataTableCollection dataSheets;
         void AddStudentListFunction()
         {
-            using (OpenFileDialog op = new OpenFileDialog() { Filter = "Excel|*.xls;*.xlsx;" })
+            try
             {
-                if (op.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog op = new OpenFileDialog() { Filter = "Excel|*.xls;*.xlsx;" })
                 {
-                    using (var stream = File.Open(op.FileName, FileMode.Open, FileAccess.Read))
+                    if (op.ShowDialog() == DialogResult.OK)
                     {
-                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                        using (var stream = File.Open(op.FileName, FileMode.Open, FileAccess.Read))
                         {
-                            DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                            using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
                             {
-                                ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
-                            });
-                            dataSheets = result.Tables;
-                        }
-                    }
-                    DataTable data = dataSheets[0];
-
-                    foreach (DataRow item in data.Rows)
-                    {
-                        var username = item[1].ToString();
-                        var findUsername = DataProvider.Instance.Database.Users.Where(x => x.Username == username).FirstOrDefault();
-                        if (findUsername != null)
-                        {
-                            MyMessageBox.Show("Đã thêm trùng user, thêm thất bại");
-                            return;
-                        }
-                            
-                    }
-
-                    foreach (DataRow student in data.Rows)
-                    {
-                        User NewUser = new User();
-                        string role = student[0].ToString();
-
-                        NewUser.Id = Guid.NewGuid();
-                        NewUser.Username = student[1].ToString();
-                        NewUser.Password = student[6].ToString();
-                        NewUser.DisplayName = student[2].ToString();
-                        NewUser.Email = student[3].ToString();
-                        NewUser.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => x.Role == role).FirstOrDefault();
-                        NewUser.IdUserRole = NewUser.UserRole.Id;
-
-                        UserServices.Instance.SaveUserToDatabase(NewUser);
-
-                       
-                        if (role == "Sinh viên")
-                        {
-                            Student newStudent = new Student();
-                            newStudent.IdUsers = NewUser.Id;
-                            newStudent.Id = Guid.NewGuid();
-                            string temp = student[4].ToString();
-                            newStudent.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
-                            temp = student[5].ToString();
-                            newStudent.TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(x => x.DisplayName == temp).FirstOrDefault();
-                            newStudent.IdFaculty = newStudent.Faculty.Id;
-                            newStudent.IdTrainingForm = newStudent.TrainingForm.Id;
-                            newStudent.User = NewUser;
-
-                            StudentServices.Instance.SaveStudentToDatabase(newStudent);
-                            UserDatabase.Add(new UserCard(newStudent));
-
-                        }
-
-                        if (role == "Giáo viên")
-                        {
-                            Teacher newTeacher = new Teacher();
-                            newTeacher.IdUsers = NewUser.Id;
-                            newTeacher.Id = Guid.NewGuid();
-                            string temp = student[4].ToString();
-                            newTeacher.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
-                            newTeacher.IdFaculty = newTeacher.Faculty.Id;
-                            newTeacher.User = NewUser;
-
-                            TeacherServices.Instance.SaveTeacherToDatabase(newTeacher);
-                            UserDatabase.Add(new UserCard(newTeacher));
-                        }
-
-                        List<UserRole_UserInfo> db = DataProvider.Instance.Database.UserRole_UserInfo.Where(infoItem => infoItem.UserRole.Role == role).ToList();
-                        foreach (var item in db)
-                        {
-                            if (item.InfoName != "Hệ đào tạo" && item.InfoName != "Khoa" && item.InfoName != "Họ và tên" && item.InfoName != "Địa chỉ email")
-                            {
-                                User_UserRole_UserInfo newInfo = new User_UserRole_UserInfo();
-                                newInfo.Id = Guid.NewGuid();
-                                newInfo.IdUser = NewUser.Id;
-                                newInfo.IdUserRole_Info = item.Id;
-                                newInfo.UserRole_UserInfo = item;
-                                newInfo.User = NewUser;
-                                newInfo.Content = null;
-                                UserUserRoleUserInfoServices.Instance.SaveUserInfoToDatabase(newInfo);
+                                DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                                {
+                                    ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                                });
+                                dataSheets = result.Tables;
                             }
                         }
+                        DataTable data = dataSheets[0];
 
+                        foreach (DataRow item in data.Rows)
+                        {
+                            var username = item[1].ToString();
+                            var findUsername = DataProvider.Instance.Database.Users.Where(x => x.Username == username).FirstOrDefault();
+                            if (findUsername != null)
+                            {
+                                MyMessageBox.Show("Đã thêm trùng user, thêm thất bại");
+                                return;
+                            }
+
+                        }
+
+                        foreach (DataRow student in data.Rows)
+                        {
+                            User NewUser = new User();
+                            string role = student[0].ToString();
+
+                            NewUser.Id = Guid.NewGuid();
+                            NewUser.Username = student[1].ToString();
+                            NewUser.Password = student[6].ToString();
+                            NewUser.DisplayName = student[2].ToString();
+                            NewUser.Email = student[3].ToString();
+                            NewUser.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => x.Role == role).FirstOrDefault();
+                            NewUser.IdUserRole = NewUser.UserRole.Id;
+
+                            UserServices.Instance.SaveUserToDatabase(NewUser);
+
+
+                            if (role == "Sinh viên")
+                            {
+                                Student newStudent = new Student();
+                                newStudent.IdUsers = NewUser.Id;
+                                newStudent.Id = Guid.NewGuid();
+                                string temp = student[4].ToString();
+                                newStudent.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
+                                temp = student[5].ToString();
+                                newStudent.TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(x => x.DisplayName == temp).FirstOrDefault();
+                                newStudent.IdFaculty = newStudent.Faculty.Id;
+                                newStudent.IdTrainingForm = newStudent.TrainingForm.Id;
+                                newStudent.User = NewUser;
+
+                                StudentServices.Instance.SaveStudentToDatabase(newStudent);
+                                UserDatabase.Add(new UserCard(newStudent));
+
+                            }
+
+                            if (role == "Giáo viên")
+                            {
+                                Teacher newTeacher = new Teacher();
+                                newTeacher.IdUsers = NewUser.Id;
+                                newTeacher.Id = Guid.NewGuid();
+                                string temp = student[4].ToString();
+                                newTeacher.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
+                                newTeacher.IdFaculty = newTeacher.Faculty.Id;
+                                newTeacher.User = NewUser;
+
+                                TeacherServices.Instance.SaveTeacherToDatabase(newTeacher);
+                                UserDatabase.Add(new UserCard(newTeacher));
+                            }
+
+                            List<UserRole_UserInfo> db = DataProvider.Instance.Database.UserRole_UserInfo.Where(infoItem => infoItem.UserRole.Role == role).ToList();
+                            foreach (var item in db)
+                            {
+                                if (item.InfoName != "Hệ đào tạo" && item.InfoName != "Khoa" && item.InfoName != "Họ và tên" && item.InfoName != "Địa chỉ email")
+                                {
+                                    User_UserRole_UserInfo newInfo = new User_UserRole_UserInfo();
+                                    newInfo.Id = Guid.NewGuid();
+                                    newInfo.IdUser = NewUser.Id;
+                                    newInfo.IdUserRole_Info = item.Id;
+                                    newInfo.UserRole_UserInfo = item;
+                                    newInfo.User = NewUser;
+                                    newInfo.Content = null;
+                                    UserUserRoleUserInfoServices.Instance.SaveUserInfoToDatabase(newInfo);
+                                }
+                            }
+
+                        }
+
+                        MyMessageBox.Show("Thêm thành công");
+                        SearchNameFunction();
+
+                        return;
                     }
-
-                    MyMessageBox.Show("Thêm thành công");
-                    SearchNameFunction();
-
-                    return;
                 }
+
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra");
+                return;
             }
 
-            MyMessageBox.Show("Thêm thất bại");
+        MyMessageBox.Show("Thêm thất bại");
             SearchNameFunction();
         }
     }

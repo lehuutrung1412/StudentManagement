@@ -240,83 +240,89 @@ namespace StudentManagement.ViewModels
 
         void ConfirmEditStudentInfoFunction()
         {
-            if (checkExitCode() != 0)
+            try
             {
-                return;
-            }
-
-            NewUser = new User();
-
-            NewUser.Id = Guid.NewGuid();
-            NewUser.Username = Username;
-            NewUser.Password = Password;
-            NewUser.DisplayName = Convert.ToString(InfoSource.First().Content);
-            NewUser.Email = Convert.ToString(InfoSource[1].Content);
-            NewUser.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => x.Role == SelectedRole).FirstOrDefault();
-            NewUser.IdUserRole = NewUser.UserRole.Id;
-
-            UserServices.Instance.SaveUserToDatabase(NewUser);
-
-            if (SelectedRole == "Sinh viên")
-            {
-                Student newStudent = new Student();
-                newStudent.IdUsers = NewUser.Id;
-                newStudent.Id = Guid.NewGuid();
-                string temp = Convert.ToString(InfoSource[2].Content);
-                newStudent.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
-                temp = Convert.ToString(InfoSource[3].Content);
-                newStudent.TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(x => x.DisplayName == temp).FirstOrDefault();
-                newStudent.IdFaculty = newStudent.Faculty.Id;
-                newStudent.IdTrainingForm = newStudent.TrainingForm.Id;
-                newStudent.User = NewUser;
-
-                StudentServices.Instance.SaveStudentToDatabase(newStudent);
-            }
-            else if (SelectedRole == "Giáo viên")
-            {
-                Teacher newTeacher = new Teacher();
-                newTeacher.IdUsers = NewUser.Id;
-                newTeacher.Id = Guid.NewGuid();
-                string temp = Convert.ToString(InfoSource[2].Content);
-                newTeacher.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
-                newTeacher.IdFaculty = newTeacher.Faculty.Id;
-                newTeacher.User = NewUser;
-
-                TeacherServices.Instance.SaveTeacherToDatabase(newTeacher);
-            }
-            else
-            {
-                Admin newAdmin = new Admin();
-                newAdmin.IdUsers = NewUser.Id;
-                newAdmin.Id = Guid.NewGuid();
-                newAdmin.User = NewUser;
-
-                AdminServices.Instance.SaveAdminToDatabase(newAdmin);
-
-            }
-            List<UserRole_UserInfo> db = DataProvider.Instance.Database.UserRole_UserInfo.Where(infoItem => infoItem.UserRole.Role == SelectedRole).ToList();
-            foreach (var item in db)
-            {
-                if (item.InfoName != "Hệ đào tạo" && item.InfoName != "Khoa" && item.InfoName != "Họ và tên" && item.InfoName != "Địa chỉ email")
+                if (checkExitCode() != 0)
                 {
-                    User_UserRole_UserInfo newInfo = new User_UserRole_UserInfo();
-                    newInfo.Id = Guid.NewGuid();
-                    newInfo.IdUser = NewUser.Id;
-                    newInfo.IdUserRole_Info = item.Id;
-                    newInfo.UserRole_UserInfo = item;
-                    newInfo.User = NewUser;
-                    newInfo.Content = null ;
-                    UserUserRoleUserInfoServices.Instance.SaveUserInfoToDatabase(newInfo);
+                    return;
                 }
+
+                NewUser = new User();
+
+                NewUser.Id = Guid.NewGuid();
+                NewUser.Username = Username;
+                NewUser.Password = Password;
+                NewUser.DisplayName = Convert.ToString(InfoSource.First().Content);
+                NewUser.Email = Convert.ToString(InfoSource[1].Content);
+                NewUser.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => x.Role == SelectedRole).FirstOrDefault();
+                NewUser.IdUserRole = NewUser.UserRole.Id;
+
+                UserServices.Instance.SaveUserToDatabase(NewUser);
+
+                if (SelectedRole == "Sinh viên")
+                {
+                    Student newStudent = new Student();
+                    newStudent.IdUsers = NewUser.Id;
+                    newStudent.Id = Guid.NewGuid();
+                    string temp = Convert.ToString(InfoSource[2].Content);
+                    newStudent.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
+                    temp = Convert.ToString(InfoSource[3].Content);
+                    newStudent.TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(x => x.DisplayName == temp).FirstOrDefault();
+                    newStudent.IdFaculty = newStudent.Faculty.Id;
+                    newStudent.IdTrainingForm = newStudent.TrainingForm.Id;
+                    newStudent.User = NewUser;
+
+                    StudentServices.Instance.SaveStudentToDatabase(newStudent);
+                }
+                else if (SelectedRole == "Giáo viên")
+                {
+                    Teacher newTeacher = new Teacher();
+                    newTeacher.IdUsers = NewUser.Id;
+                    newTeacher.Id = Guid.NewGuid();
+                    string temp = Convert.ToString(InfoSource[2].Content);
+                    newTeacher.Faculty = DataProvider.Instance.Database.Faculties.Where(x => x.DisplayName == temp).FirstOrDefault();
+                    newTeacher.IdFaculty = newTeacher.Faculty.Id;
+                    newTeacher.User = NewUser;
+
+                    TeacherServices.Instance.SaveTeacherToDatabase(newTeacher);
+                }
+                else
+                {
+                    Admin newAdmin = new Admin();
+                    newAdmin.IdUsers = NewUser.Id;
+                    newAdmin.Id = Guid.NewGuid();
+                    newAdmin.User = NewUser;
+
+                    AdminServices.Instance.SaveAdminToDatabase(newAdmin);
+
+                }
+                List<UserRole_UserInfo> db = DataProvider.Instance.Database.UserRole_UserInfo.Where(infoItem => infoItem.UserRole.Role == SelectedRole).ToList();
+                foreach (var item in db)
+                {
+                    if (item.InfoName != "Hệ đào tạo" && item.InfoName != "Khoa" && item.InfoName != "Họ và tên" && item.InfoName != "Địa chỉ email")
+                    {
+                        User_UserRole_UserInfo newInfo = new User_UserRole_UserInfo();
+                        newInfo.Id = Guid.NewGuid();
+                        newInfo.IdUser = NewUser.Id;
+                        newInfo.IdUserRole_Info = item.Id;
+                        newInfo.UserRole_UserInfo = item;
+                        newInfo.User = NewUser;
+                        newInfo.Content = null;
+                        UserUserRoleUserInfoServices.Instance.SaveUserInfoToDatabase(newInfo);
+                    }
+                }
+
+                CurrentStudent.DisplayName = NewUser.DisplayName;
+                CurrentStudent.Email = NewUser.Email;
+                CurrentStudent.ID = NewUser.Id;
+                CurrentStudent.Role = SelectedRole;
+
+                ReturnToShowStudentInfo();
             }
-
-            CurrentStudent.DisplayName = NewUser.DisplayName;
-            CurrentStudent.Email = NewUser.Email;
-            CurrentStudent.ID = NewUser.Id;
-            CurrentStudent.Role = SelectedRole;
-
-            ReturnToShowStudentInfo();
-
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra !!");
+            }
         }
 
         public void ReturnToShowStudentInfo()

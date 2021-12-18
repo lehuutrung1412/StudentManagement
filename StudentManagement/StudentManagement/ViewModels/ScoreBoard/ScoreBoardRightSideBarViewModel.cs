@@ -43,12 +43,19 @@ namespace StudentManagement.ViewModels
             {
                 _selectedItem = value;
                 OnPropertyChanged();
-                if (_selectedItem != null)
+                try
                 {
-                    ShowDetailScore();
-                    string SubjectClassDisplayName = DataProvider.Instance.Database.SubjectClasses.Where(x => x.Id == _selectedItem.IdSubjectClass).FirstOrDefault().Subject.DisplayName;
-                    _scoreboardRightSideBarItemViewModel = new ScoreBoardRightSideBarItemViewModel(CurrentScore, SubjectClassDisplayName);
-                    RightSideBarItemViewModel = _scoreboardRightSideBarItemViewModel;
+                    if (_selectedItem != null)
+                    {
+                        ShowDetailScore();
+                        string SubjectClassDisplayName = DataProvider.Instance.Database.SubjectClasses.Where(x => x.Id == _selectedItem.IdSubjectClass).FirstOrDefault().Subject.DisplayName;
+                        _scoreboardRightSideBarItemViewModel = new ScoreBoardRightSideBarItemViewModel(CurrentScore, SubjectClassDisplayName);
+                        RightSideBarItemViewModel = _scoreboardRightSideBarItemViewModel;
+                    }
+                }
+                catch (Exception)
+                {
+                    MyMessageBox.Show("Đã có lỗi xảy ra");
                 }
             }
         }
@@ -81,21 +88,27 @@ namespace StudentManagement.ViewModels
 
         void ShowDetailScore()
         {
-            double gpa = 0;
-            CurrentScore = new ObservableCollection<DetailScoreItem>();
-
-            var ListDetailScore = DataProvider.Instance.Database.DetailScores.Where(x => x.IdStudent == IdStudent && x.ComponentScore.IdSubjectClass == SelectedItem.IdSubjectClass);
-            foreach (var item in ListDetailScore)
+            try
             {
-                if (item?.Score != null)
+                double gpa = 0;
+                CurrentScore = new ObservableCollection<DetailScoreItem>();
+
+                var ListDetailScore = DataProvider.Instance.Database.DetailScores.Where(x => x.IdStudent == IdStudent && x.ComponentScore.IdSubjectClass == SelectedItem.IdSubjectClass);
+                foreach (var item in ListDetailScore)
                 {
-                    gpa += (double)item.Score * (double)item.ComponentScore.ContributePercent / 100;
-                    CurrentScore.Add(new DetailScoreItem(item.ComponentScore.DisplayName, Convert.ToString(item.ComponentScore.ContributePercent) + "%", Convert.ToString(item.Score)));
+                    if (item?.Score != null)
+                    {
+                        gpa += (double)item.Score * (double)item.ComponentScore.ContributePercent / 100;
+                        CurrentScore.Add(new DetailScoreItem(item.ComponentScore.DisplayName, Convert.ToString(item.ComponentScore.ContributePercent) + "%", Convert.ToString(item.Score)));
+                    }
                 }
+
+                CurrentScore.Add(new DetailScoreItem("Điểm trung bình", "Điểm trung bình", Convert.ToString(gpa)));
             }
-
-            CurrentScore.Add(new DetailScoreItem("Điểm trung bình", "Điểm trung bình", Convert.ToString(gpa)));
-
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra");
+            }
         }
 
         public void InitRightSideBarItemViewModel()
