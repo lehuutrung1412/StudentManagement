@@ -34,7 +34,9 @@
                     Height="40"
                     Margin="16,16,4,16"
                     VerticalAlignment="Top"
-                    DockPanel.Dock="Left">
+                    DockPanel.Dock="Left"
+                    Stroke="LightGray"
+                    StrokeThickness="1">
                     <Ellipse.Style>
                         <Style TargetType="Ellipse">
                             <Setter Property="Fill">
@@ -74,7 +76,6 @@
                     Padding="16"
                     materialDesign:HintAssist.IsFloating="False"
                     materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
-                    TextWrapping="Wrap"
                     AcceptsReturn="True"
                     AcceptsTab="True"
                     Background="{DynamicResource Gray}"
@@ -83,6 +84,7 @@
                     HorizontalScrollBarVisibility="Disabled"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding DraftPostText, Mode=TwoWay}"
+                    TextWrapping="Wrap"
                     VerticalScrollBarVisibility="auto">
                     <materialDesign:HintAssist.Hint>
                         <TextBlock Text="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.DisplayName, StringFormat={}Bạn\ đang\ nghĩ\ gì\,\ {0}?}" />
@@ -91,12 +93,11 @@
             </DockPanel>
 
             <ScrollViewer
-                Margin="16 0 16 0"
                 Grid.Row="1"
-                VerticalScrollBarVisibility="Disabled"
-                HorizontalScrollBarVisibility="Auto">
-                <ItemsControl
-                    ItemsSource="{Binding StackImageDraft}">
+                Margin="16,0,16,0"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding StackImageDraft}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel

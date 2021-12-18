@@ -164,9 +164,9 @@ namespace StudentManagement.ViewModels
         public void InitAdminNavigationItems()
         {
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, LayoutViewModel, "School"),
-                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, LayoutViewModel, "School"),
-                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, LayoutViewModel, "School"),
+                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, LayoutViewModel, "GoogleClassroom"),
+                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, LayoutViewModel, "Domain"),
+                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, LayoutViewModel, "BookEducationOutline"),
             };
             ObservableCollection<NavigationItem> tempInfo = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Thông tin cá nhân", false, null, _settingUserInfoViewModel, null, LayoutViewModel, "AccountOutline"),
@@ -177,8 +177,8 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Đào tạo", true, temp, null, null, LayoutViewModel, "SchoolOutline"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, LayoutViewModel, "BellOutline"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, LayoutViewModel, "AccountCircleOutline"),
-                new NavigationItem("Danh sách sinh viên", false, null, _campusStudentListViewModel, _campusStudentListRightSideBar, LayoutViewModel, "SchoolOutline"),
-                new NavigationItem("Admin - ĐKHP", false, null, _adminCourseRegistryViewModel, _adminCourseRegistryRightSideBar, LayoutViewModel, "CreditCardPlusOutline"),
+                new NavigationItem("Người dùng hệ thống", false, null, _campusStudentListViewModel, _campusStudentListRightSideBar, LayoutViewModel, "AccountGroupOutline"),
+                new NavigationItem("Đăng ký học phần", false, null, _adminCourseRegistryViewModel, _adminCourseRegistryRightSideBar, LayoutViewModel, "CreditCardPlusOutline"),
                 new NavigationItem("Cài đặt", true, tempInfo, null, null, LayoutViewModel, "CogOutline"),
             };
         }
@@ -186,28 +186,27 @@ namespace StudentManagement.ViewModels
         public void InitTeacherNavigationItems()
         {
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, LayoutViewModel, "School"),
-                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, LayoutViewModel, "School"),
-                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, LayoutViewModel, "School"),
+                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, LayoutViewModel, "GoogleClassroom"),
+                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, LayoutViewModel, "Domain"),
+                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, LayoutViewModel, "BookEducationOutline"),
             };
 
             LayoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
                 new NavigationItem("Tổng quan", false, null, _adminHomeViewModel, _adminHomeRightSideBar, LayoutViewModel, "ViewDashboardOutline"),
                 new NavigationItem("Đào tạo", true, temp, null, null, LayoutViewModel, "SchoolOutline"),
                 new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, LayoutViewModel, "DiceD10Outline"),
+                new NavigationItem("Thời khóa biểu", false, null, _studentScheduleTableViewModel, null, LayoutViewModel, "CalendarMonthOutline"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, LayoutViewModel, "BellOutline"),
-                new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, LayoutViewModel, "CalendarMonthOutline"),
-                new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, LayoutViewModel, "AccountCircleOutline"),
-                new NavigationItem("Danh sách sinh viên", false, null, _campusStudentListViewModel, _campusStudentListRightSideBar, LayoutViewModel, "SchoolOutline"),
+                new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, LayoutViewModel, "AccountCircleOutline")
             };
         }
 
         public void InitStudentNavigationItems()
         {
             ObservableCollection<NavigationItem> temp = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, LayoutViewModel, "School"),
-                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, LayoutViewModel, "School"),
-                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, LayoutViewModel, "School"),
+                new NavigationItem("Lớp môn học", false, null, _adminSubjectClassViewModel, _adminSubjectClassRightSideBar, LayoutViewModel, "GoogleClassroom"),
+                new NavigationItem("Khoa - hệ đào tạo", false, null, _adminFacultyTrainingFormViewModel, _adminFacultyTrainingFormRightSideBar, LayoutViewModel, "Domain"),
+                new NavigationItem("Môn học", false, null, _adminSubjectViewModel, _adminSubjectRightSideBar, LayoutViewModel, "BookEducationOutline"),
             };
 
             LayoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
@@ -215,8 +214,8 @@ namespace StudentManagement.ViewModels
                 new NavigationItem("Đào tạo", true, temp, null, null, LayoutViewModel, "SchoolOutline"),
                 new NavigationItem("Đăng ký học phần", false, null, _studentCourseRegistryViewModel, _studentCourseRegistryRightSideBar, LayoutViewModel, "CreditCardPlusOutline"),
                 new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, LayoutViewModel, "DiceD10Outline"),
+                new NavigationItem("Thời khóa biểu", false, null, _studentScheduleTableViewModel, null, LayoutViewModel, "CalendarMonthOutline"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, LayoutViewModel, "BellOutline"),
-                new NavigationItem("TKB", false, null, _studentScheduleTableViewModel, null, LayoutViewModel, "CalendarMonthOutline"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, LayoutViewModel, "AccountCircleOutline"),
             };
         }

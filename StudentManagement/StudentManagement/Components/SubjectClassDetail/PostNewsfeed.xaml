@@ -39,7 +39,9 @@
                     Height="46"
                     Margin="16,16,4,8"
                     VerticalAlignment="Top"
-                    DockPanel.Dock="Left">
+                    DockPanel.Dock="Left"
+                    Stroke="LightGray"
+                    StrokeThickness="1">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding Post.PosterAvatar, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
                     </Ellipse.Fill>
@@ -290,7 +292,9 @@
                                     Height="40"
                                     Margin="0,0,4,8"
                                     VerticalAlignment="Top"
-                                    DockPanel.Dock="Left">
+                                    DockPanel.Dock="Left"
+                                    Stroke="LightGray"
+                                    StrokeThickness="1">
                                     <Ellipse.Fill>
                                         <ImageBrush ImageSource="{Binding UserAvatar, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="Uniform" />
                                     </Ellipse.Fill>
@@ -453,7 +457,9 @@
                     Height="40"
                     Margin="0,0,8,16"
                     VerticalAlignment="Top"
-                    DockPanel.Dock="Left">
+                    DockPanel.Dock="Left"
+                    Stroke="LightGray"
+                    StrokeThickness="1">
                     <Ellipse.Style>
                         <Style TargetType="Ellipse">
                             <Setter Property="Fill">

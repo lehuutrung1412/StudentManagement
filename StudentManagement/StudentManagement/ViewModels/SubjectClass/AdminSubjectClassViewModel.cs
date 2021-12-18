@@ -229,11 +229,18 @@ namespace StudentManagement.ViewModels
 
         public void ShowSubjectClassDetailFunction(UserControl cardComponent)
         {
-            SubjectClassDetail subjectClassDetail = new SubjectClassDetail
+            try
             {
-                DataContext = new SubjectClassDetailViewModel(cardComponent)
-            };
-            subjectClassDetail.Show();
+                SubjectClassDetail subjectClassDetail = new SubjectClassDetail
+                {
+                    DataContext = new SubjectClassDetailViewModel(cardComponent)
+                };
+                subjectClassDetail.Show();
+            }
+            catch (Exception)
+            {
+                MyMessageBox.Show("Đã có lỗi xảy ra! Không thể đến lớp học", "Lỗi", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
         #endregion methods
 

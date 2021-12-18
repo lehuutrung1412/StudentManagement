@@ -48,6 +48,7 @@
                         SecondSearchButtonText="Tên môn"
                         SwitchSearchButton="{Binding SwitchSearchButton}" />
                     <Button
+                        Padding="0"
                         Grid.Column="1"
                         Height="50"
                         Margin="8,0,0,0"
@@ -55,8 +56,9 @@
                         materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding AddFromExcelCommand}"
                         Content="Thêm từ Excel"
-                        FontSize="16" />
+                        FontSize="14" />
                     <Button
+                        Padding="0"
                         Grid.Column="2"
                         Height="50"
                         Margin="8,0,0,0"
@@ -64,7 +66,7 @@
                         materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding CreateSubjectCardInfo, Source={StaticResource AdminSubjectRightSideBarVM}}"
                         Content="Thêm môn học"
-                        FontSize="16" />
+                        FontSize="14" />
                 </Grid>
                 <component:SubjectDataGrid Margin="16,16,16,16" DataContext="{Binding SubjectCards}" />
             </DockPanel>
