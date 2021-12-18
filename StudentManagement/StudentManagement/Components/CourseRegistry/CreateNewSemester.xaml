@@ -69,6 +69,7 @@
                 HorizontalContentAlignment="Center"
                 Background="{StaticResource PrimaryHueMidBrush}"
                 Command="{Binding CreateNewSemesterCommand}"
+                Style="{StaticResource rounded_btn}"
                 Content="Xác nhận" />
             <materialDesign:PackIcon
                 Grid.Column="1"

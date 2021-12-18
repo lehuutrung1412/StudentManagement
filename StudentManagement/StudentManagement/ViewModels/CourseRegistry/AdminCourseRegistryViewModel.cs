@@ -140,6 +140,7 @@ namespace StudentManagement.ViewModels
         public ICommand CreateNewSemesterCommand { get; set; }
         public ICommand AddFromExcelCommand { get; set; }
         public ICommand ExportExcelCommand { get; set; }
+        public ICommand PopupCreateSemester { get; set; }
 
 
         #endregion
@@ -179,9 +180,6 @@ namespace StudentManagement.ViewModels
 
             CreateNewBatch();
             SelectedBatch = Batches.Last();
-
-            IsDoneVisible = false;
-            IsErrorVisible = false;
         }
         public void InitCommand()
         {
@@ -224,6 +222,8 @@ namespace StudentManagement.ViewModels
                     return false;
                 return !(SelectedSemester.CourseRegisterStatus > 1);
             }, (p) => AddFromExcel());
+
+            PopupCreateSemester = new RelayCommand<object>((p) => true, (p) => ResetDoneErrorVisibility());
         }
         public void SelectData()
         {
@@ -290,11 +290,13 @@ namespace StudentManagement.ViewModels
                 SelectedSemester = Semesters.Last();
                 /*Semesters = new ObservableCollection<Semester>(Semesters.OrderBy(y => y.DisplayName).OrderBy(x => x.Batch).ToList());*/
                 CreateNewBatch();
+
             }
             catch
             {
                 IsErrorVisible = true;
             }
+            
         }
 
         public void CreateNewBatch()
@@ -395,6 +397,12 @@ namespace StudentManagement.ViewModels
                     MyMessageBox.Show("Lỗi không đọc file được", "Lỗi");
                 }
             }
+        }
+
+        public void ResetDoneErrorVisibility()
+        {
+            IsDoneVisible = false;
+            IsErrorVisible = false;
         }
     }
 }

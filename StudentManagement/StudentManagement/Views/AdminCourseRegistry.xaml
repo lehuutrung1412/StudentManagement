@@ -164,9 +164,14 @@
                                             Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                                             Text="Tạo học kỳ" />
                                     </StackPanel>
-
                                 </materialDesign:PopupBox.ToggleContent>
                                 <component:CreateNewSemester />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger
+                                        EventName="Opened">
+                                        <i:InvokeCommandAction Command="{Binding PopupCreateSemester}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </materialDesign:PopupBox>
                         </Button>
                     </DockPanel>
@@ -192,7 +197,7 @@
                 </Grid>
                 <DockPanel
                     Grid.Row="2"
-                    Margin="0 8 0 8"
+                    Margin="0,8,0,8"
                     LastChildFill="False">
                     <!--<Button
                         Width="150"
