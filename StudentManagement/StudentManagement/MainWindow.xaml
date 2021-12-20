@@ -21,6 +21,7 @@
     Background="{DynamicResource Transparent}"
     DataContext="{StaticResource MainVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    Icon="{StaticResource Logo}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -41,7 +42,7 @@
                 <RowDefinition Height="30" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <component:TitleBar Grid.Row="0" Tag="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <component:TitleBar Grid.Row="0" Tag="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
             <ContentControl
                 Grid.Row="1"
                 Margin="0,0,0,4"
