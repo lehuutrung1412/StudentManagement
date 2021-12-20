@@ -6,6 +6,7 @@ using StudentManagement.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using static StudentManagement.Services.LoginServices;
 using NavigationItem = StudentManagement.Objects.NavigationItem;
@@ -230,7 +231,19 @@ namespace StudentManagement.ViewModels
 
         private void GotoLoginView()
         {
+            CloseAllOtherWindows();
             CurrentViewModel = _loginViewModel;
+        }
+
+        private void CloseAllOtherWindows()
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window != Application.Current.MainWindow)
+                {
+                    window.Close();
+                }
+            }
         }
 
         public void InitContentView()
