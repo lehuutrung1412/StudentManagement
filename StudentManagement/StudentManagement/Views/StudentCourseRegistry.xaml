@@ -29,12 +29,11 @@
             <RowDefinition Height="55*" />
             <RowDefinition Height="45*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="0" Panel.ZIndex="1">
             <Button
-                Grid.Column="1"
                 Width="45"
                 Height="45"
-                Margin="16,0"
+                Margin="0,16,16,0"
                 HorizontalAlignment="Right"
                 materialDesign:ButtonProgressAssist.IndicatorBackground="Transparent"
                 materialDesign:ButtonProgressAssist.IsIndeterminate="True"
@@ -48,9 +47,7 @@
                 <!--  simple example of toggling/animating pack icon with a data trigger  -->
                 <materialDesign:PackIcon Width="24" Height="24">
                     <materialDesign:PackIcon.Style>
-                        <Style
-                            BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}"
-                            TargetType="materialDesign:PackIcon">
+                        <Style BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}" TargetType="materialDesign:PackIcon">
                             <Setter Property="Kind" Value="CloudSync" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsSaveComplete}" Value="True">
@@ -73,10 +70,9 @@
                 </materialDesign:PackIcon>
             </Button>
             <TextBlock
-                Margin="8,16,16,8"
+                Margin="8,8,16,8"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Panel.ZIndex="1">
+                VerticalAlignment="Top">
                 <TextBlock.Text>
                     <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
                         <Binding Path="CurrentSemester.Batch" />
@@ -86,7 +82,10 @@
             </TextBlock>
         </StackPanel>
 
-        <materialDesign:Card Grid.Row="0" Margin="8,8,8,16">
+        <materialDesign:Card
+            Grid.Row="0"
+            Margin="0,0,0,16"
+            Style="{StaticResource CardContainer}">
             <DockPanel LastChildFill="False">
                 <StackPanel DockPanel.Dock="Top">
                     <TabControl
@@ -182,7 +181,7 @@
         </materialDesign:Card>
         <materialDesign:Card
             Grid.Row="1"
-            Margin="8,8,8,16"
+            Margin="0,8,0,0"
             Style="{StaticResource CardContainer}">
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>

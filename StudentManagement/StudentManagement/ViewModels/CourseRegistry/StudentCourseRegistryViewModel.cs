@@ -215,6 +215,7 @@ namespace StudentManagement.ViewModels
         public void RegisterSelectedCourses()
         {
             var SelectedItems = CourseRegistryItems2.Where(x => x.IsSelected == true).ToList();
+            string strListError = "";
             foreach (CourseItem item in SelectedItems)
             {
                 if (item.IsConflict)
@@ -229,7 +230,15 @@ namespace StudentManagement.ViewModels
                     item.NumberOfStudents += 1;
                     TotalCredit += Convert.ToInt32(item.Subject.Credit);
                 }
+                else
+                {
+                    strListError += item.Code + "\n";
+                }
             }
+            if (strListError.Length > 0)
+                MyMessageBox.Show("Những lớp đăng ký không thành công:\n" + strListError, "Lỗi đăng ký");
+            else
+                MyMessageBox.Show("Đăng ký thành công", "Thành công");
             UploadConflictCourseRegistry();
             Search();
             UpdateScheduleItems();
@@ -247,6 +256,7 @@ namespace StudentManagement.ViewModels
                 CourseRegistryItems1.Remove(item);
                 CourseRegisterServices.Instance.StudentUnregisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
             }
+            MyMessageBox.Show("Đăng ký thành công", "Thành công");
             UploadConflictCourseRegistry();
             Search();
             UpdateScheduleItems();
