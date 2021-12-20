@@ -161,7 +161,7 @@ namespace StudentManagement.ViewModels
                     if (!InfoItemServices.Instance.AddUserRole_UserInfoByRoleAndInfoItem(CurrendInfo, "Admin"))
                         MyMessageBox.Show("Chưa tồn tại Admin trong hệ thống!!!", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 }
-                SettingUserInfoViewModel.Instance.IsOpen = false;
+                MainViewModel.Instance.IsOpen = false;
                 UserInfoViewModel.Instance.LoadInfoSource();
                 SettingUserInfoViewModel.Instance.GetInfoSourceInSettingByRole();
             }

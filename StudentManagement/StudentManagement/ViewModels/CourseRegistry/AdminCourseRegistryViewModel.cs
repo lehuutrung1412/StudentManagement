@@ -96,16 +96,7 @@ namespace StudentManagement.ViewModels
                 SearchCourseRegistryItemsFunction();
             }
         }
-        private object _dialogItemViewModel;
-        public object DialogItemViewModel
-        {
-            get { return _dialogItemViewModel; }
-            set
-            {
-                _dialogItemViewModel = value;
-                OnPropertyChanged();
-            }
-        }
+
         public object _creatNewCourseViewModel;
 
         #region CreateNewSemester
@@ -274,7 +265,7 @@ namespace StudentManagement.ViewModels
         {
             var newSubjectClass = new SubjectClass(); 
             _creatNewCourseViewModel = new CreateNewCourseViewModel(newSubjectClass, SelectedSemester, CourseRegistryItemsAll[SelectedSemesterIndex]);
-            this.DialogItemViewModel = this._creatNewCourseViewModel;
+            MainViewModel.Instance.DialogViewModel = this._creatNewCourseViewModel;
         }
 
         public void CreateNewSemester()

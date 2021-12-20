@@ -28,7 +28,7 @@
         <math:MathConverter x:Key="math" />
     </UserControl.Resources>
     <materialDesign:Card Margin="8" Style="{StaticResource CardContainer}">
-        <materialDesign:DialogHost CloseOnClickAway="True">
+        <!--<materialDesign:DialogHost CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{Binding ElementName=AdminCourseRegister, Path=DataContext}">
                     <ContentControl.Resources>
@@ -37,7 +37,7 @@
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>
-            </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost.DialogContent>-->
             <Grid Margin="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -224,11 +224,11 @@
                                 FontSize="14"
                                 Text="Thêm thủ công" />
                         </StackPanel>
-                        <i:Interaction.Triggers>
+                        <!--<i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
                             </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        </i:Interaction.Triggers>-->
                     </Button>
                     <Button
                         Width="160"
@@ -279,6 +279,6 @@
                     IsAllItemsSelected="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Tag="{Binding SelectedItem, Mode=OneWayToSource, Source={StaticResource AdminCourseRegistryRightSideBarVM}}" />
             </Grid>
-        </materialDesign:DialogHost>
+        <!--</materialDesign:DialogHost>-->
     </materialDesign:Card>
 </UserControl>

@@ -38,6 +38,21 @@ namespace StudentManagement.ViewModels
             }
         }
 
+        public object DialogViewModel { get => _dialogViewModel; set { _dialogViewModel = value; OnPropertyChanged(); } }
+
+        private object _dialogViewModel;
+
+        private bool _isOpen;
+        public bool IsOpen
+        {
+            get { return _isOpen; }
+            set
+            {
+                _isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand GotoLoginViewCommand { get; set; }
         public ICommand GotoLayoutViewCommand { get; set; }
 
@@ -129,6 +144,8 @@ namespace StudentManagement.ViewModels
 
             //CurrentViewModel = _layoutViewModel;
             CurrentViewModel = _loginViewModel;
+
+            MainWindow.Notify.ShowBalloonTip(3000, "Stuman - Hệ thống quản lý đào tạo", "Chào mừng bạn đến với Stuman", System.Windows.Forms.ToolTipIcon.Info);
         }
 
         #region methods
@@ -275,6 +292,8 @@ namespace StudentManagement.ViewModels
             // Set default view
             LayoutViewModel.ContentViewModel = _adminHomeViewModel;
         }
+
+ 
 
         public void InitRightSideBar()
         {

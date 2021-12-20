@@ -81,34 +81,11 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private object _dialogItemViewModel;
-        public object DialogItemViewModel
-        {
-            get { return _dialogItemViewModel; }
-            set
-            {
-                _dialogItemViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private object _isOpen;
-        public object IsOpen
-        {
-            get { return _isOpen; }
-            set
-            {
-                _isOpen = value;
-                OnPropertyChanged();
-            }
-        }
-
-
         public int? NumCardInBadged { get => _numCardInBadged; set { _numCardInBadged = value; OnPropertyChanged(); } }
 
         private int? _numCardInBadged;
 
-        public object _creatNewNotificationViewModel;
+        public object _createNewNotificationViewModel;
         public object _showDetailNotificationViewModel;
         #endregion
 
@@ -179,7 +156,6 @@ namespace StudentManagement.ViewModels
                     LoadCardNotification();
                 }
 
-                IsOpen = false;
                 InitIcommand();
             }
             catch
@@ -306,9 +282,9 @@ namespace StudentManagement.ViewModels
                 var card = p.DataContext as NotificationCard;
                 if(card.IdSubjectClass==null)
                 {
-                    IsOpen = true;
                     this._showDetailNotificationViewModel = new ShowDetailNotificationViewModel(card);
-                    this.DialogItemViewModel = this._showDetailNotificationViewModel;
+                    MainViewModel.Instance.DialogViewModel = this._showDetailNotificationViewModel;
+                    MainViewModel.Instance.IsOpen = true;
                     card.Status = true;
                     for (int i = 0; i < CardsInBadge.Count; i++)
                     {
@@ -404,8 +380,9 @@ namespace StudentManagement.ViewModels
         public void CreateNewNotification()
         {
             var card = new NotificationCard(Guid.NewGuid(), IdUser, "", "", "", DateTime.Now);
-            this._creatNewNotificationViewModel = new CreateNewNotificationViewModel(card);
-            this.DialogItemViewModel = this._creatNewNotificationViewModel;
+            this._createNewNotificationViewModel = new CreateNewNotificationViewModel(card);
+            MainViewModel.Instance.DialogViewModel = this._createNewNotificationViewModel;
+            MainViewModel.Instance.IsOpen = true;
         }
     }
     #endregion

@@ -18,8 +18,8 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     AllowsTransparency="True"
-    Closing="Window_Closing"
     Background="{DynamicResource Transparent}"
+    Closing="Window_Closing"
     DataContext="{StaticResource MainVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     Icon="{StaticResource Logo}"
@@ -34,29 +34,55 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="12" />
     </WindowChrome.WindowChrome>
-    <Border
-        Margin="8"
-        Background="{DynamicResource White}"
-        CornerRadius="5">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <component:TitleBar Grid.Row="0" Tag="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
-            <ContentControl
-                Grid.Row="1"
-                Margin="0,0,0,4"
-                Content="{Binding CurrentViewModel}">
+    <materialDesign:DialogHost CloseOnClickAway="True" IsOpen="{Binding IsOpen}">
+        <materialDesign:DialogHost.DialogContent>
+            <ContentControl Content="{Binding DialogViewModel}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
-                        <views:Layout />
+                    <DataTemplate DataType="{x:Type viewmodels:CreateNewNotificationViewModel}">
+                        <component:NewNotification Width="600" Height="500" />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                        <views:Login />
+                    <DataTemplate DataType="{x:Type viewmodels:ShowDetailNotificationViewModel}">
+                        <component:ShowDetailNotification Width="600" Height="500" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:UserInfoItemViewModel}">
+                        <component:NewInfoItem MinWidth="600" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:CreateNewCourseViewModel}">
+                        <component:CreateNewCourse Width="600" Height="600" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:EditInfoItemViewModel}">
+                        <component:EditInfoItem MinWidth="600" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:OverviewScoreboardViewModel}">
+                        <component:OverviewScoreboardCard Width="Auto" Height="Auto" />
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
-        </Grid>
-    </Border>
+        </materialDesign:DialogHost.DialogContent>
+        <Border
+            Margin="8"
+            Background="{DynamicResource White}"
+            CornerRadius="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <component:TitleBar Grid.Row="0" Tag="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
+                <ContentControl
+                    Grid.Row="1"
+                    Margin="0,0,0,4"
+                    Content="{Binding CurrentViewModel}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
+                            <views:Layout />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                            <views:Login />
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Grid>
+        </Border>
+    </materialDesign:DialogHost>
 </Window>

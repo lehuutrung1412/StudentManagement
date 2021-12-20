@@ -60,17 +60,6 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private object _isOpen;
-        public object IsOpen
-        {
-            get { return _isOpen; }
-            set
-            {
-                _isOpen = value;
-                OnPropertyChanged();
-            }
-        }
-
         private object _isUpdate;
         public object IsUpdate
         {
@@ -129,7 +118,6 @@ namespace StudentManagement.ViewModels
                 LoadInfoSource();
             }
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
-            IsOpen = false;
             IsUpdate = false;
             InitCommand();
         }
@@ -310,9 +298,9 @@ namespace StudentManagement.ViewModels
         public void AddNewInfoItem()
         {
             this._userInfoItemViewModel = new UserInfoItemViewModel();
-            this.DialogItemViewModel = this._userInfoItemViewModel;
+            MainViewModel.Instance.DialogViewModel = this._userInfoItemViewModel;
 
-            IsOpen = true;
+            MainViewModel.Instance.IsOpen = true;
         }
         public async void ClickChangeImage()
         {
