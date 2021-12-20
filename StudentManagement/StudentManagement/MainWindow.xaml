@@ -18,6 +18,7 @@
     d:DesignHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     d:DesignWidth="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utils:RatioConverter}, ConverterParameter='0.84'}"
     AllowsTransparency="True"
+    Closing="Window_Closing"
     Background="{DynamicResource Transparent}"
     DataContext="{StaticResource MainVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"

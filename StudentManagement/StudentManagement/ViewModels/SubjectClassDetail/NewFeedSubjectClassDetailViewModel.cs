@@ -9,7 +9,11 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
+using UserControl = System.Windows.Controls.UserControl;
+using System.Windows;
+using Application = System.Windows.Application;
 
 namespace StudentManagement.ViewModels
 {
@@ -107,7 +111,9 @@ namespace StudentManagement.ViewModels
 
                         PostEditingViewModel.StackPostImage = stackImageUploaded;
 
-                        _ = MyMessageBox.Show("Chỉnh sửa bài đăng thành công!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                        MainWindow.Notify.ShowBalloonTip(3000, "Stuman", "Chỉnh sửa bài đăng thành công!", ToolTipIcon.Info);
+
+                        //_ = MyMessageBox.Show("Chỉnh sửa bài đăng thành công!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                     }
                     else
                     {
