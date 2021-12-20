@@ -176,7 +176,9 @@
                         FirstSearchButtonText="Mã lớp"
                         SearchCommand="{Binding SearchCommand}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SecondSearchButtonText="Tên lớp học" />
+                        SecondSearchButtonText="Tên lớp học"
+                        IsFirstSearchButtonEnabled="{Binding IsFirstSearchButtonEnabled}"
+                        SwitchSearchButton="{Binding SwitchSearchButtonCommand}" />
                 </Grid>
                 <component:SubjectRegistryDataGrid
                     Grid.Row="2"
