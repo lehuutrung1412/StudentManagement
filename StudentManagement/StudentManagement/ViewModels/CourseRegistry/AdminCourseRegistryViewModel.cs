@@ -363,7 +363,13 @@ namespace StudentManagement.ViewModels
                                 DatabaseImageTable = DatabaseImageTableServices.Instance.GetFirstDatabaseImageTable(),           //Thiếu image
                                 NumberOfStudents = 0
                             };
+                            if (tempSubjectClass.Teachers.FirstOrDefault() == null)
+                            {
+                                tempSubjectClass.Teachers.Clear();
+                                tempSubjectClass.Teachers.Add(DataProvider.Instance.Database.Teachers.FirstOrDefault());
+                            }
                             SubjectClassServices.Instance.UpdateIds(tempSubjectClass);
+
                             var conflictAvailableCourse = CourseRegistryItemsAll[SelectedSemesterIndex].Where(x => x.Code == tempSubjectClass.Code).FirstOrDefault();
                             if (conflictAvailableCourse != null)
                             {
