@@ -23,6 +23,5 @@ namespace StudentManagement.Components
 
         public static readonly DependencyProperty ButtonVisibilityProperty =
             DependencyProperty.RegisterAttached("ButtonVisibility", typeof(Visibility), typeof(TitleBar), new PropertyMetadata(Visibility.Visible));
-
     }
 }

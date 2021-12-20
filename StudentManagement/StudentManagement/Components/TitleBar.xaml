@@ -8,10 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:StudentManagement.ViewModels"
     Name="TitleBarUC"
+    Tag="Stuman"
     d:DesignHeight="80"
     d:DesignWidth="800"
     Background="{StaticResource Transparent}"
-    DataContext="{StaticResource TitleBarVM}"
     mc:Ignorable="d">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -33,7 +33,7 @@
                 DockPanel.Dock="Left"
                 FontSize="18"
                 FontWeight="SemiBold"
-                Text="Stuman" />
+                Text="{Binding ElementName=TitleBarUC, Path=Tag}" />
             <DockPanel HorizontalAlignment="Right" DockPanel.Dock="Right">
                 <Border DockPanel.Dock="Right" Style="{StaticResource BorderClosebuttonTitleBar}">
                     <Button
