@@ -128,6 +128,7 @@ namespace StudentManagement.ViewModels
 
             //CurrentViewModel = _layoutViewModel;
             CurrentViewModel = _loginViewModel;
+            GotoLayoutView();
         }
 
         #region methods

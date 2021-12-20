@@ -370,7 +370,7 @@ namespace StudentManagement.ViewModels
         {
             if (!IsToRemember)
             {
-                if (RememberedAccount == null)
+                /*if (RememberedAccount == null)
                     return;
                 // Use Remembered Account to input textboxes
                 if (!LoginServices.Instance.IsUserAuthentic(Username, Password))
@@ -382,7 +382,7 @@ namespace StudentManagement.ViewModels
                         Password = RememberedAccount.PassWord;
                     }
                     return;
-                }
+                }*/
             }
             else
             {
@@ -397,32 +397,32 @@ namespace StudentManagement.ViewModels
                 }
             }
 
-            
 
-            
-            
+
+
+
         }
         public void InitRememberedAccount()
         {
-            //RememberedAccount = null;
-            //string filePath = LoginServices.FilePathRememberedAccount;
-            //if (File.Exists(filePath))
-            //{
-            //    string fileContent = "";
-            //    using (StreamReader sr = new StreamReader(filePath))
-            //    {
-            //        fileContent = sr.ReadToEnd();
-            //        string accountRow = fileContent.Split('\n')[0];
-            //        if (accountRow == "")
-            //            return;
-            //        string[] account = accountRow.Split('\t');
-            //        RememberedAccount = new Account(account[0], LoginServices.Decrypt(account[1], "S7uMan"));
-            //    }
-            //}
-            //else
-            //{
-            //    File.CreateText(LoginServices.FilePathRememberedAccount);
-            //}
+            RememberedAccount = null;
+            string filePath = LoginServices.FilePathRememberedAccount;
+            if (File.Exists(filePath))
+            {
+                string fileContent = "";
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    fileContent = sr.ReadToEnd();
+                    string accountRow = fileContent.Split('\n')[0];
+                    if (accountRow == "")
+                        return;
+                    string[] account = accountRow.Split('\t');
+                    RememberedAccount = new Account(account[0], LoginServices.Decrypt(account[1], "S7uMan"));
+                }
+            }
+            else
+            {
+                File.CreateText(LoginServices.FilePathRememberedAccount);
+            }
         }
 
         private bool IsValid(string propertyName)
