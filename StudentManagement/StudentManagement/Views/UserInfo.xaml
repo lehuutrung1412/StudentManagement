@@ -28,19 +28,15 @@
                 Name="DialogHostUserInfo"
                 VerticalContentAlignment="Center"
                 CloseOnClickAway="True"
-                IsOpen="{Binding IsOpen}">
+                IsOpen="{Binding IsOpen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <materialDesign:DialogHost.DialogContent>
                     <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{DynamicResource UserInfoVM}">
                         <ContentControl.Resources>
-                            <DataTemplate DataType="{x:Type viewmodels:UserInfoItemViewModel}">
-                                <component:NewInfoItem MinWidth="600" />
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type viewmodels:EditInfoItemViewModel}">
-                                <component:EditInfoItem MinWidth="600" />
+                            <DataTemplate DataType="{x:Type viewmodels:ChangePasswordViewModel}">
+                                <component:ChangePassword MinWidth="600" />
                             </DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>
-
                 </materialDesign:DialogHost.DialogContent>
                 <Grid
                     Margin="16,0,0,0"
@@ -137,14 +133,14 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock
                                 Grid.Column="0"
                                 Margin="16"
                                 FontWeight="Bold"
+                                VerticalAlignment="Center"
                                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                 Text="Thông tin sinh viên" />
                             <Grid Grid.Column="2">
@@ -158,6 +154,23 @@
                                 Command="{Binding AddNewInfoItemCommand}"
                                 Content="Thêm thông tin"
                                 Style="{StaticResource PrimaryButton}" />-->
+                                <Button
+                                    Grid.Column="0"
+                                    Margin="16,0"
+                                    Command="{Binding ChangePasswordCommand}"
+                                    Content="Đổi mật khẩu"
+                                    ToolTip="Ấn vào đây để đổi mật khẩu">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsUpdate}" Value="true">
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
                                 <Button
                                     Name="btnUpdate"
                                     Grid.Column="1"

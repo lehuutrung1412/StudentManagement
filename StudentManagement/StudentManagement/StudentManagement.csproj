@@ -97,6 +97,9 @@
     <Compile Include="Components\CampusStudentList\AddStudentRightSideBarItem.xaml.cs">
       <DependentUpon>AddStudentRightSideBarItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\UserInfo\ChangePassword.xaml.cs">
+      <DependentUpon>ChangePassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\SubjectClassDetail\SettingSubjectClassRightSideBar.xaml.cs">
       <DependentUpon>SettingSubjectClassRightSideBar.xaml</DependentUpon>
     </Compile>
@@ -133,7 +136,7 @@
     <Compile Include="Components\CourseRegistry\CreateNewSemester.xaml.cs">
       <DependentUpon>CreateNewSemester.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\DeleteInfoItem.xaml.cs">
+    <Compile Include="Components\UserInfo\DeleteInfoItem.xaml.cs">
       <DependentUpon>DeleteInfoItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\ScheduleItemCard.xaml.cs">
@@ -518,10 +521,11 @@
     <Compile Include="ViewModels\CampusStudentList\CampusStudentListRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CampusStudentList\CampusStudentListRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\CampusStudentList\CampusStudentListViewModel.cs" />
+    <Compile Include="ViewModels\UserInfo\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemEditViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarItemViewModel.cs" />
     <Compile Include="ViewModels\CourseRegistry\AdminCourseRegistryRightSideBarViewModel.cs" />
-    <Compile Include="ViewModels\DeleteInfoItemViewModel.cs" />
+    <Compile Include="ViewModels\UserInfo\DeleteInfoItemViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SettingSubjectClassRightSideBarViewModel.cs" />
     <Compile Include="ViewModels\OverviewScoreboardViewModel.cs" />
     <Compile Include="ViewModels\SubjectClassDetail\SettingSubjectClassDetailViewModel.cs" />
@@ -619,6 +623,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\UserInfo\ChangePassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\SubjectClassDetail\SettingSubjectClassRightSideBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -667,7 +675,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\DeleteInfoItem.xaml">
+    <Page Include="Components\UserInfo\DeleteInfoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

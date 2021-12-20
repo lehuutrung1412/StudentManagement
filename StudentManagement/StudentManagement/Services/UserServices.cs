@@ -115,7 +115,12 @@ namespace StudentManagement.Services
             user.FirstOrDefault().Password = passWord;
             DataProvider.Instance.Database.SaveChanges();
             return true;
-        }  
+        }
+        public void ChangePassWordOfCurrentUser(string passWord, User user)
+        {
+            user.Password = passWord;
+            DataProvider.Instance.Database.SaveChanges();
+        }
         public bool CheckLogin(string userName, string passWord)
         {
             var user = DataProvider.Instance.Database.Users.Where(tmpUser=>tmpUser.Username == userName && tmpUser.Password==passWord).ToList();

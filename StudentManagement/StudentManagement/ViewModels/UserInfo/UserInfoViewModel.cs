@@ -48,6 +48,7 @@ namespace StudentManagement.ViewModels
 
         public object _userInfoItemViewModel;
         public object _editInfoItemViewModel;
+        public object _changePasswordViewModel;
 
         private object _dialogItemViewModel;
         public object DialogItemViewModel
@@ -98,6 +99,9 @@ namespace StudentManagement.ViewModels
         public ICommand CancelUpdateCommand { get => _cancelUpdateCommand; set => _cancelUpdateCommand = value; }
         private ICommand _cancelUpdateCommand;
 
+        public ICommand ChangePasswordCommand { get => _changePasswordCommand; set => _changePasswordCommand = value; }
+        private ICommand _changePasswordCommand;
+
         public UserInfoViewModel()
         {
             Instance = this;
@@ -139,6 +143,7 @@ namespace StudentManagement.ViewModels
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
             UpdateUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateUserInfo());
             CancelUpdateCommand = new RelayCommand<object>((p) => { return true; }, (p) => CancelUpdate());
+            ChangePasswordCommand = new RelayCommand<object>((p) => { return true; }, (p) => ChangePassword());
             ConfirmUserInfoCommand = new RelayCommand<object>(
                 (p) =>
                 {
@@ -153,7 +158,12 @@ namespace StudentManagement.ViewModels
                 },
                 (p) => ComfirmUserInfo());
         }
-
+        public void ChangePassword()
+        {
+            _changePasswordViewModel = new ChangePasswordViewModel();
+            DialogItemViewModel = _changePasswordViewModel;
+            IsOpen = true;
+        }
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
         {
             try
