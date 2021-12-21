@@ -12,8 +12,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using UserControl = System.Windows.Controls.UserControl;
-using System.Windows;
-using Application = System.Windows.Application;
 
 namespace StudentManagement.ViewModels
 {
@@ -111,7 +109,7 @@ namespace StudentManagement.ViewModels
 
                         PostEditingViewModel.StackPostImage = stackImageUploaded;
 
-                        MainWindow.Notify.ShowBalloonTip(3000, "Stuman", "Chỉnh sửa bài đăng thành công!", ToolTipIcon.Info);
+                        MainWindow.Notify.ShowBalloonTip(3000, "Sửa bài đăng", "Chỉnh sửa bài đăng thành công!", ToolTipIcon.Info);
 
                         //_ = MyMessageBox.Show("Chỉnh sửa bài đăng thành công!", "Sửa bài đăng", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                     }
@@ -153,6 +151,8 @@ namespace StudentManagement.ViewModels
                     await NewsfeedServices.Instance.SavePostToNotificationInfoAsync(post);
 
                     // Upload image
+                    MainWindow.Notify.ShowBalloonTip(3000, "Đang tải lên...", "Vui lòng chờ chút bạn nhé!", ToolTipIcon.Info);
+
                     var stackImageUploaded = new ObservableCollection<string>();
                     var uploadImageTasks = new List<Task<string>>();
 
@@ -172,6 +172,9 @@ namespace StudentManagement.ViewModels
                     CreatePostNewFeedViewModel.DraftPostText = "";
 
                     CreatePostNewFeedViewModel.StackImageDraft.Clear();
+
+                    MainWindow.Notify.ShowBalloonTip(3000, post.Topic, post.PostText, ToolTipIcon.Info);
+
                 }
                 catch (Exception)
                 {

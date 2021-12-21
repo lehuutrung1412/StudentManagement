@@ -350,7 +350,11 @@ namespace StudentManagement.ViewModels
                     int existFileCount = 0;
                     int notValidFileSizeCount = 0;
 
+                    MainWindow.Notify.ShowBalloonTip(3000, "Đang tải lên...", "Vui lòng chờ chút bạn nhé!", ToolTipIcon.Info);
+
                     var listOfLinks = await UploadFileToCloud(openFileDialog.FileNames, folderId);
+                    
+                    MainWindow.Notify.ShowBalloonTip(3000, "Tải lên hoàn tất", "Enjoy your files", ToolTipIcon.Info);
 
                     int index = 0;
                     foreach (string file in openFileDialog.FileNames)
@@ -422,18 +426,25 @@ namespace StudentManagement.ViewModels
 
                     if (existFileCount > 0)
                     {
-                        MyMessageBox.Show($"Có {existFileCount} tài liệu đã tồn tại.",
-                                          "Thêm tài liệu",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Error);
+                        MainWindow.Notify.ShowBalloonTip(3000, "Thêm tài liệu",
+                            $"Có {existFileCount} tài liệu đã tồn tại.", ToolTipIcon.Error);
+
+
+                        //MyMessageBox.Show($"Có {existFileCount} tài liệu đã tồn tại.",
+                        //                  "Thêm tài liệu",
+                        //                  MessageBoxButton.OK,
+                        //                  MessageBoxImage.Error);
                     }
 
                     if (notValidFileSizeCount > 0)
                     {
-                        MyMessageBox.Show($"Không thể tải lên {notValidFileSizeCount} tài liệu có dung lượng > 10MB.",
-                                          "Thêm tài liệu",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Error);
+                        MainWindow.Notify.ShowBalloonTip(3000, "Thêm tài liệu",
+                            $"Không thể tải lên {notValidFileSizeCount} tài liệu có dung lượng > 10MB.", ToolTipIcon.Error);
+
+                        //MyMessageBox.Show($"Không thể tải lên {notValidFileSizeCount} tài liệu có dung lượng > 10MB.",
+                        //                  "Thêm tài liệu",
+                        //                  MessageBoxButton.OK,
+                        //                  MessageBoxImage.Error);
                     }
                 }
             }
@@ -510,6 +521,8 @@ namespace StudentManagement.ViewModels
             {
                 try
                 {
+                    MainWindow.Notify.ShowBalloonTip(3000, "Đang nén file...", "Vui lòng chờ chút bạn nhé!", ToolTipIcon.Info);
+
                     using (var fileStream = new FileStream(dialog.FileName, FileMode.Create))
                     {
                         using (var archive = new ZipArchive(fileStream, ZipArchiveMode.Create, true))
@@ -517,6 +530,8 @@ namespace StudentManagement.ViewModels
                             // Folder cover entire files
                             var mainFolderName = $"Documents_{SubjectClassDetail.Code}/";
                             archive.CreateEntry(mainFolderName);
+
+                            MainWindow.Notify.ShowBalloonTip(3000, "Đang tải xuống...", "Vui lòng chờ chút bạn nhé!", ToolTipIcon.Info);
 
                             foreach (var file in FileData)
                             {
@@ -547,6 +562,7 @@ namespace StudentManagement.ViewModels
                             }
                         }
                     }
+
                 }
                 catch (Exception)
                 {
