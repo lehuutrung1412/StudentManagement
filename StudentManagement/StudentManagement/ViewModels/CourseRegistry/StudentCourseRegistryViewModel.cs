@@ -246,20 +246,23 @@ namespace StudentManagement.ViewModels
         }
         public void UnregisterSelectedCourses()
         {
-            var SelectedItems = CourseRegistryItems1.Where(x => x.IsSelected == true).ToList();
-            foreach (CourseItem item in SelectedItems)
+            if (MyMessageBox.Show("Bạn thật sự muốn hủy đăng ký?", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
             {
-                item.NumberOfStudents -= 1;
-                TotalCredit -= Convert.ToInt32(item.Subject.Credit);
-                item.IsSelected = false;
-                CourseRegistryItems2.Add(item);
-                CourseRegistryItems1.Remove(item);
-                CourseRegisterServices.Instance.StudentUnregisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
+                var SelectedItems = CourseRegistryItems1.Where(x => x.IsSelected == true).ToList();
+                foreach (CourseItem item in SelectedItems)
+                {
+                    item.NumberOfStudents -= 1;
+                    TotalCredit -= Convert.ToInt32(item.Subject.Credit);
+                    item.IsSelected = false;
+                    CourseRegistryItems2.Add(item);
+                    CourseRegistryItems1.Remove(item);
+                    CourseRegisterServices.Instance.StudentUnregisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
+                }
+                MyMessageBox.Show("Hủy đăng ký thành công", "Thành công");
+                UploadConflictCourseRegistry();
+                Search();
+                UpdateScheduleItems();
             }
-            MyMessageBox.Show("Đăng ký thành công", "Thành công");
-            UploadConflictCourseRegistry();
-            Search();
-            UpdateScheduleItems();
         }
         public void Search()
         {

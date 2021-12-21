@@ -263,26 +263,30 @@ namespace StudentManagement.ViewModels
         }
         public void DeleteSelectedItems()
         {
-            var SelectedItems = CourseRegistryItems.Where(x => x.IsSelected == true).ToList();
-            string listErrorDelete = "";
-            foreach (CourseItem item in SelectedItems)
+            if (MyMessageBox.Show("Bạn thật sự muốn xóa những lớp đã chọn?", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
             {
-                try
+                var SelectedItems = CourseRegistryItems.Where(x => x.IsSelected == true).ToList();
+                string listErrorDelete = "";
+                foreach (CourseItem item in SelectedItems)
                 {
-                    if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id))
-                        CourseRegistryItems.Remove(item);
+                    try
+                    {
+                        if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id))
+                            CourseRegistryItems.Remove(item);
+                    }
+                    catch
+                    {
+                        listErrorDelete += item.Code + "\n";
+                    }
                 }
-                catch
-                {
-                    listErrorDelete += item.Code + "\n";
-                }
+                if (listErrorDelete == "")
+                    MyMessageBox.Show("Xóa tất cả lớp được chọn thành công", "Thành công");
+                else
+                    MyMessageBox.Show("Xóa thất bại:\n" + listErrorDelete, "Lỗi");
+                SearchCourseRegistryItemsFunction();
+                /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
             }
-            if (listErrorDelete == "")
-                MyMessageBox.Show("Xóa tất cả lớp được chọn thành công", "Thành công");
-            else
-                MyMessageBox.Show("Xóa thất bại:\n" + listErrorDelete, "Lỗi");
-            SearchCourseRegistryItemsFunction();
-            /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
+
         }
         public void CreateNewCourse()
         {
@@ -396,6 +400,7 @@ namespace StudentManagement.ViewModels
                                     {
                                         var tempCourse = new CourseItem(tempSubjectClass, false);
                                         conflictAvailableCourse = tempCourse;
+                                        SubjectClassServices.Instance.GenerateDefaultCommponentScore(tempSubjectClass);
                                         SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
                                     }
                                 }
@@ -403,6 +408,7 @@ namespace StudentManagement.ViewModels
                             else
                             {
                                 var tempCourse = new CourseItem(tempSubjectClass, false);
+                                SubjectClassServices.Instance.GenerateDefaultCommponentScore(tempSubjectClass);
                                 SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
                                 CourseRegistryItemsAll[SelectedSemesterIndex].Add(tempCourse);
                             }

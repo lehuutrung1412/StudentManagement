@@ -237,6 +237,7 @@ namespace StudentManagement.ViewModels
                 DatabaseImageTable = DatabaseImageTableServices.Instance.GetFirstDatabaseImageTable(),
                 Teachers = new ObservableCollection<Teacher>() { SelectedTeacher }
             };
+            SubjectClassServices.Instance.GenerateDefaultCommponentScore(newCourse);
             CurrentCard = newCourse;
             IsDoneVisible = SubjectClassServices.Instance.SaveSubjectClassToDatabase(newCourse);
             

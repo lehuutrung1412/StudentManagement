@@ -22,7 +22,7 @@
     mc:Ignorable="d">
     <ScrollViewer>
         <materialDesign:Card
-            Margin="8"
+            Margin="2 0 0 0"
             Style="{StaticResource CardContainer}">
             <DockPanel>
                 <ComboBox
