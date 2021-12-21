@@ -24,7 +24,7 @@
     mc:Ignorable="d">
     <materialDesign:Card Style="{StaticResource CardContainer}">
         <ScrollViewer>
-            <materialDesign:DialogHost
+            <!--<materialDesign:DialogHost
                 Name="DialogHostUserInfo"
                 VerticalContentAlignment="Center"
                 CloseOnClickAway="True"
@@ -37,7 +37,8 @@
                             </DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>
-                </materialDesign:DialogHost.DialogContent>
+
+                </materialDesign:DialogHost.DialogContent>-->
                 <Grid
                     Margin="16,0,0,0"
                     HorizontalAlignment="Stretch"
@@ -318,7 +319,7 @@
                     </StackPanel>-->
 
                 </Grid>
-            </materialDesign:DialogHost>
+            <!--</materialDesign:DialogHost>-->
         </ScrollViewer>
 
     </materialDesign:Card>

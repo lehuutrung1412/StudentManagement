@@ -264,13 +264,23 @@ namespace StudentManagement.ViewModels
             {
                 CurrentItem.Teachers = temp.Teachers;
             }
+            try
+            {
+                CurrentItem.Teachers.Clear();
+                CurrentItem.Teachers.Add(SelectedTeacher);
+                CurrentItem.MainTeacher = SelectedTeacher;
 
-            CurrentItem.Teachers.Clear();
-            CurrentItem.Teachers.Add(SelectedTeacher);
-            CurrentItem.MainTeacher = SelectedTeacher;
-
-            SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
-            SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
+                SubjectClass tempSubjectClass = CurrentItem.ConvertToSubjectClass();
+                if (!SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass))
+                    throw new Exception();
+                else
+                    MyMessageBox.Show("Chỉnh sửa thành công", "Thành công");
+            }
+            catch
+            {
+                MyMessageBox.Show("Chỉnh sửa thất bại", "Lỗi");
+            }
+            
             Cancel();
         }
 

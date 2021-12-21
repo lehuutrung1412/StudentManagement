@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using StudentManagement.Services;
 using StudentManagement.Models;
+using System.Data.Entity;
 
 namespace StudentManagement.ViewModels
 {
@@ -72,9 +73,9 @@ namespace StudentManagement.ViewModels
 
                 UserDatabase = new ObservableCollection<UserCard>();
 
-                var teacherList = TeacherServices.Instance.LoadTeacherList();
-                var studentList = StudentServices.Instance.LoadStudentList();
-                var adminList = AdminServices.Instance.LoadAdminList();
+                DbSet<Teacher> teacherList = TeacherServices.Instance.LoadTeacherList();
+                DbSet<Student> studentList = StudentServices.Instance.LoadStudentList();
+                DbSet<Admin> adminList = AdminServices.Instance.LoadAdminList();
 
                 foreach (var item in studentList)
                     UserDatabase.Add(new UserCard(item));

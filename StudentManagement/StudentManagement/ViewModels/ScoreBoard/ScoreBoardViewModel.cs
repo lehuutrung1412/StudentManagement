@@ -78,17 +78,6 @@ namespace StudentManagement.ViewModels
             }
         }
 
-        private object _isOpen;
-        public object IsOpen
-        {
-            get { return _isOpen; }
-            set
-            {
-                _isOpen = value;
-                OnPropertyChanged();
-            }
-        }
-
         private object _overviewScoreboardItem;
         public object OverviewScoreboardItem { get => _overviewScoreboardItem; set { _overviewScoreboardItem = value; OnPropertyChanged(); } }
 
@@ -113,7 +102,8 @@ namespace StudentManagement.ViewModels
 
             var name = DataProvider.Instance.Database.Students.Where(x => x.Id == IdStudent).FirstOrDefault().User.DisplayName;
             OverviewScoreboardItem = new OverviewScoreboardViewModel(GPA, 90, TotalCredit, name);
-            IsOpen = true;
+            MainViewModel.Instance.DialogViewModel = OverviewScoreboardItem;
+            MainViewModel.Instance.IsOpen = true;
         }
 
         public void ExportScoreBoardFunction()

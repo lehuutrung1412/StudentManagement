@@ -33,6 +33,12 @@ namespace StudentManagement.Services
             Semester a = listSemesterDesc.Where(semesterItem => semesterItem.CourseRegisterStatus == 1).FirstOrDefault();
             return a;
         }
+        public Semester GetLastClosedRegisterSemester()
+        {
+            var listSemesterDesc = DataProvider.Instance.Database.Semesters.OrderByDescending(y => y.DisplayName).OrderByDescending(x => x.Batch);
+            Semester a = listSemesterDesc.Where(semesterItem => semesterItem.CourseRegisterStatus == 2).FirstOrDefault();
+            return a;
+        }
         public ObservableCollection<Semester> LoadListSemester()
         {
             var a = DataProvider.Instance.Database.Semesters.OrderBy(x => x.Batch).ThenBy(y => y.DisplayName).ToList();

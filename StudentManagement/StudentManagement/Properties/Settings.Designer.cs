@@ -26,8 +26,10 @@ namespace StudentManagement.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;Initial Catalog=StudentManagement;Integrated Security=Tr" +
-            "ue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:stuman.database.windows.net,1433;Initial Catalog=StudentManagement;Per" +
+            "sist Security Info=False;User ID=StumanApp;Password=R69LtmwtJirNaKi3;MultipleAct" +
+            "iveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=" +
+            "30;")]
         public string StudentManagementConnectionString {
             get {
                 return ((string)(this["StudentManagementConnectionString"]));

@@ -47,10 +47,12 @@ namespace StudentManagement.ViewModels
 
         private object _dialogViewModel;
 
+        public string TitleWindow { get; set; }
+
         public SubjectClassDetailViewModel(SubjectClassCard card)
         {
-            //SubjectClassCard card = cardComponent.DataContext as SubjectClassCard;
             var subjectClass = SubjectClassServices.Instance.FindSubjectClassBySubjectClassId(card.Id);
+            TitleWindow = $"Lớp {subjectClass.Code} - {subjectClass.Subject.DisplayName}";
 
             _layoutViewModel = new LayoutViewModel();
 

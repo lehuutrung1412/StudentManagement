@@ -20,7 +20,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-    <materialDesign:DialogHost
+    <!--<materialDesign:DialogHost
         VerticalContentAlignment="Center"
         CloseOnClickAway="True"
         IsOpen="{Binding IsOpen}">
@@ -29,7 +29,7 @@
                 Width="Auto"
                 Height="Auto"
                 DataContext="{Binding OverviewScoreboardItem}" />
-        </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost.DialogContent>-->
         <materialDesign:Card
             Grid.Column="9"
             Grid.ColumnSpan="3"
@@ -125,5 +125,5 @@
 
             </Grid>
         </materialDesign:Card>
-    </materialDesign:DialogHost>
+    <!--</materialDesign:DialogHost>-->
 </UserControl>

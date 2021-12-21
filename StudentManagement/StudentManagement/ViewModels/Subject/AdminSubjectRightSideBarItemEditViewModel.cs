@@ -104,8 +104,8 @@ namespace StudentManagement.ViewModels
                 // check if card exist -> Not exist insert new
                 if (!isCardExist)
                 {
-                    AdminSubjectViewModel.SubjectCards.Insert(1, ActualCard);
-                    AdminSubjectViewModel.StoredSubjectCards.Insert(1, ActualCard);
+                    AdminSubjectViewModel.SubjectCards.Insert(0, ActualCard);
+                    AdminSubjectViewModel.StoredSubjectCards.Insert(0, ActualCard);
                 }
                 MyMessageBox.Show("Thêm/chỉnh sửa  môn học thành công");
             }

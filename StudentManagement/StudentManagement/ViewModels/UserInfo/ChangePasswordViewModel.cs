@@ -116,7 +116,7 @@ namespace StudentManagement.ViewModels
  
         public void Cancel()
         {
-            UserInfoViewModel.Instance.IsOpen = false;
+            MainViewModel.Instance.IsOpen = false;
         }
 
         public void ConFirm()
@@ -130,7 +130,7 @@ namespace StudentManagement.ViewModels
                 }
                 UserServices.Instance.ChangePassWordOfCurrentUser(NewPassWord, LoginServices.CurrentUser);
                 MyMessageBox.Show("Cập nhật mật khẩu thành công", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                UserInfoViewModel.Instance.IsOpen = false;
+                MainViewModel.Instance.IsOpen = false;
             }
             catch
             {

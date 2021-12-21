@@ -42,6 +42,8 @@ namespace StudentManagement.ViewModels
         public string Role { get => _role; set { _role = value; OnPropertyChanged(); } }
         private string _role;
 
+        public int NumPeriodToday { get => _numPeriodToday; set { _numPeriodToday = value; OnPropertyChanged(); } }
+        private int _numPeriodToday;
 
         public ObservableCollection<string> ListTypeControl { get => _listTypeControl; set { _listTypeControl = value; OnPropertyChanged(); } }
         private ObservableCollection<string> _listTypeControl;
@@ -49,28 +51,6 @@ namespace StudentManagement.ViewModels
         public object _userInfoItemViewModel;
         public object _editInfoItemViewModel;
         public object _changePasswordViewModel;
-
-        private object _dialogItemViewModel;
-        public object DialogItemViewModel
-        {
-            get { return _dialogItemViewModel; }
-            set
-            {
-                _dialogItemViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private object _isOpen;
-        public object IsOpen
-        {
-            get { return _isOpen; }
-            set
-            {
-                _isOpen = value;
-                OnPropertyChanged();
-            }
-        }
 
         private object _isUpdate;
         public object IsUpdate
@@ -129,12 +109,12 @@ namespace StudentManagement.ViewModels
                 Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
                 DisplayName = LoginServices.CurrentUser?.DisplayName;
                 Role = LoginServices.CurrentUser?.UserRole.Role;
-
+                NumPeriodToday = CourseRegisterServices.Instance.CountPeriodTodayOfUser();
                 LoadInfoSource();
             }
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
-            IsOpen = false;
             IsUpdate = false;
+           
             InitCommand();
         }
         public void InitCommand()
@@ -161,8 +141,8 @@ namespace StudentManagement.ViewModels
         public void ChangePassword()
         {
             _changePasswordViewModel = new ChangePasswordViewModel();
-            DialogItemViewModel = _changePasswordViewModel;
-            IsOpen = true;
+            MainViewModel.Instance.DialogViewModel = _changePasswordViewModel;
+            MainViewModel.Instance.IsOpen = true;
         }
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
         {
@@ -172,6 +152,7 @@ namespace StudentManagement.ViewModels
                 Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
                 DisplayName = LoginServices.CurrentUser?.DisplayName;
                 Role = LoginServices.CurrentUser?.UserRole.Role;
+                NumPeriodToday = CourseRegisterServices.Instance.CountPeriodTodayOfUser();
                 UserInfoViewModel.Instance.LoadInfoSource();
             }
             catch
@@ -320,9 +301,9 @@ namespace StudentManagement.ViewModels
         public void AddNewInfoItem()
         {
             this._userInfoItemViewModel = new UserInfoItemViewModel();
-            this.DialogItemViewModel = this._userInfoItemViewModel;
+            MainViewModel.Instance.DialogViewModel = this._userInfoItemViewModel;
 
-            IsOpen = true;
+            MainViewModel.Instance.IsOpen = true;
         }
         public async void ClickChangeImage()
         {

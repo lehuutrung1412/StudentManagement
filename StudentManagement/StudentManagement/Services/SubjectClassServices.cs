@@ -307,5 +307,41 @@ namespace StudentManagement.Services
         }
 
         public List<string> DayOfWeeks = new List<string>() { "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ nhật" };
+
+        public void GenerateDefaultCommponentScore(SubjectClass a)
+        {
+            /*ComponentScoreInSetting processScore = new ComponentScoreInSetting()
+            {
+                Id = new Guid(),
+                IdSubjectClass = a.Id,
+                DisplayName = "Điểm quá trình",
+                Percent = 0.2
+            };
+            ScoreServices.Instance.SaveComponentScoreDatabaseAsync(processScore);
+            ComponentScoreInSetting trainingScore = new ComponentScoreInSetting()
+            {
+                Id = new Guid(),
+                IdSubjectClass = a.Id,
+                DisplayName = "Điểm thực hành",
+                Percent = 0.2
+            };
+            ScoreServices.Instance.SaveComponentScoreDatabaseAsync(trainingScore);
+            ComponentScoreInSetting midTermScore = new ComponentScoreInSetting()
+            {
+                Id = new Guid(),
+                IdSubjectClass = a.Id,
+                DisplayName = "Điểm giữa kỳ",
+                Percent = 0.2
+            };
+            ScoreServices.Instance.SaveComponentScoreDatabaseAsync(midTermScore);
+            ComponentScoreInSetting finalTermScore = new ComponentScoreInSetting()
+            {
+                Id = new Guid(),
+                IdSubjectClass = a.Id,
+                DisplayName = "Điểm cuối kỳ",
+                Percent = 0.4
+            };
+            ScoreServices.Instance.SaveComponentScoreDatabaseAsync(finalTermScore);*/
+        }
     }
 }

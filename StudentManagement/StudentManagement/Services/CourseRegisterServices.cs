@@ -185,6 +185,67 @@ namespace StudentManagement.Services
             DataProvider.Instance.Database.CourseRegisters.AddOrUpdate(registering);
             await DataProvider.Instance.Database.SaveChangesAsync();
         }
+        public int CountPeriodByUserAndDate(User user, DateTime date)
+        {
+            try
+            {
+                int count = 0;
+                Guid idSemester = SemesterServices.Instance.GetLastClosedRegisterSemester().Id;
+                List<SubjectClass> listSubjectClassRegistered;
+                switch (user.UserRole.Role)
+                {
+                    case "Giáo viên":
+                        listSubjectClassRegistered = SubjectClassServices.Instance.LoadSubjectClassListBySemesterId(idSemester).
+                                                        Where(subjectClass => subjectClass.IsDeleted == false).
+                                                        Where(subjectClass => subjectClass.Teachers.FirstOrDefault().Id == user.Teachers.FirstOrDefault().Id).
+                                                        ToList();
+                        break;
+                    case "Sinh viên":
+                        listSubjectClassRegistered = LoadCourseRegisteredListBySemesterIdAndStudentId(idSemester, user.Students.FirstOrDefault().Id).
+                                                        Where(subjectClass => subjectClass.IsDeleted == false).
+                                                        ToList();
+                        break;
+                    default:
+                        return 0;
+                }
+                int dayOfWeek = ((int)date.DayOfWeek - 1) % 7;
+                foreach (SubjectClass subjectClass in listSubjectClassRegistered)
+                {
+                    if (subjectClass.WeekDay == dayOfWeek && subjectClass.StartDate <= date && subjectClass.EndDate >= date)
+                    {
+                        count += subjectClass.Period.Length;
+                    }
+                    foreach (AbsentCalendar absentEvent in subjectClass.AbsentCalendars)
+                    {
+                        if (absentEvent.Date.Equals(date))
+                        {
+                            if (absentEvent.Type == 0)
+                                count += absentEvent.Period.Length;
+                            else if (absentEvent.Type == 1)
+                                count -= absentEvent.Period.Length;
+                        }
+                    }
+                }
+                return count;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public int CountPeriodTodayOfUser()
+        {
+            try
+            {
+                Guid idSemester = SemesterServices.Instance.GetLastClosedRegisterSemester().Id;
+                return CountPeriodByUserAndDate(LoginServices.CurrentUser, DateTime.Now);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
 
     }
 }

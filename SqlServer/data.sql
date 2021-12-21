@@ -1,5 +1,3 @@
--- USE TEMP
--- DROP DATABASE StudentManagement
 CREATE DATABASE StudentManagement
 GO
 
@@ -27,14 +25,6 @@ CREATE TABLE UserRole
   Role NVARCHAR(MAX),
 )
 GO
-
---CREATE TABLE UserInfo
---(
---	Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
---	InfoName NVARCHAR(MAX) NOT NULL,
---	Type INT, --0: textbox 1:datepicker 2:combobox
---)
---GO
 
 CREATE TABLE UserRole_UserInfo
 (
@@ -66,21 +56,6 @@ CREATE TABLE UserRole_UserInfoItem --Cho UserInfo dạng combobox
 )
 GO
 
---CREATE TABLE Parent
---(
---  Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
---  NameDad NVARCHAR(MAX),
---  NameMom NVARCHAR(MAX),
---  AddressDad NVARCHAR(MAX),
---  AddressMom NVARCHAR(MAX),
---  PhoneDad NVARCHAR(MAX),
---  PhoneMom NVARCHAR(MAX),
---  JobDad NVARCHAR(MAX),
---  JobMom NVARCHAR(MAX),
---)
---GO
-
-
 CREATE TABLE Student
 (
   Id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY,
@@ -89,7 +64,6 @@ CREATE TABLE Student
   Status INT DEFAULT 1,
   -- 1: còn học, 0: đã tốt nghiệp
   IdUsers UNIQUEIDENTIFIER
-  --IdParent UNIQUEIDENTIFIER
 )
 GO
 
@@ -327,7 +301,6 @@ CREATE TABLE OTP
 )
 
 
-
 -- foreign key
 ALTER TABLE  Users
 ADD FOREIGN KEY (IdAvatar) REFERENCES DatabaseImageTable(Id),
@@ -352,7 +325,6 @@ ALTER TABLE  Student
 ADD FOREIGN KEY(IdTrainingForm) REFERENCES TrainingForm(Id),
 FOREIGN KEY(IdUsers) REFERENCES Users(Id),
 FOREIGN KEY (IdFaculty) REFERENCES Faculty(Id)
---FOREIGN KEY(IdParent) REFERENCES Parent(Id)
 GO
 
 
@@ -474,22 +446,6 @@ FOREIGN KEY (IdDatabaseImageTable) REFERENCES DatabaseImageTable(Id)
 GO
 
 --INSERT
--- Insert subject
-INSERT INTO dbo.Subject
-  (Code, DisplayName, Credit, Describe)
-VALUES
-  (N'CS106', N'Trí tuệ Nhân tạo', 4, N''),
-  (N'CS116', N'Lập trình Python cho Máy học', 4, N''),
-  (N'IT008', N'Lập trình Trực quan', 4, N''),
-  (N'CS336', N'Truy vấn thông tin đa phương tiện', 4, N'')
-GO
-
--- Insert semester
-INSERT INTO dbo.Semester
-  (DisplayName, Batch, CourseRegisterStatus)
-VALUES
-  (N'Học kỳ 1', N'2020-2021', 0)
-GO
 
 -- Insert Userrole
 INSERT INTO dbo.UserRole
@@ -516,20 +472,8 @@ GO
 INSERT INTO DatabaseImageTable
   (Image)
 values
-  ( N'https://picsum.photos/200/200' )
+  ( N'https://tuoitre.uit.edu.vn/wp-content/uploads/2015/07/logo-uit.png' )
 
--- Insert Faculty 
-INSERT INTO dbo.TrainingForm
-  (Id, DisplayName)
-VALUES
-  ('52DF1714-C81F-42C2-8C64-8D744D787E0C', N'Cử nhân Tài năng')
-
--- Insert Faculty
-INSERT INTO dbo.Faculty
-  (Id, DisplayName)
-VALUES
-  ('3BADC66B-382B-4F35-A96C-B9B546FF98AD', N'Khoa học Máy tính')
-GO
 
 -- Insert admin: admin/admin
 BEGIN
@@ -545,82 +489,12 @@ BEGIN
 
   INSERT INTO dbo.Users
     (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
-  VALUES('29DF1714-C81F-42C2-8C64-6D744D787E0C', 'admin', 'admin', 'admin@gmail.com', 'admin', @IdRole, @IdAvatar)
+  VALUES('29DF1714-C81F-42C2-8C64-6D744D787E0C', 'admin', N'Quản Trị Viên', 'admin@gmail.com', 'admin', @IdRole, @IdAvatar)
 
   INSERT INTO dbo.Admin
     (IdUsers)
   VALUES
     ('29DF1714-C81F-42C2-8C64-6D744D787E0C')
-END
-GO
-
-
--- Insert admin: cuong/cuong
-BEGIN
-  DECLARE @IdRole UNIQUEIDENTIFIER
-  SET @IdRole = (Select id
-  from UserRole
-  Where Role = 'Admin')
-
-  DECLARE @IdAvatar UNIQUEIDENTIFIER
-  SET @IdAvatar = (SELECT TOP 1
-    (Id)
-  From DatabaseImageTable)
-
-  INSERT INTO dbo.Users
-    (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
-  VALUES('13DF1724-C81E-42C2-8C64-6D744D730E0C', 'cuong', 'cuong', 'cuongnguyen14022001@gmail.com', 'admin', @IdRole, @IdAvatar)
-
-  INSERT INTO dbo.Admin
-    (IdUsers)
-  VALUES
-    ('29DF1714-C81F-42C2-8C64-6D744D787E0C')
-END
-GO
-
--- Insert Teacher: gv/gv
-BEGIN
-  DECLARE @IdRole UNIQUEIDENTIFIER
-  SET @IdRole = (Select id
-  from UserRole
-  Where Role = 'Giáo viên')
-
-  DECLARE @IdAvatar UNIQUEIDENTIFIER
-  SET @IdAvatar = (SELECT TOP 1
-    (Id)
-  From DatabaseImageTable)
-
-  INSERT INTO dbo.Users
-    (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
-  VALUES('14DF1714-C81F-42C2-8C64-6D744D787E0D', 'gv', N'Nguyễn Tấn Toàn', 'gv@gmail.com', 'gv', @IdRole, @IdAvatar)
-
-  INSERT INTO dbo.Teacher
-    (IdUsers, IdFaculty)
-  VALUES
-    ('14DF1714-C81F-42C2-8C64-6D744D787E0D', '3BADC66B-382B-4F35-A96C-B9B546FF98AD')
-END
-GO
-
--- Insert Student: sv/sv
-BEGIN
-  DECLARE @IdRole UNIQUEIDENTIFIER
-  SET @IdRole = (Select id
-  from UserRole
-  Where Role = 'Sinh viên')
-
-  DECLARE @IdAvatar UNIQUEIDENTIFIER
-  SET @IdAvatar = (SELECT TOP 1
-    (Id)
-  From DatabaseImageTable)
-
-  INSERT INTO dbo.Users
-    (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
-  VALUES('924F1714-D81F-12C2-8C64-6D744D787E0D', 'sv', N'Ngô Quang Vinh', 'vinhqngo5@gmail.com', 'sv', @IdRole, @IdAvatar)
-
-  INSERT INTO dbo.Student
-    (IdUsers, IdFaculty, IdTrainingForm)
-  VALUES
-    ('924F1714-D81F-12C2-8C64-6D744D787E0D', '3BADC66B-382B-4F35-A96C-B9B546FF98AD', '52DF1714-C81F-42C2-8C64-8D744D787E0C')
 END
 GO
 
@@ -661,7 +535,3 @@ CREATE TRIGGER UTG_CountNumberOfStudentsInClass
     END
     END
 GO
-
-USE StudentManagement
-
-SELECT * FROM SubjectClass Where Code = 'ssdfgdsgsdfsdfsds.K11'

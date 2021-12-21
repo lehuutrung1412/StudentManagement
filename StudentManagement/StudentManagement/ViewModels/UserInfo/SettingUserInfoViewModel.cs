@@ -76,16 +76,6 @@ namespace StudentManagement.ViewModels
         public ICommand GetInfoSourceInSettingByRoleCommand { get => _getInfoSourceInSettingByRoleCommand; set => _getInfoSourceInSettingByRoleCommand = value; }
         private ICommand _getInfoSourceInSettingByRoleCommand;
 
-        private object _isOpen;
-        public object IsOpen
-        {
-            get { return _isOpen; }
-            set
-            {
-                _isOpen = value;
-                OnPropertyChanged();
-            }
-        }
         private object _isSetting;
         public object IsSetting
         {
@@ -104,7 +94,6 @@ namespace StudentManagement.ViewModels
             {
                 Instance = this;
                 AddNewInfoItem = new UserInfoItemViewModel();
-                IsOpen = false;
                 IsSetting = false;
                 InitCommand();
                 ResetListCheck();
@@ -170,7 +159,8 @@ namespace StudentManagement.ViewModels
         public void AddNewInfoItemInSetting()
         {
             AddNewInfoItem = new UserInfoItemViewModel();
-            IsOpen = true;
+            MainViewModel.Instance.DialogViewModel = AddNewInfoItem;
+            MainViewModel.Instance.IsOpen = true;
         }
         public void ReloadSettingViewModel()
         {

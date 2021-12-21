@@ -6,11 +6,9 @@
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:LayoutViewModel x:Key="LayoutVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
-    <viewmodel:TitleBarViewModel x:Key="TitleBarVM" />
     <viewmodel:UserInfoViewModel x:Key="UserInfoVM" />
     <viewmodel:AdminNotificationViewModel x:Key="AdminNotificationVM" />
     <viewmodel:AdminNotificationRightSideBarViewModel x:Key="AdminNotificationRightSideBarVM" />
-    <viewmodel:CreatePostNewFeedViewModel x:Key="CreatePostNewFeedVM" />
     <viewmodel:StudentCourseRegistryViewModel x:Key="StudentCourseRegistryVM" />
     <viewmodel:StudentCourseRegistryRightSideBarViewModel x:Key="StudentCourseRegistryRightSideBarVM" />
     <viewmodel:AdminFacultyTrainingFormViewModel x:Key="AdminFacultyTrainingFormVM" />

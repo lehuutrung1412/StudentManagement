@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using ToolTipIcon = System.Windows.Forms.ToolTipIcon;
 using System.Windows.Input;
 
 namespace StudentManagement.ViewModels
@@ -115,7 +116,9 @@ namespace StudentManagement.ViewModels
                             }
                         }
                     }
-                    MyMessageBox.Show("Lưu cài đặt thành công", "Lưu cài đặt", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+
+                    MainWindow.Notify.ShowBalloonTip(3000, "Lưu cài đặt", "Lưu cài đặt thành công", ToolTipIcon.Info);
+                    //MyMessageBox.Show("Lưu cài đặt thành công", "Lưu cài đặt", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 }
             }
             catch (Exception)
