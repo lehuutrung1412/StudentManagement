@@ -270,6 +270,27 @@
                                 Text="Xóa các lớp" />
                         </StackPanel>
                     </Button>
+                    <Button
+                        Width="160"
+                        Margin="16,0,0,0"
+                        Command="{Binding ExportExcelCommand}"
+                        DockPanel.Dock="Right"
+                        Style="{StaticResource rounded_btn}">
+                        <StackPanel
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                VerticalAlignment="Center"
+                                Kind="FileExport" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="Xuất Excel" />
+                        </StackPanel>
+                    </Button>
                 </DockPanel>
                 <component:SubjectRegistryDataGrid
                     Grid.Row="3"

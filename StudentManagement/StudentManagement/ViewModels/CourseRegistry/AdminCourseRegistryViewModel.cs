@@ -1,4 +1,5 @@
-﻿using ExcelDataReader;
+﻿using ClosedXML.Excel;
+using ExcelDataReader;
 using StudentManagement.Commands;
 using StudentManagement.Models;
 using StudentManagement.Objects;
@@ -224,6 +225,7 @@ namespace StudentManagement.ViewModels
             }, (p) => AddFromExcel());
 
             PopupCreateSemester = new RelayCommand<object>((p) => true, (p) => ResetDoneErrorVisibility());
+            ExportExcelCommand = new RelayCommand<object>((p) => true, (p) => ExportExcel());
         }
         public void SelectData()
         {
@@ -409,6 +411,67 @@ namespace StudentManagement.ViewModels
         {
             IsDoneVisible = false;
             IsErrorVisible = false;
+        }
+
+        public void ExportExcel()
+        {
+            try
+            {
+                using (SaveFileDialog saveDlg = new SaveFileDialog() { Filter = "Excel|*.xlsx;" })
+                {
+                    if (saveDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        var workbook = new XLWorkbook();
+
+                        foreach (ObservableCollection<CourseItem> course1Semester in CourseRegistryItemsAll)
+                        {
+                            Semester wsSemester = Semesters[CourseRegistryItemsAll.IndexOf(course1Semester)];
+                            workbook.AddWorksheet(wsSemester.Batch + ", " + wsSemester.DisplayName);
+                            var ws = workbook.Worksheet(wsSemester.Batch + ", " + wsSemester.DisplayName);
+
+                            // Tạo header
+                            int row = 1;
+                            ws.Cell("A" + row.ToString()).Value = "Tên môn học";
+                            ws.Cell("B" + row.ToString()).Value = "Ngày bắt đầu";
+                            ws.Cell("C" + row.ToString()).Value = "Ngày kết thúc";
+                            ws.Cell("D" + row.ToString()).Value = "Tiết";
+                            ws.Cell("E" + row.ToString()).Value = "Thứ";
+                            ws.Cell("F" + row.ToString()).Value = "Mã lớp";
+                            ws.Cell("G" + row.ToString()).Value = "Giới hạn ĐK";
+                            ws.Cell("H" + row.ToString()).Value = "Tên hệ đào tạo";
+                            ws.Cell("I" + row.ToString()).Value = "Mã giáo viên";
+
+                            //Điền data
+                            row++;
+                            foreach (var item in CourseRegistryItems)
+                            {
+                                Type a = item.GetType();
+                                ws.Cell("A" + row.ToString()).Value = item.Subject.DisplayName;
+                                ws.Cell("B" + row.ToString()).Value = item.StartDate;
+                                ws.Cell("C" + row.ToString()).Value = item.EndDate;
+                                ws.Cell("D" + row.ToString()).Value = item.Period;
+                                ws.Cell("E" + row.ToString()).Value = item.WeekDay;
+                                ws.Cell("F" + row.ToString()).Value = item.Code;
+                                ws.Cell("G" + row.ToString()).Value = item.MaxNumberOfStudents;
+                                ws.Cell("H" + row.ToString()).Value = item.TrainingForm.DisplayName;
+                                ws.Cell("I" + row.ToString()).Value = item.MainTeacher.Id;
+                                row++;
+                            }
+                        }
+
+
+
+
+                        //Save file
+                        workbook.SaveAs(saveDlg.FileName);
+                        MyMessageBox.Show("Xuất file thành công", "Thành công");
+                    }
+                }
+            }
+            catch
+            {
+                MyMessageBox.Show("Đã có vấn đề xảy ra khi xuất file", "Lỗi");
+            }
         }
     }
 }
