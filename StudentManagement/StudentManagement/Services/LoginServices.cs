@@ -41,6 +41,8 @@ namespace StudentManagement.Services
 
         public static string FilePathRememberedAccount = "D:\\accountStuMan.txt";
 
+        public int CountPeriodTodayOfUser;
+
         public StudentManagementEntities db = DataProvider.Instance.Database;
 
 

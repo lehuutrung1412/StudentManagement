@@ -56,6 +56,9 @@
                     <DataTemplate DataType="{x:Type viewmodels:OverviewScoreboardViewModel}">
                         <component:OverviewScoreboardCard Width="Auto" Height="Auto" />
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:ChangePasswordViewModel}">
+                        <component:ChangePassword MinWidth="600" />
+                    </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
         </materialDesign:DialogHost.DialogContent>

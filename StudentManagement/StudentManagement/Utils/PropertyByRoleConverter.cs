@@ -20,6 +20,7 @@ namespace StudentManagement.Utils
             {"IsEnabled", new List<object> { true, false, false }},
             {"SearchBarOneButton", new List<object> { "1.5*", "0", "0"}},
             {"FileManagerRSB", new List<object> { "*", "*", "Auto"}},
+            {"Lesson", new List<object> { "", "tiết dạy", "tiết học"}},
             };
 
         public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)

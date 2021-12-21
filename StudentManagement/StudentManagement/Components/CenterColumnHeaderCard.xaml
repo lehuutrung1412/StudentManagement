@@ -70,10 +70,31 @@
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                     Text="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.DisplayName, StringFormat={}Xin\ chào\,\ {0}}" />
 
-                <TextBlock
-                    Grid.Row="0"
-                    HorizontalAlignment="left"
-                    Text="Hôm nay bạn có 7 tiết học và 6 thông báo mới" />
+                <TextBlock Grid.Row="0" HorizontalAlignment="left">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.UserRole.Role}" Value="Admin">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                    <Run Text="{Binding Source={StaticResource AdminNotificationVM}, Path=NumCardInBadged, StringFormat={}Hôm\ nay\ có\ {0} \thông \báo \mới \và}" />
+                    <Run Text="{Binding Source={StaticResource AdminNotificationVM}, Path=NumPeriodToday, TargetNullValue='0'}" />
+                    <Run>
+                        <Run.Style>
+                            <Style TargetType="Run">
+                                <Setter Property="Text" Value="Tiết dạy" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={StaticResource LoginServices}, Path=CurrentUser.UserRole.Role}" Value="Sinh viên">
+                                        <Setter Property="Text" Value="Tiết học" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Run.Style>
+                    </Run>
+                </TextBlock>
             </StackPanel>
             <component:ClockControl
                 Width="300"

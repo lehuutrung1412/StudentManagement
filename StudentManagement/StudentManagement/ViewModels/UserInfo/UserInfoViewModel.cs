@@ -42,23 +42,15 @@ namespace StudentManagement.ViewModels
         public string Role { get => _role; set { _role = value; OnPropertyChanged(); } }
         private string _role;
 
+        public int NumPeriodToday { get => _numPeriodToday; set { _numPeriodToday = value; OnPropertyChanged(); } }
+        private int _numPeriodToday;
 
         public ObservableCollection<string> ListTypeControl { get => _listTypeControl; set { _listTypeControl = value; OnPropertyChanged(); } }
         private ObservableCollection<string> _listTypeControl;
 
         public object _userInfoItemViewModel;
         public object _editInfoItemViewModel;
-
-        private object _dialogItemViewModel;
-        public object DialogItemViewModel
-        {
-            get { return _dialogItemViewModel; }
-            set
-            {
-                _dialogItemViewModel = value;
-                OnPropertyChanged();
-            }
-        }
+        public object _changePasswordViewModel;
 
         private object _isUpdate;
         public object IsUpdate
@@ -87,6 +79,9 @@ namespace StudentManagement.ViewModels
         public ICommand CancelUpdateCommand { get => _cancelUpdateCommand; set => _cancelUpdateCommand = value; }
         private ICommand _cancelUpdateCommand;
 
+        public ICommand ChangePasswordCommand { get => _changePasswordCommand; set => _changePasswordCommand = value; }
+        private ICommand _changePasswordCommand;
+
         public UserInfoViewModel()
         {
             Instance = this;
@@ -114,11 +109,12 @@ namespace StudentManagement.ViewModels
                 Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
                 DisplayName = LoginServices.CurrentUser?.DisplayName;
                 Role = LoginServices.CurrentUser?.UserRole.Role;
-
+                NumPeriodToday = CourseRegisterServices.Instance.CountPeriodTodayOfUser();
                 LoadInfoSource();
             }
             ListTypeControl = new ObservableCollection<string> { "Combobox", "Textbox", "Datepicker" };
             IsUpdate = false;
+           
             InitCommand();
         }
         public void InitCommand()
@@ -127,6 +123,7 @@ namespace StudentManagement.ViewModels
             AddNewInfoItemCommand = new RelayCommand<object>((p) => { return true; }, (p) => AddNewInfoItem());
             UpdateUserInfoCommand = new RelayCommand<object>((p) => { return true; }, (p) => UpdateUserInfo());
             CancelUpdateCommand = new RelayCommand<object>((p) => { return true; }, (p) => CancelUpdate());
+            ChangePasswordCommand = new RelayCommand<object>((p) => { return true; }, (p) => ChangePassword());
             ConfirmUserInfoCommand = new RelayCommand<object>(
                 (p) =>
                 {
@@ -141,7 +138,12 @@ namespace StudentManagement.ViewModels
                 },
                 (p) => ComfirmUserInfo());
         }
-
+        public void ChangePassword()
+        {
+            _changePasswordViewModel = new ChangePasswordViewModel();
+            MainViewModel.Instance.DialogViewModel = _changePasswordViewModel;
+            MainViewModel.Instance.IsOpen = true;
+        }
         private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
         {
             try
@@ -150,6 +152,7 @@ namespace StudentManagement.ViewModels
                 Avatar = LoginServices.CurrentUser.DatabaseImageTable?.Image;
                 DisplayName = LoginServices.CurrentUser?.DisplayName;
                 Role = LoginServices.CurrentUser?.UserRole.Role;
+                NumPeriodToday = CourseRegisterServices.Instance.CountPeriodTodayOfUser();
                 UserInfoViewModel.Instance.LoadInfoSource();
             }
             catch
