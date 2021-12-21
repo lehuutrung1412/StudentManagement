@@ -29,15 +29,63 @@
             <RowDefinition Height="55*" />
             <RowDefinition Height="45*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8 16 16 8" Panel.ZIndex="1">
-            <TextBlock.Text>
-                <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
-                    <Binding Path="CurrentSemester.Batch" />
-                    <Binding Path="CurrentSemester.DisplayName" />
-                </MultiBinding>
-            </TextBlock.Text>
-        </TextBlock>
-        <materialDesign:Card Grid.Row="0" Margin="8,8,8,16">
+        <StackPanel Grid.Row="0" Panel.ZIndex="1">
+            <Button
+                Width="45"
+                Height="45"
+                Margin="0,16,16,0"
+                HorizontalAlignment="Right"
+                materialDesign:ButtonProgressAssist.IndicatorBackground="Transparent"
+                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding InLoadingCourseRegistries}"
+                materialDesign:ButtonProgressAssist.Value="-1"
+                materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                Background="{DynamicResource PrimaryMain}"
+                Command="{Binding SynchronizeCourseRegistry}"
+                Foreground="White"
+                Style="{StaticResource MaterialDesignFloatingActionLightButton}">
+                <!--  simple example of toggling/animating pack icon with a data trigger  -->
+                <materialDesign:PackIcon Width="24" Height="24">
+                    <materialDesign:PackIcon.Style>
+                        <Style BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}" TargetType="materialDesign:PackIcon">
+                            <Setter Property="Kind" Value="CloudSync" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSaveComplete}" Value="True">
+                                    <Setter Property="Kind" Value="Check" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    From="0"
+                                                    To="1"
+                                                    Duration="0:0:0.8" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PackIcon.Style>
+                </materialDesign:PackIcon>
+            </Button>
+            <TextBlock
+                Margin="8,8,16,8"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top">
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
+                        <Binding Path="CurrentSemester.Batch" />
+                        <Binding Path="CurrentSemester.DisplayName" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+
+        <materialDesign:Card
+            Grid.Row="0"
+            Margin="0,0,0,16"
+            Style="{StaticResource CardContainer}">
             <DockPanel LastChildFill="False">
                 <StackPanel DockPanel.Dock="Top">
                     <TabControl
@@ -133,7 +181,7 @@
         </materialDesign:Card>
         <materialDesign:Card
             Grid.Row="1"
-            Margin="8,8,8,16"
+            Margin="0,8,0,0"
             Style="{StaticResource CardContainer}">
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
@@ -174,9 +222,11 @@
                         Margin="16,0"
                         DatePickerVisibility="False"
                         FirstSearchButtonText="Mã lớp"
+                        IsFirstSearchButtonEnabled="{Binding IsFirstSearchButtonEnabled}"
                         SearchCommand="{Binding SearchCommand}"
                         SearchQuery="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        SecondSearchButtonText="Tên lớp học" />
+                        SecondSearchButtonText="Tên lớp học"
+                        SwitchSearchButton="{Binding SwitchSearchButtonCommand}" />
                 </Grid>
                 <component:SubjectRegistryDataGrid
                     Grid.Row="2"

@@ -27,7 +27,7 @@
     <UserControl.Resources>
         <math:MathConverter x:Key="math" />
     </UserControl.Resources>
-    <materialDesign:Card Margin="8" Style="{StaticResource CardContainer}">
+    <materialDesign:Card Margin="0" Style="{StaticResource CardContainer}">
         <!--<materialDesign:DialogHost CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{Binding ElementName=AdminCourseRegister, Path=DataContext}">
@@ -268,6 +268,25 @@
                                 VerticalAlignment="Center"
                                 FontSize="14"
                                 Text="Xóa các lớp" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Width="160"
+                        Margin="16,0,0,0"
+                        Command="{Binding ExportExcelCommand}"
+                        DockPanel.Dock="Right"
+                        Style="{StaticResource rounded_btn}">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                VerticalAlignment="Center"
+                                Kind="FileExport" />
+                            <TextBlock
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="Xuất Excel" />
                         </StackPanel>
                     </Button>
                 </DockPanel>

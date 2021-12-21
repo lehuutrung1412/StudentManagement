@@ -90,6 +90,16 @@ namespace StudentManagement.ViewModels
         public ObservableCollection<ScheduleItem> ScheduleItemsRegistered { get => _scheduleItemsRegistered; set { _scheduleItemsRegistered = value; OnPropertyChanged(); } }
         private ScheduleItem _selectedScheduleItem2;
         public ScheduleItem SelectedScheduleItem2 { get => _selectedScheduleItem2; set { _selectedScheduleItem2 = value; UpdateScheduleItem2(); OnPropertyChanged(); } }
+
+        private bool _inLoadingCourseRegistries = false;
+        public bool InLoadingCourseRegistries
+        {
+            get => _inLoadingCourseRegistries; set
+            {
+                _inLoadingCourseRegistries = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
         #region Command
         public ICommand RegisterCommand { get => _registerCommand; set => _registerCommand = value; }
@@ -103,6 +113,9 @@ namespace StudentManagement.ViewModels
         public ICommand SwitchSearchButtonCommand { get => _switchSearchButtonCommand; set => _switchSearchButtonCommand = value; }
 
         public ICommand CourseCheckChangedCommand { get; set; }
+
+        private ICommand _synchronizeCourseRegistry;
+        public ICommand SynchronizeCourseRegistry { get => _synchronizeCourseRegistry; set => _synchronizeCourseRegistry = value; }
         #endregion
 
         private static StudentCourseRegistryViewModel s_instance;
@@ -125,6 +138,7 @@ namespace StudentManagement.ViewModels
 
         public void UpdateData()
         {
+            InLoadingCourseRegistries = true;
             try
             {
                 UpdateSemester();
@@ -151,6 +165,7 @@ namespace StudentManagement.ViewModels
                 TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
             }
             catch { }
+            Task.Delay(1000).ContinueWith((task) => { InLoadingCourseRegistries = false; });
         }
         public void InitCommand()
         {
@@ -171,6 +186,7 @@ namespace StudentManagement.ViewModels
             SearchCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => Search());
             SwitchSearchButtonCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) => SwitchSearchButton());
             CourseCheckChangedCommand = new RelayCommand<DataGridBeginningEditEventArgs>((p) => { return true; }, (p) => CourseCheckChanged(p));
+            SynchronizeCourseRegistry = new RelayCommand<UserControl>((p) => { return true; }, (p) => UpdateData());
         }
 
         public void UpdateSemester()
@@ -199,6 +215,7 @@ namespace StudentManagement.ViewModels
         public void RegisterSelectedCourses()
         {
             var SelectedItems = CourseRegistryItems2.Where(x => x.IsSelected == true).ToList();
+            string strListError = "";
             foreach (CourseItem item in SelectedItems)
             {
                 if (item.IsConflict)
@@ -213,7 +230,15 @@ namespace StudentManagement.ViewModels
                     item.NumberOfStudents += 1;
                     TotalCredit += Convert.ToInt32(item.Subject.Credit);
                 }
+                else
+                {
+                    strListError += item.Code + "\n";
+                }
             }
+            if (strListError.Length > 0)
+                MyMessageBox.Show("Những lớp đăng ký không thành công:\n" + strListError, "Lỗi đăng ký");
+            else
+                MyMessageBox.Show("Đăng ký thành công", "Thành công");
             UploadConflictCourseRegistry();
             Search();
             UpdateScheduleItems();
@@ -221,19 +246,23 @@ namespace StudentManagement.ViewModels
         }
         public void UnregisterSelectedCourses()
         {
-            var SelectedItems = CourseRegistryItems1.Where(x => x.IsSelected == true).ToList();
-            foreach (CourseItem item in SelectedItems)
+            if (MyMessageBox.Show("Bạn thật sự muốn hủy đăng ký?", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
             {
-                item.NumberOfStudents -= 1;
-                TotalCredit -= Convert.ToInt32(item.Subject.Credit);
-                item.IsSelected = false;
-                CourseRegistryItems2.Add(item);
-                CourseRegistryItems1.Remove(item);
-                CourseRegisterServices.Instance.StudentUnregisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
+                var SelectedItems = CourseRegistryItems1.Where(x => x.IsSelected == true).ToList();
+                foreach (CourseItem item in SelectedItems)
+                {
+                    item.NumberOfStudents -= 1;
+                    TotalCredit -= Convert.ToInt32(item.Subject.Credit);
+                    item.IsSelected = false;
+                    CourseRegistryItems2.Add(item);
+                    CourseRegistryItems1.Remove(item);
+                    CourseRegisterServices.Instance.StudentUnregisterSubjectClassToDatabase(CurrentSemester.Id, CurrentStudent.Id, item.ConvertToSubjectClass());
+                }
+                MyMessageBox.Show("Hủy đăng ký thành công", "Thành công");
+                UploadConflictCourseRegistry();
+                Search();
+                UpdateScheduleItems();
             }
-            UploadConflictCourseRegistry();
-            Search();
-            UpdateScheduleItems();
         }
         public void Search()
         {

@@ -146,13 +146,14 @@ namespace StudentManagement.ViewModels
             CurrentViewModel = _loginViewModel;
 
             MainWindow.Notify.ShowBalloonTip(3000, "Stuman - Hệ thống quản lý đào tạo", "Chào mừng bạn đến với Stuman", System.Windows.Forms.ToolTipIcon.Info);
+            //GotoLayoutView();
         }
 
         #region methods
         public void InitNavigationItemsByRole()
         {
-            LayoutViewModel.ContentViewModel = _adminHomeViewModel;
-            LayoutViewModel.RightSideBar = _adminHomeRightSideBar;
+            LayoutViewModel.ContentViewModel = _adminSubjectClassViewModel;
+            LayoutViewModel.RightSideBar = _adminSubjectClassRightSideBar;
 
             switch (LoginServices.CurrentUser.UserRole.Role)
             {
@@ -191,7 +192,7 @@ namespace StudentManagement.ViewModels
             };
 
             LayoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Tổng quan", false, null, _adminHomeViewModel, _adminHomeRightSideBar, LayoutViewModel, "ViewDashboardOutline"),
+                //new NavigationItem("Tổng quan", false, null, _adminHomeViewModel, _adminHomeRightSideBar, LayoutViewModel, "ViewDashboardOutline"),
                 new NavigationItem("Đào tạo", true, temp, null, null, LayoutViewModel, "SchoolOutline"),
                 new NavigationItem("Thông báo", false, null, _adminNotificationViewModel, _adminNotificationRightSideBar, LayoutViewModel, "BellOutline"),
                 new NavigationItem("Thông tin cá nhân", false, null, _adminUserInfoViewModel, null, LayoutViewModel, "AccountCircleOutline"),
@@ -210,7 +211,7 @@ namespace StudentManagement.ViewModels
             };
 
             LayoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Tổng quan", false, null, _adminHomeViewModel, _adminHomeRightSideBar, LayoutViewModel, "ViewDashboardOutline"),
+                //new NavigationItem("Tổng quan", false, null, _adminHomeViewModel, _adminHomeRightSideBar, LayoutViewModel, "ViewDashboardOutline"),
                 new NavigationItem("Đào tạo", true, temp, null, null, LayoutViewModel, "SchoolOutline"),
                 new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, LayoutViewModel, "DiceD10Outline"),
                 new NavigationItem("Thời khóa biểu", false, null, _studentScheduleTableViewModel, null, LayoutViewModel, "CalendarMonthOutline"),
@@ -228,7 +229,7 @@ namespace StudentManagement.ViewModels
             };
 
             LayoutViewModel.NavigationItems = new ObservableCollection<NavigationItem>() {
-                new NavigationItem("Tổng quan", false, null, _adminHomeViewModel, _adminHomeRightSideBar, LayoutViewModel, "ViewDashboardOutline"),
+                //new NavigationItem("Tổng quan", false, null, _adminHomeViewModel, _adminHomeRightSideBar, LayoutViewModel, "ViewDashboardOutline"),
                 new NavigationItem("Đào tạo", true, temp, null, null, LayoutViewModel, "SchoolOutline"),
                 new NavigationItem("Đăng ký học phần", false, null, _studentCourseRegistryViewModel, _studentCourseRegistryRightSideBar, LayoutViewModel, "CreditCardPlusOutline"),
                 new NavigationItem("Bảng điểm sinh viên", false, null, _scoreboardViewModel, _scoreboardRightSideBar, LayoutViewModel, "DiceD10Outline"),

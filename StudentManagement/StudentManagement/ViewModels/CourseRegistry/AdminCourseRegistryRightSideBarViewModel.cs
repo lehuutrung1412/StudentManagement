@@ -98,9 +98,21 @@ namespace StudentManagement.ViewModels
         public void DeleteCourse(object p)
         {
             CourseItem item = p as CourseItem;
-            if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.ConvertToSubjectClass().Id))
-                AdminCourseRegistryViewModel.Instance.CourseRegistryItems.Remove(item);
-            RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
+            if (MyMessageBox.Show("Bạn thật sự muốn xóa lớp " + item.Code + "?", "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+            {
+                try
+                {
+                    if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.ConvertToSubjectClass().Id))
+                        AdminCourseRegistryViewModel.Instance.CourseRegistryItems.Remove(item);
+                    MyMessageBox.Show("Xóa thành công", "Thành công");
+                }
+                catch
+                {
+                    MyMessageBox.Show("Xóa thất bại", "Lỗi");
+                }
+                RightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
+            }
+                
         }
 
         #region eventhandler
