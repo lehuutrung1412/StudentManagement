@@ -77,13 +77,13 @@ namespace StudentManagement.ViewModels
                 DbSet<Student> studentList = StudentServices.Instance.LoadStudentList();
                 DbSet<Admin> adminList = AdminServices.Instance.LoadAdminList();
 
-                foreach (var item in studentList)
+                foreach (var item in studentList.ToList())
                     UserDatabase.Add(new UserCard(item));
 
-                foreach (var item in teacherList)
+                foreach (var item in teacherList.ToList())
                     UserDatabase.Add(new UserCard(item));
 
-                foreach (var item in adminList)
+                foreach (var item in adminList.ToList())
                     UserDatabase.Add(new UserCard(item));
 
                 FindNameData = new ObservableCollection<UserCard>();
@@ -94,9 +94,9 @@ namespace StudentManagement.ViewModels
 
                 SearchNameFunction();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                MyMessageBox.Show("Đã có lỗi xảy ra");
+                MyMessageBox.Show($"Đã có lỗi xảy ra {e}");
             }
         }
 
