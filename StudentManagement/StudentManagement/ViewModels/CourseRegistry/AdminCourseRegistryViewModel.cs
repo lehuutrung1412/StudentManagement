@@ -264,11 +264,23 @@ namespace StudentManagement.ViewModels
         public void DeleteSelectedItems()
         {
             var SelectedItems = CourseRegistryItems.Where(x => x.IsSelected == true).ToList();
+            string listErrorDelete = "";
             foreach (CourseItem item in SelectedItems)
             {
-                if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id))
-                    CourseRegistryItems.Remove(item);
+                try
+                {
+                    if (SubjectClassServices.Instance.RemoveSubjectClassFromDatabaseBySubjectClassId(item.Id))
+                        CourseRegistryItems.Remove(item);
+                }
+                catch
+                {
+                    listErrorDelete += item.Code + "\n";
+                }
             }
+            if (listErrorDelete == "")
+                MyMessageBox.Show("Xóa tất cả lớp được chọn thành công", "Thành công");
+            else
+                MyMessageBox.Show("Xóa thất bại:\n" + listErrorDelete, "Lỗi");
             SearchCourseRegistryItemsFunction();
             /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
         }

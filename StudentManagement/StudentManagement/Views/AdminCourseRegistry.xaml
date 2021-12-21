@@ -27,7 +27,7 @@
     <UserControl.Resources>
         <math:MathConverter x:Key="math" />
     </UserControl.Resources>
-    <materialDesign:Card Margin="8" Style="{StaticResource CardContainer}">
+    <materialDesign:Card Margin="0" Style="{StaticResource CardContainer}">
         <materialDesign:DialogHost CloseOnClickAway="True">
             <materialDesign:DialogHost.DialogContent>
                 <ContentControl Content="{Binding DialogItemViewModel}" DataContext="{Binding ElementName=AdminCourseRegister, Path=DataContext}">
@@ -276,9 +276,7 @@
                         Command="{Binding ExportExcelCommand}"
                         DockPanel.Dock="Right"
                         Style="{StaticResource rounded_btn}">
-                        <StackPanel
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <materialDesign:PackIcon
                                 Width="24"
                                 Height="24"
