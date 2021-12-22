@@ -196,22 +196,30 @@ namespace StudentManagement.ViewModels
 
         public LoginViewModel()
         {
-            IsGetCode = false;
-            TimeCountDown = null;
-            _errorBaseViewModel = new ErrorBaseViewModel();
-            _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
-            InitRememberedAccount();
-
-            if (RememberedAccount != null)
+            try
             {
-                Username = RememberedAccount.UserName;
-                Password = RememberedAccount.PassWord;
-            }
+                IsGetCode = false;
+                TimeCountDown = null;
+                _errorBaseViewModel = new ErrorBaseViewModel();
+                _errorBaseViewModel.ErrorsChanged += ErrorBaseViewModel_ErrorsChanged;
+                InitRememberedAccount();
 
-            SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
-            GetOTPCodeCommand = new RelayCommand<object>((p) => true, async (p) => await GetOPTAsync());
-            ConFirmCommand = new RelayCommand<object>((p) => true, (p) => ConFirm());
-            RememberUserCommand = new RelayCommand<object>((p) => true, (p) => RememberUser());
+                if (RememberedAccount != null)
+                {
+                    Username = RememberedAccount.UserName;
+                    Password = RememberedAccount.PassWord;
+                }
+
+                SwitchView = new RelayCommand<object>((p) => true, (p) => SwitchViewForm());
+                GetOTPCodeCommand = new RelayCommand<object>((p) => true, async (p) => await GetOPTAsync());
+                ConFirmCommand = new RelayCommand<object>((p) => true, (p) => ConFirm());
+                RememberUserCommand = new RelayCommand<object>((p) => true, (p) => RememberUser());
+            }
+            catch
+            {
+                MyMessageBox.Show("Có một số lỗi phát sinh", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+            
         }
         public void ResetView()
         {
@@ -226,21 +234,29 @@ namespace StudentManagement.ViewModels
         }
         public void ConFirm()
         {
-            OTPServices.Instance.DeleteOTPOverTime();
-            if (!OTPServices.Instance.CheckGetOTPFromEmail(Gmail, SHA256Cryptography.Instance.EncryptString(OTPInView)))
+            try
             {
-                MyMessageBox.Show("Mã xác nhận không chính xác", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                return;
+                OTPServices.Instance.DeleteOTPOverTime();
+                if (!OTPServices.Instance.CheckGetOTPFromEmail(Gmail, SHA256Cryptography.Instance.EncryptString(OTPInView)))
+                {
+                    MyMessageBox.Show("Mã xác nhận không chính xác", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    return;
+                }
+                if (UserServices.Instance.ChangePassWord(NewPassWord, Gmail))
+                {
+                    MyMessageBox.Show("Cập nhật mật khẩu thành công", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    ResetView();
+                }
+                else
+                {
+                    MyMessageBox.Show("Cập nhật mật khẩu thất bại", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                }
             }
-            if (UserServices.Instance.ChangePassWord(NewPassWord, Gmail))
+            catch
             {
-                MyMessageBox.Show("Cập nhật mật khẩu thành công", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                ResetView();
+                MyMessageBox.Show("Có lỗi trong việc cập nhật mật khẩu mới", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Error);
             }
-            else
-            {
-                MyMessageBox.Show("Cập nhật mật khẩu thất bại", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            }
+        
 
         }
         public string RandomOTP()
@@ -288,25 +304,32 @@ namespace StudentManagement.ViewModels
 
         public async Task GetOPTAsync()
         {
-            if (string.IsNullOrEmpty(Gmail))
+            try
             {
-                MyMessageBox.Show("Cần phải nhập địa chỉ mail trước khi lấy mã", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                return;
+                if (string.IsNullOrEmpty(Gmail))
+                {
+                    MyMessageBox.Show("Cần phải nhập địa chỉ mail trước khi lấy mã", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    return;
+                }
+                if (!IsValidEmail(Gmail))
+                {
+                    MyMessageBox.Show("Địa chỉ mail không hợp lệ", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    return;
+                }
+
+                StartCountdown();
+
+                OTP = RandomOTP();
+
+
+                await OTPServices.Instance.SaveOTP(Gmail, SHA256Cryptography.Instance.EncryptString(OTP));
+
+                await SetupAndSendOTPForEmailAsync();
             }
-            if (!IsValidEmail(Gmail))
+            catch
             {
-                MyMessageBox.Show("Địa chỉ mail không hợp lệ", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                return;
+                MyMessageBox.Show("Có lỗi trong việc tạo OTP", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-
-            StartCountdown();
-
-            OTP = RandomOTP();
-
-
-            await OTPServices.Instance.SaveOTP(Gmail, SHA256Cryptography.Instance.EncryptString(OTP));
-
-            await SetupAndSendOTPForEmailAsync();
 
         }
 
@@ -347,14 +370,23 @@ namespace StudentManagement.ViewModels
 
         public bool IsExistAccount()
         {
-            if (LoginServices.Instance.IsUserAuthentic(Username, Password))
+            try
             {
-                LoginServices.Instance.Login(Username);
-                return true;
-            }
+                if (LoginServices.Instance.IsUserAuthentic(Username, Password))
+                {
+                    LoginServices.Instance.Login(Username);
+                    return true;
+                }
 
-            _ = MyMessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!\nVui lòng thử lại!", "Đăng nhập thất bại", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-            return false;
+                _ = MyMessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!\nVui lòng thử lại!", "Đăng nhập thất bại", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return false;
+            }
+            catch
+            {
+                return false;
+                MyMessageBox.Show("Đã có lỗi trong việc xác nhận tài khoản", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+            
             /*try
             {
                 
