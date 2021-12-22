@@ -1,4 +1,5 @@
 ﻿using StudentManagement.Models;
+using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -112,13 +113,13 @@ namespace StudentManagement.Services
             var user = GetUserByGmail(gmail);
             if (user.Count == 0)
                 return false;
-            user.FirstOrDefault().Password = passWord;
+            user.FirstOrDefault().Password = SHA256Cryptography.Instance.EncryptString(passWord);
             DataProvider.Instance.Database.SaveChanges();
             return true;
         }
         public void ChangePassWordOfCurrentUser(string passWord, User user)
         {
-            user.Password = passWord;
+            user.Password = SHA256Cryptography.Instance.EncryptString(passWord);
             DataProvider.Instance.Database.SaveChanges();
         }
         public bool CheckLogin(string userName, string passWord)

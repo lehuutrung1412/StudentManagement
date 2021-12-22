@@ -489,7 +489,7 @@ BEGIN
 
   INSERT INTO dbo.Users
     (Id, username, DisplayName, Email, Password, IdUserRole, IdAvatar)
-  VALUES('29DF1714-C81F-42C2-8C64-6D744D787E0C', 'admin', N'Quản Trị Viên', 'admin@gmail.com', 'admin', @IdRole, @IdAvatar)
+  VALUES('29DF1714-C81F-42C2-8C64-6D744D787E0C', 'admin', N'Quản Trị Viên', 'admin@gmail.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', @IdRole, @IdAvatar)
 
   INSERT INTO dbo.Admin
     (IdUsers)
