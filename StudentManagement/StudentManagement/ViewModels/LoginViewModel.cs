@@ -400,34 +400,42 @@ namespace StudentManagement.ViewModels
 
         public void RememberUser()
         {
-            if (!IsToRemember)
+            try
             {
-                /*if (RememberedAccount == null)
-                    return;
-                // Use Remembered Account to input textboxes
-                if (!LoginServices.Instance.IsUserAuthentic(Username, Password))
+                if (!IsToRemember)
                 {
-                    // Tự động đăng nhập nếu txbName trống, hoặc txbName trùng Username remembered
-                    if (Username == null || Username == "" || Username.ToLower() == RememberedAccount.UserName.ToLower())
+                    /*if (RememberedAccount == null)
+                        return;
+                    // Use Remembered Account to input textboxes
+                    if (!LoginServices.Instance.IsUserAuthentic(Username, Password))
                     {
-                        Username = RememberedAccount.UserName;
-                        Password = RememberedAccount.PassWord;
-                    }
-                    return;
-                }*/
-            }
-            else
-            {
-                // Note Remember Account to RAM and disk
-                if (LoginServices.Instance.IsUserAuthentic(Username, Password))
+                        // Tự động đăng nhập nếu txbName trống, hoặc txbName trùng Username remembered
+                        if (Username == null || Username == "" || Username.ToLower() == RememberedAccount.UserName.ToLower())
+                        {
+                            Username = RememberedAccount.UserName;
+                            Password = RememberedAccount.PassWord;
+                        }
+                        return;
+                    }*/
+                }
+                else
                 {
-                    RememberedAccount = new Account(Username, Password);
-                    using (StreamWriter sw = new StreamWriter(LoginServices.FilePathRememberedAccount))
+                    // Note Remember Account to RAM and disk
+                    if (LoginServices.Instance.IsUserAuthentic(Username, Password))
                     {
-                        sw.Write(RememberedAccount.UserName + '\t' + LoginServices.Encrypt(RememberedAccount.PassWord, "S7uMan"));
+                        RememberedAccount = new Account(Username, Password);
+                        using (StreamWriter sw = new StreamWriter(LoginServices.FilePathRememberedAccount))
+                        {
+                            sw.Write(RememberedAccount.UserName + '\t' + LoginServices.Encrypt(RememberedAccount.PassWord, "S7uMan"));
+                        }
                     }
                 }
             }
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc ghi nhớ tài khoản", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+        
 
 
 
