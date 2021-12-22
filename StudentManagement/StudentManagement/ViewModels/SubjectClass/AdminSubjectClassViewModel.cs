@@ -113,7 +113,7 @@ namespace StudentManagement.ViewModels
         }
 
         #region methods
-        public void LoadSubjectClassCards()
+        public async Task LoadSubjectClassCards()
         {
             InLoadingSubjectClass = true;
 
@@ -130,7 +130,7 @@ namespace StudentManagement.ViewModels
 
             LoadSemesters();
 
-            Task.Delay(1000).ContinueWith((task) => { InLoadingSubjectClass = false; });
+            await Task.Delay(1000).ContinueWith((task) => { InLoadingSubjectClass = false; });
 
             #region temporary code
             /*
