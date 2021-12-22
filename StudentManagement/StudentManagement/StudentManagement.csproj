@@ -618,7 +618,6 @@
     <Compile Include="ViewModels\TitleBarViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\UserInfoItemViewModel.cs" />
-    <Compile Include="ViewModels\UserInfo\UserInfoStudentViewModel.cs" />
     <Compile Include="Services\UserServices.cs" />
     <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Views\AdminCourseRegistry.xaml.cs">
@@ -895,12 +894,6 @@
     <Compile Include="Views\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserInfoAdmin.xaml.cs">
-      <DependentUpon>UserInfoAdmin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserInfoStudent.xaml.cs">
-      <DependentUpon>UserInfoStudent.xaml</DependentUpon>
-    </Compile>
     <Page Include="Components\FacultyTrainingForm\FacultyDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1098,14 +1091,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLResources\IconResource.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserInfoAdmin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserInfoStudent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
