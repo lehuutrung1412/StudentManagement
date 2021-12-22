@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Models;
 using StudentManagement.Objects;
+using StudentManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,8 +51,8 @@ namespace StudentManagement.Services
 
         public bool IsUserAuthentic(string username, string password)
         {
-            //string passEncode = MD5Hash(Base64Encode(password));
-            string passEncode = password;
+            string passEncode = SHA256Cryptography.Instance.EncryptString(password);
+            //string passEncode = password;
 
             int accCount = db.Users.Where(user => user.Username == username && user.Password == passEncode).Count();
 
