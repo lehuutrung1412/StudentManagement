@@ -61,10 +61,9 @@
                             Height="145"
                             Margin="20,16,20,16"
                             HorizontalAlignment="Left"
-                            Stroke="{StaticResource DarkGray}"
                             StrokeThickness="2">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="https://picsum.photos/200" Stretch="UniformToFill" />
+                                <ImageBrush ImageSource="{Binding ID, Converter={utils:ConverterImageFromIdUser}, TargetNullValue={StaticResource DefaultUserAvatar}}" Stretch="UniformToFill" />
                             </Ellipse.Fill>
                         </Ellipse>
                     </materialDesign:ColorZone>

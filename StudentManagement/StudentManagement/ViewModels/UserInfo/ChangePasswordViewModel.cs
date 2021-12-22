@@ -29,11 +29,6 @@ namespace StudentManagement.ViewModels
                 {
                     _errorBaseViewModel.AddError(nameof(Password), "Vui lòng nhập mật khẩu!");
                 }
-                if(!string.IsNullOrEmpty(Password) && !Password.Equals(LoginServices.CurrentUser.Password))
-                {
-                    _errorBaseViewModel.AddError(nameof(Password), "Mật khẩu không đúng!");
-                }
-
                 OnPropertyChanged();
             }
         }
