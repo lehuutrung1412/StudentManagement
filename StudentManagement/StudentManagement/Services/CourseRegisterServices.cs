@@ -220,7 +220,7 @@ namespace StudentManagement.Services
                     }
                     foreach (AbsentCalendar absentEvent in subjectClass.AbsentCalendars)
                     {
-                        if (absentEvent.Date.Equals(date))
+                        if (absentEvent.Date.Value.Date.Equals(date.Date))
                         {
                             if (absentEvent.Type == 0)
                                 count += absentEvent.Period.Length;

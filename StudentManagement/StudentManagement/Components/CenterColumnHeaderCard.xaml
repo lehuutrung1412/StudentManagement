@@ -81,7 +81,7 @@
                         </Style>
                     </TextBlock.Style>
                     <Run Text="{Binding Source={StaticResource AdminNotificationVM}, Path=NumCardInBadged, StringFormat={}Hôm\ nay\ có\ {0} \thông \báo \mới \và}" />
-                    <Run Text="{Binding Source={StaticResource AdminNotificationVM}, Path=NumPeriodToday, TargetNullValue='0'}" />
+                    <Run Text="{Binding Source={StaticResource UserInfoVM}, Path=NumPeriodToday, TargetNullValue='0'}" />
                     <Run>
                         <Run.Style>
                             <Style TargetType="Run">
