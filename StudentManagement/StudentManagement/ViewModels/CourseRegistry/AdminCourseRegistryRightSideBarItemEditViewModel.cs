@@ -44,7 +44,27 @@ namespace StudentManagement.ViewModels
             }
         }
         public string SubjectName { get => _subjectName; set { _subjectName = value; OnPropertyChanged(); } }
-        public string SubjectClassCode { get => _subjectClassCode; set { _subjectClassCode = value; OnPropertyChanged(); } }
+        public string SubjectClassCode 
+        { 
+            get => _subjectClassCode; 
+            set 
+            { 
+                _subjectClassCode = value;
+
+                // Validation
+                _errorBaseViewModel.ClearErrors();
+
+                if (string.IsNullOrWhiteSpace(SubjectClassCode))
+                {
+                    _errorBaseViewModel.AddError(nameof(SubjectClassCode), "Vui lòng nhập mã lớp môn học!");
+                }
+                else if (!SubjectClassCode.Contains(CurrentItem.Subject.Code))
+                {
+                    _errorBaseViewModel.AddError(nameof(SubjectClassCode), "Mã lớp môn học phải chứa mã môn học");
+                }
+                OnPropertyChanged(); 
+            } 
+        }
         public string MaxOfRegister
         {
             get => _maxOfRegister;
@@ -251,6 +271,7 @@ namespace StudentManagement.ViewModels
 
         public void Confirm()
         {
+            CurrentItem.Code = SubjectClassCode;
             CurrentItem.StartDate = StartDate;
             CurrentItem.EndDate = EndDate;
             CurrentItem.Period = Period;

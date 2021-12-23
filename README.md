@@ -478,3 +478,98 @@
 10. Huỷ trường thông tin - button
 
 </details>
+
+<details>
+  <summary>Màn hình thời khóa biểu</summary>
+
+| ![](./ReadmeAssets/ScheduleTable.png)   |
+| :-------------------------------------: |
+|  _Màn hình thời khóa biểu_              |
+
+1. Chọn học kỳ - combobox
+2. Khuôn thời khóa biểu - textblock, label
+3. Đại diện lớp môn học - textblock
+
+</details>
+
+<details>
+  <summary>Màn hình đăng ký học phần ở sinh viên</summary>
+
+| ![](./ReadmeAssets/StudentCourseRegistry1.png) |
+| :-------------------------------------: |
+|  _Màn hình đăng ký học phần khi chọn danh sách_  |
+
+| ![](./ReadmeAssets/StudentCourseRegistry2.png) |
+| :-------------------------------------: |
+|  _Màn hình đăng ký học phần khi chọn TKB_  |
+
+1. Chọn hiển thị các lớp đã đăng ký dưới dạng danh sách - tag
+2. Chọn hiển thị các lớp đã đăng ký dưới dạng thời khóa biểu - tag
+3. Hủy đăng ký các lớp được check - button
+4. Đăng ký các lớp được check - button
+5. Biểu diễn danh sách các lớp đã đăng ký - datagrid
+6. Biểu diễn danh sách các lớp chưa đăng ký - datagrid
+7. Nhập tên môn hoặc mã lớp để lọc danh sách các lớp chưa đăng ký - textbox
+8. Chọn lọc theo tên môn học - button
+9. Chọn lọc theo mã lớp học - button
+10. Check tất cả lớp học của datagrid tương ứng - checkbox
+11. Đưa lớp môn học vào danh sách chuẩn bị đăng ký hoặc chuẩn bị hủy đăng ký - checkbox
+12. Đại diện cho lớp đang chọn - textblock
+13. Đại diện cho lớp đã check - textblock
+14. Đại diện cho lớp đã đăng ký - textblock
+15. Khuôn cho thời khóa biểu các lớp đã đăng ký - textblock, label
+
+</details>
+
+<details>
+  <summary>Màn hình quản lí học phần của admin</summary>
+
+| ![](./ReadmeAssets/AdminCourseRegistry1.png)   |
+| :-------------------------------------: |
+|  _Màn hình quản lí học phần ban đầu_            |
+
+| ![](./ReadmeAssets/AdminCourseRegistry2.png)   |
+| :-------------------------------------: |
+|  _Màn hình tạo học kỳ_            |
+
+| ![](./ReadmeAssets/DialogCreateNewCourse.png)   |
+| :-------------------------------------: |
+|  _Màn hình tạo thủ công lớp môn học_            |
+
+|   ![](./ReadmeAssets/AdminCourseRegistry3.png)   |  ![](./ReadmeAssets/AdminCourseRegistryRSBItemEdit.png)  |
+| :----------------------------------: | :------------------------------------: |
+| _Màn hình quản lý học phần_ | _Màn hình chỉnh sửa thông tin lớp môn học_ |
+
+1. Chọn học kỳ - combobox
+2. Trạng thái đăng ký học phần của học kỳ được chọn - textblock
+3. Hiện popup các trạng thái đăng ký học phần muốn sửa thành - button
+4. Mở đăng ký học phần - button
+5. Tạm đóng (hoặc chưa mở) đăng ký học phần - button
+6. Kết thúc đăng ký học phần - button
+7. Hiện popup giao diện tạo học kỳ - button
+8. Chọn năm học - combobox
+9. Nhập tên học kỳ - textbox
+10. Xác nhận tạo học kỳ mới - button
+11. Hiện dialog thêm thủ công một môn học - button
+12. Chọn môn học - combobox
+13. Chọn hệ đào tạo - combobox
+14. Chọn giáo viên - combobox
+15. Nhập sĩ số tối đa - textbox
+16. Chọn thứ trong tuần - combobox
+17. Nhập tiết trong ngày - textbox
+18. Chọn ngày bắt đầu - datepicker
+19. Chọn ngày kết thúc - datepicker
+20. Nhập, hiển thị mã lớp môn học - textbox
+21. Xác nhận tạo lớp môn học mới - button
+22. Đóng dialog thêm thủ công một môn học - button
+23. Thêm các lớp môn học từ file Excel - button
+24. Xóa các lớp môn học được check - button
+25. Xuất danh sách lớp môn học ra file Excel - button
+26. Xóa lớp môn học đang chọn - button
+27. Sửa lớp môn học đang chọn - button
+28. Thông tin tên môn học và lớp môn học đang chọn - textbox
+29. Nhập thông tin muốn sửa thành của lớp môn học đang chọn - textbox, combobox, datepicker
+30. Thoát khỏi giao diện chỉnh sửa - button
+31. Xác nhận thông tin chỉnh sửa - button
+
+</details>

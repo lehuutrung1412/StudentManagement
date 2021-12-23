@@ -284,6 +284,7 @@ namespace StudentManagement.ViewModels
             var newSubjectClass = new SubjectClass(); 
             _creatNewCourseViewModel = new CreateNewCourseViewModel(newSubjectClass, SelectedSemester, CourseRegistryItemsAll[SelectedSemesterIndex]);
             MainViewModel.Instance.DialogViewModel = this._creatNewCourseViewModel;
+            MainViewModel.Instance.IsOpen = true;
         }
 
         public void CreateNewSemester()
@@ -352,10 +353,12 @@ namespace StudentManagement.ViewModels
                         }
                         DataTable data = dataSheets[0];
 
+                        int countNeworChangeSubjectClass = 0;
+
                         foreach (DataRow courseRow in data.Rows)
                         {
                             string TFName = courseRow[7].ToString();
-                            Guid idTeacher = Guid.Parse(Convert.ToString(courseRow[8]));
+                            string userNameTeacher = Convert.ToString(courseRow[8]);
                             var tempSubjectClass = new SubjectClass()
                             {
                                 Id = Guid.NewGuid(),
@@ -368,8 +371,8 @@ namespace StudentManagement.ViewModels
                                 Code = Convert.ToString(courseRow[5]),
                                 MaxNumberOfStudents = Convert.ToInt32(courseRow[6]),
                                 TrainingForm = DataProvider.Instance.Database.TrainingForms.Where(tf => tf.DisplayName.Equals(TFName)).FirstOrDefault(),
-                                Teachers = new ObservableCollection<Teacher>() { TeacherServices.Instance.FindTeacherByTeacherId(idTeacher) },
-                                DatabaseImageTable = DatabaseImageTableServices.Instance.GetFirstDatabaseImageTable(),           //Thiếu image
+                                Teachers = new ObservableCollection<Teacher>() { TeacherServices.Instance.FindTeacherByUserName(userNameTeacher) },
+                                DatabaseImageTable = /*DatabaseImageTableServices.Instance.GetFirstDatabaseImageTable()*/ null,           //Thiếu image
                                 NumberOfStudents = 0
                             };
                             if (tempSubjectClass.Teachers.FirstOrDefault() == null)
@@ -393,6 +396,7 @@ namespace StudentManagement.ViewModels
                                         conflictAvailableCourse = tempCourse;
                                         SubjectClassServices.Instance.GenerateDefaultCommponentScore(tempSubjectClass);
                                         SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
+                                        countNeworChangeSubjectClass++;
                                     }
                                 }
                             }
@@ -401,11 +405,19 @@ namespace StudentManagement.ViewModels
                                 var tempCourse = new CourseItem(tempSubjectClass, false);
                                 SubjectClassServices.Instance.GenerateDefaultCommponentScore(tempSubjectClass);
                                 SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
+                                countNeworChangeSubjectClass++;
                                 CourseRegistryItemsAll[SelectedSemesterIndex].Add(tempCourse);
                             }
                         }
-                        SelectData();
-                        SearchQuery = "";
+                        if (countNeworChangeSubjectClass > 0)
+                        {
+                            SelectData();
+                            SearchQuery = "";
+                            MyMessageBox.Show("Hoàn thành thêm từ file", "Thành công");
+                        }
+                        else
+                            MyMessageBox.Show("Không có sự thay đổi nào cả", "Thành công");
+                        
                         /*StudentCourseRegistryViewModel.Instance.UpdateData();*/
                     }
                 }

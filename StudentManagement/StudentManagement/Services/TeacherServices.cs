@@ -29,6 +29,12 @@ namespace StudentManagement.Services
 
             return teacher;
         }
+        public Teacher FindTeacherByUserName(string userName)
+        {
+            Teacher teacher = DataProvider.Instance.Database.Teachers.Where(userItem => userItem.User.Username == userName).FirstOrDefault();
+
+            return teacher;
+        }
         /// <summary>
         /// Convert TeacherCard To Teacher
         /// </summary>

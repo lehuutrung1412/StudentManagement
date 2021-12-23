@@ -190,7 +190,10 @@ namespace StudentManagement.Services
             try
             {
                 int count = 0;
-                Guid idSemester = SemesterServices.Instance.GetLastClosedRegisterSemester().Id;
+                Semester lastClosedRegisterSemester = SemesterServices.Instance.GetLastClosedRegisterSemester();
+                if (lastClosedRegisterSemester == null)
+                    return 0;
+                Guid idSemester = lastClosedRegisterSemester.Id;
                 List<SubjectClass> listSubjectClassRegistered;
                 switch (user.UserRole.Role)
                 {
@@ -238,7 +241,6 @@ namespace StudentManagement.Services
         {
             try
             {
-                Guid idSemester = SemesterServices.Instance.GetLastClosedRegisterSemester().Id;
                 return CountPeriodByUserAndDate(LoginServices.CurrentUser, DateTime.Now);
             }
             catch
