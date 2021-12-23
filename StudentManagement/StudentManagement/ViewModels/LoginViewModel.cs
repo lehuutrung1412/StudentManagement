@@ -421,7 +421,7 @@ namespace StudentManagement.ViewModels
             }
             else
             {
-                File.CreateText(LoginServices.FilePathRememberedAccount);
+                //File.CreateText(LoginServices.FilePathRememberedAccount);
             }
         }
 

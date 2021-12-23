@@ -110,16 +110,6 @@ namespace StudentManagement.ViewModels
             Trainings = new ObservableCollection<string>();
             Roles = new ObservableCollection<string>();
 
-            Roles.Add("Admin");
-            Roles.Add("Giáo viên");
-            Roles.Add("Sinh viên");
-
-            foreach (var item in trainingForms)
-                Trainings.Add(item.DisplayName);
-
-            foreach (var item in faculties)
-                Faculties.Add(item.DisplayName);
-
             IsReadOnlyFaculty = false;
             IsReadOnlyTraining = false;
 
@@ -129,6 +119,21 @@ namespace StudentManagement.ViewModels
             SelectedRole = null;
 
             InitCommand();
+
+            Roles.Add("Admin");
+            Roles.Add("Giáo viên");
+            Roles.Add("Sinh viên");
+
+
+            if (trainingForms != null)
+            foreach (var item in trainingForms)
+                Trainings.Add(item.DisplayName);
+            
+            if (faculties != null)
+            foreach (var item in faculties)
+                Faculties.Add(item.DisplayName);
+
+          
         }
 
 
