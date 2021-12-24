@@ -121,19 +121,22 @@ namespace StudentManagement.ViewModels
                 IdStudent = student.Id;
             }
 
+            GPA = 0;
+            TotalCredit = 0;
+            DatabaseSemester = new ObservableCollection<SemesterDataGrid>();
+            DisplaySemester = new ObservableCollection<SemesterDataGrid>();
+            Semesters = new ObservableCollection<string>();
+            Semesters.Add("Tất cả các kỳ");
+            SelectedSemester = "Tất cả các kỳ";
+            InitCommand();
+
             try
             {
-
-                GPA = 0;
-                TotalCredit = 0;
-                DatabaseSemester = new ObservableCollection<SemesterDataGrid>();
-                Semesters = new ObservableCollection<string>();
-                Semesters.Add("Tất cả các kỳ");
-                SelectedSemester = "Tất cả các kỳ";
-                InitCommand();
-
-
-                var ListCourses = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdStudent == IdStudent && x.SubjectClass.IsDeleted != true);
+                List<CourseRegister> ListCourses = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdStudent == IdStudent && x.SubjectClass.IsDeleted != true).ToList();
+                if (ListCourses == null)
+                {
+                    return;    
+                }
 
                 ObservableCollection<Guid> ListSemester = new ObservableCollection<Guid>();
 
@@ -147,6 +150,9 @@ namespace StudentManagement.ViewModels
 
                     ListSemester.Add(CurrentSemester);
                 }
+
+                if (ListSemester.Count == 0)
+                    return;
 
                 foreach (var id in ListSemester)
                 {
@@ -184,12 +190,20 @@ namespace StudentManagement.ViewModels
 
                     }
 
-                    semesterGPA = semesterGPA / semesterCredit;
+                    if (semesterCredit == 0)
+                        semesterGPA = 0;
+                    else 
+                        semesterGPA = semesterGPA / semesterCredit;
+                    
                     var CurrentSemester = DataProvider.Instance.Database.Semesters.Where(x => x.Id == id).FirstOrDefault();
-                    DatabaseSemester.Add(new SemesterDataGrid(id, CurrentSemester.DisplayName, CurrentSemester.Batch, semesterGPA, 0, TempScore, null));
+                    if (CurrentSemester != null)
+                        DatabaseSemester.Add(new SemesterDataGrid(id, CurrentSemester.DisplayName, CurrentSemester.Batch, semesterGPA, 0, TempScore, null));
                 }
 
-                GPA = 1.0 * GPA / TotalCredit;
+                if (TotalCredit == 0)
+                    GPA = 0;
+                else 
+                    GPA = 1.0 * GPA / TotalCredit;
 
                 DatabaseSemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester.OrderBy(x => x.Batch + x.DisplayName));
                 foreach (var item in DatabaseSemester)
@@ -209,7 +223,6 @@ namespace StudentManagement.ViewModels
         {
             try
             {
-
                 if (semester == "Tất cả các kỳ")
                 {
                     DisplaySemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester);

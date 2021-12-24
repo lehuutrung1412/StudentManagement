@@ -238,7 +238,7 @@ namespace StudentManagement.Services
         {
             try
             {
-                Guid idSemester = SemesterServices.Instance.GetLastClosedRegisterSemester().Id;
+                //Guid idSemester = SemesterServices.Instance.GetLastClosedRegisterSemester().Id;
                 return CountPeriodByUserAndDate(LoginServices.CurrentUser, DateTime.Now);
             }
             catch

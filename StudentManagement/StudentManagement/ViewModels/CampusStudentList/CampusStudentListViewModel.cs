@@ -66,16 +66,27 @@ namespace StudentManagement.ViewModels
         public CampusStudentListViewModel()
         {
             Instance = this;
+            UserDatabase = new ObservableCollection<UserCard>();
+
+            FindNameData = new ObservableCollection<UserCard>();
+
+            SearchName = new RelayCommand<object>((p) => true, (p) => SearchNameFunction());
+            AddStudent = new RelayCommand<object>((p) => true, (p) => AddStudentFunction());
+            AddStudentList = new RelayCommand<object>((p) => true, (p) => AddStudentListFunction());
 
             try
             {
+                List<Teacher> teacherList = TeacherServices.Instance.LoadTeacherList().ToList();
+                if (teacherList == null)
+                    teacherList =  new List<Teacher>();
 
+                List<Student> studentList = StudentServices.Instance.LoadStudentList().ToList();
+                if (studentList == null)
+                    studentList = new List<Student>();
 
-                UserDatabase = new ObservableCollection<UserCard>();
-
-                DbSet<Teacher> teacherList = TeacherServices.Instance.LoadTeacherList();
-                DbSet<Student> studentList = StudentServices.Instance.LoadStudentList();
-                DbSet<Admin> adminList = AdminServices.Instance.LoadAdminList();
+                List<Admin> adminList = AdminServices.Instance.LoadAdminList().ToList();
+                if (adminList == null)
+                    adminList = new List<Admin>();
 
                 foreach (var item in studentList.ToList())
                     UserDatabase.Add(new UserCard(item));
@@ -85,19 +96,14 @@ namespace StudentManagement.ViewModels
 
                 foreach (var item in adminList.ToList())
                     UserDatabase.Add(new UserCard(item));
-
-                FindNameData = new ObservableCollection<UserCard>();
-
-                SearchName = new RelayCommand<object>((p) => true, (p) => SearchNameFunction());
-                AddStudent = new RelayCommand<object>((p) => true, (p) => AddStudentFunction());
-                AddStudentList = new RelayCommand<object>((p) => true, (p) => AddStudentListFunction());
-
-                SearchNameFunction();
+               
             }
             catch (Exception e)
             {
                 MyMessageBox.Show($"Đã có lỗi xảy ra {e}");
             }
+
+            SearchNameFunction();
         }
 
         public void SearchNameFunction()
