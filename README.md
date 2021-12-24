@@ -334,24 +334,23 @@
 |    ![](./ReadmeAssets/FileManager1.png)     |
 | :-----------------------------------------: |
 | _Chức năng thêm sửa xóa file trong lớp học_ |
-	
 
-1.Textbox - Nội dung tìm kiếm tài liệu
-2.Button - Thêm tài liệu
-3.Button - Thêm thư mục
-4.Button - Tải toàn bộ toàn bộ
-5.Button - Xóa tài liệu
-6.Button - Tải về tài liệu
-7.Button - Đổi tên tài liệu
-8.Button - Xóa tài liệu
+1. Textbox - Nội dung tìm kiếm tài liệu
+2. Button - Thêm tài liệu
+3. Button - Thêm thư mục
+4. Button - Tải toàn bộ toàn bộ
+5. Button - Xóa tài liệu
+6. Button - Tải về tài liệu
+7. Button - Đổi tên tài liệu
+8. Button - Xóa tài liệu
 
 |     ![](./ReadmeAssets/FileManager2.png)      |
 | :-------------------------------------------: |
 | _Chức năng thêm sửa xóa folder trong lớp học_ |
 
-9.Button - Thêm tài liệu vào thư mục
-10.Button - Xóa thư mục
-11.Button - Đổi tên thư mục
+9. Button - Thêm tài liệu vào thư mục
+10. Button - Xóa thư mục
+11. Button - Đổi tên thư mục
 
 </details>
 
@@ -362,12 +361,11 @@
 | :-----------------------------------------: |
 |         _Màn hình cài đặt lớp học_          |
 
-
-1.Textbox - Tên cột điểm thành phần
-2.Textbox - Phần trăm cột điểm
-3.Button - Xóa cột điểm
-4.Button - Thêm cột điểm
-5.Button - Lưu
+1. Textbox - Tên cột điểm thành phần
+2. Textbox - Phần trăm cột điểm
+3. Button - Xóa cột điểm
+4. Button - Thêm cột điểm
+5. Button - Lưu
 
 </details>
 
@@ -377,15 +375,14 @@
 | ![](./ReadmeAssets/StudentSubjectClass.png) |  ![](./ReadmeAssets/StudentSubjectClassEdit.png)  |
 | :-----------------------------------------: | :-----------------------------------------------: |
 |   _Màn hình danh sách sinh viên lớp học_    | _Màn hình chỉnh sửa thông tin học phần sinh viên_ |
-	
 
-1.Textbox - Nội dung tìm kiếm sinh viên
-2.Button - Thêm sinh viên
-3.Button - Xóa sinh viên
-4.Button - Cập nhật điểm sinh viên
-5.Textbox - Điểm sinh viên
-6.Button - Hủy cập nhật
-7.Button - Lưu điểm sinh viên
+1. Textbox - Nội dung tìm kiếm sinh viên
+2. Button - Thêm sinh viên
+3. Button - Xóa sinh viên
+4. Button - Cập nhật điểm sinh viên
+5. Textbox - Điểm sinh viên
+6. Button - Hủy cập nhật
+7. Button - Lưu điểm sinh viên
 
 </details>
 
