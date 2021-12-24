@@ -86,7 +86,18 @@
             Grid.Row="0"
             Margin="0,0,0,16"
             Style="{StaticResource CardContainer}">
-            <DockPanel LastChildFill="False">
+            <DockPanel LastChildFill="True">
+
+                <TextBlock
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    DockPanel.Dock="Bottom">
+                    <Run
+                        Text="Số tín chỉ đã đăng ký: " />
+                    <Run
+                        Text="{Binding TotalCredit, FallbackValue=0}" />
+                </TextBlock>
                 <StackPanel DockPanel.Dock="Top">
                     <TabControl
                         Margin="0"
@@ -167,14 +178,6 @@
                         </TabItem>
                     </TabControl>
                 </StackPanel>
-                <TextBlock
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    DockPanel.Dock="Bottom">
-                    <Run Text="Số tín chỉ đã đăng ký: " />
-                    <Run Text="{Binding TotalCredit, FallbackValue=0}" />
-                </TextBlock>
             </DockPanel>
 
 

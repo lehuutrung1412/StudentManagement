@@ -48,7 +48,8 @@
                     Grid.Column="1"
                     Style="{StaticResource textblock_item}"
                     Text="{Binding CurrentItem.Subject.DisplayName, FallbackValue='Ten Mon Hoc'}"
-                    TextAlignment="Right" />
+                    TextAlignment="Right"
+                    ToolTip="{Binding CurrentItem.Subject.DisplayName}"/>
             </Grid>
 
             <Grid

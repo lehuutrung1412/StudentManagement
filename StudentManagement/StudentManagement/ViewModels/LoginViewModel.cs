@@ -389,11 +389,15 @@ namespace StudentManagement.ViewModels
                 // Note Remember Account to RAM and disk
                 if (LoginServices.Instance.IsUserAuthentic(Username, Password))
                 {
-                    RememberedAccount = new Account(Username, Password);
-                    using (StreamWriter sw = new StreamWriter(LoginServices.FilePathRememberedAccount))
+                    try
                     {
-                        sw.Write(RememberedAccount.UserName + '\t' + LoginServices.Encrypt(RememberedAccount.PassWord, "S7uMan"));
+                        RememberedAccount = new Account(Username, Password);
+                        using (StreamWriter sw = new StreamWriter(LoginServices.FilePathRememberedAccount))
+                        {
+                            sw.Write(RememberedAccount.UserName + '\t' + LoginServices.Encrypt(RememberedAccount.PassWord, "S7uMan"));
+                        }
                     }
+                    catch { }
                 }
             }
 

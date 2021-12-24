@@ -165,7 +165,7 @@ namespace StudentManagement.ViewModels
                 TotalCredit = CourseRegistryItems1.Sum(x => Convert.ToInt32(x.Subject.Credit));
             }
             catch { }
-            Task.Delay(1000).ContinueWith((task) => { InLoadingCourseRegistries = false; });
+            InLoadingCourseRegistries = false;
         }
         public void InitCommand()
         {
