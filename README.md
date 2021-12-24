@@ -220,10 +220,10 @@
 - Backend: C#
 - ORM FrameWork: ADO.NET Entity FrameWork, version 6.0.0
 - Hệ quản trị cơ sở dữ liệu: SQL Server
-- Dịch vụ lưu trữ đám mây: Google Cloud Platform, CDN
+- Dịch vụ lưu trữ đám mây: Microsoft Azure Cloud, Gofile.io (File server), Imgbb.com (Image server)
 - IDE: Microsoft Visual Studio 2019
 - UI design tool: Miro
-- Thư viện hỗ trợ khác: MaterialDesignXAML, System.Windows.Interactivity.WPF, Math Converter
+- Thư viện hỗ trợ khác: MaterialDesignXAML, System.Windows.Interactivity.WPF, MathConverter, ExcelDataReader
 </details>
 
 ## 5. Hướng dẫn cài đặt
@@ -232,12 +232,10 @@
   <summary>Hướng dẫn cài đặt phần mềm Stuman từ mã nguồn</summary>
 
 - Download hoặc clone repo về máy tính.
-- Chạy file `SqlServer/data.sql`
+- Chạy file `SqlServer/script.sql`
 - Chạy file `StudentManagement/StudentManagement/StudentManagement.sln` bằng Visual Studio
 - Tài khoản mặc định:
   - Tài khoản admin: admin/admin
-  - Tài khoản giáo viên: gv/gv
-  - Tài khoản sinh viên: sv/sv
 
 </details>
 
@@ -248,8 +246,6 @@
 - Giải nén file zip và bật kết nối mạng để sử dụng.
 - Tài khoản mặc định: 
 	- Tài khoản admin: admin/admin
-	- Tài khoản giáo viên: gv/gv
-	- Tài khoản sinh viên: sv/sv
 
 </details>
 
@@ -302,16 +298,34 @@
 
 |      ![](./ReadmeAssets/Newfeed1.png)       |
 | :-----------------------------------------: |
-| _Chức năng đăng bài viết mới trong lớp học_ |
+| _Chức năng đăng bài viết mới trong lớp học_ |	
+
+1. Textbox - Nội dung bảng tin
+2. Button - Hình ảnh kèm bảng tin
+3. Button - Thêm hình ảnh
+4. Button - Đăng bảng tin
+5. Calendar - Chọn ngày
+6. Button - Báo ngày nghỉ/bù
+7. Button - Xóa lịch nghỉ/bù trong ngày
 
 |       ![](./ReadmeAssets/Newfeed2.png)       |
 | :------------------------------------------: |
 | _Chức năng chỉnh sửa bài viết trong lớp học_ |
+	
+8. Button - Chỉnh sửa bài đăng
+9. Button - Xóa bài đăng
+10. Button - Chuyển hình ảnh
 
 |       ![](./ReadmeAssets/Newfeed3.png)       |
 | :------------------------------------------: |
 | _Chức năng bình luận bài viết trong lớp học_ |
 
+11. Button - Ẩn/hiện bình luận
+12. Button - Chỉnh sửa bình luận
+13. Button - Xóa bình luận
+14. Textbox - Nội dung bình luận
+15. Button - Đăng bình luận	
+	
 </details>
 
 <details>
@@ -320,10 +334,24 @@
 |    ![](./ReadmeAssets/FileManager1.png)     |
 | :-----------------------------------------: |
 | _Chức năng thêm sửa xóa file trong lớp học_ |
+	
+
+1.Textbox - Nội dung tìm kiếm tài liệu
+2.Button - Thêm tài liệu
+3.Button - Thêm thư mục
+4.Button - Tải toàn bộ toàn bộ
+5.Button - Xóa tài liệu
+6.Button - Tải về tài liệu
+7.Button - Đổi tên tài liệu
+8.Button - Xóa tài liệu
 
 |     ![](./ReadmeAssets/FileManager2.png)      |
 | :-------------------------------------------: |
 | _Chức năng thêm sửa xóa folder trong lớp học_ |
+
+9.Button - Thêm tài liệu vào thư mục
+10.Button - Xóa thư mục
+11.Button - Đổi tên thư mục
 
 </details>
 
@@ -334,6 +362,13 @@
 | :-----------------------------------------: |
 |         _Màn hình cài đặt lớp học_          |
 
+
+1.Textbox - Tên cột điểm thành phần
+2.Textbox - Phần trăm cột điểm
+3.Button - Xóa cột điểm
+4.Button - Thêm cột điểm
+5.Button - Lưu
+
 </details>
 
 <details>
@@ -342,6 +377,15 @@
 | ![](./ReadmeAssets/StudentSubjectClass.png) |  ![](./ReadmeAssets/StudentSubjectClassEdit.png)  |
 | :-----------------------------------------: | :-----------------------------------------------: |
 |   _Màn hình danh sách sinh viên lớp học_    | _Màn hình chỉnh sửa thông tin học phần sinh viên_ |
+	
+
+1.Textbox - Nội dung tìm kiếm sinh viên
+2.Button - Thêm sinh viên
+3.Button - Xóa sinh viên
+4.Button - Cập nhật điểm sinh viên
+5.Textbox - Điểm sinh viên
+6.Button - Hủy cập nhật
+7.Button - Lưu điểm sinh viên
 
 </details>
 
