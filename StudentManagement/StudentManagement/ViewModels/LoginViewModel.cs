@@ -254,7 +254,7 @@ namespace StudentManagement.ViewModels
             }
             catch
             {
-                MyMessageBox.Show("Có lỗi trong việc cập nhật mật khẩu mới", "Thông báo", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Error);
+                MyMessageBox.Show("Có lỗi trong việc cập nhật mật khẩu mới", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         
 

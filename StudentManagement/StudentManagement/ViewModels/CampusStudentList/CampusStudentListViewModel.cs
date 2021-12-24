@@ -175,7 +175,7 @@ namespace StudentManagement.ViewModels
 
                             NewUser.Id = Guid.NewGuid();
                             NewUser.Username = student[1].ToString();
-                            NewUser.Password = student[6].ToString();
+                            NewUser.Password = SHA256Cryptography.Instance.EncryptString(student[6].ToString());
                             NewUser.DisplayName = student[2].ToString();
                             NewUser.Email = student[3].ToString();
                             NewUser.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => x.Role == role).FirstOrDefault();

@@ -2,6 +2,7 @@
 using StudentManagement.Models;
 using StudentManagement.Objects;
 using StudentManagement.Services;
+using StudentManagement.Utils;
 using StudentManagement.ViewModels.UserInfo;
 using System;
 using System.Collections.Generic;
@@ -256,7 +257,7 @@ namespace StudentManagement.ViewModels
 
                 NewUser.Id = Guid.NewGuid();
                 NewUser.Username = Username;
-                NewUser.Password = Password;
+                NewUser.Password = SHA256Cryptography.Instance.EncryptString(Password);
                 NewUser.DisplayName = Convert.ToString(InfoSource.First().Content);
                 NewUser.Email = Convert.ToString(InfoSource[1].Content);
                 NewUser.UserRole = DataProvider.Instance.Database.UserRoles.Where(x => x.Role == SelectedRole).FirstOrDefault();

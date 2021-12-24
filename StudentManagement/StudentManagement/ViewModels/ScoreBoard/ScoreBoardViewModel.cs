@@ -122,6 +122,11 @@ namespace StudentManagement.ViewModels
                 IdStudent = student.Id;
             }
 
+            LoadData();
+        }
+
+        private void LoadData()
+        {
             GPA = 0;
             TotalCredit = 0;
             DatabaseSemester = new ObservableCollection<SemesterDataGrid>();
@@ -136,7 +141,7 @@ namespace StudentManagement.ViewModels
                 List<CourseRegister> ListCourses = DataProvider.Instance.Database.CourseRegisters.Where(x => x.IdStudent == IdStudent && x.SubjectClass.IsDeleted != true).ToList();
                 if (ListCourses == null)
                 {
-                    return;    
+                    return;
                 }
 
                 ObservableCollection<Guid> ListSemester = new ObservableCollection<Guid>();
@@ -193,9 +198,9 @@ namespace StudentManagement.ViewModels
 
                     if (semesterCredit == 0)
                         semesterGPA = 0;
-                    else 
+                    else
                         semesterGPA = semesterGPA / semesterCredit;
-                    
+
                     var CurrentSemester = DataProvider.Instance.Database.Semesters.Where(x => x.Id == id).FirstOrDefault();
                     if (CurrentSemester != null)
                         DatabaseSemester.Add(new SemesterDataGrid(id, CurrentSemester.DisplayName, CurrentSemester.Batch, semesterGPA, 0, TempScore, null));
@@ -203,7 +208,7 @@ namespace StudentManagement.ViewModels
 
                 if (TotalCredit == 0)
                     GPA = 0;
-                else 
+                else
                     GPA = 1.0 * GPA / TotalCredit;
 
                 DatabaseSemester = new ObservableCollection<SemesterDataGrid>(DatabaseSemester.OrderBy(x => x.Batch + x.DisplayName));
@@ -226,6 +231,7 @@ namespace StudentManagement.ViewModels
             if (student == null)
                 return;
             IdStudent = student.Id;
+            LoadData();
         }
 
         private void UpdateScoreBoard(string semester)
