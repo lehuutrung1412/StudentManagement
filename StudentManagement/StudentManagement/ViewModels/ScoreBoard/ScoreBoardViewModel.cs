@@ -113,6 +113,7 @@ namespace StudentManagement.ViewModels
 
         public ScoreBoardViewModel()
         {
+            LoginServices.UpdateCurrentUser += LoginServices_UpdateCurrentUser;
             if (LoginServices.CurrentUser != null)
             {
                 var student = DataProvider.Instance.Database.Students.Where(x => x.IdUsers == LoginServices.CurrentUser.Id).FirstOrDefault();
@@ -167,10 +168,10 @@ namespace StudentManagement.ViewModels
 
                         double gpa = 0;
 
-                        var ListComponentScore = DataProvider.Instance.Database.ComponentScores.Where(x => x.IdSubjectClass == item.IdSubjectClass);
+                        var ListComponentScore = DataProvider.Instance.Database.ComponentScores.Where(x => x.IdSubjectClass == item.IdSubjectClass).ToList();
                         foreach (var component in ListComponentScore)
                         {
-                            var score = DataProvider.Instance.Database.DetailScores.Where(x => x.IdComponentScore == component.Id).FirstOrDefault();
+                            var score = DataProvider.Instance.Database.DetailScores.FirstOrDefault(x => x.IdComponentScore == component.Id && x.IdStudent == IdStudent);
                             if (score == null || score?.Score == null)
                                 continue;
                             gpa += (double)score.Score * (double)component.ContributePercent / 100;
@@ -217,6 +218,14 @@ namespace StudentManagement.ViewModels
             {
                 MyMessageBox.Show("Đã có lỗi xảy ra");
             }
+        }
+
+        private void LoginServices_UpdateCurrentUser(object sender, LoginServices.LoginEvent e)
+        {
+            var student = DataProvider.Instance.Database.Students.Where(x => x.IdUsers == LoginServices.CurrentUser.Id).FirstOrDefault();
+            if (student == null)
+                return;
+            IdStudent = student.Id;
         }
 
         private void UpdateScoreBoard(string semester)

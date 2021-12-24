@@ -75,12 +75,15 @@ namespace StudentManagement.ViewModels
         {
             InitRightSideBarItemViewModel();
             var user = LoginServices.CurrentUser;
-            if (user == null)
-                return;
+            if (user != null && user.UserRole.Role == "Sinh viên")
+            {
+                IdStudent = DataProvider.Instance.Database.Students.Where(x => x.IdUsers == user.Id).FirstOrDefault().Id;
+            }    
+                
 
             LoginServices.UpdateCurrentUser += FreeRightSideBar;
 
-            IdStudent = DataProvider.Instance.Database.Students.Where(x => x.IdUsers == user.Id).FirstOrDefault().Id;
+           
 
             CurrentScore = new ObservableCollection<DetailScoreItem>();
 
@@ -93,7 +96,16 @@ namespace StudentManagement.ViewModels
                 double gpa = 0;
                 CurrentScore = new ObservableCollection<DetailScoreItem>();
 
-                var ListDetailScore = DataProvider.Instance.Database.DetailScores.Where(x => x.IdStudent == IdStudent && x.ComponentScore.IdSubjectClass == SelectedItem.IdSubjectClass);
+                var ListDetailScore = new List<DetailScore>();
+                var ListComponentScore = DataProvider.Instance.Database.ComponentScores.Where(x => x.IdSubjectClass == SelectedItem.IdSubjectClass).ToList();
+                foreach (var component in ListComponentScore)
+                {
+                    var score = DataProvider.Instance.Database.DetailScores.FirstOrDefault(x => x.IdComponentScore == component.Id && x.IdStudent == IdStudent);
+                    if (score == null || score?.Score == null)
+                        continue;
+                    ListDetailScore.Add(score);
+                }
+                
                 foreach (var item in ListDetailScore)
                 {
                     if (item?.Score != null)
@@ -121,6 +133,8 @@ namespace StudentManagement.ViewModels
         private void FreeRightSideBar(object sender, LoginEvent e)
         {
             _rightSideBarItemViewModel = _emptyStateRightSideBarViewModel;
+            if(CurrentUser.UserRole.Role=="Sinh viên")
+                IdStudent = DataProvider.Instance.Database.Students.Where(x => x.IdUsers == CurrentUser.Id).FirstOrDefault().Id;
         }
 
     }

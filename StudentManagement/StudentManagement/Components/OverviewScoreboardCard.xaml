@@ -190,7 +190,7 @@
 
     </UserControl.Resources>
 
-    <materialDesign:Card UniformCornerRadius="30">
+    <materialDesign:Card UniformCornerRadius="8" Background="Transparent" Padding="16">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
