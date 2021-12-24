@@ -220,10 +220,10 @@
 - Backend: C#
 - ORM FrameWork: ADO.NET Entity FrameWork, version 6.0.0
 - Hệ quản trị cơ sở dữ liệu: SQL Server
-- Dịch vụ lưu trữ đám mây: Google Cloud Platform, CDN
+- Dịch vụ lưu trữ đám mây: Microsoft Azure Cloud, Gofile.io (File server), Imgbb.com (Image server)
 - IDE: Microsoft Visual Studio 2019
 - UI design tool: Miro
-- Thư viện hỗ trợ khác: MaterialDesignXAML, System.Windows.Interactivity.WPF, Math Converter
+- Thư viện hỗ trợ khác: MaterialDesignXAML, System.Windows.Interactivity.WPF, MathConverter, ExcelDataReader
 </details>
 
 ## 5. Hướng dẫn cài đặt
@@ -232,12 +232,10 @@
   <summary>Hướng dẫn cài đặt phần mềm Stuman từ mã nguồn</summary>
 
 - Download hoặc clone repo về máy tính.
-- Chạy file `SqlServer/data.sql`
+- Chạy file `SqlServer/script.sql`
 - Chạy file `StudentManagement/StudentManagement/StudentManagement.sln` bằng Visual Studio
 - Tài khoản mặc định:
   - Tài khoản admin: admin/admin
-  - Tài khoản giáo viên: gv/gv
-  - Tài khoản sinh viên: sv/sv
 
 </details>
 
@@ -248,8 +246,6 @@
 - Giải nén file zip và bật kết nối mạng để sử dụng.
 - Tài khoản mặc định: 
 	- Tài khoản admin: admin/admin
-	- Tài khoản giáo viên: gv/gv
-	- Tài khoản sinh viên: sv/sv
 
 </details>
 
@@ -302,16 +298,34 @@
 
 |      ![](./ReadmeAssets/Newfeed1.png)       |
 | :-----------------------------------------: |
-| _Chức năng đăng bài viết mới trong lớp học_ |
+| _Chức năng đăng bài viết mới trong lớp học_ |	
+
+1. Textbox - Nội dung bảng tin
+2. Button - Hình ảnh kèm bảng tin
+3. Button - Thêm hình ảnh
+4. Button - Đăng bảng tin
+5. Calendar - Chọn ngày
+6. Button - Báo ngày nghỉ/bù
+7. Button - Xóa lịch nghỉ/bù trong ngày
 
 |       ![](./ReadmeAssets/Newfeed2.png)       |
 | :------------------------------------------: |
 | _Chức năng chỉnh sửa bài viết trong lớp học_ |
+	
+8. Button - Chỉnh sửa bài đăng
+9. Button - Xóa bài đăng
+10. Button - Chuyển hình ảnh
 
 |       ![](./ReadmeAssets/Newfeed3.png)       |
 | :------------------------------------------: |
 | _Chức năng bình luận bài viết trong lớp học_ |
 
+11. Button - Ẩn/hiện bình luận
+12. Button - Chỉnh sửa bình luận
+13. Button - Xóa bình luận
+14. Textbox - Nội dung bình luận
+15. Button - Đăng bình luận	
+	
 </details>
 
 <details>
@@ -321,9 +335,22 @@
 | :-----------------------------------------: |
 | _Chức năng thêm sửa xóa file trong lớp học_ |
 
+1. Textbox - Nội dung tìm kiếm tài liệu
+2. Button - Thêm tài liệu
+3. Button - Thêm thư mục
+4. Button - Tải toàn bộ toàn bộ
+5. Button - Xóa tài liệu
+6. Button - Tải về tài liệu
+7. Button - Đổi tên tài liệu
+8. Button - Xóa tài liệu
+
 |     ![](./ReadmeAssets/FileManager2.png)      |
 | :-------------------------------------------: |
 | _Chức năng thêm sửa xóa folder trong lớp học_ |
+
+9. Button - Thêm tài liệu vào thư mục
+10. Button - Xóa thư mục
+11. Button - Đổi tên thư mục
 
 </details>
 
@@ -334,6 +361,12 @@
 | :-----------------------------------------: |
 |         _Màn hình cài đặt lớp học_          |
 
+1. Textbox - Tên cột điểm thành phần
+2. Textbox - Phần trăm cột điểm
+3. Button - Xóa cột điểm
+4. Button - Thêm cột điểm
+5. Button - Lưu
+
 </details>
 
 <details>
@@ -342,6 +375,14 @@
 | ![](./ReadmeAssets/StudentSubjectClass.png) |  ![](./ReadmeAssets/StudentSubjectClassEdit.png)  |
 | :-----------------------------------------: | :-----------------------------------------------: |
 |   _Màn hình danh sách sinh viên lớp học_    | _Màn hình chỉnh sửa thông tin học phần sinh viên_ |
+
+1. Textbox - Nội dung tìm kiếm sinh viên
+2. Button - Thêm sinh viên
+3. Button - Xóa sinh viên
+4. Button - Cập nhật điểm sinh viên
+5. Textbox - Điểm sinh viên
+6. Button - Hủy cập nhật
+7. Button - Lưu điểm sinh viên
 
 </details>
 
@@ -476,5 +517,100 @@
 8. Nhập trường thông tin - textbox, combobox, checkbox
 9. Thêm trường thông tin - button
 10. Huỷ trường thông tin - button
+
+</details>
+
+<details>
+  <summary>Màn hình thời khóa biểu</summary>
+
+| ![](./ReadmeAssets/ScheduleTable.png)   |
+| :-------------------------------------: |
+|  _Màn hình thời khóa biểu_              |
+
+1. Chọn học kỳ - combobox
+2. Khuôn thời khóa biểu - textblock, label
+3. Đại diện lớp môn học - textblock
+
+</details>
+
+<details>
+  <summary>Màn hình đăng ký học phần ở sinh viên</summary>
+
+| ![](./ReadmeAssets/StudentCourseRegistry1.png) |
+| :-------------------------------------: |
+|  _Màn hình đăng ký học phần khi chọn danh sách_  |
+
+| ![](./ReadmeAssets/StudentCourseRegistry2.png) |
+| :-------------------------------------: |
+|  _Màn hình đăng ký học phần khi chọn TKB_  |
+
+1. Chọn hiển thị các lớp đã đăng ký dưới dạng danh sách - tag
+2. Chọn hiển thị các lớp đã đăng ký dưới dạng thời khóa biểu - tag
+3. Hủy đăng ký các lớp được check - button
+4. Đăng ký các lớp được check - button
+5. Biểu diễn danh sách các lớp đã đăng ký - datagrid
+6. Biểu diễn danh sách các lớp chưa đăng ký - datagrid
+7. Nhập tên môn hoặc mã lớp để lọc danh sách các lớp chưa đăng ký - textbox
+8. Chọn lọc theo tên môn học - button
+9. Chọn lọc theo mã lớp học - button
+10. Check tất cả lớp học của datagrid tương ứng - checkbox
+11. Đưa lớp môn học vào danh sách chuẩn bị đăng ký hoặc chuẩn bị hủy đăng ký - checkbox
+12. Đại diện cho lớp đang chọn - textblock
+13. Đại diện cho lớp đã check - textblock
+14. Đại diện cho lớp đã đăng ký - textblock
+15. Khuôn cho thời khóa biểu các lớp đã đăng ký - textblock, label
+
+</details>
+
+<details>
+  <summary>Màn hình quản lí học phần của admin</summary>
+
+| ![](./ReadmeAssets/AdminCourseRegistry1.png)   |
+| :-------------------------------------: |
+|  _Màn hình quản lí học phần ban đầu_            |
+
+| ![](./ReadmeAssets/AdminCourseRegistry2.png)   |
+| :-------------------------------------: |
+|  _Màn hình tạo học kỳ_            |
+
+| ![](./ReadmeAssets/DialogCreateNewCourse.png)   |
+| :-------------------------------------: |
+|  _Màn hình tạo thủ công lớp môn học_            |
+
+|   ![](./ReadmeAssets/AdminCourseRegistry3.png)   |  ![](./ReadmeAssets/AdminCourseRegistryRSBItemEdit.png)  |
+| :----------------------------------: | :------------------------------------: |
+| _Màn hình quản lý học phần_ | _Màn hình chỉnh sửa thông tin lớp môn học_ |
+
+1. Chọn học kỳ - combobox
+2. Trạng thái đăng ký học phần của học kỳ được chọn - textblock
+3. Hiện popup các trạng thái đăng ký học phần muốn sửa thành - button
+4. Mở đăng ký học phần - button
+5. Tạm đóng (hoặc chưa mở) đăng ký học phần - button
+6. Kết thúc đăng ký học phần - button
+7. Hiện popup giao diện tạo học kỳ - button
+8. Chọn năm học - combobox
+9. Nhập tên học kỳ - textbox
+10. Xác nhận tạo học kỳ mới - button
+11. Hiện dialog thêm thủ công một môn học - button
+12. Chọn môn học - combobox
+13. Chọn hệ đào tạo - combobox
+14. Chọn giáo viên - combobox
+15. Nhập sĩ số tối đa - textbox
+16. Chọn thứ trong tuần - combobox
+17. Nhập tiết trong ngày - textbox
+18. Chọn ngày bắt đầu - datepicker
+19. Chọn ngày kết thúc - datepicker
+20. Nhập, hiển thị mã lớp môn học - textbox
+21. Xác nhận tạo lớp môn học mới - button
+22. Đóng dialog thêm thủ công một môn học - button
+23. Thêm các lớp môn học từ file Excel - button
+24. Xóa các lớp môn học được check - button
+25. Xuất danh sách lớp môn học ra file Excel - button
+26. Xóa lớp môn học đang chọn - button
+27. Sửa lớp môn học đang chọn - button
+28. Thông tin tên môn học và lớp môn học đang chọn - textbox
+29. Nhập thông tin muốn sửa thành của lớp môn học đang chọn - textbox, combobox, datepicker
+30. Thoát khỏi giao diện chỉnh sửa - button
+31. Xác nhận thông tin chỉnh sửa - button
 
 </details>

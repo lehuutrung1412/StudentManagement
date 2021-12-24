@@ -87,7 +87,7 @@
                         Grid.Column="1"
                         Margin="8"
                         VerticalAlignment="Center"
-                        Text="Trạng thái" />
+                        Text="Trạng thái ĐKHP" />
                     <TextBlock
                         Grid.Column="2"
                         Margin="8"

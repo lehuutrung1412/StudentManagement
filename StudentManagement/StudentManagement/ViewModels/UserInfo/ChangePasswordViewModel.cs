@@ -1,5 +1,6 @@
 ﻿using StudentManagement.Commands;
 using StudentManagement.Services;
+using StudentManagement.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -118,7 +119,7 @@ namespace StudentManagement.ViewModels
         {
             try
             {
-                if (!Password.Equals(LoginServices.CurrentUser.Password))
+                if (!SHA256Cryptography.Instance.EncryptString(Password).Equals(LoginServices.CurrentUser.Password))
                 {
                     MyMessageBox.Show("Mật khẩu không chính xác", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                     return;

@@ -130,7 +130,9 @@ namespace StudentManagement.ViewModels
 
             LoadSemesters();
 
-            Task.Delay(1000).ContinueWith((task) => { InLoadingSubjectClass = false; });
+            InLoadingSubjectClass = false;
+
+            //await Task.Delay(1000).ContinueWith((task) => { InLoadingSubjectClass = false; });
 
             #region temporary code
             /*

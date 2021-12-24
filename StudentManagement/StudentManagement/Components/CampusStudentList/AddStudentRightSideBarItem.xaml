@@ -84,6 +84,7 @@
                         Margin="4,0,0,0"
                         local:PasswordBoxHelper.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         materialDesign:HintAssist.Hint="Nhập mật khẩu"
+                        materialDesign:HintAssist.IsFloating="False"
                         materialDesign:TextFieldAssist.TextFieldCornerRadius="8">
                         <PasswordBox.Style>
                             <Style BasedOn="{StaticResource MaterialDesignOutlinedPasswordBoxCustom}" TargetType="PasswordBox">
@@ -113,6 +114,7 @@
                         Margin="4,0,0,0"
                         local:PasswordBoxHelper.Password="{Binding RePassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
+                        materialDesign:HintAssist.IsFloating="False"
                         materialDesign:TextFieldAssist.TextFieldCornerRadius="8">
                         <PasswordBox.Style>
                             <Style BasedOn="{StaticResource MaterialDesignOutlinedPasswordBoxCustom}" TargetType="PasswordBox">

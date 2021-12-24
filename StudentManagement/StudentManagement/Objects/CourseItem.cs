@@ -140,8 +140,8 @@ namespace StudentManagement.Objects
             this.Teachers.FirstOrDefault() == a.Teachers.FirstOrDefault() &&
             this.Semester == a.Semester &&
             this.Subject == a.Subject &&
-            this.StartDate == a.StartDate &&
-            this.EndDate == a.EndDate &&
+            this.StartDate.Value.Date == a.StartDate.Value.Date &&
+            this.EndDate.Value.Date == a.EndDate.Value.Date &&
             this.Period == a.Period &&
             this.WeekDay == a.WeekDay &&
             this.Code == a.Code &&
