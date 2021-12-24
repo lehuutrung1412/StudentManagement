@@ -460,7 +460,7 @@ namespace StudentManagement.ViewModels
                             ws.Cell("F" + row.ToString()).Value = "Mã lớp";
                             ws.Cell("G" + row.ToString()).Value = "Giới hạn ĐK";
                             ws.Cell("H" + row.ToString()).Value = "Tên hệ đào tạo";
-                            ws.Cell("I" + row.ToString()).Value = "Mã giáo viên";
+                            ws.Cell("I" + row.ToString()).Value = "Tên tài khoản giáo viên";
 
                             //Điền data
                             row++;
@@ -475,7 +475,7 @@ namespace StudentManagement.ViewModels
                                 ws.Cell("F" + row.ToString()).Value = item.Code;
                                 ws.Cell("G" + row.ToString()).Value = item.MaxNumberOfStudents;
                                 ws.Cell("H" + row.ToString()).Value = item.TrainingForm.DisplayName;
-                                ws.Cell("I" + row.ToString()).Value = item.MainTeacher.Id;
+                                ws.Cell("I" + row.ToString()).Value = item.MainTeacher.User.Username;
                                 row++;
                             }
                         }

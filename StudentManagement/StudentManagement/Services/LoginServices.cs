@@ -106,7 +106,7 @@ namespace StudentManagement.Services
                 }
             }
         }
-        public static string Decrypt(string input, string hash)
+        public static string Decrypt(string input, string hash) 
         {
             byte[] data = Convert.FromBase64String(input);
             using (MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider())
