@@ -109,11 +109,11 @@ namespace StudentManagement.ViewModels
             SearchSubjectClassCards = new RelayCommand<object>((p) => { return true; }, (p) => SearchSubjectClassCardsFunction());
             ShowSubjectClassDetail = new RelayCommand<UserControl>((p) => { return p != null; }, (p) => ShowSubjectClassDetailFunction(p));
 
-            SynchronizeSubjectClass = new RelayCommand<UserControl>((p) => { return true; }, (p) => LoadSubjectClassCards());
+            SynchronizeSubjectClass = new RelayCommand<UserControl>((p) => { return true; }, (p) => { LoadSubjectClassCards(); LoadSemesters(); });
         }
 
         #region methods
-        public void LoadSubjectClassCards()
+        public async Task LoadSubjectClassCards()
         {
             InLoadingSubjectClass = true;
 
@@ -130,10 +130,10 @@ namespace StudentManagement.ViewModels
 
             LoadSemesters();
 
+
+            await Task.Delay(1000).ContinueWith((task) => { InLoadingSubjectClass = false; });
+
             InLoadingSubjectClass = false;
-
-            //await Task.Delay(1000).ContinueWith((task) => { InLoadingSubjectClass = false; });
-
             #region temporary code
             /*
             StoredSubjectClassCards = new ObservableCollection<SubjectClassCard>()
@@ -253,6 +253,7 @@ namespace StudentManagement.ViewModels
         #region eventhandler
         private void UpdateCurrentUser(object sender, LoginEvent e)
         {
+            LoadSemesters();
             LoadSubjectClassCards();
         }
         #endregion

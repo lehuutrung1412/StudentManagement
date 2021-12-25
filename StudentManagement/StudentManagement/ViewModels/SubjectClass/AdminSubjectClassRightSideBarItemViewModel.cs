@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static StudentManagement.ViewModels.AdminSubjectClassViewModel;
-using Microsoft.Win32;
 using StudentManagement.Objects;
 using StudentManagement.Services;
+using System.Windows.Forms;
 
 namespace StudentManagement.ViewModels
 {
@@ -37,7 +37,7 @@ namespace StudentManagement.ViewModels
                     Title = "Select a picture",
                     Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png"
                 };
-                if (op.ShowDialog() == true)
+                if (op.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
