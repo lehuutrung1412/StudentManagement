@@ -219,7 +219,7 @@ namespace StudentManagement.ViewModels
             {
                 MyMessageBox.Show("Có một số lỗi phát sinh", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-            
+
         }
         public void ResetView()
         {
@@ -256,7 +256,7 @@ namespace StudentManagement.ViewModels
             {
                 MyMessageBox.Show("Có lỗi trong việc cập nhật mật khẩu mới", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
-        
+
 
         }
         public string RandomOTP()
@@ -383,10 +383,10 @@ namespace StudentManagement.ViewModels
             }
             catch
             {
-                return false;
                 MyMessageBox.Show("Đã có lỗi trong việc xác nhận tài khoản", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return false;
             }
-            
+
             /*try
             {
                 
@@ -400,44 +400,47 @@ namespace StudentManagement.ViewModels
 
         public void RememberUser()
         {
-            if (!IsToRemember)
+            try
             {
-                /*if (RememberedAccount == null)
-                    return;
-                // Use Remembered Account to input textboxes
-                if (!LoginServices.Instance.IsUserAuthentic(Username, Password))
+                if (!IsToRemember)
                 {
-                    // Tự động đăng nhập nếu txbName trống, hoặc txbName trùng Username remembered
-                    if (Username == null || Username == "" || Username.ToLower() == RememberedAccount.UserName.ToLower())
+                    /*if (RememberedAccount == null)
+                        return;
+                    // Use Remembered Account to input textboxes
+                    if (!LoginServices.Instance.IsUserAuthentic(Username, Password))
                     {
-                        Username = RememberedAccount.UserName;
-                        Password = RememberedAccount.PassWord;
-                    }
-                    return;
-                }*/
-            }
-            else
-            {
-                // Note Remember Account to RAM and disk
-                if (LoginServices.Instance.IsUserAuthentic(Username, Password))
-                {
-                    try
-                    {
-                        RememberedAccount = new Account(Username, Password);
-                        using (StreamWriter sw = new StreamWriter(LoginServices.FilePathRememberedAccount))
+                        // Tự động đăng nhập nếu txbName trống, hoặc txbName trùng Username remembered
+                        if (Username == null || Username == "" || Username.ToLower() == RememberedAccount.UserName.ToLower())
                         {
-                            sw.Write(RememberedAccount.UserName + '\t' + LoginServices.Encrypt(RememberedAccount.PassWord, "S7uMan"));
+                            Username = RememberedAccount.UserName;
+                            Password = RememberedAccount.PassWord;
                         }
+                        return;
+                    }*/
+                }
+                else
+                {
+                    // Note Remember Account to RAM and disk
+                    if (LoginServices.Instance.IsUserAuthentic(Username, Password))
+                    {
+                        try
+                        {
+                            RememberedAccount = new Account(Username, Password);
+                            using (StreamWriter sw = new StreamWriter(LoginServices.FilePathRememberedAccount))
+                            {
+                                sw.Write(RememberedAccount.UserName + '\t' + LoginServices.Encrypt(RememberedAccount.PassWord, "S7uMan"));
+                            }
+                        }
+                        catch { }
                     }
-                    catch { }
                 }
             }
-
-
-
-
-
+            catch
+            {
+                MyMessageBox.Show("Đã có lỗi trong việc ghi nhớ tài khoản", "Thông báo", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
+
         public void InitRememberedAccount()
         {
             RememberedAccount = null;

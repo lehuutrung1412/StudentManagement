@@ -48,7 +48,7 @@ namespace StudentManagement.Services
                 IdPoster = poster.Id,
                 PosterName = poster.DisplayName,
                 Topic = notif.Topic,
-                PosterAvatar = poster.DatabaseImageTable.Image
+                PosterAvatar = poster.DatabaseImageTable == null ? null : poster.DatabaseImageTable.Image
             };
         }
 

@@ -47,7 +47,7 @@ namespace StudentManagement.Services
         {
             if (DataProvider.Instance.Database.OTPs.ToList().Count == 0)
                 return;
-            var listOTP = DataProvider.Instance.Database.OTPs.Where(otp => DbFunctions.DiffMinutes(DateTime.Now, otp.Time)>1).ToList();
+            var listOTP = DataProvider.Instance.Database.OTPs.Where(otp => DbFunctions.DiffMinutes(DateTime.Now, otp.Time) > 5).ToList();
             if (listOTP.Count < 0)
                 return;
             foreach(var otp in listOTP)
