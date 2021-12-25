@@ -139,6 +139,8 @@ namespace StudentManagement.ViewModels
                         }
                         DataTable data = dataSheets[0];
 
+                        int count = 0;
+
                         foreach (DataRow rowSubject in data.Rows)
                         {
                             //Tạo 1 subject từ row
@@ -166,18 +168,29 @@ namespace StudentManagement.ViewModels
                                     validSubjectCard.Credit = newSubject.Credit;
                                     validSubjectCard.Describe = newSubject.Describe;
                                     SubjectServices.Instance.SaveSubjectCardToDatabase(validSubjectCard);
+                                    count++;
                                 }
                             }
                             else
                             {
                                 SubjectServices.Instance.SaveSubjectToDatabase(newSubject);
+                                count++;
                                 /*StoredSubjectCards.Add(new SubjectCard(newSubject.Id, newSubject.DisplayName, newSubject.Credit, newSubject.Code, newSubject.Describe));*/
                             }
 
                         }
-                        LoadDataBehind();
-                        LoadDataFront();
-                        SearchSubjectCardsFunction(); // Phòng trường hợp mình thêm trong lúc đang search
+                        if (count == 0)
+                        {
+                            MyMessageBox.Show("Không có gì thay đổi");
+                        }
+                        else
+                        {
+                            MyMessageBox.Show("Thêm thành công");
+                            LoadDataBehind();
+                            LoadDataFront();
+                            SearchSubjectCardsFunction(); // Phòng trường hợp mình thêm trong lúc đang search
+                        }
+                        
                     }
                 }
                 catch
