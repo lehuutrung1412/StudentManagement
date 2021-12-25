@@ -30,6 +30,8 @@ namespace StudentManagement.ViewModels
         private SubjectCard _actualCard;
         public SubjectCard ActualCard { get => _actualCard; set => _actualCard = value; }
 
+        public bool IsCreateNew { get; set; }
+
         #endregion
 
         #region icommands
@@ -51,6 +53,7 @@ namespace StudentManagement.ViewModels
             {
                 CurrentCard.CopyCardInfo(card);
             }
+            IsCreateNew = isCreatedNew;
             InitCommand();
         }
 
@@ -74,10 +77,12 @@ namespace StudentManagement.ViewModels
 
         public bool CanConfirmEdit()
         {
-            if (!string.IsNullOrEmpty(CurrentCard.DisplayName) && !string.IsNullOrEmpty(CurrentCard.Code) && !string.IsNullOrEmpty(CurrentCard.Credit.ToString()))
+            if (string.IsNullOrEmpty(CurrentCard.DisplayName) || string.IsNullOrEmpty(CurrentCard.Code) || string.IsNullOrEmpty(CurrentCard.Credit.ToString()))
 
-                return true;
-            return false;
+                return false;
+            if (IsCreateNew && AdminSubjectViewModel.StoredSubjectCards.Where(subject => subject.Code == CurrentCard.Code).Count() > 0)
+                return false;
+            return true;
         }
 
         public void CancelEditSubjectCardInfoFunction()

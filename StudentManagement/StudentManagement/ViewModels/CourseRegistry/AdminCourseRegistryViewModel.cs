@@ -393,7 +393,7 @@ namespace StudentManagement.ViewModels
                                     if (MyMessageBox.Show(String.Format("Có sự thay đổi trong thông tin lớp {0}. Bạn có muốn thay đổi", tempSubjectClass.Code), "Thông báo", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
                                     {
                                         var tempCourse = new CourseItem(tempSubjectClass, false);
-                                        conflictAvailableCourse = tempCourse;
+                                        tempCourse.CopyProperties(conflictAvailableCourse);
                                         SubjectClassServices.Instance.GenerateDefaultCommponentScore(tempSubjectClass);
                                         SubjectClassServices.Instance.SaveSubjectClassToDatabase(tempSubjectClass);
                                         countNeworChangeSubjectClass++;

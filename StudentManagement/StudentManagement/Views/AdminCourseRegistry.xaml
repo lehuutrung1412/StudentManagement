@@ -72,7 +72,8 @@
                         Style="{StaticResource MaterialDesignComboBox}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock>
+                            <TextBlock
+                                Foreground="{Binding CourseRegisterStatus, Converter={StaticResource math}, ConverterParameter='format((x == 0 ? &quot;BlueViolet&quot; : (x == 1 ? &quot;Green&quot; : &quot;FireBrick&quot;)), x)'}">
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource math}" ConverterParameter="format(&quot;{0}, {1}&quot;, x, y)">
                                             <Binding Path="Batch" />

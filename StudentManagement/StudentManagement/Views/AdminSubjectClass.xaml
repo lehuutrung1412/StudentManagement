@@ -105,6 +105,7 @@
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
+                            materialDesign:ComboBoxAssist.ShowSelectedItem="True"
                             materialDesign:HintAssist.Hint="Chọn học kỳ"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             ItemsSource="{Binding Semesters, UpdateSourceTrigger=PropertyChanged}"
