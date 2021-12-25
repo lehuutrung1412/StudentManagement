@@ -80,7 +80,7 @@ namespace StudentManagement.ViewModels
 
         public void LoadDataBehind()
         {
-            var subjectes = SubjectServices.Instance.LoadSubjectList();
+            var subjectes = SubjectServices.Instance.LoadSubjectList().Where(subject=>subject.IsDeleted == false).ToList();
 
             StoredSubjectCards = new ObservableCollection<SubjectCard>();
             

@@ -97,7 +97,7 @@ namespace StudentManagement.ViewModels
         public string SelectedDay { get => _selectedDay; set{ 
                 _selectedDay = value; 
                 _errorBaseViewModel.ClearErrors();
-                if (!IsValid(Period))
+                if (!IsValid(SelectedDay))
                 {
                     _errorBaseViewModel.AddError(nameof(Period), "Vui lòng chọn thứ!");
                 }
